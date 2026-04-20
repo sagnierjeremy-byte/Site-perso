@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Classifier les chaînes — outil de tri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+    --bg:      #0A0A0A;
+    --bg-2:    #141414;
+    --surface: #1A1A1A;
+    --ink:     #F4EFE6;
+    --ink-soft:#D4D4D4;
+    --ink-muted:#9A9A9A;
+    --line:    rgba(255,255,255,.1);
+    --line-strong: rgba(255,255,255,.2);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 32px 24px;
+    min-height: 100vh;
+  }
+
+  .header {
+    max-width: 1400px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+  }
+  h1 em { font-style: normal; color: var(--fuchsia) }
+  .sub {
+    color: var(--ink-muted);
+    font-size: 14px;
+    margin-top: 6px;
+    max-width: 640px;
+  }
+  .sub code {
+    background: var(--surface);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--fuchsia);
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { transform: translateY(-2px) }
+  .btn-primary { background: var(--fuchsia); border-color: var(--fuchsia); color: #fff }
+  .btn-teal { background: var(--teal); border-color: var(--teal); color: #fff }
+  .btn-warn { background: transparent; color: var(--orange); border-color: var(--orange) }
+
+  .grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 760px)  { .grid { grid-template-columns: 1fr 1fr } }
+  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr) } }
+
+  .category {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    min-height: 140px;
+    transition: border-color .2s, background .2s;
+  }
+  .category.drag-over {
+    border-color: var(--fuchsia);
+    background: rgba(239,66,111,.08);
+  }
+  .category.unsorted {
+    border: 2px dashed var(--line-strong);
+    grid-column: 1 / -1;
+  }
+  .category.unsorted.drag-over {
+    border-color: var(--orange);
+    background: rgba(255,130,0,.08);
+  }
+
+  .cat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cat-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    cursor: text;
+    flex: 1;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    outline: none;
+  }
+  .cat-title:focus {
+    background: var(--bg-2);
+    border-color: var(--line-strong);
+  }
+  .cat-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+  .cat-delete {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0;
+    transition: opacity .2s, color .2s;
+  }
+  .category:hover .cat-delete { opacity: 1 }
+  .cat-delete:hover { color: var(--fuchsia) }
+  .cat-delete svg { width: 14px; height: 14px }
+
+  .cat-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 60px;
+  }
+
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    cursor: grab;
+    user-select: none;
+    transition: transform .1s, opacity .1s;
+  }
+  .channel:active { cursor: grabbing }
+  .channel.dragging { opacity: .3 }
+  .channel-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--teal), var(--fuchsia));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 10px;
+    color: #fff;
+    letter-spacing: -.01em;
+    flex-shrink: 0;
+  }
+  .channel-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: text;
+    padding: 2px 4px;
+    border-radius: 4px;
+    outline: none;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .channel-name:focus {
+    background: var(--surface);
+  }
+  .channel-delete {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    padding: 2px;
+    opacity: 0;
+    transition: opacity .2s, color .2s;
+  }
+  .channel:hover .channel-delete { opacity: 1 }
+  .channel-delete:hover { color: var(--fuchsia) }
+  .channel-delete svg { width: 14px; height: 14px }
+
+  .add-channel {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--bg-2);
+    border: 1px dashed var(--line-strong);
+  }
+  .add-channel input {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px;
+  }
+  .add-channel input:focus { outline: none; border-color: var(--teal) }
+  .add-channel button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: var(--teal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* Export modal */
+  .export-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.8);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .export-modal.active { display: flex }
+  .export-modal-inner {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .export-modal textarea {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    min-height: 400px;
+    resize: none;
+  }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end }
+
+  .stats {
+    max-width: 1400px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 20px;
+    padding: 14px 20px;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    flex-wrap: wrap;
+  }
+  .stats strong { color: var(--fuchsia); margin-left: 6px }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    box-shadow: 0 20px 40px -10px rgba(0,178,169,.5);
+    opacity: 0;
+    transition: opacity .3s;
+    z-index: 200;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1 }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Classifier <em>les chaînes</em></h1>
+    <p class="sub">Drag-and-drop les chaînes dans la bonne catégorie. Clique sur un nom pour le renommer. Tout est sauvegardé auto dans ton navigateur. Quand t'as fini, clique <code>Exporter JSON</code>, copie, colle-moi dans le chat.</p>
+  </div>
+  <div class="toolbar">
+    <button class="btn" onclick="addCategory()">+ Catégorie</button>
+    <button class="btn btn-warn" onclick="if (confirm('Tout réinitialiser (remet les chaînes par défaut) ?')) resetAll()">⟲ Reset</button>
+    <button class="btn btn-teal" onclick="exportJSON()">📋 Exporter JSON</button>
+    <button class="btn btn-primary" onclick="copyJSON()">Copier direct</button>
+  </div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="grid" id="grid"></div>
+
+<!-- Export modal -->
+<div class="export-modal" id="exportModal">
+  <div class="export-modal-inner">
+    <h2 style="font-family:'Archivo Black',sans-serif; font-size:20px; text-transform:uppercase">Ta config à copier</h2>
+    <p style="color:var(--ink-muted); font-size:13px">Copie ce JSON et colle-le dans le chat avec Claude. Il ira scraper YouTube pour chaque chaîne (avatar + handle) et mettra à jour ton site.</p>
+    <textarea id="exportArea" readonly></textarea>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeExport()">Fermer</button>
+      <button class="btn btn-primary" onclick="copyFromModal()">Copier tout</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ——— Données initiales ———
+const DEFAULT_DATA = {
+  categories: [
+    { id: 'ia',      name: 'IA & Tech',                dot: '#00B2A9' },
+    { id: 'biz',     name: 'Business & Entrepreneuriat', dot: '#EF426F' },
+    { id: 'finance', name: 'Finance & Marchés',        dot: '#FF8200' },
+    { id: 'actu',    name: 'Actu & Géopolitique',      dot: '#9A9A9A' },
+    { id: 'life',    name: 'Lifestyle & Inspiration',  dot: '#5ECD8C' },
+  ],
+  channels: [
+    // IA / Tech
+    { id: 'c01', name: 'Silicon Carne 🌶️', category: 'ia' },
+    { id: 'c02', name: 'GMK', category: 'ia' },
+    { id: 'c03', name: 'IA et Stratégie', category: 'ia' },
+    { id: 'c04', name: 'Vision IA', category: 'ia' },
+    { id: 'c05', name: 'Underscore_', category: 'ia' },
+    { id: 'c06', name: 'Melvynx', category: 'ia' },
+    // Business
+    { id: 'c07', name: 'LEGEND', category: 'biz' },
+    { id: 'c08', name: 'Oussama Ammar', category: 'biz' },
+    { id: 'c09', name: 'Hasheur', category: 'biz' },
+    { id: 'c10', name: 'Hasheur Live', category: 'biz' },
+    { id: 'c11', name: 'Maxime Click', category: 'biz' },
+    { id: 'c12', name: 'Le Déclic par Alex', category: 'biz' },
+    { id: 'c13', name: 'Antoine Blanco', category: 'biz' },
+    { id: 'c14', name: 'Meydeey', category: 'biz' },
+    { id: 'c15', name: 'Alex so yes', category: 'biz' },
+    { id: 'c16', name: 'Yomi Denzel Vlogs', category: 'biz' },
+    { id: 'c17', name: 'Depielo', category: 'biz' },
+    { id: 'c18', name: 'Gaspard G', category: 'biz' },
+    { id: 'c19', name: 'TheiCollection', category: 'biz' },
+    // Finance
+    { id: 'c20', name: 'Finary', category: 'finance' },
+    { id: 'c21', name: 'Interactiv Trading', category: 'finance' },
+    { id: 'c22', name: 'Thami Kabbaj', category: 'finance' },
+    { id: 'c23', name: 'Les Echos', category: 'finance' },
+    // Actu
+    { id: 'c24', name: '7 jours sur Terre', category: 'actu' },
+    { id: 'c25', name: 'Grand Angle', category: 'actu' },
+    { id: 'c26', name: 'Grand Angle Nova', category: 'actu' },
+    { id: 'c27', name: "C dans l'air", category: 'actu' },
+    { id: 'c28', name: 'Géopolitis', category: 'actu' },
+    { id: 'c29', name: "Le Journal de l'Éco", category: 'actu' },
+    { id: 'c30', name: 'HugoDécrypte', category: 'actu' },
+    { id: 'c31', name: 'Brut.', category: 'actu' },
+    { id: 'c32', name: 'Le Monde', category: 'actu' },
+    // Lifestyle
+    { id: 'c33', name: 'Gurky', category: 'life' },
+    { id: 'c34', name: 'Chaque Jour sur Terre', category: 'life' },
+    { id: 'c35', name: 'Naj B Fit', category: 'life' },
+    { id: 'c36', name: 'Taylor Chiche', category: 'life' },
+    { id: 'c37', name: 'Bienvenue au camping', category: 'life' },
+    { id: 'c38', name: 'Margo Cunego', category: 'life' },
+    { id: 'c39', name: 'Lucas Parle F1', category: 'life' },
+    { id: 'c40', name: 'MrBeast', category: 'life' },
+    { id: 'c41', name: 'Sous Tension', category: 'life' },
+    { id: 'c42', name: 'Romain Lanéry', category: 'life' },
+  ],
+};
+
+const STORAGE_KEY = 'jeremy-channels-classifier-v1';
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  renderStats();
+}
+function resetAll() {
+  state = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  saveState();
+  render();
+}
+
+function getInitials(name) {
+  return name.replace(/[^\p{L}\p{N}\s]/gu, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  // Unsorted (pour les nouvelles chaînes sans catégorie)
+  const unsorted = state.channels.filter(c => !c.category);
+  if (unsorted.length > 0) {
+    const el = createCategoryEl({ id: '', name: 'Non classé', dot: '#9A9A9A' }, unsorted, true);
+    grid.appendChild(el);
+  }
+
+  state.categories.forEach(cat => {
+    const channels = state.channels.filter(c => c.category === cat.id);
+    grid.appendChild(createCategoryEl(cat, channels, false));
+  });
+
+  renderStats();
+}
+
+function createCategoryEl(cat, channels, isUnsorted) {
+  const el = document.createElement('div');
+  el.className = 'category' + (isUnsorted ? ' unsorted' : '');
+  el.dataset.catId = cat.id;
+
+  const head = document.createElement('div');
+  head.className = 'cat-head';
+  head.innerHTML = `
+    <span class="cat-dot" style="background:${cat.dot}"></span>
+    <div class="cat-title" contenteditable="${!isUnsorted}" spellcheck="false">${cat.name}</div>
+    <span class="cat-count">${channels.length}</span>
+    ${!isUnsorted ? `<button class="cat-delete" title="Supprimer la catégorie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>` : ''}
+  `;
+  if (!isUnsorted) {
+    head.querySelector('.cat-title').addEventListener('blur', (e) => {
+      const newName = e.target.textContent.trim();
+      const c = state.categories.find(x => x.id === cat.id);
+      if (c && newName) { c.name = newName; saveState() }
+      else e.target.textContent = cat.name;
+    });
+    head.querySelector('.cat-delete').addEventListener('click', () => {
+      if (!confirm(`Supprimer la catégorie "${cat.name}" ? Les chaînes dedans deviendront "non classé".`)) return;
+      state.channels.forEach(c => { if (c.category === cat.id) c.category = null });
+      state.categories = state.categories.filter(c => c.id !== cat.id);
+      saveState();
+      render();
+    });
+  }
+  el.appendChild(head);
+
+  const items = document.createElement('div');
+  items.className = 'cat-items';
+  channels.forEach(ch => items.appendChild(createChannelEl(ch)));
+  el.appendChild(items);
+
+  // Add channel form
+  if (!isUnsorted) {
+    const addForm = document.createElement('div');
+    addForm.className = 'add-channel';
+    addForm.innerHTML = `
+      <input type="text" placeholder="+ Ajouter une chaîne..." spellcheck="false">
+      <button>Add</button>
+    `;
+    const input = addForm.querySelector('input');
+    const btn = addForm.querySelector('button');
+    const doAdd = () => {
+      const name = input.value.trim();
+      if (!name) return;
+      const id = 'c' + Date.now();
+      state.channels.push({ id, name, category: cat.id });
+      saveState();
+      render();
+    };
+    btn.addEventListener('click', doAdd);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') doAdd() });
+    el.appendChild(addForm);
+  }
+
+  // Drag-and-drop zone
+  el.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    el.classList.add('drag-over');
+  });
+  el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+  el.addEventListener('drop', (e) => {
+    e.preventDefault();
+    el.classList.remove('drag-over');
+    const channelId = e.dataTransfer.getData('text/plain');
+    const channel = state.channels.find(c => c.id === channelId);
+    if (channel) {
+      channel.category = isUnsorted ? null : cat.id;
+      saveState();
+      render();
+    }
+  });
+
+  return el;
+}
+
+function createChannelEl(ch) {
+  const el = document.createElement('div');
+  el.className = 'channel';
+  el.draggable = true;
+  el.dataset.channelId = ch.id;
+  el.innerHTML = `
+    <div class="channel-avatar">${getInitials(ch.name)}</div>
+    <div class="channel-name" contenteditable="true" spellcheck="false">${ch.name}</div>
+    <button class="channel-delete" title="Supprimer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  `;
+  el.querySelector('.channel-name').addEventListener('blur', (e) => {
+    const newName = e.target.textContent.trim();
+    const c = state.channels.find(x => x.id === ch.id);
+    if (c && newName) { c.name = newName; saveState() }
+    else e.target.textContent = ch.name;
+  });
+  el.querySelector('.channel-delete').addEventListener('click', () => {
+    if (!confirm(`Supprimer "${ch.name}" ?`)) return;
+    state.channels = state.channels.filter(c => c.id !== ch.id);
+    saveState();
+    render();
+  });
+
+  el.addEventListener('dragstart', (e) => {
+    el.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', ch.id);
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+
+  return el;
+}
+
+function renderStats() {
+  const el = document.getElementById('stats');
+  const total = state.channels.length;
+  const unsorted = state.channels.filter(c => !c.category).length;
+  const cats = state.categories.length;
+  el.innerHTML = `
+    <span>Chaînes <strong>${total}</strong></span>
+    <span>Catégories <strong>${cats}</strong></span>
+    <span>Non classées <strong>${unsorted}</strong></span>
+  `;
+}
+
+function addCategory() {
+  const name = prompt('Nom de la nouvelle catégorie :');
+  if (!name || !name.trim()) return;
+  const id = 'cat-' + Date.now();
+  const colors = ['#EF426F', '#00B2A9', '#FF8200', '#5ECD8C', '#9A9A9A', '#c084fc'];
+  const dot = colors[state.categories.length % colors.length];
+  state.categories.push({ id, name: name.trim(), dot });
+  saveState();
+  render();
+}
+
+function exportJSON() {
+  const data = {
+    categories: state.categories,
+    channels: state.channels.map(c => ({
+      name: c.name,
+      category: state.categories.find(cat => cat.id === c.category)?.name || null,
+      categoryId: c.category,
+    })),
+  };
+  document.getElementById('exportArea').value = JSON.stringify(data, null, 2);
+  document.getElementById('exportModal').classList.add('active');
+}
+function closeExport() {
+  document.getElementById('exportModal').classList.remove('active');
+}
+function copyFromModal() {
+  const ta = document.getElementById('exportArea');
+  ta.select();
+  document.execCommand('copy');
+  toast('Copié !');
+}
+function copyJSON() {
+  const data = {
+    categories: state.categories,
+    channels: state.channels.map(c => ({
+      name: c.name,
+      category: state.categories.find(cat => cat.id === c.category)?.name || null,
+    })),
+  };
+  const text = JSON.stringify(data, null, 2);
+  navigator.clipboard.writeText(text).then(() => toast('JSON copié dans le presse-papier !'));
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+render();
+</script>
+
+</body>
+</html>

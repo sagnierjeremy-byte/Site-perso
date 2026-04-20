@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Démarrer avec Claude Code — Le guide complet par Jérémy</title>
+<meta name="description" content="Salut, moi c'est Jérémy. Je t'explique pas à pas comment installer Claude Code, configurer Ghostty, poser ton CLAUDE.md et installer 26 skills. Sans jargon, avec ce que j'utilise au quotidien.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:          #FBF7F0;
+    --bg-2:        #F2EDE2;
+    --surface:     #FFFFFF;
+    --ink:         #0A0A0A;
+    --ink-soft:    #3A3A3A;
+    --ink-muted:   #6E6E6E;
+    --line:        rgba(10,10,10,.10);
+    --line-strong: rgba(10,10,10,.18);
+    --code-bg:     #F4EFE6;
+    --code-ink:    #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:          #0A0A0A;
+    --bg-2:        #141414;
+    --surface:     #141414;
+    --ink:         #F4EFE6;
+    --ink-soft:    #D4D4D4;
+    --ink-muted:   #9A9A9A;
+    --line:        rgba(255,255,255,.10);
+    --line-strong: rgba(255,255,255,.22);
+    --code-bg:     #1A1A1A;
+    --code-ink:    #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .3;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto;
+    padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--fuchsia);
+  }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s;
+    margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 72px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.22), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.22), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,130,0,.12), transparent 60%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6;
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4);
+    border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: .92;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    margin-bottom: 28px;
+    max-width: 820px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--fuchsia);
+  }
+  .hero p.hero-lead {
+    font-size: 17.5px;
+    color: #C4CED4;
+    max-width: 640px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .hero-stat {
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.15);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .15em;
+    font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6;
+  }
+  .hero-stat strong { color: var(--fuchsia); margin-right: 6px }
+
+  /* Sections */
+  section.block { padding: 80px 0; border-top: 1px solid var(--line) }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: .98;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 2.5vw, 28px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin: 32px 0 16px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Steps */
+  .step {
+    display: flex; gap: 20px;
+    padding: 28px 32px;
+    border-radius: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 20px;
+    transition: box-shadow .2s;
+  }
+  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.2) }
+  .step-num {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 10px }
+  .step-body p { margin-bottom: 14px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre, .code-block {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 14px 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px;
+    border-radius: 14px;
+    margin: 20px 0;
+    position: relative;
+    padding-left: 52px;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 14px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  @media (min-width: 720px)  { .skills-grid { grid-template-columns: 1fr 1fr } }
+  @media (min-width: 1100px) { .skills-grid { grid-template-columns: repeat(3, 1fr) } }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    transition: transform .2s, border-color .2s;
+    position: relative;
+  }
+  .skill-card:hover { transform: translateY(-2px); border-color: var(--line-strong) }
+  .skill-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    height: 3px;
+    width: 40px;
+    border-radius: 3px 0 0 0;
+  }
+  .skill-card.c-official::before { background: linear-gradient(90deg, var(--teal), var(--fuchsia)) }
+  .skill-card.c-custom::before   { background: var(--orange) }
+  .skill-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .skill-tag.official { background: rgba(0,178,169,.12); color: var(--teal) }
+  .skill-tag.custom   { background: rgba(255,130,0,.12); color: var(--orange) }
+  .skill-card h5 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .skill-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .skills-legend {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .skills-legend span { display: inline-flex; align-items: center; gap: 8px }
+  .skills-legend .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  .category-head {
+    margin: 40px 0 16px;
+    display: flex; align-items: baseline; gap: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--line-strong);
+  }
+  .category-head h4 {
+    margin: 0;
+    font-size: 16px;
+  }
+  .category-head-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+
+  /* Download CTA */
+  .download-block {
+    margin: 28px 0;
+    padding: 28px 32px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(239,66,111,.08), rgba(255,130,0,.08));
+    border: 1px solid var(--line-strong);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .download-block h4 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .download-block p { margin: 0; font-size: 14.5px }
+  .download-form {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .download-form input {
+    flex: 1; min-width: 200px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+  }
+  .download-form input:focus { outline: none; border-color: var(--fuchsia) }
+  .download-form button {
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: none;
+    background: var(--fuchsia);
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 12px 28px -10px rgba(239,66,111,.5);
+  }
+  .download-form button:hover { transform: translateY(-2px) }
+  .download-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    min-height: 12px;
+  }
+  .download-status.ok  { color: var(--teal) }
+  .download-status.err { color: var(--fuchsia) }
+  .download-hint {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+  .download-hint strong { color: var(--ink-soft); font-weight: 600 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg);
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour au site
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>Guide · Démarre Claude Code</div>
+    <h1>Démarre Claude Code<br>en <em>20 minutes.</em></h1>
+    <p class="hero-lead">
+      Salut, moi c'est Jérémy. Je ne suis ni dev ni codeur — je suis juste un entrepreneur qui utilise Claude Code tous les jours pour ne pas être dépassé. Je te montre étape par étape comment l'installer, le configurer, et l'utiliser. Sans jargon, avec ce que j'utilise au quotidien.
+    </p>
+    <div class="hero-stats">
+      <span class="hero-stat"><strong>01</strong> Installer Ghostty</span>
+      <span class="hero-stat"><strong>02</strong> Installer Claude Code</span>
+      <span class="hero-stat"><strong>03</strong> CLAUDE.md perso</span>
+      <span class="hero-stat"><strong>04</strong> 26 skills custom</span>
+    </div>
+  </div>
+</section>
+
+<!-- Pourquoi -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Avant de commencer</span>
+    <h2>Claude Code,<br><em class="fuchsia">c'est quoi ?</em></h2>
+    <p>
+      Claude Code, c'est la version <strong>terminal</strong> de Claude. Au lieu d'ouvrir Claude.ai dans ton navigateur, tu lances une commande dans ton terminal, et Claude peut lire tes fichiers, lancer des scripts, modifier ton code, tester, corriger, commit.
+    </p>
+    <p>
+      Concrètement, ça veut dire que tu peux lui dire "<em>Ajoute un formulaire d'inscription à ma page, connecte-le à Resend, teste que ça marche</em>" — et il le fait. Sans que tu aies à toucher au code toi-même.
+    </p>
+
+    <div class="callout tip">
+      <h4>Pour qui ?</h4>
+      <p>Pas besoin d'être dev. Tu peux être entrepreneur, marketeur, rédacteur, indépendant. Si tu sais ouvrir un terminal et copier-coller une commande, tu peux l'utiliser.</p>
+    </div>
+
+    <h3>Ce que j'en fais au quotidien</h3>
+    <ul>
+      <li>Je lui demande d'écrire mes newsletters en respectant mon ton (skill <code>copywriting</code>)</li>
+      <li>Je lui demande de construire des pages web comme celle-ci (skill <code>landing-page-generator</code>)</li>
+      <li>Je lui fais auditer la sécu de mes projets (skill <code>security-review</code>)</li>
+      <li>Je lui fais faire de la veille (skill <code>deep-research</code>)</li>
+      <li>Je lui fais écrire et envoyer des cold emails (skill <code>cold-email</code>)</li>
+    </ul>
+    <p>
+      Tout ça, c'est <strong>des skills</strong>. On verra comment les installer à l'étape 04.
+    </p>
+  </div>
+</section>
+
+<!-- Étape 01 : Ghostty -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 01</span>
+    <h2>Installer <em class="teal">Ghostty.</em><br>Le terminal que j'utilise.</h2>
+    <p>
+      Ghostty, c'est le terminal que j'utilise sur Mac. C'est gratuit, rapide, beau, et il affiche les emojis (oui c'est important). Tu n'es pas obligé d'utiliser Ghostty — le terminal par défaut de macOS fonctionne aussi — mais je le recommande chaudement.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Télécharge Ghostty</h3>
+        <p>Va sur <a href="https://ghostty.org" target="_blank" rel="noopener">ghostty.org</a> et clique "Download". C'est gratuit, pas d'email demandé.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Installe l'app</h3>
+        <p>Double-clique sur le fichier <code>.dmg</code> téléchargé, glisse Ghostty dans ton dossier Applications. Ouvre-le. macOS va te demander si tu fais confiance — clique "Oui".</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Vérifie que ça marche</h3>
+        <p>Ghostty ouvert, tape cette commande puis Entrée :</p>
+        <pre>echo "Salut Ghostty"</pre>
+        <p>Si tu vois <code>Salut Ghostty</code> s'afficher, tu es prêt pour la suite.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Pas envie de changer de terminal ?</h4>
+      <p>Aucun souci — l'app <strong>Terminal</strong> de macOS (déjà installée) fait parfaitement le boulot. Saute cette étape et passe à l'étape 02.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Étape 02 : Claude Code -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Étape 02</span>
+    <h2>Installer <em class="fuchsia">Claude Code.</em></h2>
+    <p>
+      Ouvre ton terminal (Ghostty ou Terminal), et colle cette commande :
+    </p>
+    <pre>curl -fsSL https://claude.ai/install.sh | bash</pre>
+
+    <div class="callout warn">
+      <h4>Pourquoi cette commande ?</h4>
+      <p>Elle télécharge le script officiel d'Anthropic et l'exécute. Il installe Claude Code dans ton système. Tu peux lire le script avant de l'exécuter si ça te rassure — c'est le lien dans la commande.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Lance la commande</h3>
+        <p>Colle-la dans ton terminal, appuie sur Entrée, attends qu'elle finisse.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Relance ton terminal</h3>
+        <p>Ferme complètement le terminal (Cmd+Q) et rouvre-le. C'est pour que la nouvelle commande <code>claude</code> soit prise en compte.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Connecte ton compte Claude</h3>
+        <p>Tape :</p>
+        <pre>claude</pre>
+        <p>La première fois, il te demandera de te connecter avec ton compte Anthropic. Suis les instructions à l'écran. C'est 30 secondes.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Teste</h3>
+        <p>Crée un dossier vide sur ton bureau, ouvre-le dans le terminal et lance Claude :</p>
+        <pre>mkdir ~/Desktop/test-claude
+cd ~/Desktop/test-claude
+claude</pre>
+        <p>Demande-lui par exemple : <em>"Crée-moi un fichier hello.txt avec 'Hello world' dedans"</em>. Tu verras qu'il le crée tout seul.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Étape 03 : CLAUDE.md -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 03</span>
+    <h2>Poser ton <em class="orange">CLAUDE.md.</em></h2>
+    <p>
+      Le <code>CLAUDE.md</code>, c'est un petit fichier que Claude lit à <strong>chaque session</strong>. Tu y mets tes règles, ton style, ta stack technique. Ça évite de répéter "utilise Next.js" ou "réponds en français" à chaque fois.
+    </p>
+    <p>
+      Je te file <strong>mon CLAUDE.md anonymisé</strong> comme point de départ. Tu l'ouvres, tu adaptes à ton style et ta stack, et voilà.
+    </p>
+
+    <div class="download-block">
+      <h4>Télécharge mon CLAUDE.md</h4>
+      <p>C'est un fichier <code>.md</code> de 100 lignes. Anonymisé, prêt à utiliser.</p>
+      <form class="download-form" data-download="claude-md" data-newsletter="ai-playbook">
+        <input type="email" name="email" placeholder="ton@email.com" required>
+        <button type="submit">Recevoir le fichier</button>
+      </form>
+      <div class="download-status" aria-live="polite"></div>
+      <p class="download-hint">
+        <strong>Transparence :</strong> ton email t'inscrit à ma newsletter AI Playbook (1 email/semaine sur l'IA en pratique). Désinscription en 1 clic.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Télécharge le fichier ci-dessus</h3>
+        <p>Il va atterrir dans ton dossier <code>~/Downloads</code>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Crée le dossier <code>~/.claude</code> et copie le fichier dedans</h3>
+        <p>Dans ton terminal :</p>
+        <pre>mkdir -p ~/.claude
+cp ~/Downloads/CLAUDE.md ~/.claude/CLAUDE.md</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Ouvre-le et adapte-le</h3>
+        <p>Ouvre-le avec ton éditeur préféré (TextEdit, VS Code, ce que tu veux) :</p>
+        <pre>open ~/.claude/CLAUDE.md</pre>
+        <p>Remplace les sections "Stack technique" et "Architecture Next.js" par ta vraie stack. Si tu ne sais pas quoi mettre, laisse. Tu ajusteras plus tard.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>Astuce : 2 niveaux de CLAUDE.md</h4>
+      <p>Tu peux avoir un <code>~/.claude/CLAUDE.md</code> global (règles pour tous tes projets) + un <code>CLAUDE.md</code> à la racine d'un projet spécifique (règles locales). Les deux sont lus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Étape 04 : Skills -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 04</span>
+    <h2>Installer mes <em class="teal">26 skills.</em></h2>
+    <p>
+      Les <strong>skills</strong>, c'est ce qui transforme Claude Code d'un simple assistant en spécialiste. Un skill = un dossier qui contient des instructions pour un métier précis : cold email, SEO, landing page, audit sécu, etc.
+    </p>
+    <p>
+      Quand tu demandes à Claude "<em>écris-moi un cold email B2B</em>", il charge automatiquement le skill <code>cold-email</code> et suit les règles définies dedans. Tu gagnes un temps fou.
+    </p>
+
+    <div class="download-block">
+      <h4>Télécharge mon pack de 26 skills</h4>
+      <p>ZIP de 690 Ko. Contient tous mes skills custom + le CLAUDE.md + un README.</p>
+      <form class="download-form" data-download="pack" data-newsletter="ai-playbook">
+        <input type="email" name="email" placeholder="ton@email.com" required>
+        <button type="submit">Télécharger le pack</button>
+      </form>
+      <div class="download-status" aria-live="polite"></div>
+      <p class="download-hint">
+        <strong>Transparence :</strong> ton email t'inscrit à ma newsletter AI Playbook. Désinscription 1 clic.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Dézippe le pack</h3>
+        <p>Double-clique sur <code>jeremy-claude-pack.zip</code> dans ton dossier Downloads. Ça va créer un dossier <code>jeremy-claude-pack</code>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Installe les skills</h3>
+        <p>Dans ton terminal :</p>
+        <pre>mkdir -p ~/.claude/skills
+cp -R ~/Downloads/jeremy-claude-pack/skills/* ~/.claude/skills/</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Vérifie que ça marche</h3>
+        <p>Lance Claude Code dans un dossier :</p>
+        <pre>claude</pre>
+        <p>Demande-lui : <em>"Liste-moi les skills que tu as chargés"</em>. Tu dois voir apparaître <code>cold-email</code>, <code>copywriting</code>, <code>graphify</code>, etc.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Bravo, tu es prêt.</h4>
+      <p>À partir de maintenant, Claude Code est opérationnel avec mon setup. Teste, casse, adapte. Le plus important, c'est de l'utiliser.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Liste détaillée des skills -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Mes 37 skills en détail</span>
+    <h2>La liste <em class="fuchsia">complète.</em></h2>
+    <p>
+      Sur les 37 skills installés sur ma machine, <strong>10 sont des skills officiels d'Anthropic</strong> (tu les installes via la doc officielle) et <strong>27 sont des skills que j'ai créés ou adaptés</strong> (inclus dans le pack). Voici le détail par catégorie :
+    </p>
+
+    <div class="skills-legend">
+      <span><span class="dot" style="background:var(--teal)"></span>Officiel Anthropic</span>
+      <span><span class="dot" style="background:var(--orange)"></span>Custom (dans le pack)</span>
+    </div>
+
+    <div class="category-head"><h4>Dev</h4><span class="category-head-count">12 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>claude-api</h5><p>Construire des apps avec l'API Claude ou les SDK Anthropic.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>docx</h5><p>Créer, lire, éditer des fichiers Word (.docx).</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>mcp-builder</h5><p>Créer des serveurs MCP de qualité pour connecter des LLMs à des services externes.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>pdf</h5><p>Lire, fusionner, découper, chiffrer, OCR sur des fichiers PDF.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>pptx</h5><p>Créer et éditer des présentations PowerPoint (.pptx).</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>skill-creator</h5><p>Créer, modifier et améliorer des skills Claude Code.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>web-artifacts-builder</h5><p>Créer des artifacts HTML multi-composants pour claude.ai.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>webapp-testing</h5><p>Tester des apps web locales avec Playwright.</p></div>
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>xlsx</h5><p>Travailler avec des fichiers Excel/CSV : lire, éditer, nettoyer.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>playwright-pro</h5><p>Suite Playwright de production avec 55 templates et smart reporting.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>postgres-patterns</h5><p>Patterns PostgreSQL : optimisation, schéma, indexes, sécurité.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>senior-backend</h5><p>Designer des backends : REST, microservices, DB, auth.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>senior-frontend</h5><p>Dev frontend React/Next.js : perf, accessibilité, bundle.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>search-first</h5><p>Workflow : chercher une lib existante avant d'écrire du custom.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>security-review</h5><p>Checklist sécu pour auth, inputs, secrets, API, paiements.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>security-scan</h5><p>Scanner la config Claude Code pour détecter des vulnérabilités.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>stripe-integration-expert</h5><p>Implémenter Stripe : subscriptions, paiements, billing usage-based.</p></div>
+    </div>
+
+    <div class="category-head"><h4>Content</h4><span class="category-head-count">7 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>doc-coauthoring</h5><p>Workflow structuré pour rédiger des docs/proposals en co-authoring.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>content-production</h5><p>Pipeline complet : d'un sujet à un article publié.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>content-quality-auditor</h5><p>Audit CORE-EEAT en 80 critères sur 8 dimensions.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>geo-content-optimizer</h5><p>Optimiser ton contenu pour être cité par ChatGPT, Claude, Perplexity.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>humanizer</h5><p>Retirer les marques d'écriture IA pour rendre un texte naturel.</p></div>
+    </div>
+
+    <div class="category-head"><h4>Marketing</h4><span class="category-head-count">4 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>cold-email</h5><p>Écrire des séquences de cold emails B2B qui convertissent.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>copywriting</h5><p>Écrire/réécrire du copy marketing : homepage, landing, pricing.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>social-content</h5><p>Créer du contenu social : LinkedIn, Twitter/X, Instagram, TikTok.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>viral-content</h5><p>Transformer tes drafts en contenu partageable avec hooks viraux.</p></div>
+    </div>
+
+    <div class="category-head"><h4>Research</h4><span class="category-head-count">2 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>deep-research</h5><p>Recherche multi-sources via firecrawl et exa avec citations.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>seo-audit</h5><p>Audit SEO : technique, on-page, structured data.</p></div>
+    </div>
+
+    <div class="category-head"><h4>Productivity</h4><span class="category-head-count">3 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>graphify</h5><p>Transformer un dossier de fichiers en graphe de connaissance navigable.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>prompt-engineer-toolkit</h5><p>Analyser et réécrire tes prompts pour un meilleur output.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>self-improving-agent</h5><p>Transformer la mémoire de Claude en skills réutilisables.</p></div>
+    </div>
+
+    <div class="category-head"><h4>Design</h4><span class="category-head-count">2 skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-card c-official"><span class="skill-tag official">Officiel</span><h5>frontend-design</h5><p>Créer des interfaces distinctives et production-grade.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>landing-page-generator</h5><p>Générer des landing pages Next.js/Tailwind optimisées conversion.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ma routine -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Au quotidien</span>
+    <h2>Comment <em class="orange">je l'utilise</em><br>tous les jours.</h2>
+
+    <h3>Le matin — La veille</h3>
+    <p>
+      Je lance <code>claude</code> dans mon dossier de veille et je lui demande : "<em>Utilise le skill deep-research pour me faire un résumé des 10 news IA les plus importantes cette semaine</em>". Pendant qu'il bosse, je prends mon café. 10 minutes plus tard, j'ai un brief clair.
+    </p>
+
+    <h3>En journée — Construction</h3>
+    <p>
+      Quand j'ai besoin d'écrire une landing, un email, une page — je lance Claude Code. Il charge automatiquement le bon skill (<code>copywriting</code>, <code>landing-page-generator</code>, <code>cold-email</code>). Je lui donne le brief en 3 phrases, et il me produit un premier jet.
+    </p>
+
+    <h3>Le soir — Nettoyer le code</h3>
+    <p>
+      Avant de commit, je lui fais passer <code>security-review</code> sur le diff. En 30 secondes il me dit si j'ai laissé une clé API traîner ou si une requête SQL est vulnérable.
+    </p>
+
+    <div class="callout tip">
+      <h4>Le truc que je ne savais pas au début</h4>
+      <p>Claude Code lance <strong>plusieurs sous-agents en parallèle</strong>. Quand je lui demande "analyse ces 5 docs et synthétise", il lance 5 agents en parallèle, puis synthétise. 5× plus rapide qu'en séquentiel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Troubleshooting -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Ça marche pas ?</span>
+    <h2>Dépannage <em class="fuchsia">rapide.</em></h2>
+
+    <h4>La commande <code>claude</code> n'est pas reconnue</h4>
+    <p>Relance ton terminal. Si ça ne change rien, ajoute manuellement le chemin Claude dans ton <code>~/.zshrc</code> :</p>
+    <pre>echo 'export PATH="$HOME/.claude/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc</pre>
+
+    <h4>Claude ne charge pas mes skills</h4>
+    <p>Vérifie que les dossiers sont bien là :</p>
+    <pre>ls ~/.claude/skills/</pre>
+    <p>Tu dois voir la liste des skills. Si le dossier est vide, relance l'installation de l'étape 04.</p>
+
+    <h4>Claude ne lit pas mon CLAUDE.md</h4>
+    <p>Vérifie l'emplacement :</p>
+    <pre>cat ~/.claude/CLAUDE.md</pre>
+    <p>S'il affiche un contenu, c'est que c'est bon. Claude le lit automatiquement à chaque session.</p>
+
+    <h4>Je suis vraiment coincé</h4>
+    <p>Réponds à ma newsletter — je reçois ton email directement, je te débloque. Je lis tout.</p>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-teal" style="justify-content:center; display:inline-flex">— Et maintenant ?</span>
+    <h2>Reste <em class="fuchsia">en avance.</em></h2>
+    <p>
+      Si ce guide t'a aidé, l'étape suivante c'est de rester au courant des outils, prompts, astuces que je teste chaque semaine. C'est exactement l'objet de ma newsletter AI Playbook.
+    </p>
+    <a href="index.html#newsletters" class="back-btn">
+      Voir mes newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle + localStorage (sync with main site)
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Download forms — Resend + trigger download
+  const NEWSLETTER_ENDPOINT = '/api/subscribe';
+  const FREEBIE_FILES = {
+    'claude-md': 'downloads/CLAUDE.md',
+    'pack':      'downloads/jeremy-claude-pack.zip',
+  };
+
+  document.querySelectorAll('.download-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const downloadKey = form.dataset.download;
+      const status = form.parentElement.querySelector('.download-status');
+      const button = form.querySelector('button');
+      const fileUrl = FREEBIE_FILES[downloadKey];
+
+      if (!email || !email.includes('@')) {
+        status.textContent = '× Email invalide';
+        status.className = 'download-status err';
+        return;
+      }
+
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = '...';
+
+      try {
+        const res = await fetch(NEWSLETTER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, source: `guide-${downloadKey}` }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.setAttribute('download', '');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        status.textContent = '✓ Inscrit + téléchargement lancé';
+        status.className = 'download-status ok';
+        form.reset();
+      } catch (err) {
+        status.textContent = '× Erreur · Réessaye plus tard';
+        status.className = 'download-status err';
+      }
+
+      button.disabled = false;
+      button.textContent = originalLabel;
+    });
+  });
+</script>
+
+</body>
+</html>

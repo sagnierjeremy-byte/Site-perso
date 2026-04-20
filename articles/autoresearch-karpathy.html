@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoresearch de Karpathy — les agents qui s'auto-améliorent</title>
+<meta name="description" content="Karpathy a publié autoresearch en 2026 : des agents IA qui tournent toute la nuit, modifient leur propre code, gardent ce qui marche, jettent ce qui rate. Je t'explique le concept et ce que tu peux en tirer, même si tu n'es pas chercheur.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200 }
+  [data-theme="light"] {
+    --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg: #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif; font-size: 20px;
+    letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.15); border-color: var(--teal) }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code { font-family: 'JetBrains Mono', monospace; font-size: .88em; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; color: var(--code-ink) }
+  pre code { background: transparent; padding: 0 }
+
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  .quote {
+    margin: 28px 0; padding: 24px 32px;
+    border-left: 4px solid var(--teal);
+    background: rgba(0,178,169,.05);
+    border-radius: 0 14px 14px 0;
+    font-size: 17px; line-height: 1.6; font-style: italic;
+    color: var(--ink);
+  }
+  .quote cite {
+    display: block; margin-top: 10px; font-style: normal; font-size: 13px;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: .1em;
+    color: var(--ink-muted); text-transform: uppercase;
+  }
+
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.1), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo"><span class="logo-dot"></span>Jérémy Sagnier</a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Tuto · 04 · IA &amp; Outils</div>
+    <h1>Les agents<br>qui <em>s'auto-<br>améliorent.</em></h1>
+    <p class="hero-lead">
+      En mars 2026, Karpathy a publié <code style="background:rgba(255,255,255,.1); padding:2px 8px; border-radius:4px; color:var(--teal)">autoresearch</code> sur GitHub : un système où un agent IA tourne toute la nuit, modifie son propre code, teste, garde ce qui marche, jette ce qui rate. Et recommence. <strong>Tu programmes le programme qui se programme.</strong> Je t'explique le concept — et ce que tu peux en tirer, même si tu ne fais pas de recherche en IA.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Curieux</span>
+      <span class="hero-meta-item"><strong>Star GitHub</strong> 74k+</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu vas apprendre</h2>
+    <ul>
+      <li><strong>Ce qu'est autoresearch</strong> : un agent IA qui fait de la recherche <em>tout seul</em>, 24/7, sur un mini-modèle qui s'entraîne</li>
+      <li>Le vrai game-changer : tu n'écris plus du code, <strong>tu écris un fichier <code>program.md</code></strong> qui guide l'agent</li>
+      <li>Les 3 principes à retenir — applicables à <strong>n'importe quel domaine</strong>, pas juste à l'IA</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Avant tout</span>
+    <h2>C'est quoi <em class="teal">autoresearch ?</em></h2>
+
+    <div class="quote">
+      "One day, frontier AI research used to be done by meat computers in between eating, sleeping, having other fun, and synchronizing once in a while using sound wave interconnect in the ritual of 'group meeting'. That era is long gone."
+      <cite>— Andrej Karpathy, mars 2026</cite>
+    </div>
+
+    <p>
+      Traduction pour les non-initiés : Karpathy te dit que les chercheurs en IA (nous les humains) sont devenus obsolètes. Maintenant, ce sont des <strong>essaims d'agents IA</strong> qui font la recherche. Autoresearch, c'est la preuve de concept : tu donnes à un agent un mini-laboratoire, et il cherche tout seul comment faire mieux.
+    </p>
+    <p>
+      Concrètement : le repo contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU. L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur, hyperparamètres, tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert. Et boucler. Indéfiniment.
+    </p>
+
+    <div class="callout tip">
+      <h4>Pourquoi c'est un moment charnière</h4>
+      <p>On parle beaucoup d'"IA qui code". Autoresearch va un cran plus loin : <strong>l'IA fait de la recherche</strong>. Elle pose des hypothèses, teste, apprend, itère. C'est la première fois qu'un concept aussi propre et open-source démontre ça en pratique.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Comment ça marche</span>
+    <h2>Le mécanisme en <em class="fuchsia">3 pièces.</em></h2>
+    <p>Le truc génial, c'est la simplicité. Seulement 3 fichiers importants dans tout le repo :</p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>prepare.py · Le socle fixe</h3>
+        <p>C'est le code que l'agent <strong>ne touche pas</strong>. Il prépare les données, le tokenizer, les utilitaires. C'est le cadre stable qui garantit que les expériences sont comparables.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>train.py · Le terrain de jeu</h3>
+        <p>Le seul fichier que l'agent a le droit de modifier. Il contient tout : l'architecture du modèle, l'optimiseur, la boucle d'entraînement, les hyperparamètres. <strong>Tout est libre.</strong> L'agent peut tout remettre en question.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>program.md · Les instructions de l'humain</h3>
+        <p>Le fichier que <strong>toi</strong> tu édites. Tu y écris, en langage naturel, comment l'agent doit travailler : "Essaye différentes tailles de batch", "Garde uniquement si val_bpb est plus bas", "Fais des tests courts d'abord, longs ensuite". C'est là que tu mets ton intelligence.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Le vrai changement de paradigme</h4>
+      <p>Tu ne codes plus. <strong>Tu programmes le programme.</strong> C'est de la méta-programmation : ton vrai travail devient d'écrire un meilleur <code>program.md</code>, pas d'écrire du code Python. Karpathy appelle ça "une skill ultra-légère" — c'est en réalité l'avenir de tout développement.</p>
+    </div>
+
+    <h3>La boucle concrète</h3>
+    <ol>
+      <li>Tu lances ton agent (Claude Code, Codex, etc.) dans le repo</li>
+      <li>Tu tapes : <em>"Regarde program.md et lance une nouvelle expérience"</em></li>
+      <li>L'agent lit les instructions, modifie <code>train.py</code></li>
+      <li>Il lance un training de 5 minutes</li>
+      <li>Il regarde la métrique <code>val_bpb</code> (bits per byte — plus bas = mieux)</li>
+      <li>Si meilleur → il garde. Si pire → il revert.</li>
+      <li>Il recommence avec une nouvelle idée. <strong>Toute la nuit.</strong></li>
+    </ol>
+
+    <p>Tu te lèves le matin, tu lis le log. Tu as peut-être un meilleur modèle. Ou pas. Mais tu as <strong>des dizaines d'expériences</strong> que tu n'aurais jamais eu le temps de faire toi-même.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Ce que tu peux en faire</span>
+    <h2>Même si tu n'es <em class="orange">pas chercheur.</em></h2>
+    <p>
+      Tu ne vas pas entraîner de modèle GPT. Mais le <strong>principe autoresearch</strong> s'applique à n'importe quel domaine où tu veux itérer. Voici 3 façons de l'appliquer à ton business.
+    </p>
+
+    <h3>1. Optimisation de tes cold emails</h3>
+    <p>Tu as un template de cold email. Au lieu de tester 2-3 variantes, tu écris un <code>email-program.md</code> qui dit : <em>"Génère une variante de mon template, envoie à 10 prospects, mesure le taux de réponse. Si meilleur, garde. Sinon revert. Boucle 50 fois."</em>. L'agent tourne 1 semaine, tu te réveilles avec un email qui convertit 2× mieux.</p>
+
+    <h3>2. Optimisation de tes landing pages</h3>
+    <p>Même principe. L'agent génère des variantes de ta landing, lance un split-test sur 200 visiteurs, garde la meilleure, recommence. En 2 semaines, ta landing est 3× plus efficace sans que tu n'aies touché à Figma.</p>
+
+    <h3>3. Recherche sur n'importe quel sujet</h3>
+    <p>Tu veux comprendre un marché, une technologie, un concurrent. Tu écris un <code>research-program.md</code> qui dit : <em>"Cherche 10 sources sur [sujet], résume, identifie les patterns, cherche 10 nouvelles sources sur les patterns, re-synthétise."</em>. Tu laisses tourner la nuit. Tu as le lendemain un rapport que tu n'aurais jamais eu le temps de produire.</p>
+
+    <div class="callout warn">
+      <h4>Les 2 pièges à éviter</h4>
+      <p><strong>(1) Métrique mal définie :</strong> si ton agent ne sait pas bien mesurer le "meilleur", il tourne en rond. Sois très précis dans ton program.md sur ce qui compte. <strong>(2) Budget temps mal calibré :</strong> si tu lui donnes 5h par expérience, tu en auras 4 dans la nuit. Pense en nombre d'itérations, pas en heures totales.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Les 3 principes</span>
+    <h2>À retenir <em class="fuchsia">pour toi.</em></h2>
+    <p>Même si tu ne clones jamais ce repo, garde ces 3 idées :</p>
+
+    <h3>Principe 01 · La méta-programmation gagne</h3>
+    <p>Ton travail de plus haut levier aujourd'hui, ce n'est plus d'écrire du code. C'est d'écrire des <strong>instructions en langage naturel</strong> à des agents IA. Investis ton temps à maîtriser le "prompting avancé" — c'est le nouveau métier.</p>
+
+    <h3>Principe 02 · Un cadre fixe + une zone libre</h3>
+    <p>Dans autoresearch, <code>prepare.py</code> est intouchable (cadre). <code>train.py</code> est 100% libre (zone de jeu). Cette séparation est géniale. <strong>Applique-la à ton business</strong> : quels sont tes piliers non-négociables ? Et où laisses-tu l'expérimentation totale ?</p>
+
+    <h3>Principe 03 · Itérer pendant que tu dors</h3>
+    <p>Tu ne peux pas travailler 24/7. Un agent si. La vraie question : qu'est-ce que tu aimerais qu'il fasse <strong>pendant que tu dors</strong> ? Lance 3 loops cette semaine, tu verras.</p>
+
+    <div class="callout tip">
+      <h4>Mon plan perso</h4>
+      <p>J'adapte autoresearch à ma veille auto : un agent qui scanne mes sources, propose des angles d'article, en rédige 3 variantes, me choisis la meilleure au réveil. On en reparle dans un prochain tuto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Ressources</span>
+    <h2>Pour creuser <em class="teal">directement.</em></h2>
+    <ul>
+      <li><strong><a href="https://github.com/karpathy/autoresearch" target="_blank" rel="noopener">github.com/karpathy/autoresearch</a></strong> — Le repo officiel, tout est dedans</li>
+      <li><a href="https://github.com/karpathy/nanochat" target="_blank" rel="noopener">github.com/karpathy/nanochat</a> — La base sur laquelle autoresearch tourne</li>
+      <li>Mon article sur <a href="karpathy.html">les travaux de Karpathy en général</a> — pour le contexte</li>
+      <li>Mon article sur <a href="loops-claude.html">les loops Claude Code</a> — pour appliquer le principe côté agent</li>
+    </ul>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-teal" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Les prochains tutos <em class="teal">arrivent.</em></h2>
+    <p>
+      Je prépare un tuto pratique : comment adapter le concept d'autoresearch à ton cold email. Si tu veux pas louper, inscris-toi à AI Playbook.
+    </p>
+    <a href="../index.html#newsletters" class="back-btn">Voir les newsletters →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">© 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a></div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>

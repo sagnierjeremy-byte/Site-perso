@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "public": true,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "**/*.{html,css,js,png,jpg,jpeg,svg,zip,md}", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/claude-code", "dest": "/claude-code.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.zip",
+      "headers": [{ "key": "Content-Disposition", "value": "attachment" }]
+    }
+  ]
+}

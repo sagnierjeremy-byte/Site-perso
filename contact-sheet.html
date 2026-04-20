@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Contact Sheet — Sélection photos</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0A0A0A; color: #F4EFE6; padding: 40px 28px }
+  h1 { font-size: 28px; margin-bottom: 8px; letter-spacing: -.02em }
+  .sub { color: #9A9A9A; margin-bottom: 32px; font-size: 14px }
+  .sub code { background: rgba(239,66,111,.15); color: #EF426F; padding: 2px 8px; border-radius: 6px; font-size: 12px }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px }
+  .c {
+    background: #141414;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform .2s;
+    cursor: pointer;
+  }
+  .c:hover { transform: translateY(-4px) }
+  .c.selected { outline: 3px solid #EF426F; outline-offset: 2px }
+  .c img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .n {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #0A0A0A;
+    color: #EF426F;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    letter-spacing: .1em;
+    z-index: 2;
+  }
+  .c.selected .n { background: #EF426F; color: #fff }
+  .t {
+    padding: 8px 10px;
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    color: #9A9A9A;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #EF426F;
+    color: #fff;
+    padding: 16px 28px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 20px 40px -10px rgba(239,66,111,.6);
+    z-index: 10;
+  }
+  #bar code {
+    background: rgba(0,0,0,.3);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-family: ui-monospace, monospace;
+    margin-left: 10px;
+  }
+  #bar button {
+    margin-left: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: none;
+    background: #fff;
+    color: #EF426F;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Contact sheet — 55 photos</h1>
+<p class="sub">Clique sur les photos à intégrer dans le site. Puis copie la liste des numéros en bas et dis-les moi. <code>Exemple : 22, 24, 31, 45, 48</code></p>
+
+<div class="grid" id="grid">
+<div class="c"><div class="n">01</div><img src="photos/A7100382.jpg" loading="lazy"><div class="t">A7100382.jpg</div></div>
+<div class="c"><div class="n">02</div><img src="photos/A7100666.jpg" loading="lazy"><div class="t">A7100666.jpg</div></div>
+<div class="c"><div class="n">03</div><img src="photos/A7100667.jpg" loading="lazy"><div class="t">A7100667.jpg</div></div>
+<div class="c"><div class="n">04</div><img src="photos/A7100670.jpg" loading="lazy"><div class="t">A7100670.jpg</div></div>
+<div class="c"><div class="n">05</div><img src="photos/A7108870.jpg" loading="lazy"><div class="t">A7108870.jpg</div></div>
+<div class="c"><div class="n">06</div><img src="photos/A7108893.jpg" loading="lazy"><div class="t">A7108893.jpg</div></div>
+<div class="c"><div class="n">07</div><img src="photos/A7108923.jpg" loading="lazy"><div class="t">A7108923.jpg</div></div>
+<div class="c"><div class="n">08</div><img src="photos/A7108934.jpg" loading="lazy"><div class="t">A7108934.jpg</div></div>
+<div class="c"><div class="n">09</div><img src="photos/A7108943.jpg" loading="lazy"><div class="t">A7108943.jpg</div></div>
+<div class="c"><div class="n">10</div><img src="photos/A7109003.jpg" loading="lazy"><div class="t">A7109003.jpg</div></div>
+<div class="c"><div class="n">11</div><img src="photos/A7109151.jpg" loading="lazy"><div class="t">A7109151.jpg</div></div>
+<div class="c"><div class="n">12</div><img src="photos/A7109195.jpg" loading="lazy"><div class="t">A7109195.jpg</div></div>
+<div class="c"><div class="n">13</div><img src="photos/A7109207.jpg" loading="lazy"><div class="t">A7109207.jpg</div></div>
+<div class="c"><div class="n">14</div><img src="photos/A7109245.jpg" loading="lazy"><div class="t">A7109245.jpg</div></div>
+<div class="c"><div class="n">15</div><img src="photos/A7109346.jpg" loading="lazy"><div class="t">A7109346.jpg</div></div>
+<div class="c"><div class="n">16</div><img src="photos/A7109573.jpg" loading="lazy"><div class="t">A7109573.jpg</div></div>
+<div class="c"><div class="n">17</div><img src="photos/A7109587.jpg" loading="lazy"><div class="t">A7109587.jpg</div></div>
+<div class="c"><div class="n">18</div><img src="photos/A7109595.jpg" loading="lazy"><div class="t">A7109595.jpg</div></div>
+<div class="c"><div class="n">19</div><img src="photos/A7109631.jpg" loading="lazy"><div class="t">A7109631.jpg</div></div>
+<div class="c"><div class="n">20</div><img src="photos/A7109652.jpg" loading="lazy"><div class="t">A7109652.jpg</div></div>
+<div class="c"><div class="n">21</div><img src="photos/A7109729.jpg" loading="lazy"><div class="t">A7109729.jpg</div></div>
+<div class="c"><div class="n">22</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(1).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(1).jpg</div></div>
+<div class="c"><div class="n">23</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(2).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(2).jpg</div></div>
+<div class="c"><div class="n">24</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(3).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(3).jpg</div></div>
+<div class="c"><div class="n">25</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(4).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(4).jpg</div></div>
+<div class="c"><div class="n">26</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(5).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(5).jpg</div></div>
+<div class="c"><div class="n">27</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(6).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(6).jpg</div></div>
+<div class="c"><div class="n">28</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(7).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(7).jpg</div></div>
+<div class="c"><div class="n">29</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(8).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(8).jpg</div></div>
+<div class="c"><div class="n">30</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(9).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(9).jpg</div></div>
+<div class="c"><div class="n">31</div><img src="photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025.jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025.jpg</div></div>
+<div class="c"><div class="n">32</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(1).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(1).jpg</div></div>
+<div class="c"><div class="n">33</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(2).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(2).jpg</div></div>
+<div class="c"><div class="n">34</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(3).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(3).jpg</div></div>
+<div class="c"><div class="n">35</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(4).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(4).jpg</div></div>
+<div class="c"><div class="n">36</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(5).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(5).jpg</div></div>
+<div class="c"><div class="n">37</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(6).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(6).jpg</div></div>
+<div class="c"><div class="n">38</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(7).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(7).jpg</div></div>
+<div class="c"><div class="n">39</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(8).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025_(8).jpg</div></div>
+<div class="c"><div class="n">40</div><img src="photos/Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025.jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Jean_Nice_Aug_5_2025.jpg</div></div>
+<div class="c"><div class="n">41</div><img src="photos/Shooting_PSBN_Kev_et_Nice_Aug_5_2025_(1).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Nice_Aug_5_2025_(1).jpg</div></div>
+<div class="c"><div class="n">42</div><img src="photos/Shooting_PSBN_Kev_et_Nice_Aug_5_2025_(2).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Nice_Aug_5_2025_(2).jpg</div></div>
+<div class="c"><div class="n">43</div><img src="photos/Shooting_PSBN_Kev_et_Nice_Aug_5_2025.jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_et_Nice_Aug_5_2025.jpg</div></div>
+<div class="c"><div class="n">44</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(1).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(1).jpg</div></div>
+<div class="c"><div class="n">45</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(2).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(2).jpg</div></div>
+<div class="c"><div class="n">46</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(3).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(3).jpg</div></div>
+<div class="c"><div class="n">47</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(4).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(4).jpg</div></div>
+<div class="c"><div class="n">48</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(5).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(5).jpg</div></div>
+<div class="c"><div class="n">49</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(6).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(6).jpg</div></div>
+<div class="c"><div class="n">50</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(7).jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025_(7).jpg</div></div>
+<div class="c"><div class="n">51</div><img src="photos/Shooting_PSBN_Kev_Nice_Aug_5_2025.jpg" loading="lazy"><div class="t">Shooting_PSBN_Kev_Nice_Aug_5_2025.jpg</div></div>
+<div class="c"><div class="n">52</div><img src="photos/Shooting_PSBN_Nice_Aug_5_2025_(1).jpg" loading="lazy"><div class="t">Shooting_PSBN_Nice_Aug_5_2025_(1).jpg</div></div>
+<div class="c"><div class="n">53</div><img src="photos/Shooting_PSBN_Nice_Aug_5_2025_(2).jpg" loading="lazy"><div class="t">Shooting_PSBN_Nice_Aug_5_2025_(2).jpg</div></div>
+<div class="c"><div class="n">54</div><img src="photos/Shooting_PSBN_Nice_Aug_5_2025_(3).jpg" loading="lazy"><div class="t">Shooting_PSBN_Nice_Aug_5_2025_(3).jpg</div></div>
+<div class="c"><div class="n">55</div><img src="photos/Shooting_PSBN_Nice_Aug_5_2025.jpg" loading="lazy"><div class="t">Shooting_PSBN_Nice_Aug_5_2025.jpg</div></div>
+
+</div>
+
+<div id="bar">
+  Sélection : <code id="out">aucune</code>
+  <button onclick="navigator.clipboard.writeText(document.getElementById('out').textContent); this.textContent='Copié ✓'; setTimeout(()=>this.textContent='Copier',1500)">Copier</button>
+</div>
+
+<script>
+  const selected = new Set();
+  document.querySelectorAll('.c').forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const num = i + 1;
+      if (selected.has(num)) { selected.delete(num); card.classList.remove('selected') }
+      else { selected.add(num); card.classList.add('selected') }
+      const arr = [...selected].sort((a,b) => a-b);
+      document.getElementById('out').textContent = arr.length ? arr.join(', ') : 'aucune';
+    });
+  });
+</script>
+
+</body>
+</html>

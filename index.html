@@ -4109,17 +4109,6 @@
     localStorage.setItem('theme', next);
   });
 
-  // Learn filters (categories) — cible toutes les cards tutos
-  document.querySelectorAll('.learn-filter').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      document.querySelectorAll('.learn-filter').forEach(b => b.classList.toggle('active', b === btn));
-      document.querySelectorAll('.article-item').forEach(item => {
-        item.style.display = (filter === 'all' || item.dataset.cat === filter) ? '' : 'none';
-      });
-    });
-  });
-
   // Carousel tutos — flèches + dots + drag/swipe natif
   document.querySelectorAll('.articles-carousel-wrap').forEach(wrap => {
     const track = wrap.querySelector('.articles-carousel');

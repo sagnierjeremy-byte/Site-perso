@@ -352,7 +352,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 02 · IA &amp; Outils</div>
     <h1>Construire<br>un <em>Hermes Agent</em><br>pas à pas.</h1>
     <p class="hero-lead">
-      Hermes, c'est la famille de modèles IA open-source de Nous Research. Leur particularité : ils sont fine-tunés pour <strong>agir</strong>, pas juste discuter. Je t'explique comment en faire un agent qui travaille pour toi — sans dépendre d'OpenAI ni payer une facture qui explose.
+      Hermes, c'est la famille de <a href="../lexique.html#modele">modèles</a> IA open-source de Nous Research. Leur particularité : ils sont fine-tunés pour <strong>agir</strong>, pas juste discuter. Je t'explique comment en faire un <a href="../lexique.html#skill-agent">agent</a> qui travaille pour toi — sans dépendre d'OpenAI ni payer une facture qui explose.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>10 min</strong> de lecture</span>
@@ -378,13 +378,13 @@
   <div class="container">
     <div class="callout warn">
       <h4>⚠️ Article 100% dev · à lire avant de te lancer</h4>
-      <p>Celui-ci demande d'écrire du Python, d'installer Ollama en terminal, et de comprendre les API. <strong>Tu n'es pas dev ? Pas grave</strong> — va voir le <a href="../debutant.html">parcours débutant</a> d'abord, ou l'<a href="loops-claude.html">article Loops Claude Code</a> qui fonctionne avec ton Claude Code standard, sans rien installer de nouveau.</p>
+      <p>Celui-ci demande d'écrire du Python, d'installer Ollama en <a href="../lexique.html#cli">terminal</a>, et de comprendre les API. <strong>Tu n'es pas dev ? Pas grave</strong> — va voir le <a href="../debutant.html">parcours débutant</a> d'abord, ou l'<a href="loops-claude.html">article Loops Claude Code</a> qui fonctionne avec ton Claude Code standard, sans rien installer de nouveau.</p>
     </div>
 
     <div class="usecase">
       <div class="usecase-label">Mon test personnel · sur 1 semaine</div>
       <h4>J'ai fait tourner Hermes sur 200 mails pendant 7 jours</h4>
-      <p><strong>Résultat :</strong> 91% bien classés (182 sur 200), 11 erreurs de tag, 8 faux positifs "spam soft", 4h économisées sur la semaine par rapport à mon tri manuel. Tout en local, zéro token facturé, mes mails ne sortent pas de ma machine.</p>
+      <p><strong>Résultat :</strong> 91% bien classés (182 sur 200), 11 erreurs de tag, 8 faux positifs "spam soft", 4h économisées sur la semaine par rapport à mon tri manuel. Tout en local, zéro <a href="../lexique.html#token">token</a> facturé, mes mails ne sortent pas de ma machine.</p>
       <p><strong>Les 3 prompts qui ont marché :</strong> (1) « Tag "urgent" uniquement si l'expéditeur demande une action dans les 48h ET si c'est un client payant. », (2) « Tag "à lire plus tard" si c'est une newsletter que j'ai ouverte moins de 2 fois sur les 5 derniers envois. », (3) « Tag "spam soft" si l'objet contient plus de 2 emojis ou un pourcentage de réduction. »</p>
       <p><strong>Les 2 qui ont échoué :</strong> (1) « Tag "important" selon ton intuition » → trop vague, il taggait 80% des mails en "important". (2) « Réponds automatiquement aux mails simples » → il a commencé à répondre à ma mère comme si c'était un prospect. J'ai coupé le tool "send_email" immédiatement.</p>
     </div>

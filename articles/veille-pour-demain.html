@@ -93,13 +93,34 @@
 
   .hero {
     padding: 64px 0 88px;
-    background:
-      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
-      #0A0A0A;
+    background: #0A0A0A;
     color: #F4EFE6;
     position: relative; overflow: hidden;
     border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('screenshots/veille-dashboard-full.png') right center / auto 140% no-repeat;
+    filter: blur(3px) brightness(.55) saturate(1.2) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
+    opacity: .75;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(0,178,169,.45), transparent 45%),
+      radial-gradient(ellipse at 10% 85%, rgba(239,66,111,.42), transparent 52%),
+      radial-gradient(ellipse at 60% 100%, rgba(255,130,0,.2), transparent 55%),
+      linear-gradient(90deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 80%, rgba(10,10,10,.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 2;
   }
   .kicker {
     display: inline-flex; align-items: center; gap: 10px;

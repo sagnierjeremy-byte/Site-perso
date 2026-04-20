@@ -2313,6 +2313,177 @@
   .op-stripes .s-fuchsia { background: var(--fuchsia) }
   .op-stripes .s-orange  { background: var(--orange) }
 
+  /* Section Projets — cards "étude de cas" (format paysage 3:2) */
+  section#projects {
+    padding: 96px 0;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.08), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(239,66,111,.06), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  @media (min-width: 760px)  { .projects-grid { grid-template-columns: 1fr 1fr; gap: 28px } }
+  @media (min-width: 1100px) { .projects-grid { grid-template-columns: repeat(3, 1fr); gap: 28px } }
+
+  .project-card {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: transform .35s ease, box-shadow .35s ease;
+    isolation: isolate;
+    min-height: 440px;
+    box-shadow:
+      0 22px 50px -24px rgba(0,0,0,.35),
+      0 4px 14px -6px rgba(0,0,0,.18),
+      inset 0 0 0 1px rgba(255,255,255,.15);
+  }
+  /* Sur tablet (2 colonnes), la 3e card prend toute la largeur pour éviter l'orpheline */
+  @media (min-width: 760px) and (max-width: 1099px) {
+    .projects-grid > .project-card:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+  }
+  [data-theme="dark"] .project-card {
+    box-shadow:
+      0 22px 50px -24px rgba(0,0,0,.7),
+      0 4px 14px -6px rgba(0,0,0,.4),
+      inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  .project-card:hover:not(.soon) {
+    transform: translateY(-8px);
+    box-shadow:
+      0 44px 84px -28px rgba(0,0,0,.5),
+      0 10px 24px -8px rgba(0,0,0,.25),
+      inset 0 0 0 1px rgba(255,255,255,.25);
+  }
+  .project-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform .6s ease;
+  }
+  .project-card:hover:not(.soon) .project-card-bg { transform: scale(1.04) }
+  .project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(0,61,59,.82) 0%, rgba(0,40,38,.92) 55%, rgba(10,10,10,.95) 100%);
+    z-index: 1;
+  }
+  .project-card > * { position: relative; z-index: 2 }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .project-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(10,10,10,.45);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,.22);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .project-badge .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 10px #fff;
+    animation: pulse 2s infinite;
+  }
+  .project-pill {
+    background: #fff;
+    color: #0A0A0A;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12.5px;
+    letter-spacing: -.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 18px 0 16px;
+  }
+  .project-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 2.6vw, 34px);
+    line-height: .95;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 12px;
+  }
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.72);
+  }
+  .project-meta strong {
+    color: #fff;
+    font-weight: 800;
+  }
+  .project-desc {
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(10,10,10,.40);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,.95);
+    font-weight: 500;
+  }
+
+  /* État "Bientôt" — placeholder désaturé */
+  .project-card.soon {
+    cursor: default;
+    opacity: .55;
+    filter: saturate(.3);
+  }
+  .project-card.soon .project-card-overlay {
+    background: linear-gradient(160deg, rgba(40,40,40,.85) 0%, rgba(20,20,20,.95) 100%);
+  }
+  .project-card.soon .project-badge {
+    background: rgba(10,10,10,.7);
+  }
+
   /* Descriptif pour les cards "Projet" (remplace les stripes) */
   .op-preview {
     position: relative;
@@ -2936,8 +3107,9 @@
         <a href="#freebies">Claude Code</a>
         <a href="#learn">Apprendre</a>
         <a href="#newsletters">Newsletters</a>
-        <a href="#content">Chaînes</a>
+        <a href="#projects">Projets</a>
         <a href="#opinions">Opinions</a>
+        <a href="#content">Chaînes</a>
         <a href="#story">L'histoire</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
@@ -3503,6 +3675,98 @@
   </div>
 </section>
 
+<!-- Mini-marquee avant Projets -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Je construis</span><span>Je teste</span><span>Je partage</span><span>Cas concrets</span><span>Rien d'inventé</span><span>Du vécu</span>
+    <span>Je construis</span><span>Je teste</span><span>Je partage</span><span>Cas concrets</span><span>Rien d'inventé</span><span>Du vécu</span>
+  </div>
+</div>
+
+<!-- Projets · Ce que je construis -->
+<section id="projects">
+  <svg class="rowel-bg" style="top:80px; left:-80px; width:260px; height:260px; color:var(--teal)">
+    <use href="#rowel"/>
+  </svg>
+
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label lbl-teal">— 02 · Mes projets</span>
+        <h2 class="section-title">Ce que<br><em>je construis.</em></h2>
+      </div>
+      <p class="section-sub">
+        Des outils que j'ai vraiment construits — pas des démos, pas des prototypes vagues. Chaque cas est accompagné d'un article qui raconte le contexte, la stack, ce qui a marché, ce qui a raté.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Projet 01 · GMF -->
+      <a href="articles/construit-avec-claude-code-gmf.html" class="project-card">
+        <div class="project-card-bg" style="background-image:url('photos/A7109195.jpg')"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-top">
+          <span class="project-badge"><span class="pulse"></span>Cas réel · 01</span>
+          <span class="project-pill">Lire →</span>
+        </div>
+        <div class="project-middle">
+          <h3 class="project-title">L'outil de vente<br>de ma femme,<br>en 3 soirs.</h3>
+          <div class="project-meta">
+            <span><strong>3 soirées</strong> · Netflix en fond</span>
+            <span>Claude Code · HTML standalone</span>
+            <span>Avril 2026</span>
+          </div>
+        </div>
+        <div class="project-desc">
+          Shirley est chargée de clientèle chez GMF. Elle m'a demandé un coup de main. On a construit ensemble un outil qui l'accompagne en rendez-vous client — <strong>sans écrire une ligne de code à la main</strong>.
+        </div>
+      </a>
+
+      <!-- Projet 02 · Bientôt (veille IA) -->
+      <article class="project-card soon" aria-label="Projet à venir">
+        <div class="project-card-bg" style="background:linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-top">
+          <span class="project-badge">Bientôt · 02</span>
+          <span class="project-pill">À venir</span>
+        </div>
+        <div class="project-middle">
+          <h3 class="project-title">Ma veille IA,<br>automatisée<br>par des agents.</h3>
+          <div class="project-meta">
+            <span><strong>100+ sources</strong> · scannées chaque jour</span>
+            <span>Sous-agents Claude · Brief auto le vendredi</span>
+          </div>
+        </div>
+        <div class="project-desc">
+          Le pipeline qui produit mes newsletters AI Playbook et Business Radar : comment je l'ai monté, pourquoi ça tient tout seul, et combien ça coûte vraiment.
+        </div>
+      </article>
+
+      <!-- Projet 03 · Bientôt (agent qualif) -->
+      <article class="project-card soon" aria-label="Projet à venir">
+        <div class="project-card-bg" style="background:linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"></div>
+        <div class="project-card-overlay"></div>
+        <div class="project-top">
+          <span class="project-badge">Bientôt · 03</span>
+          <span class="project-pill">À venir</span>
+        </div>
+        <div class="project-middle">
+          <h3 class="project-title">Un agent<br>qui qualifie<br>mes prospects.</h3>
+          <div class="project-meta">
+            <span><strong>24/7</strong> · web · WhatsApp · Instagram</span>
+            <span>Qualification · Prise de RDV auto</span>
+          </div>
+        </div>
+        <div class="project-desc">
+          Un agent IA omnicanal qui parle à mes prospects, comprend leur besoin, qualifie, et pose un rendez-vous — tout ça en toute transparence. En recherche active, pas encore en prod.
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- Mini-marquee divider 2 -->
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
@@ -3520,59 +3784,41 @@
   <div class="container">
     <div class="section-header">
       <div>
-        <span class="section-label lbl-orange">— 03 · Sans filtre</span>
-        <h2 class="section-title">Ce que je construis,<br><em>ce que j'en pense.</em></h2>
+        <span class="section-label lbl-orange">— 03 · Mes opinions</span>
+        <h2 class="section-title">Ce que<br><em>je pense.</em></h2>
       </div>
       <p class="section-sub">
-        Un mix de projets que j'ai construits, de cas concrets que j'ai testés, et d'opinions tranchées sur l'IA, le produit, le business, la famille. Je peux me tromper — dis-moi quand tu n'es pas d'accord, j'adore ça.
+        Quelques opinions tranchées sur les sujets qui m'occupent : IA, produit, business, famille. Je peux me tromper — dis-moi quand tu n'es pas d'accord, j'adore ça. Réponds à la newsletter, j'en lis tous les mails.
       </p>
     </div>
 
     <div class="opinions-grid">
 
-      <!-- Projet 01 — GMF (carte typée "Projet" avec teinte teal, cliquable vers l'article) -->
-      <a href="articles/construit-avec-claude-code-gmf.html" class="op-card c-blue op-project" style="text-decoration:none; display:flex;">
-        <div class="op-card-bg" style="background-image:url('photos/A7109195.jpg'); background-position: center 30%"></div>
-        <div class="op-card-overlay"></div>
-        <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Projet · 01</span>
-          <span class="op-pill">Lire →</span>
-        </div>
-        <div class="op-middle">
-          <h3 class="op-title">L'outil de vente<br>de ma femme,<br>en 3 soirs.</h3>
-          <div class="op-sub">— Projet · 3 soirées Netflix · avril 2026</div>
-        </div>
-        <div class="op-preview">
-          <div class="op-preview-label">Ce que tu vas lire</div>
-          <p class="op-preview-text">Shirley est chargée de clientèle chez GMF. Elle m'a demandé un coup de main. En 3 soirées devant Netflix, on a construit avec Claude Code un outil qui l'accompagne en rendez-vous client — sans une ligne de code écrite à la main.</p>
-        </div>
-      </a>
-
-      <!-- Opinion 02 — Rouge -->
-      <article class="op-card c-red">
+      <!-- Opinion 01 — Better Call vs Associé -->
+      <a class="op-card c-red" href="articles/better-call-vs-associe.html" style="text-decoration:none; color:inherit;">
         <div class="op-card-bg" style="background-image:url('photos/A7100670.jpg'); background-position: center 30%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 02</span>
-          <span class="op-pill">2 min</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 01</span>
+          <span class="op-pill">10 min</span>
         </div>
         <div class="op-middle">
-          <h3 class="op-title">Le "AI-first"<br>tue les<br>produits.</h3>
-          <div class="op-sub">— IA &amp; Produit · 15 avril 2026</div>
+          <h3 class="op-title">7 000 €<br>par an vs<br>50 % de ta boîte.</h3>
+          <div class="op-sub">— Business · 20 avril 2026</div>
         </div>
         <div class="op-stripes">
           <div class="s-teal"></div>
           <div class="s-fuchsia"></div>
           <div class="s-orange"></div>
         </div>
-      </article>
+      </a>
 
       <!-- Opinion 02 — Bleu -->
       <article class="op-card c-blue">
         <div class="op-card-bg" style="background-image:url('photos/Shooting_PSBN_Kev_Nice_Aug_5_2025_(3).jpg'); background-position: center 20%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 03</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 02</span>
           <span class="op-pill">3 min</span>
         </div>
         <div class="op-middle">
@@ -3591,7 +3837,7 @@
         <div class="op-card-bg" style="background-image:url('photos/A7109652.jpg'); background-position: center 35%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 04</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 03</span>
           <span class="op-pill">2 min</span>
         </div>
         <div class="op-middle">
@@ -3610,7 +3856,7 @@
         <div class="op-card-bg" style="background-image:url('photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(1).jpg'); background-position: center 25%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 05</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 04</span>
           <span class="op-pill">4 min</span>
         </div>
         <div class="op-middle">
@@ -3629,7 +3875,7 @@
         <div class="op-card-bg" style="background-image:url('photos/Shooting_PSBN_Kev_et_Jé_Nice_Aug_5_2025_(7).jpg'); background-position: center 30%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 06</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 05</span>
           <span class="op-pill">3 min</span>
         </div>
         <div class="op-middle">
@@ -3648,7 +3894,7 @@
         <div class="op-card-bg" style="background-image:url('photos/Shooting_PSBN_Kev_et_Nice_Aug_5_2025_(1).jpg'); background-position: center 30%"></div>
         <div class="op-card-overlay"></div>
         <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 07</span>
+          <span class="op-badge"><span class="pulse"></span>Opinion · 06</span>
           <span class="op-pill">3 min</span>
         </div>
         <div class="op-middle">
@@ -3672,7 +3918,7 @@
   <div class="container">
     <div class="section-header">
       <div>
-        <span class="section-label lbl-teal">— 02 · Mes sources d'info</span>
+        <span class="section-label lbl-teal">— 04 · Mes sources d'info</span>
         <h2 class="section-title">Ce que<br>je regarde.</h2>
       </div>
       <p class="section-sub">

@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoriel : créer un agent qui trie ta boîte Gmail et te fait un résumé matinal — par Jérémy Sagnier</title>
+<meta name="description" content="Un tutoriel étape par étape pour créer un agent Claude Code qui trie 80 mails par jour, identifie les 3 urgents, et t'envoie un résumé chaque matin à 7h. Setup en 45 minutes, coût 5 € par mois.">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tutoriel : créer un agent qui trie ta boîte Gmail et te fait un résumé matinal">
+<meta property="og:description" content="Un tutoriel étape par étape pour créer un agent Claude Code qui trie 80 mails par jour, identifie les 3 urgents, et t'envoie un résumé chaque matin à 7h. Setup en 45 minutes, coût 5 € par mois.">
+<meta property="og:site_name" content="Jérémy Sagnier">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background: #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('screenshots/gmail/gmail-inbox-overflow-demo.png') right center / auto 140% no-repeat;
+    filter: blur(3px) brightness(.55) saturate(1.2) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
+    opacity: .75;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(0,178,169,.45), transparent 45%),
+      radial-gradient(ellipse at 10% 85%, rgba(239,66,111,.42), transparent 52%),
+      radial-gradient(ellipse at 60% 100%, rgba(255,130,0,.2), transparent 55%),
+      linear-gradient(90deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 80%, rgba(10,10,10,.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5.4vw, 64px);
+    line-height: .98; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 860px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  blockquote {
+    margin: 28px 0; padding: 22px 26px 22px 32px;
+    border-left: 4px solid var(--teal);
+    background: rgba(0,178,169,.06);
+    border-radius: 0 14px 14px 0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 19px; line-height: 1.55;
+    font-style: italic; color: var(--ink);
+    font-weight: 500;
+  }
+  blockquote p { font-size: 19px; line-height: 1.55; color: var(--ink); margin: 0 }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 24px 0; font-size: 15.5px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px; overflow: hidden;
+  }
+  table th, table td {
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5; vertical-align: top;
+  }
+  table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  table tr:last-child td { border-bottom: none }
+  table td strong { color: var(--ink) }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(239,66,111,.1), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+
+  .newsletter-form {
+    max-width: 520px; margin: 0 auto;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1; min-width: 240px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-size: 15px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-form input[type="email"]:focus { border-color: var(--teal) }
+  .newsletter-form button {
+    padding: 14px 24px;
+    border-radius: 999px; border: none;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: transform .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .newsletter-form button:disabled { opacity: .6; cursor: not-allowed }
+  .newsletter-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 16px;
+  }
+  .newsletter-success {
+    display: none; margin-top: 16px;
+    font-size: 15px; color: var(--teal); font-weight: 600;
+  }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Mini-marquee divider entre sections */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative; margin: 48px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mm-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -.01em; position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mm-scroll {
+    0% { transform: translateX(0) }
+    100% { transform: translateX(-50%) }
+  }
+
+  /* Sidebar SCOREBOARD Spurs 89 — roster style */
+  .article-sidebar {
+    position: fixed;
+    top: 110px;
+    right: 24px;
+    width: 260px;
+    max-height: calc(100vh - 140px);
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    font-size: 13px;
+    z-index: 40;
+    display: none;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  [data-theme="dark"] .article-sidebar {
+    border-color: var(--ink-soft);
+    box-shadow: 6px 6px 0 rgba(244,239,230,.12);
+  }
+  @media (min-width: 1240px) { .article-sidebar { display: flex; flex-direction: column; } }
+
+  .sidebar-head {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-head::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg,
+      var(--teal) 0%, var(--teal) 33.33%,
+      var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
+      var(--orange) 66.66%, var(--orange) 100%);
+  }
+  .sidebar-head-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .sidebar-head-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: rgba(244,239,230,.7);
+  }
+  .sidebar-head-count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: .05em;
+  }
+  .sidebar-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    line-height: 1; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .sidebar-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+  }
+  .article-sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .article-sidebar li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18px 44px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .article-sidebar li:last-child { border-bottom: none; }
+  .article-sidebar li:hover { background: var(--bg-2); }
+
+  .ss-rowel {
+    width: 14px; height: 14px;
+    color: var(--ink-muted);
+    transition: color .2s, transform .3s;
+    flex-shrink: 0;
+  }
+  .article-sidebar li:hover .ss-rowel { transform: rotate(45deg); }
+  .article-sidebar li:nth-child(3n+1):hover .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2):hover .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3):hover .ss-rowel { color: var(--orange); }
+
+  .ss-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; font-weight: 900;
+    letter-spacing: -.02em; line-height: 1;
+    color: var(--ink);
+  }
+  .ss-num .hash {
+    font-size: 9px;
+    color: var(--ink-muted);
+    margin-right: 2px;
+    vertical-align: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .article-sidebar li:nth-child(3n+1) .ss-num { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2) .ss-num { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3) .ss-num { color: var(--orange); }
+
+  .ss-title {
+    color: var(--ink-soft); text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    line-height: 1.25;
+    transition: color .15s, transform .15s;
+  }
+  .article-sidebar li:hover .ss-title {
+    color: var(--ink); transform: translateX(2px);
+  }
+
+  .article-sidebar li.is-active { background: var(--bg-2); }
+  .article-sidebar li.is-active::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .article-sidebar li:nth-child(3n+1).is-active::before { background: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active::before { background: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active::before { background: var(--orange); }
+  .article-sidebar li.is-active .ss-title { color: var(--ink); }
+  .article-sidebar li.is-active .ss-rowel { color: inherit; }
+  .article-sidebar li:nth-child(3n+1).is-active .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active .ss-rowel { color: var(--orange); }
+
+  .sidebar-cta {
+    padding: 14px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    border-top: 3px solid var(--orange);
+  }
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .sidebar-cta-lead {
+    font-size: 12px; line-height: 1.35;
+    margin: 0 0 10px;
+    color: rgba(244,239,230,.85);
+    font-weight: 500;
+  }
+  .sidebar-cta-btn {
+    display: block; text-align: center;
+    background: var(--orange); color: var(--ink);
+    padding: 10px 12px; border-radius: 0;
+    text-decoration: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: .08em; line-height: 1;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .sidebar-cta-btn:hover {
+    background: var(--fuchsia); color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 rgba(244,239,230,.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour au site
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Rowel SVG symbol (réutilisable dans la sidebar) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rowel" viewBox="0 0 100 100">
+    <g fill="currentColor">
+      <circle cx="50" cy="50" r="14"/>
+      <polygon points="50,0 55,40 45,40"/>
+      <polygon points="100,50 60,55 60,45"/>
+      <polygon points="50,100 45,60 55,60"/>
+      <polygon points="0,50 40,45 40,55"/>
+      <polygon points="85,15 62,42 58,38"/>
+      <polygon points="85,85 58,62 62,58"/>
+      <polygon points="15,85 38,58 42,62"/>
+      <polygon points="15,15 42,38 38,42"/>
+    </g>
+  </symbol>
+</svg>
+
+<aside class="article-sidebar" aria-label="Sommaire de l'article">
+  <header class="sidebar-head">
+    <div class="sidebar-head-top">
+      <span class="sidebar-head-label">Roster</span>
+      <span class="sidebar-head-count">11 / 11</span>
+    </div>
+    <div class="sidebar-head-title">Sommaire</div>
+  </header>
+
+  <nav class="sidebar-list" aria-label="Sections de l'article">
+    <ul>
+      <li data-section="prerequis">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>01</span>
+        <a class="ss-title" href="#prerequis">Les prérequis</a>
+      </li>
+      <li data-section="installation">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>02</span>
+        <a class="ss-title" href="#installation">Installer Claude Code</a>
+      </li>
+      <li data-section="connecteur">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>03</span>
+        <a class="ss-title" href="#connecteur">Brancher Gmail</a>
+      </li>
+      <li data-section="prompt-systeme">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>04</span>
+        <a class="ss-title" href="#prompt-systeme">Prompt système</a>
+      </li>
+      <li data-section="commande-slash">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>05</span>
+        <a class="ss-title" href="#commande-slash">Commande slash</a>
+      </li>
+      <li data-section="test">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>06</span>
+        <a class="ss-title" href="#test">Premier test</a>
+      </li>
+      <li data-section="automatisation">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#automatisation">Automatisation 7h</a>
+      </li>
+      <li data-section="resultat">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#resultat">Ce que ça change</a>
+      </li>
+      <li data-section="pieges">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#pieges">Trois pièges</a>
+      </li>
+      <li data-section="variantes">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>10</span>
+        <a class="ss-title" href="#variantes">Variantes par métier</a>
+      </li>
+      <li data-section="et-toi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>11</span>
+        <a class="ss-title" href="#et-toi">Et toi&nbsp;?</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-cta">
+    <div class="sidebar-cta-label">★ Newsletter</div>
+    <p class="sidebar-cta-lead">Mes tutoriels Claude Code, chaque vendredi matin. Sans pub, désinscription en un clic.</p>
+    <a href="#cta-newsletter" class="sidebar-cta-btn">Je m'abonne →</a>
+  </div>
+</aside>
+
+<script>
+  // Scrollspy sidebar — met à jour la section active
+  (function() {
+    const items = document.querySelectorAll('.article-sidebar li[data-section]');
+    if (!items.length) return;
+    const sections = Array.from(items).map(li => ({
+      li: li,
+      el: document.getElementById(li.dataset.section)
+    })).filter(s => s.el);
+
+    function update() {
+      const y = window.scrollY + 160;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.el.offsetTop <= y) active = s;
+      }
+      items.forEach(i => i.classList.remove('is-active'));
+      if (active) active.li.classList.add('is-active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Tutoriel · Claude Code</div>
+    <h1>Crée un agent qui trie<br><em>ta boîte Gmail</em><br>et te fait un résumé matinal.</h1>
+    <p class="hero-lead">
+      Un tutoriel étape par étape. Pas de théorie, pas de détours. À la fin, tu as un agent qui tourne chaque matin à 7 h, qui lit tes mails pendant que tu dors, et qui te donne les 3 urgents du jour en trente secondes de lecture. Compte 45 minutes de setup et environ 5 € par mois.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>45 min</strong> de setup</span>
+      <span class="hero-meta-item"><strong>Tous</strong> niveaux</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">Ce que tu vas obtenir à la fin</div>
+    <h2>L'agent, en trois points</h2>
+    <ul>
+      <li>Un agent qui se lance automatiquement chaque matin à 7 h, lit les mails non lus des dernières 24 h et te sort les <strong>3 vraiment urgents</strong>.</li>
+      <li>Le reste est automatiquement classé et étiqueté : newsletters, notifications outils, spam déguisé, mails à traiter plus tard.</li>
+      <li>Coût estimé : <strong>3 à 6 € par mois</strong> en consommation API, plus 20 € par mois si tu prends Claude Pro — ce qui est probablement déjà ton cas.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block" id="prerequis">
+  <div class="container">
+    <span class="section-kicker k-teal">— Préparation</span>
+    <h2>Les prérequis <em class="teal">avant de commencer.</em></h2>
+    <p>
+      Avant de démarrer le tutoriel, vérifie que tu as ces quatre éléments.
+    </p>
+    <ul>
+      <li><strong>Un Mac</strong> (Windows fonctionne aussi, mais les commandes cron sont différentes — je traite le cas Mac ici).</li>
+      <li><strong>Un compte Gmail</strong> personnel ou professionnel.</li>
+      <li><strong>Un abonnement Claude Pro à 20 € par mois</strong> (claude.ai). Il te permet d'utiliser Claude Code sans facturation à l'usage pour les volumes raisonnables.</li>
+      <li><strong>Quarante-cinq minutes devant toi</strong>, sans interruption. Si tu fais une pause au milieu d'une étape OAuth, tu devras tout recommencer.</li>
+    </ul>
+    <p>
+      Si tu n'as jamais ouvert de terminal de ta vie, ce tutoriel reste faisable. Tu vas copier-coller cinq commandes. Mais prends ton temps sur chacune.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="installation">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Étape 1</span>
+    <h2>Étape 1 — Installer <em class="fuchsia">Claude Code.</em></h2>
+    <p>
+      Ouvre l'application Terminal sur ton Mac (tape «&nbsp;Terminal&nbsp;» dans Spotlight).
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/gmail/gmail-claude-code-quickstart.png" alt="Capture de la documentation officielle Claude Code avec le quickstart et les premières commandes" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        La doc officielle Claude Code — quickstart et premier run
+      </figcaption>
+    </figure>
+
+    <p>
+      Colle cette commande et appuie sur Entrée&nbsp;:
+    </p>
+<pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+    <p>
+      Attends que l'installation se termine. Ce script télécharge Claude Code et le rend disponible partout sur ton Mac.
+    </p>
+    <p>
+      Ensuite, lance Claude Code pour la première fois&nbsp;:
+    </p>
+<pre><code>claude</code></pre>
+    <p>
+      On te demande de te connecter avec ton compte Claude.ai. Suis le lien, autorise la connexion dans ton navigateur, reviens dans le terminal. Tu dois voir un prompt prêt à recevoir des instructions.
+    </p>
+    <p>
+      Tape <code>/exit</code> pour sortir pour l'instant. On y revient après.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="connecteur">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 2</span>
+    <h2>Étape 2 — Brancher <em class="orange">ton Gmail.</em></h2>
+    <p>
+      Tu as deux options pour connecter Gmail à Claude Code. L'une est simple, l'autre donne plus de contrôle.
+    </p>
+
+    <h3>Option A — Le connecteur Gmail natif de Claude (recommandé pour un débutant).</h3>
+    <p>
+      Rends-toi sur <code>claude.ai/settings/connectors</code>. Tu vois une liste de connecteurs. Clique sur «&nbsp;Connect&nbsp;» à côté de Gmail. Accepte l'autorisation Google. C'est fini. Ce connecteur est hérité automatiquement dans Claude Code quand tu te connectes avec le même compte.
+    </p>
+    <p>
+      Limite à connaître&nbsp;: ce connecteur te permet de <strong>lire tes mails et créer des brouillons</strong>, mais pas de les envoyer ni de les étiqueter automatiquement. Pour un trieur qui te fait un résumé, c'est largement suffisant.
+    </p>
+
+    <h3>Option B — Un MCP server Gmail (pour aller plus loin).</h3>
+    <p>
+      Si tu veux que l'agent puisse étiqueter et archiver les mails, il te faut un MCP server. Le plus propre aujourd'hui s'appelle <code>shinzo-labs/gmail-mcp</code>. Colle cette commande dans Claude Code&nbsp;:
+    </p>
+<pre><code>claude mcp add --transport stdio --scope user gmail -- npx -y @shinzolabs/gmail-mcp</code></pre>
+    <p>
+      Cette option demande de créer un projet Google Cloud et de télécharger une clé OAuth. Si c'est ta première fois, commence par l'option A. Tu pourras basculer plus tard.
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/gmail/gmail-claude-code-mcp.png" alt="Documentation Claude Code expliquant le fonctionnement des MCP servers" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        La doc Claude Code sur les MCP servers — ce qui permet d'étendre ton agent
+      </figcaption>
+    </figure>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/gmail/gmail-github-mcp-server.png" alt="Page GitHub du projet Gmail MCP server le plus utilisé en 2026" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        Le repo GitHub du MCP Gmail le plus utilisé en 2026 — fork actif depuis mars 2026
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Pas de théorie</span><span>Pas de détours</span><span>Les commandes exactes</span><span>Les vraies catégories</span>
+    <span>Pas de théorie</span><span>Pas de détours</span><span>Les commandes exactes</span><span>Les vraies catégories</span>
+  </div>
+</div>
+
+<section class="block" id="prompt-systeme">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 3</span>
+    <h2>Étape 3 — Écrire <em class="teal">le prompt système.</em></h2>
+    <p>
+      C'est la partie la plus importante du tutoriel. Un agent sans instructions claires part dans tous les sens.
+    </p>
+    <p>
+      Dans ton terminal, crée un dossier pour ton agent&nbsp;:
+    </p>
+<pre><code>mkdir -p ~/gmail-agent &amp;&amp; cd ~/gmail-agent</code></pre>
+    <p>
+      Puis crée un fichier nommé <code>CLAUDE.md</code> avec ce contenu exact (tu peux copier-coller)&nbsp;:
+    </p>
+<pre><code># Agent Gmail — Résumé matinal
+
+## Rôle
+Tu es mon assistant email. Tu tries ma boîte Gmail et tu me fais
+un briefing actionnable en deux minutes de lecture. Tu es factuel,
+bref, direct. Tu n'écris pas de roman.
+
+## Contexte
+- Je reçois environ 80 mails par jour (clients, prospects,
+  newsletters, notifications outils, spam déguisé).
+- Je veux savoir en trente secondes ce qui compte aujourd'hui.
+- Je valide moi-même les actions : tu proposes des brouillons,
+  jamais d'envoi automatique.
+
+## Outils autorisés
+- Lire les mails des 24 dernières heures.
+- Créer des brouillons de réponse.
+- Étiqueter les mails (si connecteur avancé).
+
+Interdit : envoyer un mail, supprimer un mail, vider des dossiers.
+
+## Limites
+- Pas plus de 50 mails analysés par run.
+- Pas de mails de plus de trois jours.
+- Jamais les dossiers Spam, Corbeille, Brouillons.
+- Si tu hésites sur une catégorie, mets « À trier manuellement ».
+
+## Catégorisation
+Chaque mail non lu va dans UNE des six catégories suivantes :
+
+1. URGENT — action sous 24 h (client qui râle, facture impayée,
+   deadline, urgence personnelle).
+2. IMPORTANT — réponse attendue cette semaine (RDV à confirmer,
+   décision à prendre).
+3. PROSPECT — message commercial entrant, demande de devis.
+4. NEWSLETTER — à parcourir, jamais dans le top 3 du jour.
+5. AUTO — notifications d'outils (GitHub, Stripe, Calendly).
+6. SPAM DÉGUISÉ — pitch non sollicité, cold email pénible.
+
+## Format de sortie
+Réponds exactement dans ce format :
+
+### Top 3 du jour
+1. [Expéditeur] — [sujet en 10 mots] — Action : [quoi faire]
+2. ...
+3. ...
+
+### Résumé par catégorie
+- Urgent : X mails
+- Important : X mails
+- Prospect : X mails (brouillons créés : Y)
+- Newsletter : X mails
+- Auto : X mails
+- À trier : X mails
+
+### Brouillons préparés
+- Re : [sujet] — ton choisi
+
+### Choses étranges repérées
+[Pitchs suspects, phishing potentiel]
+
+## Critère du top 3
+Le top 3, ce sont les trois mails où ne pas répondre aujourd'hui
+a un coût business réel. Ni les plus récents, ni les plus longs.
+Les plus chers à ignorer.</code></pre>
+    <p>
+      Ce prompt définit six catégories et impose un format de sortie précis. Tu peux le modifier pour ton métier — je te donne des variantes à la fin du tutoriel.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="commande-slash">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Étape 4</span>
+    <h2>Étape 4 — Créer ta <em class="fuchsia">commande slash.</em></h2>
+    <p>
+      Une commande slash te permet de lancer ton agent en une seule commande au lieu de retaper les instructions à chaque fois.
+    </p>
+    <p>
+      Dans ton dossier, crée un fichier à l'emplacement <code>.claude/commands/tri-matinal.md</code> avec ce contenu&nbsp;:
+    </p>
+<pre><code>---
+description: Tri Gmail + briefing du jour
+---
+Lance le tri matinal suivant le protocole défini dans CLAUDE.md.
+
+1. Récupère les mails non lus des dernières 24 h (max 50).
+2. Classe chaque mail selon les six catégories.
+3. Pour la catégorie PROSPECT, crée un brouillon de réponse courte.
+4. Retourne le briefing au format imposé.
+
+N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
+    <p>
+      Tu peux maintenant lancer le tri en tapant simplement <code>/tri-matinal</code> dans Claude Code.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="test">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 5</span>
+    <h2>Étape 5 — <em class="orange">Premier test.</em></h2>
+    <p>
+      Dans ton terminal, depuis le dossier <code>~/gmail-agent</code>, lance Claude Code&nbsp;:
+    </p>
+<pre><code>claude</code></pre>
+    <p>
+      Tape&nbsp;:
+    </p>
+<pre><code>/tri-matinal</code></pre>
+    <p>
+      L'agent va lire tes mails, appliquer les catégories, préparer les brouillons, et te sortir le briefing. La première fois, cela prend trente à soixante secondes.
+    </p>
+    <p>
+      <strong>Ce que tu dois voir</strong>&nbsp;:
+    </p>
+<pre><code>### Top 3 du jour
+1. Jean Dupont (Client Acme) — relance proposition Q3 —
+   Action : confirmer créneau de call
+2. Cabinet comptable — demande documents bilan —
+   Action : envoyer factures 2026
+3. Laura Marchand (prospect) — demande de devis —
+   Action : relire brouillon et envoyer
+
+### Résumé par catégorie
+- Urgent : 3 mails
+- Important : 5 mails
+- Prospect : 2 mails (brouillons créés : 2)
+- Newsletter : 38 mails
+- Auto : 24 mails
+- À trier : 3 mails</code></pre>
+    <p>
+      Si tu obtiens ce format, ton agent fonctionne. Si tu obtiens autre chose, vérifie que tu as bien copié le <code>CLAUDE.md</code> en entier et que le connecteur Gmail est actif.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="automatisation">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 6</span>
+    <h2>Étape 6 — Automatiser <em class="teal">chaque matin à 7 h.</em></h2>
+    <p>
+      Tu as maintenant un agent qui fonctionne à la demande. Il te reste à le faire tourner automatiquement pendant que tu dors.
+    </p>
+    <p>
+      Trois options, par ordre de simplicité.
+    </p>
+
+    <h3>Option 1 — Routines Claude Code.</h3>
+    <p>
+      Dans Claude Code, tape&nbsp;:
+    </p>
+<pre><code>/schedule "tous les jours à 07:00" "/tri-matinal"</code></pre>
+    <p>
+      C'est l'option la plus simple. La routine tourne dans le cloud Claude, ton Mac n'a pas besoin d'être allumé.
+    </p>
+
+    <h3>Option 2 — launchd macOS (plus de contrôle).</h3>
+    <p>
+      Tu crées un fichier de planification qui déclenche Claude Code chaque matin. Cela requiert que ton Mac soit allumé à 7 h. Les étapes sont plus techniques — je les documente dans le pack à télécharger (voir fin d'article).
+    </p>
+
+    <h3>Option 3 — Zapier / Make.</h3>
+    <p>
+      Tu peux aussi orchestrer depuis Zapier ou Make qui déclenche Claude Code à distance. Utile si tu veux recevoir le résumé par SMS ou WhatsApp. Documentation sur zapier.com/claude-code.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>1h45 de tri par jour</span><span>Devient 15 minutes de lecture</span><span>33 heures gagnées par mois</span><span>Pour 5 euros</span>
+    <span>1h45 de tri par jour</span><span>Devient 15 minutes de lecture</span><span>33 heures gagnées par mois</span><span>Pour 5 euros</span>
+  </div>
+</div>
+
+<section class="block" id="resultat">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le résultat</span>
+    <h2>Ce que ça change <em class="fuchsia">au bout d'une semaine.</em></h2>
+    <p>
+      Voici le scénario plausible pour un entrepreneur qui reçoit 80 mails par jour&nbsp;:
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/gmail/gmail-claude-code-tuto-rafdev.png" alt="Article retour d'expérience de raf.dev sur l'utilisation de Claude Code en CLI pour nettoyer 15 000 mails Gmail" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        Retour d'expérience CLI Gmail + Claude Code — 15 000 mails nettoyés en 45 minutes (raf.dev)
+      </figcaption>
+    </figure>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Avant l'agent</th>
+          <th>Après l'agent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Temps de tri matinal</strong></td>
+          <td>1 h 45</td>
+          <td>15 min de lecture du résumé</td>
+        </tr>
+        <tr>
+          <td><strong>Mails lus en entier</strong></td>
+          <td>15 à 20</td>
+          <td>3 (le top 3 du jour)</td>
+        </tr>
+        <tr>
+          <td><strong>Mails importants oubliés</strong></td>
+          <td>3 à 4 par semaine</td>
+          <td>Très rares</td>
+        </tr>
+        <tr>
+          <td><strong>Charge mentale</strong></td>
+          <td>Élevée</td>
+          <td>Faible</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Soit environ <strong>33 heures récupérées par mois</strong> pour un coût d'environ <strong>5 € par mois</strong> de consommation API. Le tarif est Haiku 4.5 à 1 $ par million de tokens en entrée, et 5 $ en sortie — tu peux vérifier la consommation dans ton compte Anthropic.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="pieges">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les pièges</span>
+    <h2>Les trois pièges <em class="orange">à éviter.</em></h2>
+
+    <h3>Piège 1 — Donner trop de permissions à l'agent.</h3>
+    <p>
+      Ne mets jamais d'envoi automatique de mails tant que tu n'as pas un mois d'usage derrière toi. Les brouillons suffisent. Un agent qui envoie «&nbsp;par erreur&nbsp;» un mail à un client te coûte plus cher que deux ans d'abonnement Claude Pro.
+    </p>
+
+    <h3>Piège 2 — Prompt trop vague.</h3>
+    <p>
+      Si tu remplaces «&nbsp;Tu es mon assistant email&nbsp;» par «&nbsp;Aide-moi avec mes mails&nbsp;», l'agent va partir dans tous les sens. Le prompt système de la section 3 est précis volontairement&nbsp;: rôle, contexte, outils, limites, catégories, format de sortie. Respecte cette structure.
+    </p>
+
+    <h3>Piège 3 — Oublier de vérifier les catégories pendant la première semaine.</h3>
+    <p>
+      L'agent va faire des erreurs. Des newsletters dans «&nbsp;Urgent&nbsp;», des vrais urgents dans «&nbsp;À trier&nbsp;». Pendant sept jours, ouvre les catégories et ajuste ton prompt en ajoutant des règles&nbsp;: «&nbsp;Les mails de telle adresse sont toujours urgents&nbsp;», «&nbsp;Les digests Substack ne sont jamais urgents&nbsp;». Au bout d'une semaine, l'agent est calibré.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="variantes">
+  <div class="container">
+    <span class="section-kicker k-teal">— Personnalisation</span>
+    <h2>Variantes par métier <em class="teal">(remplace le prompt de base).</em></h2>
+
+    <p>
+      Si tu es <strong>coach ou formateur</strong>, remplace la section «&nbsp;Catégorisation&nbsp;» par&nbsp;:
+    </p>
+<pre><code>1. CLIENT ACTIF — tout mail d'un client en mission (liste dans clients.md).
+2. PROSPECT — demande de découverte, appel commercial.
+3. RDV — confirmation, annulation, report.
+4. NEWSLETTER — à parcourir, jamais prioritaire.
+5. AUTO — notifications Calendly, Zoom, Stripe.</code></pre>
+
+    <p>
+      Si tu es <strong>e-commerçant</strong>, priorise le SAV&nbsp;:
+    </p>
+<pre><code>1. SAV URGENT — réclamation, retour, livraison perdue, avis négatif.
+2. FOURNISSEUR — commandes, alertes stock.
+3. FINANCE — Stripe, banque, factures.
+4. PROSPECT — demandes B2B.
+5. AUTO — notifications plateforme.
+6. PUB — refus Meta/Google Ads seulement.</code></pre>
+
+    <p>
+      Si tu es <strong>consultant B2B</strong>, priorise la facturation&nbsp;:
+    </p>
+<pre><code>1. FINANCE — factures impayées, relances, paiements reçus.
+2. LEADS — demandes de devis, mentions de ton expertise.
+3. CLIENT EN MISSION — tout client actif.
+4. RDV — calendrier.
+5. NEWSLETTER — digest secteur.</code></pre>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tu as installé l'agent ?</span><span>Écris-moi ta config</span><span>Je lis tout</span><span>Je peux me tromper</span>
+    <span>Tu as installé l'agent ?</span><span>Écris-moi ta config</span><span>Je lis tout</span><span>Je peux me tromper</span>
+  </div>
+</div>
+
+<section class="block" id="et-toi">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— À toi</span>
+    <h2>Et toi, <em class="fuchsia">tu l'as installé&nbsp;?</em></h2>
+    <p>
+      Si tu as suivi ce tutoriel jusqu'au bout, tu as maintenant un agent qui tourne tous les matins et qui te fait gagner environ une heure et demie par jour.
+    </p>
+    <p>
+      Trois choses que j'aimerais savoir&nbsp;:
+    </p>
+    <ol>
+      <li>Combien de temps t'a pris le setup complet&nbsp;?</li>
+      <li>Quelle catégorie l'agent a eu du mal à comprendre au début&nbsp;?</li>
+      <li>Quelle variante de prompt tu as choisie&nbsp;?</li>
+    </ol>
+    <p>
+      Réponds à cet email avec ta configuration. Je lis tout, je réponds.
+    </p>
+    <p>
+      <strong>Je peux me tromper.</strong> Les MCP Gmail évoluent vite et certains repos GitHub utilisés dans ce tutoriel peuvent devenir obsolètes. Si une commande ne fonctionne plus, écris-moi, je mets le tutoriel à jour.
+    </p>
+  </div>
+</section>
+
+<section class="final-cta" id="cta-newsletter">
+  <div class="container">
+    <span class="section-kicker k-teal" style="display:inline-flex">— La suite</span>
+    <h2>Reçois les prochains <em class="teal">tutoriels Claude Code.</em></h2>
+    <p>
+      Je partage mes tutoriels dans ma veille du vendredi. Sans pub, désinscription en un clic.
+    </p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit" id="newsletterSubmit">Je m'inscris →</button>
+    </form>
+    <div class="newsletter-note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
+    <div class="newsletter-success" id="newsletterSuccess">Merci. Tu reçois le prochain vendredi.</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  const form = document.getElementById('newsletterForm');
+  const submitBtn = document.getElementById('newsletterSubmit');
+  const successMsg = document.getElementById('newsletterSuccess');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'article-tuto-gmail' })
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Réessaie →';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Réessaie →';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

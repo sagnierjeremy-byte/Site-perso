@@ -2301,11 +2301,11 @@
     background-position: center;
     z-index: 0;
     transition: transform .6s ease, filter .3s;
-    filter: brightness(.52) saturate(.85);
+    filter: brightness(.78) saturate(.95);
   }
   .op-card:hover .op-card-bg {
     transform: scale(1.05);
-    filter: brightness(.62) saturate(.9);
+    filter: brightness(.88) saturate(1);
   }
   .op-card-overlay {
     position: absolute;
@@ -2319,22 +2319,22 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.55) 100%),
-      radial-gradient(ellipse at 30% 55%, rgba(10,10,10,.45) 0%, transparent 70%);
+      linear-gradient(180deg, rgba(10,10,10,.1) 0%, rgba(10,10,10,.7) 100%),
+      radial-gradient(ellipse at 30% 60%, rgba(10,10,10,.55) 0%, transparent 70%);
     pointer-events: none;
   }
-  /* 4 déclinaisons couleur : rouge · rose · bleu · orange (opacités renforcées) */
+  /* 4 déclinaisons couleur : rouge · rose · bleu · orange (opacité modérée pour laisser passer la photo) */
   .op-card.c-red .op-card-overlay {
-    background: linear-gradient(180deg, rgba(139,25,37,.92) 0%, rgba(194,38,79,.94) 50%, rgba(215,38,71,.94) 100%);
+    background: linear-gradient(180deg, rgba(139,25,37,.45) 0%, rgba(194,38,79,.55) 60%, rgba(215,38,71,.65) 100%);
   }
   .op-card.c-pink .op-card-overlay {
-    background: linear-gradient(180deg, rgba(112,31,55,.90) 0%, rgba(196,55,93,.93) 50%, rgba(239,66,111,.94) 100%);
+    background: linear-gradient(180deg, rgba(112,31,55,.4) 0%, rgba(196,55,93,.55) 60%, rgba(239,66,111,.65) 100%);
   }
   .op-card.c-blue .op-card-overlay {
-    background: linear-gradient(180deg, rgba(0,61,59,.92) 0%, rgba(0,122,116,.94) 50%, rgba(0,178,169,.94) 100%);
+    background: linear-gradient(180deg, rgba(0,61,59,.45) 0%, rgba(0,122,116,.55) 60%, rgba(0,178,169,.65) 100%);
   }
   .op-card.c-orange .op-card-overlay {
-    background: linear-gradient(180deg, rgba(110,52,0,.92) 0%, rgba(191,95,0,.94) 50%, rgba(255,130,0,.94) 100%);
+    background: linear-gradient(180deg, rgba(110,52,0,.45) 0%, rgba(191,95,0,.55) 60%, rgba(255,130,0,.65) 100%);
   }
   .op-card::after {
     content: "";
@@ -3298,7 +3298,7 @@
 <section id="learn">
   <div class="container">
     <div class="learn-intro">
-      <div class="kicker"><span class="pulse"></span>Apprendre · Tutos pas à pas</div>
+      <div class="kicker"><span class="pulse"></span>— 01 · Apprendre · Tutos pas à pas</div>
       <h2>Des tutos.<br>Des guides. <em>Concrets.</em></h2>
       <p>
         Chaque fois que j'apprends quelque chose qui vaut la peine, je le documente ici — en clair, avec des cas d'usage concrets. Pas de théorie. Tu lis, tu comprends, tu peux l'appliquer lundi matin.
@@ -3354,6 +3354,47 @@
           <div class="article-preview">
             <div class="article-preview-label">Tout ce qu'il faut savoir avant d'en créer un</div>
             <p class="article-preview-text">Un agent IA, ce n'est pas un chatbot. Un guide clair avec la définition Simon Willison, 5 cas concrets chiffrés, 3 scénarios de coûts, et les 10 questions que tout le monde se pose.</p>
+          </div>
+        </a>
+
+        <!-- 00.4 : Tutoriel Gmail — teal (tuto strict) -->
+        <a class="article-card article-item c-teal" data-cat="ia" href="articles/tuto-agent-gmail.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M4 4h16v16H4z"/>
+            <path d="M4 4l8 8 8-8"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>★ Tutoriel</span>
+            <span class="article-pill">12 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Crée un agent<br>qui trie<br>ta boîte Gmail<br><em>chaque matin.</em></h3>
+            <div class="article-subtitle">— Tutoriel strict · 45 min de setup</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Étape par étape, commandes incluses</div>
+            <p class="article-preview-text">80 mails par jour triés pendant que tu dors. Top 3 des urgents à 7h. Coût 5€/mois. Le tutoriel complet, sans détour.</p>
+          </div>
+        </a>
+
+        <!-- 00.45 : Tutoriel Contrats — fuchsia (tuto strict B2B) -->
+        <a class="article-card article-item c-fuchsia" data-cat="ia" href="articles/tuto-agent-contrats.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>★ Tutoriel</span>
+            <span class="article-pill">14 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Crée un agent<br>qui lit<br>tes contrats PDF<br><em>et alerte.</em></h3>
+            <div class="article-subtitle">— Tutoriel strict · 60 min de setup · Juridique</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">12 clauses critiques scannées automatiquement</div>
+            <p class="article-preview-text">Tu glisses un PDF dans un dossier. Deux minutes plus tard, tu as une fiche avec les clauses à risque et un score. 20€/mois au lieu de 500€ chez Luminance.</p>
           </div>
         </a>
 
@@ -3616,7 +3657,7 @@
   <div class="container">
     <div class="section-header">
       <div>
-        <span class="section-label">— 01 · Mes newsletters</span>
+        <span class="section-label">— 03 · Mes newsletters</span>
         <h2 class="section-title">Ma veille.<br>Ta veille.<br><em>Même mail.</em></h2>
       </div>
       <p class="section-sub">
@@ -3824,7 +3865,7 @@
 <section id="freebies">
   <div class="container">
     <div class="freebies-intro">
-      <div class="kicker"><span class="pulse"></span>Avant tout · Pour bien démarrer</div>
+      <div class="kicker"><span class="pulse"></span>— 04 · Mes outils gratuits</div>
       <h2>Ce que je te donne<br><em>gratuitement.</em></h2>
       <p>
         Avant de t'inscrire à quoi que ce soit, je te partage déjà mes outils. C'est ce que j'utilise moi-même tous les jours pour ne pas être dépassé par l'IA. Télécharge, teste, adapte — c'est à toi.
@@ -3948,7 +3989,7 @@
   <div class="container">
     <div class="section-header">
       <div>
-        <span class="section-label lbl-orange">— 03 · Mes opinions</span>
+        <span class="section-label lbl-orange">— 05 · Mes opinions</span>
         <h2 class="section-title">Ce que<br><em>je pense.</em></h2>
       </div>
       <p class="section-sub">
@@ -3959,8 +4000,8 @@
     <div class="opinions-grid">
 
       <!-- Opinion 01 — Oussama Ammar comme associé -->
-      <a class="op-card id="opinion-01" c-red" href="articles/better-call-vs-associe.html" style="text-decoration:none; color:inherit;">
-        <div class="op-card-bg" style="background-image:url('photos/oussama-ammar.jpg'); background-position: center 20%; background-size: cover;"></div>
+      <a class="op-card c-red" id="opinion-01" href="articles/better-call-vs-associe.html" style="text-decoration:none; color:inherit;">
+        <div class="op-card-bg" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%; background-size: cover;"></div>
         <div class="op-card-overlay"></div>
         <button class="op-share" type="button" data-share-anchor="opinion-01" data-share-title="Oussama Ammar comme associé, à 7 000 €/an." aria-label="Partager cette opinion">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -3982,8 +4023,8 @@
       </a>
 
       <!-- Opinion 02 — Limova vs Claude Code -->
-      <a class="op-card id="opinion-02" c-blue" href="articles/limova-vs-claude-code.html" style="text-decoration:none; color:inherit;">
-        <div class="op-card-bg" style="background-image:url('articles/screenshots/limova-site.png'); background-position: center 30%; background-size: cover;"></div>
+      <a class="op-card c-blue" id="opinion-02" href="articles/limova-vs-claude-code.html" style="text-decoration:none; color:inherit;">
+        <div class="op-card-bg" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%; background-size: cover;"></div>
         <div class="op-card-overlay"></div>
         <button class="op-share" type="button" data-share-anchor="opinion-02" data-share-title="Avant de payer Limova 840 € par an, lis ça." aria-label="Partager cette opinion">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -4113,7 +4154,7 @@
   <div class="container">
     <div class="section-header">
       <div>
-        <span class="section-label lbl-teal">— 04 · Mes sources d'info</span>
+        <span class="section-label lbl-teal">— 06 · Mes sources d'info</span>
         <h2 class="section-title">Ce que<br>je regarde.</h2>
       </div>
       <p class="section-sub">
@@ -4275,7 +4316,7 @@
   </div>
 </section>
 
-<!-- Mini-marquee divider 3 -->
+<!-- Mini-marquee divider 6 : Sources → Story -->
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
     <span>Transparence totale</span><span>Veilles automatiques</span><span>IA + Business</span><span>Cas d'usage concrets</span><span>Jamais dépassé</span><span>Avant les autres</span>
@@ -4315,7 +4356,7 @@
             Le but, ce n'est pas que tu me copies. C'est que <strong>tu t'inspires</strong> pour adapter à ton business, ton quotidien, ta famille. Pour toi-même devenir proactif, éclairé, en avance. Pas dépassé par ce qui nous tombe dessus.
           </p>
           <p>
-            Si tu te reconnais là-dedans, choisis la newsletter qui t'intéresse. Tu verras — ni blabla, ni pub. Juste ce que j'utilise vraiment, que tu pourras tester lundi matin.
+            Si tu te reconnais là-dedans, tu es au bon endroit. Tu prends ce qui te sert, tu laisses le reste. Et si tu veux qu'on se parle, écris-moi — je lis tout.
           </p>
 
           <div class="story-tags">

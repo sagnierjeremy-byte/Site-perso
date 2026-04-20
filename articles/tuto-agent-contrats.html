@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoriel : créer un agent qui analyse tes contrats PDF et alerte sur les clauses à risque — par Jérémy Sagnier</title>
+<meta name="description" content="Un tutoriel étape par étape pour créer un agent Claude Code qui lit tes contrats PDF, produit une fiche résumé et liste les 12 clauses à négocier avant signature. Setup en 60 minutes, coût 20 € par mois.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background: #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('screenshots/contrats/06-claude-legal.png') right center / auto 140% no-repeat;
+    filter: blur(3px) brightness(.55) saturate(1.2) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
+    opacity: .75;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(0,178,169,.45), transparent 45%),
+      radial-gradient(ellipse at 10% 85%, rgba(239,66,111,.42), transparent 52%),
+      radial-gradient(ellipse at 60% 100%, rgba(255,130,0,.2), transparent 55%),
+      linear-gradient(90deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 80%, rgba(10,10,10,.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5.4vw, 64px);
+    line-height: .98; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 860px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  blockquote {
+    margin: 28px 0; padding: 22px 26px 22px 32px;
+    border-left: 4px solid var(--teal);
+    background: rgba(0,178,169,.06);
+    border-radius: 0 14px 14px 0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 19px; line-height: 1.55;
+    font-style: italic; color: var(--ink);
+    font-weight: 500;
+  }
+  blockquote p { font-size: 19px; line-height: 1.55; color: var(--ink); margin: 0 0 10px }
+  blockquote p:last-child { margin-bottom: 0 }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 22px 0 26px;
+    font-size: 15px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px; overflow: hidden;
+  }
+  th, td {
+    padding: 12px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase; font-weight: 700;
+    background: var(--bg-2); color: var(--ink);
+  }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  figure.article-figure {
+    margin: 32px 0; border-radius: 12px;
+    overflow: hidden; border: 1px solid var(--line);
+  }
+  figure.article-figure img { width: 100%; height: auto; display: block }
+  figure.article-figure figcaption {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 12px 16px; background: var(--bg-2);
+    border-top: 1px solid var(--line);
+  }
+
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(239,66,111,.1), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+
+  .newsletter-form {
+    max-width: 520px; margin: 0 auto;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1; min-width: 240px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-size: 15px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-form input[type="email"]:focus { border-color: var(--teal) }
+  .newsletter-form button {
+    padding: 14px 24px;
+    border-radius: 999px; border: none;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: transform .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .newsletter-form button:disabled { opacity: .6; cursor: not-allowed }
+  .newsletter-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 16px;
+  }
+  .newsletter-success {
+    display: none; margin-top: 16px;
+    font-size: 15px; color: var(--teal); font-weight: 600;
+  }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Mini-marquee divider entre sections */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative; margin: 48px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mm-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -.01em; position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mm-scroll {
+    0% { transform: translateX(0) }
+    100% { transform: translateX(-50%) }
+  }
+
+  /* Sidebar SCOREBOARD Spurs 89 — roster style */
+  .article-sidebar {
+    position: fixed;
+    top: 110px;
+    right: 24px;
+    width: 260px;
+    max-height: calc(100vh - 140px);
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    font-size: 13px;
+    z-index: 40;
+    display: none;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  [data-theme="dark"] .article-sidebar {
+    border-color: var(--ink-soft);
+    box-shadow: 6px 6px 0 rgba(244,239,230,.12);
+  }
+  @media (min-width: 1240px) { .article-sidebar { display: flex; flex-direction: column; } }
+
+  .sidebar-head {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-head::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg,
+      var(--teal) 0%, var(--teal) 33.33%,
+      var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
+      var(--orange) 66.66%, var(--orange) 100%);
+  }
+  .sidebar-head-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .sidebar-head-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: rgba(244,239,230,.7);
+  }
+  .sidebar-head-count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: .05em;
+  }
+  .sidebar-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    line-height: 1; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .sidebar-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+  }
+  .article-sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .article-sidebar li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18px 44px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .article-sidebar li:last-child { border-bottom: none; }
+  .article-sidebar li:hover { background: var(--bg-2); }
+
+  .ss-rowel {
+    width: 14px; height: 14px;
+    color: var(--ink-muted);
+    transition: color .2s, transform .3s;
+    flex-shrink: 0;
+  }
+  .article-sidebar li:hover .ss-rowel { transform: rotate(45deg); }
+  .article-sidebar li:nth-child(3n+1):hover .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2):hover .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3):hover .ss-rowel { color: var(--orange); }
+
+  .ss-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; font-weight: 900;
+    letter-spacing: -.02em; line-height: 1;
+    color: var(--ink);
+  }
+  .ss-num .hash {
+    font-size: 9px;
+    color: var(--ink-muted);
+    margin-right: 2px;
+    vertical-align: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .article-sidebar li:nth-child(3n+1) .ss-num { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2) .ss-num { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3) .ss-num { color: var(--orange); }
+
+  .ss-title {
+    color: var(--ink-soft); text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    line-height: 1.25;
+    transition: color .15s, transform .15s;
+  }
+  .article-sidebar li:hover .ss-title {
+    color: var(--ink); transform: translateX(2px);
+  }
+
+  .article-sidebar li.is-active { background: var(--bg-2); }
+  .article-sidebar li.is-active::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .article-sidebar li:nth-child(3n+1).is-active::before { background: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active::before { background: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active::before { background: var(--orange); }
+  .article-sidebar li.is-active .ss-title { color: var(--ink); }
+  .article-sidebar li.is-active .ss-rowel { color: inherit; }
+  .article-sidebar li:nth-child(3n+1).is-active .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active .ss-rowel { color: var(--orange); }
+
+  .sidebar-cta {
+    padding: 14px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    border-top: 3px solid var(--orange);
+  }
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .sidebar-cta-lead {
+    font-size: 12px; line-height: 1.35;
+    margin: 0 0 10px;
+    color: rgba(244,239,230,.85);
+    font-weight: 500;
+  }
+  .sidebar-cta-btn {
+    display: block; text-align: center;
+    background: var(--orange); color: var(--ink);
+    padding: 10px 12px; border-radius: 0;
+    text-decoration: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: .08em; line-height: 1;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .sidebar-cta-btn:hover {
+    background: var(--fuchsia); color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 rgba(244,239,230,.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Rowel SVG symbol (réutilisable dans la sidebar) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rowel" viewBox="0 0 100 100">
+    <g fill="currentColor">
+      <circle cx="50" cy="50" r="14"/>
+      <polygon points="50,0 55,40 45,40"/>
+      <polygon points="100,50 60,55 60,45"/>
+      <polygon points="50,100 45,60 55,60"/>
+      <polygon points="0,50 40,45 40,55"/>
+      <polygon points="85,15 62,42 58,38"/>
+      <polygon points="85,85 58,62 62,58"/>
+      <polygon points="15,85 38,58 42,62"/>
+      <polygon points="15,15 42,38 38,42"/>
+    </g>
+  </symbol>
+</svg>
+
+<aside class="article-sidebar" aria-label="Sommaire de l'article">
+  <header class="sidebar-head">
+    <div class="sidebar-head-top">
+      <span class="sidebar-head-label">Roster</span>
+      <span class="sidebar-head-count">14 / 14</span>
+    </div>
+    <div class="sidebar-head-title">Sommaire</div>
+  </header>
+
+  <nav class="sidebar-list" aria-label="Sections de l'article">
+    <ul>
+      <li data-section="avertissement">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>01</span>
+        <a class="ss-title" href="#avertissement">Avertissement</a>
+      </li>
+      <li data-section="prerequis">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>02</span>
+        <a class="ss-title" href="#prerequis">Prérequis</a>
+      </li>
+      <li data-section="installation">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>03</span>
+        <a class="ss-title" href="#installation">Installer Claude Code</a>
+      </li>
+      <li data-section="projet">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>04</span>
+        <a class="ss-title" href="#projet">Créer ton projet</a>
+      </li>
+      <li data-section="filesystem">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>05</span>
+        <a class="ss-title" href="#filesystem">Autoriser lecture dossier</a>
+      </li>
+      <li data-section="prompt-systeme">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>06</span>
+        <a class="ss-title" href="#prompt-systeme">Prompt système</a>
+      </li>
+      <li data-section="commande">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#commande">Commande slash</a>
+      </li>
+      <li data-section="test">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#test">Premier test</a>
+      </li>
+      <li data-section="automatisation">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#automatisation">Automatiser</a>
+      </li>
+      <li data-section="securite">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>10</span>
+        <a class="ss-title" href="#securite">Sécurité des données</a>
+      </li>
+      <li data-section="pieges">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>11</span>
+        <a class="ss-title" href="#pieges">Trois pièges</a>
+      </li>
+      <li data-section="couts">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>12</span>
+        <a class="ss-title" href="#couts">Combien ça coûte</a>
+      </li>
+      <li data-section="variantes">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>13</span>
+        <a class="ss-title" href="#variantes">Variantes</a>
+      </li>
+      <li data-section="et-toi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>14</span>
+        <a class="ss-title" href="#et-toi">Et toi&nbsp;?</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-cta">
+    <div class="sidebar-cta-label">★ Newsletter</div>
+    <p class="sidebar-cta-lead">Mes tutoriels Claude Code, chaque vendredi matin. Sans pub, désinscription en un clic.</p>
+    <a href="#cta-newsletter" class="sidebar-cta-btn">Je m'abonne →</a>
+  </div>
+</aside>
+
+<script>
+  // Scrollspy sidebar — met à jour la section active
+  (function() {
+    const items = document.querySelectorAll('.article-sidebar li[data-section]');
+    if (!items.length) return;
+    const sections = Array.from(items).map(li => ({
+      li: li,
+      el: document.getElementById(li.dataset.section)
+    })).filter(s => s.el);
+
+    function update() {
+      const y = window.scrollY + 160;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.el.offsetTop <= y) active = s;
+      }
+      items.forEach(i => i.classList.remove('is-active'));
+      if (active) active.li.classList.add('is-active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Tutoriel · Claude Code · Juridique</div>
+    <h1>Crée un agent qui lit<br><em class="fuchsia">tes contrats PDF</em><br>et alerte sur les clauses à risque.</h1>
+    <p class="hero-lead">
+      Un tutoriel étape par étape. À la fin, tu déposes un contrat PDF dans un dossier, et tu reçois en deux minutes une fiche d'analyse qui liste les 12 clauses critiques, cite les passages problématiques, et te donne un score de risque global. Compte 60 minutes de setup et environ 20 € par mois.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>14 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>1h</strong> de setup</span>
+      <span class="hero-meta-item"><strong>Tous</strong> niveaux</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">Ce que tu vas obtenir à la fin</div>
+    <h2>Le résultat, en 30 secondes</h2>
+    <ul>
+      <li>Tu déposes un contrat PDF dans un dossier <code>inbox/</code>. L'agent le lit, le scanne pour <strong>12 clauses critiques</strong>, et produit une fiche d'analyse dans <code>analyses/</code> en moins de deux minutes.</li>
+      <li>La fiche te donne un <strong>score de risque</strong>, cite les clauses problématiques avec numéro de page, et te propose les trois points à négocier avant signature.</li>
+      <li>Coût estimé : environ <strong>1 € de consommation API par mois</strong> pour 4 contrats, plus <strong>20 € de Claude Pro</strong>. Un disclaimer juridique obligatoire protège ta responsabilité.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block" id="avertissement">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— À lire en premier</span>
+    <h2>Avant de commencer, <em class="fuchsia">un avertissement.</em></h2>
+    <p>
+      Cet agent <strong>ne remplace pas un avocat</strong>. C'est un outil de premier filtrage qui t'aide à repérer les points à creuser avant de payer une vraie consultation juridique.
+    </p>
+    <p>
+      Si tu signes un contrat engageant plus de 10 000 € ou de la propriété intellectuelle sensible, fais toujours valider par un avocat. L'agent te fera gagner du temps de préparation et ne loupera pas les pièges classiques. Il n'a pas la responsabilité professionnelle d'un juriste.
+    </p>
+    <p>
+      Chaque fiche produite par l'agent contiendra un disclaimer explicite. Garde ce disclaimer, il te protège.
+    </p>
+
+    <figure class="article-figure">
+      <img src="screenshots/contrats/06-claude-legal.png" alt="Page officielle du plugin Claude Legal lancé par Anthropic en février 2026">
+      <figcaption>Le plugin Claude Legal officiel lancé par Anthropic en février 2026 — preuve que le use-case contrat est désormais validé par l'éditeur</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="block" id="prerequis">
+  <div class="container">
+    <span class="section-kicker k-teal">— Ce qu'il te faut</span>
+    <h2>Les prérequis <em class="teal">avant de commencer.</em></h2>
+    <ul>
+      <li><strong>Un Mac</strong> (les commandes sont similaires sur Linux, différentes sur Windows).</li>
+      <li><strong>Un abonnement Claude Pro à 20 € par mois</strong>, ou un compte API direct si tu gères des contrats très sensibles (voir section sécurité).</li>
+      <li><strong>Un dossier dédié</strong> sur ton Mac pour recevoir les contrats à analyser.</li>
+      <li><strong>Une heure devant toi</strong> pour le setup initial.</li>
+    </ul>
+
+    <figure class="article-figure">
+      <img src="screenshots/contrats/01-anthropic-pdf-support.png" alt="Documentation officielle Anthropic sur le support des fichiers PDF par Claude">
+      <figcaption>La doc officielle Anthropic sur le support PDF — Claude lit nativement les PDF depuis fin 2024</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="block" id="installation">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 1</span>
+    <h2>Étape 1 — Installer <em class="orange">Claude Code.</em></h2>
+    <p>
+      Si ce n'est pas déjà fait, ouvre Terminal et colle&nbsp;:
+    </p>
+<pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+    <p>
+      Lance ensuite&nbsp;:
+    </p>
+<pre><code>claude</code></pre>
+    <p>
+      Connecte-toi avec ton compte Claude.ai. Tape <code>/exit</code> pour sortir.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="projet">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 2</span>
+    <h2>Étape 2 — Créer ton <em class="teal">projet.</em></h2>
+    <p>
+      Dans Terminal, crée la structure de dossiers&nbsp;:
+    </p>
+<pre><code>mkdir -p ~/contrats-agent/inbox
+mkdir -p ~/contrats-agent/analyses
+mkdir -p ~/contrats-agent/archives
+mkdir -p ~/contrats-agent/.claude/commands
+cd ~/contrats-agent</code></pre>
+    <ul>
+      <li><code>inbox/</code> reçoit les nouveaux contrats à analyser</li>
+      <li><code>analyses/</code> reçoit les fiches d'analyse produites par l'agent</li>
+      <li><code>archives/</code> stocke les contrats déjà traités</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="filesystem">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Étape 3</span>
+    <h2>Étape 3 — Autoriser l'agent à <em class="fuchsia">lire ton dossier.</em></h2>
+    <p>
+      Pour que l'agent puisse lire les PDFs que tu déposes dans <code>inbox/</code>, tu dois ajouter un MCP filesystem. Colle cette commande&nbsp;:
+    </p>
+<pre><code>claude mcp add filesystem npx @modelcontextprotocol/server-filesystem ~/contrats-agent</code></pre>
+    <p>
+      Cette commande donne à Claude Code l'autorisation de lire et écrire dans <code>~/contrats-agent</code>, et uniquement là. L'agent ne peut pas accéder au reste de ton Mac.
+    </p>
+    <p>
+      Pour vérifier que le MCP est actif, lance Claude Code et tape <code>/mcp</code>. Tu dois voir <code>filesystem</code> dans la liste.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Pas de théorie</span><span>12 clauses à scanner</span><span>Les vraies alertes</span><span>Le prompt exact</span>
+    <span>Pas de théorie</span><span>12 clauses à scanner</span><span>Les vraies alertes</span><span>Le prompt exact</span>
+  </div>
+</div>
+
+<section class="block" id="prompt-systeme">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 4</span>
+    <h2>Étape 4 — Écrire <em class="orange">le prompt système.</em></h2>
+    <p>
+      C'est la partie la plus importante. Crée un fichier <code>CLAUDE.md</code> à la racine de <code>~/contrats-agent</code> avec ce contenu exact&nbsp;:
+    </p>
+<pre><code># Agent Lecteur de Contrats
+
+## Rôle
+Tu es un analyste junior de contrats. Tu assistes un professionnel
+dans la revue d'un contrat avant signature. Tu ne remplaces jamais
+un avocat : tu fais un premier filtrage méthodique.
+
+## Contexte
+- Contrats reçus en PDF dans `inbox/`
+- Analyses écrites en Markdown dans `analyses/` (même nom que le PDF)
+- Contrats traités déplacés dans `archives/`
+- Droit applicable par défaut : français
+- Si le contrat est en anglais, signale-le en tête de fiche
+
+## Méthode (obligatoire)
+1. Lire le contrat en entier (si plus de 20 pages, itérer par plage)
+2. Identifier les parties, l'objet, la durée, les montants
+3. Scanner les 12 clauses critiques (liste ci-dessous)
+4. Pour chaque clause trouvée : citer le passage exact + numéro de page + niveau (ROUGE, ORANGE, JAUNE ou VERT)
+5. Repérer les clauses absentes qui devraient exister (exemple : clause RGPD dans un contrat traitant des données personnelles)
+6. Produire la fiche selon le format imposé ci-dessous
+7. Déplacer le PDF traité vers `archives/`
+
+## Les 12 clauses critiques à scanner
+1. Responsabilité et plafond
+2. Auto-renouvellement tacite
+3. Résiliation (préavis, pénalités)
+4. Propriété intellectuelle
+5. Non-concurrence et exclusivité
+6. Confidentialité
+7. Paiement (délais, pénalités)
+8. Modification unilatérale
+9. Juridiction et droit applicable
+10. SLA et garanties
+11. RGPD et sous-traitance
+12. Force majeure
+
+## Limites
+- Jamais de conseil juridique définitif
+- Toujours citer le passage exact + numéro de page
+- Si ambigu, dire « à faire confirmer par un avocat »
+- Ne pas inventer de jurisprudence ni de numéros d'articles
+- Si le PDF est illisible, demander une meilleure version
+
+## Format de sortie
+# Fiche d'analyse — [nom du PDF]
+**Date d'analyse** : YYYY-MM-DD | **Pages** : X | **Score global** : 🔴/🟠/🟡/🟢 X/10
+
+## Résumé
+- Parties : ...
+- Objet : ...
+- Montant : ...
+- Signature prévue : ...
+
+## Alertes critiques (🔴 à négocier avant signature)
+[Liste numérotée avec citation + page + niveau]
+
+## Alertes orange (🟠 à clarifier)
+
+## Points jaunes (🟡)
+
+## Clauses absentes à demander
+[Ex : clause RGPD manquante, force majeure absente]
+
+## Recommandation
+[Verdict clair]
+
+---
+⚠️ Analyse générée par une IA à titre informatif uniquement.
+Elle ne constitue pas un conseil juridique. Pour tout contrat engageant
+plus de 10 000 €, consultez un avocat.</code></pre>
+  </div>
+</section>
+
+<section class="block" id="commande">
+  <div class="container">
+    <span class="section-kicker k-teal">— Étape 5</span>
+    <h2>Étape 5 — Créer ta <em class="teal">commande slash.</em></h2>
+    <p>
+      Crée le fichier <code>.claude/commands/analyser.md</code> avec&nbsp;:
+    </p>
+<pre><code>---
+description: Analyser un contrat PDF
+arguments:
+  - name: fichier
+    description: Nom du PDF dans inbox/
+---
+Lance l'analyse du contrat `inbox/$fichier`.
+
+Suis la méthode définie dans CLAUDE.md :
+1. Lis le PDF en entier.
+2. Scanne les 12 clauses critiques.
+3. Produis la fiche au format imposé.
+4. Écris la fiche dans `analyses/$fichier.md`.
+5. Déplace le PDF de `inbox/` vers `archives/`.
+
+Ne pose aucune question. Exécute, puis affiche un résumé.</code></pre>
+    <p>
+      Tu peux maintenant lancer l'analyse d'un contrat en tapant <code>/analyser mon-contrat.pdf</code>.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="test">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Étape 6</span>
+    <h2>Étape 6 — <em class="fuchsia">Premier test.</em></h2>
+    <p>
+      Télécharge un contrat type pour tester. Si tu n'en as pas sous la main, récupère un NDA template public sur <code>lawinsider.com</code> et sauvegarde-le dans <code>inbox/nda-test.pdf</code>.
+    </p>
+    <p>
+      Dans Terminal, lance&nbsp;:
+    </p>
+<pre><code>cd ~/contrats-agent
+claude</code></pre>
+    <p>
+      Puis&nbsp;:
+    </p>
+<pre><code>/analyser nda-test.pdf</code></pre>
+    <p>
+      L'agent lit le PDF (trente secondes à deux minutes selon la longueur), produit la fiche dans <code>analyses/nda-test.pdf.md</code> et déplace le PDF dans <code>archives/</code>.
+    </p>
+    <p>
+      <strong>Ce que tu dois obtenir dans la fiche&nbsp;:</strong>
+    </p>
+<pre><code># Fiche d'analyse — nda-test.pdf
+**Date** : 2026-04-20 | **Pages** : 5 | **Score global** : 🟠 7/10
+
+## Résumé
+- Parties : Disclosing Party (Client) ↔ Receiving Party (toi)
+- Objet : Protection des informations confidentielles
+- Durée : 3 ans post-contractuelle
+
+## Alertes critiques (🔴)
+1. **Art. 4 — Confidentialité perpétuelle** (p.2)
+   &gt; « The confidentiality obligations shall survive indefinitely. »
+   Durée trop longue, non-conforme à l'usage en France.
+
+## Alertes orange (🟠)
+2. **Art. 6 — Juridiction** (p.4)
+   &gt; « This Agreement shall be governed by the laws of Delaware. »
+   Forum étranger, coûteux en cas de litige.
+
+## Clauses absentes à demander
+- Aucune clause RGPD alors que des données personnelles peuvent être partagées.
+
+## Recommandation
+🟠 À clarifier avant signature. Demander la limitation de la durée
+de confidentialité à 5 ans et la mention du droit français.</code></pre>
+  </div>
+</section>
+
+<section class="block" id="automatisation">
+  <div class="container">
+    <span class="section-kicker k-orange">— Étape 7</span>
+    <h2>Étape 7 — Automatiser <em class="orange">sur drop de fichier.</em></h2>
+    <p>
+      Pour que l'agent analyse automatiquement tout PDF déposé dans <code>inbox/</code>, on utilise un hook Claude Code qui écoute les changements de fichiers.
+    </p>
+    <p>
+      Crée le fichier <code>.claude/settings.json</code> avec&nbsp;:
+    </p>
+<pre><code>{
+  "hooks": {
+    "FileChanged": [
+      {
+        "matcher": "inbox/*.pdf",
+        "command": "claude -p '/analyser $(basename $CLAUDE_CHANGED_FILE)' --output-format json &gt;&gt; analyses/log.jsonl"
+      }
+    ]
+  }
+}</code></pre>
+    <p>
+      Désormais, chaque fois que tu glisses un PDF dans <code>inbox/</code> (depuis le Finder par exemple), l'agent s'auto-déclenche. Tu retrouves la fiche d'analyse dans <code>analyses/</code> en quelques minutes.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="securite">
+  <div class="container">
+    <span class="section-kicker k-teal">— Sécurité</span>
+    <h2>La sécurité <em class="teal">des données contractuelles.</em></h2>
+    <p>
+      Les contrats contiennent des données sensibles. Avant de les balancer à l'API Claude, vérifie ces trois points.
+    </p>
+
+    <h3>Quel plan Claude utiliser&nbsp;?</h3>
+    <ul>
+      <li><strong>Claude Pro (20 €/mois)</strong>&nbsp;: depuis août 2025, tes conversations ne sont plus utilisées pour entraîner les modèles <strong>sauf si tu as opt-in</strong> ou si tu es sur l'ancien modèle de consentement. Rétention&nbsp;: 5 ans par défaut. Acceptable pour des contrats standards de consultant indépendant, <strong>pas pour un cabinet d'avocats</strong>.</li>
+      <li><strong>Claude for Work / Enterprise</strong>&nbsp;: zéro entraînement par défaut, option Zero Data Retention disponible. <strong>Obligatoire pour cabinets d'avocats</strong>, directions juridiques, dossiers M&amp;A sensibles.</li>
+      <li><strong>API Claude direct (pay-as-you-go)</strong>&nbsp;: pas d'entraînement par défaut, ZDR activable sur demande.</li>
+    </ul>
+
+    <h3>Faut-il anonymiser avant envoi&nbsp;?</h3>
+    <p>
+      Pour les contrats très sensibles, un script Python de 20 lignes remplace les noms des parties, les numéros SIRET, les IBAN par des placeholders avant envoi à l'agent. Tu récupères ensuite la fiche et tu remplaces les placeholders côté humain. Ce n'est pas nécessaire pour des NDA standards.
+    </p>
+
+    <h3>RGPD</h3>
+    <p>
+      Si tu analyses les contrats de tes clients pour leur compte, tu deviens sous-traitant au sens de l'article 28 du RGPD. Tu dois signer un contrat de sous-traitance avec tes clients qui encadre cet usage.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="pieges">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Ce à quoi faire attention</span>
+    <h2>Les trois pièges <em class="fuchsia">à éviter.</em></h2>
+
+    <h3>Piège 1 — PDF scannés de mauvaise qualité.</h3>
+    <p>
+      Si le PDF est un scan flou ou une photo prise au téléphone, Claude peut halluciner (inventer des clauses qui n'existent pas). Règle simple&nbsp;: si la fiche contient des clauses sans numéro de page ou dont la citation semble bizarre, demande une version texte du contrat ou refais scanner en bonne qualité.
+    </p>
+
+    <h3>Piège 2 — Contrats de plus de 100 pages.</h3>
+    <p>
+      Claude Code lit jusqu'à 20 pages par appel. Sur un contrat de 100 pages, tu dois itérer par plage. Le plus simple&nbsp;: splitter le PDF en sections (contrat principal, annexes techniques, annexes tarifaires) et lancer <code>/analyser</code> sur chaque section.
+    </p>
+
+    <h3>Piège 3 — Faire confiance à 100 % à l'agent.</h3>
+    <p>
+      L'agent est fiable pour repérer les clauses classiques. Il peut rater les subtilités spécifiques à ton secteur. Relis toujours la fiche, ouvre le PDF côté humain sur les clauses signalées, et consulte un avocat pour tout engagement significatif.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>1h30 par contrat avant</span><span>20 minutes après</span><span>450 euros gagnés par mois</span><span>Pour 20 euros de Pro</span>
+    <span>1h30 par contrat avant</span><span>20 minutes après</span><span>450 euros gagnés par mois</span><span>Pour 20 euros de Pro</span>
+  </div>
+</div>
+
+<section class="block" id="couts">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les chiffres</span>
+    <h2>Combien ça coûte <em class="orange">vraiment.</em></h2>
+    <p>
+      Scénario plausible&nbsp;: consultant indépendant qui signe 4 contrats par mois, chacun d'environ 20 pages.
+    </p>
+
+    <figure class="article-figure">
+      <img src="screenshots/contrats/03-luminance.png" alt="Site de Luminance, plateforme LegalTech leader pour l'analyse contractuelle">
+      <figcaption>Luminance, un des leaders LegalTech — à titre de comparaison, leur offre démarre à plusieurs milliers d'euros par mois</figcaption>
+    </figure>
+
+    <figure class="article-figure">
+      <img src="screenshots/contrats/04-ironclad.png" alt="Site d'Ironclad, plateforme CLM mainstream pour la gestion du cycle de vie des contrats">
+      <figcaption>Ironclad, CLM mainstream — enterprise, tarification sur devis</figcaption>
+    </figure>
+
+    <figure class="article-figure">
+      <img src="screenshots/contrats/05-spellbook.png" alt="Site de Spellbook, add-in Word d'IA juridique pour avocats">
+      <figcaption>Spellbook, add-in Word pour avocats — concurrent direct à 99 $ par mois</figcaption>
+    </figure>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Avant l'agent</th>
+          <th>Après l'agent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Temps par contrat</strong></td>
+          <td>1 h 30 de lecture attentive</td>
+          <td>2 min agent + 20 min revue humaine</td>
+        </tr>
+        <tr>
+          <td><strong>Total mensuel (4 contrats)</strong></td>
+          <td>6 h</td>
+          <td>1 h 30</td>
+        </tr>
+        <tr>
+          <td><strong>Temps gagné</strong></td>
+          <td>—</td>
+          <td><strong>4 h 30 par mois</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Équivalent financier (100 €/h)</strong></td>
+          <td>—</td>
+          <td><strong>450 € par mois</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Coût mensuel API</strong></td>
+          <td>—</td>
+          <td>~1,5 $</td>
+        </tr>
+        <tr>
+          <td><strong>Coût mensuel Claude Pro</strong></td>
+          <td>—</td>
+          <td>20 €</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Le calcul bascule dès le deuxième contrat du mois.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="variantes">
+  <div class="container">
+    <span class="section-kicker k-teal">— Pour aller plus loin</span>
+    <h2>Variantes par type de contrat <em class="teal">(remplace le prompt de base).</em></h2>
+    <p>
+      Si tu traites principalement des <strong>contrats freelance</strong>, ajoute ce focus au prompt système&nbsp;:
+    </p>
+<pre><code>Focus spécifique freelance :
+- TJM ou forfait clairement défini ?
+- Propriété intellectuelle des livrables (background IP protégé ?)
+- Clause d'exclusivité abusive (hors secteur du client)
+- Délai de paiement (loi LME : 60 jours maximum en France)
+- Non-concurrence avec contrepartie financière (sinon inopposable)</code></pre>
+
+    <p>
+      Si tu traites des <strong>contrats SaaS</strong>, focus&nbsp;:
+    </p>
+<pre><code>Focus spécifique SaaS :
+- SLA chiffré (uptime %, temps de réponse support)
+- Stockage données (UE ou US ? sous-traitants listés ?)
+- Réversibilité : format export, délai, coût après résiliation
+- DPA annexé (art. 28 RGPD)
+- Limitation de responsabilité (cap = X mois d'abonnement)</code></pre>
+
+    <p>
+      Si tu traites des <strong>baux commerciaux</strong>&nbsp;:
+    </p>
+<pre><code>Focus spécifique bail commercial (France) :
+- Durée : 3/6/9 ou déplafonné ?
+- Charges : taxe foncière à la charge de qui ?
+- Indexation des loyers : indice ILC ou ILAT ?
+- Destination des lieux (activité autorisée)
+- Clause résolutoire (délai de grâce ?)</code></pre>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tu traites quels contrats ?</span><span>Écris-moi</span><span>Je lis tout</span><span>Je peux me tromper</span>
+    <span>Tu traites quels contrats ?</span><span>Écris-moi</span><span>Je lis tout</span><span>Je peux me tromper</span>
+  </div>
+</div>
+
+<section class="block" id="et-toi">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— À toi</span>
+    <h2>Et toi, <em class="fuchsia">tu traites quels contrats&nbsp;?</em></h2>
+    <p>
+      Si tu as installé l'agent, trois questions pour calibrer la prochaine version du tutoriel&nbsp;:
+    </p>
+    <ol>
+      <li>Quels types de contrats tu traites principalement&nbsp;?</li>
+      <li>Quelle clause l'agent a-t-il ratée au début&nbsp;?</li>
+      <li>Est-ce que tu as ajusté le prompt après une semaine d'usage&nbsp;?</li>
+    </ol>
+    <p>
+      Réponds à cet email avec ta situation. Je lis tout, je réponds.
+    </p>
+    <p>
+      <strong>Je peux me tromper.</strong> Cet agent évolue avec les versions de Claude Code et les capacités PDF du modèle. Si une commande ne fonctionne plus, écris-moi.
+    </p>
+  </div>
+</section>
+
+<section class="final-cta" id="cta-newsletter">
+  <div class="container">
+    <span class="section-kicker k-teal" style="display:inline-flex">— La suite</span>
+    <h2>Reçois les prochains <em class="teal">tutoriels Claude Code.</em></h2>
+    <p>
+      Je partage mes tutoriels dans ma veille du vendredi. Sans pub, désinscription en un clic.
+    </p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit" id="newsletterSubmit">Je m'inscris →</button>
+    </form>
+    <div class="newsletter-note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
+    <div class="newsletter-success" id="newsletterSuccess">Merci. Tu reçois le prochain vendredi.</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  const form = document.getElementById('newsletterForm');
+  const submitBtn = document.getElementById('newsletterSubmit');
+  const successMsg = document.getElementById('newsletterSuccess');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'article-tuto-contrats' })
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Réessaie →';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Réessaie →';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

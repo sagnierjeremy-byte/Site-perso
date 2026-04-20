@@ -386,148 +386,183 @@
     100% { transform: translateX(-50%) }
   }
 
-  /* Sidebar sommaire sticky — charte Fiesta */
+  /* Sidebar SCOREBOARD Spurs 89 — roster style */
   .article-sidebar {
     position: fixed;
     top: 110px;
     right: 24px;
-    width: 244px;
+    width: 260px;
     max-height: calc(100vh - 140px);
     background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 14px;
+    border: 1px solid var(--ink);
+    border-radius: 0;
     font-size: 13px;
     z-index: 40;
     display: none;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(10,10,10,.09), 0 2px 10px rgba(10,10,10,.04);
+    box-shadow: 6px 6px 0 var(--ink);
   }
   [data-theme="dark"] .article-sidebar {
-    box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 2px 10px rgba(0,0,0,.3);
+    border-color: var(--ink-soft);
+    box-shadow: 6px 6px 0 rgba(244,239,230,.12);
   }
   @media (min-width: 1240px) { .article-sidebar { display: flex; flex-direction: column; } }
 
-  /* Triple-stripe signature en haut */
-  .article-sidebar::before {
+  /* Header scoreboard — bandeau noir */
+  .sidebar-head {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-head::after {
     content: "";
-    display: block; height: 4px; flex-shrink: 0;
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
     background: linear-gradient(90deg,
       var(--teal) 0%, var(--teal) 33.33%,
       var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
       var(--orange) 66.66%, var(--orange) 100%);
   }
+  .sidebar-head-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .sidebar-head-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: rgba(244,239,230,.7);
+  }
+  .sidebar-head-count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: .05em;
+  }
+  .sidebar-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    line-height: 1; text-transform: uppercase;
+    margin-top: 6px;
+  }
 
+  /* Liste roster */
   .sidebar-list {
-    padding: 18px 18px 14px;
     overflow-y: auto;
     flex: 1;
+    padding: 0;
   }
-
-  .article-sidebar-kicker {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; text-transform: uppercase;
-    letter-spacing: .18em; color: var(--ink);
-    margin-bottom: 16px;
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 700;
-  }
-  .article-sidebar-kicker::before {
-    content: ""; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--fuchsia);
-    animation: sidebar-pulse 2.4s infinite;
-  }
-  @keyframes sidebar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.55); }
-    70%  { box-shadow: 0 0 0 10px rgba(239,66,111,0); }
-    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0); }
-  }
-
   .article-sidebar ul { list-style: none; padding: 0; margin: 0; }
   .article-sidebar li {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 7px 8px 7px 6px;
-    border-radius: 7px;
-    margin-bottom: 1px;
-    transition: background .2s, transform .2s;
-  }
-  .article-sidebar li:hover {
-    background: var(--bg-2);
-    transform: translateX(-3px);
-  }
-
-  /* Numéros style sticker streetwear — rectangles inclinés + shadow noire */
-  .article-sidebar .num {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 11px; font-weight: 900;
-    padding: 3px 7px 2px;
-    color: #fff; flex-shrink: 0;
-    margin-top: 2px;
-    border-radius: 2px;
-    letter-spacing: .02em;
-    line-height: 1;
-    display: inline-block;
-    box-shadow: 2px 2px 0 var(--ink);
-    transition: transform .18s ease-out, box-shadow .18s ease-out;
-    text-shadow: 0 1px 0 rgba(0,0,0,.15);
-  }
-  /* Rotation couleurs + inclinaisons individuelles */
-  .article-sidebar li:nth-child(1) .num { background: var(--teal);    transform: rotate(-3deg); }
-  .article-sidebar li:nth-child(2) .num { background: var(--fuchsia); transform: rotate(1.5deg); }
-  .article-sidebar li:nth-child(3) .num { background: var(--orange);  transform: rotate(-1deg); }
-  .article-sidebar li:nth-child(4) .num { background: var(--teal);    transform: rotate(2deg); }
-  .article-sidebar li:nth-child(5) .num { background: var(--fuchsia); transform: rotate(-2deg); }
-  .article-sidebar li:nth-child(6) .num { background: var(--orange);  transform: rotate(1deg); }
-  .article-sidebar li:nth-child(7) .num { background: var(--teal);    transform: rotate(-1.5deg); }
-  .article-sidebar li:nth-child(8) .num { background: var(--fuchsia); transform: rotate(2.5deg); }
-  .article-sidebar li:nth-child(9) .num { background: var(--orange);  transform: rotate(-2deg); }
-  .article-sidebar li:hover .num {
-    transform: rotate(0deg) scale(1.12);
-    box-shadow: 3px 3px 0 var(--ink);
-  }
-
-  .article-sidebar a {
-    color: var(--ink-soft); text-decoration: none;
-    display: block; line-height: 1.3;
-    font-size: 13px; font-weight: 500;
-    padding-top: 3px; flex: 1;
-    transition: color .2s;
-  }
-  .article-sidebar li:hover a { color: var(--ink); }
-
-  /* CTA gradient Fiesta */
-  .sidebar-cta {
-    padding: 16px 18px;
-    background: linear-gradient(135deg, var(--teal) 0%, var(--fuchsia) 55%, var(--orange) 100%);
     position: relative;
+    display: grid;
+    grid-template-columns: 18px 44px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .article-sidebar li:last-child { border-bottom: none; }
+  .article-sidebar li:hover { background: var(--bg-2); }
+
+  /* Étoile rowel Spurs en marker gauche */
+  .ss-rowel {
+    width: 14px; height: 14px;
+    color: var(--ink-muted);
+    transition: color .2s, transform .3s;
     flex-shrink: 0;
   }
-  .sidebar-cta::before {
+  .article-sidebar li:hover .ss-rowel { transform: rotate(45deg); }
+  .article-sidebar li:nth-child(3n+1):hover .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2):hover .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3):hover .ss-rowel { color: var(--orange); }
+
+  /* Numéros roster — dossards Archivo Black */
+  .ss-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; font-weight: 900;
+    letter-spacing: -.02em; line-height: 1;
+    color: var(--ink);
+  }
+  .ss-num .hash {
+    font-size: 9px;
+    color: var(--ink-muted);
+    margin-right: 2px;
+    vertical-align: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  /* Rotation couleurs numéros */
+  .article-sidebar li:nth-child(3n+1) .ss-num { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2) .ss-num { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3) .ss-num { color: var(--orange); }
+
+  /* Titre */
+  .ss-title {
+    color: var(--ink-soft); text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    line-height: 1.25;
+    transition: color .15s, transform .15s;
+  }
+  .article-sidebar li:hover .ss-title {
+    color: var(--ink); transform: translateX(2px);
+  }
+
+  /* Section active (scrollspy) */
+  .article-sidebar li.is-active { background: var(--bg-2); }
+  .article-sidebar li.is-active::before {
     content: "";
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .3 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    mix-blend-mode: multiply; opacity: .35;
-    pointer-events: none;
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .article-sidebar li:nth-child(3n+1).is-active::before { background: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active::before { background: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active::before { background: var(--orange); }
+  .article-sidebar li.is-active .ss-title { color: var(--ink); }
+  .article-sidebar li.is-active .ss-rowel { color: inherit; }
+  .article-sidebar li:nth-child(3n+1).is-active .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active .ss-rowel { color: var(--orange); }
+
+  /* CTA noir scoreboard — stats block */
+  .sidebar-cta {
+    padding: 14px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    border-top: 3px solid var(--orange);
+  }
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--orange);
+    margin-bottom: 4px;
   }
   .sidebar-cta-lead {
-    position: relative; z-index: 1;
-    font-size: 12px; color: rgba(255,255,255,.95);
-    line-height: 1.4; margin: 0 0 10px;
+    font-size: 12px; line-height: 1.35;
+    margin: 0 0 10px;
+    color: rgba(244,239,230,.85);
     font-weight: 500;
   }
   .sidebar-cta-btn {
-    position: relative; z-index: 1;
     display: block; text-align: center;
-    background: #fff; color: var(--ink);
-    padding: 11px 12px; border-radius: 7px;
+    background: var(--orange); color: var(--ink);
+    padding: 10px 12px; border-radius: 0;
     text-decoration: none;
     font-family: 'Archivo Black', sans-serif;
     font-size: 11px; text-transform: uppercase;
-    letter-spacing: .1em;
-    transition: transform .2s, box-shadow .2s;
+    letter-spacing: .08em; line-height: 1;
+    transition: background .2s, transform .15s;
+    position: relative;
   }
   .sidebar-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(10,10,10,.3);
+    background: var(--fuchsia); color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
 </style>
 </head>
@@ -558,26 +593,112 @@
   </div>
 </header>
 
+<!-- Rowel SVG symbol (réutilisable dans la sidebar) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rowel" viewBox="0 0 100 100">
+    <g fill="currentColor">
+      <circle cx="50" cy="50" r="14"/>
+      <polygon points="50,0 55,40 45,40"/>
+      <polygon points="100,50 60,55 60,45"/>
+      <polygon points="50,100 45,60 55,60"/>
+      <polygon points="0,50 40,45 40,55"/>
+      <polygon points="85,15 62,42 58,38"/>
+      <polygon points="85,85 58,62 62,58"/>
+      <polygon points="15,85 38,58 42,62"/>
+      <polygon points="15,15 42,38 38,42"/>
+    </g>
+  </symbol>
+</svg>
+
 <aside class="article-sidebar" aria-label="Sommaire de l'article">
-  <div class="sidebar-list">
-    <div class="article-sidebar-kicker">Sommaire</div>
+  <header class="sidebar-head">
+    <div class="sidebar-head-top">
+      <span class="sidebar-head-label">Roster</span>
+      <span class="sidebar-head-count">09 / 09</span>
+    </div>
+    <div class="sidebar-head-title">Sommaire</div>
+  </header>
+
+  <nav class="sidebar-list" aria-label="Sections de l'article">
     <ul>
-      <li><span class="num">01</span><a href="#demande">Tu peux m'aider&nbsp;?</a></li>
-      <li><span class="num">02</span><a href="#word">Ce qu'il y avait dans son Word</a></li>
-      <li><span class="num">03</span><a href="#declic">Pourquoi Claude Code</a></li>
-      <li><span class="num">04</span><a href="#construction">Les trois soirées</a></li>
-      <li><span class="num">05</span><a href="#rendez-vous">Le lendemain en rendez-vous</a></li>
-      <li><span class="num">06</span><a href="#phrase">La phrase</a></li>
-      <li><span class="num">07</span><a href="#lecons">Ce que ça veut dire pour toi</a></li>
-      <li><span class="num">08</span><a href="#capot">Sous le capot</a></li>
-      <li><span class="num">09</span><a href="#et-toi">Et toi&nbsp;?</a></li>
+      <li data-section="demande">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>01</span>
+        <a class="ss-title" href="#demande">Tu peux m'aider&nbsp;?</a>
+      </li>
+      <li data-section="word">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>02</span>
+        <a class="ss-title" href="#word">Ce qu'il y avait dans son Word</a>
+      </li>
+      <li data-section="declic">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>03</span>
+        <a class="ss-title" href="#declic">Pourquoi Claude Code</a>
+      </li>
+      <li data-section="construction">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>04</span>
+        <a class="ss-title" href="#construction">Les trois soirées</a>
+      </li>
+      <li data-section="rendez-vous">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>05</span>
+        <a class="ss-title" href="#rendez-vous">Le lendemain en rendez-vous</a>
+      </li>
+      <li data-section="phrase">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>06</span>
+        <a class="ss-title" href="#phrase">La phrase</a>
+      </li>
+      <li data-section="lecons">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#lecons">Ce que ça veut dire pour toi</a>
+      </li>
+      <li data-section="capot">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#capot">Sous le capot</a>
+      </li>
+      <li data-section="et-toi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#et-toi">Et toi&nbsp;?</a>
+      </li>
     </ul>
-  </div>
+  </nav>
+
   <div class="sidebar-cta">
+    <div class="sidebar-cta-label">★ Newsletter</div>
     <p class="sidebar-cta-lead">Mes études de cas, chaque vendredi matin. Zéro pub, désinscription en un clic.</p>
     <a href="#cta-newsletter" class="sidebar-cta-btn">Je m'abonne →</a>
   </div>
 </aside>
+
+<script>
+  // Scrollspy sidebar — met à jour la section active
+  (function() {
+    const items = document.querySelectorAll('.article-sidebar li[data-section]');
+    if (!items.length) return;
+    const sections = Array.from(items).map(li => ({
+      li: li,
+      el: document.getElementById(li.dataset.section)
+    })).filter(s => s.el);
+
+    function update() {
+      const y = window.scrollY + 160;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.el.offsetTop <= y) active = s;
+      }
+      items.forEach(i => i.classList.remove('is-active'));
+      if (active) active.li.classList.add('is-active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
 
 <section class="hero">
   <div class="container">

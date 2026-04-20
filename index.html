@@ -2313,6 +2313,42 @@
   .op-stripes .s-fuchsia { background: var(--fuchsia) }
   .op-stripes .s-orange  { background: var(--orange) }
 
+  /* Descriptif pour les cards "Projet" (remplace les stripes) */
+  .op-preview {
+    position: relative;
+    z-index: 2;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(10,10,10,.42);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .op-preview-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.72);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .op-preview-label::before {
+    content: "›";
+    color: rgba(255,255,255,.9);
+    font-size: 14px;
+  }
+  .op-preview-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,.95);
+    font-weight: 500;
+    margin: 0;
+  }
+
   /* Showcase bandeau photo plein largeur */
   section#showcase {
     padding: 0;
@@ -3506,10 +3542,9 @@
           <h3 class="op-title">L'outil de vente<br>de ma femme,<br>en 3 soirs.</h3>
           <div class="op-sub">— Projet · 3 soirées Netflix · avril 2026</div>
         </div>
-        <div class="op-stripes">
-          <div class="s-teal"></div>
-          <div class="s-fuchsia"></div>
-          <div class="s-orange"></div>
+        <div class="op-preview">
+          <div class="op-preview-label">Ce que tu vas lire</div>
+          <p class="op-preview-text">Shirley est chargée de clientèle chez GMF. Elle m'a demandé un coup de main. En 3 soirées devant Netflix, on a construit avec Claude Code un outil qui l'accompagne en rendez-vous client — sans une ligne de code écrite à la main.</p>
         </div>
       </a>
 

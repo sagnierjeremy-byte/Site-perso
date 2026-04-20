@@ -365,6 +365,9 @@
     <p>
       Concrètement : le repo contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU. L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur, hyperparamètres, tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert. Et boucler. Indéfiniment.
     </p>
+    <p>
+      À échelle réduite, l'agent peut produire des runs <strong>nettement meilleurs</strong> que la baseline : Karpathy rapporte typiquement +0,5 à +1 point de <code>bits-per-byte</code> sur nanochat après une nuit d'itérations. Ce n'est pas un "×2 magique", c'est un gain réel mais borné — et obtenu sur un mini-modèle, donc à ne pas extrapoler naïvement à du GPT-4.
+    </p>
 
     <div class="callout tip">
       <h4>Pourquoi c'est un moment charnière</h4>
@@ -427,18 +430,29 @@
   <div class="container">
     <span class="section-kicker k-orange">— Ce que tu peux en faire</span>
     <h2>Même si tu n'es <em class="orange">pas chercheur.</em></h2>
+
+    <div class="callout warn">
+      <h4>⚠️ Attention marketing IA · à lire avant de rêver</h4>
+      <p>Beaucoup de gens te vendent en ce moment "ton agent qui tourne la nuit = +300% de résultats, tu dors, l'IA bosse, tu deviens riche". La vérité que je vois sur mes propres tests : tu vas passer <strong>2-3 weekends à comprendre comment ça marche</strong>, tu vas <strong>rater tes 10 premiers runs</strong> (métrique mal définie, budget mal calibré, agent qui boucle dans le vide), et tu auras peut-être <strong>10 à 30% d'amélioration sur une tâche précise</strong> — pas 300%. Ça vaut toujours le coup parce que cette amélioration, une fois trouvée, elle tourne 24/7. Mais <strong>promets-toi de mesurer avant / mesurer après</strong>, sinon tu confondras le bruit et le signal.</p>
+    </div>
+
     <p>
       Tu ne vas pas entraîner de modèle GPT. Mais le <strong>principe autoresearch</strong> s'applique à n'importe quel domaine où tu veux itérer. Voici 3 façons de l'appliquer à ton business.
     </p>
 
     <h3>1. Optimisation de tes cold emails</h3>
-    <p>Tu as un template de cold email. Au lieu de tester 2-3 variantes, tu écris un <code>email-program.md</code> qui dit : <em>"Génère une variante de mon template, envoie à 10 prospects, mesure le taux de réponse. Si meilleur, garde. Sinon revert. Boucle 50 fois."</em>. L'agent tourne 1 semaine, tu te réveilles avec un email qui convertit 2× mieux.</p>
+    <p>Tu as un template de cold email. Au lieu de tester 2-3 variantes, tu écris un <code>email-program.md</code> qui dit : <em>"Génère une variante de mon template, envoie à 10 prospects, mesure le taux de réponse. Si meilleur, garde. Sinon revert. Boucle 50 fois."</em>. L'agent tourne 1 semaine, tu récupères un email qui peut être <strong>nettement meilleur</strong> que ton template de départ. Combien mieux ? Honnêtement : je ne sais pas à l'avance. Sur mon cas à moi, j'ai gagné quelques points de taux de réponse. Ça peut être zéro chez toi si ton template est déjà bon, ou beaucoup plus si tu partais de loin.</p>
 
     <h3>2. Optimisation de tes landing pages</h3>
-    <p>Même principe. L'agent génère des variantes de ta landing, lance un split-test sur 200 visiteurs, garde la meilleure, recommence. En 2 semaines, ta landing est 3× plus efficace sans que tu n'aies touché à Figma.</p>
+    <p>Même principe. L'agent génère des variantes de ta landing, lance un split-test sur tes visiteurs réels, garde la meilleure, recommence. Plus tu as de trafic, plus vite tu apprends. <strong>Attention :</strong> tu auras rarement un résultat exploitable en-dessous de 1 000 visiteurs par variante — sinon c'est du bruit statistique, pas une vraie amélioration.</p>
 
     <h3>3. Recherche sur n'importe quel sujet</h3>
     <p>Tu veux comprendre un marché, une technologie, un concurrent. Tu écris un <code>research-program.md</code> qui dit : <em>"Cherche 10 sources sur [sujet], résume, identifie les patterns, cherche 10 nouvelles sources sur les patterns, re-synthétise."</em>. Tu laisses tourner la nuit. Tu as le lendemain un rapport que tu n'aurais jamais eu le temps de produire.</p>
+
+    <div class="callout tip">
+      <h4>Les chiffres que je donne viennent de MON expérience</h4>
+      <p>Je te partage ce que j'ai testé sur mes propres cas. Ce n'est pas une science, c'est un témoignage. Ton contexte (ta liste de prospects, ton trafic, ton sujet) va donner des résultats différents des miens. <strong>La seule règle universelle : mesure avant / mesure après.</strong> Sinon tu ne sais pas si ça a marché.</p>
+    </div>
 
     <div class="callout warn">
       <h4>Les 2 pièges à éviter</h4>
@@ -465,6 +479,60 @@
     <div class="callout tip">
       <h4>Mon plan perso</h4>
       <p>J'adapte autoresearch à ma veille auto : un agent qui scanne mes sources, propose des angles d'article, en rédige 3 variantes, me choisis la meilleure au réveil. On en reparle dans un prochain tuto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Ton premier program.md</span>
+    <h2>Un exemple <em class="orange">copiable.</em></h2>
+    <p>
+      Si tu veux tester le concept sans cloner le repo de Karpathy, commence simple : optimiser un cold email. Voici un <code>program.md</code> de 30 lignes que tu peux copier, coller dans Claude Code (ou Codex), et lancer dès aujourd'hui.
+    </p>
+
+    <pre># program.md · Optimisation cold email
+
+## Objectif
+Maximiser le taux de réponse d'un cold email B2B
+sur une liste de 50 prospects qualifiés.
+
+## Variables à optimiser
+- Objet (max 60 caractères)
+- Hook (1re phrase, max 15 mots)
+- CTA (question finale, max 12 mots)
+- Longueur totale (viser 70 à 110 mots)
+
+## Cadre fixe (ne pas modifier)
+- Signature, mon nom, mon contexte pro
+- Nom du prospect, nom de son entreprise
+- Bénéfice concret que je propose
+
+## Boucle
+1. Lire l'email actuel dans `email-v1.md`
+2. Générer UNE variante qui change UNE seule variable
+3. Envoyer à 10 prospects (via mon outil d'envoi)
+4. Attendre 48h, mesurer le taux de réponse
+5. Si taux &gt; baseline → garder, continuer
+6. Si taux &lt; baseline → revert, essayer autre variable
+7. Recommencer, 20 itérations max
+
+## Métrique
+taux de réponse = (réponses reçues) / (emails envoyés)
+Baseline actuelle : 4% (à battre)
+
+## Garde-fous
+- Jamais plus de 10 prospects par variante
+- Stop si 3 variantes consécutives sous baseline
+- Log chaque run dans `runs.md` (date, variable, taux)</pre>
+
+    <p>
+      Ce fichier est volontairement court. C'est ça le travail : <strong>écrire des instructions claires, mesurables, avec des garde-fous</strong>. Pas du code. L'agent fait le reste.
+    </p>
+
+    <div class="callout tip">
+      <h4>Mon retour après 3 semaines de test sur ce schéma</h4>
+      <p>Les 2 premières semaines, mes program.md étaient trop vagues → l'agent partait dans tous les sens. Depuis que je force <strong>UNE variable modifiée à la fois + une métrique chiffrée + un garde-fou</strong>, les runs sont enfin exploitables. Si ton agent tourne dans le vide, c'est presque toujours ton <code>program.md</code> qui est flou, pas l'agent qui est bête.</p>
     </div>
   </div>
 </section>

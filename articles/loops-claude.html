@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Les loops Claude Code, expliqués — par Jérémy Sagnier</title>
-<meta name="description" content="Comment automatiser tes tâches récurrentes avec les loops Claude Code. Timed + dynamic, 3 exemples concrets que j'utilise vraiment. Par Jérémy Sagnier.">
+<meta name="description" content="Comment automatiser tes tâches récurrentes avec les loops Claude Code. Timed + dynamic, 4 exemples concrets (dont 1 pour les non-devs), coûts chiffrés et pièges à éviter. Par Jérémy Sagnier.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -379,7 +379,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 01 · IA &amp; Outils</div>
     <h1>Les loops<br>Claude Code,<br><em>expliqués.</em></h1>
     <p class="hero-lead">
-      Les loops, c'est le truc qui m'a fait passer Claude Code du statut "assistant" à "agent qui bosse pour moi 24/7". Je t'explique comment ça marche, quand les utiliser, et les 3 cas d'usage que j'utilise au quotidien.
+      Les loops, c'est le truc qui m'a fait passer Claude Code du statut "assistant" à "agent qui bosse pour moi 24/7". Je t'explique comment ça marche, quand les utiliser, 4 cas d'usage concrets (dont un pour les non-devs) et combien ça coûte vraiment.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>7 min</strong> de lecture</span>
@@ -397,7 +397,8 @@
     <ul>
       <li>Ce qu'est un <strong>loop Claude Code</strong> — et pourquoi c'est pas un cron classique</li>
       <li>La différence entre <strong>timed loop</strong> (toutes les X minutes) et <strong>dynamic loop</strong> (Claude décide)</li>
-      <li>3 cas d'usage réels que tu peux appliquer <strong>aujourd'hui</strong></li>
+      <li>4 cas d'usage réels (dont 1 pour les non-devs) que tu peux appliquer <strong>aujourd'hui</strong></li>
+      <li><strong>Combien ça coûte</strong> : 3 scénarios chiffrés et le piège à 50 $/jour à éviter</li>
     </ul>
   </div>
 </div>
@@ -457,14 +458,24 @@
   </div>
 </section>
 
-<!-- 3 cas d'usage -->
+<!-- 4 cas d'usage -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— Mes 3 cas d'usage</span>
+    <span class="section-kicker k-orange">— Mes 4 cas d'usage</span>
     <h2>Ce que <em class="orange">j'en fais</em> vraiment.</h2>
     <p>
-      Je te partage les 3 loops que je tourne au quotidien. Copie-colle, adapte à ton cas.
+      Je te partage les 4 loops que je tourne au quotidien. Copie-colle, adapte à ton cas.
     </p>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas 00 · Pour les non-devs</div>
+      <h4>Un bêta-lecteur qui relit ta page de vente toute la journée</h4>
+      <p>Tu n'as pas de code, pas de build, pas de déploiement à surveiller ? Pas grave, les loops servent aussi à toi. Tu lances un loop qui relit ta landing page (ou ton email, ta séquence, ton script de vidéo) toutes les heures, et tu reçois un mini-audit à chaque passage. À toi de garder ou de zapper.</p>
+      <pre>/loop 1h "Relis ma landing page landing.md
+et donne-moi 3 améliorations prioritaires
+selon les règles de copywriting Hormozi."</pre>
+      <p>Coût : environ 0,5 $/jour si tu laisses tourner 8 h de journée. Parfait pour itérer pendant que tu fais autre chose.</p>
+    </div>
 
     <div class="usecase">
       <div class="usecase-label">Cas 01 · Ma veille IA auto</div>
@@ -491,6 +502,68 @@ Si succeeded, dis-moi OK. Si failed, montre l'erreur."</pre>
       <pre>/loop 1h "Relis /tmp/article-en-cours.md.
 Signale-moi les 3 passages à retravailler en priorité."</pre>
       <p>Utilisation combinée avec le skill <code>humanizer</code> pour éviter que mon texte sonne trop "ChatGPT".</p>
+    </div>
+  </div>
+</section>
+
+<!-- À quoi ça ressemble -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— En vrai, concrètement</span>
+    <h2>À quoi ressemble <em class="teal">un loop qui tourne ?</em></h2>
+    <p>
+      C'est la question que tout le monde me pose. "OK mais je vois rien, il se passe quoi pendant que ça tourne ?" Voici un exemple type de ce que je reçois dans ma console quand mon loop de veille fait son 7ᵉ passage de la journée :
+    </p>
+
+    <pre>[14:32] Loop #veille-ia — run 7
+Scanné : 42 articles, 5 threads X, 3 repos GitHub
+Nouveauté notable : Anthropic publie "Claude Projects API"
+  → pourrait remplacer 3 workflows internes
+Aucun changement sur les 4 autres sujets suivis
+→ ping envoyé sur Slack #veille</pre>
+
+    <p>
+      Quand il n'y a <strong>rien de neuf</strong>, le loop tourne quand même, te dit juste "rien à signaler" et repart. Quand il <strong>trouve quelque chose</strong>, il t'alerte (Slack, email, console, ce que tu veux). C'est ça le truc : 95 % des runs sont silencieux, mais les 5 % qui comptent arrivent sans que tu aies rien à faire.
+    </p>
+  </div>
+</section>
+
+<!-- Combien ça coûte -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— La question qui fâche</span>
+    <h2>Combien <em class="orange">ça coûte ?</em></h2>
+    <p>
+      C'est la deuxième question qu'on me pose tout le temps — et honnêtement, c'est la bonne. Un loop mal configuré peut faire exploser ta facture en une nuit. Voici 3 scénarios chiffrés pour que tu saches ce que tu paies.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>1 loop léger · ~1 à 2 $/mois</h3>
+        <p>Une veille qui tourne 4 fois par jour, environ 3 000 tokens par run (un prompt court + un résumé). Tu ne sens pas passer la facture. C'est mon premier conseil quand tu débutes : commence par UN seul loop, sur un truc qui te sert vraiment.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>3 loops actifs · ~8 à 15 $/mois</h3>
+        <p>Veille IA + monitoring déploy + relecture article. 3 loops avec des prompts moyens (5 à 8k tokens par run). C'est mon setup actuel. À ce niveau, tu commences à sentir le ROI — tu économises 30 min à 1 h par jour, largement rentabilisé.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Piège à éviter · 50 à 80 $/jour</h3>
+        <p>Tu mets <code>/loop 30s "fais X"</code> pour "voir ce que ça donne", tu fermes ton ordi, tu oublies. 2 880 runs en 24 h. Si ton prompt fait 10k tokens, tu peux atteindre 50 à 80 $/jour selon le modèle utilisé. Lis le "Piège 1" plus bas avant de lancer quoi que ce soit.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>Mon conseil cash</h4>
+      <p>Active le plafond de dépense sur ton compte Anthropic (Settings → Billing → Usage limits). Mets 20 $/mois au départ. Tu sauras vite si tu dois l'augmenter — et tu ne te réveilleras pas avec une facture à 300 $.</p>
     </div>
   </div>
 </section>
@@ -530,6 +603,11 @@ Signale-moi les 3 passages à retravailler en priorité."</pre>
       <li><strong>Les skills custom</strong> — créer ton propre "métier" réutilisable (comme <code>veille-ia</code>, <code>cold-email</code>). Voir mon <a href="../claude-code.html">pack Claude Code</a>.</li>
       <li><strong>Les hooks settings.json</strong> — faire que Claude déclenche automatiquement une action à chaque fin de session (log, commit, notif Telegram).</li>
     </ol>
+
+    <div class="callout tip">
+      <h4>C'est quoi "sous-agents parallèles" ?</h4>
+      <p>Quand tu dis à Claude "lance ça en parallèle", il peut ouvrir plusieurs "mini-Claude" qui bossent en même temps sur des tâches différentes. Comme si tu embauchais 5 stagiaires pour la même heure, au lieu d'un seul pendant 5 h. Tu payes le même prix total, mais tu vas 5× plus vite.</p>
+    </div>
 
     <p>Chaque sujet = un futur article ici. Si tu veux être prévenu quand je publie, l'inscription newsletter est en bas.</p>
   </div>

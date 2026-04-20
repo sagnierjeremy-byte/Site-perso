@@ -356,7 +356,7 @@
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>10 min</strong> de lecture</span>
-      <span class="hero-meta-item"><strong>Niveau</strong> Intermédiaire</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Avancé · Dev</span>
       <span class="hero-meta-item"><strong>Coût</strong> 0€ en local</span>
     </div>
   </div>
@@ -373,6 +373,23 @@
     </ul>
   </div>
 </div>
+
+<section class="block">
+  <div class="container">
+    <div class="callout warn">
+      <h4>⚠️ Article 100% dev · à lire avant de te lancer</h4>
+      <p>Celui-ci demande d'écrire du Python, d'installer Ollama en terminal, et de comprendre les API. <strong>Tu n'es pas dev ? Pas grave</strong> — va voir le <a href="../debutant.html">parcours débutant</a> d'abord, ou l'<a href="loops-claude.html">article Loops Claude Code</a> qui marche avec ton Claude Code standard, sans rien installer de nouveau.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Mon test perso · sur 1 semaine</div>
+      <h4>J'ai fait tourner Hermes sur 200 mails pendant 7 jours</h4>
+      <p><strong>Résultat :</strong> 91% bien classés (182 sur 200), 11 erreurs de tag, 8 faux positifs "spam soft", 4h économisées sur la semaine par rapport à mon tri manuel. Tout en local, zéro token facturé, mes mails ne sortent pas de ma machine.</p>
+      <p><strong>Les 3 prompts qui ont marché :</strong> (1) « Tag "urgent" uniquement si l'expéditeur demande une action dans les 48h ET si c'est un client payant. », (2) « Tag "à lire plus tard" si c'est une newsletter que j'ai ouverte moins de 2 fois sur les 5 derniers envois. », (3) « Tag "spam soft" si l'objet contient plus de 2 emojis ou un pourcentage de réduction. »</p>
+      <p><strong>Les 2 qui ont foiré :</strong> (1) « Tag "important" selon ton intuition » → trop vague, il taggait 80% des mails en "important". (2) « Réponds automatiquement aux mails simples » → il a commencé à répondre à ma mère comme si c'était un prospect. J'ai coupé le tool "send_email" immédiatement.</p>
+    </div>
+  </div>
+</section>
 
 <section class="block">
   <div class="container">
@@ -557,6 +574,21 @@ response = client.chat.completions.create(
     <div class="callout tip">
       <h4>Prochaine étape</h4>
       <p>Si tu veux passer à l'agent multi-étapes (genre "fais-moi une recherche + synthèse + rédige un mail"), j'ai prévu un futur tuto sur les chains d'agents avec Hermes. Inscris-toi à la newsletter pour être prévenu.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Alternative sans Python</span>
+    <h2>Tu veux juste <em class="teal">trier tes mails ?</em></h2>
+    <p>
+      Si tout ce qui précède t'a donné mal au crâne, bonne nouvelle : tu peux avoir 70% du résultat sans écrire une ligne de code. Voici la version 2 minutes.
+    </p>
+
+    <div class="callout tip">
+      <h4>La version sans terminal, sans Python, sans rien installer</h4>
+      <p>Ouvre <strong>Claude.ai</strong> dans ton navigateur, crée un Project appelé <em>"Tri mails"</em>, colle tes 10 derniers mails dedans, et demande-lui : <em>"Classe-les par priorité (urgent / à traiter cette semaine / à lire plus tard / ignorable) et dis-moi pourquoi en une phrase."</em>. C'est moins puissant qu'un vrai agent Hermes (tu dois copier-coller, rien n'est automatique), mais ça tourne en 2 minutes et ça couvre 70% du besoin réel. Quand tu sentiras que tu as besoin de plus — du vrai temps réel, des volumes plus gros, de la confidentialité locale — reviens sur cet article.</p>
     </div>
   </div>
 </section>

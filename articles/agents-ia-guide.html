@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agents IA : à quoi ça sert, comment ça marche, combien ça coûte — par Jérémy Sagnier</title>
+<meta name="description" content="Un guide complet sur les agents IA pour débutants : ce que c'est vraiment, comment ça fonctionne, comment en créer un, combien ça coûte, et ce que les gens se demandent sans oser le dire.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background: #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('screenshots/agents/lindy-home.png') right center / auto 140% no-repeat;
+    filter: blur(3px) brightness(.55) saturate(1.2) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
+    opacity: .75;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(0,178,169,.45), transparent 45%),
+      radial-gradient(ellipse at 10% 85%, rgba(239,66,111,.42), transparent 52%),
+      radial-gradient(ellipse at 60% 100%, rgba(255,130,0,.2), transparent 55%),
+      linear-gradient(90deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 80%, rgba(10,10,10,.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5.4vw, 64px);
+    line-height: .98; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 860px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  blockquote {
+    margin: 28px 0; padding: 22px 26px 22px 32px;
+    border-left: 4px solid var(--teal);
+    background: rgba(0,178,169,.06);
+    border-radius: 0 14px 14px 0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 19px; line-height: 1.55;
+    font-style: italic; color: var(--ink);
+    font-weight: 500;
+  }
+  blockquote p { font-size: 19px; line-height: 1.55; color: var(--ink); margin: 0 }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 24px 0; font-size: 15.5px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px; overflow: hidden;
+  }
+  table th, table td {
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5; vertical-align: top;
+  }
+  table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  table tr:last-child td { border-bottom: none }
+  table td strong { color: var(--ink) }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(239,66,111,.1), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+
+  .newsletter-form {
+    max-width: 520px; margin: 0 auto;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1; min-width: 240px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-size: 15px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-form input[type="email"]:focus { border-color: var(--teal) }
+  .newsletter-form button {
+    padding: 14px 24px;
+    border-radius: 999px; border: none;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: transform .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .newsletter-form button:disabled { opacity: .6; cursor: not-allowed }
+  .newsletter-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 16px;
+  }
+  .newsletter-success {
+    display: none; margin-top: 16px;
+    font-size: 15px; color: var(--teal); font-weight: 600;
+  }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Mini-marquee divider entre sections */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative; margin: 48px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mm-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -.01em; position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mm-scroll {
+    0% { transform: translateX(0) }
+    100% { transform: translateX(-50%) }
+  }
+
+  /* Sidebar SCOREBOARD Spurs 89 — roster style */
+  .article-sidebar {
+    position: fixed;
+    top: 110px;
+    right: 24px;
+    width: 260px;
+    max-height: calc(100vh - 140px);
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    font-size: 13px;
+    z-index: 40;
+    display: none;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  [data-theme="dark"] .article-sidebar {
+    border-color: var(--ink-soft);
+    box-shadow: 6px 6px 0 rgba(244,239,230,.12);
+  }
+  @media (min-width: 1240px) { .article-sidebar { display: flex; flex-direction: column; } }
+
+  .sidebar-head {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-head::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg,
+      var(--teal) 0%, var(--teal) 33.33%,
+      var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
+      var(--orange) 66.66%, var(--orange) 100%);
+  }
+  .sidebar-head-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .sidebar-head-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: rgba(244,239,230,.7);
+  }
+  .sidebar-head-count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: .05em;
+  }
+  .sidebar-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    line-height: 1; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .sidebar-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+  }
+  .article-sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .article-sidebar li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18px 44px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .article-sidebar li:last-child { border-bottom: none; }
+  .article-sidebar li:hover { background: var(--bg-2); }
+
+  .ss-rowel {
+    width: 14px; height: 14px;
+    color: var(--ink-muted);
+    transition: color .2s, transform .3s;
+    flex-shrink: 0;
+  }
+  .article-sidebar li:hover .ss-rowel { transform: rotate(45deg); }
+  .article-sidebar li:nth-child(3n+1):hover .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2):hover .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3):hover .ss-rowel { color: var(--orange); }
+
+  .ss-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; font-weight: 900;
+    letter-spacing: -.02em; line-height: 1;
+    color: var(--ink);
+  }
+  .ss-num .hash {
+    font-size: 9px;
+    color: var(--ink-muted);
+    margin-right: 2px;
+    vertical-align: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .article-sidebar li:nth-child(3n+1) .ss-num { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2) .ss-num { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3) .ss-num { color: var(--orange); }
+
+  .ss-title {
+    color: var(--ink-soft); text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    line-height: 1.25;
+    transition: color .15s, transform .15s;
+  }
+  .article-sidebar li:hover .ss-title {
+    color: var(--ink); transform: translateX(2px);
+  }
+
+  .article-sidebar li.is-active { background: var(--bg-2); }
+  .article-sidebar li.is-active::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .article-sidebar li:nth-child(3n+1).is-active::before { background: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active::before { background: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active::before { background: var(--orange); }
+  .article-sidebar li.is-active .ss-title { color: var(--ink); }
+  .article-sidebar li.is-active .ss-rowel { color: inherit; }
+  .article-sidebar li:nth-child(3n+1).is-active .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active .ss-rowel { color: var(--orange); }
+
+  .sidebar-cta {
+    padding: 14px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    border-top: 3px solid var(--orange);
+  }
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .sidebar-cta-lead {
+    font-size: 12px; line-height: 1.35;
+    margin: 0 0 10px;
+    color: rgba(244,239,230,.85);
+    font-weight: 500;
+  }
+  .sidebar-cta-btn {
+    display: block; text-align: center;
+    background: var(--orange); color: var(--ink);
+    padding: 10px 12px; border-radius: 0;
+    text-decoration: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: .08em; line-height: 1;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .sidebar-cta-btn:hover {
+    background: var(--fuchsia); color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 rgba(244,239,230,.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Retour au site
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Rowel SVG symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rowel" viewBox="0 0 100 100">
+    <g fill="currentColor">
+      <circle cx="50" cy="50" r="14"/>
+      <polygon points="50,0 55,40 45,40"/>
+      <polygon points="100,50 60,55 60,45"/>
+      <polygon points="50,100 45,60 55,60"/>
+      <polygon points="0,50 40,45 40,55"/>
+      <polygon points="85,15 62,42 58,38"/>
+      <polygon points="85,85 58,62 62,58"/>
+      <polygon points="15,85 38,58 42,62"/>
+      <polygon points="15,15 42,38 38,42"/>
+    </g>
+  </symbol>
+</svg>
+
+<aside class="article-sidebar" aria-label="Sommaire de l'article">
+  <header class="sidebar-head">
+    <div class="sidebar-head-top">
+      <span class="sidebar-head-label">Roster</span>
+      <span class="sidebar-head-count">13 / 13</span>
+    </div>
+    <div class="sidebar-head-title">Sommaire</div>
+  </header>
+
+  <nav class="sidebar-list" aria-label="Sections de l'article">
+    <ul>
+      <li data-section="cest-quoi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>01</span>
+        <a class="ss-title" href="#cest-quoi">Un agent IA c'est quoi</a>
+      </li>
+      <li data-section="difference">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>02</span>
+        <a class="ss-title" href="#difference">Les vraies différences</a>
+      </li>
+      <li data-section="briques">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>03</span>
+        <a class="ss-title" href="#briques">Les quatre briques</a>
+      </li>
+      <li data-section="fonctionnement">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>04</span>
+        <a class="ss-title" href="#fonctionnement">Comment ça marche</a>
+      </li>
+      <li data-section="types">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>05</span>
+        <a class="ss-title" href="#types">Les quatre types</a>
+      </li>
+      <li data-section="a-quoi-ca-sert">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>06</span>
+        <a class="ss-title" href="#a-quoi-ca-sert">À quoi ça sert</a>
+      </li>
+      <li data-section="comment-parler">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#comment-parler">Comment lui parler</a>
+      </li>
+      <li data-section="comment-creer">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#comment-creer">Comment en créer un</a>
+      </li>
+      <li data-section="cout">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#cout">Combien ça coûte</a>
+      </li>
+      <li data-section="apprend">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>10</span>
+        <a class="ss-title" href="#apprend">Est-ce qu'il apprend</a>
+      </li>
+      <li data-section="risques">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>11</span>
+        <a class="ss-title" href="#risques">Les cinq risques</a>
+      </li>
+      <li data-section="faq">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>12</span>
+        <a class="ss-title" href="#faq">Dix questions</a>
+      </li>
+      <li data-section="et-toi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>13</span>
+        <a class="ss-title" href="#et-toi">Et toi&nbsp;?</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-cta">
+    <div class="sidebar-cta-label">★ Newsletter</div>
+    <p class="sidebar-cta-lead">Ma veille IA, chaque vendredi matin. Sans pub, désinscription en un clic.</p>
+    <a href="#cta-newsletter" class="sidebar-cta-btn">Je m'abonne →</a>
+  </div>
+</aside>
+
+<script>
+  (function() {
+    const items = document.querySelectorAll('.article-sidebar li[data-section]');
+    if (!items.length) return;
+    const sections = Array.from(items).map(li => ({
+      li: li,
+      el: document.getElementById(li.dataset.section)
+    })).filter(s => s.el);
+
+    function update() {
+      const y = window.scrollY + 160;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.el.offsetTop <= y) active = s;
+      }
+      items.forEach(i => i.classList.remove('is-active'));
+      if (active) active.li.classList.add('is-active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Guide complet · Claude Code</div>
+    <h1>Agents IA :<br><em class="teal">à quoi ça sert,</em><br>comment ça marche,<br>combien ça coûte.</h1>
+    <p class="hero-lead">
+      Tu entends parler d'agents IA partout. Des coachs qui t'en vendent, des plateformes qui te promettent des miracles à 70 € par mois, et des articles qui mélangent tout. Ce guide répond aux questions que tu te poses vraiment — sans jargon, avec des chiffres réels et des exemples concrets.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>14 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Guide</strong> débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Claude Code</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">Ce que tu vas apprendre, en 30 secondes</div>
+    <h2>L'essentiel en trois points</h2>
+    <ul>
+      <li>Un agent IA, ce n'est pas un chatbot. La définition la plus claire vient de Simon Willison&nbsp;: «&nbsp;un LLM qui exécute des outils en boucle pour atteindre un objectif&nbsp;». <strong>Sans outils, sans boucle, sans objectif, ce n'est pas un agent.</strong></li>
+      <li>Tu as trois façons d'en créer un en 2026 : <strong>no-code (Lindy, Zapier), low-code avec Claude Code, ou full développement</strong>. Le budget va de 15 € à plusieurs milliers d'euros par mois selon le cas.</li>
+      <li>Non, un agent <strong>n'apprend pas tout seul</strong> de ses erreurs. Les modèles sont figés après entraînement. Il s'améliore uniquement si tu lui donnes de meilleurs outils, de meilleures instructions ou des documents à consulter.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block" id="cest-quoi">
+  <div class="container">
+    <span class="section-kicker k-teal">— Le point de départ</span>
+    <h2>Un agent IA, <em class="teal">c'est quoi exactement&nbsp;?</em></h2>
+    <p>
+      Tu vois tout le monde parler d'agents IA depuis deux ans. Dans la pratique, le mot est mal employé neuf fois sur dix. Je vais te donner la définition que tous les spécialistes sérieux utilisent, et qui vient du développeur Simon Willison&nbsp;: «&nbsp;Un agent, c'est un modèle de langage — Claude, ChatGPT, Gemini — qui exécute des outils en boucle pour atteindre un objectif.&nbsp;»
+    </p>
+    <p>
+      Trois mots comptent&nbsp;: <strong>outils</strong>, <strong>boucle</strong>, <strong>objectif</strong>.
+    </p>
+    <ul>
+      <li>Sans <strong>outils</strong> (envoyer un mail, chercher sur le web, écrire dans une base de données), tu n'as qu'un LLM qui cause dans le vide.</li>
+      <li>Sans <strong>boucle</strong> (enchaîner plusieurs actions), tu n'as qu'un chatbot qui répond à une question à la fois.</li>
+      <li>Sans <strong>objectif</strong> clair, tu n'as qu'un exécutant sans but, qui finit par partir dans tous les sens.</li>
+    </ul>
+    <p>
+      Anthropic, l'éditeur de Claude, ajoute une distinction utile&nbsp;:
+    </p>
+    <ul>
+      <li>Un <strong>workflow</strong>, c'est toi qui décides à l'avance des étapes. «&nbsp;Quand un lead arrive dans Shopify, ajoute-le à HubSpot, envoie-lui un mail, préviens-moi sur Slack.&nbsp;» C'est rigide, c'est prévisible, c'est Zapier ou Make.</li>
+      <li>Un <strong>agent</strong>, c'est le LLM qui décide lui-même à chaque étape quoi faire ensuite, en fonction de ce qu'il observe. Plus d'autonomie, plus d'imprévus aussi.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="difference">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le tableau clair</span>
+    <h2>Chatbot, workflow, agent&nbsp;: <em class="fuchsia">les vraies différences.</em></h2>
+    <p>
+      Le mot «&nbsp;agent&nbsp;» est devenu un fourre-tout marketing. Voici le tableau clair pour savoir de quoi on parle vraiment.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>LLM seul</th>
+          <th>Chatbot</th>
+          <th>Agent IA</th>
+          <th>Workflow auto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ce qu'il fait</strong></td>
+          <td>Répond à du texte</td>
+          <td>Dialogue sur un sujet précis</td>
+          <td>Agit et enchaîne des actions</td>
+          <td>Enchaîne des étapes prédéfinies</td>
+        </tr>
+        <tr>
+          <td><strong>Outils externes</strong></td>
+          <td>Non</td>
+          <td>Parfois</td>
+          <td>Oui (mail, web, APIs)</td>
+          <td>Oui, mais figés</td>
+        </tr>
+        <tr>
+          <td><strong>Qui décide des étapes</strong></td>
+          <td>L'utilisateur</td>
+          <td>Règles écrites</td>
+          <td>Le modèle lui-même</td>
+          <td>Toi, à l'avance</td>
+        </tr>
+        <tr>
+          <td><strong>Mémoire</strong></td>
+          <td>Session courante</td>
+          <td>Variable</td>
+          <td>Court et long terme</td>
+          <td>État de l'exécution</td>
+        </tr>
+        <tr>
+          <td><strong>Exemple</strong></td>
+          <td>«&nbsp;Résume ce texte&nbsp;»</td>
+          <td>Bot SAV Shopify</td>
+          <td>Claude Code qui lit tes mails et te prépare des réponses</td>
+          <td>«&nbsp;Nouveau lead → CRM → mail&nbsp;»</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      La plupart des outils vendus comme «&nbsp;agents IA&nbsp;» en 2026 sont en réalité des workflows améliorés avec du LLM au milieu. Rien de mal à cela. Mais savoir ce que tu as vraiment, tu payes mieux.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="briques">
+  <div class="container">
+    <span class="section-kicker k-orange">— L'anatomie</span>
+    <h2>Les quatre briques <em class="orange">qui font un agent.</em></h2>
+    <p>
+      Un vrai agent IA, c'est quatre ingrédients assemblés.
+    </p>
+
+    <h3>1. Le cerveau</h3>
+    <p>
+      Un modèle de langage (Claude, GPT-5, Gemini) qui raisonne, décide, rédige. C'est ce qui remplace le «&nbsp;si / alors&nbsp;» des workflows classiques par du jugement contextuel.
+    </p>
+
+    <h3>2. Les mains</h3>
+    <p>
+      Ce que les spécialistes appellent les «&nbsp;outils&nbsp;» ou le «&nbsp;tool use&nbsp;». Des fonctions que l'agent peut demander d'exécuter&nbsp;: envoyerEmail, chercherWeb, lireCRM, ajouterCalendrier. L'agent ne fait pas l'action lui-même. Il dit «&nbsp;j'ai besoin d'envoyer cet email&nbsp;», ton code exécute l'action, lui renvoie le résultat.
+    </p>
+
+    <h3>3. La mémoire</h3>
+    <p>
+      Court terme (l'historique de la conversation en cours) et long terme (une base de données qui stocke les souvenirs, les préférences, les documents consultés). Sans mémoire, l'agent oublie tout à chaque session, comme un stagiaire amnésique.
+    </p>
+
+    <h3>4. La boucle de décision</h3>
+    <p>
+      Le cycle qui fait tourner le tout tant que l'objectif n'est pas atteint. C'est ce qui permet à l'agent de tester, se tromper, réessayer.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="fonctionnement">
+  <div class="container">
+    <span class="section-kicker k-teal">— Le cycle</span>
+    <h2>Comment ça marche, <em class="teal">concrètement.</em></h2>
+    <p>
+      Le cycle d'un agent se fait en quatre temps. Toujours les mêmes.
+    </p>
+
+    <h3>1. Percevoir</h3>
+    <p>
+      L'agent lit ta demande («&nbsp;organise mon mercredi&nbsp;») et l'état actuel (agenda, mails non lus, tâches ouvertes).
+    </p>
+
+    <h3>2. Réfléchir</h3>
+    <p>
+      Le modèle choisit&nbsp;: est-ce que je réponds directement, ou j'ai besoin d'un outil&nbsp;? Pour organiser un mercredi, il a besoin de lire l'agenda et les mails. Il décide d'appeler <code>lireCalendrier()</code> et <code>lireMails()</code>.
+    </p>
+
+    <h3>3. Agir</h3>
+    <p>
+      Il appelle les outils. Ton code les exécute, renvoie les résultats. L'agent voit «&nbsp;mercredi 10h libre, 11h réunion client, 14h libre, trois mails urgents, deux relances à faire&nbsp;».
+    </p>
+
+    <h3>4. Vérifier</h3>
+    <p>
+      Il intègre ces informations, décide si la tâche est finie. Elle ne l'est pas encore&nbsp;: il lui reste à proposer un planning. Il rédige la proposition, revient vers toi, ou la crée directement si tu lui as donné le droit.
+    </p>
+
+    <p>
+      Le cycle recommence tant que l'objectif n'est pas atteint.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="types">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— La famille</span>
+    <h2>Les quatre grands types <em class="fuchsia">d'agents.</em></h2>
+    <p>
+      Tous les agents ne se ressemblent pas. Pour un entrepreneur, quatre catégories suffisent à comprendre ce qui existe.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Ce qu'il fait</th>
+          <th>Exemple métier concret</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Conversationnel</strong></td>
+          <td>Dialogue étendu, comprend le contexte, utilise un ou deux outils</td>
+          <td>Bot de qualification de leads pour un coach — qualifie et prend un rendez-vous</td>
+        </tr>
+        <tr>
+          <td><strong>Autonome</strong></td>
+          <td>Enchaîne plusieurs étapes seul pour une tâche complexe</td>
+          <td>Un restaurateur qui fait lire les 50 derniers avis Google, rédiger et poster les réponses</td>
+        </tr>
+        <tr>
+          <td><strong>Orchestrateur</strong></td>
+          <td>Supervise plusieurs agents spécialisés</td>
+          <td>Un e-commerçant avec un «&nbsp;chef d'orchestre&nbsp;» qui délègue à un agent SAV, un agent relance panier, un agent SEO produit</td>
+        </tr>
+        <tr>
+          <td><strong>Spécialisé</strong></td>
+          <td>Expert étroit d'un domaine</td>
+          <td>Un consultant avec un agent dédié à la veille concurrentielle sur cinq comptes LinkedIn</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Un agent orchestrateur, c'est le niveau du dessus. Tu le croises souvent dans les démos impressionnantes. Dans la vraie vie, commence par un agent spécialisé qui résout un problème précis.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Cinq exemples concrets</span><span>Chiffres sourcés</span><span>Pas des promesses creuses</span><span>Voici ce qui marche</span>
+    <span>Cinq exemples concrets</span><span>Chiffres sourcés</span><span>Pas des promesses creuses</span><span>Voici ce qui marche</span>
+  </div>
+</div>
+
+<section class="block" id="a-quoi-ca-sert">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les cas réels</span>
+    <h2>À quoi ça sert, <em class="orange">avec de vrais exemples.</em></h2>
+    <p>
+      La promesse «&nbsp;fais-toi assister par un agent&nbsp;» reste vague tant que tu n'as pas vu un cas concret. Voici cinq exemples 2026 documentés publiquement, avec leurs chiffres. Je mets entre crochets l'origine de chaque donnée pour que tu puisses croiser.
+    </p>
+
+    <h3>Cas 1 — Standard téléphonique pour restaurant</h3>
+    <p>
+      <em>[éditeur Hostie, chiffres déclarés]</em><br>
+      Un restaurant qui rate 15 à 20 % des appels en rush, surtout entre 18h et 20h. Un agent vocal prend la réservation, parle 140 langues si besoin, appelle l'API de réservation. Résultat annoncé&nbsp;: <strong>+141 % de couverts par téléphone</strong>.
+    </p>
+
+    <h3>Cas 2 — Résumés de mails pour un consultant B2B</h3>
+    <p>
+      <em>[étude interne GrowthSpree]</em><br>
+      Avant l'agent&nbsp;: 10 minutes par compte pour lire LinkedIn, les actus, le site web, et écrire un message personnalisé. Avec un workflow Claude&nbsp;: <strong>90 secondes par compte</strong>. Taux de réponse 2 à 3 fois supérieur au cold générique.
+    </p>
+
+    <h3>Cas 3 — Chat d'abandon pour un e-commerçant</h3>
+    <p>
+      <em>[Snow Teeth Whitening avec Rep AI / Shopify]</em><br>
+      Un chat qui relance les paniers abandonnés et répond aux questions produit. Sur 60 jours&nbsp;: <strong>33,85 % de conversion</strong> sur les chats d'abandon, <strong>+220 000 $</strong> de chiffre d'affaires additionnel, 50 % de tickets support en moins.
+    </p>
+
+    <h3>Cas 4 — Orchestrateur pour une startup SaaS</h3>
+    <p>
+      <em>[Ankor, yachting software, témoignage Lindy]</em><br>
+      Une petite équipe qui manque de bras. Elle déploie 20 à 30 agents Lindy. Témoignage du fondateur&nbsp;: «&nbsp;Cela a été comme engager 10 employés en une semaine.&nbsp;»
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/agents/lindy-home.png" alt="Page d'accueil de Lindy.ai, plateforme no-code pour créer des agents IA" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        Lindy.ai — une des plateformes no-code les plus connues pour créer des agents IA en 2026
+      </figcaption>
+    </figure>
+
+    <h3>Cas 5 — Standard téléphonique pour artisan</h3>
+    <p>
+      <em>[chiffres éditeurs GOODEV, Nerolia]</em><br>
+      Plombiers, électriciens, chauffagistes. 30 à 40 % d'appels manqués en chantier = devis perdus. L'agent trie urgence contre devis, alerte mobile si fuite, planifie les créneaux. Gain annoncé&nbsp;: <strong>40 à 55 % de prospects captés en plus</strong>, pour 80 à 350 € par mois d'abonnement.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="comment-parler">
+  <div class="container">
+    <span class="section-kicker k-teal">— La boîte à outils</span>
+    <h2>Comment lui parler&nbsp;: <em class="teal">le prompt système.</em></h2>
+    <p>
+      La chose la plus importante à comprendre quand tu construis un agent, c'est que tu ne «&nbsp;parles&nbsp;» pas à lui comme à ChatGPT. Tu lui donnes d'abord des <strong>instructions permanentes</strong> — le prompt système — avant qu'aucun utilisateur ne lui demande quoi que ce soit. Ces instructions définissent sa personnalité, ses limites, ses outils.
+    </p>
+    <p>
+      Structure qui marche&nbsp;:
+    </p>
+
+    <pre><code>RÔLE     : Tu es [persona précise], expert en [domaine].
+CONTEXTE : [entreprise, produit, utilisateur type].
+OBJECTIF : [résultat mesurable attendu].
+OUTILS   : Tu as accès à [liste d'outils + quand les utiliser].
+LIMITES  :
+  - Tu ne [action interdite 1].
+  - Si tu n'es pas sûr à plus de 90 %, demande confirmation.
+  - Tu ne révèles jamais [infos sensibles].
+FORMAT DE SORTIE : [liste, email, tableau…].</code></pre>
+
+    <p>
+      Exemple copiable pour un assistant personnel&nbsp;:
+    </p>
+
+    <pre><code>Tu es Léo, l'assistant de Jérémy, entrepreneur qui gère 3 projets.
+Ton ton : chaleureux, direct, jamais corporate.
+Objectif : faire gagner 1 heure par jour à Jérémy sur l'admin.
+Outils : Gmail (lire et préparer des brouillons, jamais envoyer sans
+validation), Google Calendar (créer, modifier), Notion (ajouter des notes).
+Limites : tu ne supprimes jamais un évènement sans demander,
+tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
+
+    <p>
+      Cette méthode de prompt système, c'est 80 % du travail. Un agent avec un bon prompt système et cinq outils basiques fera mieux qu'un agent mal cadré avec cinquante outils. Commence simple.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="comment-creer">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Les chemins</span>
+    <h2>Les trois façons <em class="fuchsia">d'en créer un.</em></h2>
+    <p>
+      Tu as trois chemins possibles en 2026, selon ton niveau technique et ton budget.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Chemin</th>
+          <th>Pour qui</th>
+          <th>Temps setup</th>
+          <th>Coût/mois</th>
+          <th>Contrôle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>No-code</strong> (Lindy, Zapier Agents, Make, n8n Cloud, Gumloop)</td>
+          <td>Tu veux un agent qui tourne demain, pas coder</td>
+          <td>30 min à 2h</td>
+          <td>30 à 200 €</td>
+          <td>Faible à moyen</td>
+        </tr>
+        <tr>
+          <td><strong>Claude Code + Agent SDK</strong></td>
+          <td>Tu sais lancer un terminal et éditer un fichier texte</td>
+          <td>1 à 4h</td>
+          <td>5 à 50 € (pay-as-you-go Anthropic)</td>
+          <td>Élevé</td>
+        </tr>
+        <tr>
+          <td><strong>Full dev Python</strong> (LangGraph, CrewAI)</td>
+          <td>Tu codes ou tu as un dev à côté</td>
+          <td>2 à 10 jours</td>
+          <td>20 à 500 €</td>
+          <td>Total</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      La règle empirique que je donne à mes proches&nbsp;: commence par le no-code pour tester ton idée. Bascule sur Claude Code dès que tu bloques sur la logique ou que les coûts dépassent 80 € par mois.
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/agents/claude-agent-sdk-docs.png" alt="Documentation officielle du Claude Agent SDK d'Anthropic" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        La documentation officielle du Claude Agent SDK — l'option la plus flexible pour un non-développeur qui accepte de mettre les mains dans le terminal
+      </figcaption>
+    </figure>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <img src="screenshots/agents/zapier-agents-home.png" alt="Page d'accueil de Zapier Agents avec templates et intégrations" style="width: 100%; height: auto; display: block;">
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        Zapier Agents — l'option la plus simple pour débuter, avec des templates et des intégrations préfaites
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>15 euros pour un solo</span><span>450 euros pour une PME</span><span>Jusqu'à 13 000 pour du critique</span><span>Les vrais chiffres</span>
+    <span>15 euros pour un solo</span><span>450 euros pour une PME</span><span>Jusqu'à 13 000 pour du critique</span><span>Les vrais chiffres</span>
+  </div>
+</div>
+
+<section class="block" id="cout">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les chiffres</span>
+    <h2>Combien ça coûte <em class="orange">vraiment.</em></h2>
+    <p>
+      Les prix des APIs IA en 2026, par million de tokens (entrée et sortie)&nbsp;:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Modèle</th>
+          <th>Entrée</th>
+          <th>Sortie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Claude Haiku 4.5</strong></td><td>1 $</td><td>5 $</td></tr>
+        <tr><td><strong>Claude Sonnet 4.6</strong></td><td>3 $</td><td>15 $</td></tr>
+        <tr><td><strong>Claude Opus 4.7</strong></td><td>5 $</td><td>25 $</td></tr>
+        <tr><td><strong>GPT-5</strong></td><td>0,625 $</td><td>5 $</td></tr>
+        <tr><td><strong>Gemini 2.5 Flash</strong></td><td>~0,30 $</td><td>2,50 $</td></tr>
+        <tr><td><strong>Mistral Medium 3</strong></td><td>1 $</td><td>3 $</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Traduit en scénarios réels&nbsp;:
+    </p>
+
+    <h3>Solo entrepreneur — 1 agent léger</h3>
+    <p>
+      Un assistant email qui tourne 500 fois par mois. Stack&nbsp;: Claude Haiku par API, Make.com plan Core à 9 € par mois, hébergement Vercel gratuit. <strong>Coût mensuel&nbsp;: 15 à 25 €.</strong> Rentable dès que l'agent t'économise une heure par mois.
+    </p>
+
+    <h3>PME — 5 agents actifs</h3>
+    <p>
+      Support, qualification de leads, résumé de réunions, tri d'inbox, génération de devis. 50 000 requêtes par mois. Stack&nbsp;: API Claude mix Sonnet et Haiku, Supabase Pro 25 $, Railway 20 $, orchestration Lindy 50 $. <strong>Coût mensuel&nbsp;: 450 à 700 €.</strong> Rentable dès qu'il remplace 0,3 équivalent temps plein.
+    </p>
+
+    <h3>Équipe 10 personnes — agents critiques en production</h3>
+    <p>
+      Trois agents en production, avec base documentaire consultable (RAG), monitoring, évaluations régulières. Stack&nbsp;: API Claude avec Opus pour les cas complexes, Pinecone pour la mémoire, Datadog pour le monitoring, hébergement multi-région. <strong>Coût mensuel&nbsp;: 3 000 à 13 000 €.</strong> Et il faut ajouter 50 à 100 % du socle en coûts cachés (intégrations, formation, sécurité, évaluations RGPD).
+    </p>
+  </div>
+</section>
+
+<section class="block" id="apprend">
+  <div class="container">
+    <span class="section-kicker k-teal">— La vraie réponse</span>
+    <h2>Est-ce qu'un agent <em class="teal">apprend de ses erreurs&nbsp;?</em></h2>
+    <p>
+      C'est la question que tout le monde se pose et à laquelle personne ne répond honnêtement. La réponse courte&nbsp;: <strong>non, un agent n'apprend pas tout seul</strong>. Les modèles sont figés après leur entraînement. Claude Sonnet 4.6 est le même aujourd'hui qu'il était il y a un mois, quoi que tu lui aies raconté entre-temps.
+    </p>
+    <p>
+      Mais il existe quatre façons de l'améliorer, toi, depuis l'extérieur.
+    </p>
+
+    <h3>1. Ajuster le prompt système</h3>
+    <p>
+      Tu observes que l'agent se plante souvent sur un type de demande. Tu reformules ses instructions permanentes, tu ajoutes un exemple, tu précises une limite. C'est gratuit, c'est immédiat, c'est toujours la première chose à faire.
+    </p>
+
+    <h3>2. Lui donner une mémoire</h3>
+    <p>
+      Tu connectes l'agent à un fichier ou à une base de données où il stocke des notes entre les sessions. «&nbsp;Jérémy n'aime pas les bullet points dans ses mails.&nbsp;» La fois suivante, il relit, il applique. C'est ce qu'Anthropic appelle les «&nbsp;Skills&nbsp;» et ce que la plupart des plateformes appellent «&nbsp;memory&nbsp;».
+    </p>
+
+    <h3>3. Lui donner des documents à consulter (RAG)</h3>
+    <p>
+      Tu construis une petite bibliothèque de documents (tes fiches produits, ton argumentaire commercial, ta doc technique). L'agent consulte cette bibliothèque avant de répondre. C'est la manière la plus efficace pour qu'il soit précis sur ton business. L'acronyme technique est RAG — Retrieval Augmented Generation, soit «&nbsp;génération assistée par récupération&nbsp;». Tu peux l'ignorer et retenir juste&nbsp;: une bibliothèque que l'agent consulte.
+    </p>
+
+    <h3>4. Fine-tuner le modèle</h3>
+    <p>
+      Tu ré-entraînes le modèle sur des milliers d'exemples de ce que tu veux qu'il produise. C'est coûteux (plusieurs milliers d'euros et plusieurs semaines), ça demande de la donnée de qualité, et c'est rarement nécessaire. À réserver aux cas où les trois premiers leviers ne suffisent vraiment pas.
+    </p>
+
+    <p>
+      Dans l'ordre, utilise les leviers un à trois. N'approche le quatre qu'en dernier recours.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="risques">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Les garde-fous</span>
+    <h2>Les cinq risques <em class="fuchsia">à connaître.</em></h2>
+    <p>
+      Avant de déployer un agent dans ton business, prends deux minutes pour lire ces cinq points.
+    </p>
+
+    <h3>1. Les hallucinations</h3>
+    <p>
+      Un agent peut inventer une information, citer une source qui n'existe pas, se tromper avec aplomb. Les statistiques 2026 donnent <strong>8 % d'hallucinations en moyenne, 18 % en support client, 35 % en conversations longues à plusieurs tours</strong>. Réduisible avec du RAG et des vérifications humaines, pas éliminable.
+    </p>
+
+    <h3>2. La dérive</h3>
+    <p>
+      Un agent autonome peut sortir de son scope initial, traiter des données qu'il ne devrait pas voir, répondre hors-sujet. Mets des garde-fous explicites dans ton prompt système.
+    </p>
+
+    <h3>3. Les coûts qui explosent</h3>
+    <p>
+      Un agent avec Claude Opus et des boucles mal bornées peut brûler 50 € en une journée. Toujours poser un plafond d'appels par utilisateur ou par jour.
+    </p>
+
+    <h3>4. La sécurité</h3>
+    <p>
+      Les «&nbsp;prompt injections&nbsp;» sont une attaque connue&nbsp;: quelqu'un glisse dans un email une instruction cachée que ton agent exécute à son insu. Ne donne jamais à un agent l'accès à des actions irréversibles (suppression, paiement, envoi) sans validation humaine.
+    </p>
+
+    <h3>5. Le RGPD et l'EU AI Act</h3>
+    <p>
+      Si ton agent traite des données personnelles, tu dois faire une étude d'impact (DPIA), signer un accord avec ton fournisseur (DPA), minimiser les données, et divulguer au utilisateurs qu'ils parlent à une IA (article 50 de l'EU AI Act). Les amendes vont jusqu'à <strong>15 millions d'euros ou 3 % du chiffre d'affaires mondial</strong>.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les questions qui reviennent</span>
+    <h2>Les dix questions <em class="orange">que tout le monde se pose.</em></h2>
+
+    <h3>1. Un agent, c'est quoi en une phrase&nbsp;?</h3>
+    <p>
+      Un logiciel qui utilise un modèle IA (Claude, ChatGPT) pour décider lui-même quelles actions enchaîner pour atteindre un objectif.
+    </p>
+
+    <h3>2. Faut-il savoir coder pour en créer un&nbsp;?</h3>
+    <p>
+      Non pour démarrer (Lindy, Zapier, Make proposent du no-code). Oui pour du sur-mesure robuste.
+    </p>
+
+    <h3>3. Budget minimum pour tester&nbsp;?</h3>
+    <p>
+      50 € par mois pour un premier agent simple, 450 à 700 € pour un usage PME sérieux avec cinq agents actifs.
+    </p>
+
+    <h3>4. Un agent apprend-il en discutant&nbsp;?</h3>
+    <p>
+      Non. Les modèles sont figés. Pour qu'il s'améliore, il faut que toi tu lui fournisses de nouveaux outils, de nouvelles instructions, ou une mémoire externe.
+    </p>
+
+    <h3>5. Cloud ou local&nbsp;?</h3>
+    <p>
+      Cloud = rapide, coûts à l'usage, dépendance fournisseur. Local = privé, gratuit après achat du hardware (environ 1 500 € de GPU), plus lent et moins performant en 2026.
+    </p>
+
+    <h3>6. Les hallucinations, ça se corrige&nbsp;?</h3>
+    <p>
+      Réductible avec RAG et vérification humaine, pas éliminable. Accepte que ton agent se trompera, mets des filets.
+    </p>
+
+    <h3>7. Combien de temps pour déployer un premier agent&nbsp;?</h3>
+    <p>
+      Une journée avec Lindy ou Zapier, deux à quatre semaines en code custom, deux à six mois en production critique.
+    </p>
+
+    <h3>8. C'est RGPD-compatible en Europe&nbsp;?</h3>
+    <p>
+      Oui, à condition de faire une étude d'impact, de signer un DPA avec le fournisseur, de minimiser les données et de divulguer l'IA à tes utilisateurs.
+    </p>
+
+    <h3>9. Quel modèle choisir en 2026&nbsp;?</h3>
+    <p>
+      Claude Sonnet 4.6 pour le raisonnement, GPT-5 pour le rapport qualité-prix, Gemini Flash pour le volume, Mistral pour la souveraineté européenne.
+    </p>
+
+    <h3>10. Quel retour sur investissement réel&nbsp;?</h3>
+    <p>
+      Un agent qui t'économise 5 heures par mois à 50 € de l'heure, c'est 250 € de valeur. Rentable dès qu'il coûte moins que ça.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tu as une idée d'agent ?</span><span>Écris-moi</span><span>Je lis tout</span><span>Je peux me tromper</span><span>Les retours terrain valent mille articles</span>
+    <span>Tu as une idée d'agent ?</span><span>Écris-moi</span><span>Je lis tout</span><span>Je peux me tromper</span><span>Les retours terrain valent mille articles</span>
+  </div>
+</div>
+
+<section class="block" id="et-toi">
+  <div class="container">
+    <span class="section-kicker k-teal">— À toi</span>
+    <h2>Et toi, <em class="teal">tu vas en créer un&nbsp;?</em></h2>
+    <p>
+      Si tu lis cet article avec une idée précise en tête — «&nbsp;j'aurais bien besoin d'un agent pour trier mes mails&nbsp;», «&nbsp;j'aimerais un standard téléphonique qui répond la nuit&nbsp;» — tu es déjà plus avancé que 95 % des gens qui en parlent.
+    </p>
+    <p>
+      Trois questions à te poser avant de commencer&nbsp;:
+    </p>
+    <ol>
+      <li>Quelle tâche répétitive te prend plus de 30 minutes par jour&nbsp;?</li>
+      <li>Est-ce qu'un stagiaire pourrait la faire avec des instructions claires et deux ou trois outils&nbsp;?</li>
+      <li>Tu es prêt à lui donner 10 heures de setup et 50 € par mois pour tester&nbsp;?</li>
+    </ol>
+    <p>
+      Si tu réponds oui aux trois, tu as un bon candidat. Commence par du no-code, bascule sur Claude Code quand tu auras validé l'usage.
+    </p>
+    <p>
+      <strong>Je peux me tromper.</strong> Si tu as déployé un agent récemment et que ton expérience est différente, écris-moi. Je lis tout, je réponds. Les retours terrain valent mille fois les articles.
+    </p>
+  </div>
+</section>
+
+<section class="final-cta" id="cta-newsletter">
+  <div class="container">
+    <span class="section-kicker k-teal" style="display:inline-flex">— La suite</span>
+    <h2>Reçois les prochains <em class="teal">guides IA.</em></h2>
+    <p>
+      Je partage ces guides dans ma veille du vendredi. Sans pub, désinscription en un clic.
+    </p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit" id="newsletterSubmit">Je m'inscris →</button>
+    </form>
+    <div class="newsletter-note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
+    <div class="newsletter-success" id="newsletterSuccess">Merci. Tu reçois le prochain vendredi.</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  const form = document.getElementById('newsletterForm');
+  const submitBtn = document.getElementById('newsletterSubmit');
+  const successMsg = document.getElementById('newsletterSuccess');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'article-guide-agents' })
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Réessaie →';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Réessaie →';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

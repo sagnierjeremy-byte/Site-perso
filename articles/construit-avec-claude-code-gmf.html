@@ -455,22 +455,35 @@
     transform: translateX(-3px);
   }
 
+  /* Numéros style sticker streetwear — rectangles inclinés + shadow noire */
   .article-sidebar .num {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 10px; font-weight: 900;
-    min-width: 24px; height: 24px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 50%;
+    font-size: 11px; font-weight: 900;
+    padding: 3px 7px 2px;
     color: #fff; flex-shrink: 0;
-    margin-top: 1px;
-    letter-spacing: -.02em;
-    transition: transform .2s;
+    margin-top: 2px;
+    border-radius: 2px;
+    letter-spacing: .02em;
+    line-height: 1;
+    display: inline-block;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform .18s ease-out, box-shadow .18s ease-out;
+    text-shadow: 0 1px 0 rgba(0,0,0,.15);
   }
-  /* Rotation teal → fuchsia → orange */
-  .article-sidebar li:nth-child(3n+1) .num { background: var(--teal); }
-  .article-sidebar li:nth-child(3n+2) .num { background: var(--fuchsia); }
-  .article-sidebar li:nth-child(3n+3) .num { background: var(--orange); }
-  .article-sidebar li:hover .num { transform: scale(1.1) rotate(-4deg); }
+  /* Rotation couleurs + inclinaisons individuelles */
+  .article-sidebar li:nth-child(1) .num { background: var(--teal);    transform: rotate(-3deg); }
+  .article-sidebar li:nth-child(2) .num { background: var(--fuchsia); transform: rotate(1.5deg); }
+  .article-sidebar li:nth-child(3) .num { background: var(--orange);  transform: rotate(-1deg); }
+  .article-sidebar li:nth-child(4) .num { background: var(--teal);    transform: rotate(2deg); }
+  .article-sidebar li:nth-child(5) .num { background: var(--fuchsia); transform: rotate(-2deg); }
+  .article-sidebar li:nth-child(6) .num { background: var(--orange);  transform: rotate(1deg); }
+  .article-sidebar li:nth-child(7) .num { background: var(--teal);    transform: rotate(-1.5deg); }
+  .article-sidebar li:nth-child(8) .num { background: var(--fuchsia); transform: rotate(2.5deg); }
+  .article-sidebar li:nth-child(9) .num { background: var(--orange);  transform: rotate(-2deg); }
+  .article-sidebar li:hover .num {
+    transform: rotate(0deg) scale(1.12);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
 
   .article-sidebar a {
     color: var(--ink-soft); text-decoration: none;

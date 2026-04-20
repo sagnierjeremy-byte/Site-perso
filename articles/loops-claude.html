@@ -409,11 +409,16 @@
     <span class="section-kicker k-fuchsia">— Avant de commencer</span>
     <h2>C'est quoi <em class="fuchsia">un loop ?</em></h2>
     <p>
-      Un loop, c'est une commande qui dit à Claude Code : <em>"Relance-moi cette action à intervalles réguliers."</em> Tu lances un loop, tu fermes ton ordi, tu reviens plus tard — Claude a continué à bosser pour toi.
+      Un loop, c'est une commande qui dit à Claude Code : <em>"Relance-moi cette action à intervalles réguliers."</em> Tu lances un loop, Claude relance tout seul la commande pendant que tu fais autre chose.
     </p>
     <p>
       Pense à un cron job, mais beaucoup plus intelligent. Un cron te lance un script bête. Un loop Claude peut <strong>décider s'il relance, s'il change d'approche, s'il t'alerte</strong> — il comprend ce qu'il fait.
     </p>
+
+    <div class="callout warn">
+      <h4>Important : le loop tourne tant que ta session est ouverte</h4>
+      <p>Un <code>/loop</code> est attaché à ta session Claude Code. Si tu fermes ton terminal ou ton Mac, le loop s'arrête. Pour que ça tourne vraiment la nuit (Mac éteint), il faut <strong>Routines</strong> (la feature cloud d'Anthropic, sortie avril 2026) — j'y reviens plus bas.</p>
+    </div>
 
     <div class="callout tip">
       <h4>Pourquoi ça change tout pour moi</h4>
@@ -437,7 +442,7 @@
         <h3>Timed loop · Intervalle fixe</h3>
         <p>Tu fixes une durée. Claude relance à chaque fois. Simple, prévisible, parfait quand tu veux vérifier un statut à cadence régulière.</p>
         <pre>/loop 5m /veille-ia</pre>
-        <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>30s</code>, <code>2m</code>, <code>1h</code>, etc.</p>
+        <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>2m</code>, <code>1h</code>, <code>6h</code>, etc. <strong>Note :</strong> les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure — le minimum réel est <strong>1 minute</strong>. Et chaque loop expire automatiquement au bout de <strong>7 jours</strong> (garde-fou contre les loops oubliés).</p>
       </div>
     </div>
 
@@ -454,6 +459,55 @@
     <div class="callout warn">
       <h4>Attention au cache prompt (5 min)</h4>
       <p>Le cache prompt expire à 5 minutes. Si tu mets <code>/loop 5m</code> pile, tu tombes au pire moment : le cache vient juste d'expirer et ça te coûte plus. Utilise <code>4m30s</code> (juste en-dessous) ou <code>10m+</code> pour rester efficace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 façons d'automatiser -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Session, machine, ou cloud</span>
+    <h2>3 façons <em class="fuchsia">d'automatiser.</em></h2>
+    <p>
+      Tous les loops ne se valent pas. Selon ce que tu veux (ordi allumé ou non, vraiment la nuit ou pas), Claude Code propose trois mécanismes. Le plus souvent, les gens utilisent <code>/loop</code> par défaut alors qu'ils auraient besoin d'une Routine cloud. Voici la différence.
+    </p>
+
+    <div class="comparison-table" style="overflow-x:auto; margin:32px 0;">
+      <table style="width:100%; border-collapse:collapse; font-size:14.5px;">
+        <thead>
+          <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mécanisme</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Session ouverte ?</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mac allumé ?</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Idéal pour</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:14px 16px;"><strong><code>/loop</code></strong> (session)</td>
+            <td style="padding:14px 16px;">Oui, obligatoire</td>
+            <td style="padding:14px 16px;">Oui</td>
+            <td style="padding:14px 16px;">Tu travailles avec Claude, tu veux qu'il vérifie un statut en fond</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:14px 16px;"><strong>Desktop scheduled tasks</strong></td>
+            <td style="padding:14px 16px;">Non</td>
+            <td style="padding:14px 16px;">Oui</td>
+            <td style="padding:14px 16px;">Tu veux que ton Mac travaille la journée pendant que tu es en réunion</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px;"><strong>Routines</strong> (cloud)</td>
+            <td style="padding:14px 16px;">Non</td>
+            <td style="padding:14px 16px;"><strong>Non</strong></td>
+            <td style="padding:14px 16px;">Veille qui tourne la nuit, le weekend, pendant tes vacances</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>Mon conseil</h4>
+      <p>Pour une veille ou un monitoring qui doit vraiment tourner 24/7, utilise les <strong>Routines</strong> (sorties en avril 2026). Quotas : 5 routines/jour sur Pro, 15 sur Max, 25 sur Team. Pour tout ce qui est "pendant que je travaille sur autre chose", <code>/loop</code> suffit largement.</p>
     </div>
   </div>
 </section>
@@ -557,13 +611,14 @@ Aucun changement sur les 4 autres sujets suivis
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>Piège à éviter · 50 à 80 $/jour</h3>
-        <p>Tu mets <code>/loop 30s "fais X"</code> pour "voir ce que ça donne", tu fermes ton ordi, tu oublies. 2 880 runs en 24 h. Si ton prompt fait 10k tokens, tu peux atteindre 50 à 80 $/jour selon le modèle utilisé. Lis le "Piège 1" plus bas avant de lancer quoi que ce soit.</p>
+        <p>Tu mets <code>/loop 1m "fais X"</code> pour "voir ce que ça donne", tu laisses ta session ouverte, tu oublies. 1 440 runs en 24 h. Si ton prompt fait 10k tokens, tu peux atteindre 50 à 80 $/jour selon le modèle utilisé. Lis le "Piège 1" plus bas avant de lancer quoi que ce soit.</p>
       </div>
     </div>
 
     <div class="callout tip">
       <h4>Mon conseil direct</h4>
       <p>Active le plafond de dépense sur ton compte Anthropic (Settings → Billing → Usage limits). Mets 20 $/mois au départ. Tu sauras vite si tu dois l'augmenter — et tu ne te réveilleras pas avec une facture à 300 $.</p>
+      <p style="margin-top:12px;"><strong>Deux commandes que j'utilise tout le temps :</strong> <code>/cost</code> dans ta session te montre en direct combien tu as dépensé depuis le début. Et <code>/model haiku</code> bascule sur le modèle le moins cher d'Anthropic : parfait pour les loops simples (vérifier un statut, lire un mail), ça divise la facture par 10 environ.</p>
     </div>
   </div>
 </section>
@@ -575,13 +630,13 @@ Aucun changement sur les 4 autres sujets suivis
     <h2>Les 3 pièges <em class="fuchsia">à éviter.</em></h2>
 
     <h4>Piège 1 · Mettre un intervalle trop court</h4>
-    <p>Tentation du débutant : <code>/loop 30s</code>. Résultat : 120 appels à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
+    <p>Tentation du débutant : <code>/loop 1m</code> (le minimum autorisé). Résultat : 60 appels à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
 
     <h4>Piège 2 · Oublier les états d'échec</h4>
     <p>Si ton loop surveille un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
 
     <h4>Piège 3 · Lancer un loop et l'oublier</h4>
-    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Quand je n'en ai plus besoin : <code>/loop stop</code>.</p>
+    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Pour stopper un loop : appuie sur <code>Esc</code> dans ta session, ou dis simplement à Claude <em>"stoppe le loop en cours"</em>. Bonne nouvelle : chaque loop expire aussi tout seul au bout de <strong>7 jours</strong>, donc tu ne peux pas le laisser tourner à vie par accident.</p>
 
     <div class="callout ok">
       <h4>Ma check-list avant de lancer un loop</h4>

@@ -378,7 +378,7 @@
     <h2>Ce que tu vas apprendre</h2>
     <ul>
       <li><strong>Pourquoi le RAG ne suffit pas</strong> — l'IA "redécouvre" ta connaissance à chaque requête, rien ne s'accumule</li>
-      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources / wiki / schema), 2 opérations (ingest / query)</li>
+      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources / wiki / schema), 3 opérations (ingest / query / lint)</li>
       <li><strong>5 cas d'usage</strong> concrets : personnel, recherche, lecture de livre, business, analyse concurrentielle</li>
     </ul>
   </div>
@@ -415,6 +415,67 @@
         <p>À ce volume, <strong>tu ne retrouves plus ce que tu as accumulé</strong> sans wiki. Tu relis 3 fois les mêmes articles. Tu oublies les connexions que tu avais faites. Le wiki devient ton seul moyen de capitaliser. Au-delà de 100 sources, c'est non-négociable.</p>
       </div>
     </div>
+
+    <h3 style="margin-top:44px;">LLM Wiki vs les alternatives — lequel choisir ?</h3>
+    <p>
+      Le LLM Wiki n'est pas le seul outil qui gère une base de connaissances personnelle avec une IA. Voici la comparaison honnête pour t'aider à trancher.
+    </p>
+
+    <div class="comparison-table" style="overflow-x:auto; margin:24px 0;">
+      <table style="width:100%; border-collapse:collapse; font-size:13.5px;">
+        <thead>
+          <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Outil</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Volume utile</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Compétence</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Accumule ?</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Pour qui</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>Claude Projects</strong></td>
+            <td style="padding:12px 14px;">~50 documents</td>
+            <td style="padding:12px 14px;">Zéro (web)</td>
+            <td style="padding:12px 14px;">Non — retrieval à chaque question</td>
+            <td style="padding:12px 14px;">Non-dev, usage ponctuel, tu démarres</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>NotebookLM</strong></td>
+            <td style="padding:12px 14px;">Jusqu'à 300 sources</td>
+            <td style="padding:12px 14px;">Zéro (web)</td>
+            <td style="padding:12px 14px;">Non</td>
+            <td style="padding:12px 14px;">Étude, recherche d'un sujet précis, gratuit</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>Notion AI + agents</strong></td>
+            <td style="padding:12px 14px;">Illimité</td>
+            <td style="padding:12px 14px;">Faible (no-code)</td>
+            <td style="padding:12px 14px;">Partiel</td>
+            <td style="padding:12px 14px;">Équipe déjà sur Notion</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>LLM Wiki (Karpathy)</strong></td>
+            <td style="padding:12px 14px;">100 à 500 pages</td>
+            <td style="padding:12px 14px;">Claude Code basique</td>
+            <td style="padding:12px 14px;"><strong>Oui, explicitement</strong></td>
+            <td style="padding:12px 14px;">Curieux patient, sujet unique qui grossit</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;"><strong>GraphRAG (Microsoft)</strong></td>
+            <td style="padding:12px 14px;">10 000+ documents</td>
+            <td style="padding:12px 14px;">Dev Python sérieux</td>
+            <td style="padding:12px 14px;">Oui (graphe d'entités)</td>
+            <td style="padding:12px 14px;">Équipe tech, très gros corpus</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>Tu n'es pas à l'aise avec la ligne de commande ?</h4>
+      <p>Commence par <strong>Claude Projects</strong> ou <strong>NotebookLM</strong>. Tu auras 80% des bénéfices d'un LLM Wiki sans toucher à Claude Code. Quand tu butes sur la limite (volume, accumulation, maintenance), tu migres vers le vrai pattern Karpathy. Pas l'inverse.</p>
+    </div>
   </div>
 </section>
 
@@ -443,13 +504,14 @@
     </div>
 
     <div class="quote">
-      "The wiki is a persistent, compounding artifact. The cross-references are already there. The contradictions have already been flagged. The synthesis already reflects everything you've read."
-      <cite>— Andrej Karpathy, 2026</cite>
+      "Le wiki est un actif persistant qui s'enrichit. Les références croisées sont déjà là. Les contradictions ont déjà été signalées. La synthèse reflète déjà tout ce que tu as lu."
+      <cite>— Formulation dérivée du gist de Karpathy (avril 2026)</cite>
     </div>
 
     <div class="callout tip">
       <h4>La métaphore qui clique</h4>
-      <p>Un RAG, c'est comme si tu avais un bibliothécaire qui ne connaît pas les livres, les lit uniquement quand tu poses une question, puis les oublie. <strong>Un LLM Wiki, c'est un bibliothécaire qui a lu chaque livre</strong>, a pris des notes, fait des fiches, relié les concepts entre eux. Quand tu lui poses une question, il répond depuis sa propre compréhension déjà construite.</p>
+      <p>Un RAG classique, c'est comme si tu avais un bibliothécaire qui ne connaît pas les livres, les lit uniquement quand tu poses une question, puis les oublie. <strong>Un LLM Wiki, c'est un bibliothécaire qui a lu chaque livre</strong>, a pris des notes, fait des fiches, relié les concepts entre eux. Quand tu lui poses une question, il répond depuis sa propre compréhension déjà construite.</p>
+      <p style="margin-top:10px;"><strong>Nuance importante :</strong> les RAG modernes (GraphRAG de Microsoft, Mem0, Zep) font aussi de l'accumulation. La vraie différence du LLM Wiki, c'est que l'accumulation est <strong>explicite et lisible par un humain</strong> (du markdown que tu peux ouvrir dans Obsidian), alors que les RAG modernes stockent tout dans des embeddings vectoriels opaques.</p>
     </div>
   </div>
 </section>
@@ -488,8 +550,8 @@
 <section class="block">
   <div class="container">
     <span class="section-kicker k-orange">— Comment ça marche</span>
-    <h2>Les <em class="orange">2 opérations.</em></h2>
-    <p>Seulement 2 actions à maîtriser — tout le reste en découle.</p>
+    <h2>Les <em class="orange">3 opérations.</em></h2>
+    <p>Trois actions à maîtriser — tout le reste en découle.</p>
 
     <div class="step">
       <div class="step-num">01</div>
@@ -512,9 +574,27 @@
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>Query · Tu poses une question</h3>
-        <p>L'IA cherche dans le wiki (pas les raw docs — le wiki), lit les pages pertinentes, synthétise une réponse avec citations. La réponse peut prendre plusieurs formes : markdown, tableau comparatif, slide deck, graphique.</p>
+        <p>L'IA cherche dans le wiki (pas les documents bruts — le wiki), lit les pages pertinentes, synthétise une réponse avec citations. La réponse peut prendre plusieurs formes : markdown, tableau comparatif, slide deck, graphique.</p>
         <p><strong>Le détail clé :</strong> une bonne réponse peut être intégrée au wiki comme nouvelle page. Une comparaison intéressante, une analyse, une connexion que tu as trouvée — ça ne disparaît plus dans l'historique de conversation. <em>Ça devient un actif permanent.</em></p>
       </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Lint · Tu maintiens la qualité (mensuellement)</h3>
+        <p>C'est l'opération que beaucoup d'articles dérivés oublient — pourtant Karpathy y insiste. Tu demandes à l'IA de vérifier la santé du wiki : liens cassés, doublons, contradictions entre pages, entités mal nommées, incohérences de style.</p>
+        <p>Sans cette passe, le wiki dérive en silence. Avec elle, il reste propre même à 100 ou 200 pages. Une fois par mois suffit si tu ingestes ~1 source par jour.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <h4>Les 3 pièges qu'on ne te dit pas assez</h4>
+      <ol>
+        <li><strong>Dérive épistémique</strong> — si l'IA hallucine au moment de l'ingestion (un nom mal orthographié, une date fausse, un résumé inexact), l'erreur devient permanente et contamine tous les ingests suivants. Relis toujours la page de résumé juste après la création.</li>
+        <li><strong>Duplication silencieuse</strong> — 3 sources sur le même sujet créent souvent 3 pages presque identiques. Sans règle explicite de <em>merge</em> dans ton schema, tu te retrouves vite avec un wiki pollué. La passe de lint mensuelle est là pour ça.</li>
+        <li><strong>Coût tokens réel</strong> — un ingest touche 5 à 15 pages = 20 000 à 50 000 tokens en sortie. À 15$ le million de tokens (Claude Sonnet), compte <strong>0,5 à 1$ par source</strong>. 100 sources = 50 à 100$. Pas catastrophique, mais à savoir avant de foncer.</li>
+      </ol>
     </div>
   </div>
 </section>
@@ -540,7 +620,7 @@
     <p>Tu pitches des investisseurs. Tu veux connaître tes concurrents. Ingests leurs sites, articles, interviews de fondateurs. Ton wiki devient <strong>une arme d'intelligence compétitive</strong>.</p>
 
     <h3>6. Wiki client agence · Le cas le plus parlant</h3>
-    <p>Exemple Julie, agence com 5 personnes. <strong>Chaque client = 1 dossier.</strong> Dedans tu mets : briefs, comptes-rendus, transcripts Zoom, moodboards, livrables passés. Quand un client t'appelle 6 mois plus tard pour une relance, tu demandes à Claude Code <em>"résume-moi où on en était avec [client]"</em> → il te sort un brief en 20 secondes, sans relire 40 docs. Le genre de truc qui transforme tes réunions en "je suis préparé" au lieu de "je me rappelle plus exactement".</p>
+    <p>Exemple Julie, agence com 5 personnes. <strong>Chaque client = 1 dossier.</strong> Dedans tu mets : briefs, comptes-rendus, transcripts Zoom, moodboards, livrables passés. Quand un client t'appelle 6 mois plus tard pour une relance, tu demandes à Claude Code <em>"résume-moi où on en était avec [client]"</em> → il te sort un brief en 20 secondes, sans relire 40 documents. C'est ce qui transforme tes réunions en "je suis préparé" au lieu de "je ne me souviens plus exactement".</p>
   </div>
 </section>
 

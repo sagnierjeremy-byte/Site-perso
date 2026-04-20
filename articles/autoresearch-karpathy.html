@@ -332,7 +332,7 @@
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
       <span class="hero-meta-item"><strong>Niveau</strong> Curieux</span>
-      <span class="hero-meta-item"><strong>Star GitHub</strong> 74k+</span>
+      <span class="hero-meta-item"><strong>Star GitHub</strong> ~50k+</span>
     </div>
   </div>
 </section>
@@ -354,24 +354,25 @@
     <span class="section-kicker k-teal">— Avant tout</span>
     <h2>C'est quoi <em class="teal">autoresearch ?</em></h2>
 
-    <div class="quote">
-      "One day, frontier AI research used to be done by meat computers in between eating, sleeping, having other fun, and synchronizing once in a while using sound wave interconnect in the ritual of 'group meeting'. That era is long gone."
-      <cite>— Andrej Karpathy, mars 2026</cite>
-    </div>
-
     <p>
-      Traduction pour les non-initiés : Karpathy te dit que les chercheurs en IA (nous les humains) sont devenus obsolètes. Maintenant, ce sont des <strong>essaims d'agents IA</strong> qui font la recherche. Autoresearch, c'est la preuve de concept : tu donnes à un agent un mini-laboratoire, et il cherche tout seul comment faire mieux.
+      Karpathy publie <code>autoresearch</code> en mars 2026 pour montrer une idée : les chercheurs en IA peuvent déléguer une partie de leur travail à <strong>des essaims d'agents IA</strong> qui font la recherche à leur place. Autoresearch, c'est la preuve de concept : tu donnes à un agent un mini-laboratoire, et il cherche tout seul comment faire mieux.
     </p>
     <p>
       Concrètement : le repo contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU. L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur, hyperparamètres, tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert. Et boucler. Indéfiniment.
     </p>
     <p>
-      À échelle réduite, l'agent peut produire des runs <strong>nettement meilleurs</strong> que la baseline : Karpathy rapporte typiquement +0,5 à +1 point de <code>bits-per-byte</code> sur nanochat après une nuit d'itérations. Ce n'est pas un "×2 magique", c'est un gain réel mais borné — et obtenu sur un mini-modèle, donc à ne pas extrapoler naïvement à du GPT-4.
+      Les résultats publics sont parlants, sans être magiques : Karpathy a laissé tourner son agent pendant <strong>environ 48h</strong> sur un modèle taille <em>depth=12</em>. L'agent a retenu <strong>20 changements additifs</strong> qui, une fois appliqués à un modèle plus gros (depth=24), ont réduit le <em>Time-to-GPT-2</em> de <strong>2h02 à 1h80 — soit ~11% plus rapide</strong>. Chez Shopify, une équipe a rapporté <strong>+19%</strong> sur le score de validation d'un modèle de query-expansion après 37 expériences autoresearch. C'est un gain réel mais borné — et obtenu sur des mini-modèles, donc à ne pas extrapoler naïvement à du GPT-4.
     </p>
 
     <div class="callout tip">
       <h4>Pourquoi c'est un moment charnière</h4>
-      <p>On parle beaucoup d'"IA qui code". Autoresearch va un cran plus loin : <strong>l'IA fait de la recherche</strong>. Elle pose des hypothèses, teste, apprend, itère. C'est la première fois qu'un concept aussi propre et open-source démontre ça en pratique.</p>
+      <p>On parle beaucoup d'"IA qui code". Autoresearch va un cran plus loin : <strong>l'IA fait de la recherche</strong>. Elle pose des hypothèses, teste, apprend, itère. Karpathy n'est pas seul sur ce chantier :</p>
+      <ul>
+        <li><strong>Sakana AI — Darwin Gödel Machine</strong> (mai 2025) : un agent qui réécrit son propre code et grimpe de <strong>20% à 50% sur SWE-bench</strong>, et de 14% à 30% sur Polyglot. Transfert inter-modèles démontré.</li>
+        <li><strong>Sakana AI Scientist v2</strong> (avril 2025) : premier papier de recherche <strong>entièrement généré par une IA</strong> accepté à un workshop ICLR 2025. Nuance honnête : l'équipe a été critiquée pour des hallucinations et des résultats fragiles — le pipeline n'est pas magique.</li>
+        <li><strong>ADAS (Meta, ICLR 2025)</strong> : une IA invente elle-même de nouveaux designs d'agents qui battent les architectures conçues par des humains (+13,6 points F1 en lecture, +14,4% en maths).</li>
+      </ul>
+      <p>Autoresearch s'inscrit dans ce mouvement : ce n'est pas un gadget isolé, c'est un pattern qui va se généraliser.</p>
     </div>
   </div>
 </section>
@@ -408,7 +409,7 @@
 
     <div class="callout ok">
       <h4>Le vrai changement de paradigme</h4>
-      <p>Tu ne codes plus. <strong>Tu programmes le programme.</strong> C'est de la méta-programmation : ton vrai travail devient d'écrire un meilleur <code>program.md</code>, pas d'écrire du code Python. Karpathy appelle ça "une skill ultra-légère" — c'est en réalité l'avenir de tout développement.</p>
+      <p>Tu ne codes plus. <strong>Tu écris des instructions en français (ou anglais) pour un agent qui, lui, écrit le code.</strong> C'est ce que Karpathy appelle "writing the program that writes the program" — le même mouvement que son concept de <em>Software 3.0</em>. Ton vrai travail devient d'écrire un meilleur <code>program.md</code>, pas d'écrire du code Python.</p>
     </div>
 
     <h3>La boucle concrète</h3>
@@ -433,7 +434,7 @@
 
     <div class="callout warn">
       <h4>⚠️ Attention marketing IA · à lire avant de rêver</h4>
-      <p>Beaucoup de gens te vendent en ce moment "ton agent qui tourne la nuit = +300% de résultats, tu dors, l'IA bosse, tu deviens riche". La vérité que je vois sur mes propres tests : tu vas passer <strong>2-3 weekends à comprendre comment ça marche</strong>, tu vas <strong>rater tes 10 premiers runs</strong> (métrique mal définie, budget mal calibré, agent qui boucle dans le vide), et tu auras peut-être <strong>10 à 30% d'amélioration sur une tâche précise</strong> — pas 300%. Ça vaut toujours le coup parce que cette amélioration, une fois trouvée, elle tourne 24/7. Mais <strong>promets-toi de mesurer avant / mesurer après</strong>, sinon tu confondras le bruit et le signal.</p>
+      <p>Beaucoup de gens te vendent en ce moment "ton agent qui tourne la nuit = +300% de résultats, tu dors, l'IA travaille, tu deviens riche". La vérité que je vois sur mes propres tests : tu vas passer <strong>2-3 weekends à comprendre comment ça fonctionne</strong>, tu vas <strong>rater tes 10 premiers runs</strong> (métrique mal définie, budget mal calibré, agent qui boucle dans le vide), et tu auras peut-être <strong>10 à 30% d'amélioration sur une tâche précise</strong> — pas 300%. Ça vaut toujours le coup parce que cette amélioration, une fois trouvée, elle tourne 24/7. Mais <strong>promets-toi de mesurer avant / mesurer après</strong>, sinon tu confondras le bruit et le signal.</p>
     </div>
 
     <p>
@@ -479,6 +480,18 @@
     <div class="callout tip">
       <h4>Mon plan personnel</h4>
       <p>J'adapte autoresearch à ma veille auto : un agent qui scanne mes sources, propose des angles d'article, en rédige 3 variantes, me choisis la meilleure au réveil. On en reparle dans un prochain tuto.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>4 outils pour commencer sans entraîner de modèle</h4>
+      <p>Tu n'as pas besoin de cloner le repo de Karpathy pour appliquer l'idée. Quatre outils accessibles qui font tourner la boucle "essai → mesure → ajuste" :</p>
+      <ul>
+        <li><strong>Claude Code (ou Codex)</strong> — ce que Karpathy utilise lui-même. Un fichier <code>program.md</code> bien écrit + une commande en boucle, et tu fais du "poor man's autoresearch" en 30 minutes.</li>
+        <li><strong>CrewAI</strong> — framework multi-agents avec rôles et mémoire persistante. Parfait si tu veux un "équipe" d'agents qui se passent le relais.</li>
+        <li><strong>AutoGen (Microsoft)</strong> — conversation multi-agents, excellent pour le cycle "agent code → agent review → agent teste".</li>
+        <li><strong>LangGraph</strong> — devenu la référence 2026 pour les workflows d'agents complexes avec état partagé.</li>
+      </ul>
+      <p>Commence simple : un <code>program.md</code> + Claude Code + une métrique mesurable. Passe à CrewAI ou LangGraph seulement si le cas l'exige vraiment.</p>
     </div>
   </div>
 </section>

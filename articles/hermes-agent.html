@@ -399,7 +399,7 @@
       Hermes, c'est une famille de modèles IA développée par <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a>, un des collectifs open-source les plus respectés de l'écosystème IA. Ils prennent des modèles de base (Llama, Mistral) et les fine-tunent pour qu'ils soient <strong>meilleurs sur des tâches réelles</strong> : suivre des instructions précises, appeler des outils, tenir une conversation structurée.
     </p>
     <p>
-      Les versions les plus utilisées aujourd'hui : <code>Hermes 3</code> (basé sur Llama 3) et <code>Hermes 2 Pro</code>. Tous deux excellent en <strong>function calling</strong> — c'est-à-dire appeler des outils/fonctions via du JSON structuré. C'est la brique clé pour construire un agent.
+      Les versions les plus utilisées aujourd'hui : <code>Hermes 3</code> (basé sur Llama 3.1, stable et massivement déployé) et <code>Hermes 4</code> (sorti août 2025, en 14B / 70B / 405B, avec un mode raisonnement intégré). Tous deux excellent en <strong>function calling</strong> — c'est-à-dire appeler des outils/fonctions via du JSON structuré. C'est la brique clé pour construire un agent.
     </p>
 
     <div class="callout tip">
@@ -411,6 +411,22 @@
     <p>
       Ne cherche pas à remplacer ChatGPT ou Claude sur les tâches complexes — ils restent supérieurs en raisonnement. Hermes est <strong>complémentaire</strong> : parfait pour les tâches répétitives, les automatisations simples, le traitement en lot, ou quand tu veux garder tes données en local.
     </p>
+
+    <div class="callout tip">
+      <h4>Les alternatives sérieuses à Hermes en 2026</h4>
+      <p>Hermes n'est plus le seul modèle open-source excellent en function calling. Trois alternatives à tester sur le même cas d'usage que toi :</p>
+      <ul>
+        <li><strong>Llama 3.3 70B</strong> (Meta) — devenu une référence, très bon en tool-use, disponible sur Ollama (<code>llama3.3:70b</code>)</li>
+        <li><strong>Qwen 3</strong> (Alibaba) — performant en agent, souvent moins censuré, bon support multilingue (<code>qwen3:8b</code> ou <code>qwen3:14b</code>)</li>
+        <li><strong>DeepSeek V3</strong> — très fort en raisonnement et code, si tu veux un modèle polyvalent</li>
+      </ul>
+      <p>Mon conseil : teste les 3 sur ton cas réel, garde celui qui te sort les meilleurs résultats. Le "meilleur" varie selon la tâche.</p>
+    </div>
+
+    <div class="callout warn">
+      <h4>Côté licence : à savoir avant de commercialiser</h4>
+      <p>Hermes 3 hérite de la licence <strong>Llama 3.1</strong> (Meta). Cette licence interdit l'usage commercial si ton service dépasse <strong>700 millions d'utilisateurs actifs mensuels</strong> sans accord explicite de Meta. Pour 99% des entrepreneurs c'est un non-sujet. Mais si tu vises du SaaS grand public avec forte croissance, lis les termes avant d'investir.</p>
+    </div>
   </div>
 </section>
 
@@ -456,7 +472,46 @@ ollama pull hermes3:70b</pre>
 
     <div class="callout warn">
       <h4>RAM et taille du modèle</h4>
-      <p>Règle simple : il te faut environ <strong>autant de RAM que la taille du modèle</strong>. 8B = 8 GB de RAM minimum (donc Mac 16 GB OK). 70B = 48-64 GB de RAM (Mac Pro/Studio). Si ça rame, prends plus petit.</p>
+      <p>Règle réelle : il te faut environ <strong>1,2× la taille du fichier quantifié</strong> (le modèle charge en RAM + un peu d'overhead). Voici ce que ça donne sur Mac Apple Silicon :</p>
+
+      <div class="comparison-table" style="overflow-x:auto; margin:20px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+          <thead>
+            <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
+              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Modèle</th>
+              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Taille Q4</th>
+              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">RAM mini</th>
+              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Mac recommandé</th>
+              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Vitesse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line);">
+              <td style="padding:12px 14px;"><code>hermes3:3b</code></td>
+              <td style="padding:12px 14px;">2 GB</td>
+              <td style="padding:12px 14px;">8 GB</td>
+              <td style="padding:12px 14px;">M1/M2 de base</td>
+              <td style="padding:12px 14px;">40-60 tok/s</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--line);">
+              <td style="padding:12px 14px;"><code>hermes3:8b</code></td>
+              <td style="padding:12px 14px;">4,7 GB</td>
+              <td style="padding:12px 14px;">16 GB</td>
+              <td style="padding:12px 14px;">M1/M2/M3 confortable</td>
+              <td style="padding:12px 14px;">20-40 tok/s</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 14px;"><code>hermes3:70b</code></td>
+              <td style="padding:12px 14px;">40 GB</td>
+              <td style="padding:12px 14px;">64 GB</td>
+              <td style="padding:12px 14px;">M2/M3 Ultra ou Max 128 GB</td>
+              <td style="padding:12px 14px;">8-12 tok/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Attention piège : le <strong>M3 Pro est plus lent que le M2 Pro</strong> pour les LLM (bande passante mémoire réduite de 200 à 150 GB/s). Si tu achètes pour l'IA locale, vise M-Max ou M-Ultra.</p>
     </div>
   </div>
 </section>
@@ -526,12 +581,17 @@ response = client.chat.completions.create(
         # Le LLM veut appeler un outil
         for call in msg.tool_calls:
             result = get_weather(**json.loads(call.function.arguments))
-            messages.append({"role": "tool", "content": result, ...})
+            messages.append({
+                "role": "tool",
+                "tool_call_id": call.id,   # ⚠️ obligatoire, sinon crash
+                "content": result,
+            })
         response = client.chat.completions.create(...)
     else:
         # Réponse finale
         print(msg.content)
         break</pre>
+        <p style="margin-top:10px;"><strong>Le piège n°1 si tu copies-colles ce code ailleurs :</strong> le champ <code>tool_call_id</code> est obligatoire dans le message retour. Sans lui, la boucle crashe à la 2ᵉ itération. Je l'ai appris à mes dépens — noté pour toi.</p>
       </div>
     </div>
 

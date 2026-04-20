@@ -197,7 +197,7 @@ L'audience par défaut est "Vendeurs Amazon" d'Eurofiscalis (119 contacts). **À
 - **AI Playbook** · 1×/semaine vendredi 9h · IA pure
 - **Business Radar** · 2×/mois 1er & 3e mardi · Business/éco
 
-Les 2 sont présentées comme **veilles automatiques pilotées par sous-agents** scanning 100+ sources. Jérémy reçoit le brief → partage le même email au lecteur. **JAMAIS** dire "newsletter pour toi" — toujours "ma veille que je te file".
+Les 2 sont présentées comme **veilles automatiques pilotées par sous-agents** scanning 100+ sources. Jérémy reçoit le brief → partage le même email au lecteur. **JAMAIS** dire "newsletter pour toi" — toujours "ma veille que je te partage".
 
 ### Sources YouTube catégorisées (34 chaînes)
 - IA & Tech (7) : Silicon Carne, IA et Stratégie, Vision IA, Underscore_, Melvynx, Grand Angle, Grand Angle Nova

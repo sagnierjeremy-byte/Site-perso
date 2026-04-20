@@ -379,7 +379,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 01 · IA &amp; Outils</div>
     <h1>Les loops<br>Claude Code,<br><em>expliqués.</em></h1>
     <p class="hero-lead">
-      Les loops, c'est le truc qui m'a fait passer Claude Code du statut "assistant" à "agent qui bosse pour moi 24/7". Je t'explique comment ça marche, quand les utiliser, 4 cas d'usage concrets (dont un pour les non-devs) et combien ça coûte vraiment.
+      Les loops, c'est ce qui m'a fait passer Claude Code du statut "assistant" à "agent qui travaille pour moi 24/7". Je t'explique comment ça fonctionne, quand les utiliser, 4 cas d'usage concrets (dont un pour les non-devs) et combien ça coûte vraiment.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>7 min</strong> de lecture</span>
@@ -395,7 +395,7 @@
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu vas apprendre</h2>
     <ul>
-      <li>Ce qu'est un <strong>loop Claude Code</strong> — et pourquoi c'est pas un cron classique</li>
+      <li>Ce qu'est un <strong>loop Claude Code</strong> — et pourquoi ce n'est pas un cron classique</li>
       <li>La différence entre <strong>timed loop</strong> (toutes les X minutes) et <strong>dynamic loop</strong> (Claude décide)</li>
       <li>4 cas d'usage réels (dont 1 pour les non-devs) que tu peux appliquer <strong>aujourd'hui</strong></li>
       <li><strong>Combien ça coûte</strong> : 3 scénarios chiffrés et le piège à 50 $/jour à éviter</li>
@@ -416,7 +416,7 @@
     </p>
 
     <div class="callout tip">
-      <h4>Pourquoi c'est un game-changer pour moi</h4>
+      <h4>Pourquoi ça change tout pour moi</h4>
       <p>Avant, je checkais manuellement mes veilles 3 fois par jour. Maintenant, un loop tourne, me ping quand il trouve quelque chose d'intéressant, et je ne perds plus une seconde. C'est l'automatisation IA la plus simple et la plus puissante que je connaisse.</p>
     </div>
   </div>
@@ -435,7 +435,7 @@
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>Timed loop · Intervalle fixe</h3>
-        <p>Tu fixes une durée. Claude relance à chaque fois. Simple, prévisible, parfait quand tu veux checker un truc à cadence régulière.</p>
+        <p>Tu fixes une durée. Claude relance à chaque fois. Simple, prévisible, parfait quand tu veux vérifier un statut à cadence régulière.</p>
         <pre>/loop 5m /veille-ia</pre>
         <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>30s</code>, <code>2m</code>, <code>1h</code>, etc.</p>
       </div>
@@ -523,7 +523,7 @@ Aucun changement sur les 4 autres sujets suivis
 → ping envoyé sur Slack #veille</pre>
 
     <p>
-      Quand il n'y a <strong>rien de neuf</strong>, le loop tourne quand même, te dit juste "rien à signaler" et repart. Quand il <strong>trouve quelque chose</strong>, il t'alerte (Slack, email, console, ce que tu veux). C'est ça le truc : 95 % des runs sont silencieux, mais les 5 % qui comptent arrivent sans que tu aies rien à faire.
+      Quand il n'y a <strong>rien de neuf</strong>, le loop tourne quand même, te dit juste "rien à signaler" et repart. Quand il <strong>trouve quelque chose</strong>, il t'alerte (Slack, email, console, ce que tu veux). C'est là que c'est puissant : 95 % des runs sont silencieux, mais les 5 % qui comptent arrivent sans que tu aies rien à faire.
     </p>
   </div>
 </section>
@@ -541,7 +541,7 @@ Aucun changement sur les 4 autres sujets suivis
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>1 loop léger · ~1 à 2 $/mois</h3>
-        <p>Une veille qui tourne 4 fois par jour, environ 3 000 tokens par run (un prompt court + un résumé). Tu ne sens pas passer la facture. C'est mon premier conseil quand tu débutes : commence par UN seul loop, sur un truc qui te sert vraiment.</p>
+        <p>Une veille qui tourne 4 fois par jour, environ 3 000 tokens par run (un prompt court + un résumé). Tu ne sens pas passer la facture. C'est mon premier conseil quand tu débutes : commence par UN seul loop, sur un sujet qui te sert vraiment.</p>
       </div>
     </div>
 
@@ -562,7 +562,7 @@ Aucun changement sur les 4 autres sujets suivis
     </div>
 
     <div class="callout tip">
-      <h4>Mon conseil cash</h4>
+      <h4>Mon conseil direct</h4>
       <p>Active le plafond de dépense sur ton compte Anthropic (Settings → Billing → Usage limits). Mets 20 $/mois au départ. Tu sauras vite si tu dois l'augmenter — et tu ne te réveilleras pas avec une facture à 300 $.</p>
     </div>
   </div>
@@ -575,13 +575,13 @@ Aucun changement sur les 4 autres sujets suivis
     <h2>Les 3 pièges <em class="fuchsia">à éviter.</em></h2>
 
     <h4>Piège 1 · Mettre un intervalle trop court</h4>
-    <p>Tentation du débutant : <code>/loop 30s</code>. Résultat : 120 appels à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Règle perso :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
+    <p>Tentation du débutant : <code>/loop 30s</code>. Résultat : 120 appels à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
 
     <h4>Piège 2 · Oublier les états d'échec</h4>
-    <p>Si ton loop watch un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
+    <p>Si ton loop surveille un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
 
     <h4>Piège 3 · Lancer un loop et l'oublier</h4>
-    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Quand j'ai plus besoin : <code>/loop stop</code>.</p>
+    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Quand je n'en ai plus besoin : <code>/loop stop</code>.</p>
 
     <div class="callout ok">
       <h4>Ma check-list avant de lancer un loop</h4>
@@ -619,7 +619,7 @@ Aucun changement sur les 4 autres sujets suivis
     <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
     <h2>Tu reçois mes <em class="fuchsia">prochains tutos.</em></h2>
     <p>
-      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas louper le prochain, laisse-moi ton email sur la home.
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
     </p>
     <a href="../index.html#newsletters" class="back-btn">
       Voir les newsletters →

@@ -4,7 +4,7 @@ Salut, moi c'est Jérémy. Si tu lis ce fichier, c'est que tu as téléchargé m
 
 Ce que tu vas trouver ici, c'est ce que j'utilise moi-même tous les jours. Rien de théorique, rien d'inventé pour te plaire. Juste la config qui me fait gagner des heures, et les skills que j'ai mis en place pour mes projets.
 
-Si quelque chose ne marche pas ou n'est pas clair, réponds simplement à ma newsletter — je lis tout.
+Si quelque chose ne fonctionne pas ou n'est pas clair, réponds simplement à ma newsletter — je lis tout.
 
 ---
 
@@ -20,7 +20,7 @@ Si quelque chose ne marche pas ou n'est pas clair, réponds simplement à ma new
 
 ## Étape 1 — Installer Claude Code
 
-Claude Code, c'est la version CLI de Claude. Tu tapes des commandes dans ton terminal, et Claude fait le boulot.
+Claude Code, c'est la version CLI de Claude. Tu tapes des commandes dans ton terminal, et Claude s'exécute.
 
 ### Sur Mac
 
@@ -59,7 +59,7 @@ Ouvre-le, lis-le, adapte-le à ta stack et à ton style. Le mien est un point de
 
 ## Étape 3 — Installer les skills
 
-Les skills, c'est des super-pouvoirs que tu files à Claude. Un skill = un dossier avec un fichier `SKILL.md` qui explique à Claude quand et comment l'utiliser.
+Les skills, c'est des capacités supplémentaires que tu donnes à Claude. Un skill = un dossier avec un fichier `SKILL.md` qui explique à Claude quand et comment l'utiliser.
 
 Exemple : le skill `cold-email`. Quand tu demandes à Claude d'écrire un cold email, il charge automatiquement ce skill et suit les règles que j'ai définies dedans.
 
@@ -84,13 +84,13 @@ Il va te lister les skills qu'il a chargés. Si tu vois `cold-email`, `copywriti
 
 ---
 
-## Ça marche pas ?
+## Ça ne fonctionne pas ?
 
-Trois trucs à vérifier :
+Trois points à vérifier :
 
-1. **`claude --version`** marche dans ton terminal ? Sinon, relance-le.
+1. **`claude --version`** fonctionne dans ton terminal ? Sinon, relance-le.
 2. **`ls ~/.claude/CLAUDE.md`** renvoie bien le fichier ? Sinon, il n'est pas au bon endroit.
-3. **`ls ~/.claude/skills/`** liste tes skills ? Sinon, la copie n'a pas marché.
+3. **`ls ~/.claude/skills/`** liste tes skills ? Sinon, la copie a échoué.
 
 Si tu es coincé, réponds simplement à ma newsletter — je t'aide à débloquer.
 
@@ -110,10 +110,10 @@ Si tu es coincé, réponds simplement à ma newsletter — je t'aide à débloqu
 | `humanizer` | Enlève les marques d'écriture IA d'un texte |
 | `landing-page-generator` | Génère des landing pages Next.js/Tailwind optimisées conversion |
 | `playwright-pro` | Suite Playwright de prod (55 templates, flaky tests, etc.) |
-| `postgres-patterns` | Patterns PostgreSQL : optimisation, schéma, indexes, sécu |
+| `postgres-patterns` | Patterns PostgreSQL : optimisation, schéma, indexes, sécurité |
 | `prompt-engineer-toolkit` | Analyse et améliore tes prompts |
 | `search-first` | Workflow : chercher une lib existante avant de coder |
-| `security-review` | Checklist sécu complète pour auth, inputs, secrets |
+| `security-review` | Checklist sécurité complète pour auth, inputs, secrets |
 | `security-scan` | Scanne ta config Claude Code pour vulnérabilités |
 | `self-improving-agent` | Transforme la mémoire de Claude en skills réutilisables |
 | `senior-backend` | Design backend : REST, microservices, DB, auth |
@@ -121,7 +121,7 @@ Si tu es coincé, réponds simplement à ma newsletter — je t'aide à débloqu
 | `seo-audit` | Audit SEO : technique, on-page, structured data |
 | `social-content` | Crée du contenu social (LinkedIn, Twitter, Instagram) |
 | `stripe-integration-expert` | Intégrations Stripe prod (subscriptions, billing) |
-| `viral-content` | Transforme tes drafts en contenu viralisable |
+| `viral-content` | Transforme tes brouillons en contenu optimisé pour le partage |
 
 + 4 skills spécifiques au secteur fiscalité européenne (eurofiscalis-*) que tu peux retirer si tu n'es pas concerné.
 
@@ -129,7 +129,7 @@ Si tu es coincé, réponds simplement à ma newsletter — je t'aide à débloqu
 
 ## Tu veux creuser ?
 
-Je publie chaque semaine une newsletter qui raconte ce que je teste en IA, les outils qui marchent, les prompts que j'utilise. Tu l'as reçue en t'inscrivant sur le site. Si tu ne l'as pas encore, va sur [jeremysagnier.com](#).
+Je publie chaque semaine une newsletter qui raconte ce que je teste en IA, les outils qui fonctionnent, les prompts que j'utilise. Tu l'as reçue en t'inscrivant sur le site. Si tu ne l'as pas encore, va sur [jeremysagnier.com](#).
 
 Et si tu as des questions, réponds à l'email. Je lis tout.
 

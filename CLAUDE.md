@@ -73,6 +73,16 @@ Ton Leo = ton de la mascotte IA Leo d'Eurofiscalis. Appliqué **partout** sur ce
 - **Assumer les limites** : "je peux me tromper, écris-moi si tu n'es pas d'accord"
 - **Appel à réponse** partout : "Réponds à l'email, je lis tout"
 
+### Registre : naturel, PAS familier (règle renforcée 2026-04-20)
+
+Chaleureux ≠ familier. Jamais d'argot ni de langage "de pote" sur le site public.
+
+**À BANNIR :** "je te file", "tu piques", "prêt à piquer", "des trucs", "c'est de la daube", "qui marchent" (parlé), "1 clic pour sortir", "kif", "taf", "mec", "ouais", élisions orales ("ça sert pas", "y'a").
+
+**À UTILISER :** "je t'envoie" / "je partage", "prêt à appliquer" / "prêt à utiliser", "erreurs" / "ressources", "qui fonctionnent", "désinscription en 1 clic", "sans pub".
+
+**Test :** relire à voix haute. Si ça sonne comme un copain au bar → trop familier. Si ça sonne comme un ami qui t'écrit un mail un dimanche soir → bon niveau.
+
 ### PITCH CENTRAL (à préserver à tout prix)
 > "Je fais tout ça d'abord pour moi. Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier."
 

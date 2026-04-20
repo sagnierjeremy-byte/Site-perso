@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Débuter avec l'IA — Parcours pour non-devs, par Jérémy Sagnier</title>
-<meta name="description" content="Tu n'as jamais utilisé l'IA sérieusement ? Commence ici. Pas de jargon, pas de code, pas besoin de payer. 20 minutes pour comprendre les 3 façons d'utiliser Claude et faire tes premiers tests qui marchent.">
+<meta name="description" content="Tu n'as jamais utilisé l'IA sérieusement ? Commence ici. Pas de jargon, pas de code, pas besoin de payer. En 25 minutes tu comprends les 3 portes Claude, tu lances ton premier prompt et tu sais ce que tu ne dois JAMAIS coller dedans.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,7 +95,7 @@
 
   /* Hero */
   .hero {
-    padding: 64px 0 88px;
+    padding: 64px 0 96px;
     background:
       radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
       radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
@@ -132,7 +132,22 @@
   .hero h1 em { font-style: normal; color: var(--teal) }
   .hero p.hero-lead {
     font-size: 17.5px; color: #C4CED4;
-    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+    max-width: 640px; margin-bottom: 28px; line-height: 1.6;
+  }
+  .hero-quote {
+    max-width: 720px; margin: 0 0 32px;
+    padding: 18px 22px; border-radius: 14px;
+    background: rgba(0,178,169,.12);
+    border: 1px solid rgba(0,178,169,.28);
+    border-left: 4px solid var(--teal);
+    color: #F4EFE6; font-size: 15.5px; line-height: 1.6;
+  }
+  .hero-quote strong { color: var(--teal) }
+  .hero-quote .quote-src {
+    display: block; margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
+    color: #9AA3A8;
   }
   .hero-meta {
     display: flex; flex-wrap: wrap; gap: 10px;
@@ -227,6 +242,61 @@
   a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
   a:hover { color: var(--orange) }
 
+  /* Generic table (glossaire, portes) */
+  .basic-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    overflow: hidden;
+    font-size: 14.5px;
+  }
+  .basic-table th, .basic-table td {
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .basic-table tbody tr:last-child td { border-bottom: none }
+  .basic-table thead {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .basic-table td strong { color: var(--ink) }
+  .basic-table td.num {
+    font-family: 'Archivo Black', sans-serif; font-size: 18px;
+    width: 44px; text-align: center;
+  }
+  .basic-table.doors tbody tr:nth-child(1) td.num { color: var(--teal) }
+  .basic-table.doors tbody tr:nth-child(2) td.num { color: var(--fuchsia) }
+  .basic-table.doors tbody tr:nth-child(3) td.num { color: var(--orange) }
+  @media (max-width: 720px) {
+    .basic-table, .basic-table thead, .basic-table tbody, .basic-table tr, .basic-table th, .basic-table td {
+      display: block;
+    }
+    .basic-table thead { display: none }
+    .basic-table tr {
+      border-bottom: 1px solid var(--line-strong);
+      padding: 10px 0;
+    }
+    .basic-table tr:last-child { border-bottom: none }
+    .basic-table td {
+      border: none; padding: 4px 16px;
+    }
+    .basic-table td.num { width: auto; text-align: left; padding-top: 12px }
+    .basic-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+      color: var(--ink-muted); margin-bottom: 2px;
+    }
+    .basic-table td.num::before { display: none }
+  }
+
   /* Step cards */
   .step {
     display: flex; gap: 20px; padding: 26px 30px;
@@ -251,61 +321,6 @@
   .step-body { flex: 1; min-width: 0 }
   .step-body h3 { margin-top: 0; margin-bottom: 8px }
   .step-body p:last-child { margin-bottom: 0 }
-
-  /* Comparison table */
-  .doors-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin: 16px 0 28px;
-    border: 1px solid var(--line-strong);
-    border-radius: 16px;
-    overflow: hidden;
-    font-size: 14.5px;
-  }
-  .doors-table th, .doors-table td {
-    padding: 14px 16px; text-align: left;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
-  .doors-table tbody tr:last-child td { border-bottom: none }
-  .doors-table thead {
-    background: var(--bg-2);
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .doors-table td strong { color: var(--ink) }
-  .doors-table td.num {
-    font-family: 'Archivo Black', sans-serif; font-size: 18px;
-    width: 44px; text-align: center;
-  }
-  .doors-table tbody tr:nth-child(1) td.num { color: var(--teal) }
-  .doors-table tbody tr:nth-child(2) td.num { color: var(--fuchsia) }
-  .doors-table tbody tr:nth-child(3) td.num { color: var(--orange) }
-  @media (max-width: 720px) {
-    .doors-table, .doors-table thead, .doors-table tbody, .doors-table tr, .doors-table th, .doors-table td {
-      display: block;
-    }
-    .doors-table thead { display: none }
-    .doors-table tr {
-      border-bottom: 1px solid var(--line-strong);
-      padding: 10px 0;
-    }
-    .doors-table tr:last-child { border-bottom: none }
-    .doors-table td {
-      border: none; padding: 4px 16px;
-    }
-    .doors-table td.num { width: auto; text-align: left; padding-top: 12px }
-    .doors-table td::before {
-      content: attr(data-label);
-      display: block;
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-      color: var(--ink-muted); margin-bottom: 2px;
-    }
-    .doors-table td.num::before { display: none }
-  }
 
   /* Persona cards */
   .personas {
@@ -337,8 +352,20 @@
   .persona h4 {
     margin: 0 0 8px; font-size: 16px;
   }
-  .persona p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+  .persona p { font-size: 14.5px; margin: 0 0 8px; line-height: 1.6 }
+  .persona p:last-child { margin-bottom: 0 }
   .persona p strong { color: var(--ink) }
+  .persona .setup {
+    display: block;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    letter-spacing: .05em; color: var(--ink); margin-top: 6px;
+  }
+  .persona .src {
+    display: block;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: .12em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 8px;
+  }
 
   /* Code blocks */
   pre {
@@ -374,6 +401,7 @@
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
     letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
     color: var(--ink-soft);
+    gap: 10px;
   }
   .prompt-head strong { color: var(--ink) }
   .copy-btn {
@@ -383,6 +411,7 @@
     font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
     letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
     cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+    flex-shrink: 0;
   }
   .copy-btn:hover { background: var(--fuchsia); color: #fff; border-color: var(--fuchsia) }
   .copy-btn.ok { background: var(--teal); color: #fff; border-color: var(--teal) }
@@ -390,6 +419,60 @@
     margin: 0; border: none; border-radius: 0;
     background: transparent;
   }
+
+  /* CRAFT block */
+  .craft {
+    margin: 20px 0 28px;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .craft-head {
+    padding: 16px 22px;
+    background: linear-gradient(135deg, rgba(0,178,169,.1), rgba(239,66,111,.08), rgba(255,130,0,.08));
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .craft-head strong {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .craft-grid {
+    display: grid; gap: 0;
+    grid-template-columns: 1fr;
+    background: var(--surface);
+  }
+  @media (min-width: 720px) {
+    .craft-grid { grid-template-columns: 1fr 1fr }
+  }
+  .craft-row {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  @media (min-width: 720px) {
+    .craft-row:nth-child(odd) { border-right: 1px solid var(--line) }
+    .craft-row:nth-child(4), .craft-row:nth-child(5) { border-bottom: none }
+  }
+  .craft-letter {
+    flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 18px;
+  }
+  .craft-row:nth-child(5n+1) .craft-letter { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .craft-row:nth-child(5n+2) .craft-letter { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .craft-row:nth-child(5n+3) .craft-letter { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .craft-row:nth-child(5n+4) .craft-letter { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .craft-row:nth-child(5n+5) .craft-letter { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .craft-body { flex: 1; min-width: 0 }
+  .craft-body strong {
+    display: block;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+    letter-spacing: -.01em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .craft-body p { margin: 0; font-size: 14px; line-height: 1.55 }
 
   /* Callouts */
   .callout {
@@ -408,7 +491,23 @@
   .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
   .callout.tip::before   { background: var(--fuchsia) }
   .callout h4 { margin: 0 0 6px; font-size: 15px }
-  .callout p  { margin: 0; font-size: 14.5px }
+  .callout p  { margin: 0 0 8px; font-size: 14.5px }
+  .callout p:last-child { margin-bottom: 0 }
+
+  /* Confidentialité — danger bloc */
+  .danger-box {
+    padding: 26px 30px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,130,0,.1), rgba(239,66,111,.08));
+    border: 1px solid rgba(255,130,0,.35);
+    margin: 20px 0;
+  }
+  .danger-box h3 { margin-top: 0 }
+  .danger-box .danger-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
 
   /* Next articles cards */
   .next-cards {
@@ -561,12 +660,17 @@
     <div class="kicker"><span class="dot"></span>Parcours Débutant</div>
     <h1>Tu n'as jamais utilisé l'IA sérieusement ?<br><em>Commence ici.</em></h1>
     <p class="hero-lead">
-      Pas besoin de savoir coder. Pas besoin d'ouvrir un terminal. Pas besoin de payer. En 20 minutes tu auras compris les 3 façons d'utiliser Claude, et fait tes premiers tests qui marchent vraiment.
+      Pas besoin de savoir coder. Pas besoin d'ouvrir un terminal. Pas besoin de payer. En 25 minutes, tu auras compris les 3 façons d'utiliser Claude, écrit ton premier prompt qui fonctionne, et tu sauras surtout ce que tu ne dois <strong>jamais</strong> coller dedans.
     </p>
+    <div class="hero-quote">
+      <strong>« Avant de lire 10 tutoriels, fais 10 heures d'usage brut. »</strong><br>
+      C'est le conseil d'Ethan Mollick (professeur à Wharton, auteur de <em>Co-Intelligence</em>). Tu apprendras plus en utilisant Claude 10 heures sur des tâches que tu maîtrises déjà qu'en suivant 50 cours de prompt engineering.
+      <span class="quote-src">— Ethan Mollick · One Useful Thing</span>
+    </div>
     <div class="hero-meta">
-      <span class="hero-meta-item"><strong>20 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>25 min</strong> de lecture</span>
       <span class="hero-meta-item"><strong>Prérequis</strong> Aucun</span>
-      <span class="hero-meta-item"><strong>Outils</strong> 100% navigateur</span>
+      <span class="hero-meta-item"><strong>Outils</strong> 100 % navigateur</span>
     </div>
   </div>
 </section>
@@ -577,23 +681,73 @@
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu vas retenir</h2>
     <ul>
-      <li><strong>L'IA aujourd'hui, c'est comme le web en 1998.</strong> Ceux qui apprennent maintenant prennent une longueur d'avance qu'ils garderont pour les 10 prochaines années.</li>
-      <li><strong>Claude a 3 portes d'entrée.</strong> Le Chat (tu connais, comme ChatGPT), les Projects (pour bosser à long terme), et Claude Code (pour que ça tourne pendant que tu dors).</li>
-      <li><strong>Tu n'as besoin que de la 1ère pour 80% des cas.</strong> Les 2 autres viennent après, seulement quand tu sens que ça coince.</li>
+      <li><strong>Dix heures d'usage valent cinquante cours.</strong> Utilise Claude sur des tâches que tu maîtrises déjà, avant de chercher la technique magique.</li>
+      <li><strong>Claude a 3 portes d'entrée.</strong> Le Chat (comme ChatGPT), Cowork (un assistant qui tourne sur ton ordinateur et peut toucher tes fichiers), et Claude Code (pour développeurs).</li>
+      <li><strong>Tu n'as besoin que de la 1ère pour 80 % des cas.</strong> La deuxième vient quand tu veux déléguer une tâche complète. La troisième, seulement si tu codes.</li>
     </ul>
   </div>
 </div>
 
+<!-- Glossaire -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Glossaire</span>
+    <h2>Les 7 mots <em class="teal">à connaître</em> avant de commencer.</h2>
+    <p>
+      Si tu lis des articles sur l'IA et qu'on te balance ces mots sans les définir, tu décroches. Voilà les 7 termes qui reviennent tout le temps, traduits en français normal.
+    </p>
+
+    <table class="basic-table">
+      <thead>
+        <tr>
+          <th>Mot</th>
+          <th>Ce que ça veut dire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Mot"><strong>Anthropic</strong></td>
+          <td data-label="Définition">L'entreprise qui fabrique Claude (comme OpenAI fabrique ChatGPT).</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Claude</strong></td>
+          <td data-label="Définition">L'IA en elle-même. Ce qui te répond quand tu poses une question.</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Un prompt</strong></td>
+          <td data-label="Définition">Le texte que tu envoies à Claude. Ta question, ta demande, ton instruction.</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Pro</strong></td>
+          <td data-label="Définition">L'abonnement payant Claude à 20 $ par mois. Donne accès aux modèles les plus puissants et à Cowork.</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Projects</strong></td>
+          <td data-label="Définition">Une fonctionnalité dans Claude.ai : un dossier où Claude garde en mémoire ton contexte entre conversations.</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Cowork</strong></td>
+          <td data-label="Définition">Un assistant Claude qui tourne sur ton ordinateur et peut agir sur tes fichiers, tes mails, ton Drive.</td>
+        </tr>
+        <tr>
+          <td data-label="Mot"><strong>Claude Code</strong></td>
+          <td data-label="Définition">Un outil en ligne de commande réservé aux développeurs. Plus puissant, plus exigeant.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <!-- Section 1 : les 3 portes -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— Section 1 · Les bases</span>
-    <h2>Les 3 portes <em class="teal">d'entrée Claude.</em></h2>
+    <span class="section-kicker k-fuchsia">— Section 1 · Les bases</span>
+    <h2>Les 3 portes <em class="fuchsia">d'entrée Claude.</em></h2>
     <p>
-      Avant de t'expliquer laquelle choisir, il faut que tu saches qu'elles existent. Beaucoup de gens restent bloqués sur la 1ère parce qu'ils n'ont jamais entendu parler des 2 autres. Regarde le tableau, puis je détaille.
+      Avant de choisir laquelle utiliser, il faut savoir qu'elles existent. Beaucoup de gens restent bloqués sur la première parce qu'ils n'ont jamais entendu parler des deux autres. Voici le tableau, puis je détaille.
     </p>
 
-    <table class="doors-table">
+    <table class="basic-table doors">
       <thead>
         <tr>
           <th>#</th>
@@ -606,24 +760,24 @@
       <tbody>
         <tr>
           <td class="num" data-label="#">1</td>
-          <td data-label="Nom"><strong>Claude (chat)</strong></td>
+          <td data-label="Nom"><strong>Claude (le Chat)</strong></td>
           <td data-label="C'est quoi ?">L'application Claude.ai dans ton navigateur — comme ChatGPT, version Anthropic.</td>
           <td data-label="Pour qui ?">Tout le monde, tous les jours</td>
-          <td data-label="Prix"><strong>Gratuit</strong> / 18€ mois</td>
+          <td data-label="Prix"><strong>Gratuit</strong> / 20 $ par mois (Pro)</td>
         </tr>
         <tr>
           <td class="num" data-label="#">2</td>
-          <td data-label="Nom"><strong>Claude Projects</strong></td>
-          <td data-label="C'est quoi ?">Une fonctionnalité de Claude.ai Pro : tu crées des "dossiers" où tu mets tes docs et ton contexte. Claude s'en souvient à chaque conversation.</td>
-          <td data-label="Pour qui ?">Dès que tu recolles les mêmes infos 3 fois</td>
-          <td data-label="Prix">Inclus dans Claude Pro</td>
+          <td data-label="Nom"><strong>Claude Cowork</strong></td>
+          <td data-label="C'est quoi ?">Un assistant qui tourne sur ton ordinateur (Mac ou Windows) et peut lire, écrire, organiser tes fichiers, envoyer des mails — sans que tu aies besoin de coder.</td>
+          <td data-label="Pour qui ?">Quand tu veux déléguer une tâche complète, pas juste poser une question</td>
+          <td data-label="Prix">Inclus dans Claude Pro (20 $ par mois)</td>
         </tr>
         <tr>
           <td class="num" data-label="#">3</td>
           <td data-label="Nom"><strong>Claude Code</strong></td>
-          <td data-label="C'est quoi ?">Un outil qui tourne sur ton ordi (via une fenêtre texte noire appelée Terminal). Il peut faire tourner des tâches la nuit, lire 1 000 fichiers, automatiser.</td>
-          <td data-label="Pour qui ?">Quand tu veux que ça tourne SANS toi</td>
-          <td data-label="Prix">20 $ mois (Pro) ou à l'usage</td>
+          <td data-label="C'est quoi ?">Un outil en ligne de commande pour les développeurs. Plus puissant, mais nécessite de savoir utiliser un terminal.</td>
+          <td data-label="Pour qui ?">Développeurs et curieux avancés</td>
+          <td data-label="Prix">Inclus dans Claude Pro</td>
         </tr>
       </tbody>
     </table>
@@ -632,17 +786,19 @@
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>Porte 1 · Le Chat Claude</h3>
-        <p>Tu vas sur <strong>claude.ai</strong>, tu crées un compte, tu tapes ta question dans la barre en bas. C'est tout. Exactement comme ChatGPT, sauf que c'est Claude — une IA faite par Anthropic, réputée plus honnête et plus précise pour l'écriture.</p>
-        <p><strong>Exemple concret :</strong> tu colles un mail client compliqué, tu demandes <em>"réponds-moi à ça en ton poli mais ferme, en 5 lignes"</em>. Tu as ta réponse en 10 secondes.</p>
+        <p>Tu vas sur <strong>claude.ai</strong>, tu crées un compte, tu tapes ta question dans la barre en bas. C'est tout. Exactement comme ChatGPT, sauf que c'est Claude — une IA réputée plus précise pour la rédaction et plus honnête quand elle ne sait pas.</p>
+        <p><strong>Exemple concret :</strong> tu colles un mail client compliqué, tu demandes <em>« réponds-moi à ça sur un ton poli mais ferme, en 5 lignes »</em>. Tu as ta réponse en 10 secondes.</p>
+        <p><strong>Astuce :</strong> pour garder ton contexte d'une conversation à l'autre (ton offre, ton ton de voix, ta cible), utilise la fonctionnalité <strong>Projects</strong> dans Claude.ai Pro. C'est un dossier où tu colles tes docs une fois, et chaque nouvelle conversation part avec tout ce contexte en tête.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3>Porte 2 · Les Projects</h3>
-        <p>Dans Claude.ai Pro, tu peux créer un "Project" — imagine un dossier. Tu y colles tes docs (ton offre, ta charte, tes mails-types) une fois. Ensuite, <strong>chaque nouvelle conversation démarre avec tout ce contexte déjà en mémoire</strong>. Tu n'as plus à recoller tes infos à chaque fois.</p>
-        <p><strong>Exemple concret :</strong> un Project "Mes clients" où tu mets ton pitch, ton ton de voix, tes 5 offres. Chaque fois que tu as besoin d'écrire un mail ou une proposition, Claude sait déjà qui tu es.</p>
+        <h3>Porte 2 · Claude Cowork</h3>
+        <p>Cowork, c'est un logiciel que tu installes sur ton ordinateur. Au lieu d'ouvrir un onglet web, tu parles à Claude dans une fenêtre dédiée — et cette fois, il peut <strong>agir sur ton ordinateur</strong> : lire tes fichiers, les réécrire, classer un dossier, t'aider à organiser des mails.</p>
+        <p><strong>Exemple concret :</strong> tu lui dis <em>« prends les 30 avis clients dans ce fichier, trie-les par thème, écris-moi 30 réponses dans mon ton habituel, mets tout dans un nouveau document »</em>. Tu le laisses travailler, tu reviens, c'est fait.</p>
+        <p>C'est la bonne porte dès que tu veux <strong>déléguer une tâche complète</strong>, pas juste poser une question. Et tu n'as pas besoin de savoir coder.</p>
       </div>
     </div>
 
@@ -650,115 +806,387 @@
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>Porte 3 · Claude Code</h3>
-        <p>C'est une version plus technique. Tu l'installes sur ton ordi, elle tourne dans une fenêtre noire (le Terminal). Avantage : elle peut <strong>lire des centaines de fichiers, automatiser des tâches, tourner la nuit</strong>. J'ai fait un <a href="claude-code.html">guide complet pour l'installer pas à pas</a> si tu veux.</p>
-        <p><strong>Exemple concret :</strong> tu as 500 descriptions produits à réécrire. Tu lances Claude Code, tu vas te coucher, au réveil c'est fait.</p>
+        <p>C'est la version développeurs. Tu l'installes sur ton ordinateur, elle s'utilise dans une fenêtre texte appelée Terminal. Si tu n'as jamais ouvert un terminal, laisse tomber pour l'instant. Si tu codes ou que tu veux apprendre, j'ai fait un <a href="claude-code.html">guide complet pour l'installer pas à pas</a>.</p>
+        <p><strong>Exemple concret :</strong> tu as un projet web de 500 fichiers, tu veux qu'un agent tourne la nuit pour le documenter pendant que tu dors. C'est possible, mais avancé.</p>
       </div>
     </div>
 
     <div class="callout tip">
       <h4>Mon conseil honnête</h4>
-      <p>Tu peux rester sur le Chat (porte 1) pendant 3 mois sans rien rater. Passe aux Projects quand tu sens que tu recolles les mêmes infos en boucle. Claude Code, c'est vraiment pour quand tu veux industrialiser — pas avant.</p>
+      <p>Tu peux rester sur le Chat (porte 1) pendant 3 mois sans rien manquer. Passe à Cowork quand tu sens que tu répètes les mêmes manipulations de fichiers en boucle. Claude Code, c'est vraiment pour les développeurs ou les curieux prêts à apprendre le terminal — pas avant.</p>
     </div>
   </div>
 </section>
 
-<!-- Section 2 : personas -->
+<!-- Section 2 : métaphore stagiaire -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Section 2 · Pour toi</span>
+    <span class="section-kicker k-orange">— Section 2 · Le modèle mental</em></span>
+    <h2>Claude, <em class="orange">un stagiaire brillant</em> mais amnésique.</h2>
+    <p>
+      C'est la meilleure analogie que j'ai trouvée, et elle vient d'Ethan Mollick. Si tu l'intègres bien, tu évites 90 % des déceptions que les débutants ont avec l'IA.
+    </p>
+    <p>
+      Claude a lu la moitié d'internet. Il peut raisonner, écrire, analyser, coder. Mais il a deux limites que tu dois comprendre pour ne jamais être déçu.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Il oublie tout entre chaque conversation</h3>
+        <p>À chaque nouvelle conversation, c'est un stagiaire qui arrive à 9 h du matin, sans aucun contexte. Tu dois le briefer : qui tu es, ce que tu fais, ce que tu attends, pour qui. Sans ça, il te sort du générique.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Il ne sait pas ce qu'il ne sait pas</h3>
+        <p>Il peut inventer une statistique, citer une étude qui n'existe pas, se tromper avec aplomb. Ton travail : vérifier les faits qu'il te donne, surtout les chiffres et les citations. Un chiffre trop rond ou une source trop parfaite ? Google-la avant de l'utiliser.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Le bon réflexe</h4>
+      <p>Traite Claude comme un nouveau collaborateur talentueux mais qui a besoin d'un onboarding à chaque fois. Plus tu lui donnes de contexte, plus il est bon. Moins tu lui en donnes, plus il invente. C'est aussi simple que ça.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3 : Custom Instructions -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Section 3 · Le hack</span>
+    <h2>Le réglage n°1 <em class="teal">que 90 % des utilisateurs</em> ignorent.</h2>
+    <p>
+      Si tu ne dois retenir qu'un seul conseil technique de cette page, c'est celui-là. Il existe un endroit dans Claude.ai où tu peux écrire <strong>une fois pour toutes</strong> qui tu es et comment tu veux que Claude te parle. Et il s'en souviendra dans <strong>toutes</strong> tes conversations.
+    </p>
+
+    <h3>Où trouver ce réglage</h3>
+    <p>
+      Dans Claude.ai, clique sur ton nom en bas à gauche, puis <strong>Paramètres → Personnalisation</strong>. Tu as un champ de texte libre. C'est là que tout se joue.
+    </p>
+
+    <h3>Le template à adapter</h3>
+    <p>Voilà une base que tu peux copier-coller dans ce champ. Remplace les crochets par tes informations.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Template</strong> · Instructions personnalisées</span>
+        <button class="copy-btn" data-copy="prompt-custom">Copier</button>
+      </div>
+      <pre id="prompt-custom">Je m'appelle [Prénom]. Je suis [métier, secteur, taille de structure].
+Mes clients sont [type de clients].
+Mon ton de communication : [3 adjectifs, par exemple : direct, chaleureux, précis].
+
+Quand je te demande quelque chose :
+- Réponds de manière structurée (listes, tableaux quand c'est utile)
+- Pas de compliments de courtoisie ("Excellente question !")
+- Pas de disclaimers ("Je ne suis qu'une IA", "Il est important de noter…")
+- Cite tes sources quand tu donnes un chiffre
+- Si tu n'es pas sûr, dis-le clairement
+
+Ce que je NE veux pas que tu fasses :
+- [exemples : "pas de bullet points dans mes mails", "pas d'emoji", "pas d'anglicisme"]</pre>
+    </div>
+
+    <div class="callout tip">
+      <h4>Pourquoi ça change tout</h4>
+      <p>Chacune de tes conversations démarre dix niveaux plus haut. Plus besoin de recoller ton contexte à chaque fois, plus besoin de lui rappeler ton ton. C'est le réglage qui a le plus d'impact sur ta qualité d'usage, et quasiment personne ne l'utilise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4 : premier prompt CRAFT -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Section 4 · Ton premier prompt</span>
+    <h2>La méthode <em class="fuchsia">CRAFT.</em></h2>
+    <p>
+      Un prompt, c'est juste le texte que tu envoies à Claude. Mais entre un prompt bâclé (« écris-moi un mail ») et un prompt qui fonctionne, il y a cinq éléments. La méthode CRAFT est un résumé de ce que recommandent Anthropic et OpenAI dans leurs propres guides.
+    </p>
+
+    <div class="craft">
+      <div class="craft-head"><strong>C · R · A · F · T</strong></div>
+      <div class="craft-grid">
+        <div class="craft-row">
+          <div class="craft-letter">C</div>
+          <div class="craft-body">
+            <strong>Contexte</strong>
+            <p>Qui tu es, pour qui tu travailles, quelles sont tes contraintes. Sans ça, Claude répond pour personne.</p>
+          </div>
+        </div>
+        <div class="craft-row">
+          <div class="craft-letter">R</div>
+          <div class="craft-body">
+            <strong>Rôle</strong>
+            <p>« Tu es [expert spécifique] ». Ça active la bonne expertise dans sa mémoire.</p>
+          </div>
+        </div>
+        <div class="craft-row">
+          <div class="craft-letter">A</div>
+          <div class="craft-body">
+            <strong>Action</strong>
+            <p>Un verbe précis : analyse, compare, réécris, liste, corrige. Pas « fais-moi un truc ».</p>
+          </div>
+        </div>
+        <div class="craft-row">
+          <div class="craft-letter">F</div>
+          <div class="craft-body">
+            <strong>Format</strong>
+            <p>Liste, tableau, 200 mots, 3 paragraphes, markdown. Sinon tu récupères une bouillie.</p>
+          </div>
+        </div>
+        <div class="craft-row">
+          <div class="craft-letter">T</div>
+          <div class="craft-body">
+            <strong>Template / exemples</strong>
+            <p>Un ou deux exemples de ce que tu attends. C'est le levier le plus puissant des cinq.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>5 prompts métiers, prêts à copier</h3>
+    <p>
+      Pas de prompt universel. Voici un prompt par profil, construit avec CRAFT, que tu peux copier dans Claude dès maintenant. Remplace les crochets par tes infos.
+    </p>
+
+    <!-- Coach -->
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Prompt 01</strong> · Coach / formateur</span>
+        <button class="copy-btn" data-copy="prompt-coach">Copier</button>
+      </div>
+      <pre id="prompt-coach">Tu es mon bras droit stratégique, avec l'œil d'un consultant senior.
+Voici mon offre : [décris en 3 lignes]
+Voici mon client idéal : [décris en 3 lignes]
+Voici mes 3 derniers mois de revenus ou d'activité : [chiffres]
+
+Identifie :
+1. Le goulot d'étranglement n°1 qui me fait perdre du chiffre d'affaires
+2. 3 leviers 80/20 activables cette semaine
+3. Le risque business que je ne vois pas
+
+Sois direct. Pas de compliments de courtoisie.</pre>
+    </div>
+
+    <!-- Restau -->
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Prompt 02</strong> · Restaurateur / commerce</span>
+        <button class="copy-btn" data-copy="prompt-restau">Copier</button>
+      </div>
+      <pre id="prompt-restau">Tu es expert en réputation en ligne pour la restauration.
+Voici 30 avis Google de mon restaurant [nom, type, ville] :
+[colle tes avis ici]
+
+Donne-moi :
+1. Les 3 griefs récurrents à corriger en cuisine ou en service
+2. Les 3 forces à amplifier dans ma communication
+3. 10 réponses types (5 positives, 5 négatives) dans le ton de la maison : [décris ton ton en 3 lignes]
+
+Format : tableau clair, pas de remplissage.</pre>
+    </div>
+
+    <!-- E-com -->
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Prompt 03</strong> · E-commerçant</span>
+        <button class="copy-btn" data-copy="prompt-ecom">Copier</button>
+      </div>
+      <pre id="prompt-ecom">Tu es copywriter spécialisé e-commerce direct-to-consumer.
+Voici ma fiche produit actuelle : [colle]
+Voici 20 avis clients récents : [colle]
+Voici 2 concurrents qui performent : [URLs]
+
+Réécris la fiche en 9 sections :
+hook, proposition unique, bénéfices, objections, preuves sociales,
+FAQ, garantie, appel à l'action, micro-copy.
+Reprends les mots exacts de mes clients dans les avis.
+Ton de marque : [3 lignes de description].</pre>
+    </div>
+
+    <!-- Consultant B2B -->
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Prompt 04</strong> · Consultant B2B</span>
+        <button class="copy-btn" data-copy="prompt-consult">Copier</button>
+      </div>
+      <pre id="prompt-consult">Tu agis comme un consultant senior d'un cabinet tier 1.
+Applique strictement :
+- Pyramide de Minto (la conclusion d'abord)
+- SCQA (Situation, Complication, Question, Answer)
+- MECE pour toute décomposition
+- "So what ?" à chaque point
+
+Contexte de la mission : [brief en 5 lignes]
+Données à analyser : [colle]
+
+Livrable attendu : executive summary d'une page + 5 bullets priorisés.
+Sois hypothesis-driven, pas descriptif.
+
+IMPORTANT : j'ai anonymisé les noms clients avant de coller. Tu peux travailler sereinement.</pre>
+    </div>
+
+    <!-- Agence créa -->
+    <div class="prompt-box">
+      <div class="prompt-head">
+        <span><strong>Prompt 05</strong> · Agence com / créa</span>
+        <button class="copy-btn" data-copy="prompt-agence">Copier</button>
+      </div>
+      <pre id="prompt-agence">Tu es Creative Director senior d'une agence indépendante.
+Brief client : [colle le brief]
+Cible : [personas en 3 lignes]
+Marque (ton, valeurs, interdits) : [décris]
+
+Livrable :
+1. Big idea en une phrase
+2. 3 axes créatifs (tagline + description visuelle + ton de voix)
+3. Déclinaison en 6 formats (Instagram reel, story, LinkedIn, TikTok, print, affichage)
+4. Indicateurs à suivre
+
+Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empower".</pre>
+    </div>
+
+    <div class="callout ok">
+      <h4>Astuce qui change tout</h4>
+      <p>Quand tu trouves un prompt qui fonctionne pour toi, <strong>sauvegarde-le</strong> dans un fichier dédié. Un bon prompt réutilisé 50 fois vaut plus qu'un prompt génial utilisé une fois.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5 : pas-à-pas -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Section 5 · En pratique</span>
+    <h2>Ton premier test <em class="orange">concret, maintenant.</em></h2>
+    <p>
+      Tu as les prompts, tu as la méthode. Il ne reste qu'à passer à l'acte. Si tu n'as jamais créé de compte Claude, voilà les 6 étapes. Compte 10 minutes, pas plus.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Ouvre un onglet sur claude.ai</h3>
+        <p>Tape <code>claude.ai</code> dans ton navigateur. Tu arrives sur la page d'accueil d'Anthropic.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Crée un compte gratuit</h3>
+        <p>Clique sur <strong>Sign up</strong> en haut à droite. Tu peux te connecter avec Google en un clic, ou créer un compte avec ton email. C'est gratuit.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Reviens ici et copie le prompt qui correspond à ton métier</h3>
+        <p>Reprends la section juste au-dessus. Clique sur <strong>Copier</strong> dans l'encadré de ton profil. Le prompt est dans ton presse-papier.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Remplace les crochets par ton vrai contenu</h3>
+        <p>Si tu n'as pas de page About sous la main, prends ton profil LinkedIn, un mail de présentation, n'importe quel texte à toi. Peu importe, du moment que ça parle de ton activité.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>Colle dans Claude et envoie</h3>
+        <p>Tu as ta première réponse. Lis-la. Si elle est générique, c'est normal : tu n'as sans doute pas assez donné de contexte.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h3>Pousse la conversation</h3>
+        <p>Demande-lui <em>« pousse plus loin cette idée »</em>, <em>« reformule avec un ton plus direct »</em>, <em>« donne-moi 3 variantes »</em>. La 3e ou 4e version bat presque toujours la première.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>Si tu bloques</h4>
+      <p>Écris-moi. J'ai fait ces étapes des centaines de fois, et le blocage vient toujours du même endroit. Je réponds à tous les mails.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6 : personas avec chiffres -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Section 6 · Pour toi</span>
     <h2>Quelle porte <em class="fuchsia">pour ton métier ?</em></h2>
     <p>
-      Pas de réponse universelle. Voilà ce que je conseille selon ce que tu fais. Si tu ne te reconnais pas, prends le plus proche — le principe est le même.
+      Pas de réponse universelle. Voici ce que je recommande par profil, avec des chiffres concrets de gains constatés. Si tu ne te reconnais pas exactement, prends le profil le plus proche.
     </p>
 
     <div class="personas">
       <div class="persona">
         <div class="persona-label">Persona 01</div>
         <h4>Coach / formateur</h4>
-        <p><strong>Chat + 1 Project "Mes clients".</strong> Tu mets dedans ton offre, ton ton de voix, tes méthodes. Tu l'utilises pour écrire des mails perso, des plans de séance, des bilans. Claude Code ? Pas tout de suite.</p>
+        <p>Les formateurs équipés d'un workflow IA gagnent <strong>10 à 15 heures par semaine</strong> sur la création de contenus.</p>
+        <span class="setup">Setup : Chat + Instructions personnalisées + 1 Project « Mes clients ».</span>
+        <span class="src">Source · Webnyxt 2026</span>
       </div>
 
       <div class="persona">
         <div class="persona-label">Persona 02</div>
         <h4>Restaurateur / artisan / commerce</h4>
-        <p><strong>Chat + 1 Project "Avis clients".</strong> Tu y mets tes 50 derniers avis Google, ta carte, ta promesse. Claude t'aide à répondre aux avis, rédiger des posts, comprendre ce que les gens aiment/détestent.</p>
+        <p><strong>76 % des restaurateurs</strong> utilisent déjà l'IA. Bien utilisée, elle réduit de <strong>70 %</strong> le temps passé à répondre aux avis Google.</p>
+        <span class="setup">Setup : Chat + 1 Project « Avis clients ».</span>
+        <span class="src">Sources · Access Group 2025 · Booteek.ai</span>
       </div>
 
       <div class="persona">
         <div class="persona-label">Persona 03</div>
         <h4>E-commerçant</h4>
-        <p><strong>Chat + Projects (1 par marque) + Claude Code pour les 500 descriptions.</strong> Les Projects gardent le ton de chaque marque. Claude Code réécrit tes fiches produits en masse.</p>
+        <p>Les marques DTC qui utilisent l'IA pour leurs fiches produits voient en moyenne <strong>+18 à 20 % de taux de conversion</strong>.</p>
+        <span class="setup">Setup : Chat + un Project par marque ou par ligne + Cowork pour traiter le catalogue complet.</span>
+        <span class="src">Source · Envive</span>
       </div>
 
       <div class="persona">
         <div class="persona-label">Persona 04</div>
         <h4>Consultant B2B</h4>
-        <p><strong>Chat + Projects (1 par mission) + Claude Code si 100+ docs.</strong> Un Project par client = zéro confusion. Claude Code quand tu dois avaler un rapport de 200 pages ou 50 emails.</p>
+        <p>Sur la rédaction d'executive summaries, Claude fait gagner en moyenne <strong>59 % de temps</strong>.</p>
+        <span class="setup">Setup : Chat + un Project par mission + respect strict des règles de confidentialité (voir section suivante).</span>
+        <span class="src">Source · Federal Reserve 2026</span>
       </div>
 
       <div class="persona">
         <div class="persona-label">Persona 05</div>
-        <h4>Agence créa</h4>
-        <p><strong>Chat + Projects (1 par client) + Claude Code pour la veille auto.</strong> Tu gardes la charte de chaque client dans son Project. Claude Code fait la veille concurrentielle pendant que tu dors.</p>
+        <h4>Agence com / créa</h4>
+        <p>Les agences qui utilisent l'IA sur leurs briefs créatifs obtiennent un ROAS moyen de <strong>3,8× en 6 semaines</strong>.</p>
+        <span class="setup">Setup : Chat + un Project par client + Cowork pour la veille concurrentielle.</span>
+        <span class="src">Source · Ryze AI</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section 3 : premier prompt -->
+<!-- Section 7 : erreurs -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— Section 3 · Action</span>
-    <h2>Ton premier <em class="orange">prompt qui marche.</em></h2>
+    <span class="section-kicker k-teal">— Section 7 · Pièges</span>
+    <h2>Les 5 erreurs <em class="teal">de débutant.</em></h2>
     <p>
-      Un "prompt", c'est juste le texte que tu tapes à Claude. Voilà un prompt que j'utilise souvent : l'audit de page About. Copie-colle, remplace le texte entre crochets, envoie. Tu verras la différence tout de suite.
-    </p>
-
-    <div class="prompt-box">
-      <div class="prompt-head">
-        <span><strong>Prompt 01</strong> · Audit de page About</span>
-        <button class="copy-btn" data-copy="prompt-01">Copier</button>
-      </div>
-      <pre id="prompt-01">Tu es un copywriter direct, style Alex Hormozi.
-Voici le texte de ma page About : [COLLE ICI TON TEXTE]
-
-Donne-moi :
-1. Les 3 phrases qui fonctionnent bien (et pourquoi)
-2. Les 3 phrases à virer (et pourquoi)
-3. Une version réécrite de l'intro, en 3 variantes de ton différent
-
-Format : tableau clair, pas de blabla.</pre>
-    </div>
-
-    <h3>Ce qui rend ce prompt bon</h3>
-    <ul>
-      <li><strong>Contexte + rôle</strong> ("tu es un copywriter direct, style Alex Hormozi") → Claude sait sur quel pied danser.</li>
-      <li><strong>Matière première</strong> ("voici le texte…") → il bosse sur du concret, pas sur du vent.</li>
-      <li><strong>Format attendu</strong> ("1. / 2. / 3." + "tableau clair") → tu évites la bouillie d'une page.</li>
-      <li><strong>Pas de politesse inutile</strong> → "pas de blabla" fait gagner 40% de longueur à la réponse.</li>
-    </ul>
-
-    <div class="callout ok">
-      <h4>Astuce qui change tout</h4>
-      <p>Quand tu trouves un prompt qui marche pour toi, <strong>sauvegarde-le</strong> (dans tes notes, dans un fichier). Un bon prompt réutilisé 50 fois vaut plus qu'un prompt génial utilisé une fois.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Section 4 : erreurs -->
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-fuchsia">— Section 4 · Pièges</span>
-    <h2>Les 5 erreurs <em class="fuchsia">de débutant.</em></h2>
-    <p>
-      Je les ai toutes faites. Toi aussi tu les feras. Au moins, une fois que tu les connais, tu les corriges en 10 secondes.
+      Je les ai toutes faites. Tu les feras aussi. Au moins, une fois que tu les connais, tu les corriges en 10 secondes.
     </p>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>Erreur · Prompt trop court</h3>
-        <p><strong>"Écris-moi un mail."</strong> Résultat : un mail générique, fade, qui ne te ressemble pas. <strong>Le fix :</strong> donne le contexte (à qui ? pourquoi ? dans quel ton ?), le destinataire (client nerveux ? prospect froid ?), l'objectif (rdv ? relance ? excuse ?). Plus tu donnes, mieux c'est.</p>
+        <p><strong>« Écris-moi un mail. »</strong> Résultat : un mail générique, fade, qui ne te ressemble pas. <strong>La correction :</strong> donne le contexte (à qui ? pourquoi ? sur quel ton ?), le destinataire (client nerveux ? prospect froid ?), l'objectif (rendez-vous ? relance ? excuse ?). Plus tu donnes, meilleure est la réponse.</p>
       </div>
     </div>
 
@@ -766,15 +1194,15 @@ Format : tableau clair, pas de blabla.</pre>
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>Erreur · Pas d'exemples</h3>
-        <p>Claude ne devine pas ton goût. <strong>Le fix :</strong> colle 2 exemples de ce que tu aimes (mail d'un concurrent bien écrit, post LinkedIn qui t'a fait réagir) et 1 de ce que tu détestes. Il calibre instantanément.</p>
+        <p>Claude ne devine pas ton goût. <strong>La correction :</strong> colle 2 exemples de ce que tu aimes (un mail de concurrent bien écrit, un post LinkedIn qui t'a fait réagir) et un de ce que tu détestes. Il se cale instantanément.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-body">
-        <h3>Erreur · Accepter la 1ère réponse</h3>
-        <p>Tu demandes une idée, tu prends la première. Grave erreur. <strong>Le fix :</strong> demande 3 variantes, garde la meilleure, renvoie <em>"pousse encore plus dans cette direction"</em>. La 3e ou 4e version bat toujours la 1ère.</p>
+        <h3>Erreur · Accepter la première réponse</h3>
+        <p>Tu demandes une idée, tu prends la première. Grosse erreur. <strong>La correction :</strong> demande 3 variantes, garde la meilleure, renvoie <em>« pousse encore plus dans cette direction »</em>. La 3e ou 4e version bat presque toujours la 1ère.</p>
       </div>
     </div>
 
@@ -782,97 +1210,94 @@ Format : tableau clair, pas de blabla.</pre>
       <div class="step-num">04</div>
       <div class="step-body">
         <h3>Erreur · Oublier le contexte entre conversations</h3>
-        <p>Tu recolles ton pitch, tes offres, ton ton de voix à chaque nouvelle conversation. Perte de temps. <strong>Le fix :</strong> c'est exactement à ça que servent les Projects (porte 2). Tu mets ton contexte une fois, c'est réutilisé partout.</p>
+        <p>Tu recolles ton pitch, tes offres, ton ton de voix à chaque nouvelle conversation. Perte de temps. <strong>La correction :</strong> c'est exactement pour ça que servent les Instructions personnalisées (section 3) et les Projects. Tu mets ton contexte une fois, c'est réutilisé partout.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">05</div>
       <div class="step-body">
-        <h3>Erreur · Croire que Claude "sait tout"</h3>
-        <p>Claude n'a pas ton contexte business. Il n'a pas lu tes mails, il ne connaît pas tes clients. <strong>Le fix :</strong> tu es le chef, pas lui. Tu dois lui donner la matière. Plus tu nourris, meilleure est la sortie. Règle simple : si un humain nouveau dans ton équipe ne pourrait pas répondre sans plus d'infos, Claude non plus.</p>
+        <h3>Erreur · Croire que Claude sait tout</h3>
+        <p>Claude n'a pas ton contexte business. Il n'a pas lu tes mails, il ne connaît pas tes clients. <strong>La correction :</strong> c'est toi qui diriges, pas lui. Tu dois lui donner la matière première. Règle simple : si un humain nouveau dans ton équipe ne pouvait pas répondre sans plus d'infos, Claude non plus.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section 5 : 3 prompts favoris -->
+<!-- Section 8 : confidentialité -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— Section 5 · Tes favoris</span>
-    <h2>3 prompts à mettre <em class="teal">en favoris.</em></h2>
+    <span class="section-kicker k-orange">— Section 8 · Sécurité des données</span>
+    <h2>Ce que tu ne dois <em class="orange">jamais</em> mettre dans Claude.</h2>
     <p>
-      Ceux-là, je les utilise chaque semaine. Copie-les, garde-les à portée de main.
+      Tu vas peut-être travailler avec des données sensibles : informations clients, contrats, stratégies, données financières. Avant de coller n'importe quoi, lis cette section. C'est la plus importante de toute la page.
     </p>
 
-    <div class="prompt-box">
-      <div class="prompt-head">
-        <span><strong>Prompt Brainstorm</strong> · 20 idées en 30 secondes</span>
-        <button class="copy-btn" data-copy="prompt-02">Copier</button>
-      </div>
-      <pre id="prompt-02">Je cherche 20 idées de [SUJET] pour [CIBLE].
-Contexte : [DÉCRIS TON BUSINESS EN 3 LIGNES].
-Contraintes : [BUDGET / DÉLAI / TON].
+    <h3>Les règles selon le type d'abonnement</h3>
+    <table class="basic-table">
+      <thead>
+        <tr>
+          <th>Abonnement</th>
+          <th>Entraînement sur tes données ?</th>
+          <th>Adapté aux données clients ?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Abonnement"><strong>Claude Free & Pro</strong> (0 / 20 $ par mois)</td>
+          <td data-label="Entraînement">Oui, depuis septembre 2025. Rétention 5 ans.</td>
+          <td data-label="Adapté ?"><strong>Non</strong> pour des données client sensibles.</td>
+        </tr>
+        <tr>
+          <td data-label="Abonnement"><strong>Claude Team & Enterprise</strong> (20 à 60 $ par siège)</td>
+          <td data-label="Entraînement">Non par défaut. Option Zero-Data-Retention en Enterprise.</td>
+          <td data-label="Adapté ?"><strong>Oui.</strong> C'est le standard pour les pros qui manipulent des données client.</td>
+        </tr>
+        <tr>
+          <td data-label="Abonnement"><strong>API Claude</strong> (paiement à l'usage)</td>
+          <td data-label="Entraînement">Non par défaut.</td>
+          <td data-label="Adapté ?">Oui, mais nécessite du code.</td>
+        </tr>
+      </tbody>
+    </table>
 
-Donne-moi 20 idées, numérotées.
-5 évidentes, 10 classiques mais bien exécutées, 5 contre-intuitives.
-Pour chaque idée : 1 phrase, pas plus.</pre>
+    <div class="danger-box">
+      <div class="danger-label">⚠ À ne jamais coller, même en Team</div>
+      <h3>Les 4 interdictions absolues</h3>
+      <ul>
+        <li><strong>Données personnelles identifiables</strong> (noms, emails, numéros de téléphone) sans anonymisation préalable.</li>
+        <li><strong>Secrets contractuels</strong> couverts par une clause de confidentialité (NDA, accord exclusif, clause de non-concurrence).</li>
+        <li><strong>Mots de passe, clés API, tokens, identifiants bancaires.</strong></li>
+        <li><strong>Données de santé, données bancaires, données de mineurs.</strong></li>
+      </ul>
     </div>
 
-    <div class="prompt-box">
-      <div class="prompt-head">
-        <span><strong>Prompt Critique</strong> · Un retour qui fait mal mais qui sert</span>
-        <button class="copy-btn" data-copy="prompt-03">Copier</button>
-      </div>
-      <pre id="prompt-03">Tu es un expert brutalement honnête en [DOMAINE].
-Voici mon travail : [COLLE TON TEXTE / TON IDÉE / TA PAGE].
-
-Je veux un retour dur mais constructif.
-1. Les 3 points qui clochent vraiment (sans politesse)
-2. Pour chaque point, le "pourquoi" et le "comment fixer"
-3. Une note /10 honnête, avec la raison
-
-Pas de compliments de courtoisie. Vise juste.</pre>
+    <div class="callout ok">
+      <h4>Le bon réflexe d'anonymisation</h4>
+      <p>Avant de coller un document, remplace les noms par « Client A », « Client B », « Prospect 1 ». Tu gardes la substance et les chiffres, tu enlèves le risque juridique. Cinq minutes de chercher-remplacer te protègent de problèmes bien plus coûteux.</p>
     </div>
 
-    <div class="prompt-box">
-      <div class="prompt-head">
-        <span><strong>Prompt Reformulation</strong> · Adapter à un nouveau public</span>
-        <button class="copy-btn" data-copy="prompt-04">Copier</button>
-      </div>
-      <pre id="prompt-04">Voici un texte écrit pour [PUBLIC ORIGINAL] :
-[COLLE ICI LE TEXTE]
-
-Réécris-le pour [NOUVEAU PUBLIC].
-Garde les idées, change :
-- Le vocabulaire (plus simple / plus technique)
-- Les exemples (adaptés à leur quotidien)
-- Le ton (plus formel / plus direct)
-
-Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
-    </div>
-
-    <div class="callout tip">
-      <h4>Tiens-les à portée de main</h4>
-      <p>Crée-toi un doc (Notes, Notion, Word, peu importe) "Mes prompts favoris" et colles-y ces 3 là. Dans 6 mois tu en auras 20 à toi. C'est ça, ta vraie bibliothèque IA — pas les 50 outils à 30$ mois.</p>
+    <div class="callout warn">
+      <h4>Note juridique · février 2026</h4>
+      <p>La justice américaine a confirmé (arrêt <em>US v. Heppner</em>) que les conversations avec une IA <strong>ne sont pas couvertes par le secret professionnel</strong>. Si tu es avocat, médecin, expert-comptable ou tenu par un secret métier, sois particulièrement prudent sur ce que tu colles, quel que soit l'abonnement.</p>
     </div>
   </div>
 </section>
 
-<!-- Section 6 : et maintenant -->
+<!-- Section 9 : et maintenant -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— Section 6 · La suite</span>
-    <h2>Et <em class="orange">maintenant ?</em></h2>
+    <span class="section-kicker k-fuchsia">— Section 9 · La suite</span>
+    <h2>Et <em class="fuchsia">maintenant ?</em></h2>
     <p>
-      Tu as les bases. Selon où tu en es, voilà par quoi continuer. Je t'ai classé mes articles par niveau — si tu sors d'ici, commence par la colonne "Débutant".
+      Tu as les bases. Selon où tu en es, voici par quoi continuer. J'ai classé mes articles par niveau — si tu sors d'ici, commence par la colonne « Débutant ».
     </p>
 
     <div class="next-cards">
       <div class="next-card lvl-1">
         <span class="next-badge">Débutant</span>
         <h4>Les bases, bien posées</h4>
-        <p>Comprendre comment marche une IA (sans jargon) et installer Claude Code si tu veux passer à l'étape d'après.</p>
+        <p>Comprendre comment fonctionne une IA (sans jargon) et installer Claude Code si tu veux passer à l'étape d'après.</p>
         <div class="next-links">
           <a href="articles/karpathy.html">Karpathy vulgarisé →</a>
           <a href="claude-code.html">Guide Claude Code →</a>
@@ -882,7 +1307,7 @@ Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
       <div class="next-card lvl-2">
         <span class="next-badge">Intermédiaire</span>
         <h4>Tu montes d'un cran</h4>
-        <p>Te construire une mémoire durable pour Claude, et lancer des tâches qui tournent en boucle sans toi.</p>
+        <p>Construire une mémoire durable pour Claude, et lancer des tâches qui tournent en boucle sans toi.</p>
         <div class="next-links">
           <a href="articles/llm-wiki-karpathy.html">Le LLM Wiki →</a>
           <a href="articles/loops-claude.html">Les loops Claude →</a>
@@ -892,7 +1317,7 @@ Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
       <div class="next-card lvl-3">
         <span class="next-badge">Avancé / Dev</span>
         <h4>Tu veux un vrai agent</h4>
-        <p>Construire un agent qui bosse pour toi 24/7, et comprendre les agents qui s'améliorent tout seuls.</p>
+        <p>Construire un agent qui travaille pour toi en continu, et comprendre les agents qui s'améliorent tout seuls.</p>
         <div class="next-links">
           <a href="articles/hermes-agent.html">Construire Hermes →</a>
           <a href="articles/autoresearch-karpathy.html">Agents auto-améliorants →</a>
@@ -902,7 +1327,7 @@ Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
 
     <div class="callout ok">
       <h4>Si tu ne dois retenir qu'une chose</h4>
-      <p>Ne cherche pas l'outil magique. Cherche juste à utiliser Claude <strong>1 heure par jour</strong> pendant 2 semaines. Au bout de 14 jours, tu seras plus à l'aise que 90% des gens autour de toi — et tu sauras exactement ce dont tu as besoin.</p>
+      <p>Ne cherche pas l'outil magique. Cherche juste à utiliser Claude <strong>une heure par jour</strong> pendant deux semaines, sur des tâches que tu maîtrises déjà. Au bout de 14 jours, tu seras plus à l'aise que 90 % des gens autour de toi, et tu sauras exactement ce dont tu as besoin ensuite.</p>
     </div>
   </div>
 </section>
@@ -913,14 +1338,14 @@ Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
     <span class="section-kicker k-fuchsia" style="display:inline-flex">— Pour rester à jour</span>
     <h2>Je te partage ma <em class="fuchsia">veille IA.</em></h2>
     <p>
-      Chaque vendredi matin, je m'envoie à moi-même un brief des 10 trucs IA qui ont bougé dans la semaine. Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier. Pas de pub, pas de spam, désinscription 1 clic.
+      Chaque vendredi matin, je m'envoie à moi-même un brief des 10 nouveautés IA qui ont compté dans la semaine. Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier. Sans pub, sans spam, désinscription en 1 clic.
     </p>
     <form class="newsletter-form" data-newsletter="ai-playbook">
       <input type="email" name="email" placeholder="ton@email.com" required>
       <button type="submit">Recevoir la veille →</button>
     </form>
     <div class="form-status" aria-live="polite"></div>
-    <div class="final-hint">Gratuit · Zéro spam · Désinscription 1 clic</div>
+    <div class="final-hint">Gratuit · Sans spam · Désinscription en 1 clic</div>
   </div>
 </section>
 
@@ -998,7 +1423,7 @@ Longueur similaire. Donne-moi la version finale, pas d'explication.</pre>
         const data = await res.json();
         status.textContent = data.alreadySubscribed
           ? '✓ Déjà inscrit. Merci !'
-          : '✓ Inscrit ! Check ta boîte vendredi matin.';
+          : '✓ Inscrit ! Rendez-vous vendredi matin dans ta boîte.';
         status.className = 'form-status ok';
         form.reset();
       } catch (err) {

@@ -48,6 +48,51 @@ Jamais les 3 couleurs Fiesta en aplat à taille égale.
 ### Signature triple-stripe
 Ordre canonique **immuable** : `teal → fuchsia → orange`. Utilisée en headers, footers, dividers.
 
+### Mini-marquees (signature Fiesta, RÈGLE À APPLIQUER PARTOUT)
+
+Les **mini-marquees dividers** sont un élément identitaire. **Chaque nouvelle page doit en contenir au minimum 2-3**, placés entre les grandes sections pour rythmer le scroll et marquer les transitions.
+
+**CSS obligatoire** (à copier dans le `<style>` de chaque nouvelle page) :
+```css
+.mini-marquee {
+  overflow: hidden; padding: 14px 0;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+  color: #fff; position: relative;
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+.mini-marquee::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+}
+.mini-marquee-track {
+  display: flex; gap: 40px; white-space: nowrap;
+  animation: mini-marquee-scroll 50s linear infinite;
+  font-family: 'Archivo Black', sans-serif; font-size: 17px;
+  text-transform: uppercase; letter-spacing: -.01em;
+  position: relative; z-index: 1;
+}
+.mini-marquee-track span {
+  display: inline-flex; align-items: center; gap: 40px;
+}
+.mini-marquee-track span::after {
+  content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+}
+@keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+```
+
+**HTML type** (le contenu est à dupliquer 2× pour boucle infinie fluide) :
+```html
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Mot 1</span><span>Mot 2</span><span>Mot 3</span><span>Mot 4</span><span>Mot 5</span><span>Mot 6</span>
+    <span>Mot 1</span><span>Mot 2</span><span>Mot 3</span><span>Mot 4</span><span>Mot 5</span><span>Mot 6</span>
+  </div>
+</div>
+```
+
+**Contenu** : 5-7 mots/expressions courtes, cohérentes avec le thème de la section qui suit. Règles : zéro familier (pas de "pique", "truc", "perso"), phrases courtes, ton Leo, mots en français (pas d'anglicismes type "free" ou "scroll"). Exemples validés : *"Gratuit · Zéro spam · Juste ce qui sert · Désinscription 1 clic · Fait pour moi d'abord · Inspire-toi"*.
+
 ### Typo
 - Display H1-H2 : `Archivo Black` UPPERCASE · `letter-spacing: -0.03em à -0.04em`
 - Body : `Archivo` 400/500/600/700/900

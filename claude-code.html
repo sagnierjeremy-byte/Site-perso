@@ -531,6 +531,50 @@
     text-transform: uppercase;
     color: var(--ink-muted);
   }
+
+  /* Mini-marquee divider — signature Fiesta entre grandes sections */
+  .mini-marquee {
+    overflow: hidden;
+    padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,.18);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆";
+    color: rgba(10,10,10,.5);
+    font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll {
+    to { transform: translateX(-50%) }
+  }
 </style>
 </head>
 <body>
@@ -793,6 +837,14 @@ cp ~/Downloads/CLAUDE.md ~/.claude/CLAUDE.md</pre>
   </div>
 </section>
 
+<!-- Mini-marquee divider 1 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>3 étapes · 10 minutes</span><span>Sans jargon</span><span>Sans peur du terminal</span><span>Tu y arrives</span><span>Prochaine étape : les skills</span>
+    <span>3 étapes · 10 minutes</span><span>Sans jargon</span><span>Sans peur du terminal</span><span>Tu y arrives</span><span>Prochaine étape : les skills</span>
+  </div>
+</div>
+
 <!-- Étape 04 : Skills -->
 <section class="block">
   <div class="container">
@@ -977,6 +1029,14 @@ cp -R ~/Downloads/jeremy-claude-pack/skills/* ~/.claude/skills/</pre>
     </div>
   </div>
 </section>
+
+<!-- Mini-marquee divider 2 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>37 skills</span><span>Prêts à l'emploi</span><span>Prends ceux qui te servent</span><span>Adapte à ton métier</span><span>Gratuit</span>
+    <span>37 skills</span><span>Prêts à l'emploi</span><span>Prends ceux qui te servent</span><span>Adapte à ton métier</span><span>Gratuit</span>
+  </div>
+</div>
 
 <!-- Ma routine -->
 <section class="block">

@@ -161,6 +161,141 @@
   }
   .hero-meta-item strong { color: var(--teal); margin-right: 6px }
 
+  /* Bloc rassurance "Ce dont tu n'as PAS besoin" — grille de mini-cards */
+  .reassure-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .reassure-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    margin-bottom: 22px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(239,66,111,.18), rgba(255,130,0,.18));
+    border: 1px solid rgba(239,66,111,.4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .reassure-heading::before {
+    content: "✕";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--fuchsia);
+  }
+  .reassure-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 640px)  { .reassure-grid { grid-template-columns: 1fr 1fr; gap: 14px } }
+  @media (min-width: 1000px) { .reassure-grid { grid-template-columns: repeat(3, 1fr); gap: 16px } }
+
+  .reassure-item {
+    position: relative;
+    padding: 20px 20px 20px 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(239,66,111,.08) 0%, rgba(255,130,0,.05) 100%);
+    border: 1px solid rgba(255,255,255,.14);
+    overflow: hidden;
+    transition: transform .25s ease, border-color .2s;
+  }
+  .reassure-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(239,66,111,.5);
+  }
+  .reassure-item::before {
+    content: "✕";
+    position: absolute;
+    left: 18px;
+    top: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(239,66,111,.18);
+    border: 1.5px solid var(--fuchsia);
+    color: var(--fuchsia);
+    display: grid;
+    place-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .reassure-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 100% 100%, rgba(239,66,111,.12), transparent 60%);
+    pointer-events: none;
+  }
+  .reassure-item-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 4px;
+  }
+  .reassure-item-text {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+  }
+
+  /* Mini-marquee divider — signature Fiesta entre grandes sections */
+  .mini-marquee {
+    overflow: hidden;
+    padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,.18);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆";
+    color: rgba(10,10,10,.5);
+    font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll {
+    to { transform: translateX(-50%) }
+  }
+
   /* TL;DR */
   .tldr {
     max-width: 880px; margin: -40px auto 0;
@@ -494,6 +629,60 @@
   .callout p  { margin: 0 0 8px; font-size: 14.5px }
   .callout p:last-child { margin-bottom: 0 }
 
+  /* FAQ accordéon — peurs classiques */
+  .faq {
+    max-width: 820px;
+    margin: 32px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 20px 24px;
+    transition: background .2s, border-color .2s;
+  }
+  .faq-item[open] {
+    background: var(--bg-2);
+    border-color: var(--ink);
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding-right: 24px;
+    position: relative;
+  }
+  .faq-item summary::-webkit-details-marker { display: none }
+  .faq-item summary::before {
+    content: "+";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: var(--fuchsia);
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform .25s;
+  }
+  .faq-item[open] summary::before {
+    content: "−";
+    color: var(--teal);
+  }
+  .faq-item p {
+    margin: 14px 0 0;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
   /* Confidentialité — danger bloc */
   .danger-box {
     padding: 26px 30px; border-radius: 18px;
@@ -553,6 +742,88 @@
     transition: background .2s, color .2s;
   }
   .next-links a:hover { background: var(--ink); color: var(--bg) }
+
+  /* CTA inline (dans les callouts) */
+  .inline-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+  }
+  .inline-cta:hover { color: var(--ink); border-color: var(--ink) }
+
+  /* Final CTA binaire (2 options) */
+  .final-dual {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 960px;
+    margin: 32px auto 24px;
+    text-align: left;
+  }
+  @media (min-width: 820px) { .final-dual { grid-template-columns: 1fr 1fr; gap: 24px } }
+  .final-option {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .final-option-primary {
+    border-color: var(--ink);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg-2) 100%);
+    box-shadow: 0 18px 40px -20px rgba(0,0,0,.3);
+  }
+  .final-option-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .final-option h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.15;
+  }
+  .final-option p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .final-option-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .final-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(0,0,0,.3);
+  }
 
   /* Final CTA */
   .final-cta {
@@ -658,19 +929,49 @@
 <section class="hero">
   <div class="container">
     <div class="kicker"><span class="dot"></span>Parcours Débutant</div>
-    <h1>Tu n'as jamais utilisé l'IA sérieusement ?<br><em>Commence ici.</em></h1>
+    <h1>De Claude chat<br>à <em>Claude Code.</em><br>En 20 minutes.</h1>
     <p class="hero-lead">
-      Pas besoin de savoir coder. Pas besoin d'ouvrir un terminal. Pas besoin de payer. En 25 minutes, tu auras compris les 3 façons d'utiliser Claude, écrit ton premier prompt qui fonctionne, et tu sauras surtout ce que tu ne dois <strong>jamais</strong> coller dedans.
+      Tu vas apprendre à utiliser Claude dans ton navigateur, puis à monter les 2 crans du dessus — <strong>jusqu'à Claude Code, sans jamais écrire une seule ligne de code</strong>. Tu parles en français, Claude exécute. C'est aussi simple que ça.
     </p>
     <div class="hero-quote">
       <strong>« Avant de lire 10 tutoriels, fais 10 heures d'usage brut. »</strong><br>
-      C'est le conseil d'Ethan Mollick (professeur à Wharton, auteur de <em>Co-Intelligence</em>). Tu apprendras plus en utilisant Claude 10 heures sur des tâches que tu maîtrises déjà qu'en suivant 50 cours de prompt engineering.
+      Le conseil d'Ethan Mollick (professeur à Wharton, auteur de <em>Co-Intelligence</em>). Tu apprendras plus en utilisant Claude 10 heures sur des tâches que tu maîtrises déjà qu'en suivant 50 cours de prompt engineering.
       <span class="quote-src">— Ethan Mollick · One Useful Thing</span>
     </div>
     <div class="hero-meta">
-      <span class="hero-meta-item"><strong>25 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>20 min</strong> de lecture</span>
       <span class="hero-meta-item"><strong>Prérequis</strong> Aucun</span>
-      <span class="hero-meta-item"><strong>Outils</strong> 100 % navigateur</span>
+      <span class="hero-meta-item"><strong>Objectif</strong> Claude Code</span>
+    </div>
+
+    <div class="reassure-wrap" style="margin-top: 40px;">
+      <div class="reassure-heading">Ce dont tu n'as PAS besoin</div>
+      <div class="reassure-grid">
+        <div class="reassure-item">
+          <span class="reassure-item-label">Code</span>
+          <span class="reassure-item-text">Pas besoin de savoir coder</span>
+        </div>
+        <div class="reassure-item">
+          <span class="reassure-item-label">Terminal</span>
+          <span class="reassure-item-text">Pas besoin de terminal brut (il y a aussi une app fenêtre)</span>
+        </div>
+        <div class="reassure-item">
+          <span class="reassure-item-label">Paiement</span>
+          <span class="reassure-item-text">Pas besoin de carte bancaire pour commencer</span>
+        </div>
+        <div class="reassure-item">
+          <span class="reassure-item-label">Projet</span>
+          <span class="reassure-item-text">Pas besoin d'un projet technique particulier</span>
+        </div>
+        <div class="reassure-item">
+          <span class="reassure-item-label">Temps</span>
+          <span class="reassure-item-text">Pas besoin de 4 heures par jour à y consacrer</span>
+        </div>
+        <div class="reassure-item">
+          <span class="reassure-item-label">Pré-requis</span>
+          <span class="reassure-item-text">Pas besoin de maîtriser ChatGPT ou autre avant</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -682,8 +983,8 @@
     <h2>Ce que tu vas retenir</h2>
     <ul>
       <li><strong>Dix heures d'usage valent cinquante cours.</strong> Utilise Claude sur des tâches que tu maîtrises déjà, avant de chercher la technique magique.</li>
-      <li><strong>Claude a 3 portes d'entrée.</strong> Le Chat (comme ChatGPT), Cowork (un assistant qui tourne sur ton ordinateur et peut toucher tes fichiers), et Claude Code (pour développeurs).</li>
-      <li><strong>Tu n'as besoin que de la 1ère pour 80 % des cas.</strong> La deuxième vient quand tu veux déléguer une tâche complète. La troisième, seulement si tu codes.</li>
+      <li><strong>Claude a 3 portes d'entrée :</strong> le Chat (ton navigateur), Claude Cowork (sur ton ordinateur) et <strong>Claude Code</strong> (ton atelier personnel, sans écrire une ligne de code).</li>
+      <li><strong>Oui, Claude Code est pour toi aussi.</strong> On l'appelle "Code" à cause de ses origines, mais tu lui parles en français. Je n'ai jamais codé de ma vie et je l'utilise tous les jours.</li>
     </ul>
   </div>
 </div>
@@ -694,7 +995,7 @@
     <span class="section-kicker k-teal">— Glossaire</span>
     <h2>Les 7 mots <em class="teal">à connaître</em> avant de commencer.</h2>
     <p>
-      Si tu lis des articles sur l'IA et qu'on te balance ces mots sans les définir, tu décroches. Voilà les 7 termes qui reviennent tout le temps, traduits en français normal.
+      Si tu lis des articles sur l'IA et qu'on t'envoie ces mots sans les définir, tu perds le fil. Voilà les 7 termes qui reviennent tout le temps, traduits en français normal.
     </p>
 
     <table class="basic-table">
@@ -731,7 +1032,7 @@
         </tr>
         <tr>
           <td data-label="Mot"><strong>Claude Code</strong></td>
-          <td data-label="Définition">Un outil en ligne de commande réservé aux développeurs. Plus puissant, plus exigeant.</td>
+          <td data-label="Définition">La version la plus puissante de Claude, qui tourne directement sur ton ordinateur. Malgré son nom, tu <strong>n'as pas besoin de savoir coder</strong> — tu lui parles en français, il agit sur tes fichiers.</td>
         </tr>
       </tbody>
     </table>
@@ -744,7 +1045,7 @@
     <span class="section-kicker k-fuchsia">— Section 1 · Les bases</span>
     <h2>Les 3 portes <em class="fuchsia">d'entrée Claude.</em></h2>
     <p>
-      Avant de choisir laquelle utiliser, il faut savoir qu'elles existent. Beaucoup de gens restent bloqués sur la première parce qu'ils n'ont jamais entendu parler des deux autres. Voici le tableau, puis je détaille.
+      Avant de choisir, il faut savoir qu'elles existent. Beaucoup de gens restent bloqués sur la première parce qu'ils n'ont jamais entendu parler des deux autres. Pense à un escalier : <strong>chambre d'hôtel → bureau partagé → ton propre atelier</strong>. Chaque marche est plus puissante et plus personnelle.
     </p>
 
     <table class="basic-table doors">
@@ -762,21 +1063,21 @@
           <td class="num" data-label="#">1</td>
           <td data-label="Nom"><strong>Claude (le Chat)</strong></td>
           <td data-label="C'est quoi ?">L'application Claude.ai dans ton navigateur — comme ChatGPT, version Anthropic.</td>
-          <td data-label="Pour qui ?">Tout le monde, tous les jours</td>
+          <td data-label="Pour qui ?">Tout le monde, dès aujourd'hui</td>
           <td data-label="Prix"><strong>Gratuit</strong> / 20 $ par mois (Pro)</td>
         </tr>
         <tr>
           <td class="num" data-label="#">2</td>
           <td data-label="Nom"><strong>Claude Cowork</strong></td>
-          <td data-label="C'est quoi ?">Un assistant qui tourne sur ton ordinateur (Mac ou Windows) et peut lire, écrire, organiser tes fichiers, envoyer des mails — sans que tu aies besoin de coder.</td>
+          <td data-label="C'est quoi ?">Un assistant qui tourne sur ton ordinateur (Mac ou Windows) et peut lire, écrire, organiser tes fichiers, envoyer des mails — sans coder.</td>
           <td data-label="Pour qui ?">Quand tu veux déléguer une tâche complète, pas juste poser une question</td>
           <td data-label="Prix">Inclus dans Claude Pro (20 $ par mois)</td>
         </tr>
         <tr>
           <td class="num" data-label="#">3</td>
           <td data-label="Nom"><strong>Claude Code</strong></td>
-          <td data-label="C'est quoi ?">Un outil en ligne de commande pour les développeurs. Plus puissant, mais nécessite de savoir utiliser un terminal.</td>
-          <td data-label="Pour qui ?">Développeurs et curieux avancés</td>
+          <td data-label="C'est quoi ?">Ton atelier personnel sur ton ordinateur. Tu parles en français, il agit sur tes fichiers, il se souvient entre les sessions, il peut travailler pendant que tu dors.</td>
+          <td data-label="Pour qui ?">Pour toi aussi — si tu fais les marches 1 et 2 d'abord</td>
           <td data-label="Prix">Inclus dans Claude Pro</td>
         </tr>
       </tbody>
@@ -786,9 +1087,10 @@
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>Porte 1 · Le Chat Claude</h3>
+        <p><strong>La métaphore :</strong> c'est la chambre d'hôtel. Propre, prête à l'emploi, tu entres, tu poses ta question, tu ressors. Rien n'est gardé pour la prochaine fois.</p>
         <p>Tu vas sur <strong>claude.ai</strong>, tu crées un compte, tu tapes ta question dans la barre en bas. C'est tout. Exactement comme ChatGPT, sauf que c'est Claude — une IA réputée plus précise pour la rédaction et plus honnête quand elle ne sait pas.</p>
         <p><strong>Exemple concret :</strong> tu colles un mail client compliqué, tu demandes <em>« réponds-moi à ça sur un ton poli mais ferme, en 5 lignes »</em>. Tu as ta réponse en 10 secondes.</p>
-        <p><strong>Astuce :</strong> pour garder ton contexte d'une conversation à l'autre (ton offre, ton ton de voix, ta cible), utilise la fonctionnalité <strong>Projects</strong> dans Claude.ai Pro. C'est un dossier où tu colles tes docs une fois, et chaque nouvelle conversation part avec tout ce contexte en tête.</p>
+        <p><strong>Astuce :</strong> pour garder ton contexte d'une conversation à l'autre (ton offre, ton ton de voix, ta cible), utilise la fonctionnalité <strong>Projects</strong> dans Claude.ai Pro. C'est un dossier où tu colles tes documents une fois, et chaque nouvelle conversation part avec tout ce contexte en tête.</p>
       </div>
     </div>
 
@@ -796,6 +1098,7 @@
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>Porte 2 · Claude Cowork</h3>
+        <p><strong>La métaphore :</strong> c'est le bureau partagé. Claude a maintenant accès à tes affaires. Il peut lire tes fichiers, les réorganiser, t'aider sur un projet concret. Mais tu restes à côté pour valider à chaque étape.</p>
         <p>Cowork, c'est un logiciel que tu installes sur ton ordinateur. Au lieu d'ouvrir un onglet web, tu parles à Claude dans une fenêtre dédiée — et cette fois, il peut <strong>agir sur ton ordinateur</strong> : lire tes fichiers, les réécrire, classer un dossier, t'aider à organiser des mails.</p>
         <p><strong>Exemple concret :</strong> tu lui dis <em>« prends les 30 avis clients dans ce fichier, trie-les par thème, écris-moi 30 réponses dans mon ton habituel, mets tout dans un nouveau document »</em>. Tu le laisses travailler, tu reviens, c'est fait.</p>
         <p>C'est la bonne porte dès que tu veux <strong>déléguer une tâche complète</strong>, pas juste poser une question. Et tu n'as pas besoin de savoir coder.</p>
@@ -806,22 +1109,36 @@
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>Porte 3 · Claude Code</h3>
-        <p>C'est la version développeurs. Tu l'installes sur ton ordinateur, elle s'utilise dans une fenêtre texte appelée Terminal. Si tu n'as jamais ouvert un terminal, laisse tomber pour l'instant. Si tu codes ou que tu veux apprendre, j'ai fait un <a href="claude-code.html">guide complet pour l'installer pas à pas</a>.</p>
-        <p><strong>Exemple concret :</strong> tu as un projet web de 500 fichiers, tu veux qu'un agent tourne la nuit pour le documenter pendant que tu dors. C'est possible, mais avancé.</p>
+        <p><strong>La métaphore :</strong> c'est ton atelier personnel. Tu le ranges à ta façon, tu y laisses tes outils, tu notes tes règles au mur. Claude entre dans cet atelier, lit les règles, travaille comme tu veux. Et le lendemain, il se souvient de tout.</p>
+        <p>Malgré son nom "Code", <strong>tu n'as pas besoin de savoir coder pour l'utiliser</strong>. Tu lui parles en français, il exécute. Deux options pour le lancer :</p>
+        <ul>
+          <li><strong>L'application fenêtre (Mac/Windows)</strong> — aucune commande à taper. Tu cliques sur une icône, tu écris comme à un collègue. C'est la version la plus accessible pour commencer.</li>
+          <li><strong>Le terminal</strong> — une fenêtre texte sur ton ordinateur. 3 commandes suffisent pour l'installer et l'ouvrir. Rien d'autre à apprendre.</li>
+        </ul>
+        <p><strong>Exemple concret :</strong> <em>« range mon dossier Téléchargements par type de fichier, archive tout ce qui date de plus de 6 mois dans un dossier Archive »</em>. Tu valides, c'est fait. Même chose pour écrire un article à partir de tes notes, faire un rapport de frais depuis un export bancaire, transcrire une réunion en compte-rendu structuré.</p>
+        <p>Mon <a href="claude-code.html">guide complet pas à pas</a> te montre comment l'installer en 10 minutes.</p>
       </div>
     </div>
 
     <div class="callout tip">
-      <h4>Mon conseil honnête</h4>
-      <p>Tu peux rester sur le Chat (porte 1) pendant 3 mois sans rien manquer. Passe à Cowork quand tu sens que tu répètes les mêmes manipulations de fichiers en boucle. Claude Code, c'est vraiment pour les développeurs ou les curieux prêts à apprendre le terminal — pas avant.</p>
+      <h4>L'escalier que je te recommande</h4>
+      <p>Commence par le Chat (porte 1) aujourd'hui. Quand tu remarques que tu te recopies les mêmes contextes plusieurs fois par semaine, active Projects dans Claude.ai Pro. Et quand tu sens que tu veux que Claude <strong>agisse</strong> (organiser, écrire dans des fichiers, envoyer des mails), ouvre la porte 3. Tu découvriras qu'elle n'a rien d'effrayant — juste un atelier plus grand et plus personnel.</p>
     </div>
   </div>
 </section>
 
+<!-- Mini-marquee divider 1 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Trois portes</span><span>Une progression</span><span>Ton rythme</span><span>Tu choisis</span><span>Tu avances</span><span>Sans pression</span>
+    <span>Trois portes</span><span>Une progression</span><span>Ton rythme</span><span>Tu choisis</span><span>Tu avances</span><span>Sans pression</span>
+  </div>
+</div>
+
 <!-- Section 2 : métaphore stagiaire -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— Section 2 · Le modèle mental</em></span>
+    <span class="section-kicker k-orange">— Section 2 · Le modèle mental</span>
     <h2>Claude, <em class="orange">un stagiaire brillant</em> mais amnésique.</h2>
     <p>
       C'est la meilleure analogie que j'ai trouvée, et elle vient d'Ethan Mollick. Si tu l'intègres bien, tu évites 90 % des déceptions que les débutants ont avec l'IA.
@@ -894,6 +1211,12 @@ Ce que je NE veux pas que tu fasses :
       <h4>Pourquoi ça change tout</h4>
       <p>Chacune de tes conversations démarre dix niveaux plus haut. Plus besoin de recoller ton contexte à chaque fois, plus besoin de lui rappeler ton ton. C'est le réglage qui a le plus d'impact sur ta qualité d'usage, et quasiment personne ne l'utilise.</p>
     </div>
+
+    <div class="callout ok">
+      <h4>↗ Le grand frère : le CLAUDE.md</h4>
+      <p>Ces Instructions personnalisées, c'est l'équivalent web du fichier <strong>CLAUDE.md</strong> qui existe dans Claude Code. Même logique, en plus puissant : tu écris tes règles une fois, Claude Code les lit à chaque session, et tu peux en avoir un différent par projet. Je partage le mien anonymisé — télécharge-le, adapte-le à ta stack, garde-le sous le coude pour le jour où tu passeras à Claude Code.</p>
+      <p style="margin-top: 8px;"><a href="index.html#freebies" class="inline-cta">Télécharger mon CLAUDE.md anonymisé →</a></p>
+    </div>
   </div>
 </section>
 
@@ -927,14 +1250,14 @@ Ce que je NE veux pas que tu fasses :
           <div class="craft-letter">A</div>
           <div class="craft-body">
             <strong>Action</strong>
-            <p>Un verbe précis : analyse, compare, réécris, liste, corrige. Pas « fais-moi un truc ».</p>
+            <p>Un verbe précis : analyse, compare, réécris, liste, corrige. Pas « fais-moi une proposition ».</p>
           </div>
         </div>
         <div class="craft-row">
           <div class="craft-letter">F</div>
           <div class="craft-body">
             <strong>Format</strong>
-            <p>Liste, tableau, 200 mots, 3 paragraphes, markdown. Sinon tu récupères une bouillie.</p>
+            <p>Liste, tableau, 200 mots, 3 paragraphes, markdown. Sinon tu récupères un texte illisible.</p>
           </div>
         </div>
         <div class="craft-row">
@@ -1117,6 +1440,12 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
       <h4>Si tu bloques</h4>
       <p>Écris-moi. J'ai fait ces étapes des centaines de fois, et le blocage vient toujours du même endroit. Je réponds à tous les mails.</p>
     </div>
+
+    <div class="callout ok">
+      <h4>↗ Tu viens de maîtriser la porte 1. Prête pour la 3 ?</h4>
+      <p>Quand tu sens que ton Chat ne te suffit plus — que tu répètes les mêmes contextes, que tu veux que Claude agisse sur tes fichiers — tu es mûr pour la porte 3. Tu peux y aller maintenant, ou attendre d'avoir 2 semaines d'usage du Chat. Mais ne laisse pas le mot "Code" te freiner.</p>
+      <p style="margin-top: 8px;"><a href="claude-code.html" class="inline-cta">Voir le guide Claude Code pas à pas →</a></p>
+    </div>
   </div>
 </section>
 
@@ -1135,6 +1464,7 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
         <h4>Coach / formateur</h4>
         <p>Les formateurs équipés d'un workflow IA gagnent <strong>10 à 15 heures par semaine</strong> sur la création de contenus.</p>
         <span class="setup">Setup : Chat + Instructions personnalisées + 1 Project « Mes clients ».</span>
+        <span class="setup" style="color: var(--teal); margin-top: 4px;"><strong>↗ Niveau 2 · Claude Code :</strong> un CLAUDE.md avec ton ton de voix + un dossier client par personne. Tu lui demandes de rédiger la prochaine séance, le mail de suivi et le bilan d'un coup.</span>
         <span class="src">Source · Webnyxt 2026</span>
       </div>
 
@@ -1143,6 +1473,7 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
         <h4>Restaurateur / artisan / commerce</h4>
         <p><strong>76 % des restaurateurs</strong> utilisent déjà l'IA. Bien utilisée, elle réduit de <strong>70 %</strong> le temps passé à répondre aux avis Google.</p>
         <span class="setup">Setup : Chat + 1 Project « Avis clients ».</span>
+        <span class="setup" style="color: var(--teal); margin-top: 4px;"><strong>↗ Niveau 2 · Claude Code :</strong> un dossier « avis » où tu déposes l'export de la semaine. Tu lui demandes de trier, d'écrire 30 réponses dans ton ton, et de surveiller les signaux faibles (plainte récurrente, produit à retirer).</span>
         <span class="src">Sources · Access Group 2025 · Booteek.ai</span>
       </div>
 
@@ -1151,6 +1482,7 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
         <h4>E-commerçant</h4>
         <p>Les marques DTC qui utilisent l'IA pour leurs fiches produits voient en moyenne <strong>+18 à 20 % de taux de conversion</strong>.</p>
         <span class="setup">Setup : Chat + un Project par marque ou par ligne + Cowork pour traiter le catalogue complet.</span>
+        <span class="setup" style="color: var(--teal); margin-top: 4px;"><strong>↗ Niveau 2 · Claude Code :</strong> tu lui pointes ton catalogue (500 produits). Il te réécrit toutes les fiches produit en respectant ton brand book, surveille les prix des concurrents, et prépare tes mails d'acquisition — le tout en une nuit.</span>
         <span class="src">Source · Envive</span>
       </div>
 
@@ -1159,6 +1491,7 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
         <h4>Consultant B2B</h4>
         <p>Sur la rédaction d'executive summaries, Claude fait gagner en moyenne <strong>59 % de temps</strong>.</p>
         <span class="setup">Setup : Chat + un Project par mission + respect strict des règles de confidentialité (voir section suivante).</span>
+        <span class="setup" style="color: var(--teal); margin-top: 4px;"><strong>↗ Niveau 2 · Claude Code :</strong> un dossier par client avec tous les livrables passés. Tu lui demandes un executive summary cross-missions, un benchmark concurrentiel, une analyse de tes notes d'appels. Données sensibles qui restent chez toi.</span>
         <span class="src">Source · Federal Reserve 2026</span>
       </div>
 
@@ -1167,8 +1500,202 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
         <h4>Agence com / créa</h4>
         <p>Les agences qui utilisent l'IA sur leurs briefs créatifs obtiennent un ROAS moyen de <strong>3,8× en 6 semaines</strong>.</p>
         <span class="setup">Setup : Chat + un Project par client + Cowork pour la veille concurrentielle.</span>
+        <span class="setup" style="color: var(--teal); margin-top: 4px;"><strong>↗ Niveau 2 · Claude Code :</strong> un wiki client qui s'enrichit automatiquement (briefs, transcripts, livrables passés). Quand le client rappelle 6 mois plus tard, tu as un brief prêt en 20 secondes au lieu de relire 40 documents.</span>
         <span class="src">Source · Ryze AI</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6bis · Quand passer à Claude Code ? -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Le signal qui change tout</span>
+    <h2>Quand passer à <em class="orange">Claude Code ?</em></h2>
+    <p>
+      Si tu reconnais un de ces 3 signaux dans ta semaine, c'est que tu as atteint la limite du Chat et de Projects. Ton prochain déclic, c'est Claude Code.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Tu recolles ton contexte au moins 3 fois par semaine</h3>
+        <p>À chaque nouvelle conversation, tu recopies ton offre, ton ton de voix, ta stratégie. Claude Code lit ton fichier <strong>CLAUDE.md</strong> à chaque session : tu écris tes règles une fois, elles s'appliquent à vie. Plus jamais à recoller.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Tes documents sont trop gros pour les uploads</h3>
+        <p>Tu as un dossier de 50 PDFs, 200 notes, un export de 10 000 lignes. Claude.ai plafonne vite. Claude Code lit directement sur ton disque — aucune limite d'upload, tu lui pointes un dossier, il le traite.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Tu veux qu'il <em>agisse</em>, pas juste qu'il réponde</h3>
+        <p>Renommer 500 photos, générer 30 factures PDF, transcrire 4 heures de réunion puis envoyer 4 mails de suivi — le Chat te répond "voilà la méthode". Claude Code le <strong>fait</strong>. Il exécute, il modifie, il envoie.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Traduit simplement</h4>
+      <p><strong>Claude Projects = Claude qui te répond. Claude Code = Claude qui agit.</strong> Le jour où tu veux que l'IA fasse à ta place au lieu de juste te dire comment faire, tu montes la marche 3.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6ter · Ce que tu peux faire avec Claude Code sans coder -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— 7 exemples concrets</span>
+    <h2>Ce que tu peux faire <em class="fuchsia">sans écrire une ligne de code.</em></h2>
+    <p>
+      Voici 7 choses que je fais, ou qu'un entrepreneur peut faire, avec Claude Code. Aucune ne demande de savoir coder. Tout s'écrit en français, comme à un collègue junior qui serait très rapide et jamais fatigué.
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Ranger ton bureau et tes Téléchargements</h3>
+        <p><em>« Trie mon dossier Téléchargements : regroupe les PDFs dans un sous-dossier, les images dans un autre, et archive tout ce qui date de plus de 6 mois dans un dossier Archive. »</em> → 200 fichiers rangés en 2 minutes, sans cliquer un par un.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Générer un rapport de frais depuis un export bancaire</h3>
+        <p><em>« Voici l'export CSV de mon compte pro. Extrais les dépenses professionnelles du mois dernier, classe-les par catégorie (transport, repas, logiciels, etc.), et écris-moi un tableau prêt à envoyer à mon comptable. »</em> → Remplace 1 à 2 heures de saisie Excel.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Transformer une réunion enregistrée en compte-rendu + mail de suivi</h3>
+        <p><em>« Voici la transcription de ma réunion client d'hier. Rédige un compte-rendu structuré (décisions, actions, qui fait quoi), puis prépare-moi un mail de synthèse à envoyer au client. »</em> → Fini à la fin de ta pause café.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Faire un audit SEO de ton site, page par page</h3>
+        <p><em>« Analyse ces 10 pages HTML (meta descriptions, titres, maillage interne, densité de mots-clés). Compare à la première page Google sur la requête « X ». Liste les 5 améliorations prioritaires. »</em> → Remplace un prestataire à 1 500 € / mois.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>Analyser 5 concurrents en parallèle</h3>
+        <p><em>« Scrape les sites de ces 5 concurrents, compare leurs offres, leurs prix, leurs arguments de vente. Mets tout dans un tableau, et dis-moi ce qui me différencie. »</em> → Remplace 3 jours de recherche manuelle.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h3>Nettoyer et enrichir ton CRM</h3>
+        <p><em>« Voici mon export CRM (2 000 contacts). Supprime les doublons, uniformise les noms d'entreprise, et pour chaque contact, cherche son poste actuel sur LinkedIn. Remets-moi un fichier propre. »</em> → Remplace un assistant à 500 € / mois.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <h3>Écrire une newsletter complète depuis tes notes</h3>
+        <p><em>« Prends mes notes de la semaine (ces 5 fichiers), croise avec les 10 articles que j'ai sauvegardés dans ce dossier, rédige une newsletter de 600 mots dans mon ton habituel, avec titre, sous-titre et trois sections. »</em> → Remplace une journée de rédaction.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>Le point commun de ces 7 cas</h4>
+      <p>Aucun ne demande d'écrire du code. Tu décris ce que tu veux, en français, avec tes mots. Claude Code lit les fichiers sur ton ordinateur, comprend le contexte, exécute. Et il demande ta validation avant chaque action irréversible (supprimer, envoyer, déplacer).</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee divider 2 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Si moi j'y arrive</span><span>Toi aussi</span><span>Bonne info</span><span>Bonne volonté</span><span>On y arrive</span><span>Ensemble</span>
+    <span>Si moi j'y arrive</span><span>Toi aussi</span><span>Bonne info</span><span>Bonne volonté</span><span>On y arrive</span><span>Ensemble</span>
+  </div>
+</div>
+
+<!-- Section 6quater · Non, je ne suis pas dev non plus -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Du concret</span>
+    <h2>Non, <em class="teal">je ne suis pas dev non plus.</em></h2>
+    <p>
+      Salut, moi c'est Jérémy. Je ne suis pas développeur. Je n'ai jamais suivi de formation tech. Pendant des années, le terminal m'intimidait autant qu'il intimide probablement la plupart des gens qui lisent cette page.
+    </p>
+    <p>
+      Et puis j'ai décidé de m'y mettre. Pas parce que j'en avais besoin pour coder — parce que <strong>j'en avais besoin pour arrêter d'être dépassé par l'IA</strong>. J'ai lu, j'ai testé, j'ai raté, j'ai recommencé. Aujourd'hui, Claude Code tourne tous les jours sur mon ordinateur. Il gère ma veille, il trie mes mails, il écrit avec moi. Sans que j'écrive une ligne de code.
+    </p>
+    <p>
+      Ce que j'ai appris en chemin, c'est qu'il ne faut <strong>pas</strong> être dev pour y arriver. Il faut juste trois choses : <strong>la bonne information</strong> (pas les tutoriels pour devs purs), <strong>la volonté de tester</strong> (même quand tu comprends à 50 %), et <strong>l'acceptation que tu vas rater les 2-3 premiers essais</strong>. C'est tout.
+    </p>
+    <p>
+      <strong>Ce site entier est fait pour ça.</strong> Te transmettre la bonne information, dans un langage qui ne t'exclut pas, avec des exemples que tu peux appliquer lundi matin. Si moi j'y arrive, toi aussi. Il n'y a aucune raison que tu sois laissé de côté.
+    </p>
+
+    <div class="callout ok">
+      <h4>Ce que je te promets</h4>
+      <p>Chaque article, chaque newsletter, chaque guide que je publie part du même principe : je l'ai testé moi-même en tant que non-dev. Si un outil m'a fait perdre 3 heures, je le dis. Si une méthode change vraiment mon quotidien, je la partage. Pas de théorie, pas d'arnaque, pas de "formation à 2 000 €".</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6quinquies · FAQ peurs classiques -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les peurs classiques</span>
+    <h2>Les doutes <em class="orange">que tu as peut-être.</em></h2>
+    <p>
+      Voici les 7 objections que j'entends le plus souvent. Je les ai toutes eues aussi. Voici comment je les ai levées.
+    </p>
+
+    <div class="faq">
+      <details class="faq-item">
+        <summary>« J'ai peur de tout casser sur mon ordinateur. »</summary>
+        <p>Claude Code demande ta permission avant chaque action irréversible (supprimer, envoyer, modifier). Tu peux refuser, il attend. Pour encore plus de sérénité, travaille dans un dossier dédié — en cas de pépin, rien d'autre n'est touché. Et si tu es prudent, utilise Git (un système qui sauvegarde automatiquement chaque version de tes fichiers) : tu peux revenir en arrière à tout moment.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« Le terminal, c'est pour les développeurs. »</summary>
+        <p>Plus aujourd'hui. Claude Code a maintenant une <strong>application fenêtre</strong> (Mac et Windows) : zéro commande à taper, tu cliques, tu écris comme à un collègue. Même puissance, aucune intimidation. Et même en mode terminal, tu n'apprends que 3 commandes de toute ta vie : ouvrir, fermer, lancer. Le reste, tu le dis en français.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« Je n'y comprends rien au code. »</summary>
+        <p>Aucun problème — tu n'as pas à le comprendre. Tu décris ce que tu veux en français (<em>« range mes fichiers », « écris-moi un rapport », « transcris cette vidéo »</em>), et Claude Code traduit ça en actions. Si un jour tu veux regarder ce qu'il a fait sous le capot, tu peux. Mais ce n'est jamais obligatoire.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« J'ai peur des coûts. »</summary>
+        <p>L'abonnement Claude Pro est à <strong>20 $ par mois</strong> et inclut Claude Code (sans facture à l'usage). Pour 99 % des cas d'un non-dev, tu n'as jamais à te soucier du prix. Tu peux aussi activer un plafond de dépense dans tes paramètres Anthropic pour dormir tranquille.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« C'est compliqué à installer. »</summary>
+        <p>Option 1 : l'application fenêtre Claude Code, tu la télécharges comme n'importe quelle autre app (3 clics). Option 2 : le terminal, une seule commande à coller. Et si tu bloques, tu peux littéralement demander à Claude via le chat de t'aider à l'installer, étape par étape. Je l'ai fait moi-même la première fois.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« Il va fuiter mes données. »</summary>
+        <p>Claude Code tourne en local sur ton ordinateur. Il n'envoie à Anthropic que ce que tu lui demandes explicitement de traiter — comme le Chat. Et tu gardes la main : ne pointe jamais Claude Code sur un dossier qui contient des mots de passe, des clés d'API ou des données médicales sensibles, voilà la règle simple. Tout le reste peut passer.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>« Je n'ai pas de projet technique à lui donner. »</summary>
+        <p>Tu n'as pas besoin d'un projet technique. Tu as des fichiers, des mails, des notes, des tableaux, des rendez-vous, des tâches répétitives. C'est exactement ce que Claude Code traite le mieux. Regarde les 7 cas d'usage plus haut : aucun n'est un "projet technique", tous sont du quotidien d'entrepreneur.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -1202,7 +1729,7 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>Erreur · Accepter la première réponse</h3>
-        <p>Tu demandes une idée, tu prends la première. Grosse erreur. <strong>La correction :</strong> demande 3 variantes, garde la meilleure, renvoie <em>« pousse encore plus dans cette direction »</em>. La 3e ou 4e version bat presque toujours la 1ère.</p>
+        <p>Tu demandes une idée, tu prends la première. C'est l'erreur la plus coûteuse. <strong>La correction :</strong> demande 3 variantes, garde la meilleure, renvoie <em>« pousse encore plus dans cette direction »</em>. La 3e ou 4e version bat presque toujours la 1ère.</p>
       </div>
     </div>
 
@@ -1295,9 +1822,9 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
 
     <div class="next-cards">
       <div class="next-card lvl-1">
-        <span class="next-badge">Débutant</span>
+        <span class="next-badge">Étape 1 · Solide</span>
         <h4>Les bases, bien posées</h4>
-        <p>Comprendre comment fonctionne une IA (sans jargon) et installer Claude Code si tu veux passer à l'étape d'après.</p>
+        <p>Comprendre comment fonctionne une IA (sans jargon) et te lancer sur Claude Code quand tu te sens prêt.</p>
         <div class="next-links">
           <a href="articles/karpathy.html">Karpathy vulgarisé →</a>
           <a href="claude-code.html">Guide Claude Code →</a>
@@ -1305,9 +1832,9 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
       </div>
 
       <div class="next-card lvl-2">
-        <span class="next-badge">Intermédiaire</span>
-        <h4>Tu montes d'un cran</h4>
-        <p>Construire une mémoire durable pour Claude, et lancer des tâches qui tournent en boucle sans toi.</p>
+        <span class="next-badge">Étape 2 · Tu montes</span>
+        <h4>Une mémoire qui dure</h4>
+        <p>Construire un "deuxième cerveau" avec Claude Code, et lancer des tâches qui tournent en boucle pendant que tu fais autre chose.</p>
         <div class="next-links">
           <a href="articles/llm-wiki-karpathy.html">Le LLM Wiki →</a>
           <a href="articles/loops-claude.html">Les loops Claude →</a>
@@ -1315,9 +1842,9 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
       </div>
 
       <div class="next-card lvl-3">
-        <span class="next-badge">Avancé / Dev</span>
-        <h4>Tu veux un vrai agent</h4>
-        <p>Construire un agent qui travaille pour toi en continu, et comprendre les agents qui s'améliorent tout seuls.</p>
+        <span class="next-badge">Étape 3 · Tu délègues</span>
+        <h4>Des vrais agents</h4>
+        <p>Construire un agent qui travaille pour toi en continu, et comprendre les agents qui s'améliorent tout seuls. Plus technique, mais accessible si tu as fait les étapes 1 et 2.</p>
         <div class="next-links">
           <a href="articles/hermes-agent.html">Construire Hermes →</a>
           <a href="articles/autoresearch-karpathy.html">Agents auto-améliorants →</a>
@@ -1327,25 +1854,49 @@ Interdits : clichés, jeux de mots faciles, les mots "unlock", "elevate", "empow
 
     <div class="callout ok">
       <h4>Si tu ne dois retenir qu'une chose</h4>
-      <p>Ne cherche pas l'outil magique. Cherche juste à utiliser Claude <strong>une heure par jour</strong> pendant deux semaines, sur des tâches que tu maîtrises déjà. Au bout de 14 jours, tu seras plus à l'aise que 90 % des gens autour de toi, et tu sauras exactement ce dont tu as besoin ensuite.</p>
+      <p>Ne cherche pas l'outil magique. Cherche juste à utiliser Claude <strong>une heure par jour</strong> pendant deux semaines. Au bout de 14 jours, tu seras plus à l'aise que 90 % des gens autour de toi, et tu sauras exactement quand ouvrir la porte 3.</p>
     </div>
   </div>
 </section>
 
-<!-- Final CTA -->
+<!-- Mini-marquee divider 3 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Passe à l'action</span><span>Une étape à la fois</span><span>Tu verras</span><span>Sans jargon</span><span>Sans peur</span><span>C'est ton tour</span>
+    <span>Passe à l'action</span><span>Une étape à la fois</span><span>Tu verras</span><span>Sans jargon</span><span>Sans peur</span><span>C'est ton tour</span>
+  </div>
+</div>
+
+<!-- Final CTA · choix binaire -->
 <section class="final-cta">
   <div class="container">
-    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Pour rester à jour</span>
-    <h2>Je te partage ma <em class="fuchsia">veille IA.</em></h2>
-    <p>
-      Chaque vendredi matin, je m'envoie à moi-même un brief des 10 nouveautés IA qui ont compté dans la semaine. Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier. Sans pub, sans spam, désinscription en 1 clic.
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Par quoi tu continues ?</span>
+    <h2>Deux chemins. <em class="fuchsia">À toi de choisir.</em></h2>
+    <p style="max-width: 720px; margin-left: auto; margin-right: auto;">
+      Tu peux juste me suivre tranquille (ma veille IA chaque vendredi), ou passer directement à l'action avec le guide Claude Code. Ou les deux. C'est pour toi.
     </p>
-    <form class="newsletter-form" data-newsletter="ai-playbook">
-      <input type="email" name="email" placeholder="ton@email.com" required>
-      <button type="submit">Recevoir la veille →</button>
-    </form>
-    <div class="form-status" aria-live="polite"></div>
-    <div class="final-hint">Gratuit · Sans spam · Désinscription en 1 clic</div>
+
+    <div class="final-dual">
+      <div class="final-option">
+        <span class="final-option-label">Option 1 · Suivre de loin</span>
+        <h3>Recevoir ma veille IA chaque vendredi</h3>
+        <p>10 nouveautés IA qui comptent, triées, testées. Sans pub, sans spam. Désinscription en 1 clic.</p>
+        <form class="newsletter-form" data-newsletter="ai-playbook">
+          <input type="email" name="email" placeholder="ton@email.com" required>
+          <button type="submit">Recevoir la veille →</button>
+        </form>
+        <div class="form-status" aria-live="polite"></div>
+      </div>
+
+      <div class="final-option final-option-primary">
+        <span class="final-option-label">Option 2 · Passer à l'action</span>
+        <h3>Le guide Claude Code pas à pas</h3>
+        <p>Installer Claude Code en 10 minutes, avec screenshots, sans terminal effrayant. Et repartir avec un premier prompt qui fonctionne.</p>
+        <a href="claude-code.html" class="final-option-btn">Voir le guide Claude Code →</a>
+      </div>
+    </div>
+
+    <div class="final-hint">Les deux sont gratuits. Les deux marchent pour un non-dev. Commence par celui qui te parle le plus.</div>
   </div>
 </section>
 

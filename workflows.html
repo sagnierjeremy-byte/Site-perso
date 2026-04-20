@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflows IA par métier — Claude Code pour freelance, founder, commercial, consultant — par Jérémy Sagnier</title>
+<meta name="description" content="Des workflows Claude Code concrets, groupés par métier : freelance marketing, founder SaaS, commercial B2B, consultant. Chaque workflow est testé, prêt à copier, sans fluff.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Workflows IA par métier — Claude Code en vrai">
+<meta property="og:description" content="Workflows concrets par métier : freelance marketing, founder SaaS, commercial B2B, consultant. Prêts à copier.">
+<meta property="og:url" content="https://jeremysagnier.com/workflows.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Workflows IA par métier — Claude Code en vrai">
+<meta name="twitter:description" content="Workflows concrets par métier : freelance, founder, commercial, consultant.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jeremysagnier.com/workflows.html">
+
+<!-- Schema.org : DefinedTermSet (glossaire) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Lexique IA pour non-devs",
+  "description": "Les 7 mots techniques qui reviennent partout dans les tutos IA, expliqués en français normal.",
+  "inLanguage": "fr-FR",
+  "url": "https://jeremysagnier.com/lexique.html",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jeremysagnier.com/"
+  },
+  "hasDefinedTerm": [
+    { "@type": "DefinedTerm", "name": "Clé API", "url": "https://jeremysagnier.com/lexique.html#cle-api" },
+    { "@type": "DefinedTerm", "name": "Fichier .env", "url": "https://jeremysagnier.com/lexique.html#fichier-env" },
+    { "@type": "DefinedTerm", "name": "Token", "url": "https://jeremysagnier.com/lexique.html#token" },
+    { "@type": "DefinedTerm", "name": "CLI / Terminal", "url": "https://jeremysagnier.com/lexique.html#cli" },
+    { "@type": "DefinedTerm", "name": "MCP (Model Context Protocol)", "url": "https://jeremysagnier.com/lexique.html#mcp" },
+    { "@type": "DefinedTerm", "name": "Modèle (Opus / Sonnet / Haiku)", "url": "https://jeremysagnier.com/lexique.html#modele" },
+    { "@type": "DefinedTerm", "name": "Skill & Agent", "url": "https://jeremysagnier.com/lexique.html#skill-agent" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 96px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 68px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 28px; line-height: 1.6;
+  }
+  .hero-quote {
+    max-width: 720px; margin: 0 0 32px;
+    padding: 18px 22px; border-radius: 14px;
+    background: rgba(0,178,169,.12);
+    border: 1px solid rgba(0,178,169,.28);
+    border-left: 4px solid var(--teal);
+    color: #F4EFE6; font-size: 15.5px; line-height: 1.6;
+  }
+  .hero-quote strong { color: var(--teal) }
+  .hero-quote .quote-src {
+    display: block; margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
+    color: #9AA3A8;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* Bloc rassurance "Ce dont tu n'as PAS besoin" — grille de mini-cards */
+  .reassure-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .reassure-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    margin-bottom: 22px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(239,66,111,.18), rgba(255,130,0,.18));
+    border: 1px solid rgba(239,66,111,.4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .reassure-heading::before {
+    content: "✕";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--fuchsia);
+  }
+  .reassure-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 640px)  { .reassure-grid { grid-template-columns: 1fr 1fr; gap: 14px } }
+  @media (min-width: 1000px) { .reassure-grid { grid-template-columns: repeat(3, 1fr); gap: 16px } }
+
+  .reassure-item {
+    position: relative;
+    padding: 20px 20px 20px 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(239,66,111,.08) 0%, rgba(255,130,0,.05) 100%);
+    border: 1px solid rgba(255,255,255,.14);
+    overflow: hidden;
+    transition: transform .25s ease, border-color .2s;
+  }
+  .reassure-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(239,66,111,.5);
+  }
+  .reassure-item::before {
+    content: "✕";
+    position: absolute;
+    left: 18px;
+    top: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(239,66,111,.18);
+    border: 1.5px solid var(--fuchsia);
+    color: var(--fuchsia);
+    display: grid;
+    place-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .reassure-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 100% 100%, rgba(239,66,111,.12), transparent 60%);
+    pointer-events: none;
+  }
+  .reassure-item-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 4px;
+  }
+  .reassure-item-text {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+  }
+
+  /* Mini-marquee divider — signature Fiesta entre grandes sections */
+  .mini-marquee {
+    overflow: hidden;
+    padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,.18);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆";
+    color: rgba(10,10,10,.5);
+    font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll {
+    to { transform: translateX(-50%) }
+  }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Generic table (glossaire, portes) */
+  .basic-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    overflow: hidden;
+    font-size: 14.5px;
+  }
+  .basic-table th, .basic-table td {
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .basic-table tbody tr:last-child td { border-bottom: none }
+  .basic-table thead {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .basic-table td strong { color: var(--ink) }
+  .basic-table td.num {
+    font-family: 'Archivo Black', sans-serif; font-size: 18px;
+    width: 44px; text-align: center;
+  }
+  .basic-table.doors tbody tr:nth-child(1) td.num { color: var(--teal) }
+  .basic-table.doors tbody tr:nth-child(2) td.num { color: var(--fuchsia) }
+  .basic-table.doors tbody tr:nth-child(3) td.num { color: var(--orange) }
+  @media (max-width: 720px) {
+    .basic-table, .basic-table thead, .basic-table tbody, .basic-table tr, .basic-table th, .basic-table td {
+      display: block;
+    }
+    .basic-table thead { display: none }
+    .basic-table tr {
+      border-bottom: 1px solid var(--line-strong);
+      padding: 10px 0;
+    }
+    .basic-table tr:last-child { border-bottom: none }
+    .basic-table td {
+      border: none; padding: 4px 16px;
+    }
+    .basic-table td.num { width: auto; text-align: left; padding-top: 12px }
+    .basic-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+      color: var(--ink-muted); margin-bottom: 2px;
+    }
+    .basic-table td.num::before { display: none }
+  }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Persona cards */
+  .personas {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin: 18px 0 8px;
+  }
+  @media (min-width: 720px) {
+    .personas { grid-template-columns: 1fr 1fr }
+  }
+  .persona {
+    padding: 22px 24px; border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-left-width: 4px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .persona:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -22px rgba(0,0,0,.2) }
+  .persona:nth-of-type(5n+1) { border-left-color: var(--teal) }
+  .persona:nth-of-type(5n+2) { border-left-color: var(--fuchsia) }
+  .persona:nth-of-type(5n+3) { border-left-color: var(--orange) }
+  .persona:nth-of-type(5n+4) { border-left-color: var(--teal) }
+  .persona:nth-of-type(5n+5) { border-left-color: var(--fuchsia) }
+  .persona-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .18em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 6px;
+  }
+  .persona h4 {
+    margin: 0 0 8px; font-size: 16px;
+  }
+  .persona p { font-size: 14.5px; margin: 0 0 8px; line-height: 1.6 }
+  .persona p:last-child { margin-bottom: 0 }
+  .persona p strong { color: var(--ink) }
+  .persona .setup {
+    display: block;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    letter-spacing: .05em; color: var(--ink); margin-top: 6px;
+  }
+  .persona .src {
+    display: block;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: .12em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 8px;
+  }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 16px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.55;
+    margin: 12px 0 0;
+    border: 1px solid var(--line-strong);
+    white-space: pre-wrap;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Copyable prompt */
+  .prompt-box {
+    position: relative;
+    margin: 18px 0 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .prompt-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft);
+    gap: 10px;
+  }
+  .prompt-head strong { color: var(--ink) }
+  .copy-btn {
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink);
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+    flex-shrink: 0;
+  }
+  .copy-btn:hover { background: var(--fuchsia); color: #fff; border-color: var(--fuchsia) }
+  .copy-btn.ok { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .prompt-box pre {
+    margin: 0; border: none; border-radius: 0;
+    background: transparent;
+  }
+
+  /* CRAFT block */
+  .craft {
+    margin: 20px 0 28px;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .craft-head {
+    padding: 16px 22px;
+    background: linear-gradient(135deg, rgba(0,178,169,.1), rgba(239,66,111,.08), rgba(255,130,0,.08));
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .craft-head strong {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .craft-grid {
+    display: grid; gap: 0;
+    grid-template-columns: 1fr;
+    background: var(--surface);
+  }
+  @media (min-width: 720px) {
+    .craft-grid { grid-template-columns: 1fr 1fr }
+  }
+  .craft-row {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  @media (min-width: 720px) {
+    .craft-row:nth-child(odd) { border-right: 1px solid var(--line) }
+    .craft-row:nth-child(4), .craft-row:nth-child(5) { border-bottom: none }
+  }
+  .craft-letter {
+    flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 18px;
+  }
+  .craft-row:nth-child(5n+1) .craft-letter { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .craft-row:nth-child(5n+2) .craft-letter { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .craft-row:nth-child(5n+3) .craft-letter { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .craft-row:nth-child(5n+4) .craft-letter { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .craft-row:nth-child(5n+5) .craft-letter { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .craft-body { flex: 1; min-width: 0 }
+  .craft-body strong {
+    display: block;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+    letter-spacing: -.01em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .craft-body p { margin: 0; font-size: 14px; line-height: 1.55 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0 0 8px; font-size: 14.5px }
+  .callout p:last-child { margin-bottom: 0 }
+
+  /* FAQ accordéon — peurs classiques */
+  .faq {
+    max-width: 820px;
+    margin: 32px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 20px 24px;
+    transition: background .2s, border-color .2s;
+  }
+  .faq-item[open] {
+    background: var(--bg-2);
+    border-color: var(--ink);
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding-right: 24px;
+    position: relative;
+  }
+  .faq-item summary::-webkit-details-marker { display: none }
+  .faq-item summary::before {
+    content: "+";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: var(--fuchsia);
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform .25s;
+  }
+  .faq-item[open] summary::before {
+    content: "−";
+    color: var(--teal);
+  }
+  .faq-item p {
+    margin: 14px 0 0;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* Confidentialité — danger bloc */
+  .danger-box {
+    padding: 26px 30px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,130,0,.1), rgba(239,66,111,.08));
+    border: 1px solid rgba(255,130,0,.35);
+    margin: 20px 0;
+  }
+  .danger-box h3 { margin-top: 0 }
+  .danger-box .danger-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  /* Next articles cards */
+  .next-cards {
+    display: grid; gap: 18px;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+  @media (min-width: 860px) {
+    .next-cards { grid-template-columns: repeat(3, 1fr) }
+  }
+  .next-card {
+    padding: 24px 24px 22px; border-radius: 18px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    display: flex; flex-direction: column; gap: 10px;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .next-card:hover { transform: translateY(-3px); border-color: var(--fuchsia); box-shadow: 0 20px 40px -22px rgba(0,0,0,.2) }
+  .next-badge {
+    align-self: flex-start;
+    padding: 4px 10px; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+  }
+  .next-card.lvl-1 .next-badge { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .next-card.lvl-2 .next-badge { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .next-card.lvl-3 .next-badge { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .next-card h4 {
+    margin: 4px 0 0; font-size: 18px;
+  }
+  .next-card p { margin: 0; font-size: 14.5px; line-height: 1.55 }
+  .next-links {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 8px;
+  }
+  .next-links a {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: .08em; font-weight: 700; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 12px; border-radius: 8px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    transition: background .2s, color .2s;
+  }
+  .next-links a:hover { background: var(--ink); color: var(--bg) }
+
+  /* CTA inline (dans les callouts) */
+  .inline-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+  }
+  .inline-cta:hover { color: var(--ink); border-color: var(--ink) }
+
+  /* Final CTA binaire (2 options) */
+  .final-dual {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 960px;
+    margin: 32px auto 24px;
+    text-align: left;
+  }
+  @media (min-width: 820px) { .final-dual { grid-template-columns: 1fr 1fr; gap: 24px } }
+  .final-option {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .final-option-primary {
+    border-color: var(--ink);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg-2) 100%);
+    box-shadow: 0 18px 40px -20px rgba(0,0,0,.3);
+  }
+  .final-option-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .final-option h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.15;
+  }
+  .final-option p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .final-option-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .final-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(0,0,0,.3);
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 24px; font-size: 17px }
+  .newsletter-form {
+    display: flex; gap: 8px; max-width: 480px; margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    transition: border-color .2s;
+  }
+  .newsletter-form input:focus { outline: none; border-color: var(--fuchsia) }
+  .newsletter-form button {
+    padding: 14px 22px; border-radius: 999px; border: none; color: #fff;
+    font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px;
+    letter-spacing: .04em; text-transform: uppercase; cursor: pointer;
+    white-space: nowrap;
+    background: linear-gradient(135deg, var(--teal), var(--fuchsia));
+    box-shadow: 0 12px 24px -10px rgba(0,178,169,.6);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .form-status {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    letter-spacing: .12em; font-weight: 700; min-height: 16px;
+    margin-top: 14px; text-transform: uppercase;
+  }
+  .form-status.ok { color: var(--teal) }
+  .form-status.err { color: var(--fuchsia) }
+  .final-hint {
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ========== Spécifique Lexique ========== */
+  .lex-toc {
+    max-width: 880px;
+    margin: 0 auto 48px;
+    padding: 28px 32px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+  }
+  .lex-toc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .lex-toc-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .lex-toc-grid { grid-template-columns: 1fr 1fr; gap: 10px 24px } }
+  .lex-toc-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background .2s, transform .2s;
+  }
+  .lex-toc-link:hover {
+    background: var(--bg-2);
+    transform: translateX(4px);
+  }
+  .lex-toc-link-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--fuchsia);
+    min-width: 24px;
+  }
+
+  .lex-entry {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--line);
+  }
+  .lex-entry:last-of-type { border-bottom: none }
+  .lex-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  .lex-number {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(56px, 8vw, 88px);
+    line-height: .9;
+    letter-spacing: -.04em;
+    background: linear-gradient(135deg, var(--teal), var(--fuchsia) 60%, var(--orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    flex-shrink: 0;
+  }
+  .lex-titles { flex: 1; padding-top: 6px }
+  .lex-kicker {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+  .lex-titles h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(30px, 4.5vw, 44px);
+    line-height: 1;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0;
+  }
+  .lex-oneline {
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    background: linear-gradient(135deg, rgba(0,178,169,.08) 0%, rgba(239,66,111,.05) 100%);
+    border: 1px solid rgba(0,178,169,.28);
+    border-left: 4px solid var(--teal);
+    border-radius: 14px;
+    font-size: 16.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .lex-oneline strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .lex-block {
+    margin-bottom: 32px;
+  }
+  .lex-block h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lex-block h3::before {
+    content: "";
+    width: 24px;
+    height: 3px;
+    background: var(--fuchsia);
+    border-radius: 2px;
+  }
+  .lex-block p {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .lex-block p:last-child { margin-bottom: 0 }
+  .lex-block ul, .lex-block ol {
+    padding-left: 22px;
+    margin-bottom: 12px;
+  }
+  .lex-block ul li, .lex-block ol li {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .lex-block code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+  }
+  .lex-block a {
+    color: var(--fuchsia);
+    text-decoration: none;
+    border-bottom: 1.5px solid rgba(239,66,111,.35);
+    transition: border-color .2s;
+  }
+  .lex-block a:hover { border-color: var(--fuchsia) }
+
+  /* Bloc "Où tu vas le rencontrer" — style distinctif avec placeholder screenshot */
+  .lex-block-screenshot {
+    padding: 22px 24px;
+    background: var(--bg-2);
+    border-radius: 16px;
+    border: 1px dashed var(--line-strong);
+  }
+  .lex-block-screenshot h3::before { background: var(--orange) }
+  /* Mockups stylisés — recréent les vraies interfaces dans la charte Fiesta */
+  .lex-mockup {
+    margin-top: 20px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 22px 50px -22px rgba(0,0,0,.4);
+    font-family: 'Archivo', sans-serif;
+  }
+  .lex-mockup-chrome {
+    padding: 10px 14px;
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lex-mockup-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #444;
+  }
+  .lex-mockup-dot.red { background: #ff5f57 }
+  .lex-mockup-dot.yellow { background: #febc2e }
+  .lex-mockup-dot.green { background: #28c840 }
+  .lex-mockup-url {
+    flex: 1;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #9aa3a8;
+    letter-spacing: .05em;
+  }
+  .lex-mockup-body {
+    padding: 20px 24px;
+    color: #e4e4e4;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .lex-mockup-caption {
+    padding: 12px 18px;
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: center;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .lex-mockup-caption::before { content: "↑ "; color: var(--fuchsia) }
+
+  /* Variante Terminal (fond noir, typo mono) */
+  .lex-mockup-terminal .lex-mockup-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    background: #000;
+    color: #e4e4e4;
+    min-height: 200px;
+    padding: 22px 24px;
+  }
+  .lex-term-prompt {
+    color: var(--teal);
+    user-select: none;
+  }
+  .lex-term-command {
+    color: #fff;
+  }
+  .lex-term-output {
+    color: #9aa3a8;
+    margin-left: 0;
+  }
+  .lex-term-success { color: var(--teal) }
+  .lex-term-fuchsia { color: var(--fuchsia) }
+  .lex-term-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--teal);
+    vertical-align: middle;
+    animation: term-blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+  @keyframes term-blink {
+    0%, 50% { opacity: 1 }
+    51%, 100% { opacity: 0 }
+  }
+
+  /* Variante Éditeur code (.env) */
+  .lex-mockup-editor .lex-mockup-body {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    background: #1a1a1a;
+    min-height: 220px;
+  }
+  .lex-editor-sidebar {
+    background: #141414;
+    padding: 14px 10px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px;
+    border-right: 1px solid rgba(255,255,255,.06);
+  }
+  .lex-editor-folder {
+    color: #c4cedb;
+    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .lex-editor-folder::before { content: "▾"; color: #888 }
+  .lex-editor-file {
+    color: #8a9199;
+    padding: 3px 6px 3px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+  }
+  .lex-editor-file.env {
+    color: #6e7a85;
+    font-style: italic;
+  }
+  .lex-editor-file.active {
+    background: rgba(0,178,169,.15);
+    color: #fff;
+    border-left: 2px solid var(--teal);
+    padding-left: 20px;
+  }
+  .lex-editor-main {
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #e4e4e4;
+    background: #1a1a1a;
+  }
+  .lex-env-key { color: var(--orange) }
+  .lex-env-eq { color: #888 }
+  .lex-env-value { color: var(--teal) }
+  .lex-env-comment { color: #6e7a85; font-style: italic }
+
+  /* Variante Web app (console Anthropic, claude.ai, etc.) */
+  .lex-mockup-web .lex-mockup-body {
+    padding: 0;
+    background: #fbfbfb;
+    color: #1a1a1a;
+    min-height: 240px;
+  }
+  .lex-web-header {
+    padding: 14px 22px;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+  }
+  .lex-web-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    color: #1a1a1a;
+    letter-spacing: -.01em;
+  }
+  .lex-web-btn {
+    margin-left: auto;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #7c3aed;
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .lex-web-content {
+    padding: 18px 22px;
+    color: #1a1a1a;
+    font-size: 13px;
+  }
+  .lex-web-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .lex-web-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    color: #555;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+  .lex-web-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    color: #1a1a1a;
+  }
+  .lex-web-table td code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: #7c3aed;
+    background: #f3efff;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .lex-web-dropdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.1);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .lex-web-menu {
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 10px;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,.2);
+    overflow: hidden;
+    max-width: 380px;
+  }
+  .lex-web-menu-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+  .lex-web-menu-item:last-child { border-bottom: none }
+  .lex-web-menu-item.active { background: #f3efff }
+  .lex-web-menu-badge {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #e9e4ff;
+    color: #7c3aed;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* Variante Settings avec liste de connecteurs */
+  .lex-connectors {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lex-connector-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 10px;
+  }
+  .lex-connector-logo {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: grid; place-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 13px;
+    color: #fff;
+  }
+  .lex-connector-name {
+    font-weight: 700;
+    color: #1a1a1a;
+    font-size: 13px;
+  }
+  .lex-connector-desc {
+    color: #888;
+    font-size: 11.5px;
+  }
+  .lex-connector-status {
+    margin-left: auto;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #ecf9f2;
+    color: #0a8a3e;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* Variante graphique tokens */
+  .lex-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 160px;
+    padding: 10px 4px;
+  }
+  .lex-chart-day {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .lex-chart-bar-stack {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .lex-chart-bar-input { background: var(--teal) }
+  .lex-chart-bar-output { background: var(--fuchsia) }
+  .lex-chart-day-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: #888;
+    letter-spacing: .05em;
+  }
+  .lex-chart-legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .lex-chart-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: #555;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .lex-chart-legend-dot {
+    width: 10px; height: 10px; border-radius: 2px;
+  }
+
+  /* Bloc "Tu peux l'ignorer si…" — rassurance */
+  .lex-block-reassure {
+    padding: 22px 24px;
+    background: rgba(0,178,169,.08);
+    border-radius: 16px;
+    border: 1px solid rgba(0,178,169,.25);
+    border-left: 4px solid var(--teal);
+  }
+  .lex-block-reassure h3::before { background: var(--teal) }
+
+  /* Tableaux dans les entrées */
+  .lex-table-wrap {
+    margin: 20px 0 12px;
+    overflow-x: auto;
+  }
+  .lex-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .lex-table th,
+  .lex-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .lex-table thead th {
+    background: var(--bg-2);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .lex-table tbody th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    width: 28%;
+  }
+  .lex-table code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+  }
+  .lex-table-note {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-top: 10px;
+    font-style: italic;
+  }
+  /* === Composant Share (universel) === */
+  .share-block {
+    max-width: 820px;
+    margin: 72px auto 32px;
+    padding: 32px 32px 28px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    text-align: center;
+  }
+  .share-block-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .share-block h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 3vw, 28px);
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0 0 22px;
+    line-height: 1.15;
+  }
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s, border-color .2s, background .2s, color .2s;
+  }
+  .share-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .share-btn:hover {
+    transform: translateY(-2px);
+    border-color: currentColor;
+  }
+  .share-btn-x:hover       { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
+  .share-btn-linkedin:hover { background: #0A66C2; color: #fff; border-color: #0A66C2 }
+  .share-btn-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366 }
+  .share-btn-email:hover    { background: var(--orange); color: #fff; border-color: var(--orange) }
+  .share-btn-copy:hover     { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .share-btn.copied {
+    background: var(--teal) !important;
+    color: #fff !important;
+    border-color: var(--teal) !important;
+  }
+
+  /* Mini-bouton share pour op-card (index.html) */
+  .op-share {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(10,10,10,.45);
+    border: 1px solid rgba(255,255,255,.22);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: transform .2s, background .2s;
+  }
+  .op-share svg { width: 14px; height: 14px }
+  .op-share:hover {
+    transform: scale(1.1);
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .op-share.copied {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .op-share.copied::after {
+    content: "Copié !";
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    padding: 4px 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .14em;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+
+  /* Bouton Instagram dans bloc share + sidebar sticky */
+  .share-btn-instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    border-color: #cc2366;
+  }
+  .share-btn-instagram.copied {
+    background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%) !important;
+    color: #fff !important;
+    border-color: #cc2366 !important;
+  }
+
+  /* Sticky sidebar verticale (desktop uniquement) */
+  .share-rail {
+    display: none;
+  }
+  @media (min-width: 1200px) {
+    .share-rail {
+      display: flex;
+      position: fixed;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 8px;
+      z-index: 40;
+      padding: 12px 10px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,.2);
+    }
+  }
+  .share-rail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: center;
+    padding: 6px 0 4px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: center;
+    max-height: 70px;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+    padding: 0 0 0 4px;
+    margin-bottom: 4px;
+    display: none; /* masqué par défaut, trop encombrant */
+  }
+  .share-rail-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--bg-2);
+    border: 1px solid transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .15s;
+    padding: 0;
+  }
+  .share-rail-btn svg { width: 15px; height: 15px }
+  .share-rail-btn:hover { transform: scale(1.1) }
+  .share-rail-btn-x:hover        { background: #0A0A0A; color: #fff }
+  .share-rail-btn-linkedin:hover { background: #0A66C2; color: #fff }
+  .share-rail-btn-instagram:hover{ background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff }
+  .share-rail-btn-whatsapp:hover { background: #25D366; color: #fff }
+  .share-rail-btn-copy:hover     { background: var(--teal); color: #fff }
+  .share-rail-btn.copied {
+    background: var(--teal) !important;
+    color: #fff !important;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar share sticky (desktop uniquement) -->
+<aside class="share-rail" aria-label="Partager">
+  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=Lexique%20IA%20pour%20non-devs%20%E2%80%94%207%20mots%20enfin%20expliqu%C3%A9s%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jeremysagnier.com/lexique.html" target="_blank" rel="noopener" aria-label="Partager sur X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jeremysagnier.com/lexique.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jeremysagnier.com/lexique.html" data-share-title="Lexique IA pour non-devs — 7 mots enfin expliqués" aria-label="Partager sur Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
+  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=Lexique%20IA%20pour%20non-devs%20%E2%80%94%207%20mots%20enfin%20expliqu%C3%A9s%0Ahttps%3A//jeremysagnier.com/lexique.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jeremysagnier.com/lexique.html" aria-label="Copier le lien" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+</aside>
+
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour au site
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Workflows · Prêts à copier</div>
+    <h1>Claude Code<br>pour ton <em>métier.</em><br>Pas pour les devs.</h1>
+    <p class="hero-lead">
+      Trop de tutos Claude Code te parlent de <em>rust, refactoring, debug</em>. Et toi, freelance marketing, founder SaaS, commercial B2B, consultant ? Voici 4 playbooks par métier, avec des workflows <strong>testés, prêts à copier</strong>, aucun n'exige de savoir coder.
+    </p>
+    <div class="hero-quote">
+      <strong>« Le bon outil + le bon workflow = 5 à 10h gagnées par semaine. »</strong><br>
+      J'ai construit chaque workflow en cherchant le ratio <em>temps gagné / friction d'apprentissage</em> le plus élevé. Tu peux en piquer un aujourd'hui, le faire tourner demain matin.
+      <span class="quote-src">— Jérémy · testé sur plusieurs métiers</span>
+    </div>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>4 métiers</strong> couverts</span>
+      <span class="hero-meta-item"><strong>12 workflows</strong> testés</span>
+      <span class="hero-meta-item"><strong>Prêts à copier</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee avant le sommaire -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Freelance marketing</span><span>Founder SaaS</span><span>Commercial B2B</span><span>Consultant</span><span>Pas de code</span><span>Prêt à copier</span>
+    <span>Freelance marketing</span><span>Founder SaaS</span><span>Commercial B2B</span><span>Consultant</span><span>Pas de code</span><span>Prêt à copier</span>
+  </div>
+</div>
+
+<!-- Sommaire -->
+<section class="block" style="padding-top: 64px;">
+  <div class="container">
+    <span class="section-kicker k-teal">— Sommaire</span>
+    <h2>Ton métier. <em class="teal">Ton playbook.</em></h2>
+    <p>Chaque section suit le même format : le contexte du métier, 3 workflows concrets par vertical, le temps qu'ils te font gagner. Tu piques ce qui te sert, tu adaptes aux outils que tu as déjà.</p>
+
+    <div class="lex-toc">
+      <div class="lex-toc-label">Clique pour y aller directement</div>
+      <div class="lex-toc-grid">
+        <a class="lex-toc-link" href="#freelance-marketing"><span class="lex-toc-link-num">01</span>Freelance Marketing</a>
+        <a class="lex-toc-link" href="#founder-saas"><span class="lex-toc-link-num">02</span>Founder SaaS</a>
+        <a class="lex-toc-link" href="#commercial-b2b"><span class="lex-toc-link-num">03</span>Commercial B2B</a>
+        <a class="lex-toc-link" href="#consultant"><span class="lex-toc-link-num">04</span>Consultant</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Métier 01</span><span>Freelance marketing B2B</span><span>Veille · Contenu · Audit</span><span>3 workflows</span>
+    <span>Métier 01</span><span>Freelance marketing B2B</span><span>Veille · Contenu · Audit</span><span>3 workflows</span>
+  </div>
+</div>
+
+<!-- MÉTIER 01 · Freelance marketing -->
+<div class="container">
+<section class="lex-entry" id="freelance-marketing">
+  <div class="lex-header">
+    <span class="lex-number">01</span>
+    <div class="lex-titles">
+      <span class="lex-kicker">— Métier · #01</span>
+      <h2>Freelance Marketing B2B</h2>
+    </div>
+  </div>
+
+  <div class="lex-oneline">
+    <strong>Contexte :</strong> 3 à 8 clients en parallèle, livrables qui se répètent (briefs, audits SEO, contenus, veille), facturation à l'heure ou au forfait. Chaque heure économisée = marge directe. Chaque workflow ici te rend 3 à 8 h par semaine.
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 1 · Wiki client qui s'auto-enrichit</h3>
+    <p>Un dossier par client. Dedans tu déposes : brief initial, comptes-rendus de call, transcripts Zoom, livrables passés, notes prises à l'arrache. Claude Code lit tout au démarrage de session. Quand le client t'appelle 6 mois après une mission, tu demandes <em>« résume-moi où on en était avec [client] »</em> — tu as un brief complet en 20 secondes au lieu de relire 40 documents.</p>
+    <p><strong>Gain estimé :</strong> 3 à 5 h par semaine sur la préparation des calls clients.</p>
+    <p><strong>Setup :</strong> Claude Code + un dossier <code>~/clients/</code> avec un sous-dossier par client + un <code>CLAUDE.md</code> par client avec ton ton, ses préférences, ses tabous. Guide complet : <a href="articles/llm-wiki-karpathy.html">LLM Wiki de Karpathy</a>.</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 2 · Audit SEO page par page, en parallèle</h3>
+    <p>Tu lances Claude Code dans le dossier du site client. Tu demandes : <em>« Analyse chaque page HTML (meta, h1, maillage interne, densité mots-clés). Compare à la première page Google sur la requête [mot-clé]. Liste les 5 améliorations prioritaires pour chaque page. »</em> — il fait tourner un audit qu'une agence te facturerait 800 à 1 500 €.</p>
+    <p><strong>Gain estimé :</strong> 2 jours de travail réduit à 1 heure.</p>
+    <p><strong>Skill à installer :</strong> <code>seo-audit</code> (inclus dans le <a href="downloads/README.md">pack skills</a>).</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 3 · Veille concurrentielle auto pour tes clients</h3>
+    <p>Tu identifies les 5 concurrents de ton client. Claude Code scrappe leurs sites, analyses leurs offres, prix, arguments. Tableau de sortie : positionnement, prix, promesses, différenciateurs. Tu peux facturer ça comme un livrable mensuel différenciant (200 à 500 € par client, 30 min de setup).</p>
+    <p><strong>Gain estimé :</strong> Nouveau revenu récurrent + 2 jours de recherche remplacés par 1 commande.</p>
+    <p><strong>Skill à installer :</strong> <code>deep-research</code> (pack skills).</p>
+  </div>
+
+  <div class="lex-block lex-block-reassure">
+    <h3>Tu n'as pas Claude Code encore ?</h3>
+    <p>Pars d'abord sur Claude.ai Pro (20 $/mois) avec un Project par client. C'est 80 % du bénéfice. Quand tu te sens limitée par la taille des fichiers ou le besoin d'automatiser, tu passes à Claude Code — <a href="claude-code.html">guide pas à pas ici</a>.</p>
+  </div>
+</section>
+</div>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Métier 02</span><span>Founder SaaS</span><span>Veille · Product · Ops</span><span>3 workflows</span>
+    <span>Métier 02</span><span>Founder SaaS</span><span>Veille · Product · Ops</span><span>3 workflows</span>
+  </div>
+</div>
+
+<!-- MÉTIER 02 · Founder SaaS -->
+<div class="container">
+<section class="lex-entry" id="founder-saas">
+  <div class="lex-header">
+    <span class="lex-number">02</span>
+    <div class="lex-titles">
+      <span class="lex-kicker">— Métier · #02</span>
+      <h2>Founder SaaS early-stage</h2>
+    </div>
+  </div>
+
+  <div class="lex-oneline">
+    <strong>Contexte :</strong> Tu es seul(e) ou à deux, entre le post-launch et le product-market fit. Tu dois faire 10 choses à la fois : produit, vente, support, marketing, ops. Le temps est ta ressource la plus rare. Ces workflows sont conçus pour <strong>déléguer sans embaucher</strong>.
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 1 · Dashboard SaaS conversationnel</h3>
+    <p>Tu connectes Claude à ton Stripe + ta base de données via MCP. Le matin, au lieu d'ouvrir 4 onglets, tu tapes : <em>« Résume-moi hier : MRR, churn, nouveaux trials, tickets support, signups restants en activation. Flag ce qui est hors tendance. »</em> — Claude interroge directement tes outils et te sort un brief quotidien.</p>
+    <p><strong>Gain estimé :</strong> 30 à 45 min par jour sur ta routine matinale.</p>
+    <p><strong>Setup :</strong> MCP servers Stripe + Supabase (ou Postgres, selon ta stack). Guide : <a href="lexique.html#mcp">comprendre MCP</a>.</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 2 · Support qualifié automatisé</h3>
+    <p>Tu exportes les 50 derniers tickets support. Claude Code lit, classe par thème, identifie les 3 problèmes récurrents, rédige des brouillons de réponse <strong>dans ton ton</strong> (si tu as un <code>CLAUDE.md</code> bien calibré). Tu valides en 10 min ce qui t'aurait pris 3 h.</p>
+    <p><strong>Gain estimé :</strong> 5 à 10 h par semaine + meilleure cohérence des réponses.</p>
+    <p><strong>Skill à installer :</strong> <code>copywriting</code> + ton propre <code>CLAUDE.md</code>.</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 3 · Copy de landing page, testée avant de shipper</h3>
+    <p>Tu passes ta landing actuelle à Claude avec le contexte produit + ICP. Il génère 3 variantes de hero, lead, CTA dans le framework Hormozi / Chapman. Tu choisis ce qui te parle, tu ships. Pour aller plus loin : tu utilises <code>autoresearch</code> à la Karpathy pour tourner des A/B tests en boucle.</p>
+    <p><strong>Gain estimé :</strong> 1 landing qui convertit vs une landing "qu'il faudrait retravailler mais pas le temps".</p>
+    <p><strong>Skill à installer :</strong> <code>landing-page-generator</code> (pack skills) + lire <a href="articles/autoresearch-karpathy.html">l'article autoresearch</a>.</p>
+  </div>
+
+  <div class="lex-block lex-block-reassure">
+    <h3>Un exemple concret de cas construit</h3>
+    <p>J'ai construit un <a href="articles/construit-avec-claude-code-gmf.html">outil de vente pour ma femme (chargée de clientèle GMF)</a> en 3 soirées devant Netflix, sans écrire une ligne de code. Si tu as besoin de voir ce que ça donne avant d'investir du temps — c'est le cas parfait.</p>
+  </div>
+</section>
+</div>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Métier 03</span><span>Commercial B2B</span><span>Prospection · Qualif · Closing</span><span>3 workflows</span>
+    <span>Métier 03</span><span>Commercial B2B</span><span>Prospection · Qualif · Closing</span><span>3 workflows</span>
+  </div>
+</div>
+
+<!-- MÉTIER 03 · Commercial B2B -->
+<div class="container">
+<section class="lex-entry" id="commercial-b2b">
+  <div class="lex-header">
+    <span class="lex-number">03</span>
+    <div class="lex-titles">
+      <span class="lex-kicker">— Métier · #03</span>
+      <h2>Commercial B2B</h2>
+    </div>
+  </div>
+
+  <div class="lex-oneline">
+    <strong>Contexte :</strong> Tu jongles entre prospection, qualification, démos, relances, closing. Ton temps productif est le temps en conversation client. Tout le reste (recherche, rédaction, CRM) doit disparaître. Ces 3 workflows visent exactement ça.
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 1 · Cold emails qui ne sonnent pas cold</h3>
+    <p>Tu donnes à Claude ta liste de 50 prospects (LinkedIn URL, entreprise, poste). Il enrichit chaque ligne avec les actus récentes de l'entreprise, le profil public du prospect, et un angle personnalisé à mentionner en ouverture. Puis il rédige chaque email dans <strong>ton ton</strong>, avec un hook unique par prospect. Tu relis, ajustes 3-4 par lot, envoies.</p>
+    <p><strong>Gain estimé :</strong> Un prospect = 45 secondes au lieu de 15 minutes de recherche.</p>
+    <p><strong>Skill à installer :</strong> <code>cold-email</code> (pack skills).</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 2 · Préparation de rendez-vous en 30 secondes</h3>
+    <p>Tu copies le nom du prospect et son entreprise dans Claude. Il te sort : actualité récente de la boîte (12 derniers mois), signaux d'achat potentiels, questions-clés à poser, 3 angles de valeur pour ton offre. Tu arrives au rendez-vous préparé, pas improvisé.</p>
+    <p><strong>Gain estimé :</strong> 2 à 3 rendez-vous par jour mieux préparés = +15 à 25 % de taux de conversion.</p>
+    <p><strong>Setup :</strong> Claude.ai Pro avec un Project « Mes clients » (pas besoin de Claude Code pour commencer).</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 3 · CRM propre sans effort</h3>
+    <p>Après chaque call, tu dictes 2 min de notes vocales (transcrites par ton téléphone). Tu colles le texte brut dans Claude : il structure en <strong>décisions · actions · prochaine étape · signal commercial</strong>, et peut même préparer le mail de suivi dans ton ton. Ton CRM est à jour sans que tu l'aies ouvert.</p>
+    <p><strong>Gain estimé :</strong> 20 min par call économisées. Sur 4 calls/jour = 1 h 20.</p>
+    <p><strong>Bonus :</strong> Combine avec un MCP Salesforce ou HubSpot pour que Claude pousse directement dans ton CRM. <a href="lexique.html#mcp">Comprendre MCP</a>.</p>
+  </div>
+
+  <div class="lex-block lex-block-reassure">
+    <h3>Si tu débutes, commence simple</h3>
+    <p>Pas besoin de tout automatiser d'un coup. Prends UN workflow (le #2 est le plus rapide à mettre en place), teste-le 2 semaines, mesure le temps gagné. Ensuite tu empiles.</p>
+  </div>
+</section>
+</div>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Métier 04</span><span>Consultant</span><span>Recherche · Synthèse · Rapports</span><span>3 workflows</span>
+    <span>Métier 04</span><span>Consultant</span><span>Recherche · Synthèse · Rapports</span><span>3 workflows</span>
+  </div>
+</div>
+
+<!-- MÉTIER 04 · Consultant -->
+<div class="container">
+<section class="lex-entry" id="consultant">
+  <div class="lex-header">
+    <span class="lex-number">04</span>
+    <div class="lex-titles">
+      <span class="lex-kicker">— Métier · #04</span>
+      <h2>Consultant indépendant</h2>
+    </div>
+  </div>
+
+  <div class="lex-oneline">
+    <strong>Contexte :</strong> Tu vends du temps intellectuel : analyse, synthèse, recommandation. Tes livrables sont des rapports, executive summaries, presentations. Les gains sont spectaculaires ici — Claude excelle sur ce type de tâche.
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 1 · Executive summary à partir de 50 sources</h3>
+    <p>Tu déposes dans un dossier : 20 articles, 5 rapports sectoriels, 10 comptes-rendus d'entretiens, 15 transcripts de podcasts. Tu demandes à Claude : <em>« Synthétise en 2 pages pour un COMEX : quel est l'état du marché, les 3 tendances lourdes, les 2 signaux faibles, 5 recommandations actionnables. Cite tes sources. »</em> — tu as un brief prêt en 20 min au lieu de 2 jours.</p>
+    <p><strong>Gain estimé :</strong> 10 à 15 h sur un executive summary.</p>
+    <p><strong>Skill à installer :</strong> <code>content-production</code> + <code>deep-research</code>.</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 2 · Analyse concurrentielle sectorielle</h3>
+    <p>Tu identifies 10 concurrents de ton client dans un Google Sheet (nom, site). Claude Code scrappe chaque site, extrait l'offre, les tarifs affichés, les arguments de vente, les témoignages clients, les signaux de différenciation. Tableau comparatif en sortie, prêt à insérer dans ta slide. Tu fais ce que ton junior fait en 3 jours en 20 min.</p>
+    <p><strong>Gain estimé :</strong> 3 jours de junior remplacés par 30 min. Facturable au même tarif client.</p>
+  </div>
+
+  <div class="lex-block">
+    <h3>Workflow 3 · Interview clients → insights</h3>
+    <p>Tu fais 12 interviews clients (chacun 1 h, transcrit par Granola ou Otter). Tu colles les 12 transcripts à Claude. Tu demandes : <em>« Identifie les 5 problèmes récurrents, classe-les par fréquence, donne-moi 3 citations verbatim pour chaque. »</em> — les insights qu'un cabinet te factureraient 50 K€ sortent en 30 min de travail.</p>
+    <p><strong>Gain estimé :</strong> 2 semaines d'analyse manuelle réduites à 2 h.</p>
+    <p><strong>Important :</strong> Les données clients sont sensibles — lis la section « Ce que tu ne dois jamais mettre dans Claude » <a href="debutant.html">dans le parcours débutant</a> avant de coller des données personnelles.</p>
+  </div>
+
+  <div class="lex-block lex-block-reassure">
+    <h3>Ton livrable a juste pris une longueur d'avance</h3>
+    <p>Le consultant qui utilise bien Claude produit en 1 semaine ce que ses concurrents font en 3. Pas besoin d'être dev : tu restes dans ton rôle — analyse, synthèse, recommandation. Claude fait juste le travail <em>ingrat</em> à ta place.</p>
+  </div>
+</section>
+</div>
+
+<!-- Mini-marquee final -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>4 métiers couverts</span><span>12 workflows concrets</span><span>Prêts à copier</span><span>Pas de code</span><span>Testés</span><span>Inspire-toi</span>
+    <span>4 métiers couverts</span><span>12 workflows concrets</span><span>Prêts à copier</span><span>Pas de code</span><span>Testés</span><span>Inspire-toi</span>
+  </div>
+</div>
+
+<!-- Final CTA · choix binaire -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Tu sais quoi faire</span>
+    <h2>Prends le workflow <em class="fuchsia">qui te parle.</em></h2>
+    <p style="max-width: 720px; margin-left: auto; margin-right: auto;">
+      Pas besoin de tout faire d'un coup. Choisis UN workflow, teste-le cette semaine, mesure le temps gagné. Si ça marche, tu empiles. Si tu bloques, écris-moi — je lis tout.
+    </p>
+
+    <div class="final-dual">
+      <div class="final-option">
+        <span class="final-option-label">Option 1 · Je démarre</span>
+        <h3>Le parcours débutant</h3>
+        <p>Un guide pas à pas pour monter de Claude chat à Claude Code en 20 minutes. Sans jamais écrire une ligne de code.</p>
+        <a href="debutant.html" class="final-option-btn" style="background: var(--ink); color: var(--bg);">Voir le parcours →</a>
+      </div>
+
+      <div class="final-option final-option-primary">
+        <span class="final-option-label">Option 2 · Passer à l'action</span>
+        <h3>Le guide Claude Code pas à pas</h3>
+        <p>Installer Claude Code en 10 minutes, avec screenshots, sans terminal effrayant. Et repartir avec un premier prompt qui fonctionne.</p>
+        <a href="claude-code.html" class="final-option-btn">Voir le guide Claude Code →</a>
+      </div>
+    </div>
+
+    <div class="final-hint">Ton métier n'est pas dans les 4 ? Écris-moi ce que tu fais au quotidien, je construis le playbook qui te manque.</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Copy-prompt buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.copy;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      try {
+        await navigator.clipboard.writeText(target.innerText);
+        const original = btn.textContent;
+        btn.textContent = 'Copié ✓';
+        btn.classList.add('ok');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('ok');
+        }, 1800);
+      } catch (err) {
+        btn.textContent = 'Erreur';
+      }
+    });
+  });
+
+  // Newsletter form (même endpoint que la home)
+  const NEWSLETTER_ENDPOINT = '/api/subscribe';
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const newsletter = form.dataset.newsletter || 'ai-playbook';
+      const status = form.parentElement.querySelector('.form-status');
+      const button = form.querySelector('button');
+
+      if (!email || !email.includes('@')) {
+        status.textContent = '× Email invalide';
+        status.className = 'form-status err';
+        return;
+      }
+
+      button.disabled = true;
+      const originalText = button.textContent;
+      button.textContent = '...';
+
+      try {
+        const res = await fetch(NEWSLETTER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, source: newsletter }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        status.textContent = data.alreadySubscribed
+          ? '✓ Déjà inscrit. Merci !'
+          : '✓ Inscrit ! Rendez-vous vendredi matin dans ta boîte.';
+        status.className = 'form-status ok';
+        form.reset();
+      } catch (err) {
+        status.textContent = '× Erreur · Réessaye ou écris-moi';
+        status.className = 'form-status err';
+      }
+
+      button.disabled = false;
+      button.textContent = originalText;
+    });
+  });
+</script>
+
+
+<!-- JS partage Instagram (mobile : navigator.share, desktop : copy + toast) -->
+<script>
+document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const shareUrl = btn.dataset.url || window.location.href;
+    const shareTitle = btn.dataset.shareTitle || document.title;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: shareTitle, text: shareTitle, url: shareUrl });
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+    }
+    // Desktop fallback : copie + toast
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      const label = btn.querySelector('.share-label');
+      if (label) {
+        const original = label.textContent;
+        label.textContent = 'Copié ! (colle dans IG)';
+        btn.classList.add('copied');
+        setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
+      } else {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      }
+    } catch (err) {
+      prompt('Copie ce lien pour le coller dans Instagram :', shareUrl);
+    }
+  });
+});
+// Rail-btn-copy : copy classique
+document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const url = btn.dataset.url || window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1800);
+    } catch (err) {
+      prompt('Copie le lien :', url);
+    }
+  });
+});
+</script>
+</body>
+</html>

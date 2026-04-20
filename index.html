@@ -553,6 +553,38 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .learn-cadence {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .1em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .learn-cadence-badge {
+    color: var(--teal);
+  }
+  .learn-cadence-last {
+    color: var(--ink-muted);
+    border-left: 1px solid var(--line);
+    padding-left: 20px;
+  }
+  .learn-cadence-last strong {
+    color: var(--ink);
+    margin-left: 4px;
+  }
+  @media (max-width: 640px) {
+    .learn-cadence-last { border-left: none; padding-left: 0 }
+  }
+
   .learn-intro p {
     font-size: 17px;
     color: var(--ink-soft);
@@ -1809,6 +1841,168 @@
     text-transform: uppercase;
     transform: rotate(-3deg);
     z-index: 2;
+  }
+
+  /* Formulaire unifié newsletters — cases à cocher */
+  .newsletter-unified {
+    max-width: 860px;
+    margin: 56px auto 0;
+    padding: 36px 40px 32px;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--line-strong);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter-unified::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+  }
+  .newsletter-unified-head { text-align: center; margin-bottom: 28px }
+  .newsletter-unified-label {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .newsletter-unified-head h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .newsletter-unified-head p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .newsletter-choice-row {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    margin-bottom: 22px;
+  }
+  @media (min-width: 640px) { .newsletter-choice-row { grid-template-columns: 1fr 1fr; gap: 14px } }
+  .newsletter-choice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--bg);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .newsletter-choice:hover { border-color: var(--fuchsia) }
+  .newsletter-choice input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .newsletter-choice-check {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--line-strong);
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+  .newsletter-choice-check::after {
+    content: "✓";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .newsletter-choice input:checked ~ .newsletter-choice-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .newsletter-choice input:checked ~ .newsletter-choice-check::after { opacity: 1 }
+  .newsletter-choice:has(input:checked) {
+    border-color: var(--teal);
+    background: rgba(0,178,169,.06);
+  }
+  .newsletter-choice-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .newsletter-choice-text strong {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .newsletter-choice-text span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  .newsletter-unified-submit {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .newsletter-unified-submit input[type="email"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--bg);
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .newsletter-unified-submit input[type="email"]:focus {
+    outline: none;
+    border-color: var(--fuchsia);
+  }
+  .newsletter-unified-submit button {
+    padding: 14px 28px;
+    border-radius: 14px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14.5px;
+    letter-spacing: -.01em;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .newsletter-unified-submit button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(0,0,0,.3);
+  }
+  .newsletter-unified-hint {
+    text-align: center;
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
   }
 
   /* Notes de transparence — grid 3 */
@@ -3181,6 +3375,50 @@
   }
   [data-theme="dark"] .rowel-bg { opacity: 0.08 }
   @keyframes spin { to { transform: rotate(360deg) } }
+
+  /* Filtres catégories section Apprendre (override du pill-container préexistant) */
+  .learn-filters {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin: 20px 0 32px;
+    padding: 0 0 8px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    justify-content: flex-start;
+    width: auto;
+    max-width: none;
+    overflow: visible;
+  }
+  .learn-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    background: var(--surface); color: var(--ink-soft);
+    border: 1.5px solid var(--line-strong);
+    padding: 9px 14px; border-radius: 999px;
+    cursor: pointer;
+    transition: all .18s ease-out;
+    white-space: nowrap;
+  }
+  .learn-chip:hover {
+    color: var(--ink); border-color: var(--fuchsia);
+    transform: translateY(-1px);
+  }
+  .learn-chip.is-active {
+    background: var(--ink); color: var(--bg);
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--fuchsia);
+  }
+  .learn-chip.is-active:hover {
+    box-shadow: 4px 4px 0 var(--fuchsia);
+  }
+  [data-theme="dark"] .learn-chip.is-active {
+    background: var(--ink); color: var(--bg);
+    box-shadow: 3px 3px 0 var(--teal);
+  }
+
+  /* Masquage des cards filtrées */
+  .article-card.is-filtered-out { display: none !important; }
 </style>
 </head>
 <body>
@@ -3220,12 +3458,13 @@
       </a>
       <nav class="nav">
         <a href="#learn">Apprendre</a>
+        <a href="workflows.html">Workflows</a>
         <a href="#projects">Projets</a>
         <a href="#newsletters">Newsletters</a>
         <a href="#freebies">Télécharger</a>
         <a href="#opinions">Opinions</a>
         <a href="lexique.html">Lexique</a>
-        <a href="claude-code.html">Guide Claude Code</a>
+        <a href="claude-code.html">Guide</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -3298,16 +3537,25 @@
 <section id="learn">
   <div class="container">
     <div class="learn-intro">
-      <div class="kicker"><span class="pulse"></span>— 01 · Apprendre · Tutos pas à pas</div>
-      <h2>Des tutos.<br>Des guides. <em>Concrets.</em></h2>
+      <div class="kicker"><span class="pulse"></span>— 01 · Apprendre · 13 articles publiés</div>
+      <h2>Des tutos.<br>Des guides.<br><em>Concrets.</em></h2>
       <p>
         Chaque fois que j'apprends quelque chose qui vaut la peine, je le documente ici — en clair, avec des cas d'usage concrets. Pas de théorie. Tu lis, tu comprends, tu peux l'appliquer lundi matin.
       </p>
+      <div class="learn-cadence">
+        <span class="learn-cadence-badge">📅 Nouveau tuto · tous les mardis</span>
+        <span class="learn-cadence-last">Dernier publié · <strong>20 avril 2026</strong></span>
+      </div>
     </div>
 
-    <!-- Compteur (les filtres reviendront quand il y aura de la matière dans plusieurs catégories) -->
-    <div class="learn-toolbar">
-      <span class="learn-count"><strong>5</strong> tutos publiés · d'autres arrivent</span>
+    <!-- Barre de filtres par catégorie -->
+    <div class="learn-filters" role="tablist" aria-label="Filtrer par catégorie">
+      <button class="learn-chip is-active" data-filter="all" type="button">Tout (13)</button>
+      <button class="learn-chip" data-filter="start" type="button">🎯 Commencer (3)</button>
+      <button class="learn-chip" data-filter="guide" type="button">📖 Comprendre (2)</button>
+      <button class="learn-chip" data-filter="tuto" type="button">🛠️ Tutoriels (4)</button>
+      <button class="learn-chip" data-filter="case" type="button">🏗️ Études de cas (2)</button>
+      <button class="learn-chip" data-filter="dev" type="button">🧪 Dev / Avancé (2)</button>
     </div>
 
     <!-- Carousel horizontal : toutes les cards carrées -->
@@ -3317,13 +3565,13 @@
 
       <div class="articles-carousel">
 
-        <!-- 00 : Parcours débutant — porte d'entrée (teal→fuchsia) -->
-        <a class="article-card article-item c-teal-fuchsia" data-cat="ia" href="debutant.html">
+        <!-- 01 · Commencer : Parcours débutant — teal→fuchsia -->
+        <a class="article-card article-item c-teal-fuchsia" data-cat="start" href="debutant.html">
           <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
             <path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61L12 2z"/>
           </svg>
           <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Parcours débutant</span>
+            <span class="article-badge"><span class="pulse"></span>🎯 Commencer</span>
             <span class="article-pill">20 min</span>
           </div>
           <div class="article-middle">
@@ -3336,15 +3584,55 @@
           </div>
         </a>
 
-        <!-- 00.3 : Guide agents IA — orange (guide complet) -->
-        <a class="article-card article-item c-orange-ink" data-cat="ia" href="articles/agents-ia-guide.html">
+        <!-- 02 · Commencer : Lexique — teal -->
+        <a class="article-card article-item c-teal" data-cat="start" href="lexique.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🎯 Commencer</span>
+            <span class="article-pill">Référence</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Lexique IA.<br><em>Tous les mots</em><br>expliqués simplement.</h3>
+            <div class="article-subtitle">— Référence · À garder ouvert en permanence</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">LLM, prompt, MCP, agent, tokens...</div>
+            <p class="article-preview-text">Tous les termes que tu croises dans mes articles, définis en français simple. Pour ne plus jamais être largué dans une conversation IA.</p>
+          </div>
+        </a>
+
+        <!-- 03 · Commencer : Guide Claude Code — teal-fuchsia -->
+        <a class="article-card article-item c-teal-fuchsia" data-cat="start" href="claude-code.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🎯 Commencer</span>
+            <span class="article-pill">30 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Claude Code :<br>le guide complet<br><em>pour démarrer.</em></h3>
+            <div class="article-subtitle">— Install · Setup · 37 skills prêts à l'emploi</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Ta première ouverture de terminal</div>
+            <p class="article-preview-text">Installation pas à pas, configuration du CLAUDE.md, 37 skills clés en main à télécharger. Tout ce qu'il te faut pour passer de débutant à autonome.</p>
+          </div>
+        </a>
+
+        <!-- 04 · Comprendre : Guide agents IA — orange -->
+        <a class="article-card article-item c-orange-ink" data-cat="guide" href="articles/agents-ia-guide.html">
           <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
             <circle cx="12" cy="12" r="9"/>
             <path d="M12 8v4l3 2"/>
             <path d="M8 2h8M12 2v3"/>
           </svg>
           <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Guide complet</span>
+            <span class="article-badge"><span class="pulse"></span>📖 Comprendre</span>
             <span class="article-pill">14 min</span>
           </div>
           <div class="article-middle">
@@ -3357,134 +3645,14 @@
           </div>
         </a>
 
-        <!-- 00.4 : Tutoriel Gmail — teal (tuto strict) -->
-        <a class="article-card article-item c-teal" data-cat="ia" href="articles/tuto-agent-gmail.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M4 4h16v16H4z"/>
-            <path d="M4 4l8 8 8-8"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Tutoriel</span>
-            <span class="article-pill">12 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Crée un agent<br>qui trie<br>ta boîte Gmail<br><em>chaque matin.</em></h3>
-            <div class="article-subtitle">— Tutoriel strict · 45 min de setup</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">Étape par étape, commandes incluses</div>
-            <p class="article-preview-text">80 mails par jour triés pendant que tu dors. Top 3 des urgents à 7h. Coût 5€/mois. Le tutoriel complet, sans détour.</p>
-          </div>
-        </a>
-
-        <!-- 00.45 : Tutoriel Contrats — fuchsia (tuto strict B2B) -->
-        <a class="article-card article-item c-fuchsia" data-cat="ia" href="articles/tuto-agent-contrats.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="9" y1="15" x2="15" y2="15"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Tutoriel</span>
-            <span class="article-pill">14 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Crée un agent<br>qui lit<br>tes contrats PDF<br><em>et alerte.</em></h3>
-            <div class="article-subtitle">— Tutoriel strict · 60 min de setup · Juridique</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">12 clauses critiques scannées automatiquement</div>
-            <p class="article-preview-text">Tu glisses un PDF dans un dossier. Deux minutes plus tard, tu as une fiche avec les clauses à risque et un score. 20€/mois au lieu de 500€ chez Luminance.</p>
-          </div>
-        </a>
-
-        <!-- 00.5 : Étude de cas GMF — fuchsia→orange (récit chaleureux) -->
-        <a class="article-card article-item c-fuchsia-orange" data-cat="ia" href="articles/construit-avec-claude-code-gmf.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Étude de cas</span>
-            <span class="article-pill">8 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Je comprends<br>pourquoi tu restes<br>sur Claude Code<br><em>jusqu'à 2h du matin.</em></h3>
-            <div class="article-subtitle">— Construit avec Claude Code · Récit en 3 soirées</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">Ma femme Shirley, chargée de clientèle GMF</div>
-            <p class="article-preview-text">Elle m'a demandé un coup de main avec son fichier Word de 40 pages. Trois soirées devant Netflix plus tard, elle l'utilisait en rendez-vous client.</p>
-          </div>
-        </a>
-
-        <!-- 00.7 : Étude de cas Veille — teal-fuchsia (récit pivots + outil perso) -->
-        <a class="article-card article-item c-teal-fuchsia" data-cat="ia" href="articles/veille-pour-demain.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v6m0 10v6m11-11h-6m-10 0H1m15.5-7.5l-4.2 4.2m-6.6 6.6l-4.2 4.2m0-15l4.2 4.2m6.6 6.6l4.2 4.2"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>★ Étude de cas</span>
-            <span class="article-pill">9 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Je voulais<br>lancer une newsletter.<br><em>J'ai fini par construire<br>un outil juste pour moi.</em></h3>
-            <div class="article-subtitle">— Construit avec Claude Code · Récit en 1 journée</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">96 sources ingérées chaque matin à 7h</div>
-            <p class="article-preview-text">Les sous-agents m'ont dit non pour la newsletter. J'ai pivoté quatre fois. J'ai fini par construire un outil de veille qui tourne sur mon Mac pour 5 € par mois.</p>
-          </div>
-        </a>
-
-        <!-- 01 : Loops Claude Code — teal -->
-        <a class="article-card article-item c-teal" data-cat="ia" href="articles/loops-claude.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
-            <path d="M21 3v6h-6"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>Tuto · 01</span>
-            <span class="article-pill">7 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Les loops<br>Claude Code,<br>expliqués.</h3>
-            <div class="article-subtitle">— IA &amp; Outils · 7 min de lecture</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">Ce que tu apprends</div>
-            <p class="article-preview-text">Comment faire bosser Claude Code en boucle pendant que tu dors. Les 2 façons de le lancer, 3 exemples que j'utilise moi-même, et les pièges qui coûtent cher.</p>
-          </div>
-        </a>
-
-        <!-- 02 : Hermes Agent — orange (casse l'ordre canonique) -->
-        <a class="article-card article-item c-orange" data-cat="ia" href="articles/hermes-agent.html">
-          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="4" y="4" width="16" height="16" rx="3"/>
-            <path d="M8 12h8M12 8v8"/>
-          </svg>
-          <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>Tuto · 02</span>
-            <span class="article-pill">10 min</span>
-          </div>
-          <div class="article-middle">
-            <h3 class="article-title">Construire<br>un Hermes<br>Agent.</h3>
-            <div class="article-subtitle">— IA &amp; Outils · 10 min de lecture</div>
-          </div>
-          <div class="article-preview">
-            <div class="article-preview-label">Ce que tu apprends</div>
-            <p class="article-preview-text">Comment faire tourner une IA gratuite directement sur ton ordinateur, sans abonnement, sans compte OpenAI, sans que tes données partent dans le cloud. Je montre tout, étape par étape.</p>
-          </div>
-        </a>
-
-        <!-- 03 : Karpathy — fuchsia -->
-        <a class="article-card article-item c-fuchsia" data-cat="ia" href="articles/karpathy.html">
+        <!-- 05 · Comprendre : Karpathy — fuchsia -->
+        <a class="article-card article-item c-fuchsia" data-cat="guide" href="articles/karpathy.html">
           <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
             <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
           <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>Tuto · 03</span>
+            <span class="article-badge"><span class="pulse"></span>📖 Comprendre</span>
             <span class="article-pill">15 min</span>
           </div>
           <div class="article-middle">
@@ -3497,29 +3665,69 @@
           </div>
         </a>
 
-        <!-- 04 : Autoresearch Karpathy — ink (contraste sombre) -->
-        <a class="article-card article-item c-ink" data-cat="ia" href="articles/autoresearch-karpathy.html">
+        <!-- 06 · Tutoriel : Gmail — teal -->
+        <a class="article-card article-item c-teal" data-cat="tuto" href="articles/tuto-agent-gmail.html">
           <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
-            <path d="M21 3v6h-6"/>
-            <circle cx="12" cy="12" r="2.5"/>
+            <path d="M4 4h16v16H4z"/>
+            <path d="M4 4l8 8 8-8"/>
           </svg>
           <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>Tuto · 04</span>
+            <span class="article-badge"><span class="pulse"></span>🛠️ Tutoriel</span>
             <span class="article-pill">12 min</span>
           </div>
           <div class="article-middle">
-            <h3 class="article-title">Les agents<br>auto-<br>améliorants.</h3>
-            <div class="article-subtitle">— IA &amp; Outils · 12 min de lecture</div>
+            <h3 class="article-title">Crée un agent<br>qui trie<br>ta boîte Gmail<br><em>chaque matin.</em></h3>
+            <div class="article-subtitle">— Tutoriel strict · 45 min de setup</div>
           </div>
           <div class="article-preview">
-            <div class="article-preview-label">Ce que tu apprends</div>
-            <p class="article-preview-text">Des IA qui réécrivent leur propre cerveau chaque nuit pour devenir meilleures toutes seules. L'idée racontée simplement, et comment t'en inspirer dans ton travail.</p>
+            <div class="article-preview-label">Étape par étape, commandes incluses</div>
+            <p class="article-preview-text">80 mails par jour triés pendant que tu dors. Top 3 des urgents à 7h. Coût 5€/mois. Le tutoriel complet, sans détour.</p>
           </div>
         </a>
 
-        <!-- 05 : LLM Wiki Karpathy — bi-ton fuchsia→orange (accent Fiesta) -->
-        <a class="article-card article-item c-fuchsia-orange" data-cat="ia" href="articles/llm-wiki-karpathy.html">
+        <!-- 07 · Tutoriel : Contrats — fuchsia -->
+        <a class="article-card article-item c-fuchsia" data-cat="tuto" href="articles/tuto-agent-contrats.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🛠️ Tutoriel</span>
+            <span class="article-pill">14 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Crée un agent<br>qui lit<br>tes contrats PDF<br><em>et alerte.</em></h3>
+            <div class="article-subtitle">— Tutoriel strict · 60 min de setup · Juridique</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">12 clauses critiques scannées automatiquement</div>
+            <p class="article-preview-text">Tu glisses un PDF dans un dossier. Deux minutes plus tard, tu as une fiche avec les clauses à risque et un score. 20€/mois au lieu de 500€ chez Luminance.</p>
+          </div>
+        </a>
+
+        <!-- 08 · Tutoriel : Loops Claude Code — teal -->
+        <a class="article-card article-item c-teal" data-cat="tuto" href="articles/loops-claude.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+            <path d="M21 3v6h-6"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🛠️ Tutoriel</span>
+            <span class="article-pill">7 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Les loops<br>Claude Code,<br>expliqués.</h3>
+            <div class="article-subtitle">— IA &amp; Outils · 7 min de lecture</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Ce que tu apprends</div>
+            <p class="article-preview-text">Comment faire bosser Claude Code en boucle pendant que tu dors. Les 2 façons de le lancer, 3 exemples que j'utilise moi-même, et les pièges qui coûtent cher.</p>
+          </div>
+        </a>
+
+        <!-- 09 · Tutoriel : LLM Wiki Karpathy — fuchsia→orange -->
+        <a class="article-card article-item c-fuchsia-orange" data-cat="tuto" href="articles/llm-wiki-karpathy.html">
           <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
             <rect x="4" y="4" width="16" height="16" rx="2"/>
             <path d="M4 9h16M9 4v16"/>
@@ -3528,7 +3736,7 @@
             <path d="M14.5 14.5L16.5 16.5"/>
           </svg>
           <div class="article-top">
-            <span class="article-badge"><span class="pulse"></span>Tuto · 05</span>
+            <span class="article-badge"><span class="pulse"></span>🛠️ Tutoriel</span>
             <span class="article-pill">12 min</span>
           </div>
           <div class="article-middle">
@@ -3538,6 +3746,86 @@
           <div class="article-preview">
             <div class="article-preview-label">Ce que tu apprends</div>
             <p class="article-preview-text">Un Wikipedia personnel qu'une IA construit pour toi. Tu lui envoies tes PDFs, tes notes, tes liens — elle classe, elle résume, elle retrouve. 5 façons concrètes de s'en servir.</p>
+          </div>
+        </a>
+
+        <!-- 10 · Étude de cas : GMF — fuchsia→orange -->
+        <a class="article-card article-item c-fuchsia-orange" data-cat="case" href="articles/construit-avec-claude-code-gmf.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🏗️ Étude de cas</span>
+            <span class="article-pill">8 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Je comprends<br>pourquoi tu restes<br>sur Claude Code<br><em>jusqu'à 2h du matin.</em></h3>
+            <div class="article-subtitle">— Construit avec Claude Code · Récit en 3 soirées</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Ma femme Shirley, chargée de clientèle GMF</div>
+            <p class="article-preview-text">Elle m'a demandé un coup de main avec son fichier Word de 40 pages. Trois soirées devant Netflix plus tard, elle l'utilisait en rendez-vous client.</p>
+          </div>
+        </a>
+
+        <!-- 11 · Étude de cas : Veille — teal-fuchsia -->
+        <a class="article-card article-item c-teal-fuchsia" data-cat="case" href="articles/veille-pour-demain.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 10v6m11-11h-6m-10 0H1m15.5-7.5l-4.2 4.2m-6.6 6.6l-4.2 4.2m0-15l4.2 4.2m6.6 6.6l4.2 4.2"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🏗️ Étude de cas</span>
+            <span class="article-pill">9 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Je voulais<br>lancer une newsletter.<br><em>J'ai fini par construire<br>un outil juste pour moi.</em></h3>
+            <div class="article-subtitle">— Construit avec Claude Code · Récit en 1 journée</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">96 sources ingérées chaque matin à 7h</div>
+            <p class="article-preview-text">Les sous-agents m'ont dit non pour la newsletter. J'ai pivoté quatre fois. J'ai fini par construire un outil de veille qui tourne sur mon Mac pour 5 € par mois.</p>
+          </div>
+        </a>
+
+        <!-- 12 · Dev / Avancé : Hermes Agent — orange -->
+        <a class="article-card article-item c-orange" data-cat="dev" href="articles/hermes-agent.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="4" y="4" width="16" height="16" rx="3"/>
+            <path d="M8 12h8M12 8v8"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🧪 Dev / Avancé</span>
+            <span class="article-pill">10 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Construire<br>un Hermes<br>Agent.</h3>
+            <div class="article-subtitle">— IA &amp; Outils · 10 min de lecture</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Ce que tu apprends</div>
+            <p class="article-preview-text">Comment faire tourner une IA gratuite directement sur ton ordinateur, sans abonnement, sans compte OpenAI, sans que tes données partent dans le cloud. Je montre tout, étape par étape.</p>
+          </div>
+        </a>
+
+        <!-- 13 · Dev / Avancé : Autoresearch Karpathy — ink -->
+        <a class="article-card article-item c-ink" data-cat="dev" href="articles/autoresearch-karpathy.html">
+          <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+            <path d="M21 3v6h-6"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
+          <div class="article-top">
+            <span class="article-badge"><span class="pulse"></span>🧪 Dev / Avancé</span>
+            <span class="article-pill">12 min</span>
+          </div>
+          <div class="article-middle">
+            <h3 class="article-title">Les agents<br>auto-<br>améliorants.</h3>
+            <div class="article-subtitle">— IA &amp; Outils · 12 min de lecture</div>
+          </div>
+          <div class="article-preview">
+            <div class="article-preview-label">Ce que tu apprends</div>
+            <p class="article-preview-text">Des IA qui réécrivent leur propre cerveau chaque nuit pour devenir meilleures toutes seules. L'idée racontée simplement, et comment t'en inspirer dans ton travail.</p>
           </div>
         </a>
 
@@ -3764,11 +4052,6 @@
           </span>
         </div>
 
-        <form class="newsletter-form" data-newsletter="ai-playbook">
-          <input type="email" name="email" placeholder="ton@email.com" required>
-          <button type="submit">Je veux la veille IA →</button>
-        </form>
-        <div class="form-status" aria-live="polite"></div>
         <p class="newsletter-form-hint">
           La prochaine part vendredi. Tu la reçois <strong>au même moment que moi</strong>. Si elle ne te sert pas, un clic, tu te désabonnes — sans histoire.
         </p>
@@ -3813,16 +4096,48 @@
           </span>
         </div>
 
-        <form class="newsletter-form" data-newsletter="business-radar">
-          <input type="email" name="email" placeholder="ton@email.com" required>
-          <button type="submit">Je veux la veille Business →</button>
-        </form>
-        <div class="form-status" aria-live="polite"></div>
         <p class="newsletter-form-hint">
           Prochaine édition le <strong>premier mardi du mois</strong>. Tu reçois exactement ce que je reçois — aucun filtre, aucune version allégée.
         </p>
       </article>
 
+    </div>
+
+    <!-- Formulaire unifié : choisis tes newsletters -->
+    <div class="newsletter-unified">
+      <div class="newsletter-unified-head">
+        <span class="newsletter-unified-label">Inscription · Les deux ou une seule</span>
+        <h3>Tu choisis ce que tu reçois.</h3>
+        <p>Un seul email, deux cases à cocher. Tu peux prendre les deux, ou juste celle qui te parle le plus. Désinscription en 1 clic, et je ne le prends pas mal.</p>
+      </div>
+      <form class="newsletter-unified-form" data-newsletter="multi">
+        <div class="newsletter-choice-row">
+          <label class="newsletter-choice">
+            <input type="checkbox" name="ai-playbook" value="ai-playbook" checked>
+            <span class="newsletter-choice-check"></span>
+            <span class="newsletter-choice-text">
+              <strong>AI Playbook</strong>
+              <span>Vendredi 9h · Hebdo · 4-6 min</span>
+            </span>
+          </label>
+          <label class="newsletter-choice">
+            <input type="checkbox" name="business-radar" value="business-radar">
+            <span class="newsletter-choice-check"></span>
+            <span class="newsletter-choice-text">
+              <strong>Business Radar</strong>
+              <span>1er &amp; 3e mardi · Bimensuel · 5-7 min</span>
+            </span>
+          </label>
+        </div>
+        <div class="newsletter-unified-submit">
+          <input type="email" name="email" placeholder="ton@email.com" required>
+          <button type="submit">M'inscrire →</button>
+        </div>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+      <p class="newsletter-unified-hint">
+        Gratuit · Zéro pub · Désinscription 1 clic · Je ne revends jamais ton email.
+      </p>
     </div>
 
     <!-- Notes de transparence -->
@@ -4740,6 +5055,30 @@ document.querySelectorAll('.op-share').forEach(btn => {
     }
   });
 });
+</script>
+
+<!-- Filtres catégories section Apprendre -->
+<script>
+  (function() {
+    const chips = document.querySelectorAll('.learn-chip');
+    const cards = document.querySelectorAll('#learn .article-card[data-cat]');
+    if (!chips.length || !cards.length) return;
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const filter = chip.dataset.filter;
+        chips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.cat === filter) {
+            card.classList.remove('is-filtered-out');
+          } else {
+            card.classList.add('is-filtered-out');
+          }
+        });
+      });
+    });
+  })();
 </script>
 </body>
 </html>

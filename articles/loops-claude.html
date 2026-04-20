@@ -688,7 +688,7 @@
         <h3>Timed loop · Intervalle fixe</h3>
         <p>Tu fixes une durée. Claude relance à chaque fois. Simple, prévisible, parfait quand tu veux vérifier un statut à cadence régulière.</p>
         <pre>/loop 5m /veille-ia</pre>
-        <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>2m</code>, <code>1h</code>, <code>6h</code>, etc. <strong>Note :</strong> les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure — le minimum réel est <strong>1 minute</strong>. Et chaque loop expire automatiquement au bout de <strong>7 jours</strong> (garde-fou contre les loops oubliés).</p>
+        <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>2m</code>, <code>1h</code>, <code>6h</code>, etc. <strong>Note :</strong> les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure — le minimum réel est <strong>1 minute</strong>. Et chaque loop expire automatiquement au bout de <strong>7 jours</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">doc officielle Anthropic · scheduled tasks</a>) — un garde-fou contre les loops oubliés.</p>
       </div>
     </div>
 
@@ -704,7 +704,7 @@
 
     <div class="callout warn">
       <h4>Attention au cache prompt (5 min)</h4>
-      <p>Le cache prompt expire à 5 minutes. Si tu mets <code>/loop 5m</code> pile, tu tombes au pire moment : le cache vient juste d'expirer et ça te coûte plus. Utilise <code>4m30s</code> (juste en-dessous) ou <code>10m+</code> pour rester efficace.</p>
+      <p>Le cache prompt Anthropic a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les tokens mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
     </div>
   </div>
 </section>
@@ -882,7 +882,7 @@ Aucun changement sur les 4 autres sujets suivis
     <p>Si ton loop surveille un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
 
     <h4>Piège 3 · Lancer un loop et l'oublier</h4>
-    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Pour stopper un loop : appuie sur <code>Esc</code> dans ta session, ou dis simplement à Claude <em>"stoppe le loop en cours"</em>. Bonne nouvelle : chaque loop expire aussi tout seul au bout de <strong>7 jours</strong>, donc tu ne peux pas le laisser tourner à vie par accident.</p>
+    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Pour stopper un loop : appuie sur <code>Esc</code> dans ta session, ou dis simplement à Claude <em>"stoppe le loop en cours"</em>. Bonne nouvelle : chaque loop expire aussi tout seul au bout de <strong>7 jours</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">doc officielle Anthropic</a>), donc tu ne peux pas le laisser tourner à vie par accident.</p>
 
     <div class="callout ok">
       <h4>Ma check-list avant de lancer un loop</h4>

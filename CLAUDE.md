@@ -27,6 +27,7 @@
 | Pas de framework | Pas de React, Next, rien. Juste HTML/CSS/JS pur. |
 | Polices | Google Fonts : Archivo Black · Archivo · Bebas Neue · JetBrains Mono |
 | Design system | Charte **FIESTA / 89** (voir section suivante) |
+| CSS partagé | `assets/main.css` (3615 lignes) importé par `index.html` + `apprendre.html` |
 
 ---
 
@@ -103,6 +104,25 @@ Les **mini-marquees dividers** sont un élément identitaire. **Chaque nouvelle 
 - Radial gradients colorés sur les hero
 - Dual-theme via `data-theme="light|dark"` sur `<html>` + localStorage
 
+### Dark mode · piège à éviter (RÈGLE)
+
+Les variables `--ink` et `--bg` sont **sémantiques** (texte / fond adaptatifs), pas **chromatiques**.
+- `--ink` = `#0A0A0A` en light, `#F4EFE6` en dark (**s'inverse**)
+- `--bg` = `#FBF7F0` en light, `#0A0A0A` en dark (**s'inverse aussi**)
+
+**Quand un bloc doit rester sombre peu importe le thème** (hero noir, CTA noir, bloc d'intro toujours sombre), NE PAS utiliser `background: var(--ink)` · ça donne cream sur cream en dark = illisible.
+
+**À la place, utiliser les couleurs fixes** :
+```css
+.bloc-toujours-sombre {
+  background: #0A0A0A;   /* fond fixe noir */
+  color: #FBF7F0;         /* texte fixe cream */
+}
+```
+Les 3 couleurs accent (`--teal`, `--fuchsia`, `--orange`) restent OK à utiliser · elles ne changent pas selon le thème.
+
+**Incident fondateur** · 2026-04-22 · `outils.html` tier2-intro + `github.html` hero/final étaient illisibles en dark mode.
+
 ---
 
 ## Ton de voix — "Ton Leo" (RÈGLE ABSOLUE)
@@ -128,6 +148,8 @@ Chaleureux ≠ familier. Jamais d'argot ni de langage "de pote" sur le site publ
 
 **Test :** relire à voix haute. Si ça sonne comme un copain au bar → trop familier. Si ça sonne comme un ami qui t'écrit un mail un dimanche soir → bon niveau.
 
+**Exception** : tu peux citer un mot banni **entre guillemets français** comme exemple explicite de ce qui est interdit (ex: `« kif »`, `« taf »` en liste de mots à ne pas employer). Un audit grep remontera ces occurrences comme faux positifs — c'est normal.
+
 ### PITCH CENTRAL (à préserver à tout prix)
 > "Je fais tout ça d'abord pour moi. Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier."
 
@@ -141,27 +163,55 @@ Les newsletters sont **des veilles automatiques** que Jérémy se produit à lui
 
 ---
 
-## Structure de la home (`index.html`)
+## Structure de la home (`index.html`) — refonte 2026-04-21 (v2 lecteur)
+
+**Fil rouge v2 — centré lecteur** : haut bienveillant pour le lecteur, bas "d'abord pour moi" comme garantie.
+
+H1 : "Suis l'IA. Sans être dev. Sans y passer tes soirées." (4 lignes, impératif)
 
 Ordre des sections (ne pas changer sans raison) :
 
-1. **Hero** (dark forcé) — "1 semaine d'avance. Chaque semaine."
-2. **Freebies** — 3 cards téléchargement (Claude Code guide + CLAUDE.md + skills pack)
-3. **Mini-marquee 1** — Gratuit · Zéro spam · Juste ce qui sert
-4. **Apprendre** (#learn) — 5 articles tutos, filtres par catégorie
-5. **Newsletters** (#newsletters) — 2 cards veilles (AI Playbook + Business Radar) + 3 notes de transparence
-6. **Sources** (#content) — Ce que Jérémy regarde : tabs YouTube (34 chaînes catégorisées) · X · Newsletters (Hormozi)
-7. **Mini-marquee 2** — Opinions tranchées · Sans filtre · Écris-moi
-8. **Opinions** (#opinions) — 6 cards style magazine cover (photos + overlay coloré)
-9. **Showcase** — Bandeau photo plein largeur "Deux frères. Un même cap. Zéro filtre."
-10. **Moments** (#moments) — 8 polaroids (vidéos YouTube + photos)
-11. **Mini-marquee 3** — Transparence · Veilles auto · Jamais dépassé
-12. **Story** (#story) — "Je fais tout ça d'abord pour moi." (en bas, juste avant CTA final)
-13. **CTA Drop** — "Elle part vendredi. Tu veux être dedans ?"
-14. **Marquee principal** + Footer (6px stripe teal/fuchsia/orange top)
+1. **Hero** (dark) — H1 4 lignes + lead lecteur ("Tu sens que l'IA bouge...") + CTAs `apprendre.html` (primary) + `#newsletters` (ghost)
+2. **Mini-marquee 01** — Peut-être comme toi · Peut-être pas
+3. **Pour qui** (`.whoisitfor` · `#whoisitfor`) — 3 profils : Entrepreneur curieux (teal) · Pro pressé (fuchsia) · Débutant qui hésite (orange). Bloc "Ce que tu ne trouveras PAS ici" en bas.
+4. **Apprendre** (`#learn`) — teaser 4 cards étapes + CTA `apprendre.html`
+5. **Mini-marquee 02** — Le chemin posé · Maintenant la veille
+6. **Newsletters** (`#newsletters`) — pipeline + 2 cards + formulaire unifié
+7. **Mini-marquee 03** — Pas envie de t'abonner ? · Normal · Prends déjà ces 3 outils
+8. **Freebies** (`#freebies`) — 3 cards téléchargement
+9. **Mini-marquee 04** — Tu as la méthode · Les outils · Voilà les preuves
+10. **Projets** (`#projects`) — 3 cards : live (GMF) · construction (veille) · recherche (agent qualif)
+11. **Opinions** (`#opinions`) — 6 cards style magazine cover
+12. **Mini-marquee 05** — Ma voix · Ce qui la nourrit
+13. **Sources** (`#content`) — tabs YouTube (34 chaînes) · X · Newsletters
+14. **Mini-bio** (`.minibio`) — "Entrepreneur. Pas dev. Pas dépassé." Photo + 4 tags (position : après valeur donnée, avant garantie)
+15. **Mini-marquee 06** — Une dernière chose · Pour qu'on se comprenne · Ma vraie garantie
+16. **Story** (`#story`) — "Je fais tout ça d'abord pour moi" + highlight "Ta garantie"
+17. **CTA Drop** — "Tu veux être dedans ?"
+18. **Marquee principal** + Footer
 
 ### Nav (ordre)
-`Claude Code · Apprendre · Newsletters · Chaînes · Opinions · L'histoire`
+`Apprendre · Newsletters · Télécharger · Projets · Opinions · Sources · L'histoire`
+
+### Règle "pitch central" — ton à 3 niveaux
+- **Haut** (hero, pour qui, apprendre) : 100% bienveillant, centré lecteur. "Tu sens que...", "Tu veux...", "Tu cherches...".
+- **Milieu** (newsletters, freebies, projets, opinions, sources) : équilibre "je partage ce qui m'a servi". "J'ai monté pour moi → tu reçois la même chose".
+- **Bas** (story) : pitch **"Je fais tout ça d'abord pour moi"** — reformulé en **"Ta garantie"**. Dit UNE seule fois. Ne jamais le redire ailleurs.
+
+## Page parcours (`apprendre.html`) — créée 2026-04-21
+
+Page dédiée au parcours pédagogique. Structure :
+
+1. Hero parcours (dark) — "Apprendre l'IA. Dans l'ordre où je l'ai appris."
+2. **Progress rail sticky** 01→04 avec auto-highlight (IntersectionObserver)
+3. **Étape 01 · Poser les bases** (teal) — 2 cards : debutant.html + lexique.html
+4. **Étape 02 · Passer à Claude Code** (fuchsia) — 2 cards : claude-code.html + loops-claude
+5. **Étape 03 · Construire tes agents** (orange) — 4 cards : agents-ia-guide + gmail + contrats + hermes
+6. **Étape 04 · Aller plus loin** (ink) — 5 cards : GMF + veille + 3× Karpathy
+7. **Parcours-end** (gradient teal→fuchsia→orange) — CTA vers `index.html#newsletters`
+8. Footer identique à la home
+
+Entre étapes : mini-marquees narratifs (Bases posées → Claude Code → Agents → Plus loin).
 
 ---
 
@@ -257,6 +307,45 @@ Les 2 sont présentées comme **veilles automatiques pilotées par sous-agents**
 ### X / Twitter
 Handle Jérémy : `@JeremySagnier`. Liste following **non scrapée** (X bloque sans login, `twitter-mcp-server` en local non configuré). À compléter quand credentials dispo.
 
+### Brainstorm d'idées (`scripts/brainstorm.js`)
+Lancer : `npm run brainstorm` (ou bouton back-office).
+
+Sources parallèles · ~476 items/run :
+- Reddit (8 subs) · Hacker News Algolia · GitHub Search · RSS (OpenAI / Google AI / Hugging Face / Simon Willison) · YouTube RSS Atom (16 chaînes, cf. `scripts/youtube-channels.js`)
+
+Scoring 5 axes (demande / pertinence / evergreen / vécu / gap) × multiplicateur cluster (`editorial-clusters.js`, 6 clusters de 1.0 à 1.25) × boost chaîne YouTube (1.0 à 1.15).
+
+Filtre anti-bruit : `KEYWORDS_NOISE` + `YT_SIGNAL_KEYWORDS` strict pour éviter que Silicon Carne remonte du contenu non-IA.
+
+---
+
+## Back-office local (port 3001)
+
+Lancer : `node scripts/admin-server.js` (ou `npm run admin`). Navigateur : `http://localhost:3001/`.
+
+### Architecture modules
+- Chaque module est `admin/modules/<id>/page.html` autonome, enregistré dans `admin/modules.json`.
+- Shell partagé : `admin/shared/admin.css` + `admin/shared/admin.js` (render sidebar dynamique via `/api/modules`).
+- Ajouter un module = créer un dossier + entrée JSON. Aucun refactor nécessaire.
+
+### 11 modules en place
+| Module | Rôle |
+|---|---|
+| `dashboard` · `backlog` · `pipeline` · `drafts` · `articles` · `calendar` | Production éditoriale |
+| `newsletter` · `social` · `seo-audit` · `alerts` | Audience + qualité |
+| `analytics` · `agents` · `settings` | Stubs (pas encore actifs) |
+
+### Flux éditorial
+Idée (`backlog`) → Explainer Claude (bouton "✨ Explique-moi le top 10") → Verdict `prendre/hésiter/passer` → `chosen` → Draft (`drafts/<id>.md`) → Publish (`articles/<slug>.html`) → Audit SEO (`audits/<slug>/`) → Social drafts (`social-drafts/<slug>/`) → Calendrier.
+
+### Fichiers data persistants
+- `BACKLOG.md` · source de vérité idées (parsing markdown, champs `Résumé`/`Pour toi`/`Verdict`)
+- `data/calendar.json` · slots planifiés
+- `data/youtube-cache.json` · channelId résolus (TTL 90j)
+
+### Plugins Claude Code installés (scope user)
+`superpowers` · `claude-md-management` · `frontend-design` · `context7` · `code-review` · `code-simplifier` · `telegram`. Gestion via `claude plugin <install|list|disable>`. Commandes slash dispo après restart.
+
 ---
 
 ## Discipline de dev
@@ -268,13 +357,27 @@ Handle Jérémy : `@JeremySagnier`. Liste following **non scrapée** (X bloque s
 - Chemins **relatifs** partout (`articles/...`, `photos/...`, `downloads/...`) pour fonctionner en local `file://` ET en prod Vercel
 - Le dev-browser est installé globalement et disponible pour scraper
 
+### Slug backlog vs draft
+Les `id` du `BACKLOG.md` sont tronqués à 50 chars et parfois moches (`tuto-cours-skills-tout-comprendre-sur-les-skills-a`).
+**Dans le frontmatter du draft, utilise un `slug` court et propre** (ex: `skills-claude-code-non-dev`). Le fichier draft porte le nom du `id` backlog pour matcher l'idée ; le slug publié est celui du frontmatter.
+
 ### Avant toute modif
 - Lire ce CLAUDE.md en entier
 - Si changement > 3 fichiers ou touche données/API → présenter un plan et attendre "go"
 - Vérifier que le ton Leo est respecté
 
 ### Après chaque session
-- Ce fichier + CHANGELOG (à créer) doivent être mis à jour
+- Ce fichier + `CHANGELOG.md` doivent être mis à jour
+
+### CHANGELOG.md obligatoire
+Après chaque session non-triviale, ajouter une entrée en haut :
+- **Date + titre court**
+- **Pourquoi** (problème résolu)
+- **Livré** (liste des changements concrets)
+- **Fichiers touchés**
+- **À venir** (TODOs découverts en chemin)
+
+Le CHANGELOG sert de mémoire entre sessions et de preuve de ce qu'on a décidé. S'il dépasse ~200 lignes des 6 derniers mois, archiver le reste dans `CHANGELOG-2025.md`.
 
 ---
 

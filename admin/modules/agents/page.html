@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agents — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Mes agents</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Les agents qui bossent pour toi</div>
+          <h1>Tes <em>employés</em><br>IA.</h1>
+          <p class="page-sub">Chaque agent a un rôle précis · il travaille pour toi en fond. <strong>Tu vois ce qu'il fait, quand, combien de temps</strong>, et tu peux le couper ou le relancer à la demande. Le jour où tu en veux un nouveau, c'est ici qu'on l'ajoute.</p>
+        </div>
+        <div>
+          <button class="btn btn-ghost" id="btnAddAgent" disabled>+ Nouvel agent (bientôt)</button>
+        </div>
+      </div>
+
+      <div class="pageNote">
+        <strong>La philosophie :</strong> un agent = un petit bonhomme avec un rôle clair. Pas de magie, pas de "CEO IA". L'agent Brainstorm cherche des sujets. L'agent Social prépare tes posts. L'agent SEO-scorer note tes articles. <strong>Tu orchestres, ils exécutent.</strong>
+      </div>
+
+      <!-- Agents actifs -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Agents en place</h2>
+          <span class="section-count">1 actif</span>
+        </div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default">
+            <h3>🧠 Agent Brainstorm</h3>
+            <div class="draft-card-meta">Script · scripts/brainstorm.js · actif</div>
+            <p>Il scanne Reddit, Hacker News et les blogs Anthropic/OpenAI, score les sujets sur 5 axes, met à jour ton <code style="background:var(--bg-2); padding:1px 5px; border-radius:4px">BACKLOG.md</code>. Déclenché manuellement par "Cherche-moi des idées" dans le dashboard.</p>
+            <div style="margin-top:10px">
+              <span class="tag t-teal">Actif</span>
+              <span class="tag">Trigger manuel</span>
+              <span class="tag">0 €/mois</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agents prévus -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Agents prévus · V3+</h2>
+          <span class="section-count">4 à venir</span>
+        </div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>📱 Agent Social-poster</h3>
+            <div class="draft-card-meta">À brancher via Zernio · V3</div>
+            <p>Transforme un article en 4 posts sociaux (LinkedIn · X · Instagram · Threads) via API Zernio. Déclenché à chaque publication d'article.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">Bientôt</span><span class="tag">Auto sur publish</span><span class="tag">~16 €/mois</span></div>
+          </div>
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>📊 Agent SEO-scorer</h3>
+            <div class="draft-card-meta">Auto · cron hebdo · V3</div>
+            <p>Chaque lundi, compare le trafic réel des articles (via Vercel Analytics) à la prédiction initiale. Met à jour le score et flagge les articles sous-performants pour refresh.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">Bientôt</span><span class="tag">Cron lundi 6h</span><span class="tag">0 €/mois</span></div>
+          </div>
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>✉ Agent Newsletter-writer</h3>
+            <div class="draft-card-meta">Auto · jeudi soir · V3</div>
+            <p>Prépare le brief newsletter AI Playbook du vendredi : synthétise ta veille de la semaine + un cas d'usage, prêt à relire. Tu valides jeudi soir, ça part vendredi 9h.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">Bientôt</span><span class="tag">Cron jeudi 18h</span><span class="tag">~2 €/mois</span></div>
+          </div>
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>🔄 Agent Refresh-articles</h3>
+            <div class="draft-card-meta">Auto · mensuel · V4</div>
+            <p>Détecte les articles vieillissants (6+ mois, score en baisse) et propose une MAJ : corrections factuelles, ajout de sections, refresh de la meta description. Draft à valider.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">Bientôt</span><span class="tag">Cron 1er du mois</span><span class="tag">~5 €/mois</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Logs d'exécution</h2></div>
+        <div class="empty-state">
+          <strong>Les logs arrivent en V3</strong>
+          Chaque fois qu'un agent tourne, on garde une trace : qui, quand, combien de temps, ce qu'il a produit. Tu pourras voir ici si un agent a planté ou si ça s'est bien passé.
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>renderShell('agents');</script>
+
+</body>
+</html>

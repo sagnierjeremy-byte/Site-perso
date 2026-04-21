@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superpowers Claude Code · guide complet — Jérémy Sagnier</title>
+<meta name="description" content="Superpowers est un plugin qui force Claude à réfléchir avant de coder : brainstorm socratique, plan d'implémentation, TDD, revue. Je te montre à quoi ça sert, ce que ça change, et quand tu ne devrais pas l'utiliser.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Outils · 09</div>
+    <h1>Superpowers.<br>Le plugin qui force<br><em>Claude à réfléchir.</em></h1>
+    <p class="hero-lead">
+      Superpowers est le plugin Claude Code le plus installé du marketplace officiel (163 000 stars GitHub, 4e position chez Anthropic). Créé par Jesse Vincent, il impose une méthodologie : Claude ne code plus avant d'avoir brainstormé, planifié, testé. Je viens de l'installer. Voici ce que j'en ai compris après lecture de la doc et des retours d'utilisateurs avancés : à quoi ça sert, ce que ça change vraiment, et quand il vaut mieux le désactiver.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>13 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Claude Code · Superpowers</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Superpowers oblige Claude à <strong>brainstormer, écrire un plan, tester avant de coder</strong>. Fini les 400 lignes pondues à la volée · tu valides chaque étape.</li>
+      <li>14 skills qui se déclenchent automatiquement selon le contexte. Les 3 commandes slash (<code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code>) sont <strong>dépréciées</strong>, le plugin utilise maintenant un système de skills plus flexible.</li>
+      <li>Verdict honnête : parfait pour les vrais projets, <strong>overkill sur les petites tâches</strong>. Tu le désactives en une commande quand tu veux juste bricoler. Écrit avec Claude, relu par moi.</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+    <h2>Avant de commencer</h2>
+    <p>Si tu utilises Claude Code depuis quelques semaines, tu connais cette scène : tu demandes quelque chose de simple, Claude te pond 400 lignes avec 10 options que tu n&#39;as pas demandées, tu passes 30 minutes à nettoyer. Ce n&#39;est pas la faute de Claude. C&#39;est la faute du format <em>« écris-moi du code »</em> qui invite au chaos.</p>
+    <p>Jesse Vincent, un ex-ingénieur d&#39;Anthropic, a créé <strong>Superpowers</strong> pour régler ça. Le plugin force une discipline : <strong>Claude doit comprendre ce que tu veux, valider le design, écrire un plan, puis exécuter avec des tests · dans cet ordre</strong>. Sorti en octobre 2025, Superpowers a grimpé à <strong>163 000 étoiles GitHub en six mois</strong> et est le <strong>4e plugin le plus installé</strong> du marketplace officiel Anthropic. Simon Willison le décrit comme <em>« un morceau significatif en soi »</em>. Evan Schwartz dit <em>« je ne peux pas le recommander assez »</em>.</p>
+    <p>Mais il y a aussi des utilisateurs qui râlent : <em>« Depuis que j&#39;ai installé Superpowers, changer un bout de CSS prend des plombes »</em> (rodskagg sur Threads). Du overhead injustifié sur les petites tâches. Honnêteté oblige, je commence par ça.</p>
+    <div class="callout tip">
+      <h4>Mon avis en 5 secondes</h4>
+      <p>Superpowers, c'est la ceinture de sécurité de Claude Code. Indispensable quand tu lances un projet sérieux. Insupportable si tu veux juste bricoler. La bonne posture : installe, apprends à activer/désactiver à la demande. Tu auras le meilleur des deux mondes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Le concept · Claude devient discipliné</h2>
+    <p>Superpowers n&#39;ajoute pas de fonctionnalité. Il <strong>change le comportement</strong> de Claude Code, en lui donnant des skills qui s&#39;activent automatiquement selon le contexte.</p>
+    <h3>Les trois piliers de la méthode</h3>
+    <p><strong>1. Brainstorming socratique</strong></p>
+    <p>Au lieu de coder immédiatement, Claude te pose des questions. <em>« C&#39;est pour quel usage exactement ? Besoin de RGPD ? Envoi immédiat ou différé ? »</em> Tu réponds, il reformule sa compréhension, tu valides. Puis seulement il propose un design. Tu signes le design avant qu&#39;une ligne de code existe. Fini les malentendus à rallonge.</p>
+    <p><strong>2. Test-Driven Development (TDD)</strong></p>
+    <p>Claude écrit d&#39;abord <strong>un test qui échoue</strong>, puis le code qui le fait passer, puis il refactorise. C&#39;est contre-intuitif, mais ça garantit deux choses : le test vérifie vraiment ce que tu voulais, et le code fait exactement ce qu&#39;il faut. Zéro exception · pas de <em>« je testerai plus tard »</em>.</p>
+    <p><strong>3. Subagent-Driven Development</strong></p>
+    <p>Sur les gros projets, Claude découpe le travail en tâches indépendantes et lance <strong>plusieurs sous-agents en parallèle</strong>. Chacun fait sa tâche isolée, un autre agent relit et valide, un troisième audite la qualité. C&#39;est comme avoir 3 juniors vérifiés par un senior · mais automatique.</p>
+    <div class="callout ok">
+      <h4>Ce qui change concrètement dans ta journée</h4>
+      <p><strong>Avant</strong> : « Fais-moi X » → Claude pond du code → tu découvres que ce n'était pas exactement ça → reprise.</p>
+      <p><strong>Avec Superpowers</strong> : « Fais-moi X » → Claude t'interroge 3 minutes → propose un design → tu valides → plan écrit → exécution testée à chaque étape → audit final. Plus long au démarrage, 10× plus rapide au total.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les 14 skills en clair (regroupés par fonction)</h2>
+    <p>Le plugin active 14 skills qui se déclenchent automatiquement. Je les ai regroupés en 4 familles pour que tu voies à quoi ça correspond vraiment.</p>
+    <div class="usecase">
+      <div class="usecase-label">Famille 01 · Comprendre avant d'agir</div>
+      <h4>4 skills qui forcent la clarification</h4>
+      <p><strong><code>brainstorming</code></strong> · Claude te pose des questions, reformule, valide le design avant toute ligne de code.</p>
+      <p><strong><code>writing-plans</code></strong> · Transforme le design validé en plan d'implémentation détaillé · une tâche par 2-5 minutes, avec le code exact à écrire.</p>
+      <p><strong><code>writing-skills</code></strong> · T'aide à documenter une procédure récurrente pour que Claude la réutilise dans les futures sessions.</p>
+      <p><strong><code>using-superpowers</code></strong> · Le mode d'emploi du plugin · Claude le lit au début pour savoir quand invoquer les autres skills.</p>
+    </div>
+    
+    <div class="usecase">
+      <div class="usecase-label">Famille 02 · Exécuter proprement</div>
+      <h4>5 skills pour dérouler sans chaos</h4>
+      <p><strong><code>executing-plans</code></strong> · Claude lit un plan existant, le critique, puis l'exécute tâche par tâche avec checkpoints.</p>
+      <p><strong><code>subagent-driven-development</code></strong> · Le cœur · chaque tâche reçoit un sous-agent dédié, un autre la vérifie, un troisième l'audite.</p>
+      <p><strong><code>dispatching-parallel-agents</code></strong> · Quand tu as 3+ problèmes indépendants, Claude lance 3 agents en parallèle au lieu de résoudre séquentiellement.</p>
+      <p><strong><code>test-driven-development</code></strong> · Impose le cycle rouge → vert → refactor · zéro code sans test qui échoue d'abord.</p>
+      <p><strong><code>using-git-worktrees</code></strong> · Crée une branche isolée (worktree) avant de commencer, garde ton répertoire principal propre.</p>
+    </div>
+    
+    <div class="usecase">
+      <div class="usecase-label">Famille 03 · Déboguer avec méthode</div>
+      <h4>2 skills anti-panique</h4>
+      <p><strong><code>systematic-debugging</code></strong> · Quatre phases obligatoires · (1) investigation de root cause, (2) pattern, (3) hypothèse + test, (4) fix. Interdit les *« je tente un truc »* qui créent plus de problèmes.</p>
+      <p><strong><code>verification-before-completion</code></strong> · Avant de dire *« c'est fini »*, Claude doit **exécuter** la commande qui prouve le résultat et lire la sortie. Plus de *« devrait passer »* · des logs, des preuves.</p>
+    </div>
+    
+    <div class="usecase">
+      <div class="usecase-label">Famille 04 · Finir en beauté</div>
+      <h4>3 skills pour ne rien laisser traîner</h4>
+      <p><strong><code>requesting-code-review</code></strong> · Claude lance un agent reviewer en isolation · il compare le code au plan, cherche bugs et anti-patterns, range par criticité.</p>
+      <p><strong><code>receiving-code-review</code></strong> · Quand Claude reçoit un avis de review (humain ou agent), ce skill l'aide à évaluer techniquement avant d'appliquer aveuglément.</p>
+      <p><strong><code>finishing-a-development-branch</code></strong> · Vérifie tests verts, propose 4 options · merger, PR, garder pour plus tard, jeter. Nettoie les fichiers temporaires.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les 3 cas où Superpowers m&#39;a vraiment servi</h2>
+    <p>Je n&#39;ai Superpowers que depuis quelques jours. Voici 3 scénarios concrets où je l&#39;activerai la semaine prochaine.</p>
+    <h3>Cas 1 · Le nouveau module admin</h3>
+    <p>Mon back-office a déjà 13 modules. J&#39;en ajoute un tous les 2 jours. Sans Superpowers, Claude démarre et code directement une ébauche, je corrige après. <strong>Avec Superpowers</strong>, il me demande d&#39;abord <em>« ce module va lire quoi ? écrire où ? il remplace quelque chose ou c&#39;est nouveau ? il a besoin d&#39;un endpoint API ? »</em>. 5 minutes de questions, 0 de correction ensuite.</p>
+    <h3>Cas 2 · Le script qui casse</h3>
+    <p>Mon script de brainstorm a planté une fois, impossible de retrouver pourquoi. Claude a essayé 4 fixes différents qui marchaient pas. <strong>Avec <code>systematic-debugging</code></strong>, il aurait été forcé d&#39;investiguer root cause avant de tenter quoi que ce soit. J&#39;aurais gagné 30 minutes.</p>
+    <h3>Cas 3 · La grosse feature qui touche 8 fichiers</h3>
+    <p>Quand j&#39;ai monté le système de clusters éditoriaux, 8 fichiers ont bougé. Claude a écrit les 8 en 10 minutes, j&#39;ai découvert 2 bugs le lendemain. <strong>Avec <code>subagent-driven-development</code></strong>, chaque fichier aurait été écrit par un sous-agent + vérifié par un reviewer. Les 2 bugs auraient été attrapés avant que je les voie.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qui pose vraiment problème (honnêteté)</h2>
+    <p>Je ne te vends pas du rêve. Les critiques sont réelles.</p>
+    <h3>Problème 1 · Overkill sur les petites tâches</h3>
+    <p>Un utilisateur sur Threads : <em>« Depuis Superpowers, changer un bout de CSS prend des plombes. »</em> Mejba Ahmed, dans un <a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">benchmark sur 12 sessions</a>, mesure que <strong>les tâches simples consomment 10-15 % de tokens en plus</strong> avec Superpowers qu&#39;en Claude Code natif. La phase clarification + design est injustifiée quand tu veux juste changer une couleur.</p>
+    <h3>Problème 2 · Activation automatique trop agressive</h3>
+    <p>Depuis une récente mise à jour, le plugin s&#39;auto-invoque sur tout. Tu voulais juste faire une modif rapide, Claude te lance une session brainstorming de 5 minutes. Frustrant. La solution · tu désactives à la demande avec <code>claude plugin disable superpowers</code> et tu réactives quand tu en as besoin.</p>
+    <h3>Problème 3 · Sous-agents qui oublient le contexte</h3>
+    <p>Des utilisateurs rapportent (<a href="https://github.com/obra/superpowers/issues/237">issue #237 du repo</a>) que les sous-agents ne reçoivent pas toujours le skill <code>using-superpowers</code> en profondeur d&#39;arborescence, ce qui casse la discipline attendue. Bug actif, probablement corrigé dans une version future.</p>
+    <div class="callout warn">
+      <h4>Ma règle de désactivation</h4>
+      <p>Quand je veux juste bricoler (changer un texte, tester un bout de code, ajuster une couleur) · <code>claude plugin disable superpowers</code>. Quand je lance un vrai projet ou quand je débogue un truc complexe · <code>claude plugin enable superpowers</code>. 10 secondes de gestion, mais le plugin joue son rôle uniquement quand c'est pertinent.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Installation · 30 secondes chrono</h2>
+    <h3>Étape 1 · Vérifier Claude Code</h3>
+    <p>Ouvre ton terminal, tape <code>claude --version</code>. Si ça répond avec un numéro, tu es prêt. Sinon, va d&#39;abord lire <a href="claude-code.html">mon guide Claude Code</a>.</p>
+    <h3>Étape 2 · Installer</h3>
+    <pre><code class="language-bash">claude plugin install superpowers
+    </code></pre>
+    <p>Une seule commande. Installation en quelques secondes depuis le marketplace officiel Anthropic.</p>
+    <h3>Étape 3 · Redémarrer Claude Code</h3>
+    <p>Ferme ta session Claude Code et rouvre. Les skills se chargent au démarrage.</p>
+    <h3>Étape 4 · Tester</h3>
+    <p>Ouvre n&#39;importe quel projet et dis à Claude <em>« j&#39;ai une idée d&#39;amélioration, utilise superpowers pour m&#39;aider à la clarifier »</em>. Il devrait enclencher le skill <code>brainstorming</code> et te poser des questions. Si tu vois ça, c&#39;est installé.</p>
+    <div class="callout ok">
+      <h4>Mon setup complet</h4>
+      <p>Je te recommande Superpowers <strong>avec les 5 autres plugins</strong> que j'utilise (<code>context7</code> pour les docs à jour, <code>claude-md-management</code> pour nettoyer ton CLAUDE.md, etc.). Tout est décrit dans <a href="claude-code.html#plugins">ma section plugins officiels</a>. Les 6 s'installent en une commande chacun, ou en bloc avec mon <a href="downloads/install-plugins.sh">script bash</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pour aller plus loin</h2>
+    <p>Superpowers est un gros morceau · voici ce que je te recommande pour creuser :</p>
+    <ol>
+    <li><strong><a href="https://blog.fsck.com/2025/10/09/superpowers/">Le billet fondateur de Jesse Vincent</a></strong> · comprendre la philosophie par l&#39;auteur lui-même. En anglais mais ça se lit très bien.</li>
+    <li><strong><a href="https://simonwillison.net/2025/Oct/10/superpowers/">Simon Willison sur Superpowers</a></strong> · le référent technique du monde IA-dev donne son avis. Court, précis, honnête.</li>
+    <li><strong><a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">Le benchmark de Mejba Ahmed</a></strong> · 12 sessions réelles mesurées. Plus utile qu&#39;un review marketing.</li>
+    <li><strong><a href="claude-code.html#plugins">Mes 6 plugins officiels</a></strong> · Superpowers + les 5 autres qui composent ma stack.</li>
+    <li><strong><a href="outils.html">Ma page Outils</a></strong> · les 6 outils que j&#39;utilise tous les jours, au-delà des plugins.</li>
+    </ol>
+    <p>Si tu installes Superpowers cette semaine et que tu tombes sur un cas où il t&#39;a vraiment sauvé la mise (ou l&#39;inverse · il t&#39;a frustré), <strong>réponds à ma newsletter et raconte-moi</strong>. Je fais la même chose en permanence · j&#39;apprends des retours terrain. Je peux me tromper sur tes besoins, tes messages me recadrent.</p>
+    
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
+    <p>
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
+    </p>
+    <a href="../index.html#newsletters" class="back-btn">
+      Voir les newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>

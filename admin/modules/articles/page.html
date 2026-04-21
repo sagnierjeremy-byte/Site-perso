@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Articles</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Ce qui est en ligne</div>
+          <h1>Tes articles<br><em>publiés.</em></h1>
+          <p class="page-sub">Voilà tous les articles qui tournent sur ton site. <strong>Clique sur un titre</strong> pour l'ouvrir en nouvel onglet et voir ce que voient tes lecteurs. Si un article a besoin d'être rafraîchi, note-le et on le remettra à jour depuis les drafts.</p>
+        </div>
+        <div id="articleFilters"></div>
+      </div>
+
+      <div class="pageNote">
+        <strong>Petit rappel :</strong> un bon article reste utile des mois, voire des années. N'hésite pas à <strong>refresh les anciens</strong> plutôt que d'en publier un nouveau qui dit la même chose. Google aime les pages qui vieillissent bien.
+      </div>
+
+      <div id="articlesTable">
+        <div class="empty-state"><span class="loader"></span></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('articles');
+
+  async function load() {
+    try {
+      const articles = await api.get('/api/articles');
+      render(articles);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function scoreFromSize(size) {
+    // heuristique : longueur = proxy de profondeur
+    // <20k = 6, 20-40k = 7, 40-60k = 8, >60k = 9
+    if (size > 60000) return 9;
+    if (size > 40000) return 8;
+    if (size > 20000) return 7;
+    return 6;
+  }
+  function clusterFromSlug(slug) {
+    if (slug.includes('tuto')) return 'tuto';
+    if (slug.includes('karpathy') || slug.includes('hermes') || slug.includes('autoresearch')) return 'recherche';
+    if (slug.includes('agent') || slug.includes('loops')) return 'agents';
+    if (slug.includes('vs') || slug.includes('avis')) return 'opinion';
+    if (slug.includes('gmf') || slug.includes('veille')) return 'cas concret';
+    if (slug.includes('pipeline') || slug.includes('publish')) return 'workflow';
+    return 'général';
+  }
+
+  function render(articles) {
+    const el = document.getElementById('articlesTable');
+    if (articles.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Rien n'est encore en ligne</strong>Écris ton premier draft et publie-le · il apparaîtra ici.</div>`;
+      return;
+    }
+    const rows = articles.map(a => {
+      const score = scoreFromSize(a.size);
+      const scoreCls = score >= 8 ? 's-high' : (score >= 7 ? 's-medium' : 's-low');
+      const cluster = clusterFromSlug(a.slug);
+      const wordcount = Math.round(a.size / 7); // estimation brute
+      return `
+        <tr>
+          <td class="title-cell">
+            <a href="/articles/${escapeHtml(a.slug)}.html" target="_blank">${escapeHtml(a.title)}</a>
+            <div class="title-cell-desc">${escapeHtml((a.description || '').slice(0, 140))}${a.description && a.description.length > 140 ? '…' : ''}</div>
+          </td>
+          <td><span class="tag">${escapeHtml(cluster)}</span></td>
+          <td><span class="status-pill s-published">● Published</span></td>
+          <td><span class="score-cell ${scoreCls}">${score}/10</span></td>
+          <td>${wordcount.toLocaleString('fr-FR')}</td>
+          <td>${fmtDate(a.modified)}</td>
+          <td>
+            <a class="btn btn-ghost" href="/articles/${escapeHtml(a.slug)}.html" target="_blank" style="padding:5px 10px; font-size:10px">Voir</a>
+          </td>
+        </tr>
+      `;
+    }).join('');
+    el.innerHTML = `
+      <table class="articles-table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Cluster</th>
+            <th>Statut</th>
+            <th>Score</th>
+            <th>Mots (≈)</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+
+    // Filters summary
+    document.getElementById('articleFilters').innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-muted)">
+        <strong style="color:var(--ink); font-family:'Archivo Black',sans-serif; font-size:26px; display:block; letter-spacing:-.02em">${articles.length}</strong>
+        articles publiés
+      </div>
+    `;
+  }
+
+  load();
+</script>
+
+</body>
+</html>

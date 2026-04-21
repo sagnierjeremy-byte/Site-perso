@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réglages — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Réglages</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Tes clés et tes préférences</div>
+          <h1>Les <em>réglages</em><br>de la maison.</h1>
+          <p class="page-sub">Ici tu retrouves toutes les clés API à configurer pour que les modules marchent. <strong>Rien de secret ne fuit ici</strong> · on ne montre que le nom de la variable d'environnement à positionner, pas la valeur.</p>
+        </div>
+      </div>
+
+      <div class="pageNote">
+        <strong>Où mettre ces clés ?</strong> Les secrets vont dans <code>.env.local</code> à la racine du projet (local) et dans <strong>Vercel · Settings · Environment Variables</strong> (prod). Tu ne les commit jamais dans git · le fichier <code>.env.local</code> est dans <code>.gitignore</code> par défaut.
+      </div>
+
+      <!-- Newsletter -->
+      <section class="section">
+        <div class="section-head"><h2>Newsletter</h2></div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default">
+            <h3>Resend · en place</h3>
+            <div class="draft-card-meta">Variable · RESEND_API_KEY</div>
+            <p>Utilisé aujourd'hui pour l'inscription newsletter (<code>/api/subscribe.js</code>) et la lecture des contacts dans le CRM. Audience ID : <code>304eb520-82fc-4e4c-be09-cbdaf1a3127f</code>.</p>
+            <div style="margin-top:10px"><span class="tag t-teal">Actif</span><span class="tag">3k emails/mois gratuits</span></div>
+          </div>
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>Brevo · recommandé</h3>
+            <div class="draft-card-meta">Variable · BREVO_API_KEY · prévu V2c+</div>
+            <p>Pour quand tu voudras <strong>segmenter, taguer et scripter des workflows</strong> (free tier = contacts illimités, rate limits 50-200× plus généreux). On migrera les inscrits Resend existants en un import CSV.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">À activer</span><span class="tag">7 €/mois starter</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social -->
+      <section class="section">
+        <div class="section-head"><h2>Réseaux sociaux</h2></div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>Zernio · multi-canal (V3)</h3>
+            <div class="draft-card-meta">Variable · ZERNIO_API_KEY</div>
+            <p>API first-class pour LinkedIn, X, Instagram, Threads, Facebook, TikTok, Bluesky, etc. Récupère ta clé sur <code>zernio.com/settings/api-keys</code> (format <code>sk_...</code>, 64 hex, visible une seule fois).</p>
+            <div style="margin-top:10px"><span class="tag t-orange">À activer V3</span><span class="tag">16 $/mois · plan Build</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics -->
+      <section class="section">
+        <div class="section-head"><h2>Analytics</h2></div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>Vercel Analytics (V3)</h3>
+            <div class="draft-card-meta">Variable · VERCEL_TOKEN + VERCEL_TEAM_ID</div>
+            <p>Pour lire les métriques de trafic du site (pages vues, sources, durées). Token à créer dans <strong>Vercel · Account Settings · Tokens</strong>.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">À activer V3</span><span class="tag">Inclus dans Vercel Pro</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LLM -->
+      <section class="section">
+        <div class="section-head"><h2>LLM (pour les agents futurs)</h2></div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default; opacity:.72">
+            <h3>Claude · Anthropic</h3>
+            <div class="draft-card-meta">Variable · ANTHROPIC_API_KEY · V3+</div>
+            <p>Utilisé quand les agents social-poster et newsletter-writer arriveront. <strong>Claude Code en local ne consomme pas cette clé</strong> — elle sert uniquement pour les agents autonomes qui tournent en fond.</p>
+            <div style="margin-top:10px"><span class="tag t-orange">À activer V3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Appearance -->
+      <section class="section">
+        <div class="section-head"><h2>Apparence</h2></div>
+        <div class="draft-list">
+          <div class="draft-card" style="cursor:default">
+            <h3>Thème du back-office</h3>
+            <div class="draft-card-meta">Bouton · coin bas-gauche de la sidebar</div>
+            <p>Light / Dark. La sidebar reste toujours sombre (c'est l'ADN du back-office), mais la zone principale bascule en fonction. Le choix est gardé dans <code>localStorage</code>.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>renderShell('settings');</script>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alertes fraîcheur — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+<style>
+  .sev-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .sev-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border-left: 4px solid var(--line);
+  }
+  .sev-card .count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .sev-card .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 6px;
+  }
+  .sev-card.err  { border-left-color: var(--fuchsia); }
+  .sev-card.warn { border-left-color: var(--orange); }
+  .sev-card.ok   { border-left-color: var(--teal); }
+  .sev-card.err .count { color: var(--fuchsia); }
+  .sev-card.warn .count { color: var(--orange); }
+  .sev-card.ok .count { color: var(--teal); }
+
+  .alert-row {
+    display: grid;
+    grid-template-columns: 36px minmax(280px, 2fr) 1.2fr 1fr 130px;
+    gap: 14px;
+    padding: 14px 18px;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .alert-row:last-child { border-bottom: none; }
+  .alert-head {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .alert-table {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .sev-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    color: #fff;
+  }
+  .sev-icon.err  { background: var(--fuchsia); }
+  .sev-icon.warn { background: var(--orange); }
+  .sev-icon.ok   { background: var(--teal); }
+
+  .alert-title {
+    font-weight: 700; font-size: 14px; color: var(--ink);
+    line-height: 1.3;
+  }
+  .alert-title a { color: inherit; text-decoration: none; }
+  .alert-title a:hover { color: var(--fuchsia); }
+
+  .alert-reason {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.4;
+  }
+  .alert-flags {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;
+  }
+  .alert-flag {
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: var(--bg-2);
+    color: var(--ink-muted);
+  }
+
+  .scores-mini {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .scores-mini .score { font-weight: 700; color: var(--ink); }
+  .scores-mini .muted { color: var(--ink-muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+
+  .btn-reaudit {
+    background: var(--teal); color: #fff;
+    border: 1px solid var(--teal);
+    padding: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 999px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .btn-reaudit:hover { filter: brightness(1.1); }
+
+  @media (max-width: 900px) {
+    .alert-row { grid-template-columns: 36px 1fr; gap: 10px; }
+    .alert-row > *:nth-child(n+3) { grid-column: 1 / -1; padding-left: 48px; }
+    .sev-summary { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Alertes fraîcheur</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Ce qui a besoin d'être vérifié</div>
+          <h1>Tes articles<br><em>qui vieillissent.</em></h1>
+          <p class="page-sub">Tous les articles sont re-vérifiés contre le benchmark <strong>CORE-EEAT</strong>. Si un score baisse, si un article a été modifié sans nouveau audit, ou si le dernier audit a plus de 14 jours, tu le vois ici. Clique sur <strong>Re-auditer</strong> pour relancer Claude sur l'article.</p>
+        </div>
+      </div>
+
+      <div class="sev-summary" id="sevSummary"></div>
+
+      <div id="alertsList">
+        <div class="empty-state"><span class="loader"></span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('alerts');
+
+  let state = { alerts: [], counts: { err: 0, warn: 0, ok: 0 } };
+
+  async function load() {
+    try {
+      const d = await api.get('/api/alerts');
+      state.alerts = d.alerts || [];
+      state.counts = d.counts || { err: 0, warn: 0, ok: 0 };
+      renderSummary();
+      renderList();
+    } catch (e) {
+      toast(`Ça a coincé : ${e.message}`, 'err', 6000);
+    }
+  }
+
+  function renderSummary() {
+    document.getElementById('sevSummary').innerHTML = `
+      <div class="sev-card err">
+        <div class="count">${state.counts.err || 0}</div>
+        <div class="lbl">À relancer · urgent</div>
+      </div>
+      <div class="sev-card warn">
+        <div class="count">${state.counts.warn || 0}</div>
+        <div class="lbl">À surveiller</div>
+      </div>
+      <div class="sev-card ok">
+        <div class="count">${state.counts.ok || 0}</div>
+        <div class="lbl">Frais, on laisse</div>
+      </div>
+    `;
+  }
+
+  function renderList() {
+    const el = document.getElementById('alertsList');
+    if (state.alerts.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun article</strong>Publie-en un puis audite-le depuis le module Audit SEO.</div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="alert-table">
+        <div class="alert-row alert-head">
+          <div></div>
+          <div>Article</div>
+          <div>Pourquoi</div>
+          <div>Scores</div>
+          <div>Action</div>
+        </div>
+        ${state.alerts.map(renderRow).join('')}
+      </div>
+    `;
+  }
+
+  function renderRow(a) {
+    const sevMark = { err: '!', warn: '?', ok: '✓' }[a.severity] || '·';
+    const flagLabels = {
+      no_audit: 'jamais audité',
+      modified_since_audit: 'article modifié',
+      stale: 'audit ancien',
+      score_drop: 'score en baisse',
+    };
+    const flagsHTML = (a.flags || []).map(f => `<span class="alert-flag">${escapeHtml(flagLabels[f] || f)}</span>`).join('');
+    const scores = a.latest ? `
+      <div class="scores-mini">
+        <div><span class="score">${a.latest.score_core ?? '—'}</span><span class="muted"> core</span> · <span class="score">${a.latest.score_geo ?? '—'}</span><span class="muted"> geo</span></div>
+        ${a.previous ? `<div style="color:var(--ink-muted); font-size:11px; margin-top:3px">précédent : ${a.previous.score_core ?? '—'} core</div>` : ''}
+      </div>
+    ` : `<div class="scores-mini muted">aucun audit</div>`;
+
+    return `
+      <div class="alert-row">
+        <div><div class="sev-icon ${a.severity}">${sevMark}</div></div>
+        <div>
+          <div class="alert-title"><a href="/articles/${escapeHtml(a.slug)}.html" target="_blank">${escapeHtml(a.title)}</a></div>
+          <div class="alert-flags">${flagsHTML}</div>
+        </div>
+        <div class="alert-reason">${escapeHtml(a.reason || 'OK')}</div>
+        <div>${scores}</div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <button class="btn-reaudit" data-slug="${escapeHtml(a.slug)}">Re-auditer</button>
+          <a class="btn btn-ghost" href="/admin/modules/pipeline/" style="font-size:10px; padding:6px 10px; text-align:center">📊 Pipeline</a>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('alertsList').addEventListener('click', async e => {
+    const b = e.target.closest('.btn-reaudit');
+    if (!b) return;
+    const slug = b.dataset.slug;
+    try {
+      const r = await api.post(`/api/audits/${slug}/prepare`, {});
+      if (r.prompt) {
+        await navigator.clipboard.writeText(r.prompt);
+        toast(`Prompt copié · colle-le dans Claude Code pour re-auditer ${slug}`, 'ok', 7000);
+      }
+    } catch (err) {
+      toast(`Erreur : ${err.message}`, 'err', 6000);
+    }
+  });
+
+  load();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma stack d'outils IA et web — par Jérémy Sagnier</title>
+<meta name="description" content="11 outils que j'utilise pour piloter mes projets IA, site et newsletters : 7 essentiels (Claude Code, Vercel, Resend, Supabase…) + 4 avancés (Sanity, Zernio, fal.ai, Remotion). Zéro sponsoring.">
+
+<meta property="og:title" content="Ma stack d'outils IA et web — 7 essentiels + 4 avancés">
+<meta property="og:description" content="Claude Code, dev-browser, Vercel, Resend, n8n, Ghostty, Supabase + Sanity, Zernio, fal.ai, Remotion. Zéro sponsoring.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jeremysagnier.com/outils.html">
+<meta property="og:locale" content="fr_FR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Ma stack d'outils IA et web — 7 essentiels + 4 avancés">
+<meta name="twitter:description" content="Claude Code, dev-browser, Vercel, Resend, n8n, Ghostty, Supabase + Sanity, Zernio, fal.ai, Remotion.">
+
+<link rel="canonical" href="https://jeremysagnier.com/outils.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Ma stack d'outils IA et web",
+  "description": "11 outils que j'utilise pour piloter mes projets : 7 essentiels + 4 avancés.",
+  "inLanguage": "fr-FR",
+  "url": "https://jeremysagnier.com/outils.html",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jeremysagnier.com/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  /* === Hero outils === */
+  .outils-hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .outils-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(44px, 8vw, 84px);
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .outils-hero h1 em {
+    font-style: normal;
+    color: var(--fuchsia);
+  }
+  .outils-hero p.lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 680px;
+    margin: 0 auto 28px;
+  }
+  .outils-hero .meta {
+    display: inline-flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* === Table récap === */
+  .outils-table-wrap {
+    max-width: 980px; margin: 56px auto;
+    overflow-x: auto;
+  }
+  .outils-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .outils-table th, .outils-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .outils-table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .outils-table td { font-size: 14px; line-height: 1.5; }
+  .outils-table td a { color: var(--fuchsia); text-decoration: none; font-weight: 600; }
+  .outils-table td a:hover { text-decoration: underline; }
+  .outils-table tr:last-child td { border-bottom: none; }
+
+  /* === Cartes outils === */
+  .outils-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) {
+    .outils-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .outil-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .outil-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--teal);
+  }
+  .outil-card.c-fuchsia::before { background: var(--fuchsia) }
+  .outil-card.c-orange::before  { background: var(--orange) }
+  .outil-card.c-ink::before     { background: var(--ink) }
+  .outil-card.c-multi::before   { background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)) }
+
+  .outil-head {
+    display: flex; gap: 18px; align-items: baseline;
+    margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .outil-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--ink-muted);
+    letter-spacing: -.02em;
+    flex-shrink: 0;
+  }
+  .outil-title-group {
+    flex: 1;
+    min-width: 0;
+  }
+  .outil-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+  .outil-card.c-teal .outil-kicker    { color: var(--teal) }
+  .outil-card.c-fuchsia .outil-kicker { color: var(--fuchsia) }
+  .outil-card.c-orange .outil-kicker  { color: var(--orange) }
+
+  .outil-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 30px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -.025em;
+    color: var(--ink);
+  }
+  .outil-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 12px;
+    vertical-align: middle;
+  }
+  .badge-free   { background: rgba(0,178,169,.16); color: var(--teal) }
+  .badge-paid   { background: rgba(239,66,111,.16); color: var(--fuchsia) }
+  .badge-freemium { background: rgba(255,130,0,.16); color: var(--orange) }
+
+  .outil-lead {
+    font-size: 16px; line-height: 1.7; color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  .outil-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: start;
+  }
+  .outil-row:last-of-type { border-bottom: none }
+  .outil-row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding-top: 3px;
+    font-weight: 700;
+  }
+  .outil-row-value {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .outil-row-value code {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .outil-row-value pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: auto;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .outil-actions {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .outil-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .outil-btn-primary {
+    background: var(--ink); color: var(--bg);
+  }
+  .outil-btn-primary:hover { background: var(--fuchsia); color: #fff }
+  .outil-btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--line-strong);
+  }
+  .outil-btn-ghost:hover { border-color: var(--ink) }
+
+  /* === Section tier 2 · avancés === */
+  .tier2-intro {
+    max-width: 880px; margin: 96px auto 40px;
+    padding: 44px 40px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tier2-intro::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .tier2-intro .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 16px;
+  }
+  .tier2-intro h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5vw, 48px);
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .tier2-intro h2 em {
+    color: var(--orange);
+    font-style: normal;
+  }
+  .tier2-intro p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    margin-bottom: 12px;
+  }
+  .tier2-intro .rule {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,.08);
+    border-left: 3px solid var(--fuchsia);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #FBF7F0;
+  }
+
+  /* Cartes tier 2 · plus compactes */
+  .outil-card.tier2 {
+    padding: 28px 34px;
+  }
+  .outil-card.tier2 .outil-title {
+    font-size: 24px;
+  }
+
+  /* === Section "pas dans la liste" === */
+  .not-in-list {
+    max-width: 880px; margin: 80px auto;
+    padding: 40px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ink);
+    border-radius: 14px;
+  }
+  .not-in-list h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .not-in-list p { line-height: 1.7; color: var(--ink-soft); margin-bottom: 10px; }
+  .not-in-list ul { margin: 14px 0; padding-left: 22px; color: var(--ink-soft); }
+  .not-in-list li { margin-bottom: 8px; }
+
+  /* === CTA final === */
+  .outils-cta {
+    background: #0A0A0A;
+    padding: 72px 0;
+    margin-top: 80px;
+  }
+  .outils-cta h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 56px);
+    color: #FBF7F0;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .outils-cta h2 em {
+    color: var(--orange); font-style: normal;
+  }
+  .outils-cta p {
+    color: rgba(255,255,255,.75);
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto 32px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .outils-cta form {
+    max-width: 420px; margin: 0 auto;
+    display: flex; gap: 10px;
+  }
+  .outils-cta input {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.08);
+    color: #FBF7F0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+  }
+  .outils-cta input::placeholder { color: rgba(255,255,255,.5); }
+  .outils-cta button {
+    padding: 14px 24px;
+    border-radius: 10px;
+    background: var(--fuchsia);
+    color: #fff;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .outils-cta .note {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+    margin-top: 14px;
+    letter-spacing: .05em;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Jérémy Sagnier
+      </a>
+      <nav class="nav">
+        <a href="apprendre.html">Apprendre</a>
+        <a href="index.html#projects">Projets</a>
+        <a href="index.html#newsletters">Newsletters</a>
+        <a href="index.html#freebies">Télécharger</a>
+        <a href="index.html#opinions">Opinions</a>
+        <a href="lexique.html">Lexique</a>
+        <a href="outils.html" style="color:var(--fuchsia)">Outils</a>
+        <a href="github.html">GitHub</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="outils-hero">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>— Ma stack · testée au quotidien</div>
+    <h1>Ma stack,<br>du basique<br>à l'<em>avancé.</em></h1>
+    <p class="lead">
+      Pas de sponsoring, pas d'affiliation, pas de « top 20 des meilleurs ». Juste <strong>les outils que j'ouvre vraiment</strong> pour piloter mes projets IA, mon site, mes newsletters. <strong>7 essentiels pour démarrer</strong>, plus <strong>4 avancés</strong> quand tu as un projet qui les justifie.
+    </p>
+    <div class="meta">
+      <span>7 + 4 outils</span>
+      <span>~18 min de lecture</span>
+      <span>Zéro sponsoring</span>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 01 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Pas de « top 20 »</span><span>Juste ce qui sert</span><span>Zéro sponsoring</span><span>Mon vécu</span><span>À toi de trier</span>
+    <span>Pas de « top 20 »</span><span>Juste ce qui sert</span><span>Zéro sponsoring</span><span>Mon vécu</span><span>À toi de trier</span>
+  </div>
+</div>
+
+<!-- Table récap -->
+<div class="container">
+  <div class="outils-table-wrap">
+    <table class="outils-table">
+      <thead>
+        <tr>
+          <th>Outil</th>
+          <th>Rôle</th>
+          <th>Prix</th>
+          <th>Sans lui je…</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#claude-code">Claude Code Max</a></td>
+          <td>IA dans le terminal</td>
+          <td>200 $/mois</td>
+          <td>Je n'ai plus de site, plus de newsletter, plus de back-office</td>
+        </tr>
+        <tr>
+          <td><a href="#dev-browser">dev-browser</a></td>
+          <td>Navigateur piloté par l'IA</td>
+          <td>Gratuit</td>
+          <td>Je ne peux pas faire vérifier/scraper des pages par Claude</td>
+        </tr>
+        <tr>
+          <td><a href="#vercel">Vercel</a></td>
+          <td>Hébergement + déploiement</td>
+          <td>Gratuit (plan hobby)</td>
+          <td>Je mets 30 min à déployer chaque mise à jour</td>
+        </tr>
+        <tr>
+          <td><a href="#resend">Resend</a></td>
+          <td>Envoi d'emails (newsletter)</td>
+          <td>Gratuit jusqu'à 3k/mois</td>
+          <td>Je ne peux pas envoyer ma newsletter</td>
+        </tr>
+        <tr>
+          <td><a href="#n8n">n8n</a></td>
+          <td>Workflows no-code</td>
+          <td>Gratuit (self-hosted) · 20 $/mois (cloud)</td>
+          <td>Je fais tout à la main dans des Google Sheets</td>
+        </tr>
+        <tr>
+          <td><a href="#ghostty">Ghostty</a></td>
+          <td>Terminal sur Mac</td>
+          <td>Gratuit</td>
+          <td>J'utilise le Terminal Apple (fonctionne, moche)</td>
+        </tr>
+        <tr>
+          <td><a href="#supabase">Supabase</a></td>
+          <td>Base de données + authentification</td>
+          <td>Gratuit jusqu'à 500 Mo</td>
+          <td>Je stocke rien · mes agents n'ont plus de mémoire</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === 01 · Claude Code Max === -->
+<div class="container">
+<section class="outil-card c-fuchsia" id="claude-code">
+  <div class="outil-head">
+    <div class="outil-num">01</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— L'outil central</div>
+      <div class="outil-title">Claude Code Max <span class="outil-badge badge-paid">200 $/mois</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Le cerveau de toute ma stack. Claude Code, c'est Anthropic dans ton terminal. Il lit tes fichiers, il écrit du code, il lance des commandes, il corrige ses erreurs. <strong>Je l'utilise 6 à 8 heures par jour</strong> depuis six mois · pas exagéré, c'est mesuré.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">La version Max (le plan à 200 $) donne un accès prioritaire aux modèles Opus et Sonnet, avec des limites de tokens qu'un usage intensif ne touche jamais. Pour un entrepreneur qui l'utilise tous les jours, c'est rentabilisé en 48 h d'économies de temps.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Télécharger l'app sur <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>. Double-clic, connexion avec ton compte Anthropic, go.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Rédaction d'articles, maintenance de ce site, scripts d'automatisation (newsletter, brainstorm, social-poster), debugging, recherche, audit SEO. Tout y passe.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="claude-code.html">Mon guide complet →</a>
+    <a class="outil-btn outil-btn-ghost" href="https://claude.com/download" target="_blank" rel="noopener">Télécharger l'app ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 02 · dev-browser === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-teal" id="dev-browser">
+  <div class="outil-head">
+    <div class="outil-num">02</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— Le chaînon manquant</div>
+      <div class="outil-title">dev-browser <span class="outil-badge badge-free">Gratuit</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Un navigateur sans fenêtre que ton IA pilote en écrivant un petit script. Tu demandes à Claude d'aller sur une page, de la scraper, de la tester, de la screenshoter · il le fait. <strong>Sans que tu ouvres Chrome à la main, sans que tu écrives le code.</strong>
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Claude connaît énormément de pages via son entraînement, mais ne connaît pas les pages récentes et ne peut pas interagir. Dev-browser ouvre une vraie instance Chromium en arrière-plan, Claude y envoie des ordres. Résultat : tu peux demander à Claude « vérifie que ma page est à jour » ou « remplis ce formulaire et dis-moi ce qui se passe ». Magique.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Demande à Claude Code « installe dev-browser pour moi ». Il te sortira la commande à jour (généralement via <code>npm install -g</code>).</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Vérifier après chaque déploiement que le site répond bien · scraper une source pour un article · tester le formulaire newsletter en local · prendre des screenshots pendant les refontes UI. Je l'appelle 5 à 10 fois par jour via Claude.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="articles/dev-browser.html">Mon article complet →</a>
+    <a class="outil-btn outil-btn-ghost" href="claude-code.html">Pré-requis · Claude Code</a>
+  </div>
+</section>
+</div>
+
+<!-- === 03 · Vercel === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-ink" id="vercel">
+  <div class="outil-head">
+    <div class="outil-num">03</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— L'hébergement sans friction</div>
+      <div class="outil-title">Vercel <span class="outil-badge badge-freemium">Gratuit pour toi</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Tu push du code sur GitHub, Vercel le déploie tout seul en 30 à 45 secondes. Plus besoin de serveur, plus besoin de savoir ce que c'est qu'un serveur. <strong>Mon site entier tourne chez Vercel</strong>, gratuitement. Toi aussi tu peux.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Le plan Hobby (gratuit) suffit pour un site perso, un blog, une landing, une newsletter. Bande passante large, déploiements illimités, domaine personnalisé possible. Pas de carte bancaire demandée tant que tu ne dépasses pas. Parfait pour démarrer.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Crée un compte sur <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a> (gratuit, 30 secondes), connecte ton compte GitHub, clique sur « Import Project ». Vercel détecte la techno, build, déploie. Fin.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Je déploie ce site à chaque commit git. Mon endpoint newsletter (<code>/api/subscribe.js</code>) tourne en tant que fonction serverless Vercel. Je n'ai jamais eu à intervenir sur l'infra. Zéro maintenance.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://vercel.com" target="_blank" rel="noopener">Créer un compte ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 04 · Resend === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-orange" id="resend">
+  <div class="outil-head">
+    <div class="outil-num">04</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— L'envoi d'emails pour devs</div>
+      <div class="outil-title">Resend <span class="outil-badge badge-freemium">Gratuit jusqu'à 3k/mois</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Le service que j'utilise pour envoyer mes newsletters et gérer mes inscrits. API ultra simple, interface propre, logs détaillés, pas d'usine à gaz type Mailchimp. <strong>3 000 emails gratuits par mois</strong>, largement suffisant pour commencer.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Resend est pensé pour les devs (et donc pour nos IA qui codent pour nous). Une clé API, 3 lignes pour envoyer un email, un éditeur d'audience propre, statistiques claires. Aucun gimmick marketing, zéro upsell. Le plan gratuit est vraiment utilisable · pas un leurre comme la plupart des concurrents.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Compte sur <a href="https://resend.com" target="_blank" rel="noopener">resend.com</a>, vérification de ton domaine d'envoi (DNS simple), clé API générée. Tu donnes la clé à Claude, il écrit le code d'intégration pour toi.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">J'ai mon audience « Vendeurs Amazon » (119 contacts) hébergée chez Resend. Mon endpoint Vercel <code>/api/subscribe</code> ajoute chaque inscrit automatiquement. J'envoie ma newsletter du vendredi depuis l'interface web.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://resend.com" target="_blank" rel="noopener">Créer un compte ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 05 · n8n === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-multi" id="n8n">
+  <div class="outil-head">
+    <div class="outil-num">05</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— L'automatisation no-code</div>
+      <div class="outil-title">n8n <span class="outil-badge badge-freemium">Gratuit self-hosted · 20 $/mois cloud</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    L'équivalent de Zapier ou Make, mais open-source et auto-hébergeable. Tu relies des services entre eux en glissant-déposant des blocs. <strong>Parfait quand tu veux que ton IA déclenche des actions en cascade</strong> sur 3 ou 4 outils sans écrire de code.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Contrairement à Zapier qui facture chaque action ou Make qui facture chaque opération, n8n self-hosted est gratuit à usage illimité. Tu paies juste ton serveur (5 $/mois chez Hetzner ou gratuit sur Railway). Et si tu ne veux pas héberger, n8n Cloud à 20 $/mois fait le job sans limitation.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Option facile : compte sur <a href="https://n8n.io" target="_blank" rel="noopener">n8n.io</a>, plan cloud à 20 $. Option économique : un VPS à 5 $/mois + demande à Claude « installe n8n sur mon VPS ». Il te tient la main.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Automatiser des workflows qui touchent plusieurs services (Gmail → CRM → Slack → Notion). Je n'y suis pas encore à plein régime — je préfère mes propres scripts Claude Code — mais n8n brille dès que tu veux brancher 4-5 outils tiers ensemble.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://n8n.io" target="_blank" rel="noopener">Essayer n8n Cloud ↗</a>
+    <a class="outil-btn outil-btn-ghost" href="https://github.com/n8n-io/n8n" target="_blank" rel="noopener">GitHub · Self-host ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 06 · Ghostty === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-teal" id="ghostty">
+  <div class="outil-head">
+    <div class="outil-num">06</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— Le terminal qui ne te dégoûte pas</div>
+      <div class="outil-title">Ghostty <span class="outil-badge badge-free">Gratuit</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Un terminal moderne, open-source, hyper fluide. <strong>C'est dans Ghostty que je lance Claude Code tous les jours</strong>. Comparé au Terminal Apple par défaut (qui fonctionne, mais qui date de 2005), c'est le jour et la nuit.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Le Terminal Apple est moche mais fonctionnel. Ghostty est tout aussi simple, mais avec des couleurs claires, un rendu vectoriel des polices, un comportement moderne. Zéro configuration à la main · tu ouvres, tu utilises. Pour quelqu'un qui passe 8 heures par jour dans un terminal, ça change tout.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">Télécharger sur <a href="https://ghostty.org" target="_blank" rel="noopener">ghostty.org</a> (Mac uniquement pour l'instant · Linux arrive). Double-clic, glisser dans Applications, ouvrir. C'est tout.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Alternative</div>
+    <div class="outil-row-value">Si tu veux une version avec IA intégrée directement dans le terminal, <strong>Warp</strong> (payant, 20 $/mois) est plus riche. Mais pour un non-dev qui lance juste Claude Code dedans, Ghostty suffit largement et est gratuit.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://ghostty.org" target="_blank" rel="noopener">Télécharger Ghostty ↗</a>
+    <a class="outil-btn outil-btn-ghost" href="https://www.warp.dev" target="_blank" rel="noopener">Alternative · Warp ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 07 · Supabase === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-fuchsia" id="supabase">
+  <div class="outil-head">
+    <div class="outil-num">07</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— La base de données sans serveur à gérer</div>
+      <div class="outil-title">Supabase <span class="outil-badge badge-freemium">Gratuit &lt; 500 Mo</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Dès que ton site, ton formulaire ou ton agent a besoin de <strong>stocker des données</strong> (utilisateurs, réponses, leads, mémoire longue), il te faut une base de données. Supabase est la plus simple du marché pour un non-dev · une interface web propre, un plan gratuit sérieux, zéro serveur à administrer.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pourquoi lui</div>
+    <div class="outil-row-value">Contrairement à MongoDB, MySQL ou PostgreSQL que tu dois héberger toi-même, Supabase te donne une base PostgreSQL managée dans le cloud avec authentification, stockage de fichiers et fonctions serverless · tout dans le même dashboard. Le plan gratuit tient 500 Mo de données et 50 000 utilisateurs connectés par mois · largement de quoi faire tourner un premier projet ou un MVP.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Installation</div>
+    <div class="outil-row-value">
+      <p>1. Compte gratuit sur <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a> (GitHub ou email, 20 secondes).</p>
+      <p>2. Crée un projet · choisis une région proche de toi (Paris si possible).</p>
+      <p>3. Récupère ton URL + clé API dans <code>Project Settings → API</code>.</p>
+      <p>4. Donne tout ça à Claude Code · « connecte ce projet à Supabase, créée une table <code>inscrits</code> avec email et date ». Il installe la bibliothèque et écrit le code.</p>
+    </div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Dans les projets Eurofiscalis, Supabase stocke les formulaires de qualification, les leads entrants, les sessions d'agents IA. Pour mon site perso, je n'en ai pas encore besoin (tout est statique), mais dès que j'aurai un système de commentaires, une base de feedbacks ou une mémoire longue pour un agent · ça passera par Supabase.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Pour qui c'est</div>
+    <div class="outil-row-value">Dès que ton site passe de <strong>« page vitrine »</strong> à <strong>« application qui retient quelque chose »</strong>. Formulaire qui sauve des réponses, newsletter avec segments, agent qui se souvient des conversations passées · Supabase est le chaînon de stockage.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://supabase.com" target="_blank" rel="noopener">Créer un compte ↗</a>
+    <a class="outil-btn outil-btn-ghost" href="https://supabase.com/docs/guides/database/overview" target="_blank" rel="noopener">Docs · Démarrer ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- Mini-marquee séparateur tier 1 → tier 2 -->
+<div class="mini-marquee" aria-hidden="true" style="margin-top:60px">
+  <div class="mini-marquee-track">
+    <span>Tu as la base</span><span>Voici ce qui vient après</span><span>Seulement quand tu as besoin</span><span>Pas avant</span>
+    <span>Tu as la base</span><span>Voici ce qui vient après</span><span>Seulement quand tu as besoin</span><span>Pas avant</span>
+  </div>
+</div>
+
+<!-- === Intro Tier 2 === -->
+<div class="container">
+<div class="tier2-intro">
+  <div class="kicker">— Partie 2 · Stack avancée</div>
+  <h2>4 outils pour <em>aller plus loin.</em></h2>
+  <p>
+    Ces 4 outils ne sont pas dans la stack de base · tu n'en as pas besoin tant que tu n'as pas un cas d'usage précis qui les justifie. Je te les présente quand même, parce que <strong>je les utilise tous pour des projets concrets</strong>, et parce que tu les croiseras forcément si tu creuses dans l'IA ou le contenu.
+  </p>
+  <p>
+    <strong>Sanity</strong> si tu veux un vrai CMS pour un blog multi-langues. <strong>Zernio</strong> si tu publies régulièrement sur les réseaux. <strong>fal.ai</strong> si tu génères des images ou vidéos par IA. <strong>Remotion</strong> si tu veux automatiser des vidéos programmatiques.
+  </p>
+  <div class="rule">
+    <strong>Ma règle</strong> · je n'installe jamais un outil du tier 2 avant d'avoir un projet qui a buté sur une limite du tier 1. Si tu as juste envie de tester, fais-le ailleurs que dans ta stack de prod.
+  </div>
+</div>
+
+  <!-- Table récap tier 2 -->
+  <div class="outils-table-wrap" style="margin-top:36px">
+    <table class="outils-table">
+      <thead>
+        <tr>
+          <th>Outil avancé</th>
+          <th>Rôle</th>
+          <th>Prix</th>
+          <th>Quand l'ajouter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#sanity">Sanity</a></td>
+          <td>CMS headless (contenu structuré)</td>
+          <td>Gratuit jusqu'à 3 utilisateurs</td>
+          <td>Quand ton site a besoin d'un vrai blog multi-langues</td>
+        </tr>
+        <tr>
+          <td><a href="#zernio">Zernio</a></td>
+          <td>Planificateur de posts sociaux</td>
+          <td>20 à 50 €/mois selon volume</td>
+          <td>Quand tu publies sur 2+ réseaux chaque semaine</td>
+        </tr>
+        <tr>
+          <td><a href="#fal-ai">fal.ai</a></td>
+          <td>API pour générer images et vidéos IA</td>
+          <td>Pay-as-you-go (quelques cents par génération)</td>
+          <td>Quand tu veux des visuels automatisés dans tes workflows</td>
+        </tr>
+        <tr>
+          <td><a href="#remotion">Remotion</a></td>
+          <td>Vidéos programmatiques (code → vidéo)</td>
+          <td>Gratuit pour un usage solo</td>
+          <td>Quand tu veux générer 50 reels en un script</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === 08 · Sanity === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-teal tier2" id="sanity">
+  <div class="outil-head">
+    <div class="outil-num">08</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— Le CMS headless</div>
+      <div class="outil-title">Sanity <span class="outil-badge badge-freemium">Gratuit &lt; 3 users</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Un vrai CMS pour gérer du contenu structuré · articles, pages, catégories, auteurs. L'interface est propre, l'API est excellente, et tu gardes la main sur la présentation (Sanity ne force aucun design). <strong>Je l'utilise pour le blog d'Eurofiscalis</strong> · 7 langues, 14 catégories, articles traduits via une seule référence métadata.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Quand l'ajouter</div>
+    <div class="outil-row-value">Quand tu dépasses ~20 articles sur ton site et que tu commences à te dire *« j'aimerais une interface pour gérer ça sans toucher au code »*. Ou si tu as du multi-langues sérieux (3+ langues). En dessous, un simple dossier <code>articles/</code> en Markdown suffit.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Démarrage</div>
+    <div class="outil-row-value">Compte sur <a href="https://sanity.io" target="_blank" rel="noopener">sanity.io</a>. Crée un projet via leur CLI (<code>npm create sanity@latest</code>). Claude Code te tient la main sur le schéma de données. Plan gratuit tient pour 3 utilisateurs + 10 000 documents.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Blog Eurofiscalis · 7 articles Belgique en draft (6 traductions + 1 original), taxonomies publiées, pipeline MD → Sanity reproductible. Pas encore utilisé pour ce site perso · trop léger pour le justifier.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://sanity.io" target="_blank" rel="noopener">Créer un compte ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 09 · Zernio === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-fuchsia tier2" id="zernio">
+  <div class="outil-head">
+    <div class="outil-num">09</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— Le planificateur social</div>
+      <div class="outil-title">Zernio <span class="outil-badge badge-paid">20 à 50 €/mois</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Un SaaS français pour planifier et publier sur LinkedIn, X, Instagram, Threads depuis une seule interface. API propre (j'en ai fait une intégration dans mon back-office), statistiques suffisantes, pricing fair. <strong>Alternatif à Buffer ou Hootsuite</strong>, moins cher et plus simple.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Quand l'ajouter</div>
+    <div class="outil-row-value">Quand tu publies régulièrement sur 2+ réseaux et que tu passes plus de 30 minutes par semaine à le faire à la main. En dessous, Claude + copy-paste manuel suffisent.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Démarrage</div>
+    <div class="outil-row-value">Compte sur <a href="https://zernio.com" target="_blank" rel="noopener">zernio.com</a>. Connecte tes réseaux, plan à 20 €/mois pour 2 réseaux, 50 €/mois pour les 4. API disponible avec une clé Bearer · je l'ai intégrée à mon back-office pour publier depuis mes drafts.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Mon back-office génère des drafts LinkedIn et X à partir de chaque article publié via un bouton "Social-poster". Je valide, je programme dans Zernio, la suite est automatique.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://zernio.com" target="_blank" rel="noopener">Essayer Zernio ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 10 · fal.ai === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-orange tier2" id="fal-ai">
+  <div class="outil-head">
+    <div class="outil-num">10</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— L'API IA pour visuels</div>
+      <div class="outil-title">fal.ai <span class="outil-badge badge-paid">Pay-as-you-go</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Une plateforme qui expose des dizaines de modèles IA pour générer images, vidéos, voix, animations · tous derrière une seule API unifiée. <strong>Infiniment plus simple que d'assembler Replicate, RunPod ou HuggingFace à la main</strong>. Tarification à l'usage, quelques cents par génération selon le modèle.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Quand l'ajouter</div>
+    <div class="outil-row-value">Quand tu veux intégrer de la génération d'images ou vidéos IA dans un workflow automatisé. Pour un usage ponctuel (une image de blog par semaine), Midjourney direct ou ChatGPT image suffit.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Démarrage</div>
+    <div class="outil-row-value">Compte sur <a href="https://fal.ai" target="_blank" rel="noopener">fal.ai</a>, 10 $ de crédits offerts. Clé API dans le dashboard. Claude Code sait appeler l'API directement · tu lui demandes « génère une image Flux avec ce prompt », il code l'appel.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Dans le projet Leo Reels Pipeline (prévu pour la newsletter Eurofiscalis) · génération d'avatars vidéo via Hedra + voix via ElevenLabs, assemblés par Remotion. fal.ai orchestre une partie du pipeline images.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://fal.ai" target="_blank" rel="noopener">Essayer fal.ai ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- === 11 · Remotion === -->
+<div class="container" style="margin-top:48px">
+<section class="outil-card c-ink tier2" id="remotion">
+  <div class="outil-head">
+    <div class="outil-num">11</div>
+    <div class="outil-title-group">
+      <div class="outil-kicker">— Les vidéos programmatiques</div>
+      <div class="outil-title">Remotion <span class="outil-badge badge-free">Gratuit (usage solo)</span></div>
+    </div>
+  </div>
+
+  <p class="outil-lead">
+    Écris une vidéo en code (en fait en React) · textes, images, animations, transitions. Remotion exporte la vidéo finale au format MP4. <strong>La seule manière sérieuse de générer 50 variantes d'un reel en un script</strong>. Gratuit pour usage personnel, payant si tu l'utilises dans un produit commercial à plus de 3 développeurs.
+  </p>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Quand l'ajouter</div>
+    <div class="outil-row-value">Quand tu veux industrialiser la production de vidéos courtes (reels IG, TikTok) avec du contenu dynamique · titre, sous-titres, B-roll changeant à chaque version. Pour une vidéo ponctuelle, CapCut ou Descript suffisent largement.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Démarrage</div>
+    <div class="outil-row-value"><code>npx create-video</code> dans ton terminal crée un projet. Tu écris ta vidéo en JSX, tu lances <code>npm start</code> pour prévisualiser, <code>npm run build</code> pour exporter. Claude te guide, surtout si tu n'as jamais touché à React.</div>
+  </div>
+
+  <div class="outil-row">
+    <div class="outil-row-label">Mon usage</div>
+    <div class="outil-row-value">Partie cruciale du Leo Reels Pipeline · Remotion prend les scripts vocaux ElevenLabs + les avatars Hedra + les visuels fal.ai et assemble des reels prêts à publier via Zernio. Un pipeline 1 clic = 5 reels programmés.</div>
+  </div>
+
+  <div class="outil-actions">
+    <a class="outil-btn outil-btn-primary" href="https://remotion.dev" target="_blank" rel="noopener">Docs Remotion ↗</a>
+  </div>
+</section>
+</div>
+
+<!-- Mini-marquee 02 -->
+<div class="mini-marquee" aria-hidden="true" style="margin-top:60px">
+  <div class="mini-marquee-track">
+    <span>7 essentiels</span><span>4 avancés</span><span>Mon vécu</span><span>Zéro sponsoring</span><span>À toi de trier</span>
+    <span>7 essentiels</span><span>4 avancés</span><span>Mon vécu</span><span>Zéro sponsoring</span><span>À toi de trier</span>
+  </div>
+</div>
+
+<!-- Section "Pas dans la liste" -->
+<div class="not-in-list">
+  <h2>Ce qui n'est pas dans cette liste (volontairement)</h2>
+  <p>
+    J'utilise beaucoup d'autres outils dans mes projets Eurofiscalis et perso. Mais je n'ai pas envie de gonfler cette page pour faire plaisir au SEO. <strong>Voici ce que j'utilise aussi, mais que je ne te recommande pas de regarder tant que tu n'as pas maîtrisé les 6 ci-dessus</strong> :
+  </p>
+  <ul>
+    <li><strong>Brevo</strong> · alternative à Resend avec CRM intégré. Plus puissant mais plus complexe.</li>
+    <li><strong>TipTap</strong> · éditeur de texte riche pour formulaires. Seulement utile si tu construis une interface d'édition.</li>
+    <li><strong>Stripe</strong> · paiements. Seulement utile si tu vends quelque chose.</li>
+    <li><strong>Hedra / ElevenLabs</strong> · génération d'avatars vidéo et voix IA. J'en parle dans la section fal.ai / Remotion en tier 2 · ils fonctionnent souvent ensemble.</li>
+    <li><strong>Graphify / Notion / Obsidian</strong> · gestion de notes et knowledge graph. Très persos, à choisir selon ton style.</li>
+  </ul>
+  <p>
+    <strong>Ma règle</strong> : ne jamais ajouter un outil à ta stack tant que tu n'as pas buté sur une limite réelle du précédent. 90 % des entrepreneurs que je vois ont trop d'outils et pas assez de clients. L'outil vient après le besoin.
+  </p>
+</div>
+
+<!-- Mini-marquee 03 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tu as vu ma stack</span><span>À ton tour</span><span>Chaque vendredi</span><span>Mes nouveaux tests</span><span>Dans ta boîte mail</span>
+    <span>Tu as vu ma stack</span><span>À ton tour</span><span>Chaque vendredi</span><span>Mes nouveaux tests</span><span>Dans ta boîte mail</span>
+  </div>
+</div>
+
+<!-- CTA final -->
+<section class="outils-cta">
+  <div class="container">
+    <h2>Ma veille <em>chaque vendredi.</em></h2>
+    <p>
+      Quand je teste un nouvel outil ou que je remplace un de ceux-là, je raconte pourquoi dans ma newsletter du vendredi. Sans pub, désinscription en un clic, zéro spam.
+    </p>
+    <form class="newsletter-form" data-source="outils-page">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit">Je m'inscris →</button>
+    </form>
+    <div class="note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Salut — moi c'est Jérémy. Je teste l'IA tous les jours pour ne jamais être dépassé, et je partage ce que je trouve en chemin. Une question sur les outils ? Écris-moi — je lis tout.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li>
+            <a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6a3 3 0 0 0-2.1 2.1A31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
+              YT · Frères Sagnier
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04c-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85c3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 0 1 0-4.12a2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li><a href="mailto:sagnier.jeremy@gmail.com">Email</a></li>
+          <li><a href="index.html#newsletters">Newsletters</a></li>
+          <li><a href="lexique.html">Lexique</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta / 89
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Newsletter form
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const btn = form.querySelector('button');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '...';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: form.dataset.source || 'outils-page' }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        btn.textContent = '✓ Merci';
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+      } catch (err) {
+        btn.textContent = '× Erreur';
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 2500);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Cheat-sheet Claude Code · 1 page · imprimable — Jérémy Sagnier</title>
+<meta name="description" content="Toutes les commandes Claude Code + git + plugins qui te servent au quotidien. Imprime en A4, scotche à côté du bureau.">
+<style>
+  @page { size: A4 portrait; margin: 8mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #FBF7F0;
+    color: #0A0A0A;
+    font-size: 9.5pt;
+    line-height: 1.4;
+  }
+  body { padding: 16mm 14mm; }
+
+  @media screen {
+    body {
+      max-width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,.15);
+      background: white;
+    }
+    html { background: #E5E0D5; }
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid #0A0A0A;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .head h1 {
+    font-size: 22pt;
+    font-weight: 900;
+    letter-spacing: -0.5pt;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .head h1 em {
+    font-style: normal;
+    color: #EF426F;
+  }
+  .head .meta {
+    font-size: 8pt;
+    color: #6E6E6E;
+    text-align: right;
+    letter-spacing: 0.5pt;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .stripe {
+    display: flex;
+    height: 3mm;
+    margin: -8px 0 12px 0;
+  }
+  .stripe span { flex: 1; }
+  .stripe .teal    { background: #00B2A9; }
+  .stripe .fuchsia { background: #EF426F; }
+  .stripe .orange  { background: #FF8200; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 14px;
+  }
+
+  .box {
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    padding: 10px 12px;
+    background: #FFFFFF;
+    break-inside: avoid;
+  }
+  .box h2 {
+    font-size: 10.5pt;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.3pt;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid currentColor;
+    display: inline-block;
+  }
+  .box.teal h2    { color: #00B2A9; }
+  .box.fuchsia h2 { color: #EF426F; }
+  .box.orange h2  { color: #FF8200; }
+  .box.ink h2     { color: #0A0A0A; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+  table td {
+    padding: 2.5px 0;
+    vertical-align: top;
+  }
+  table td:first-child {
+    font-family: 'SF Mono', 'Menlo', Consolas, monospace;
+    font-weight: 600;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: #0A0A0A;
+  }
+  table td:last-child {
+    color: #3A3A3A;
+    line-height: 1.35;
+  }
+
+  .full-row {
+    grid-column: 1 / -1;
+  }
+
+  .foot {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0,0,0,.1);
+    font-size: 7.5pt;
+    color: #6E6E6E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .foot .fx {
+    display: inline-flex; gap: 2px;
+  }
+  .foot .fx span { width: 4px; height: 4px; border-radius: 50%; }
+
+  .tip {
+    font-size: 8pt;
+    font-style: italic;
+    color: #6E6E6E;
+    margin-top: 4px;
+    padding-left: 6px;
+    border-left: 2px solid #EF426F;
+  }
+
+  @media print {
+    html, body { background: white; }
+    body { padding: 0; margin: 0; box-shadow: none; }
+    .screen-note { display: none !important; }
+  }
+
+  .screen-note {
+    max-width: 210mm;
+    margin: 10px auto;
+    padding: 12px 18px;
+    background: #EF426F;
+    color: white;
+    border-radius: 8px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .screen-note strong { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Cheat-sheet<br>Claude Code · <em>1 page.</em></h1>
+  <div class="meta">
+    Jérémy Sagnier<br>
+    jeremysagnier.com<br>
+    v. 2026-04
+  </div>
+</div>
+<div class="stripe"><span class="teal"></span><span class="fuchsia"></span><span class="orange"></span></div>
+
+<div class="grid">
+
+  <div class="box teal">
+    <h2>Démarrer</h2>
+    <table>
+      <tr><td>claude</td><td>lance Claude Code dans le dossier courant</td></tr>
+      <tr><td>claude --help</td><td>liste toutes les options</td></tr>
+      <tr><td>claude --version</td><td>numéro de version installée</td></tr>
+      <tr><td>cd mon-projet</td><td>entrer dans un dossier</td></tr>
+      <tr><td>ls</td><td>voir le contenu d'un dossier</td></tr>
+      <tr><td>exit</td><td>quitter la session</td></tr>
+    </table>
+    <div class="tip">Claude lit automatiquement ton CLAUDE.md à l'ouverture.</div>
+  </div>
+
+  <div class="box fuchsia">
+    <h2>Git (5 commandes)</h2>
+    <table>
+      <tr><td>git status</td><td>ce qui a changé depuis le dernier commit</td></tr>
+      <tr><td>git add .</td><td>prépare tous les changements</td></tr>
+      <tr><td>git commit -m "…"</td><td>capture l'état avec un message</td></tr>
+      <tr><td>git push</td><td>envoie sur GitHub (déclenche Vercel)</td></tr>
+      <tr><td>git pull</td><td>récupère les changements distants</td></tr>
+      <tr><td>git clone URL</td><td>télécharge un dépôt GitHub</td></tr>
+    </table>
+    <div class="tip">Dis à Claude "commit et push", il fait tout.</div>
+  </div>
+
+  <div class="box orange">
+    <h2>Plugins Claude (slash)</h2>
+    <table>
+      <tr><td>/brainstorm</td><td>session socratique avant de coder (Superpowers)</td></tr>
+      <tr><td>/write-plan</td><td>génère un plan d'implémentation</td></tr>
+      <tr><td>/execute-plan</td><td>exécute un plan avec checkpoints</td></tr>
+      <tr><td>/revise-claude-md</td><td>audit + améliorations du CLAUDE.md</td></tr>
+      <tr><td>/code-review</td><td>review multi-agents avant commit</td></tr>
+    </table>
+    <div class="tip">Redémarre Claude Code après install pour qu'elles soient actives.</div>
+  </div>
+
+  <div class="box ink">
+    <h2>Gestion plugins</h2>
+    <table>
+      <tr><td>claude plugin list</td><td>voir les plugins installés</td></tr>
+      <tr><td>claude plugin install X</td><td>installer un plugin</td></tr>
+      <tr><td>claude plugin disable X</td><td>désactiver sans désinstaller</td></tr>
+      <tr><td>claude plugin enable X</td><td>réactiver</td></tr>
+      <tr><td>claude plugin update X</td><td>mettre à jour</td></tr>
+    </table>
+    <div class="tip">Mes 6 plugins · cf. claude-code.html#plugins</div>
+  </div>
+
+  <div class="box teal">
+    <h2>Astuces session</h2>
+    <table>
+      <tr><td>claude -c</td><td>continue la dernière conversation</td></tr>
+      <tr><td>claude --resume</td><td>ouvre le picker de sessions</td></tr>
+      <tr><td>--effort high</td><td>mode "réflexion profonde"</td></tr>
+      <tr><td>--bare</td><td>mode minimal (skip hooks, plugins)</td></tr>
+      <tr><td>--add-dir PATH</td><td>autoriser l'accès à un dossier</td></tr>
+    </table>
+    <div class="tip">Fast mode avec /fast (Opus 4.6 plus rapide).</div>
+  </div>
+
+  <div class="box fuchsia">
+    <h2>Fichiers mémoire</h2>
+    <table>
+      <tr><td>~/.claude/CLAUDE.md</td><td>règles globales (tous projets)</td></tr>
+      <tr><td>CLAUDE.md (racine)</td><td>règles du projet courant</td></tr>
+      <tr><td>.claude.local.md</td><td>règles perso (gitignored)</td></tr>
+      <tr><td>~/.claude/skills/</td><td>tes skills custom</td></tr>
+      <tr><td>~/.claude/plugins/</td><td>tes plugins installés</td></tr>
+    </table>
+    <div class="tip">CLAUDE.md local &gt; CLAUDE.md global.</div>
+  </div>
+
+  <div class="box orange full-row">
+    <h2>Les 3 réflexes à prendre dès le premier jour</h2>
+    <table>
+      <tr><td style="width:22%">1. Toujours un CLAUDE.md</td><td>Dans chaque projet, un fichier CLAUDE.md qui décrit ton contexte, tes règles de style, tes interdits. Claude le lit à chaque session · tu économises 10 min de recontextualisation par jour.</td></tr>
+      <tr><td style="width:22%">2. Toujours commit/push</td><td>En fin de session, dis à Claude "commit et push". Ton travail est sauvegardé sur GitHub, Vercel redéploie si c'est un site. Aucun risque de perdre du temps.</td></tr>
+      <tr><td style="width:22%">3. Demander en français</td><td>Tu n'as jamais besoin de taper de commande toi-même. Dis "installe dev-browser", "regarde mes derniers commits", "lance mes tests". Claude exécute.</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="foot">
+  <span>© 2026 Jérémy Sagnier · jeremysagnier.com · Ma veille IA chaque vendredi</span>
+  <span class="fx">
+    <span style="background:#00B2A9"></span>
+    <span style="background:#EF426F"></span>
+    <span style="background:#FF8200"></span>
+  </span>
+</div>
+
+<div class="screen-note">
+  <strong>Imprime cette page en A4 portrait</strong> (Cmd+P / Ctrl+P) et scotche-la à côté de ton bureau · toutes les commandes que tu utiliseras 95% du temps sont là.
+</div>
+
+</body>
+</html>

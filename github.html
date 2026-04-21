@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub pour non-devs · guide complet — par Jérémy Sagnier</title>
+<meta name="description" content="GitHub n'est pas réservé aux développeurs. Voici comment un entrepreneur non-dev s'en sert : sauvegarde ses projets Claude Code, déploie un site via Vercel, récupère des outils open-source. 5 commandes suffisent.">
+
+<meta property="og:title" content="GitHub pour non-devs · guide complet">
+<meta property="og:description" content="GitHub sert à bien plus qu'à coder. Voici 4 cas d'usage concrets pour un entrepreneur · sauvegarde, déploiement Vercel, open-source, collaboration.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jeremysagnier.com/github.html">
+<meta property="og:locale" content="fr_FR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="GitHub pour non-devs · guide complet">
+<meta name="twitter:description" content="4 cas d'usage concrets + 5 commandes qui suffisent + les pièges à éviter. Pas besoin de savoir coder.">
+
+<link rel="canonical" href="https://jeremysagnier.com/github.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GitHub pour non-devs · guide complet",
+  "description": "Comment un entrepreneur non-dev utilise GitHub au quotidien · sauvegarde projets, déploiement Vercel, récupération d'outils open-source.",
+  "inLanguage": "fr-FR",
+  "url": "https://jeremysagnier.com/github.html",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jeremysagnier.com/"
+  },
+  "datePublished": "2026-04-22",
+  "dateModified": "2026-04-22"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  /* === Hero === */
+  .gh-hero {
+    padding: 90px 0 70px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .gh-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .gh-hero .kicker-top {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 20px;
+  }
+  .gh-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(44px, 8vw, 82px);
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .gh-hero h1 em {
+    font-style: normal;
+    color: var(--orange);
+  }
+  .gh-hero p.lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255,255,255,.82);
+    max-width: 680px;
+    margin: 0 auto 28px;
+  }
+  .gh-hero .meta {
+    display: inline-flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+
+  /* === Section commune === */
+  .section {
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.15);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.15); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.15);  color: var(--orange) }
+  .section h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section h2 em {
+    font-style: normal;
+  }
+  .section h2 em.teal { color: var(--teal) }
+  .section h2 em.fuchsia { color: var(--fuchsia) }
+  .section h2 em.orange { color: var(--orange) }
+  .section p, .section li {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .section h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: -.015em;
+    margin-top: 34px;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .section pre, .section code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .section code {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  .section pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 16px 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 16px 0;
+  }
+  .section ul {
+    padding-left: 22px;
+  }
+  .section ul li {
+    margin-bottom: 10px;
+  }
+
+  /* === Callout === */
+  .callout {
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin: 24px 0;
+    border-left: 4px solid var(--ink-muted);
+  }
+  .callout h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .callout p { margin: 0; font-size: 15px; line-height: 1.6; }
+  .callout.tip  { background: color-mix(in srgb, var(--fuchsia) 7%, var(--bg-2)); border-left-color: var(--fuchsia); }
+  .callout.warn { background: color-mix(in srgb, var(--orange) 7%, var(--bg-2)); border-left-color: var(--orange); }
+  .callout.ok   { background: color-mix(in srgb, var(--teal) 7%, var(--bg-2)); border-left-color: var(--teal); }
+
+  /* === Cas d'usage === */
+  .usecase {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-left: 4px solid var(--teal);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin: 24px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .usecase h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: -.01em;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .usecase p { font-size: 15px; line-height: 1.65; margin-bottom: 10px; }
+  .usecase.c-fuchsia { border-left-color: var(--fuchsia); }
+  .usecase.c-orange  { border-left-color: var(--orange); }
+  .usecase.c-ink     { border-left-color: var(--ink); }
+
+  /* === Cmd table === */
+  .cmd-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 22px 0;
+  }
+  .cmd-table th, .cmd-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .cmd-table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .cmd-table td { font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+  .cmd-table tr:last-child td { border-bottom: none; }
+  .cmd-table td:first-child code { font-weight: 700; }
+
+  /* === Final CTA === */
+  .gh-final {
+    background: #0A0A0A;
+    padding: 70px 0;
+    margin-top: 60px;
+    color: #FBF7F0;
+    text-align: center;
+  }
+  .gh-final h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .gh-final h2 em { color: var(--fuchsia); font-style: normal; }
+  .gh-final p { color: rgba(255,255,255,.75); max-width: 560px; margin: 0 auto 28px; font-size: 16px; line-height: 1.6; }
+  .gh-final form { max-width: 420px; margin: 0 auto; display: flex; gap: 10px; }
+  .gh-final input {
+    flex: 1; padding: 14px 18px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.08); color: #FBF7F0;
+    font-family: 'Archivo', sans-serif; font-size: 15px;
+  }
+  .gh-final input::placeholder { color: rgba(255,255,255,.5); }
+  .gh-final button {
+    padding: 14px 24px; border-radius: 10px; background: var(--fuchsia);
+    color: #fff; border: none; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; cursor: pointer;
+  }
+  .gh-final .note { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,.5); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Jérémy Sagnier
+      </a>
+      <nav class="nav">
+        <a href="apprendre.html">Apprendre</a>
+        <a href="index.html#projects">Projets</a>
+        <a href="index.html#newsletters">Newsletters</a>
+        <a href="index.html#freebies">Télécharger</a>
+        <a href="lexique.html">Lexique</a>
+        <a href="outils.html">Outils</a>
+        <a href="github.html" style="color:var(--fuchsia)">GitHub</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="gh-hero">
+  <div class="container">
+    <div class="kicker-top"><span class="pulse"></span>— Guide · Pas pour coder, pour piloter</div>
+    <h1>GitHub<br>expliqué<br><em>pour les non-devs.</em></h1>
+    <p class="lead">
+      Tu as entendu parler de GitHub mille fois sans savoir vraiment à quoi ça sert. Moi pareil pendant 5 ans. Puis Claude Code est arrivé, et GitHub est devenu <strong>mon filet de sécurité, mon hébergeur indirect et ma bibliothèque d'outils gratuits</strong>. Voici pourquoi tu devrais l'utiliser · même si tu n'écris pas une ligne de code.
+    </p>
+    <div class="meta">
+      <span>5 commandes suffisent</span>
+      <span>~14 min</span>
+      <span>100% non-dev</span>
+    </div>
+  </div>
+</section>
+
+<!-- Avant de commencer -->
+<section class="section">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Avant de commencer</span>
+    <h2>C'est quoi GitHub,<br><em class="fuchsia">vraiment.</em></h2>
+    <p>
+      Sors de ta tête le cliché *« GitHub, c'est pour les devs »*. C'est faux. GitHub est <strong>un Dropbox spécialisé pour le code et les documents techniques</strong>, avec trois particularités qui changent tout :
+    </p>
+    <ul>
+      <li><strong>Historique complet</strong> · chaque modification est enregistrée. Tu peux revenir en arrière, comparer, restaurer. Tu ne perds jamais rien.</li>
+      <li><strong>Collaboration</strong> · plusieurs personnes peuvent travailler sur les mêmes fichiers en même temps, GitHub fusionne intelligemment.</li>
+      <li><strong>Partage public ou privé</strong> · tu choisis si ton dossier est visible au monde entier (un outil open-source) ou réservé à toi (un site perso en chantier).</li>
+    </ul>
+    <p>
+      Pour un entrepreneur qui utilise Claude Code, GitHub est devenu <strong>le jumeau indispensable</strong>. Claude modifie tes fichiers, toi tu valides, git capture l'état, GitHub le stocke en ligne. Si ton ordinateur prend feu demain, ton travail est sauvé. Si tu casses quelque chose par accident, tu reviens à la version d'avant en une commande.
+    </p>
+
+    <div class="callout tip">
+      <h4>Mon avis en 5 secondes</h4>
+      <p>GitHub, c'est la ceinture de sécurité de ton travail numérique. Tant que tu n'as rien d'important, tu peux t'en passer. Dès que tu commences à construire un site, un agent, une newsletter automatique · tu ne veux pas continuer sans.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Les 4 cas d'usage -->
+<section class="section" style="background:var(--bg-2)">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les 4 cas concrets</span>
+    <h2>À quoi ça te sert<br><em class="orange">au quotidien.</em></h2>
+    <p>
+      Voici les 4 situations où j'ouvre GitHub comme non-dev, presque chaque jour.
+    </p>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas 01 · Déployer un site automatiquement</div>
+      <h4>Tu pousses sur GitHub, Vercel déploie en 30 secondes</h4>
+      <p>
+        Mon site (celui que tu lis) est un dépôt GitHub branché sur Vercel. Dès que Claude fait une modif et que je lance <code>git push</code>, <strong>Vercel détecte le changement et redéploie automatiquement en moins d'une minute</strong>. Aucun clic, aucune FTP, aucune config manuelle.
+      </p>
+      <p>
+        La combinaison <strong>GitHub + Vercel</strong>, c'est la manière la plus simple au monde de maintenir un site en ligne aujourd'hui. Tu ne gères rien d'autre que le contenu.
+      </p>
+    </div>
+
+    <div class="usecase c-fuchsia">
+      <div class="usecase-label">Cas 02 · Sauvegarder tes projets Claude Code</div>
+      <h4>Zéro risque de perdre des heures de travail</h4>
+      <p>
+        Claude travaille sur tes fichiers locaux. Si tu ne sauvegardes pas, une erreur disque ou un mauvais <code>rm</code> efface tout. Avec GitHub, chaque <code>git commit</code> capture une version · tu peux <strong>revenir à hier, à la semaine dernière, à il y a 3 mois</strong>.
+      </p>
+      <p>
+        Mon back-office admin a 13 modules. J'en casse un par semaine en voulant « juste améliorer un truc ». En 10 secondes, je reviens à la version d'avant, je corrige proprement, je re-commit.
+      </p>
+    </div>
+
+    <div class="usecase c-orange">
+      <div class="usecase-label">Cas 03 · Récupérer des outils open-source</div>
+      <h4>Des milliers de projets gratuits à cloner en 1 commande</h4>
+      <p>
+        Un dev publie son plugin sur GitHub. Tu le clones (<code>git clone</code>), tu l'installes, tu l'utilises. <strong>Tout l'écosystème Claude Code vit sur GitHub</strong> · Superpowers, les skills communautaires, les templates, les scripts de Simon Willison, les exemples d'agents.
+      </p>
+      <p>
+        Tu n'as pas besoin de comprendre le code · Claude te l'explique si tu lui demandes. GitHub est ta bibliothèque d'outils gratuits, avec 200 millions d'utilisateurs qui la nourrissent.
+      </p>
+    </div>
+
+    <div class="usecase c-ink">
+      <div class="usecase-label">Cas 04 · Collaborer avec un dev (ou un agent)</div>
+      <h4>Tu gardes la main, quelqu'un d'autre propose des modifs</h4>
+      <p>
+        Un dev travaille sur ton projet en parallèle · il crée une <strong>pull request</strong> (proposition de modif), tu la relis, tu acceptes ou refuses. Tu ne mélanges jamais son travail avec le tien tant que tu n'as pas validé.
+      </p>
+      <p>
+        Même logique avec un agent GitHub (type <code>github-app-playground</code> qui tourne avec l'Agent SDK Claude). Il peut te proposer des corrections, toi tu décides.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Comment démarrer -->
+<section class="section">
+  <div class="container">
+    <span class="section-kicker k-teal">— Démarrer en 10 min</span>
+    <h2>Comment <em class="teal">l'installer.</em></h2>
+    <p>Rien de compliqué · 5 étapes, 10 minutes en tout.</p>
+
+    <h3>1. Crée un compte GitHub</h3>
+    <p>
+      Va sur <a href="https://github.com" target="_blank" rel="noopener">github.com</a>, clique *« Sign up »*, choisis un nom d'utilisateur (il sera visible publiquement, prends ton vrai prénom ou ton handle habituel), email, mot de passe. <strong>Compte gratuit</strong>, suffisant pour 99 % des usages solo.
+    </p>
+
+    <h3>2. Installe Git en local</h3>
+    <p>
+      Git, c'est le logiciel qui communique avec GitHub depuis ton ordinateur. <strong>Sur Mac, il est souvent déjà là</strong> · teste avec :
+    </p>
+    <pre>git --version</pre>
+    <p>
+      Si ça répond avec un numéro, tu es prêt. Sinon, <code>xcode-select --install</code> et tu auras Git en bonus (sur Mac). Sur Windows, télécharge <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>.
+    </p>
+
+    <h3>3. Configure ton identité</h3>
+    <p>
+      Dans ton terminal, dis à Git qui tu es (ça apparaîtra sur chaque commit) :
+    </p>
+    <pre>git config --global user.name "Ton Prénom"
+git config --global user.email "ton@email.com"</pre>
+
+    <h3>4. Crée ton premier dépôt</h3>
+    <p>
+      Sur GitHub, clique le bouton vert *« New »* en haut à droite, donne un nom à ton dépôt (par exemple <code>mon-site</code>), choisis *« Private »* (tu pourras le passer public plus tard), clique *« Create repository »*. GitHub t'affiche les commandes pour connecter ton dossier local.
+    </p>
+
+    <h3>5. Pousse ton premier contenu</h3>
+    <p>
+      Dans ton dossier local, tape :
+    </p>
+    <pre>git init
+git add .
+git commit -m "Premier commit"
+git remote add origin https://github.com/TON_USERNAME/mon-site.git
+git branch -M main
+git push -u origin main</pre>
+    <p>
+      C'est long la première fois. Après, ce sera seulement <code>git add .</code> → <code>git commit -m "message"</code> → <code>git push</code>. <strong>3 commandes, ça devient automatique en 2 jours.</strong>
+    </p>
+
+    <div class="callout ok">
+      <h4>L'astuce Claude Code</h4>
+      <p>Tu n'as même pas besoin de mémoriser ces commandes. Dis à Claude <strong>« commit et push mes changements »</strong>, il exécute. Il rédige même le message de commit tout seul en se basant sur ce qui a changé. Tu valides, c'est parti.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Les 5 commandes -->
+<section class="section" style="background:var(--bg-2)">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— La boîte à outils</span>
+    <h2>Les 5 commandes<br><em class="fuchsia">à vraiment connaître.</em></h2>
+    <p>
+      Git a 150+ commandes. Tu n'as besoin que de 5. Les autres, Claude les connaît à ta place.
+    </p>
+
+    <table class="cmd-table">
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Ce que ça fait</th>
+          <th>Quand</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>git status</code></td>
+          <td>Dis-moi ce qui a changé depuis mon dernier commit</td>
+          <td>Avant de commit, pour vérifier que tu sais ce que tu sauves</td>
+        </tr>
+        <tr>
+          <td><code>git add .</code></td>
+          <td>Je prépare tous les changements pour le prochain commit</td>
+          <td>Juste avant <code>commit</code>, une fois que tu es content</td>
+        </tr>
+        <tr>
+          <td><code>git commit -m "…"</code></td>
+          <td>Je capture l'état actuel avec un message explicatif</td>
+          <td>À chaque étape importante (fin de feature, fin de session)</td>
+        </tr>
+        <tr>
+          <td><code>git push</code></td>
+          <td>J'envoie mes commits sur GitHub</td>
+          <td>Quand tu veux sauvegarder en ligne ou déclencher un déploiement Vercel</td>
+        </tr>
+        <tr>
+          <td><code>git pull</code></td>
+          <td>Je récupère les changements que quelqu'un d'autre (ou toi sur un autre PC) a poussés</td>
+          <td>Au début d'une session, si tu bosses sur 2 machines ou avec quelqu'un</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Cycle type de ta journée : <code>git status</code> (je regarde) → modifs via Claude → <code>git add .</code> → <code>git commit -m "ce que j'ai fait"</code> → <code>git push</code>. 4 commandes, 20 secondes, ton travail est sauvé en ligne.
+    </p>
+
+    <h3>Bonus · <code>git clone</code> et <code>git checkout</code></h3>
+    <p>
+      <code>git clone URL</code> · télécharge un dépôt depuis GitHub vers ton ordinateur. Tu l'utilises pour récupérer un outil open-source ou copier un projet d'exemple.
+    </p>
+    <p>
+      <code>git checkout -b nouvelle-branche</code> · crée une « branche » pour tester une grosse modif sans toucher à la version stable. Utile quand tu veux expérimenter sans peur. Claude gère ça tout seul si tu lui demandes.
+    </p>
+  </div>
+</section>
+
+<!-- Pièges -->
+<section class="section">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les pièges classiques</span>
+    <h2>Les 3 erreurs <em class="orange">à ne pas commettre.</em></h2>
+
+    <h3>Piège 1 · Pusher une clé API par accident</h3>
+    <p>
+      Un jour, tu mets une clé API Resend dans un fichier <code>.env</code>, tu fais <code>git add .</code> sans regarder, tu push. <strong>Ta clé est publique sur GitHub</strong>, des bots la trouvent en quelques minutes, ta consommation explose.
+    </p>
+    <p>
+      <strong>La règle absolue</strong> · crée un fichier <code>.gitignore</code> à la racine de ton projet avec au minimum :
+    </p>
+    <pre>.env
+.env.local
+.env.*
+node_modules/
+.DS_Store</pre>
+    <p>
+      Ces fichiers ne seront jamais envoyés sur GitHub. Demande à Claude *« crée-moi un .gitignore standard pour mon projet »*, il génère la bonne version.
+    </p>
+
+    <div class="callout warn">
+      <h4>Si c'est déjà arrivé</h4>
+      <p>1. Va sur le dashboard de ton service (Resend, Stripe, Anthropic…) et <strong>révoque la clé immédiatement</strong>. 2. Crée une nouvelle clé, mets-la dans ton <code>.env.local</code>. 3. Retire le fichier de l'historique Git (Claude te guide avec <code>git filter-branch</code> ou <code>git rm --cached</code>).</p>
+    </div>
+
+    <h3>Piège 2 · Le <code>git push --force</code> qui écrase tout</h3>
+    <p>
+      Si quelqu'un d'autre (un dev, un agent) a poussé des changements que tu n'as pas récupérés, et que tu lances <code>git push --force</code>, <strong>tu écrases leur travail sans possibilité de retour</strong>. Git te le signalera, ne force jamais sans comprendre pourquoi. La bonne réponse est presque toujours <code>git pull</code> d'abord.
+    </p>
+
+    <h3>Piège 3 · Confondre repo public et privé</h3>
+    <p>
+      Un repo <strong>public</strong> est visible par tout le monde sur Internet · parfait pour un outil open-source. Un repo <strong>privé</strong> est réservé à toi (et aux personnes que tu invites) · obligatoire pour un site en chantier, des données clients, ou un prototype confidentiel.
+    </p>
+    <p>
+      GitHub te demande toujours à la création. <strong>Par défaut, mets en privé</strong>. Tu peux toujours passer en public après, l'inverse est plus compliqué.
+    </p>
+  </div>
+</section>
+
+<!-- Combo Claude Code -->
+<section class="section" style="background:var(--bg-2)">
+  <div class="container">
+    <span class="section-kicker k-teal">— Le combo qui change tout</span>
+    <h2>GitHub + Claude Code,<br><em class="teal">le workflow magique.</em></h2>
+    <p>
+      Voilà ce à quoi ressemble ma journée type avec les deux combinés.
+    </p>
+
+    <ol style="padding-left:22px; margin:18px 0">
+      <li style="margin-bottom:12px"><strong>Matin · je lance <code>claude</code></strong> dans le dossier de mon site. Claude lit mon <code>CLAUDE.md</code> et sait tout sur le projet.</li>
+      <li style="margin-bottom:12px"><strong>Je demande une modif</strong> · « ajoute une section sur la page outils pour Remotion ». Claude édite les fichiers.</li>
+      <li style="margin-bottom:12px"><strong>Je vérifie visuellement</strong> via dev-browser ou un navigateur local.</li>
+      <li style="margin-bottom:12px"><strong>Si OK, je dis à Claude</strong> · « commit et push ». Il rédige le message, exécute <code>git add . && git commit -m "…" && git push</code>.</li>
+      <li style="margin-bottom:12px"><strong>Vercel redéploie</strong> automatiquement le site en 45 secondes.</li>
+      <li><strong>Si quelque chose casse</strong> · « annule mon dernier commit ». Claude lance <code>git revert</code>, push, et le site revient à la version d'avant. Zéro stress.</li>
+    </ol>
+
+    <p>
+      <strong>Tout ce workflow me prend 10 à 30 secondes</strong> une fois la modification faite. C'est pour ça que GitHub est indissociable de Claude Code chez moi · même sans écrire une ligne de code, je gère mon site comme un dev expérimenté, avec le filet de sécurité que ça implique.
+    </p>
+
+    <div class="callout tip">
+      <h4>Ma règle de fin de session</h4>
+      <p>Jamais quitter Claude Code sans avoir commit + push. Ça prend 5 secondes, ça garantit que peu importe ce qui arrive cette nuit (panne, bug Claude, coup de brosse du chat sur mon clavier), mon travail est sauf.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pour aller plus loin -->
+<section class="section">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Pour aller plus loin</span>
+    <h2>Les prochaines étapes.</h2>
+    <ol style="padding-left:22px; margin:18px 0">
+      <li style="margin-bottom:10px"><strong><a href="claude-code.html">Claude Code · le setup complet</a></strong> · obligatoire à installer si ce n'est pas encore fait</li>
+      <li style="margin-bottom:10px"><strong><a href="outils.html#vercel">Vercel · hébergement et déploiement</a></strong> · le partenaire naturel de GitHub pour ton site</li>
+      <li style="margin-bottom:10px"><strong><a href="lexique.html#cli">Le lexique · CLI / Terminal</a></strong> · si le terminal te fait encore peur</li>
+      <li style="margin-bottom:10px"><strong>GitHub Docs en français</strong> · <a href="https://docs.github.com/fr" target="_blank" rel="noopener">docs.github.com/fr</a> · la doc officielle, bien écrite</li>
+      <li><strong>GitHub Skills</strong> · <a href="https://skills.github.com" target="_blank" rel="noopener">skills.github.com</a> · tutos interactifs gratuits pour apprendre les bases</li>
+    </ol>
+
+    <p>
+      Si tu as une question précise sur GitHub ou un cas d'usage spécifique pour un entrepreneur non-dev, <strong>réponds à ma newsletter</strong>. Ça arrive dans ma boîte, je lis tout, je te réponds. Les retours terrain valent mille fois les articles génériques · y compris celui que tu viens de lire.
+    </p>
+  </div>
+</section>
+
+<!-- CTA final -->
+<section class="gh-final">
+  <div class="container">
+    <h2>Ma veille <em>chaque vendredi.</em></h2>
+    <p>
+      Chaque vendredi, je partage mes tests du moment · nouveaux outils, nouveaux workflows, nouveaux pièges découverts. Sans pub, désinscription en un clic.
+    </p>
+    <form class="newsletter-form" data-source="github-page">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit">Je m'inscris →</button>
+    </form>
+    <div class="note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Salut — moi c'est Jérémy. Je teste l'IA tous les jours pour ne jamais être dépassé, et je partage ce que je trouve en chemin. Une question ? Écris-moi · je lis tout.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li><a href="mailto:sagnier.jeremy@gmail.com">Email</a></li>
+          <li><a href="index.html#newsletters">Newsletters</a></li>
+          <li><a href="lexique.html">Lexique</a></li>
+          <li><a href="outils.html">Outils</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta / 89
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const btn = form.querySelector('button');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '...';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: form.dataset.source || 'github-page' }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        btn.textContent = '✓ Merci';
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+      } catch (err) {
+        btn.textContent = '× Erreur';
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 2500);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

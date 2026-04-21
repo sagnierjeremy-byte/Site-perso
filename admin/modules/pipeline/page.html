@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+<style>
+  .pipeline-table {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .pipeline-row {
+    display: grid;
+    grid-template-columns: minmax(240px, 2fr) 3fr 110px;
+    gap: 14px;
+    padding: 14px 18px;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .pipeline-row:last-child { border-bottom: none; }
+  .pipeline-row.clickable { cursor: pointer; }
+  .pipeline-row:hover:not(.pipeline-head) { background: var(--bg-2); }
+  .pipeline-row.clickable:hover {
+    background: color-mix(in srgb, var(--fuchsia) 4%, var(--surface));
+    box-shadow: inset 3px 0 0 var(--fuchsia);
+  }
+
+  .pipeline-head {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+
+  .pipeline-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pipeline-meta {
+    display: flex; gap: 6px; align-items: center; margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted); letter-spacing: .08em;
+  }
+
+  /* Timeline 6 étapes */
+  .pipeline-steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    position: relative;
+  }
+  .step-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+  .step-dot::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background: var(--line);
+    z-index: 0;
+  }
+  .step-dot:last-child::before { display: none; }
+  .step-dot .dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    border: 2px solid var(--line-strong);
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .step-dot.done .dot {
+    background: var(--teal); border-color: var(--teal); color: #fff;
+  }
+  .step-dot.done::before { background: var(--teal); }
+  .step-dot.current .dot {
+    background: var(--fuchsia); border-color: var(--fuchsia); color: #fff;
+    box-shadow: 0 0 0 4px rgba(239,66,111,.15);
+  }
+  .step-dot .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+  .step-dot.done .lbl, .step-dot.current .lbl { color: var(--ink); font-weight: 700; }
+
+  .pipeline-stage-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .stage-proposed  { background: var(--bg-2); color: var(--ink-muted); }
+  .stage-chosen    { background: rgba(239,66,111,.15); color: var(--fuchsia); }
+  .stage-drafted   { background: rgba(255,130,0,.18);  color: var(--orange); }
+  .stage-audited   { background: rgba(0,178,169,.18);  color: var(--teal); }
+  .stage-published { background: var(--teal); color: #fff; }
+  .stage-shared    { background: var(--ink); color: var(--bg); }
+
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;
+  }
+  .filter-btn {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .filter-btn:hover { color: var(--ink); }
+  .filter-btn.active {
+    background: var(--ink); color: var(--bg); border-color: var(--ink);
+  }
+  .filter-count {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    background: var(--bg-2);
+    color: var(--ink-muted);
+  }
+  .filter-btn.active .filter-count { background: rgba(255,255,255,.2); color: #fff; }
+
+  .orphan-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: #fff;
+    margin-left: 6px;
+  }
+
+  @media (max-width: 900px) {
+    .pipeline-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .pipeline-stage-pill {
+      justify-self: start;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Pipeline</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— De l'idée à la publication</div>
+          <h1>Ton flux<br><em>en une vue.</em></h1>
+          <p class="page-sub">Chaque idée parcourt 6 étapes : <strong>proposée → choisie → draft écrit → audit SEO → publiée → partagée sur les réseaux</strong>. Tu vois en un clin d'œil où chacune est coincée et ce qui attend ton intervention.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar" id="filterBar"></div>
+
+      <div id="pipelineList">
+        <div class="empty-state"><span class="loader"></span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('pipeline');
+
+  const STEPS = [
+    { id: 'proposed',  lbl: 'Proposé' },
+    { id: 'chosen',    lbl: 'Choisi' },
+    { id: 'drafted',   lbl: 'Draft' },
+    { id: 'audited',   lbl: 'Audit' },
+    { id: 'published', lbl: 'Publié' },
+    { id: 'shared',    lbl: 'Partagé' },
+  ];
+
+  let state = {
+    filter: 'all',
+    lines: [],
+  };
+
+  async function load() {
+    try {
+      const d = await api.get('/api/pipeline');
+      state.lines = d.lines || [];
+      renderFilter();
+      renderList();
+    } catch (e) {
+      toast(`Ça a coincé : ${e.message}`, 'err', 6000);
+    }
+  }
+
+  function renderFilter() {
+    const counts = { all: state.lines.length };
+    for (const s of STEPS) counts[s.id] = 0;
+    for (const l of state.lines) counts[l.stage] = (counts[l.stage] || 0) + 1;
+
+    const filters = [
+      { id: 'all', lbl: 'Tout' },
+      ...STEPS,
+    ];
+    document.getElementById('filterBar').innerHTML = filters.map(f => `
+      <button class="filter-btn ${state.filter === f.id ? 'active' : ''}" data-filter="${f.id}">
+        ${escapeHtml(f.lbl)}
+        <span class="filter-count">${counts[f.id] || 0}</span>
+      </button>
+    `).join('');
+  }
+
+  function renderList() {
+    const el = document.getElementById('pipelineList');
+    let lines = state.lines;
+    if (state.filter !== 'all') {
+      lines = lines.filter(l => l.stage === state.filter);
+    }
+    if (lines.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Rien à ce stade</strong>Change de filtre pour voir autre chose.</div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="pipeline-table">
+        <div class="pipeline-row pipeline-head">
+          <div>Titre</div>
+          <div>Étapes</div>
+          <div>Stade</div>
+        </div>
+        ${lines.map(renderRow).join('')}
+      </div>
+    `;
+  }
+
+  function renderRow(l) {
+    const stepsHTML = STEPS.map(s => {
+      const done = l.steps[s.id];
+      const current = l.stage === s.id;
+      const cls = done ? (current ? 'current' : 'done') : '';
+      const mark = done ? (current ? '●' : '✓') : '';
+      return `
+        <div class="step-dot ${cls}">
+          <div class="dot">${mark}</div>
+          <div class="lbl">${s.lbl}</div>
+        </div>
+      `;
+    }).join('');
+
+    const orphan = l.orphan ? `<span class="orphan-badge">orphelin</span>` : '';
+    const scoreTag = (l.score !== null && l.score !== undefined) ? `<span>${l.score.toFixed(1)}</span>` : '';
+    const clusterTag = l.cluster ? `<span>${escapeHtml(l.cluster)}</span>` : '';
+
+    // Selon l'étape finale, on construit un lien intelligent
+    let href;
+    if (l.stage === 'published' || l.stage === 'shared') {
+      href = `/articles/${encodeURIComponent(l.id)}.html`;
+    } else if (l.stage === 'drafted' || l.stage === 'audited') {
+      href = `/admin/modules/drafts/?slug=${encodeURIComponent(l.id)}`;
+    } else {
+      href = `/admin/modules/backlog/#${encodeURIComponent(l.id)}`;
+    }
+    const target = (l.stage === 'published' || l.stage === 'shared') ? '_blank' : '_self';
+
+    return `
+      <a class="pipeline-row clickable" href="${href}" target="${target}" style="text-decoration:none; color:inherit;">
+        <div>
+          <div class="pipeline-title">${escapeHtml(l.title)}${orphan}</div>
+          <div class="pipeline-meta">
+            ${scoreTag}
+            ${scoreTag && clusterTag ? '<span>·</span>' : ''}
+            ${clusterTag}
+          </div>
+        </div>
+        <div class="pipeline-steps">${stepsHTML}</div>
+        <div><span class="pipeline-stage-pill stage-${l.stage}">${l.stage}</span></div>
+      </a>
+    `;
+  }
+
+  document.getElementById('filterBar').addEventListener('click', e => {
+    const b = e.target.closest('.filter-btn');
+    if (!b) return;
+    state.filter = b.dataset.filter;
+    renderFilter();
+    renderList();
+  });
+
+  load();
+</script>
+
+</body>
+</html>

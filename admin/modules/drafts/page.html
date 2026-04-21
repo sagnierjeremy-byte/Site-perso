@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drafts — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Drafts</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Tes articles en chantier</div>
+          <h1>À relire<br>et à <em>publier.</em></h1>
+          <p class="page-sub">Ce sont les drafts que <strong>Claude Code a écrits pour toi</strong>. Clique sur un pour l'ouvrir. Éditeur à gauche, preview à droite. Tu ajustes ce qui sonne faux, tu ajoutes ton vécu, puis tu publies en un clic.</p>
+        </div>
+      </div>
+
+      <div class="pageNote">
+        <strong>Le bon réflexe avant de publier :</strong> relis à voix haute. Si ça sonne comme un copain au bar, c'est trop familier. Si ça sonne comme un ami qui t'écrit un mail un dimanche soir, t'es au bon niveau. Pense aussi à ajouter <strong>ton cas vécu</strong> — c'est ce qui te distingue d'un article générique.
+      </div>
+
+      <div id="listView">
+        <div id="draftList" class="draft-list">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </div>
+
+      <div id="editorView" style="display:none">
+        <div class="section-head" style="margin-bottom:16px">
+          <button class="btn btn-ghost" id="btnBack">← Retour aux drafts</button>
+          <h2 id="editorTitle" style="margin-left:10px">Éditeur</h2>
+          <div style="margin-left:auto; display:flex; gap:8px">
+            <button class="btn btn-ghost" id="btnSave">💾 J'enregistre</button>
+            <button class="btn btn-primary" id="btnPublish">🚀 Je publie</button>
+          </div>
+        </div>
+
+        <div class="editor-wrap">
+          <div class="editor-pane">
+            <div class="editor-pane-head">
+              <span>Ton texte · en markdown</span>
+              <span id="editorMeta">—</span>
+            </div>
+            <textarea id="editorTextarea" class="editor-textarea" spellcheck="false" placeholder="Écris ou colle ton draft ici..."></textarea>
+          </div>
+          <div class="preview-pane">
+            <div class="preview-pane-head">
+              <span>Ce que ça donne</span>
+              <span id="previewMeta">—</span>
+            </div>
+            <div class="preview-pane-body" id="previewBody">
+              <p style="color:var(--ink-muted); font-style: italic">Dès que tu tapes à gauche, la preview apparaît ici.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('drafts');
+
+  let currentSlug = null;
+  let debounceTimer = null;
+
+  async function loadList() {
+    try {
+      const drafts = await api.get('/api/drafts');
+      renderList(drafts);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function renderList(drafts) {
+    const el = document.getElementById('draftList');
+    if (drafts.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Pas de draft pour l'instant</strong>Va dans <a href="/admin/modules/backlog/">Idées</a>, choisis un sujet, puis demande à Claude Code d'écrire le draft. Il apparaîtra ici automatiquement.</div>`;
+      return;
+    }
+    el.innerHTML = drafts.map(d => `
+      <div class="draft-card" onclick="openDraft('${escapeHtml(d.slug)}')">
+        <h3>${escapeHtml(d.titre)}</h3>
+        <div class="draft-card-meta">${escapeHtml(d.slug)} · ${fmtRelative(d.modified)}</div>
+        <p>${escapeHtml((d.description || '').slice(0, 160))}${d.description && d.description.length > 160 ? '…' : ''}</p>
+      </div>
+    `).join('');
+  }
+
+  async function openDraft(slug) {
+    try {
+      const data = await api.get(`/api/drafts/${slug}`);
+      currentSlug = slug;
+      document.getElementById('editorTitle').textContent = data.frontmatter.titre || slug;
+      document.getElementById('editorTextarea').value = data.raw;
+      document.getElementById('editorMeta').textContent = `${data.raw.length} caractères`;
+      document.getElementById('listView').style.display = 'none';
+      document.getElementById('editorView').style.display = 'block';
+      updatePreview();
+      location.hash = slug;
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function closeEditor() {
+    currentSlug = null;
+    document.getElementById('editorView').style.display = 'none';
+    document.getElementById('listView').style.display = 'block';
+    location.hash = '';
+    loadList();
+  }
+
+  async function updatePreview() {
+    if (!currentSlug) return;
+    const raw = document.getElementById('editorTextarea').value;
+    document.getElementById('editorMeta').textContent = `${raw.length} caractères`;
+    try {
+      const res = await api.post(`/api/drafts/${currentSlug}/preview`, { raw });
+      document.getElementById('previewBody').innerHTML = res.html;
+    } catch (e) {
+      document.getElementById('previewBody').innerHTML = `<p style="color:var(--fuchsia)">La preview a coincé : ${escapeHtml(e.message)}</p>`;
+    }
+  }
+
+  document.getElementById('editorTextarea').addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(updatePreview, 400);
+  });
+
+  document.getElementById('btnBack').addEventListener('click', closeEditor);
+
+  document.getElementById('btnSave').addEventListener('click', async () => {
+    if (!currentSlug) return;
+    const raw = document.getElementById('editorTextarea').value;
+    try {
+      await api.put(`/api/drafts/${currentSlug}`, { raw });
+      toast('C\'est enregistré ✓', 'ok');
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  });
+
+  document.getElementById('btnPublish').addEventListener('click', async () => {
+    if (!currentSlug) return;
+    const raw = document.getElementById('editorTextarea').value;
+    if (!confirm(`Tu veux publier "${currentSlug}" ?\n\nVoilà ce qui va se passer :\n→ L'article HTML est généré dans articles/\n→ Le sitemap.xml est mis à jour\n→ Tu feras "git commit + push" après pour déployer\n\nOn y va ?`)) return;
+    try {
+      await api.put(`/api/drafts/${currentSlug}`, { raw });
+      await api.post(`/api/publish/${currentSlug}`);
+      toast(`Ton article est prêt · fais "git commit + push" pour le mettre en ligne.`, 'ok', 6000);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err', 6000); }
+  });
+
+  window.addEventListener('load', () => {
+    loadList().then(() => {
+      if (location.hash && location.hash.length > 1) openDraft(location.hash.slice(1));
+    });
+  });
+  window.openDraft = openDraft;
+</script>
+
+</body>
+</html>

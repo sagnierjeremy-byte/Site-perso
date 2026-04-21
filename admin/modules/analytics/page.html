@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Trafic &amp; perfs</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Ce qui se passe sur ton site</div>
+          <h1>Qui vient,<br>par <em>où.</em></h1>
+          <p class="page-sub">Tu vas pouvoir voir d'un coup d'œil <strong>combien de personnes arrivent sur ton site</strong>, par quelle source, quels articles cartonnent, et où les gens décrochent. Le but : savoir ce qui marche pour en faire plus, et ce qui rate pour l'améliorer.</p>
+        </div>
+      </div>
+
+      <div class="pageNote">
+        <strong>Pourquoi Vercel Analytics ?</strong> Tu es déjà hébergé sur Vercel, c'est inclus dans leur plan Pro (20 $/mois que tu as déjà). Pas de nouvelle dép, pas de compte supplémentaire, RGPD OK. On pourra ajouter <strong>Plausible</strong> ou <strong>PostHog</strong> plus tard si tu veux du funnel plus avancé.
+      </div>
+
+      <div class="coming-soon">
+        <div class="coming-soon-icon">📈</div>
+        <h3>Ça arrive <em>bientôt</em> dans la V3.</h3>
+        <p>L'API Vercel Analytics est simple à brancher — il faut juste récupérer ton <code>VERCEL_TOKEN</code> et pointer sur ton projet. <strong>Compte 1 à 2 jours de build</strong> le jour où tu dis go.</p>
+        <div class="eta">ETA · V3 · après Social Zernio</div>
+      </div>
+
+      <section class="section" style="margin-top:36px">
+        <div class="section-head">
+          <h2>Ce que tu verras ici</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card s-teal">
+            <div class="stat-label">Visiteurs uniques</div>
+            <div class="stat-value">—</div>
+            <div class="stat-hint">7 jours · 30 jours · toujours</div>
+          </div>
+          <div class="stat-card s-fuchsia">
+            <div class="stat-label">Inscriptions newsletter</div>
+            <div class="stat-value">—</div>
+            <div class="stat-hint">Taux de conversion visiteur → abonné</div>
+          </div>
+          <div class="stat-card s-orange">
+            <div class="stat-label">Pages les plus vues</div>
+            <div class="stat-value">—</div>
+            <div class="stat-hint">Top 10 articles · durée moyenne</div>
+          </div>
+          <div class="stat-card s-ink">
+            <div class="stat-label">Sources de trafic</div>
+            <div class="stat-value">—</div>
+            <div class="stat-hint">Direct · Google · LinkedIn · X · Newsletter</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Le funnel principal</h2></div>
+        <div class="coming-soon" style="padding:22px">
+          <p style="margin-bottom:0"><strong>Visiteur</strong> → <strong>Page article</strong> → <strong>Scroll 50%+</strong> → <strong>Clic CTA newsletter</strong> → <strong>Inscription</strong>
+          <br><span style="font-size:12px; color:var(--ink-muted)">Chaque étape avec son taux de passage. On identifiera où les gens décrochent pour corriger.</span></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>renderShell('analytics');</script>
+
+</body>
+</html>

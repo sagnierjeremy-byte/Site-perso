@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit SEO — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+<style>
+  /* === Styles spécifiques audit === */
+  .audit-score-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px; border-radius: 999px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 13px; letter-spacing: -.01em;
+    min-width: 64px; justify-content: center;
+  }
+  .audit-score-pill.s-good    { background: rgba(0,178,169,.18); color: var(--teal) }
+  .audit-score-pill.s-medium  { background: rgba(255,130,0,.18); color: var(--orange) }
+  .audit-score-pill.s-low     { background: rgba(239,66,111,.18); color: var(--fuchsia) }
+  .audit-score-pill.s-none    { background: var(--bg-2); color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .15em }
+
+  .audit-modal-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,10,10,.72);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .audit-modal {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    max-width: 920px; width: 100%;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,.6);
+  }
+  .audit-modal-head {
+    padding: 22px 26px 18px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  }
+  .audit-modal-head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; letter-spacing: -.02em;
+    text-transform: uppercase; line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .audit-modal-head .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .audit-modal-close {
+    width: 32px; height: 32px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .audit-modal-body {
+    padding: 24px 26px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .audit-modal-body h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    text-transform: uppercase; color: var(--fuchsia);
+    margin: 20px 0 10px;
+  }
+  .audit-modal-body h2:first-child { margin-top: 0 }
+  .audit-modal-body h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14.5px; letter-spacing: -.01em;
+    text-transform: uppercase; margin: 16px 0 8px;
+  }
+  .audit-modal-body p { margin-bottom: 10px; color: var(--ink-soft); line-height: 1.65 }
+  .audit-modal-body strong { color: var(--ink) }
+  .audit-modal-body ol, .audit-modal-body ul { margin: 0 0 12px 20px; color: var(--ink-soft) }
+  .audit-modal-body li { margin-bottom: 6px; line-height: 1.55 }
+  .audit-modal-body code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .88em;
+    background: var(--bg-2); padding: 1px 6px; border-radius: 4px;
+  }
+
+  .prompt-modal-body textarea {
+    width: 100%; min-height: 320px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; line-height: 1.6;
+    background: var(--bg-2); color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 10px;
+    padding: 14px 16px; resize: vertical;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Audit SEO</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— L'agent SEO qui note tes articles</div>
+          <h1>Scorer tes<br>articles · <em>CORE-EEAT + GEO.</em></h1>
+          <p class="page-sub">Ici tu audites chaque article sur <strong>80 items CORE-EEAT</strong> (qualité éditoriale pour humains et IA) et sur <strong>GEO</strong> (citation-friendliness par ChatGPT, Claude, Perplexity, Google AI). Tu cliques sur "Auditer", je prépare le prompt, tu le colles dans Claude Code · Claude lance les skills et écrit le rapport. Tu rafraîchis, le score apparaît ici.</p>
+        </div>
+      </div>
+
+      <div class="pageNote">
+        <strong>Pourquoi ces deux axes ?</strong> <code>content-quality-auditor</code> scorent la qualité CORE-EEAT (Contextual clarity · Organization · Referenceability · Exclusivity + Experience · Expertise · Authority · Trust). <code>geo-content-optimizer</code> mesure à quel point ton article est <strong>citable par une IA</strong> (FAQ structurée, definitions claires, sources explicites, statements quotables). Les deux sont indispensables en 2026 — Google et les IA génératives se rejoignent.
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid">
+        <div class="stat-card s-teal">
+          <div class="stat-label">Articles audités</div>
+          <div class="stat-value" id="statAudited">—</div>
+          <div class="stat-hint" id="statAuditedHint">Avec au moins 1 rapport</div>
+        </div>
+        <div class="stat-card s-fuchsia">
+          <div class="stat-label">Score CORE moyen</div>
+          <div class="stat-value" id="statCoreAvg">—</div>
+          <div class="stat-hint">Sur 100 · qualité éditoriale</div>
+        </div>
+        <div class="stat-card s-orange">
+          <div class="stat-label">Score GEO moyen</div>
+          <div class="stat-value" id="statGeoAvg">—</div>
+          <div class="stat-hint">Sur 10 · citation IA</div>
+        </div>
+        <div class="stat-card s-ink">
+          <div class="stat-label">Jamais audités</div>
+          <div class="stat-value" id="statNever">—</div>
+          <div class="stat-hint">À faire passer en premier</div>
+        </div>
+      </div>
+
+      <!-- Workflow rappel -->
+      <section class="section">
+        <div class="howto">
+          <div class="howto-label"><span class="kicker-dot"></span>Comment ça marche · 3 étapes</div>
+          <h3>Audit en <em>ligne commande.</em></h3>
+          <p class="howto-intro">Je prépare tout · tu colles · Claude fait le reste.</p>
+          <div class="howto-steps">
+            <div class="howto-step">
+              <div class="howto-step-num">01</div>
+              <h4>Tu cliques "Auditer"</h4>
+              <p>Sur la ligne d'un article. Je te prépare un <strong>prompt complet</strong> et je le copie dans ton presse-papier.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">02</div>
+              <h4>Tu colles dans Claude Code</h4>
+              <p>Dans ton terminal à la racine du projet. Claude Code invoque les 2 skills <strong>content-quality-auditor</strong> + <strong>geo-content-optimizer</strong>, puis écrit le rapport dans <code>audits/&lt;slug&gt;/&lt;date&gt;.md</code>.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">03</div>
+              <h4>Tu cliques "Rafraîchir"</h4>
+              <p>Je lis les rapports écrits, j'affiche les scores dans la table. Clique sur un score pour voir le rapport complet · top 5 améliorations · plan d'action.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Table audits -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Tes articles · scorés</h2>
+          <span class="section-count" id="articlesCount">—</span>
+          <div style="margin-left:auto">
+            <button class="btn btn-ghost" id="btnRefresh">🔄 Rafraîchir</button>
+          </div>
+        </div>
+        <div id="auditTable">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('seo-audit');
+
+  let articles = [];
+
+  async function load() {
+    try {
+      const data = await api.get('/api/audits');
+      articles = data.articles || [];
+      renderStats();
+      renderTable();
+    } catch (e) {
+      toast(`Ça a coincé : ${e.message}`, 'err');
+    }
+  }
+
+  function renderStats() {
+    const audited = articles.filter(a => a.latest);
+    const never = articles.length - audited.length;
+    document.getElementById('statAudited').textContent = audited.length;
+    document.getElementById('statAuditedHint').textContent = `sur ${articles.length} articles publiés`;
+    document.getElementById('statNever').textContent = never;
+
+    if (audited.length === 0) {
+      document.getElementById('statCoreAvg').textContent = '—';
+      document.getElementById('statGeoAvg').textContent = '—';
+      return;
+    }
+    const avgCore = audited.reduce((s, a) => s + (a.latest.score_core || 0), 0) / audited.length;
+    const avgGeo = audited.reduce((s, a) => s + (a.latest.score_geo || 0), 0) / audited.length;
+    document.getElementById('statCoreAvg').textContent = `${Math.round(avgCore)}/100`;
+    document.getElementById('statGeoAvg').textContent = `${avgGeo.toFixed(1)}/10`;
+  }
+
+  function coreClass(score) {
+    if (score === null || score === undefined) return 's-none';
+    if (score >= 75) return 's-good';
+    if (score >= 55) return 's-medium';
+    return 's-low';
+  }
+  function geoClass(score) {
+    if (score === null || score === undefined) return 's-none';
+    if (score >= 7) return 's-good';
+    if (score >= 5) return 's-medium';
+    return 's-low';
+  }
+
+  function renderTable() {
+    const el = document.getElementById('auditTable');
+    if (articles.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun article publié</strong>Publie ton premier article · il apparaîtra ici.</div>`;
+      return;
+    }
+    document.getElementById('articlesCount').textContent = `${articles.length} articles`;
+
+    const rows = articles.map(a => {
+      const hasAudit = !!a.latest;
+      const coreScore = hasAudit && a.latest.score_core !== null
+        ? `<span class="audit-score-pill ${coreClass(a.latest.score_core)}">${a.latest.score_core}/100</span>`
+        : `<span class="audit-score-pill s-none">Pas encore</span>`;
+      const geoScore = hasAudit && a.latest.score_geo !== null
+        ? `<span class="audit-score-pill ${geoClass(a.latest.score_geo)}">${parseFloat(a.latest.score_geo).toFixed(1)}/10</span>`
+        : `<span class="audit-score-pill s-none">—</span>`;
+      const lastDate = hasAudit ? fmtRelative(a.latest.audited_at) : '—';
+      const issuesBrief = hasAudit && a.latest.top_issues && a.latest.top_issues.length > 0
+        ? a.latest.top_issues.slice(0, 2).map(i => escapeHtml(i)).join(' · ')
+        : '<span style="color:var(--ink-muted)">—</span>';
+
+      const actions = `
+        <button class="btn btn-primary" data-action="prepare" data-slug="${escapeHtml(a.slug)}" style="padding:6px 12px; font-size:10.5px">${hasAudit ? 'Re-auditer' : 'Auditer'}</button>
+        ${hasAudit ? `<button class="btn btn-ghost" data-action="view" data-slug="${escapeHtml(a.slug)}" style="padding:6px 12px; font-size:10.5px">Voir rapport</button>` : ''}
+      `;
+
+      return `
+        <tr>
+          <td class="title-cell">
+            <a href="/articles/${escapeHtml(a.slug)}.html" target="_blank">${escapeHtml(a.title)}</a>
+            <div class="title-cell-desc">${issuesBrief}</div>
+          </td>
+          <td>${coreScore}</td>
+          <td>${geoScore}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-muted)">${lastDate}${hasAudit && a.latest.audit_count > 1 ? ` · ${a.latest.audit_count} audits` : ''}</td>
+          <td><div style="display:flex; gap:6px; flex-wrap:wrap">${actions}</div></td>
+        </tr>
+      `;
+    }).join('');
+
+    el.innerHTML = `
+      <table class="articles-table">
+        <thead>
+          <tr>
+            <th style="min-width:280px">Article</th>
+            <th>Score CORE</th>
+            <th>Score GEO</th>
+            <th>Dernier audit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  // === Actions ===
+  document.getElementById('auditTable').addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const slug = btn.dataset.slug;
+    const action = btn.dataset.action;
+    if (action === 'prepare') return preparePrompt(slug);
+    if (action === 'view') return showAudit(slug);
+  });
+
+  async function preparePrompt(slug) {
+    try {
+      const { prompt } = await api.post(`/api/audits/${slug}/prepare`);
+      await navigator.clipboard.writeText(prompt);
+      showPromptModal(slug, prompt);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function showPromptModal(slug, prompt) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'audit-modal-backdrop';
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.remove(); });
+    backdrop.innerHTML = `
+      <div class="audit-modal">
+        <div class="audit-modal-head">
+          <div>
+            <h2>Prompt copié ✓</h2>
+            <div class="meta">Colle-le dans Claude Code à la racine du projet</div>
+          </div>
+          <button class="audit-modal-close" onclick="this.closest('.audit-modal-backdrop').remove()" aria-label="Fermer">×</button>
+        </div>
+        <div class="audit-modal-body prompt-modal-body">
+          <p style="margin-bottom:14px"><strong>Mode d'emploi :</strong><br>
+          1. Ouvre ton terminal à la racine du projet<br>
+          2. Lance <code>claude</code> si ce n'est pas déjà fait<br>
+          3. Colle le prompt ci-dessous (Cmd+V)<br>
+          4. Claude Code invoque les skills et écrit le rapport dans <code>audits/${escapeHtml(slug)}/&lt;date&gt;.md</code><br>
+          5. Reviens ici, clique sur <strong>Rafraîchir</strong> · le score s'affichera</p>
+          <textarea readonly>${escapeHtml(prompt)}</textarea>
+          <div style="margin-top:14px; display:flex; gap:8px; justify-content:flex-end">
+            <button class="btn btn-ghost" onclick="navigator.clipboard.writeText(this.parentElement.previousElementSibling.value); toast('Recopié ✓','ok')">Recopier</button>
+            <button class="btn btn-primary" onclick="this.closest('.audit-modal-backdrop').remove()">OK · j'y vais</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(backdrop);
+    toast('Prompt copié · colle dans Claude Code', 'ok', 4500);
+  }
+
+  async function showAudit(slug) {
+    try {
+      const { audits } = await api.get(`/api/audits/${slug}`);
+      if (!audits || audits.length === 0) {
+        toast('Aucun rapport trouvé', 'info');
+        return;
+      }
+      const latest = audits[0];
+      const article = articles.find(a => a.slug === slug);
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'audit-modal-backdrop';
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.remove(); });
+      backdrop.innerHTML = `
+        <div class="audit-modal">
+          <div class="audit-modal-head">
+            <div>
+              <h2>${escapeHtml(article?.title || slug)}</h2>
+              <div class="meta">Audité ${fmtRelative(latest.audited_at)} · CORE ${latest.score_core}/100 · GEO ${latest.score_geo}/10</div>
+            </div>
+            <button class="audit-modal-close" onclick="this.closest('.audit-modal-backdrop').remove()" aria-label="Fermer">×</button>
+          </div>
+          <div class="audit-modal-body">${latest.raw_html || '<p>Rapport vide</p>'}</div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  document.getElementById('btnRefresh').addEventListener('click', () => {
+    load();
+    toast('Mise à jour…', 'info', 1500);
+  });
+
+  load();
+</script>
+
+</body>
+</html>

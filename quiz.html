@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Quel workflow IA pour ton métier ? — Jérémy Sagnier</title>
+<meta name="description" content="8 questions pour découvrir le workflow IA adapté à ton métier et ton niveau. Outils recommandés, prompts ciblés, premier article à lire. Gratuit, 2 minutes.">
+
+<meta property="og:title" content="Quiz · Quel workflow IA pour toi en 2 minutes ?">
+<meta property="og:description" content="8 questions. Je te recommande les outils et prompts adaptés à ton métier. Gratuit, 2 min.">
+<meta property="og:url" content="https://jeremysagnier.com/quiz.html">
+<meta property="og:type" content="website">
+
+<link rel="canonical" href="https://jeremysagnier.com/quiz.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  .quiz-hero {
+    padding: 80px 0 50px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    text-align: center;
+    position: relative;
+  }
+  .quiz-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .quiz-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(38px, 7vw, 64px);
+    line-height: .95;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .quiz-hero h1 em {
+    font-style: normal;
+    color: var(--fuchsia);
+  }
+  .quiz-hero p { color: rgba(255,255,255,.8); max-width: 620px; margin: 0 auto 24px; font-size: 17px; line-height: 1.6; }
+  .quiz-hero .meta {
+    display: inline-flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+
+  .quiz-wrap {
+    max-width: 720px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+
+  .progress-bar {
+    background: var(--bg-2);
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia));
+    transition: width .4s ease;
+  }
+
+  .question {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 32px 30px;
+    display: none;
+  }
+  .question.active { display: block; }
+
+  .question-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .question h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .answer {
+    padding: 16px 20px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-2);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: var(--ink);
+    transition: all .15s;
+    text-align: left;
+    font-family: 'Archivo', sans-serif;
+  }
+  .answer:hover {
+    border-color: var(--fuchsia);
+    background: color-mix(in srgb, var(--fuchsia) 5%, var(--bg-2));
+  }
+  .answer.selected {
+    border-color: var(--fuchsia);
+    background: color-mix(in srgb, var(--fuchsia) 12%, var(--bg-2));
+    font-weight: 600;
+  }
+
+  .q-actions {
+    display: flex; justify-content: space-between; margin-top: 22px;
+  }
+  .q-btn {
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all .15s;
+  }
+  .q-btn-prev { background: transparent; border-color: var(--line-strong); color: var(--ink-soft); }
+  .q-btn-next { background: var(--ink); color: var(--bg); }
+  .q-btn-next:hover { background: var(--fuchsia); color: #fff; }
+  .q-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+  /* === Résultat === */
+  .result { display: none; }
+  .result.active { display: block; }
+  .result-hero {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    padding: 50px 36px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .result-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .result-hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 12px;
+  }
+  .result-hero h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 5vw, 46px);
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .result-hero h2 em {
+    color: var(--orange);
+    font-style: normal;
+  }
+  .result-hero p { color: rgba(255,255,255,.85); font-size: 16px; line-height: 1.6; max-width: 520px; margin: 0 auto; }
+
+  .result-block {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--teal);
+  }
+  .result-block.c-fuchsia { border-left-color: var(--fuchsia); }
+  .result-block.c-orange { border-left-color: var(--orange); }
+  .result-block h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .result-block p { font-size: 15px; line-height: 1.65; color: var(--ink-soft); }
+  .result-block ul { margin: 10px 0 0 20px; color: var(--ink-soft); }
+  .result-block ul li { margin-bottom: 8px; line-height: 1.55; }
+  .result-block a { color: var(--fuchsia); text-decoration: none; font-weight: 600; }
+  .result-block a:hover { text-decoration: underline; }
+
+  .result-cta {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    padding: 34px 30px;
+    border-radius: 16px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .result-cta h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    margin-bottom: 14px;
+  }
+  .result-cta p { color: rgba(255,255,255,.75); margin-bottom: 20px; font-size: 15px; line-height: 1.55; }
+  .result-cta form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
+  .result-cta input {
+    flex: 1; padding: 13px 16px; border-radius: 8px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    color: #FBF7F0; font-size: 14px;
+  }
+  .result-cta input::placeholder { color: rgba(255,255,255,.5); }
+  .result-cta button {
+    padding: 13px 22px; border-radius: 8px; background: var(--fuchsia);
+    color: #fff; border: none; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; cursor: pointer;
+  }
+  .result-cta .note { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 12px; }
+
+  .restart {
+    display: block;
+    margin: 32px auto 0;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .restart:hover { color: var(--ink); border-color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Jérémy Sagnier
+      </a>
+      <nav class="nav">
+        <a href="apprendre.html">Apprendre</a>
+        <a href="lexique.html">Lexique</a>
+        <a href="outils.html">Outils</a>
+        <a href="github.html">GitHub</a>
+        <a href="quiz.html" style="color:var(--fuchsia)">Quiz</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="quiz-hero">
+  <div class="container">
+    <h1>Quel workflow IA<br>pour <em>ton métier ?</em></h1>
+    <p>8 questions · 2 minutes · aucune réponse n'est fausse. À la fin je te recommande les outils, les prompts et l'article à lire en premier pour démarrer sans te tromper.</p>
+    <div class="meta">
+      <span>8 questions</span>
+      <span>~2 min</span>
+      <span>Sans jugement</span>
+    </div>
+  </div>
+</section>
+
+<div class="quiz-wrap">
+  <div class="progress-bar"><div class="progress-bar-fill" id="progress" style="width:12.5%"></div></div>
+
+  <div id="quizPanel"></div>
+
+  <div id="resultPanel" class="result">
+    <div class="result-hero">
+      <div class="kicker">— Ton profil IA</div>
+      <h2 id="resultTitle">Ta reco · <em id="resultProfil">explorateur</em></h2>
+      <p id="resultPitch"></p>
+    </div>
+
+    <div class="result-block c-teal">
+      <h3>🔧 Les outils à installer en premier</h3>
+      <ul id="resultTools"></ul>
+    </div>
+
+    <div class="result-block c-fuchsia">
+      <h3>💬 Les prompts ciblés pour toi</h3>
+      <ul id="resultPrompts"></ul>
+    </div>
+
+    <div class="result-block c-orange">
+      <h3>📚 Par quoi commencer sur mon site</h3>
+      <ul id="resultReads"></ul>
+    </div>
+
+    <div class="result-cta">
+      <h3>Reçois mes retours chaque vendredi.</h3>
+      <p>Je teste des outils et des workflows IA toutes les semaines pour toi. Un mail le vendredi, sans pub, désinscription en 1 clic.</p>
+      <form id="resultForm">
+        <input type="email" name="email" placeholder="ton@email.com" required>
+        <button type="submit">Je m'inscris →</button>
+      </form>
+      <div class="note">Zéro spam · désinscription 1 clic</div>
+    </div>
+
+    <button class="restart" id="btnRestart">← Refaire le quiz</button>
+  </div>
+</div>
+
+<footer class="footer" id="contact" style="margin-top:80px">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · <a href="index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // === Data ===
+  const QUESTIONS = [
+    { id: 'metier', title: 'Quel métier principal ?', answers: [
+      { v: 'entrepreneur', t: 'Entrepreneur / solopreneur' },
+      { v: 'consultant', t: 'Consultant / coach / formateur' },
+      { v: 'creator', t: 'Créateur de contenu (YouTube, blog, newsletter)' },
+      { v: 'commerce', t: 'E-commerce / marketing / sales' },
+      { v: 'autre', t: 'Autre (freelance, salarié, curieux)' },
+    ]},
+    { id: 'usage', title: 'Tu utilises déjà l\'IA comment ?', answers: [
+      { v: 'jamais', t: 'Jamais ou quasiment' },
+      { v: 'chatgpt', t: 'ChatGPT / Claude web occasionnel' },
+      { v: 'regulier', t: 'Plusieurs fois par semaine, sur le web' },
+      { v: 'power', t: 'Tous les jours, je veux industrialiser' },
+    ]},
+    { id: 'tech', title: 'Ton niveau technique ?', answers: [
+      { v: 'zero', t: 'Zéro · j\'ai peur du terminal' },
+      { v: 'basique', t: 'Je sais lancer des commandes copiées-collées' },
+      { v: 'medium', t: 'Je touche à du no-code (Zapier, Make, n8n)' },
+      { v: 'avance', t: 'J\'ai déjà codé, je peux lire du JS ou Python' },
+    ]},
+    { id: 'temps', title: 'Tu es prêt·e à investir combien de temps par semaine ?', answers: [
+      { v: '1h', t: 'Moins d\'1h · je veux du prêt-à-l\'emploi' },
+      { v: '3h', t: '2-3h · apprendre mais sans y passer des soirées' },
+      { v: '5h', t: '4-5h · je veux construire des choses' },
+      { v: 'plus', t: 'Plus · je veux une maîtrise réelle' },
+    ]},
+    { id: 'objectif', title: 'Ton objectif principal ?', answers: [
+      { v: 'temps', t: 'Gagner du temps sur mes tâches répétitives' },
+      { v: 'contenu', t: 'Produire plus de contenu (articles, vidéos, posts)' },
+      { v: 'leads', t: 'Générer des leads / vendre plus' },
+      { v: 'produit', t: 'Construire mon propre outil / produit SaaS' },
+      { v: 'comprendre', t: 'Juste comprendre avant d\'investir' },
+    ]},
+    { id: 'budget', title: 'Budget IA mensuel ?', answers: [
+      { v: '0', t: '0 € · je veux du gratuit' },
+      { v: '20', t: '~20 € · ChatGPT ou Claude Pro' },
+      { v: '50', t: '30-50 € · quelques outils' },
+      { v: '200', t: '100-200 € · je veux le plan Max' },
+      { v: '500', t: '500+ € · je construis une stack pro' },
+    ]},
+    { id: 'frein', title: 'Ton plus gros frein aujourd\'hui ?', answers: [
+      { v: 'sais-pas', t: 'Je ne sais pas par où commencer' },
+      { v: 'jargon', t: 'Le jargon technique me décourage' },
+      { v: 'resultats', t: 'Je teste mais les résultats sont moyens' },
+      { v: 'temps', t: 'Je manque de temps pour explorer' },
+      { v: 'rien', t: 'Rien, je veux juste aller plus loin' },
+    ]},
+    { id: 'preference', title: 'Format d\'apprentissage préféré ?', answers: [
+      { v: 'lire', t: 'Lire des articles courts, concrets' },
+      { v: 'video', t: 'Regarder des vidéos YouTube' },
+      { v: 'faire', t: 'Mettre les mains dedans direct' },
+      { v: 'exemple', t: 'Voir des exemples de pros, copier-coller' },
+    ]},
+  ];
+
+  // === Recommandation engine (simple) ===
+  function recommend(answers) {
+    // Profils avec scoring cumul
+    const profils = {
+      'decouvreur': { label: 'découvreur curieux', score: 0 },
+      'builder':    { label: 'builder pragmatique', score: 0 },
+      'creator':    { label: 'créateur de contenu', score: 0 },
+      'growth':     { label: 'growth marketeur', score: 0 },
+      'explorer':   { label: 'explorer technique', score: 0 },
+    };
+
+    // Règles simples
+    if (['zero','basique'].includes(answers.tech)) profils.decouvreur.score += 3;
+    if (['avance','medium'].includes(answers.tech)) profils.builder.score += 2;
+    if (['avance'].includes(answers.tech)) profils.explorer.score += 2;
+    if (['creator'].includes(answers.metier)) profils.creator.score += 4;
+    if (['commerce'].includes(answers.metier)) profils.growth.score += 3;
+    if (['entrepreneur'].includes(answers.metier)) { profils.builder.score += 2; profils.growth.score += 1; }
+    if (['consultant'].includes(answers.metier)) profils.creator.score += 2;
+    if (answers.objectif === 'temps') profils.builder.score += 2;
+    if (answers.objectif === 'contenu') profils.creator.score += 3;
+    if (answers.objectif === 'leads') profils.growth.score += 3;
+    if (answers.objectif === 'produit') profils.builder.score += 3;
+    if (answers.objectif === 'comprendre') profils.decouvreur.score += 3;
+    if (answers.usage === 'jamais') profils.decouvreur.score += 2;
+    if (answers.usage === 'power') profils.builder.score += 2;
+    if (answers.budget === '0') profils.decouvreur.score += 1;
+    if (answers.budget === '200' || answers.budget === '500') profils.builder.score += 2;
+    if (answers.frein === 'sais-pas' || answers.frein === 'jargon') profils.decouvreur.score += 2;
+    if (answers.temps === '1h') profils.decouvreur.score += 1;
+    if (answers.temps === 'plus') profils.explorer.score += 2;
+
+    // Trouve le profil max
+    let top = 'decouvreur';
+    let max = 0;
+    for (const k of Object.keys(profils)) {
+      if (profils[k].score > max) { max = profils[k].score; top = k; }
+    }
+
+    const RECOS = {
+      'decouvreur': {
+        pitch: "Tu veux comprendre l'IA sans te perdre dans la technique. Ma reco · commence par le chat web (gratuit), lis 2-3 articles courts sur le vocabulaire, teste ChatGPT ou Claude pendant 2 semaines avant d'investir.",
+        tools: [
+          '<strong>Claude Web</strong> (gratuit) ou ChatGPT Plus à 20 $/mois · pour apprendre sans rien installer',
+          '<strong>Mon OPML veille IA</strong> · <a href="downloads/jeremy-ai-sources.opml" download>télécharge-le</a> pour suivre mes sources',
+          '<strong>Cheat-sheet A4</strong> quand tu seras prêt pour le terminal · <a href="downloads/cheatsheet-claude-code.html" target="_blank">ouvre-la</a>',
+        ],
+        prompts: [
+          'Le <a href="downloads/jeremy-prompts-pack.md" download>ton Leo ruleset</a> · pour que Claude réponde dans un français simple, sans jargon',
+          'Le skill <code>humanizer</code> dans mon pack · <a href="downloads/jeremy-claude-pack.zip" download>télécharge</a> · retire le ton "IA générique"',
+        ],
+        reads: [
+          '<a href="debutant.html">La page Débutant</a> · pour ceux qui ne savent pas par où commencer',
+          '<a href="lexique.html">Le lexique IA</a> · 8 mots techniques enfin expliqués',
+          '<a href="articles/agents-ia-guide.html">Le guide agents IA</a> · pour comprendre le mot "agent" sans jargon',
+        ],
+      },
+      'builder': {
+        pitch: "Tu veux construire, pas juste discuter. Ma reco · Claude Code Max + les 6 plugins officiels + un projet concret (un site perso, un agent Gmail, un script d'automatisation). En 1 semaine tu as ton premier livrable.",
+        tools: [
+          '<strong>Claude Code Max</strong> (200 $/mois) · l\'outil central de tout le reste',
+          '<strong>Les 6 plugins Anthropic</strong> · <a href="downloads/install-plugins.sh" download>télécharge le script</a>, install en 30 secondes',
+          '<strong>dev-browser</strong> · pour que Claude pilote un navigateur (scraping, test, screenshots)',
+          '<strong>GitHub + Vercel</strong> · sauvegarde auto + déploiement gratuit',
+        ],
+        prompts: [
+          'Les <a href="downloads/jeremy-prompts-pack.md" download>3 prompts perso</a> · explainer + social-poster + ton Leo',
+          'Mon <a href="downloads/CLAUDE.md" download>CLAUDE.md</a> · colle-le dans <code>~/.claude/</code> et adapte',
+        ],
+        reads: [
+          '<a href="articles/claude-code-workflow-tips-after-6-months-of-daily-.html">Claude Code après 6 mois · vu par un non-dev</a>',
+          '<a href="claude-code.html">Mon guide Claude Code complet</a>',
+          '<a href="github.html">GitHub pour les non-devs</a>',
+          '<a href="articles/superpowers.html">Superpowers · le plugin qui force Claude à réfléchir</a>',
+        ],
+      },
+      'creator': {
+        pitch: "Tu produis du contenu et tu veux multiplier ton output sans perdre ta voix. Ma reco · un pipeline article → réseaux, tes règles de ton dans un CLAUDE.md, un skill content-production. En 2 semaines tu publies 3× plus.",
+        tools: [
+          '<strong>Claude Code Max</strong> · pour industrialiser ta production',
+          '<strong>Zernio</strong> · planificateur LinkedIn/X depuis mon back-office',
+          '<strong>Remotion + fal.ai</strong> (avancé) · si tu veux faire des reels IA',
+        ],
+        prompts: [
+          'Le prompt <a href="downloads/jeremy-prompts-pack.md" download>"Décliner article → 2 drafts sociaux"</a> · mon workflow exact',
+          'Les skills <code>content-production</code>, <code>copywriting</code>, <code>social-content</code> · dans <a href="downloads/jeremy-claude-pack.zip" download>mon pack</a>',
+        ],
+        reads: [
+          '<a href="articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html">Les Skills Claude Code, expliqués pour un non-dev</a>',
+          '<a href="articles/demo-pipeline-publish.html">Mon pipeline de publication automatique</a>',
+          '<a href="articles/better-call-vs-associe.html">Comment je décline mes articles en posts sociaux</a>',
+        ],
+      },
+      'growth': {
+        pitch: "Tu veux plus de leads, plus de ventes, plus de conversions. Ma reco · un agent Gmail qui qualifie et répond, un skill cold-email personnalisé, un workflow CRM + IA. En 1 mois tu doubles ton taux de réponse.",
+        tools: [
+          '<strong>Claude Code Max + Agent SDK</strong> · pour construire tes agents',
+          '<strong>n8n ou Make</strong> · pour automatiser les workflows CRM',
+          '<strong>Resend</strong> · email transactionnel programmable',
+        ],
+        prompts: [
+          'Le skill <code>cold-email</code> · dans <a href="downloads/jeremy-claude-pack.zip" download>mon pack</a>, règles de Alireza Rezvani',
+          'Le prompt <a href="downloads/jeremy-prompts-pack.md" download>"explainer" adapté</a> pour qualifier tes leads',
+        ],
+        reads: [
+          '<a href="articles/tuto-agent-gmail.html">Construire un agent Gmail</a>',
+          '<a href="articles/construit-avec-claude-code-gmf.html">Comment j\'ai construit l\'outil de vente GMF</a>',
+          '<a href="articles/agents-ia-guide.html">Le guide complet des agents IA</a>',
+        ],
+      },
+      'explorer': {
+        pitch: "Tu veux aller au-delà des recettes, comprendre les modèles, tester les frontiers. Ma reco · Superpowers méthodologie, lecture des papers, exploration des architectures. Tu es dans la minorité qui comprend VRAIMENT.",
+        tools: [
+          '<strong>Claude Code Max</strong> avec tous les plugins',
+          '<strong>Superpowers</strong> · méthodologie TDD + subagent-driven-dev',
+          '<strong>Context7 + Simon Willison tools</strong> · pour rester à la pointe',
+          '<strong>Supabase</strong> · pour stocker de la mémoire d\'agents',
+        ],
+        prompts: [
+          'Le <a href="downloads/jeremy-prompts-pack.md" download>ton Leo ruleset</a> + les 3 prompts perso',
+          'Mon <a href="downloads/CLAUDE.md" download>CLAUDE.md global</a> + les skills avancés du <a href="downloads/jeremy-claude-pack.zip" download>pack</a>',
+        ],
+        reads: [
+          '<a href="articles/superpowers.html">Superpowers · le plugin qui force Claude à réfléchir</a>',
+          '<a href="articles/karpathy.html">Les travaux de Karpathy, vulgarisés</a>',
+          '<a href="articles/autoresearch-karpathy.html">Les agents auto-améliorants</a>',
+          '<a href="articles/llm-wiki-karpathy.html">Le LLM Wiki, ton deuxième cerveau</a>',
+        ],
+      },
+    };
+
+    return { profil: profils[top].label, reco: RECOS[top] };
+  }
+
+  // === UI ===
+  let current = 0;
+  const answers = {};
+  const panel = document.getElementById('quizPanel');
+  const progress = document.getElementById('progress');
+
+  function render() {
+    const q = QUESTIONS[current];
+    panel.innerHTML = `
+      <div class="question active">
+        <div class="question-num">Question ${current + 1} / ${QUESTIONS.length}</div>
+        <h2>${q.title}</h2>
+        <div class="answers">
+          ${q.answers.map(a => `<button class="answer ${answers[q.id] === a.v ? 'selected' : ''}" data-v="${a.v}">${a.t}</button>`).join('')}
+        </div>
+        <div class="q-actions">
+          <button class="q-btn q-btn-prev" ${current === 0 ? 'disabled' : ''} id="btnPrev">← Précédent</button>
+          <button class="q-btn q-btn-next" id="btnNext" ${!answers[q.id] ? 'disabled' : ''}>
+            ${current === QUESTIONS.length - 1 ? 'Voir le résultat →' : 'Suivant →'}
+          </button>
+        </div>
+      </div>
+    `;
+    progress.style.width = (((current + 1) / QUESTIONS.length) * 100) + '%';
+
+    panel.querySelectorAll('.answer').forEach(btn => {
+      btn.addEventListener('click', () => {
+        answers[q.id] = btn.dataset.v;
+        panel.querySelectorAll('.answer').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('btnNext').disabled = false;
+      });
+    });
+    document.getElementById('btnPrev')?.addEventListener('click', () => {
+      if (current > 0) { current--; render(); }
+    });
+    document.getElementById('btnNext').addEventListener('click', () => {
+      if (!answers[q.id]) return;
+      if (current < QUESTIONS.length - 1) { current++; render(); }
+      else showResult();
+    });
+  }
+
+  function showResult() {
+    const { profil, reco } = recommend(answers);
+    document.getElementById('resultProfil').textContent = profil;
+    document.getElementById('resultPitch').textContent = reco.pitch;
+    document.getElementById('resultTools').innerHTML = reco.tools.map(t => `<li>${t}</li>`).join('');
+    document.getElementById('resultPrompts').innerHTML = reco.prompts.map(t => `<li>${t}</li>`).join('');
+    document.getElementById('resultReads').innerHTML = reco.reads.map(t => `<li>${t}</li>`).join('');
+    panel.style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('resultPanel').classList.add('active');
+    document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.getElementById('btnRestart').addEventListener('click', () => {
+    for (const k of Object.keys(answers)) delete answers[k];
+    current = 0;
+    panel.style.display = 'block';
+    document.querySelector('.progress-bar').style.display = 'block';
+    document.getElementById('resultPanel').classList.remove('active');
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Form submit
+  document.getElementById('resultForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+    const btn = e.target.querySelector('button');
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = '...';
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'quiz-' + document.getElementById('resultProfil').textContent.split(' ')[0] }),
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      btn.textContent = '✓ Merci !';
+    } catch (err) {
+      btn.textContent = '× Erreur';
+    }
+    setTimeout(() => { btn.disabled = false; btn.textContent = original; }, 3500);
+  });
+
+  // Theme
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle?.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  render();
+</script>
+
+</body>
+</html>

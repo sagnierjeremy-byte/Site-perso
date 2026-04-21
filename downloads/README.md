@@ -14,6 +14,7 @@ Si quelque chose ne fonctionne pas ou n'est pas clair, réponds simplement à ma
 |---|---|
 | `CLAUDE.md` | Mes instructions globales pour Claude Code (anonymisées pour toi) |
 | `skills/` | Mes 26 skills custom (cold-email, copywriting, graphify, etc.) |
+| `install-plugins.sh` | Script bash qui installe mes 6 plugins Anthropic officiels (superpowers, context7, claude-md-management, frontend-design, code-review, code-simplifier) |
 | `README.md` | Ce fichier |
 
 ---
@@ -74,13 +75,40 @@ Relance Claude Code et ils sont actifs. Tu peux les lister dans l'UI ou avec `/s
 
 ---
 
-## Étape 4 — Tester
+## Étape 4 — Installer mes 6 plugins officiels
+
+Les plugins Anthropic officiels ajoutent des super-pouvoirs à Claude Code · méthodologie de dev, docs à jour, audit des CLAUDE.md, etc. J'en utilise 6 au quotidien.
+
+Depuis le dossier du pack, lance le script :
+
+```bash
+bash install-plugins.sh
+```
+
+Ça installe en 30 secondes :
+
+- `superpowers` · méthodologie complète + 3 commandes slash (`/brainstorm`, `/write-plan`, `/execute-plan`)
+- `context7` · docs à jour de n'importe quel framework
+- `claude-md-management` · audit automatique de tes CLAUDE.md (`/revise-claude-md`)
+- `frontend-design` · UI production-grade
+- `code-review` · review multi-agents
+- `code-simplifier` · simplifie le code généré
+
+Après l'install, **redémarre Claude Code** (ferme et rouvre) pour charger les commandes slash.
+
+Pour vérifier : `claude plugin list`. Pour en savoir plus : https://jeremysagnier.com/claude-code.html#plugins
+
+---
+
+## Étape 5 — Tester
 
 Ouvre un projet existant (ou crée un dossier vide), lance `claude`, et demande-lui :
 
 > "Tu as quels skills disponibles ?"
 
 Il va te lister les skills qu'il a chargés. Si tu vois `cold-email`, `copywriting`, `graphify` dans la liste, tout fonctionne.
+
+Teste aussi une commande slash d'un plugin : `/brainstorm` ou `/revise-claude-md`. Si elle est reconnue, les plugins sont bien actifs.
 
 ---
 

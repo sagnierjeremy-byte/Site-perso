@@ -38,6 +38,36 @@ parlais à un non-initié".
 Vérifier s'il existe un skill adapté AVANT de répondre.
 Priorité au skill le plus spécialisé (ex: cold-email > copywriting).
 
+## Plugins Claude Code installés (scope user)
+
+Installés depuis le marketplace officiel Anthropic (`claude-plugins-official`) via la commande `claude plugin install <nom>`. Tous actifs dans n'importe quel projet.
+
+| Plugin | Ce que ça apporte | Usage quotidien |
+|---|---|---|
+| `superpowers` | Méthodologie dev · 14 skills (brainstorming, writing-plans, systematic-debugging…) · 3 commandes slash (`/brainstorm`, `/write-plan`, `/execute-plan`) | Démarrer un projet complexe avec rigueur |
+| `claude-md-management` | Skill `claude-md-improver` + commande `/revise-claude-md` · audit qualité des `CLAUDE.md` | Ponctuel · à lancer dans chaque projet pour nettoyer le CLAUDE.md |
+| `frontend-design` | Skill auto-déclenché sur les refontes UI · génère des interfaces production-grade | À chaque fois qu'une page/composant bouge |
+| `context7` | MCP server `@upstash/context7-mcp` · docs à jour de n'importe quel framework (Next.js, Supabase, Stripe, etc.) | **Indispensable** dès qu'on branche un framework récent |
+| `code-review` | Commande `/code-review` · multi-agents spécialisés | Avant un gros commit/PR |
+| `code-simplifier` | Agent `code-simplifier` · simplifie le code récemment modifié | Après une génération verbeuse de Claude |
+
+### Commandes slash utiles (après restart Claude Code)
+```bash
+/brainstorm           # session socratique pour raffiner une idée avant de coder
+/write-plan           # générer un plan d'implémentation structuré
+/execute-plan         # exécuter un plan avec checkpoints et review
+/revise-claude-md     # audit + améliorations du CLAUDE.md du projet courant
+/code-review          # review automatique du diff courant
+```
+
+### Gestion
+```bash
+claude plugin list                    # voir installés
+claude plugin install <nom>           # installer
+claude plugin disable <nom>           # désactiver sans désinstaller
+claude plugin marketplace add <repo>  # ajouter une marketplace tierce
+```
+
 ## Stack technique par défaut
 - **Frontend** : Next.js 16 App Router + TypeScript + Tailwind CSS
 - **Backend/DB** : Supabase (PostgreSQL + Auth + RLS + Edge Functions)

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Newsletter</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Ton CRM newsletter</div>
+          <h1>Les gens<br>qui te <em>suivent.</em></h1>
+          <p class="page-sub">Chaque personne ici a laissé son email pour recevoir ta newsletter. <strong>Tu vois qui s'inscrit, par où ils arrivent</strong>, et tu peux exporter la liste quand tu veux. On utilise <strong>Resend</strong> par défaut · on va migrer vers <strong>Brevo</strong> quand tu auras besoin de segments + workflows plus riches (voir Réglages).</p>
+        </div>
+        <div style="display:flex; gap:8px">
+          <button class="btn btn-ghost" id="btnRefresh">Rafraîchir</button>
+          <button class="btn btn-primary" id="btnExport">Exporter CSV</button>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card s-teal">
+          <div class="stat-label">Inscrits actifs</div>
+          <div class="stat-value" id="statTotal">—</div>
+          <div class="stat-hint" id="statProvider">Chargement…</div>
+        </div>
+        <div class="stat-card s-fuchsia">
+          <div class="stat-label">Nouveaux · 7 derniers jours</div>
+          <div class="stat-value" id="stat7j">—</div>
+          <div class="stat-hint">Croissance hebdo</div>
+        </div>
+        <div class="stat-card s-orange">
+          <div class="stat-label">Nouveaux · 30 jours</div>
+          <div class="stat-value" id="stat30j">—</div>
+          <div class="stat-hint">Croissance mensuelle</div>
+        </div>
+        <div class="stat-card s-ink">
+          <div class="stat-label">Désinscrits</div>
+          <div class="stat-value" id="statUnsub">—</div>
+          <div class="stat-hint">Sans drame · c'est normal</div>
+        </div>
+      </div>
+
+      <div class="pageNote" id="providerNote" style="display:none"></div>
+
+      <!-- Segments par source -->
+      <section class="section">
+        <div class="section-head">
+          <h2>D'où viennent tes inscrits</h2>
+          <span class="section-count" id="sourcesCount">—</span>
+        </div>
+        <div id="sourcesList" class="stat-grid"></div>
+      </section>
+
+      <!-- Liste complète -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Tous tes inscrits</h2>
+          <span class="section-count" id="listCount">—</span>
+          <div style="margin-left:auto">
+            <input type="text" id="searchInput" placeholder="Filtrer par email ou source..."
+              style="padding:7px 12px; border-radius:999px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:12px; font-family:'JetBrains Mono',monospace; width:260px; max-width:40vw">
+          </div>
+        </div>
+        <div id="contactsArea">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('newsletter');
+
+  let allContacts = [];
+  let currentProvider = 'resend';
+
+  async function load() {
+    try {
+      const [stats, contacts] = await Promise.all([
+        api.get('/api/newsletter/stats').catch(() => null),
+        api.get('/api/newsletter/contacts').catch(() => ({ contacts: [] })),
+      ]);
+
+      if (!stats || stats.error) {
+        showProviderWarning();
+        return;
+      }
+
+      currentProvider = stats.provider || 'resend';
+      document.getElementById('statTotal').textContent = stats.total || 0;
+      document.getElementById('stat7j').textContent = stats.new7d || 0;
+      document.getElementById('stat30j').textContent = stats.new30d || 0;
+      document.getElementById('statUnsub').textContent = stats.unsub || 0;
+      document.getElementById('statProvider').textContent = `Via ${stats.provider || 'Resend'}`;
+
+      allContacts = contacts.contacts || [];
+      renderSources(allContacts);
+      renderList(allContacts);
+
+    } catch (e) {
+      showProviderWarning(e.message);
+    }
+  }
+
+  function showProviderWarning(msg) {
+    const note = document.getElementById('providerNote');
+    note.style.display = 'block';
+    note.innerHTML = `<strong>Clé API newsletter pas encore configurée.</strong> Pour que cette page s'anime, il te faut une variable d'environnement <code>RESEND_API_KEY</code> ou <code>BREVO_API_KEY</code>. Va dans <strong>Réglages</strong> pour voir comment faire. ${msg ? `<br><br>Détail technique : <code>${escapeHtml(msg)}</code>` : ''}`;
+    document.getElementById('contactsArea').innerHTML = `<div class="empty-state"><strong>Rien à afficher pour l'instant</strong>Configure ta clé API et recharge.</div>`;
+  }
+
+  function renderSources(contacts) {
+    const bySource = {};
+    for (const c of contacts) {
+      const s = c.source || 'direct';
+      bySource[s] = (bySource[s] || 0) + 1;
+    }
+    const entries = Object.entries(bySource).sort((a, b) => b[1] - a[1]);
+    document.getElementById('sourcesCount').textContent = `${entries.length} sources`;
+    const colors = ['s-teal', 's-fuchsia', 's-orange', 's-ink'];
+    document.getElementById('sourcesList').innerHTML = entries.map((e, i) => `
+      <div class="stat-card ${colors[i % colors.length]}">
+        <div class="stat-label">${escapeHtml(e[0])}</div>
+        <div class="stat-value">${e[1]}</div>
+        <div class="stat-hint">${Math.round(e[1] / contacts.length * 100)}% des inscrits</div>
+      </div>
+    `).join('');
+  }
+
+  function renderList(contacts) {
+    document.getElementById('listCount').textContent = `${contacts.length} contacts`;
+    const el = document.getElementById('contactsArea');
+    if (contacts.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun inscrit pour l'instant</strong>Tes premiers inscrits apparaîtront ici dès que quelqu'un laisse son email sur le site.</div>`;
+      return;
+    }
+    const rows = contacts.map(c => `
+      <tr>
+        <td><strong>${escapeHtml(c.email)}</strong></td>
+        <td>${c.firstName ? escapeHtml(c.firstName) : '<span style="color:var(--ink-muted)">—</span>'}</td>
+        <td><span class="tag t-fuchsia">${escapeHtml(c.source || 'direct')}</span></td>
+        <td>${fmtDate(c.createdAt)}</td>
+        <td>${c.unsubscribed ? '<span class="tag t-orange">Désinscrit</span>' : '<span class="tag t-teal">Actif</span>'}</td>
+      </tr>
+    `).join('');
+    el.innerHTML = `
+      <table class="contact-list">
+        <thead>
+          <tr><th>Email</th><th>Prénom</th><th>Source</th><th>Inscrit le</th><th>Statut</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  document.getElementById('searchInput').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) return renderList(allContacts);
+    const filtered = allContacts.filter(c =>
+      (c.email || '').toLowerCase().includes(q) ||
+      (c.source || '').toLowerCase().includes(q) ||
+      (c.firstName || '').toLowerCase().includes(q)
+    );
+    renderList(filtered);
+  });
+
+  document.getElementById('btnRefresh').addEventListener('click', load);
+
+  document.getElementById('btnExport').addEventListener('click', () => {
+    if (allContacts.length === 0) {
+      toast('Rien à exporter · la liste est vide', 'info');
+      return;
+    }
+    const header = 'email,firstName,source,createdAt,unsubscribed\n';
+    const body = allContacts.map(c =>
+      [c.email, c.firstName || '', c.source || '', c.createdAt || '', c.unsubscribed ? '1' : '0']
+        .map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')
+    ).join('\n');
+    const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `newsletter-contacts-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    toast('CSV téléchargé ✓', 'ok');
+  });
+
+  load();
+</script>
+
+</body>
+</html>

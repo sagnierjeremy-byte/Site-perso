@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier éditorial — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+<style>
+  .cal-toolbar {
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 18px;
+  }
+  .legend {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+  .legend-item::before {
+    content: "";
+    width: 10px; height: 10px; border-radius: 3px;
+  }
+  .legend-newsletter::before { background: var(--teal); }
+  .legend-linkedin::before { background: var(--fuchsia); }
+  .legend-twitter::before { background: var(--orange); }
+  .legend-note::before { background: var(--ink-muted); }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .cal-weekday {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 0;
+  }
+  .cal-cell {
+    min-height: 110px;
+    background: var(--bg-2);
+    border-radius: 8px;
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: background .15s, box-shadow .15s;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .cal-cell:hover { background: color-mix(in srgb, var(--teal) 8%, var(--bg-2)); box-shadow: 0 0 0 2px rgba(0,178,169,.25); }
+  .cal-cell.today { box-shadow: inset 0 0 0 2px var(--fuchsia); }
+  .cal-cell.past { opacity: .55; }
+  .cal-cell.faded { opacity: .4; }
+
+  .cal-cell-date {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .cal-cell-weekday {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .slot {
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 10.5px;
+    line-height: 1.25;
+    color: #fff;
+    cursor: grab;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .slot.done { opacity: .5; text-decoration: line-through; }
+  .slot.type-newsletter { background: var(--teal); }
+  .slot.type-linkedin { background: var(--fuchsia); }
+  .slot.type-twitter { background: var(--orange); }
+  .slot.type-article { background: var(--ink); }
+  .slot.type-note { background: var(--ink-muted); }
+
+  /* Suggestions de créneaux auto */
+  .cal-cell.is-newsletter-tues::after,
+  .cal-cell.is-newsletter-fri::after {
+    content: "✉";
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 11px;
+    color: var(--teal);
+    opacity: .4;
+  }
+
+  /* Modal simple */
+  .cal-modal {
+    position: fixed; inset: 0;
+    background: rgba(10,10,10,.55);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+  }
+  .cal-modal.open { display: flex; }
+  .cal-modal-inner {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px 26px;
+    max-width: 460px;
+    width: calc(100vw - 32px);
+    border: 1px solid var(--line-strong);
+  }
+  .cal-modal h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+  .cal-modal label {
+    display: block; margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .cal-modal input, .cal-modal select, .cal-modal textarea {
+    display: block; width: 100%; margin-top: 5px;
+    padding: 10px 12px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-2);
+    border-radius: 8px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .cal-modal textarea { resize: vertical; min-height: 70px; }
+  .cal-modal-actions {
+    display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px;
+    flex-wrap: wrap;
+  }
+
+  .slot-dragging { opacity: .4; }
+  .cal-cell.drag-over { background: color-mix(in srgb, var(--fuchsia) 18%, var(--bg-2)); box-shadow: 0 0 0 2px var(--fuchsia); }
+
+  @media (max-width: 900px) {
+    .cal-grid { grid-template-columns: repeat(2, 1fr); }
+    .cal-weekday { display: none; }
+    .cal-cell-weekday { display: inline; font-weight: 700; color: var(--ink); font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Calendrier éditorial</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— 30 jours à venir</div>
+          <h1>Planifie<br><em>ta production.</em></h1>
+          <p class="page-sub">Pose une newsletter, un post LinkedIn, une idée. <strong>Clique une case</strong> pour ajouter. <strong>Drag-and-drop</strong> pour déplacer. Les mardis et vendredis sont tes créneaux newsletter par défaut.</p>
+        </div>
+      </div>
+
+      <div class="cal-toolbar">
+        <div class="legend">
+          <span class="legend-item legend-newsletter">Newsletter</span>
+          <span class="legend-item legend-linkedin">LinkedIn</span>
+          <span class="legend-item legend-twitter">X</span>
+          <span class="legend-item legend-note">Note</span>
+        </div>
+      </div>
+
+      <div id="calGrid"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal ajout/édition slot -->
+<div class="cal-modal" id="calModal">
+  <div class="cal-modal-inner">
+    <h3 id="modalTitle">Nouveau créneau</h3>
+    <label>Date
+      <input type="date" id="modalDate" />
+    </label>
+    <label>Type
+      <select id="modalType">
+        <option value="newsletter">✉ Newsletter</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="twitter">X</option>
+        <option value="article">📰 Article</option>
+        <option value="note">✎ Note libre</option>
+      </select>
+    </label>
+    <label>Article lié (slug optionnel)
+      <select id="modalSlug">
+        <option value="">— aucun —</option>
+      </select>
+    </label>
+    <label>Note / titre court
+      <textarea id="modalNote" placeholder="Ex: Newsletter hebdo · thème IA solopreneur"></textarea>
+    </label>
+    <label>Statut
+      <select id="modalStatus">
+        <option value="planned">Planifié</option>
+        <option value="done">Fait ✓</option>
+        <option value="skipped">Sauté</option>
+      </select>
+    </label>
+    <div id="modalLinks" style="margin-top:10px; display:none; flex-wrap:wrap; gap:8px;"></div>
+    <div class="cal-modal-actions">
+      <button class="btn btn-ghost" id="modalDelete" style="display:none">Supprimer</button>
+      <button class="btn btn-ghost" id="modalCancel">Annuler</button>
+      <button class="btn btn-primary" id="modalSave">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('calendar');
+
+  const DAYS_AHEAD = 30;
+  const WEEKDAYS = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const WEEKDAYS_FULL = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+
+  let state = { slots: [], articles: [], editId: null };
+
+  function ymd(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  async function load() {
+    try {
+      const [calData, arts] = await Promise.all([
+        api.get('/api/calendar'),
+        api.get('/api/articles'),
+      ]);
+      state.slots = calData.slots || [];
+      state.articles = arts || [];
+      renderGrid();
+      hydrateSlugDropdown();
+      handleHashShortcut();
+    } catch (e) {
+      toast(`Ça a coincé : ${e.message}`, 'err', 6000);
+    }
+  }
+
+  // Ouvre automatiquement le modal de planification si hash #plan-<slug>
+  function handleHashShortcut() {
+    const h = (location.hash || '').replace(/^#/, '');
+    if (!h.startsWith('plan-')) return;
+    const slug = h.slice(5);
+    // Pré-remplit : date = prochain mardi ou vendredi disponible
+    const today = new Date(); today.setHours(0,0,0,0);
+    let proposed = new Date(today);
+    for (let i = 1; i < 14; i++) {
+      proposed = new Date(today); proposed.setDate(today.getDate() + i);
+      const wd = (proposed.getDay() + 6) % 7; // 0=lun, 1=mar, 4=ven
+      if (wd === 1 || wd === 4) break;
+    }
+    // Ouvre modal en mode "nouveau" avec slug + date pré-remplis
+    openModal(null, ymd(proposed));
+    document.getElementById('modalSlug').value = slug;
+    document.getElementById('modalNote').value = `Planifier : ${slug}`;
+    updateModalLinks();
+    toast(`Créneau pour "${slug}" — ajuste et enregistre`, 'info', 5000);
+  }
+
+  function hydrateSlugDropdown() {
+    const sel = document.getElementById('modalSlug');
+    sel.innerHTML = `<option value="">— aucun —</option>` +
+      state.articles.map(a => `<option value="${escapeHtml(a.slug)}">${escapeHtml(a.slug)}</option>`).join('');
+  }
+
+  function renderGrid() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    // Commencer au lundi de la semaine en cours
+    const weekDay = (today.getDay() + 6) % 7; // 0=lundi
+    const start = new Date(today);
+    start.setDate(start.getDate() - weekDay);
+
+    const totalCells = 35; // 5 semaines
+    const html = [];
+    // Header jours
+    html.push(`<div class="cal-grid">`);
+    for (const d of WEEKDAYS) html.push(`<div class="cal-weekday">${d}</div>`);
+
+    for (let i = 0; i < totalCells; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      const dStr = ymd(d);
+      const isPast = d < today;
+      const isToday = d.getTime() === today.getTime();
+      const weekday = (d.getDay() + 6) % 7; // 0=lun
+      const isNewsletterSuggest = (weekday === 1 || weekday === 4); // mardi, vendredi
+
+      const daySlots = state.slots.filter(s => s.date === dStr);
+      const cellClasses = [
+        'cal-cell',
+        isPast ? 'past' : '',
+        isToday ? 'today' : '',
+        i >= 30 ? 'faded' : '',
+        isNewsletterSuggest && daySlots.length === 0 && !isPast ? `is-newsletter-${weekday === 1 ? 'tues' : 'fri'}` : '',
+      ].filter(Boolean).join(' ');
+
+      html.push(`
+        <div class="${cellClasses}" data-date="${dStr}">
+          <div class="cal-cell-date">${d.getDate()}</div>
+          <div class="cal-cell-weekday">${WEEKDAYS_FULL[weekday]}</div>
+          ${daySlots.map(slotHTML).join('')}
+        </div>
+      `);
+    }
+    html.push(`</div>`);
+    document.getElementById('calGrid').innerHTML = html.join('');
+    attachInteractions();
+  }
+
+  function slotHTML(s) {
+    const lbl = s.note || s.slug || s.type;
+    return `<div class="slot type-${s.type} ${s.status === 'done' ? 'done' : ''}" draggable="true" data-id="${s.id}" title="${escapeHtml(s.note || '')}">${escapeHtml(lbl)}</div>`;
+  }
+
+  function attachInteractions() {
+    // Click sur cellule vide ou ajout
+    document.querySelectorAll('.cal-cell').forEach(cell => {
+      cell.addEventListener('click', e => {
+        const slotEl = e.target.closest('.slot');
+        if (slotEl) {
+          openModal(slotEl.dataset.id, null);
+          return;
+        }
+        openModal(null, cell.dataset.date);
+      });
+      cell.addEventListener('dragover', e => {
+        e.preventDefault();
+        cell.classList.add('drag-over');
+      });
+      cell.addEventListener('dragleave', () => cell.classList.remove('drag-over'));
+      cell.addEventListener('drop', async e => {
+        e.preventDefault();
+        cell.classList.remove('drag-over');
+        const id = e.dataTransfer.getData('text/plain');
+        const newDate = cell.dataset.date;
+        const slot = state.slots.find(s => s.id === id);
+        if (slot && slot.date !== newDate) {
+          slot.date = newDate;
+          try {
+            await api.post('/api/calendar/slot', slot);
+            toast(`Déplacé au ${newDate}`, 'ok', 3500);
+            renderGrid();
+          } catch (err) { toast(`Erreur : ${err.message}`, 'err'); }
+        }
+      });
+    });
+
+    document.querySelectorAll('.slot').forEach(el => {
+      el.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', el.dataset.id);
+        el.classList.add('slot-dragging');
+      });
+      el.addEventListener('dragend', () => el.classList.remove('slot-dragging'));
+    });
+  }
+
+  function openModal(editId, prefillDate) {
+    state.editId = editId;
+    const modal = document.getElementById('calModal');
+    const title = document.getElementById('modalTitle');
+    const delBtn = document.getElementById('modalDelete');
+
+    if (editId) {
+      const s = state.slots.find(x => x.id === editId);
+      if (!s) return;
+      title.textContent = 'Modifier le créneau';
+      document.getElementById('modalDate').value = s.date;
+      document.getElementById('modalType').value = s.type;
+      document.getElementById('modalSlug').value = s.slug || '';
+      document.getElementById('modalNote').value = s.note || '';
+      document.getElementById('modalStatus').value = s.status || 'planned';
+      delBtn.style.display = 'inline-block';
+    } else {
+      title.textContent = 'Nouveau créneau';
+      document.getElementById('modalDate').value = prefillDate;
+      document.getElementById('modalType').value = 'newsletter';
+      document.getElementById('modalSlug').value = '';
+      document.getElementById('modalNote').value = '';
+      document.getElementById('modalStatus').value = 'planned';
+      delBtn.style.display = 'none';
+    }
+    updateModalLinks();
+    modal.classList.add('open');
+  }
+
+  // Rend des liens contextuels vers draft / article / backlog selon le slug choisi
+  function updateModalLinks() {
+    const slug = document.getElementById('modalSlug').value;
+    const linksDiv = document.getElementById('modalLinks');
+    if (!slug) { linksDiv.style.display = 'none'; linksDiv.innerHTML = ''; return; }
+    const isPublished = state.articles.some(a => a.slug === slug);
+    const links = [
+      `<a class="btn btn-ghost" href="/admin/modules/backlog/#${encodeURIComponent(slug)}" target="_blank">💡 Voir l'idée</a>`,
+      `<a class="btn btn-ghost" href="/admin/modules/drafts/?slug=${encodeURIComponent(slug)}" target="_blank">✏ Draft</a>`,
+    ];
+    if (isPublished) {
+      links.push(`<a class="btn btn-ghost" href="/articles/${encodeURIComponent(slug)}.html" target="_blank">📰 Article ↗</a>`);
+    }
+    linksDiv.innerHTML = links.join('');
+    linksDiv.style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('calModal').classList.remove('open');
+    state.editId = null;
+  }
+
+  document.getElementById('modalSlug').addEventListener('change', updateModalLinks);
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('calModal').addEventListener('click', e => {
+    if (e.target.id === 'calModal') closeModal();
+  });
+
+  document.getElementById('modalSave').addEventListener('click', async () => {
+    const body = {
+      id: state.editId || undefined,
+      date: document.getElementById('modalDate').value,
+      type: document.getElementById('modalType').value,
+      slug: document.getElementById('modalSlug').value || null,
+      note: document.getElementById('modalNote').value.trim(),
+      status: document.getElementById('modalStatus').value,
+    };
+    if (!body.date || !body.type) {
+      toast('Date et type obligatoires', 'err');
+      return;
+    }
+    try {
+      await api.post('/api/calendar/slot', body);
+      toast(state.editId ? 'Créneau mis à jour' : 'Créneau ajouté', 'ok', 3500);
+      closeModal();
+      load();
+    } catch (err) {
+      toast(`Erreur : ${err.message}`, 'err');
+    }
+  });
+
+  document.getElementById('modalDelete').addEventListener('click', async () => {
+    if (!state.editId) return;
+    if (!confirm('Supprimer ce créneau ?')) return;
+    try {
+      await api.del(`/api/calendar/slot/${state.editId}`);
+      toast('Supprimé', 'ok', 3500);
+      closeModal();
+      load();
+    } catch (err) {
+      toast(`Erreur : ${err.message}`, 'err');
+    }
+  });
+
+  load();
+</script>
+
+</body>
+</html>

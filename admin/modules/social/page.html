@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posts sociaux — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/shared/admin.css">
+<style>
+  .account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .account-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    display: flex; align-items: center; gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .account-card::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+  .account-card.p-linkedin::before  { background: #0077b5 }
+  .account-card.p-twitter::before   { background: #0a0a0a }
+  .account-card.p-instagram::before { background: linear-gradient(90deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5) }
+  .account-card.p-threads::before   { background: #0a0a0a }
+  .account-logo { width: 38px; height: 38px; border-radius: 10px; background: var(--bg-2); display: inline-flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0 }
+  .account-info { flex: 1; min-width: 0 }
+  .account-platform { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700 }
+  .account-name { font-weight: 700; color: var(--ink); font-size: 14px }
+
+  /* Décliner article table */
+  .decline-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .decline-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .decline-row-title { font-weight: 700; color: var(--ink); font-size: 14px; line-height: 1.3 }
+  .decline-row-meta { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-muted); margin-top: 2px }
+  .decline-status-pills { display: flex; gap: 4px }
+  .pill-channel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+  .pill-channel.done    { background: rgba(0,178,169,.18); color: var(--teal) }
+  .pill-channel.pending { background: var(--bg-2); color: var(--ink-muted) }
+  .pill-channel.sched   { background: rgba(255,130,0,.18); color: var(--orange) }
+  .pill-channel.published { background: var(--ink); color: var(--bg) }
+
+  /* Drafts cards par article */
+  .draft-group {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .draft-group-head {
+    padding: 14px 18px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .draft-group-head h3 { font-family: 'Archivo Black', sans-serif; font-size: 15px; letter-spacing: -.01em; text-transform: uppercase; color: var(--ink); line-height: 1.15 }
+  .draft-group-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--line);
+  }
+  .draft-channel {
+    background: var(--surface);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+    min-height: 120px;
+    position: relative;
+  }
+  .draft-channel-head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .draft-channel-head .ch { color: var(--ink) }
+  .draft-channel-head .status { font-size: 9.5px; padding: 2px 8px; border-radius: 999px }
+  .draft-channel-head .status.draft     { background: var(--bg-2); color: var(--ink-muted) }
+  .draft-channel-head .status.scheduled { background: rgba(255,130,0,.18); color: var(--orange) }
+  .draft-channel-head .status.published { background: rgba(0,178,169,.18); color: var(--teal) }
+  .draft-channel-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-muted);
+  }
+  .draft-channel-actions {
+    margin-top: auto;
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .draft-channel-actions .btn { padding: 5px 10px; font-size: 10px }
+
+  /* Modal éditeur social */
+  .social-modal-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,10,10,.72);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .social-modal {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    max-width: 960px; width: 100%;
+    max-height: 92vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,.6);
+  }
+  .social-modal-head {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 14px;
+  }
+  .social-modal-head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    text-transform: uppercase; line-height: 1.1; margin-bottom: 5px;
+  }
+  .social-modal-head .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; color: var(--ink-muted); text-transform: uppercase }
+  .social-modal-close {
+    width: 30px; height: 30px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .social-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 880px) { .social-modal-body { grid-template-columns: 1fr } }
+
+  .social-editor textarea {
+    width: 100%; min-height: 360px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.55;
+    background: var(--bg-2); color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 10px;
+    padding: 12px 14px; resize: vertical;
+  }
+  .social-editor-head, .social-preview-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--ink-muted);
+    display: flex; justify-content: space-between;
+    padding-bottom: 8px; margin-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .social-preview {
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 14px;
+    overflow-y: auto;
+    min-height: 360px;
+    white-space: pre-wrap;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .social-preview .tweet-separator {
+    display: block;
+    margin: 10px 0;
+    padding: 2px 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .char-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .1em;
+    color: var(--ink-muted);
+  }
+  .char-counter.warn { color: var(--orange) }
+  .char-counter.bad  { color: var(--fuchsia); font-weight: 700 }
+
+  .social-modal-foot {
+    padding: 14px 24px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .social-modal-foot-left { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+  .social-modal-foot-right { display: flex; gap: 8px; flex-wrap: wrap }
+  .schedule-input {
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Posts sociaux</strong>
+    </div>
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Tes réseaux via Zernio</div>
+          <h1>Un article,<br><em>2 canaux.</em></h1>
+          <p class="page-sub">Tu cliques sur un article · l'agent prépare 2 posts adaptés (LinkedIn + X). Tu relis chacun dans l'éditeur · tu ajustes · tu programmes via Zernio. <strong>Workflow 100% local</strong> avec ton abonnement Claude Code Max — zéro API Anthropic payante.</p>
+        </div>
+        <div><button class="btn btn-ghost" id="btnRefresh">🔄 Rafraîchir</button></div>
+      </div>
+
+      <div id="statusNote"></div>
+
+      <!-- Workflow -->
+      <section class="section">
+        <div class="howto">
+          <div class="howto-label"><span class="kicker-dot"></span>Comment ça marche · 4 étapes</div>
+          <h3>De l'article au post · <em>en 15 min.</em></h3>
+          <p class="howto-intro">Même logique que pour les audits SEO · je prépare, tu colles, tu valides, Zernio publie.</p>
+          <div class="howto-steps">
+            <div class="howto-step">
+              <div class="howto-step-num">01</div>
+              <h4>Tu déclines un article</h4>
+              <p>Dans la liste "Décliner un article" plus bas · tu cliques sur celui qui te parle. Je copie le prompt dans ton presse-papier.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">02</div>
+              <h4>Claude Code écrit 2 posts</h4>
+              <p>Tu colles le prompt dans ton terminal Claude Code. L'agent lit l'article, applique le <strong>ton Leo</strong>, génère 1 post LinkedIn + 1 thread X dans <code>social-drafts/&lt;slug&gt;/</code>.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">03</div>
+              <h4>Tu relis · tu ajustes</h4>
+              <p>Clique "Rafraîchir" · les 2 drafts apparaissent. Clique <strong>"Éditer"</strong> pour ouvrir l'éditeur avec preview à droite · compteur de caractères · séparateurs tweets.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">04</div>
+              <h4>Zernio publie</h4>
+              <p>Bouton <strong>"Publier maintenant"</strong> ou choisis une date/heure. Zernio envoie vers LinkedIn + X selon tes comptes connectés. Tu dors tranquille.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats usage -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Mon compte Zernio</h2>
+          <span class="section-count" id="planTag">—</span>
+        </div>
+        <div class="stat-grid" id="statGrid"></div>
+      </section>
+
+      <!-- Comptes connectés -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Comptes connectés</h2>
+          <span class="section-count" id="accountsCount">—</span>
+          <div style="margin-left:auto">
+            <a href="https://zernio.com/dashboard/accounts" target="_blank" class="btn btn-ghost">+ Connecter un compte</a>
+          </div>
+        </div>
+        <div id="accountsArea">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+      <!-- Décliner un article -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Décliner un article</h2>
+          <span class="section-count" id="declineCount">—</span>
+        </div>
+        <div id="declineList" class="decline-list">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+      <!-- Drafts en attente -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Drafts sociaux · à relire et publier</h2>
+          <span class="section-count" id="draftsCount">0</span>
+        </div>
+        <div id="draftsArea">
+          <div class="empty-state"><strong>Aucun draft pour l'instant</strong>Choisis un article dans la section au-dessus · clique "Décliner" · Claude Code génèrera les 4 posts · ils apparaîtront ici.</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('social');
+
+  const CHANNEL_LIMITS = {
+    linkedin: { soft: 2500, hard: 3000, type: 'chars' },
+    twitter:  { soft: 270, hard: 280, type: 'per-tweet' },
+  };
+  const CHANNEL_ICONS = { linkedin: '💼', twitter: '🐦' };
+  const CHANNEL_NAMES = { linkedin: 'LinkedIn', twitter: 'X / Twitter' };
+
+  let state = { accounts: [], articles: [], drafts: [] };
+
+  async function load() {
+    // Status + accounts
+    try {
+      const status = await api.get('/api/social/status');
+      renderStatus(status);
+      document.getElementById('statusNote').innerHTML = '';
+    } catch (e) {
+      document.getElementById('statusNote').innerHTML = `
+        <div class="pageNote" style="border-left-color:var(--orange)">
+          <strong>Zernio pas branché</strong><br>Ajoute <code>ZERNIO_API_KEY=sk_...</code> dans <code>.env.local</code> puis redémarre le serveur admin.
+          <br><br><span style="font-size:12.5px; color:var(--ink-muted)">${escapeHtml(e.message)}</span>
+        </div>`;
+      return;
+    }
+
+    try {
+      const { accounts } = await api.get('/api/social/accounts');
+      state.accounts = accounts;
+      renderAccounts(accounts);
+    } catch { state.accounts = [] }
+
+    // Articles publiés
+    try {
+      state.articles = await api.get('/api/articles');
+    } catch { state.articles = [] }
+
+    // Drafts existants
+    try {
+      const { drafts } = await api.get('/api/social/drafts');
+      state.drafts = drafts;
+    } catch { state.drafts = [] }
+
+    renderDeclineList();
+    renderDrafts();
+  }
+
+  function renderStatus(status) {
+    document.getElementById('planTag').textContent = `Plan ${status.plan || 'Free'}`;
+    const uploadsUsed = status.usage?.uploads || 0;
+    const uploadsLimit = status.limits?.uploads || 20;
+    const uploadsPct = Math.round((uploadsUsed / uploadsLimit) * 100);
+    document.getElementById('statGrid').innerHTML = `
+      <div class="stat-card s-teal">
+        <div class="stat-label">Utilisateur</div>
+        <div class="stat-value" style="font-size:20px; font-family:'Archivo',sans-serif; font-weight:700">${escapeHtml(status.user?.name || '—')}</div>
+        <div class="stat-hint">Membre depuis ${fmtDate(status.signupDate)}</div>
+      </div>
+      <div class="stat-card s-fuchsia">
+        <div class="stat-label">Uploads ce mois</div>
+        <div class="stat-value">${uploadsUsed}<span style="font-size:18px; color:var(--ink-muted)"> / ${uploadsLimit}</span></div>
+        <div class="stat-hint" style="margin-top:4px">${uploadsPct}% utilisé</div>
+      </div>
+      <div class="stat-card s-orange">
+        <div class="stat-label">Profils</div>
+        <div class="stat-value">${status.usage?.profiles || 0}<span style="font-size:18px; color:var(--ink-muted)"> / ${status.limits?.profiles || 2}</span></div>
+        <div class="stat-hint">Plan Build (16 $/mois) · 120 posts/mois</div>
+      </div>
+      <div class="stat-card s-ink">
+        <div class="stat-label">Billing</div>
+        <div class="stat-value" style="font-size:20px; font-family:'Archivo',sans-serif; font-weight:700">${escapeHtml(status.billingPeriod || 'monthly')}</div>
+        <div class="stat-hint">Plan ${status.plan} actif</div>
+      </div>
+    `;
+  }
+
+  function renderAccounts(accounts) {
+    document.getElementById('accountsCount').textContent = `${accounts.length} compte(s)`;
+    const el = document.getElementById('accountsArea');
+    if (accounts.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun compte connecté</strong>Va sur <a href="https://zernio.com/dashboard/accounts" target="_blank">Zernio.com</a> pour connecter.</div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="account-grid">
+        ${accounts.map(a => `
+          <div class="account-card p-${escapeHtml(a.platform)}">
+            <div class="account-logo">${CHANNEL_ICONS[a.platform] || '📱'}</div>
+            <div class="account-info">
+              <div class="account-platform">${escapeHtml(a.platform)}</div>
+              <div class="account-name">${escapeHtml(a.displayName || 'Sans nom')}</div>
+              <div style="font-size:11px; color:${a.isActive ? 'var(--teal)' : 'var(--orange)'}; margin-top:2px; font-weight:600">
+                ${a.isActive ? '● Actif' : '● Inactif'}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function channelStatus(slug, channel) {
+    const g = state.drafts.find(d => d.slug === slug);
+    if (!g || !g.channels[channel]) return 'pending';
+    return g.channels[channel].status || 'draft';
+  }
+
+  function renderDeclineList() {
+    document.getElementById('declineCount').textContent = `${state.articles.length} articles publiés`;
+    const el = document.getElementById('declineList');
+    if (state.articles.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun article publié</strong></div>`;
+      return;
+    }
+    el.innerHTML = state.articles.map(a => {
+      const pills = ['linkedin','twitter'].map(c => {
+        const s = channelStatus(a.slug, c);
+        const cls = s === 'draft' ? 'done' : (s === 'scheduled' ? 'sched' : (s === 'published' ? 'published' : 'pending'));
+        return `<span class="pill-channel ${cls}">${CHANNEL_NAMES[c].slice(0,2)}</span>`;
+      }).join('');
+      const hasDrafts = state.drafts.some(d => d.slug === a.slug);
+      return `
+        <div class="decline-row">
+          <div>
+            <div class="decline-row-title">${escapeHtml(a.title)}</div>
+            <div class="decline-row-meta">${escapeHtml(a.slug)}</div>
+          </div>
+          <div class="decline-status-pills">${pills}</div>
+          <div>
+            <button class="btn btn-primary" data-action="decline" data-slug="${escapeHtml(a.slug)}" style="padding:6px 12px; font-size:11px">${hasDrafts ? 'Re-générer' : 'Décliner'}</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderDrafts() {
+    const total = state.drafts.reduce((s, d) => s + Object.keys(d.channels || {}).length, 0);
+    document.getElementById('draftsCount').textContent = `${total} drafts`;
+    const el = document.getElementById('draftsArea');
+    if (state.drafts.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun draft pour l'instant</strong>Choisis un article au-dessus · clique "Décliner" · Claude Code génèrera les 4 posts.</div>`;
+      return;
+    }
+    el.innerHTML = state.drafts.map(g => {
+      const article = state.articles.find(a => a.slug === g.slug);
+      const title = article ? article.title : g.slug;
+      const channelsHTML = ['linkedin','twitter'].map(c => {
+        const d = g.channels[c];
+        if (!d) {
+          return `
+            <div class="draft-channel" style="opacity:.55">
+              <div class="draft-channel-head">
+                <span class="ch">${CHANNEL_ICONS[c]} ${CHANNEL_NAMES[c]}</span>
+                <span class="status draft">Manquant</span>
+              </div>
+              <div class="draft-channel-count">Pas généré</div>
+            </div>
+          `;
+        }
+        const count = c === 'twitter' ? `${d.tweets_count || '?'} tweets` : `${d.character_count || '?'} chars`;
+        const status = d.status || 'draft';
+        return `
+          <div class="draft-channel">
+            <div class="draft-channel-head">
+              <span class="ch">${CHANNEL_ICONS[c]} ${CHANNEL_NAMES[c]}</span>
+              <span class="status ${status}">${status === 'draft' ? 'À relire' : (status === 'scheduled' ? 'Programmé' : 'Publié')}</span>
+            </div>
+            <div class="draft-channel-count">${count}${d.scheduled_for ? ' · ' + fmtDate(d.scheduled_for) : ''}</div>
+            <div class="draft-channel-actions">
+              <button class="btn btn-primary" data-action="edit" data-slug="${escapeHtml(g.slug)}" data-channel="${c}">Éditer</button>
+              ${status === 'draft' ? `<button class="btn btn-teal" data-action="publish" data-slug="${escapeHtml(g.slug)}" data-channel="${c}">Publier</button>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+      return `
+        <div class="draft-group">
+          <div class="draft-group-head">
+            <h3>${escapeHtml(title)}</h3>
+            <a href="/articles/${escapeHtml(g.slug)}.html" target="_blank" class="btn btn-ghost" style="padding:5px 11px; font-size:10.5px">Voir l'article ↗</a>
+          </div>
+          <div class="draft-group-channels">${channelsHTML}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // === Actions ===
+  document.body.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const { action, slug, channel } = btn.dataset;
+    if (action === 'decline') return handleDecline(slug);
+    if (action === 'edit') return openEditor(slug, channel);
+    if (action === 'publish') return openPublishDialog(slug, channel);
+  });
+
+  async function handleDecline(slug) {
+    try {
+      const { prompt } = await api.post(`/api/social/drafts/${slug}/prepare`);
+      await navigator.clipboard.writeText(prompt);
+      showPromptModal(slug, prompt);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function showPromptModal(slug, prompt) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'social-modal-backdrop';
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.remove(); });
+    backdrop.innerHTML = `
+      <div class="social-modal" style="max-width:780px">
+        <div class="social-modal-head">
+          <div>
+            <h2>Prompt copié ✓</h2>
+            <div class="meta">Colle-le dans Claude Code à la racine du projet</div>
+          </div>
+          <button class="social-modal-close" onclick="this.closest('.social-modal-backdrop').remove()">×</button>
+        </div>
+        <div class="social-modal-body" style="grid-template-columns:1fr; gap:12px">
+          <div style="font-size:13.5px; line-height:1.55; color:var(--ink-soft)">
+            <strong>Mode d'emploi :</strong><br>
+            1. Ouvre ton terminal à la racine du projet · lance <code>claude</code><br>
+            2. Colle le prompt (Cmd+V)<br>
+            3. Claude Code lit l'article · génère 4 drafts dans <code>social-drafts/${escapeHtml(slug)}/</code><br>
+            4. Reviens ici · clique "Rafraîchir" · les 4 drafts apparaissent
+          </div>
+          <textarea readonly style="width:100%; min-height:260px; font-family:'JetBrains Mono',monospace; font-size:12px; background:var(--bg-2); border:1px solid var(--line-strong); border-radius:10px; padding:12px 14px; color:var(--ink); line-height:1.6">${escapeHtml(prompt)}</textarea>
+        </div>
+        <div class="social-modal-foot">
+          <button class="btn btn-ghost" onclick="navigator.clipboard.writeText(this.closest('.social-modal').querySelector('textarea').value); toast('Recopié ✓','ok')">Recopier</button>
+          <button class="btn btn-primary" onclick="this.closest('.social-modal-backdrop').remove()">OK · j'y vais</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(backdrop);
+    toast('Prompt copié · colle dans Claude Code', 'ok', 4500);
+  }
+
+  async function openEditor(slug, channel) {
+    try {
+      const data = await api.get(`/api/social/drafts/${slug}/${channel}`);
+      showEditor(slug, channel, data);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err'); }
+  }
+
+  function renderPreview(content, channel) {
+    const esc = (s) => escapeHtml(s);
+    if (channel === 'twitter') {
+      const parts = content.split(/^---\s*$/m).map(p => p.trim()).filter(Boolean);
+      return parts.map((p, i) => `
+        <span class="tweet-separator">Tweet ${i+1} · ${p.length} chars</span>
+${esc(p)}
+      `).join('\n');
+    }
+    return esc(content);
+  }
+
+  function computeCharCount(content, channel) {
+    if (channel === 'twitter') {
+      const parts = content.split(/^---\s*$/m).map(p => p.trim()).filter(Boolean);
+      const longest = Math.max(0, ...parts.map(p => p.length));
+      const limit = CHANNEL_LIMITS.twitter;
+      return { value: longest, limit: limit.hard, soft: limit.soft, label: `Plus long tweet : ${longest} chars · ${parts.length} tweets` };
+    }
+    const limit = CHANNEL_LIMITS[channel];
+    return { value: content.length, limit: limit.hard, soft: limit.soft, label: `${content.length} caractères` };
+  }
+
+  function showEditor(slug, channel, data) {
+    const article = state.articles.find(a => a.slug === slug);
+    const title = article ? article.title : slug;
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'social-modal-backdrop';
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.remove(); });
+    backdrop.innerHTML = `
+      <div class="social-modal">
+        <div class="social-modal-head">
+          <div>
+            <h2>${CHANNEL_ICONS[channel]} ${CHANNEL_NAMES[channel]} · ${escapeHtml(title)}</h2>
+            <div class="meta">${escapeHtml(slug)} · statut ${data.frontmatter?.status || 'draft'}</div>
+          </div>
+          <button class="social-modal-close" onclick="this.closest('.social-modal-backdrop').remove()">×</button>
+        </div>
+        <div class="social-modal-body">
+          <div class="social-editor">
+            <div class="social-editor-head">
+              <span>Contenu éditable</span>
+              <span id="charCounter" class="char-counter">—</span>
+            </div>
+            <textarea id="editorArea" spellcheck="false">${escapeHtml(data.content)}</textarea>
+          </div>
+          <div class="social-preview-wrap">
+            <div class="social-preview-head">
+              <span>Preview</span>
+              <span style="font-family:'Archivo',sans-serif; text-transform:none; letter-spacing:0; color:var(--ink-muted); font-weight:500">${
+                channel === 'twitter' ? 'Séparateur thread = 3 tirets' :
+                'Publié tel quel sur LinkedIn'
+              }</span>
+            </div>
+            <div class="social-preview" id="previewArea">${renderPreview(data.content, channel)}</div>
+          </div>
+        </div>
+        <div class="social-modal-foot">
+          <div class="social-modal-foot-left">
+            <input type="datetime-local" id="scheduleInput" class="schedule-input">
+            <button class="btn btn-teal" id="btnSchedule">Programmer</button>
+            <button class="btn btn-primary" id="btnPublishNow">Publier maintenant</button>
+          </div>
+          <div class="social-modal-foot-right">
+            <button class="btn btn-ghost" id="btnSaveClose">Enregistrer & fermer</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(backdrop);
+
+    const ta = document.getElementById('editorArea');
+    const counter = document.getElementById('charCounter');
+    const preview = document.getElementById('previewArea');
+
+    function refresh() {
+      const c = computeCharCount(ta.value, channel);
+      counter.textContent = c.label;
+      counter.className = 'char-counter' + (c.value > c.limit ? ' bad' : (c.value > c.soft ? ' warn' : ''));
+      preview.innerHTML = renderPreview(ta.value, channel);
+    }
+    ta.addEventListener('input', refresh);
+    refresh();
+
+    document.getElementById('btnSaveClose').addEventListener('click', async () => {
+      await saveDraft(slug, channel, ta.value, data.frontmatter || {});
+      backdrop.remove();
+      load();
+    });
+
+    const btnSched = document.getElementById('btnSchedule');
+    if (btnSched) {
+      btnSched.addEventListener('click', async () => {
+        const dtVal = document.getElementById('scheduleInput').value;
+        if (!dtVal) return toast('Choisis une date/heure', 'err');
+        const iso = new Date(dtVal).toISOString();
+        await saveDraft(slug, channel, ta.value, data.frontmatter || {});
+        await publishDraft(slug, channel, { scheduledFor: iso });
+        backdrop.remove();
+        load();
+      });
+    }
+    const btnNow = document.getElementById('btnPublishNow');
+    if (btnNow) {
+      btnNow.addEventListener('click', async () => {
+        if (!confirm(`Publier maintenant sur ${CHANNEL_NAMES[channel]} ? Action irréversible.`)) return;
+        await saveDraft(slug, channel, ta.value, data.frontmatter || {});
+        await publishDraft(slug, channel, { publishNow: true });
+        backdrop.remove();
+        load();
+      });
+    }
+  }
+
+  function frontmatterToYaml(fm) {
+    const lines = [];
+    for (const [k, v] of Object.entries(fm)) {
+      if (v === null || v === undefined) continue;
+      if (Array.isArray(v)) {
+        lines.push(`${k}:`);
+        v.forEach(item => lines.push(`  - ${JSON.stringify(item)}`));
+      } else if (typeof v === 'object') {
+        lines.push(`${k}: ${JSON.stringify(v)}`);
+      } else {
+        lines.push(`${k}: ${v}`);
+      }
+    }
+    return lines.join('\n');
+  }
+
+  async function saveDraft(slug, channel, content, frontmatter) {
+    const fm = { ...frontmatter };
+    fm.character_count = content.length;
+    if (channel === 'twitter') fm.tweets_count = content.split(/^---\s*$/m).map(s=>s.trim()).filter(Boolean).length;
+    const raw = `---\n${frontmatterToYaml(fm)}\n---\n\n${content.trim()}\n`;
+    await api.put(`/api/social/drafts/${slug}/${channel}`, { raw });
+    toast('Enregistré ✓', 'ok');
+  }
+
+  async function publishDraft(slug, channel, opts) {
+    try {
+      await api.post(`/api/social/drafts/${slug}/${channel}/publish`, opts);
+      toast(`${CHANNEL_NAMES[channel]} · ${opts.publishNow ? 'publié ✓' : 'programmé ✓'}`, 'ok', 5000);
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err', 6000); }
+  }
+
+  async function openPublishDialog(slug, channel) {
+    if (!confirm(`Publier maintenant sur ${CHANNEL_NAMES[channel]} ?\n\nLe contenu actuel sera envoyé tel quel. Si tu veux d'abord relire ou programmer, clique "Éditer".`)) return;
+    try {
+      await api.post(`/api/social/drafts/${slug}/${channel}/publish`, { publishNow: true });
+      toast(`Publié sur ${CHANNEL_NAMES[channel]} ✓`, 'ok', 5000);
+      load();
+    } catch (e) { toast(`Ça a coincé : ${e.message}`, 'err', 6000); }
+  }
+
+  document.getElementById('btnRefresh').addEventListener('click', () => {
+    load();
+    toast('Mise à jour…', 'info', 1500);
+  });
+
+  load();
+</script>
+
+</body>
+</html>

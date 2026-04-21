@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Admin · Jérémy Sagnier</title>
+<meta name="robots" content="noindex,nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/admin/shared/admin.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-menu" id="topbarMenu" aria-label="Ouvrir le menu">☰</button>
+      <strong>Tableau de bord</strong>
+    </div>
+
+    <div id="mainArea" class="main-inner">
+
+      <div class="page-head">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span>— Salut Jérémy</div>
+          <h1>Ton <em>cockpit</em><br>de pilotage.</h1>
+          <p class="page-sub">Ici tu vois tout ce qui tourne sur ton site, en un coup d'œil. <strong>L'agent propose des idées, tu choisis</strong>, Claude Code écrit le draft, tu relis, tu publies. Trois clics pour passer d'une idée à un article en ligne. Respire — la carte en-dessous te remet dans le train à chaque session.</p>
+        </div>
+        <div>
+          <button class="btn btn-primary" id="btnBrainstorm">
+            <span id="btnBrainstormText">🧠 Cherche-moi des idées</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid">
+        <div class="stat-card s-teal">
+          <div class="stat-label">Articles en ligne</div>
+          <div class="stat-value" id="statArticles">—</div>
+          <div class="stat-hint">Visibles sur ton site</div>
+        </div>
+        <div class="stat-card s-fuchsia">
+          <div class="stat-label">Drafts en cours</div>
+          <div class="stat-value" id="statDrafts">—</div>
+          <div class="stat-hint">Prêts à publier quand tu veux</div>
+        </div>
+        <div class="stat-card s-orange">
+          <div class="stat-label">Idées dans le backlog</div>
+          <div class="stat-value" id="statBacklog">—</div>
+          <div class="stat-hint">L'agent te les a triées par score</div>
+        </div>
+        <div class="stat-card s-ink">
+          <div class="stat-label">Inscrits newsletter</div>
+          <div class="stat-value" id="statNewsletter">—</div>
+          <div class="stat-hint" id="statNewsletterHint">Via Resend</div>
+        </div>
+      </div>
+
+      <!-- Comment ça marche -->
+      <section class="section">
+        <div class="howto">
+          <div class="howto-label"><span class="kicker-dot"></span>À relire à chaque session</div>
+          <h3>Comment on <em>fonctionne</em> ensemble.</h3>
+          <p class="howto-intro">Cinq étapes, rien de plus. L'agent fait le gros du travail, tu gardes la main sur les choix et le style. <strong>Si tu oublies où tu en es</strong>, cette carte te remet dans le train.</p>
+          <div class="howto-steps">
+            <div class="howto-step">
+              <div class="howto-step-num">01</div>
+              <h4>L'agent cherche</h4>
+              <p>Tu cliques <strong>Cherche-moi des idées</strong>. L'agent scanne Reddit, Hacker News, les blogs Anthropic/OpenAI. Il te remonte les <strong>10 sujets les plus pertinents</strong>.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">02</div>
+              <h4>Tu choisis</h4>
+              <p>Tu vas dans <strong>Idées</strong>, tu lis, tu choisis celle qui te parle. Un clic sur "Je prends" et elle passe dans <strong>Drafts à écrire</strong>.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">03</div>
+              <h4>Claude Code écrit</h4>
+              <p>Tu cliques <strong>Demander à Claude →</strong>. Le prompt est copié dans ton presse-papier. Tu le colles dans Claude Code, il te sort le draft.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">04</div>
+              <h4>Tu relis et tu corriges</h4>
+              <p>Dans l'onglet <strong>Drafts</strong>, tu as un éditeur avec la preview à droite. Tu corriges ce qui sonne faux, tu ajoutes ton vécu.</p>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-num">05</div>
+              <h4>Tu publies</h4>
+              <p>Un clic sur <strong>Je publie</strong>. L'article est généré, le sitemap mis à jour. Tu fais <code>git commit + push</code> et Vercel déploie.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top backlog -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Les meilleures idées du moment</h2>
+          <span class="section-count" id="topBacklogCount">—</span>
+          <div style="margin-left:auto"><a href="/admin/modules/backlog/" class="btn btn-ghost">Voir tout →</a></div>
+        </div>
+        <div id="topBacklog" class="idea-list">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+      <!-- Drafts récents -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Tes drafts du moment</h2>
+          <span class="section-count" id="recentDraftsCount">—</span>
+          <div style="margin-left:auto"><a href="/admin/modules/drafts/" class="btn btn-ghost">Voir tout →</a></div>
+        </div>
+        <div id="recentDrafts" class="draft-list">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+      <!-- Articles récents -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Ce qui est déjà en ligne</h2>
+          <span class="section-count" id="recentArticlesCount">—</span>
+          <div style="margin-left:auto"><a href="/admin/modules/articles/" class="btn btn-ghost">Voir tout →</a></div>
+        </div>
+        <div id="recentArticles" class="draft-list">
+          <div class="empty-state"><span class="loader"></span></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/admin/shared/admin.js"></script>
+<script>
+  renderShell('dashboard');
+
+  async function loadDashboard() {
+    try {
+      const [stats, backlog, drafts, articles] = await Promise.all([
+        api.get('/api/stats'),
+        api.get('/api/backlog'),
+        api.get('/api/drafts'),
+        api.get('/api/articles'),
+      ]);
+
+      document.getElementById('statArticles').textContent = stats.articles;
+      document.getElementById('statDrafts').textContent = stats.drafts;
+      document.getElementById('statBacklog').textContent = stats.backlog.proposed;
+
+      // Newsletter stat — utilise l'endpoint newsletter si dispo
+      try {
+        const n = await api.get('/api/newsletter/stats');
+        document.getElementById('statNewsletter').textContent = n.total;
+        document.getElementById('statNewsletterHint').textContent = `Via ${n.provider || 'Resend'}`;
+      } catch {
+        document.getElementById('statNewsletter').textContent = '—';
+        document.getElementById('statNewsletterHint').textContent = 'Configure une clé API dans Réglages';
+      }
+
+      const top = (backlog.proposed || []).slice(0, 5);
+      document.getElementById('topBacklogCount').textContent = `${backlog.proposed.length} idées`;
+      renderTopBacklog(top);
+
+      document.getElementById('recentDraftsCount').textContent = `${drafts.length} drafts`;
+      renderRecentDrafts(drafts.slice(0, 3));
+
+      document.getElementById('recentArticlesCount').textContent = `${articles.length} publiés`;
+      renderRecentArticles(articles.slice(0, 3));
+    } catch (e) {
+      toast(`Ça a coincé au chargement : ${e.message}`, 'err', 6000);
+    }
+  }
+
+  function renderTopBacklog(items) {
+    const el = document.getElementById('topBacklog');
+    if (items.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Ton backlog est vide pour l'instant</strong>Clique sur "Cherche-moi des idées" là-haut, l'agent va faire le tour de ce qui se dit.</div>`;
+      return;
+    }
+    el.innerHTML = items.map(e => {
+      const cls = e.score >= 8 ? 's-high' : (e.score >= 6 ? 's-medium' : 's-low');
+      const sources = (e.sources || []).map(s => `<a href="${s.url}" target="_blank">${escapeHtml(s.label)}</a>`).join(' · ');
+      const scoresArr = (e.scores || '').split('·').map(s => `<span>${escapeHtml(s.trim())}</span>`).join('');
+      return `
+        <div class="idea-card">
+          <div class="idea-score ${cls}">${e.score.toFixed(1)}</div>
+          <div class="idea-body">
+            <div class="idea-title">${escapeHtml(e.title)}</div>
+            <div class="idea-meta">${escapeHtml(e.id)} · proposed ${e.proposed}</div>
+            <div class="idea-scores">${scoresArr}</div>
+            ${sources ? `<div class="idea-sources">Sources : ${sources}</div>` : ''}
+          </div>
+          <div class="idea-actions">
+            <a class="btn btn-teal" href="/admin/modules/backlog/#${escapeHtml(e.id)}">Ouvrir</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderRecentDrafts(items) {
+    const el = document.getElementById('recentDrafts');
+    if (items.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Pas de draft pour l'instant</strong>Commence par choisir une idée dans le backlog · Claude Code écrira le draft pour toi.</div>`;
+      return;
+    }
+    el.innerHTML = items.map(d => `
+      <a href="/admin/modules/drafts/#${escapeHtml(d.slug)}" class="draft-card" style="text-decoration:none; color:inherit">
+        <h3>${escapeHtml(d.titre)}</h3>
+        <div class="draft-card-meta">Modifié ${fmtRelative(d.modified)}</div>
+        <p>${escapeHtml((d.description || '').slice(0, 140))}${d.description && d.description.length > 140 ? '…' : ''}</p>
+      </a>
+    `).join('');
+  }
+
+  function renderRecentArticles(items) {
+    const el = document.getElementById('recentArticles');
+    if (items.length === 0) {
+      el.innerHTML = `<div class="empty-state"><strong>Aucun article en ligne</strong>Dès que tu publies ton premier, il arrive ici.</div>`;
+      return;
+    }
+    el.innerHTML = items.map(a => `
+      <a href="/articles/${escapeHtml(a.slug)}.html" class="draft-card" target="_blank" style="text-decoration:none; color:inherit">
+        <h3>${escapeHtml(a.title)}</h3>
+        <div class="draft-card-meta">${escapeHtml(a.slug)} · ${fmtRelative(a.modified)}</div>
+        <p>${escapeHtml((a.description || '').slice(0, 140))}${a.description && a.description.length > 140 ? '…' : ''}</p>
+      </a>
+    `).join('');
+  }
+
+  document.getElementById('btnBrainstorm').addEventListener('click', async () => {
+    const btn = document.getElementById('btnBrainstorm');
+    const txt = document.getElementById('btnBrainstormText');
+    btn.disabled = true;
+    txt.innerHTML = '<span class="loader"></span> L\'agent cherche…';
+    try {
+      await api.post('/api/brainstorm');
+      toast('C\'est bon · l\'agent a rempli ton backlog. Jette un œil en-dessous.', 'ok', 5000);
+      loadDashboard();
+    } catch (e) {
+      toast(`Ça a coincé : ${e.message}`, 'err', 6000);
+    }
+    btn.disabled = false;
+    txt.textContent = '🧠 Cherche-moi des idées';
+  });
+
+  loadDashboard();
+</script>
+
+</body>
+</html>

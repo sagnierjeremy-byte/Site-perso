@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Gérer ton abonnement — Jérémy Sagnier</title>
+<meta name="description" content="Gère tes préférences newsletter ou désabonne-toi en 1 clic. Sans friction. Sans jugement.">
+
+<link rel="canonical" href="https://jerwis.fr/preferences.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  .prefs-hero {
+    padding: 70px 0 40px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    text-align: center;
+    position: relative;
+  }
+  .prefs-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .prefs-hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 16px;
+  }
+  .prefs-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(38px, 6vw, 56px);
+    line-height: .95;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .prefs-hero h1 em {
+    color: var(--fuchsia);
+    font-style: normal;
+  }
+  .prefs-hero p.lead {
+    color: rgba(255,255,255,.8);
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .prefs-wrap {
+    max-width: 640px;
+    margin: 50px auto;
+    padding: 0 24px;
+  }
+
+  .prefs-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 32px 30px;
+    margin-bottom: 22px;
+  }
+
+  .prefs-card h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .prefs-card p { color: var(--ink-soft); line-height: 1.6; margin-bottom: 14px; font-size: 15px; }
+
+  .prefs-email {
+    display: block;
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-2);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    margin-bottom: 18px;
+  }
+  .prefs-email:focus {
+    outline: none;
+    border-color: var(--fuchsia);
+    background: var(--surface);
+  }
+
+  .segment {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .segment:first-of-type { border-top: none; }
+  .segment input[type="checkbox"] {
+    width: 22px; height: 22px;
+    accent-color: var(--fuchsia);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .segment-body {
+    flex: 1;
+  }
+  .segment-name {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .segment-desc {
+    color: var(--ink-muted);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .btn-row {
+    margin-top: 20px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .btn-main {
+    background: var(--ink); color: var(--bg);
+    border: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .btn-main:hover { background: var(--fuchsia); color: #fff; }
+  .btn-main:disabled { opacity: .55; cursor: wait; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+
+  .feedback-form {
+    margin-top: 16px;
+    padding: 18px 20px;
+    background: var(--bg-2);
+    border-radius: 10px;
+    border-left: 3px solid var(--fuchsia);
+    display: none;
+  }
+  .feedback-form.open { display: block; }
+  .feedback-form select,
+  .feedback-form textarea {
+    width: 100%;
+    padding: 11px 14px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+  }
+  .feedback-form textarea { min-height: 70px; resize: vertical; }
+  .feedback-form label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink-muted);
+    margin-top: 10px;
+  }
+  .feedback-form label:first-child { margin-top: 0; }
+
+  .btn-danger {
+    background: var(--fuchsia);
+    color: #fff;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  .btn-danger:hover { filter: brightness(1.08); }
+  .btn-danger:disabled { opacity: .55; cursor: wait; }
+
+  .status {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: none;
+  }
+  .status.show { display: block; }
+  .status.ok { background: color-mix(in srgb, var(--teal) 15%, var(--bg-2)); color: var(--teal); border-left: 3px solid var(--teal); }
+  .status.err { background: color-mix(in srgb, var(--fuchsia) 10%, var(--bg-2)); color: var(--fuchsia); border-left: 3px solid var(--fuchsia); }
+
+  .leo-note {
+    margin-top: 30px;
+    padding: 22px 24px;
+    background: var(--bg-2);
+    border-radius: 14px;
+    border-left: 3px solid var(--teal);
+  }
+  .leo-note p { color: var(--ink-soft); line-height: 1.7; font-size: 14.5px; margin-bottom: 10px; }
+  .leo-note p:last-child { margin-bottom: 0; }
+  .leo-note a { color: var(--fuchsia); font-weight: 600; text-decoration: none; }
+  .leo-note a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Jérémy Sagnier
+      </a>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="prefs-hero">
+  <div class="container">
+    <div class="kicker">— Gestion d'abonnement</div>
+    <h1>Gère ton<br><em>abonnement.</em></h1>
+    <p class="lead">
+      Tu peux activer/désactiver ce que tu reçois · ou partir complètement. Sans justification, sans jugement, sans formulaire de rétention bidon. Tu choisis, je respecte.
+    </p>
+  </div>
+</section>
+
+<div class="prefs-wrap">
+
+  <div class="prefs-card">
+    <h2>Ton email</h2>
+    <p>L'adresse qui reçoit mes emails actuellement.</p>
+    <input type="email" id="email" class="prefs-email" placeholder="ton@email.com" required>
+  </div>
+
+  <div class="prefs-card">
+    <h2>Ce que tu reçois</h2>
+    <p>Coche les newsletters que tu veux garder. Décoche celles que tu ne veux plus.</p>
+    <div id="segmentsList"></div>
+    <div class="btn-row">
+      <button class="btn-main" id="btnSave">Enregistrer mes préférences</button>
+    </div>
+    <div class="status" id="statusSave" aria-live="polite"></div>
+  </div>
+
+  <div class="prefs-card">
+    <h2>Me désabonner complètement</h2>
+    <p>Tu sors de toutes mes listes. Plus aucun email de ma part. C'est définitif sauf si tu te réinscris.</p>
+    <button class="btn-secondary" id="btnShowUnsub">Je veux me désabonner</button>
+
+    <div class="feedback-form" id="feedbackForm">
+      <label for="reason">Pourquoi tu pars ? (optionnel, mais ça m'aide)</label>
+      <select id="reason">
+        <option value="">— Choisis une raison —</option>
+        <option value="trop-emails">Je reçois trop d'emails</option>
+        <option value="pas-interessant">Le contenu ne m'intéresse plus</option>
+        <option value="trop-technique">C'est trop technique pour moi</option>
+        <option value="pas-assez-technique">C'est pas assez technique pour moi</option>
+        <option value="ton-ne-colle-plus">Le ton ne me correspond pas</option>
+        <option value="inscription-par-erreur">Je me suis inscrit·e par erreur</option>
+        <option value="autre">Autre raison</option>
+      </select>
+
+      <label for="comment">Quelque chose à me dire ? (optionnel)</label>
+      <textarea id="comment" placeholder="Un mot, une critique, un conseil — je lis tout."></textarea>
+
+      <button class="btn-danger" id="btnUnsub">Confirmer le désabonnement</button>
+      <div class="status" id="statusUnsub" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="leo-note">
+    <p>
+      <strong>Un mot avant de partir.</strong> Si c'est juste <em>un point précis</em> qui t'a gêné (un sujet, un ton, une fréquence), réponds directement à ma newsletter au lieu de te désabonner. J'ajuste ce qui coince · tes retours m'aident vraiment.
+    </p>
+    <p>
+      Sinon, je comprends. Pas de drama, pas de rétention. Bonne route · <a href="mailto:sagnier.jeremy@gmail.com">sagnier.jeremy@gmail.com</a> si tu veux m'écrire un jour.
+    </p>
+  </div>
+</div>
+
+<footer class="footer" id="contact" style="margin-top:60px">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · <a href="index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // === Config segments ===
+  const SEGMENTS = [
+    {
+      id: 'ai-playbook',
+      name: 'AI Playbook · ma veille du vendredi',
+      desc: 'Un email par semaine. Les outils, prompts, articles IA que je teste. Zéro pub, zéro filler.',
+    },
+    // Futur · ajouter d'autres audiences ici quand créées dans Resend
+  ];
+
+  // === Theme toggle ===
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle?.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // === Email pré-rempli depuis query string ===
+  const urlParams = new URLSearchParams(window.location.search);
+  const emailFromUrl = urlParams.get('email') || '';
+  const emailInput = document.getElementById('email');
+  emailInput.value = emailFromUrl;
+
+  // === Render segments ===
+  const segmentsList = document.getElementById('segmentsList');
+  segmentsList.innerHTML = SEGMENTS.map(s => `
+    <label class="segment">
+      <input type="checkbox" checked data-id="${s.id}">
+      <div class="segment-body">
+        <div class="segment-name">${s.name}</div>
+        <div class="segment-desc">${s.desc}</div>
+      </div>
+    </label>
+  `).join('');
+
+  // === Save préférences ===
+  document.getElementById('btnSave').addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      showStatus('statusSave', 'Email invalide.', 'err');
+      return;
+    }
+    const subs = {};
+    document.querySelectorAll('#segmentsList input[type="checkbox"]').forEach(cb => {
+      subs[cb.dataset.id] = cb.checked;
+    });
+    const btn = document.getElementById('btnSave');
+    btn.disabled = true;
+    const origText = btn.textContent;
+    btn.textContent = 'Enregistrement…';
+    try {
+      const res = await fetch('/api/preferences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, subscriptions: subs }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Erreur ' + res.status);
+      }
+      showStatus('statusSave', '✓ Préférences mises à jour. Merci.', 'ok');
+    } catch (err) {
+      showStatus('statusSave', '× ' + err.message, 'err');
+    }
+    btn.disabled = false;
+    btn.textContent = origText;
+  });
+
+  // === Show unsub form ===
+  document.getElementById('btnShowUnsub').addEventListener('click', () => {
+    document.getElementById('feedbackForm').classList.add('open');
+    document.getElementById('btnShowUnsub').style.display = 'none';
+  });
+
+  // === Unsub ===
+  document.getElementById('btnUnsub').addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      showStatus('statusUnsub', 'Email invalide.', 'err');
+      return;
+    }
+    const reason = document.getElementById('reason').value;
+    const comment = document.getElementById('comment').value.trim();
+    const btn = document.getElementById('btnUnsub');
+    btn.disabled = true;
+    const origText = btn.textContent;
+    btn.textContent = 'Désabonnement…';
+    try {
+      const res = await fetch('/api/unsubscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, reason, comment }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Erreur ' + res.status);
+      }
+      showStatus('statusUnsub', '✓ Tu es désabonné·e. Bonne route, et merci pour les retours.', 'ok');
+      btn.textContent = 'Désabonné ✓';
+    } catch (err) {
+      showStatus('statusUnsub', '× ' + err.message, 'err');
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
+  });
+
+  function showStatus(id, msg, kind) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = 'status show ' + kind;
+    if (kind === 'ok') {
+      setTimeout(() => el.classList.remove('show'), 8000);
+    }
+  }
+</script>
+
+</body>
+</html>

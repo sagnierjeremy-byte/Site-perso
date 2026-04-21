@@ -1,5 +1,71 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-22 (déploiement prod) · jerwis.fr est LIVE
+
+### Pourquoi
+Le site était prêt localement, manquait le passage en prod. Récupération du domaine `jerwis.fr` (précédemment sur un ancien projet Vercel) + déploiement du nouveau Site-perso + configuration Resend.
+
+### Déploiement GitHub · commit unique
+- `git init` + remote `git@github.com:sagnierjeremy-byte/Site-perso.git`
+- 83 fichiers dans 1 commit initial · `daadda9 sync: back-office admin + pages outils/github/quiz + 3 articles + 10 freebies + brainstorm multi-sources`
+- Branche `main` trackée
+
+### Vercel
+- Projet `site-perso` créé · import repo GitHub
+- Application Preset · Other · root directory `/`
+- **jerwis.fr détaché** de l'ancien projet (action manuelle sur dashboard)
+- **jerwis.fr + www.jerwis.fr attachés** au nouveau projet
+- DNS Hostinger déjà OK (A `76.76.21.21` + CNAME `cname.vercel-dns.com`) · propagation instantanée
+- SSL Let's Encrypt auto-provisioné
+
+### 3 fix techniques pendant le déploiement
+
+**Fix 1 · `vercel.json` syntaxe legacy cassée** (commit `5424b9a` puis `e29bd11`)
+- Problème · `version: 2 + builds: [...]` ne buildait pas `/api/subscribe.js` comme serverless function → 404
+- Fix · passage à syntaxe moderne (`cleanUrls`, détection auto, pas de `builds`/`routes`)
+- Résultat · `/api/subscribe` buildé et opérationnel
+
+**Fix 2 · OPML servi comme 404**
+- Problème · extension `.opml` hors liste manuelle `@vercel/static`
+- Fix · retrait de la liste manuelle (Vercel détecte auto avec le nouveau vercel.json)
+- Résultat · OPML 10 733 o, content-type `text/x-opml` ✓
+
+**Fix 3 · `DEFAULT_AUDIENCE_ID` hardcodé supprimé** (commit `1a36574`)
+- Problème · fallback vers audience Eurofiscalis si env var manquante → risque de fuite
+- Fix · env var obligatoire, erreur 500 explicite si manquante
+- Résultat · zéro secret résiduel dans le code
+
+### Configuration Resend
+- Création audience **AI Playbook** dédiée jerwis.fr (sur compte Resend perso, pas Eurofiscalis)
+- Clé API créée avec **Full access** (Sending-only refusait l'écriture dans l'audience · erreur `restricted_api_key` 401)
+- Env vars Vercel · `RESEND_API_KEY` + `RESEND_AUDIENCE_ID` (production + preview + dev)
+
+### Tests prod validés
+- ✅ Home `jerwis.fr` · H1 « L'IA, c'est aussi pour nous. » rendu
+- ✅ Pages `/claude-code`, `/outils`, `/github`, `/quiz`, `/apprendre`, `/debutant`, `/lexique` · 200 OK
+- ✅ 7 downloads téléchargeables (OPML 10 Ko · install.sh 2.6 Ko · 3 MD · HTML cheatsheet · ZIP pack 713 Ko)
+- ✅ Endpoint `/api/subscribe` · 200 OK avec `contactId` Resend
+- ✅ Quiz testé manuellement par Jérémy, inscription newsletter confirmée
+
+### Fichiers touchés
+- `vercel.json` · refonte complète (syntaxe moderne)
+- `api/subscribe.js` · retrait `DEFAULT_AUDIENCE_ID` hardcodé
+- `CLAUDE.md` · section « Contexte projet » enrichie avec infos prod (jerwis.fr, GitHub, Vercel) · section « API Inscription Resend » mise à jour · nouvelle section « Vercel config » · TODOs recalibrés
+- 3 commits post-initial · `5424b9a`, `e29bd11`, `1a36574`
+
+### Plugin Claude Code bonus installé pendant la session
+- `vercel@0.40.0` (via `npx plugins add vercel/vercel-plugin` · Vercel Labs) · 25 skills + 6 cmds + 3 agents + hooks + MCP pour piloter Vercel depuis Claude Code
+- Total plugins actifs · 8 (claude-md-management, code-review, code-simplifier, context7, frontend-design, superpowers, telegram, vercel)
+
+### À venir
+- [ ] Kill l'ancien projet Vercel (maintenant safe)
+- [ ] Redémarrer Claude Code pour activer les 25 skills Vercel
+- [ ] Ajouter Vercel Analytics ou Plausible
+- [ ] Configurer la séquence cours 5 jours côté Resend (guide dans `downloads/cours-email/sequence-resend.md`)
+- [ ] Nettoyer les 3 contacts test `test-*@mailinator.com` dans audience Resend
+
+---
+
 ## 2026-04-22 (nuit+++++++) · Veille enrichie · rapatriement depuis newsletter-dashboard
 
 ### Pourquoi

@@ -12,8 +12,12 @@
 - **Positionnement** : entrepreneur curieux de l'IA, frère jumeau de Kevin (fondateur Eurofiscalis en 2017), père d'un fils. **PAS dev, PAS codeur.** Juste quelqu'un qui refuse d'être dépassé par l'IA.
 - **Objectif site** : vitrine + acquisition newsletter + bibliothèque tutos
 - **Créé** : 2026-04-20
-- **Stack** : HTML/CSS/JS vanilla · 1 API Vercel serverless (Resend)
-- **Chemin local** : `~/Desktop/jeremy-sagnier-site/`
+- **Déployé prod** : 2026-04-22 sur `https://jerwis.fr` (redirect → `www.jerwis.fr`)
+- **Stack** : HTML/CSS/JS vanilla · 1 API Vercel serverless (Resend) · ZÉRO framework
+- **Chemin local** : `~/Projets/jeremy-sagnier-site/`
+- **Repo GitHub** : `git@github.com:sagnierjeremy-byte/Site-perso.git` · branche `main`
+- **Hébergement** : Vercel (plan Hobby) · projet `site-perso` · auto-deploy sur push main
+- **Domaine** : jerwis.fr (DNS chez Hostinger, pointe déjà vers Vercel · A `76.76.21.21` + CNAME www)
 
 ---
 
@@ -271,13 +275,19 @@ Entre étapes : mini-marquees narratifs (Bases posées → Claude Code → Agent
 ### Endpoint
 `/api/subscribe.js` (Vercel serverless function)
 
-### Env vars à configurer sur Vercel
+### Env vars **obligatoires** sur Vercel (aucun fallback hardcodé)
 ```
-RESEND_API_KEY=re_...
-RESEND_AUDIENCE_ID=304eb520-82fc-4e4c-be09-cbdaf1a3127f
+RESEND_API_KEY=re_...           # clé Resend avec Full access (audiences.contacts.write requis)
+RESEND_AUDIENCE_ID=<uuid>        # audience AI Playbook dédiée jerwis.fr
 ```
 
-L'audience par défaut est "Vendeurs Amazon" d'Eurofiscalis (119 contacts). **À MIGRER** vers une audience dédiée "AI Playbook" à créer côté Resend dashboard.
+**Audience** : dédiée AI Playbook (créée 2026-04-22 sur le compte Resend perso de Jérémy, pas le compte Eurofiscalis).
+
+**Sécurité** : pas de `DEFAULT_AUDIENCE_ID` hardcodé dans le code (retiré 2026-04-22, commit `1a36574`). Si les env vars manquent → erreur 500 explicite. Évite toute fuite vers une audience tierce.
+
+### Clé Resend · permissions requises
+- Resend requiert **Full access** (ou Sending + Audiences access) pour l'appel `/audiences/{id}/contacts`
+- Une clé "Sending only" renvoie `restricted_api_key` (401)
 
 ### Comportement
 - POST `/api/subscribe` avec `{email, source}`
@@ -381,10 +391,38 @@ Le CHANGELOG sert de mémoire entre sessions et de preuve de ce qu'on a décidé
 
 ---
 
+## Vercel config · `vercel.json`
+
+Syntaxe **moderne** (pas de `builds`/`routes` legacy · détection auto).
+
+```json
+{
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    { "source": "/(.*)\\.zip",  "headers": [{ "key": "Content-Disposition", "value": "attachment" }] },
+    { "source": "/(.*)\\.opml", "headers": [{ "key": "Content-Type", "value": "text/xml; charset=utf-8" }] }
+  ]
+}
+```
+
+**Pourquoi** · la syntaxe legacy `version: 2 + builds: [...]` ne buildait pas `api/*.js` comme serverless functions sur certains projets → `/api/subscribe` retournait 404. La syntaxe moderne laisse Vercel détecter auto (package.json `"type": "module"` + fichiers dans `/api/` = serverless).
+
+**cleanUrls: true** · `/claude-code` résout `/claude-code.html` automatiquement. Tous les liens internes peuvent omettre l'extension.
+
+**Extensions statiques servies** · détection auto par Vercel · pas besoin de liste explicite (avant, `.opml` était 404 car hors liste manuelle).
+
+---
+
 ## TODOs / À faire
 
-- [ ] Créer audience dédiée "AI Playbook" sur Resend (pas réutiliser "Vendeurs Amazon")
-- [ ] Déployer sur Vercel avec env vars Resend
+### Techniques
+- [ ] Kill l'ancien projet Vercel qui hébergeait jerwis.fr avant (safe maintenant, domaine libre)
+- [ ] Ajouter Vercel Analytics ou Plausible pour suivre les visiteurs
+- [ ] Configurer la séquence cours 5 jours côté Resend (guide dans `downloads/cours-email/sequence-resend.md`)
+
+### Contenu
 - [ ] Scraper liste X following de `@JeremySagnier` (credentials requis)
 - [ ] Valider URL LinkedIn exacte (actuellement `linkedin.com/in/jeremy-sagnier/` par défaut)
 - [ ] Remplacer placeholder LinkedIn dans follow-card si slug différent

@@ -1,7 +1,6 @@
 // Endpoint Vercel serverless pour inscrire un email à une audience Resend.
 // Déploiement : Vercel → ajoute RESEND_API_KEY et RESEND_AUDIENCE_ID en env vars.
-
-const DEFAULT_AUDIENCE_ID = "304eb520-82fc-4e4c-be09-cbdaf1a3127f"; // AI Playbook / e-commerce
+// Pas de fallback d'audience pour éviter toute fuite vers une audience tierce.
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -15,12 +14,17 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_AUDIENCE_ID || DEFAULT_AUDIENCE_ID;
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
 
   if (!apiKey) {
     return res
       .status(500)
       .json({ error: "RESEND_API_KEY manquante dans les env vars Vercel" });
+  }
+  if (!audienceId) {
+    return res
+      .status(500)
+      .json({ error: "RESEND_AUDIENCE_ID manquante dans les env vars Vercel" });
   }
 
   try {

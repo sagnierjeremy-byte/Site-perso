@@ -1,19 +1,15 @@
 {
-  "version": 2,
   "public": true,
-  "builds": [
-    { "src": "api/**/*.js", "use": "@vercel/node" },
-    { "src": "**/*.{html,css,js,png,jpg,jpeg,svg,zip,md,opml,sh,xml,ico,txt}", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/claude-code", "dest": "/claude-code.html" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)\\.zip",
       "headers": [{ "key": "Content-Disposition", "value": "attachment" }]
+    },
+    {
+      "source": "/(.*)\\.opml",
+      "headers": [{ "key": "Content-Type", "value": "text/xml; charset=utf-8" }]
     }
   ]
 }

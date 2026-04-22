@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-22 (soir) · domaine jerwis.fr verifie cote Resend · FROM_EMAIL switch
+
+### Pourquoi
+Après les premiers tests sandbox (welcome/goodbye OK sur sagnier.jeremy@gmail.com mais bloqués vers jeremy.sagnier@eurofiscalis.com), diagnostic · Resend mode sandbox avec `onboarding@resend.dev` ne peut envoyer qu'au propriétaire du compte. Il fallait vérifier jerwis.fr comme domaine d'envoi.
+
+### Livré
+- **Diagnostic DNS Hostinger** via API (lecture seule) · records DKIM/SPF/DMARC déjà présents dans la zone
+- **Verification Resend** · click "Verify DNS" côté dashboard → passage de "Not Started" à "Verified" (Apr 22, 8:41 AM us-east-1)
+- **Revert temporaire** (commit `cfa8c2c`) · FROM_EMAIL repassé sur `onboarding@resend.dev` pendant la fenêtre de vérif pour pas casser les inscriptions réelles
+- **Re-switch définitif** (commit `bfecef6`) · FROM_EMAIL = `Jérémy Sagnier <jeremy@jerwis.fr>` sur `api/subscribe.js` + `api/unsubscribe.js`
+- **Tests prod E2E validés** · 3 emails reçus via jeremy@jerwis.fr
+  - welcome AI Playbook → jeremy.sagnier@eurofiscalis.com ✅
+  - goodbye désabonnement → jeremy.sagnier@eurofiscalis.com ✅
+  - notif feedback admin → sagnier.jeremy@gmail.com ✅
+
+### Fichiers touchés
+- `api/subscribe.js` · FROM_EMAIL
+- `api/unsubscribe.js` · FROM_EMAIL
+
+### À venir
+- [ ] **Révoquer la clé Hostinger** partagée en clair (sécurité)
+
+---
+
 ## 2026-04-22 (déploiement prod) · jerwis.fr est LIVE
 
 ### Pourquoi

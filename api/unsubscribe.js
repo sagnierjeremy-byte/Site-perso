@@ -14,8 +14,7 @@ const AUDIENCE_IDS = [
 ].filter(Boolean);
 
 const ADMIN_EMAIL = "sagnier.jeremy@gmail.com";
-// Revert temporaire · repasse sur onboarding@resend.dev tant que jerwis.fr n'est pas Verified sur Resend
-const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>";
+const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
 
 const REASON_LABELS = {
   "trop-emails": "Trop d'emails",

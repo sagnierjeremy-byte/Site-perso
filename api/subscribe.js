@@ -6,8 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-// Revert temporaire · repasse sur onboarding@resend.dev tant que jerwis.fr n'est pas Verified sur Resend
-const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>";
+const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {

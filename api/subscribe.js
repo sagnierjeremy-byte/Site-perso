@@ -1,6 +1,12 @@
 // Endpoint Vercel serverless pour inscrire un email à une audience Resend.
 // Déploiement : Vercel → ajoute RESEND_API_KEY et RESEND_AUDIENCE_ID en env vars.
 // Pas de fallback d'audience pour éviter toute fuite vers une audience tierce.
+// Envoie automatiquement un email de bienvenue transactionnel après inscription réussie.
+
+import fs from "node:fs";
+import path from "node:path";
+
+const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -44,22 +50,69 @@ export default async function handler(req, res) {
       }
     );
 
+    let alreadySubscribed = false;
+    let contactId = null;
     if (!resendRes.ok) {
       const errText = await resendRes.text();
-      // Contact déjà existant = pas une erreur bloquante
       if (errText.includes("already exists") || resendRes.status === 409) {
-        return res.status(200).json({ ok: true, alreadySubscribed: true });
+        alreadySubscribed = true;
+      } else {
+        return res
+          .status(500)
+          .json({ error: "Inscription échouée", details: errText });
       }
-      return res
-        .status(500)
-        .json({ error: "Inscription échouée", details: errText });
+    } else {
+      const data = await resendRes.json();
+      contactId = data?.id || data?.data?.id || null;
     }
 
-    const data = await resendRes.json();
-    return res.status(200).json({ ok: true, contactId: data.id, source });
+    // Envoi du welcome email (best-effort · n'échoue pas si la notif rate)
+    // On ne re-envoie PAS à un contact déjà inscrit (évite les doublons)
+    if (!alreadySubscribed) {
+      try {
+        await sendWelcomeEmail(apiKey, email.toLowerCase().trim());
+      } catch (e) {
+        console.error("[subscribe] welcome email failed:", e);
+      }
+    }
+
+    return res.status(200).json({
+      ok: true,
+      contactId,
+      source,
+      alreadySubscribed,
+    });
   } catch (err) {
     return res
       .status(500)
       .json({ error: "Erreur serveur", details: String(err) });
   }
+}
+
+async function sendWelcomeEmail(apiKey, email) {
+  const templatePath = path.join(process.cwd(), "templates", "email-welcome.html");
+  let html;
+  try {
+    html = fs.readFileSync(templatePath, "utf8");
+  } catch (e) {
+    // Si le template n'est pas trouvé, on ne bloque pas l'inscription
+    console.error("[subscribe] template read failed:", e);
+    return;
+  }
+  // Remplace les variables
+  html = html.replace(/\{\{email\}\}/g, encodeURIComponent(email));
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: FROM_EMAIL,
+      to: [email],
+      subject: "Bienvenue dans AI Playbook · ta première édition vendredi 9h",
+      html,
+    }),
+  });
 }

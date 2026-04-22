@@ -1,7 +1,11 @@
-// Endpoint Vercel serverless pour désabonnement total + feedback par email.
+// Endpoint Vercel serverless pour désabonnement total + feedback par email + goodbye email au user.
 // POST {email, reason, comment}
 // 1. Supprime le contact de toutes les audiences connues
-// 2. Envoie un email à Jérémy avec la raison + commentaire
+// 2. Envoie un email à Jérémy avec la raison + commentaire (feedback interne)
+// 3. Envoie un email goodbye au user qui se désabonne (confirmation + ton Leo)
+
+import fs from "node:fs";
+import path from "node:path";
 
 // Liste des audiences dont on retire le contact au désabonnement complet.
 const AUDIENCE_IDS = [
@@ -10,7 +14,7 @@ const AUDIENCE_IDS = [
 ].filter(Boolean);
 
 const ADMIN_EMAIL = "sagnier.jeremy@gmail.com";
-const FROM_EMAIL = "Jerwis <onboarding@resend.dev>"; // domaine par défaut Resend (pas besoin de vérif)
+const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>"; // domaine par défaut Resend (pas besoin de vérif)
 
 const REASON_LABELS = {
   "trop-emails": "Trop d'emails",
@@ -123,8 +127,14 @@ export default async function handler(req, res) {
       }),
     });
   } catch (e) {
-    // Silencieux · le désabonnement a eu lieu, on n'empêche pas le succès juste parce que la notif a échoué
-    console.error("[unsubscribe] notif email failed:", e);
+    console.error("[unsubscribe] admin notif email failed:", e);
+  }
+
+  // 3. Envoyer le goodbye email au user (best-effort aussi)
+  try {
+    await sendGoodbyeEmail(apiKey, cleanEmail);
+  } catch (e) {
+    console.error("[unsubscribe] goodbye email failed:", e);
   }
 
   if (errors.length > 0 && removed.filter((r) => r.status === "deleted").length === 0) {
@@ -135,6 +145,32 @@ export default async function handler(req, res) {
   }
 
   return res.status(200).json({ ok: true, removed, errors });
+}
+
+async function sendGoodbyeEmail(apiKey, email) {
+  const templatePath = path.join(process.cwd(), "templates", "email-goodbye.html");
+  let html;
+  try {
+    html = fs.readFileSync(templatePath, "utf8");
+  } catch (e) {
+    console.error("[unsubscribe] goodbye template read failed:", e);
+    return;
+  }
+  html = html.replace(/\{\{email\}\}/g, encodeURIComponent(email));
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: FROM_EMAIL,
+      to: [email],
+      subject: "Désabonnement confirmé · bonne route",
+      html,
+    }),
+  });
 }
 
 function escapeHtml(s) {

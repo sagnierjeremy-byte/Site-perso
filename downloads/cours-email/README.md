@@ -76,4 +76,4 @@ document.getElementById('coursInscription').addEventListener('submit', async (e)
 
 ---
 
-© 2026 Jérémy Sagnier · https://jeremysagnier.com
+© 2026 Jérémy Sagnier · https://jerwis.fr

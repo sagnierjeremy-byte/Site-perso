@@ -21,7 +21,7 @@ Avec CLAUDE.md · ces informations sont permanentes. Claude ouvre ta session, il
 
 **1. Télécharge mon template** (anonymisé, adapté à un profil entrepreneur non-dev) ·
 
-[**→ jeremysagnier.com/downloads/CLAUDE.md**](https://jeremysagnier.com/downloads/CLAUDE.md)
+[**→ jerwis.fr/downloads/CLAUDE.md**](https://jerwis.fr/downloads/CLAUDE.md)
 
 **2. Place-le dans le bon dossier**
 
@@ -59,4 +59,4 @@ Demain · **ton premier skill**. On prend un vrai besoin (écrire un email, audi
 Jérémy
 
 —
-P.S. Si tu veux voir le CLAUDE.md que j'utilise moi-même au quotidien (anonymisé), il est [ici](https://jeremysagnier.com/downloads/CLAUDE.md). 150 lignes, lisible en 5 minutes.
+P.S. Si tu veux voir le CLAUDE.md que j'utilise moi-même au quotidien (anonymisé), il est [ici](https://jerwis.fr/downloads/CLAUDE.md). 150 lignes, lisible en 5 minutes.

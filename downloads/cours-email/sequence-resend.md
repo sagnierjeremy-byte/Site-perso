@@ -105,7 +105,7 @@ function loadDay(jour) {
 async function sendCoursEmail(email, jour) {
   const { subject, preheader, html } = loadDay(jour);
   await resend.emails.send({
-    from: 'Jérémy Sagnier <hello@jeremysagnier.com>',
+    from: 'Jérémy Sagnier <hello@jerwis.fr>',
     to: email,
     subject,
     html: `<!-- ${preheader} -->\n${html}`,
@@ -207,4 +207,4 @@ Plus lent à setup (45 min) mais zéro code.
 
 ---
 
-© 2026 Jérémy Sagnier · https://jeremysagnier.com
+© 2026 Jérémy Sagnier · https://jerwis.fr

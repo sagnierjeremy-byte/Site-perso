@@ -6,13 +6,13 @@ Ce fichier n'est **pas déployé** (il reste en local). Suis ces étapes une foi
 
 ## 1. Vérifier que tout est live
 
-Avant toute chose, teste que ces URLs répondent (remplace `jeremysagnier.com` par ton vrai domaine si différent) :
+Avant toute chose, teste que ces URLs répondent (remplace `jerwis.fr` par ton vrai domaine si différent) :
 
 | URL | Ce que tu dois voir |
 |---|---|
-| `https://jeremysagnier.com/` | Ton site |
-| `https://jeremysagnier.com/robots.txt` | Le contenu texte (User-agent, Sitemap, etc.) |
-| `https://jeremysagnier.com/sitemap.xml` | Un XML avec 10 URLs |
+| `https://jerwis.fr/` | Ton site |
+| `https://jerwis.fr/robots.txt` | Le contenu texte (User-agent, Sitemap, etc.) |
+| `https://jerwis.fr/sitemap.xml` | Un XML avec 10 URLs |
 
 Si une des 3 ne répond pas, Vercel n'a pas servi le fichier. Vérifie qu'ils sont bien à la racine du projet.
 
@@ -24,7 +24,7 @@ Si une des 3 ne répond pas, Vercel n'a pas servi le fichier. Vérifie qu'ils so
 
 1. Va sur [search.google.com/search-console](https://search.google.com/search-console).
 2. Clique **"Ajouter une propriété"**.
-3. Choisis **"Préfixe de l'URL"** et colle `https://jeremysagnier.com/`.
+3. Choisis **"Préfixe de l'URL"** et colle `https://jerwis.fr/`.
 4. Google te demande de vérifier que le site t'appartient. Méthode recommandée : **balise HTML**.
 
 ### Étape 2 — Ajouter la balise de vérification
@@ -124,17 +124,17 @@ Bing = 3% de part en France mais **source principale de Perplexity, ChatGPT Sear
 
 ## 7. Domain à changer si besoin
 
-Si tu utilises un domaine autre que `jeremysagnier.com`, fais un **search-replace global** dans le dossier :
+Si tu utilises un domaine autre que `jerwis.fr`, fais un **search-replace global** dans le dossier :
 
 ```bash
 cd ~/Desktop/jeremy-sagnier-site/
-grep -rl "jeremysagnier.com" . | xargs sed -i '' 's|jeremysagnier.com|TON-DOMAINE.com|g'
+grep -rl "jerwis.fr" . | xargs sed -i '' 's|jerwis.fr|TON-DOMAINE.com|g'
 ```
 
 Vérifie ensuite :
 
 ```bash
-grep -r "jeremysagnier.com" . --include="*.html" --include="*.xml" --include="*.txt"
+grep -r "jerwis.fr" . --include="*.html" --include="*.xml" --include="*.txt"
 ```
 
 Doit retourner 0 résultat.

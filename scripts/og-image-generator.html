@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>OG Image Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: #FBF7F0;
+    color: #0A0A0A;
+    position: relative;
+  }
+  .stripe {
+    position: absolute; top: 0; left: 0; right: 0; height: 14px;
+    background: linear-gradient(90deg, #00B2A9 0%, #00B2A9 33.33%, #EF426F 33.33%, #EF426F 66.66%, #FF8200 66.66%, #FF8200 100%);
+  }
+  .bottom-stripe {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 14px;
+    background: linear-gradient(90deg, #00B2A9 0%, #00B2A9 33.33%, #EF426F 33.33%, #EF426F 66.66%, #FF8200 66.66%, #FF8200 100%);
+  }
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 60px 60px;
+    align-items: center;
+    gap: 50px;
+  }
+  .photo-wrap {
+    width: 360px;
+    height: 460px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #0A0A0A;
+    position: relative;
+    box-shadow: 8px 8px 0 #EF426F;
+  }
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.1);
+  }
+  .text-block { flex: 1; }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #6E6E6E;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .kicker::before {
+    content: "";
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #EF426F;
+  }
+  h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 78px;
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1 .accent1 { color: #EF426F; }
+  h1 .accent2 { color: #00B2A9; }
+  .tagline {
+    font-family: 'Archivo', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3A3A3A;
+    line-height: 1.35;
+    max-width: 620px;
+  }
+  .url {
+    position: absolute;
+    bottom: 38px; right: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .url::before {
+    content: "→";
+    color: #EF426F;
+  }
+</style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div class="container">
+    <div class="photo-wrap">
+      <img src="../photos/A7100670.jpg" alt="Jérémy Sagnier">
+    </div>
+    <div class="text-block">
+      <div class="kicker">Jérémy Sagnier · pas dev</div>
+      <h1>L'IA,<br><span class="accent1">c'est aussi</span><br><span class="accent2">pour nous.</span></h1>
+      <p class="tagline">Parcours, veille auto chaque vendredi, outils gratuits. Pour rester à jour sans y passer tes soirées.</p>
+    </div>
+  </div>
+  <div class="url">jerwis.fr</div>
+  <div class="bottom-stripe"></div>
+</body>
+</html>

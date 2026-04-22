@@ -54,7 +54,7 @@ Tu tapes dans ton terminal quelque chose comme ceci :
 ```bash
 dev-browser --headless <<'EOF'
   const page = await browser.getPage("main");
-  await page.goto("https://jeremysagnier.com");
+  await page.goto("https://jerwis.fr");
   const titre = await page.evaluate(() => document.querySelector("h1").innerText);
   console.log(titre);
 EOF
@@ -62,7 +62,7 @@ EOF
 
 Un navigateur s'ouvre en arrière-plan, charge ma page, récupère le titre, l'affiche dans ton terminal. Fin. Pas de fenêtre qui apparaît sur ton écran.
 
-**Ce que tu ne fais pas toi-même** : écrire ce script. Tu dis à Claude « va sur jeremysagnier.com et dis-moi le titre ». Claude comprend, écrit le script dev-browser, l'exécute, te renvoie le résultat dans la conversation.
+**Ce que tu ne fais pas toi-même** : écrire ce script. Tu dis à Claude « va sur jerwis.fr et dis-moi le titre ». Claude comprend, écrit le script dev-browser, l'exécute, te renvoie le résultat dans la conversation.
 
 <div class="callout ok">
   <h4>La règle d'or que j'applique</h4>
@@ -76,7 +76,7 @@ Un navigateur s'ouvre en arrière-plan, charge ma page, récupère le titre, l'a
 <div class="usecase">
   <div class="usecase-label">Cas 01 · Vérifier qu'un déploiement a marché</div>
   <h4>Sans ouvrir Chrome, sans copier-coller</h4>
-  <p>Je commit une modification de mon site, je push, Vercel déploie. Avant dev-browser, je devais ouvrir Chrome, aller sur jeremysagnier.com, chercher l'élément qui a changé. <strong>Maintenant, je dis à Claude</strong> : « vérifie que la page /lexique.html affiche bien 8 entrées et pas 7 ». Il lance dev-browser, compte, me répond en 5 secondes.</p>
+  <p>Je commit une modification de mon site, je push, Vercel déploie. Avant dev-browser, je devais ouvrir Chrome, aller sur jerwis.fr, chercher l'élément qui a changé. <strong>Maintenant, je dis à Claude</strong> : « vérifie que la page /lexique.html affiche bien 8 entrées et pas 7 ». Il lance dev-browser, compte, me répond en 5 secondes.</p>
   <p><strong>Gain mesuré :</strong> je gagne 30 secondes par déploiement. Sur une journée où je push 10 fois, 5 minutes. Pas révolutionnaire à l'unité, énorme au cumul.</p>
 </div>
 
@@ -129,7 +129,7 @@ Si tu vois une liste d'options qui défile, c'est installé. Sinon, relance ton 
 
 Ouvre Claude Code dans un dossier, n'importe lequel, et dis-lui :
 
-> « Utilise dev-browser pour aller sur jeremysagnier.com et me donner le titre de la page »
+> « Utilise dev-browser pour aller sur jerwis.fr et me donner le titre de la page »
 
 Claude va écrire un petit script, le lancer, et te renvoyer *« Suis l'IA. Sans être dev. Sans y passer tes soirées. »* (mon H1 actuel). Si ça marche, tu es équipé. Sinon, Claude t'aidera à corriger.
 

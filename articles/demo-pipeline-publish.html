@@ -16,7 +16,7 @@
   "author": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
-    "url": "https://jeremysagnier.com/",
+    "url": "https://jerwis.fr/",
     "sameAs": [
       "https://www.linkedin.com/in/jeremy-sagnier/",
       "https://x.com/JeremySagnier",
@@ -26,13 +26,13 @@
   "publisher": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
-    "url": "https://jeremysagnier.com/"
+    "url": "https://jerwis.fr/"
   },
   "datePublished": "2026-04-21",
   "dateModified": "2026-04-21",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://jeremysagnier.com/articles/demo-pipeline-publish.html"
+    "@id": "https://jerwis.fr/articles/demo-pipeline-publish.html"
   },
   "inLanguage": "fr-FR"
 }
@@ -374,6 +374,7 @@
     color: var(--ink-muted);
   }
 </style>
+  <link rel="stylesheet" href="../css/tts-player.css">
 </head>
 <body>
 
@@ -412,6 +413,24 @@
     
     <div class="kicker"><span class="dot"></span>Démo · 99</div>
     <h1>J'écris en markdown.<br>Un script<br><em>publie pour moi.</em></h1>
+<!-- tts-player -->
+<div class="tts-player" data-state="idle">
+  <button class="tts-play" aria-label="Lire l'article">
+    <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+  </button>
+  <div class="tts-meta">
+    <span class="tts-label">Écouter · voix de Jérémy</span>
+    <div class="tts-progress" role="slider" aria-label="Progression">
+      <div class="tts-progress-bar"></div>
+    </div>
+    <span class="tts-time"><span class="current">0:00</span> / <span class="total">--:--</span></span>
+  </div>
+  <button class="tts-speed" aria-label="Vitesse" data-speed="1">1×</button>
+  <audio preload="metadata" src="audio/demo-pipeline-publish.mp3"></audio>
+</div>
+<!-- /tts-player -->
+
     <p class="hero-lead">
       Avant, publier un article sur mon site me prenait 3 heures de copier-coller HTML. Maintenant, j'écris un fichier markdown avec Claude Code, je lance une commande, l'article est en ligne. Voilà le pipeline complet.
     </p>
@@ -591,5 +610,6 @@
   });
 </script>
 
+  <script src="../js/tts-player.js" defer></script>
 </body>
 </html>

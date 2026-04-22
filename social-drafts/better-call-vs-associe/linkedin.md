@@ -46,6 +46,6 @@ La question à te poser avant de signer : « est-ce que cette personne me challe
 
 Je peux me tromper. Si tu es passé par là, réponds-moi — je lis tout, je réponds.
 
-https://jeremysagnier.com/articles/better-call-vs-associe.html
+https://jerwis.fr/articles/better-call-vs-associe.html
 
 #entrepreneuriat #bettercall #cofondateur

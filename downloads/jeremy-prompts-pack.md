@@ -3,7 +3,7 @@
 > 3 prompts que j'utilise dans mon workflow quotidien · explainer d'idées, décliner un article en posts sociaux, règles de ton pour écrire dans ma voix.
 
 Version publiée · 2026-04-22.
-Site · https://jeremysagnier.com/
+Site · https://jerwis.fr/
 
 ---
 
@@ -148,9 +148,9 @@ Si ça sonne comme un ami qui t'écrit un mail un dimanche soir → bon niveau.
 
 ## Pour aller plus loin
 
-- Mes 6 plugins Claude Code officiels · https://jeremysagnier.com/claude-code.html#plugins
-- Ma stack complète · https://jeremysagnier.com/outils.html
-- Mon setup Claude Code complet · https://jeremysagnier.com/claude-code.html
+- Mes 6 plugins Claude Code officiels · https://jerwis.fr/claude-code.html#plugins
+- Ma stack complète · https://jerwis.fr/outils.html
+- Mon setup Claude Code complet · https://jerwis.fr/claude-code.html
 
 **Tu as utilisé ces prompts et ça t'a servi ? Raconte-moi.** Réponds à ma newsletter du vendredi · je lis tout, je réponds.
 

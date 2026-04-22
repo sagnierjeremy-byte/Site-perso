@@ -22,7 +22,7 @@ Exemples concrets ·
 
 **1. Télécharge mon pack de 26 skills**
 
-[**→ jeremysagnier.com/downloads/jeremy-claude-pack.zip**](https://jeremysagnier.com/downloads/jeremy-claude-pack.zip)
+[**→ jerwis.fr/downloads/jeremy-claude-pack.zip**](https://jerwis.fr/downloads/jeremy-claude-pack.zip)
 
 Pack ZIP de 710 Ko, contient · 26 skills custom, mon CLAUDE.md v2, un script d'install des 6 plugins officiels, un récap de ma stack.
 
@@ -72,4 +72,4 @@ Demain · **automatiser un workflow**. Exemple · chaque fois que je publie un a
 Jérémy
 
 —
-P.S. Tu veux créer ton PROPRE skill (sur un sujet qui t'est spécifique) ? Mon article [« Les Skills Claude Code expliqués pour un non-dev »](https://jeremysagnier.com/articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html) te montre comment en créer un en 20 minutes.
+P.S. Tu veux créer ton PROPRE skill (sur un sujet qui t'est spécifique) ? Mon article [« Les Skills Claude Code expliqués pour un non-dev »](https://jerwis.fr/articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html) te montre comment en créer un en 20 minutes.

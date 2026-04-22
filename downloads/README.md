@@ -39,7 +39,7 @@ La première fois, il te demandera de te connecter. Suis les instructions, c'est
 
 ### Plus de détails ?
 
-Va sur le guide complet : [jeremysagnier.com/claude-code](#)
+Va sur le guide complet : [jerwis.fr/claude-code](#)
 
 ---
 
@@ -96,7 +96,7 @@ bash install-plugins.sh
 
 Après l'install, **redémarre Claude Code** (ferme et rouvre) pour charger les commandes slash.
 
-Pour vérifier : `claude plugin list`. Pour en savoir plus : https://jeremysagnier.com/claude-code.html#plugins
+Pour vérifier : `claude plugin list`. Pour en savoir plus : https://jerwis.fr/claude-code.html#plugins
 
 ---
 
@@ -157,7 +157,7 @@ Si tu es coincé, réponds simplement à ma newsletter — je t'aide à débloqu
 
 ## Tu veux creuser ?
 
-Je publie chaque semaine une newsletter qui raconte ce que je teste en IA, les outils qui fonctionnent, les prompts que j'utilise. Tu l'as reçue en t'inscrivant sur le site. Si tu ne l'as pas encore, va sur [jeremysagnier.com](#).
+Je publie chaque semaine une newsletter qui raconte ce que je teste en IA, les outils qui fonctionnent, les prompts que j'utilise. Tu l'as reçue en t'inscrivant sur le site. Si tu ne l'as pas encore, va sur [jerwis.fr](#).
 
 Et si tu as des questions, réponds à l'email. Je lis tout.
 

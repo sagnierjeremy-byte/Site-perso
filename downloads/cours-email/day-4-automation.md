@@ -34,7 +34,7 @@ Bonus · si tu veux que ça tourne **tout seul**, demande · *« programme ce sc
 
 **Solution** · un prompt qui prend ton article et sort 2 drafts prêts à publier.
 
-**Comment** · télécharge [**mon pack prompts**](https://jeremysagnier.com/downloads/jeremy-prompts-pack.md). Le Prompt 2 est exactement ça · tu copies-colles, tu remplaces `[URL-ARTICLE]` par ton fichier, Claude sort LinkedIn + X.
+**Comment** · télécharge [**mon pack prompts**](https://jerwis.fr/downloads/jeremy-prompts-pack.md). Le Prompt 2 est exactement ça · tu copies-colles, tu remplaces `[URL-ARTICLE]` par ton fichier, Claude sort LinkedIn + X.
 
 Gain typique · **45 min → 5 min** par article.
 
@@ -44,7 +44,7 @@ Gain typique · **45 min → 5 min** par article.
 
 **Solution** · un agent qui lit chaque email entrant, le score selon tes critères (taille entreprise, budget, urgence), te marque les hauts potentiels.
 
-**Comment** · lire [mon article Agent Gmail](https://jeremysagnier.com/articles/tuto-agent-gmail.html). 15 min de lecture, 30 min d'install. Tu as un agent qui tourne en fond.
+**Comment** · lire [mon article Agent Gmail](https://jerwis.fr/articles/tuto-agent-gmail.html). 15 min de lecture, 30 min d'install. Tu as un agent qui tourne en fond.
 
 ## La règle importante
 
@@ -74,4 +74,4 @@ Demain · **le dernier email**. Récap de ce que tu as construit + ta roadmap po
 Jérémy
 
 —
-P.S. Pour les plus avancés · j'ai une stack complète de 11 outils qui tournent ensemble (n8n, Supabase, Resend, Zernio...). [Ma page outils](https://jeremysagnier.com/outils.html) détaille chacun. Mais n'y va pas encore · reste sur Claude Code pour l'instant.
+P.S. Pour les plus avancés · j'ai une stack complète de 11 outils qui tournent ensemble (n8n, Supabase, Resend, Zernio...). [Ma page outils](https://jerwis.fr/outils.html) détaille chacun. Mais n'y va pas encore · reste sur Claude Code pour l'instant.

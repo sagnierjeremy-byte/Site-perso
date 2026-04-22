@@ -92,7 +92,7 @@ Si c'est la seconde, paie 600 €/mois. Reste solo.
 
 Le calcul complet + les cas où l'associé gagne :
 
-https://jeremysagnier.com/articles/better-call-vs-associe.html
+https://jerwis.fr/articles/better-call-vs-associe.html
 
 Je peux me tromper.
 

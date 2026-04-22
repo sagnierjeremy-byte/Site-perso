@@ -24,8 +24,8 @@ Voici par où je te suggère de continuer les 30 prochains jours, dans l'ordre.
 
 ### Semaine 2 · Approfondir
 
-- **Installer les 6 plugins officiels Anthropic** · superpowers, context7, claude-md-management, frontend-design, code-review, code-simplifier. [Script d'install en 30 secondes](https://jeremysagnier.com/downloads/install-plugins.sh).
-- **Lire ma page GitHub** · [jeremysagnier.com/github.html](https://jeremysagnier.com/github.html). GitHub devient ton filet de sécurité · sauvegarde auto + déploiement si tu as un site.
+- **Installer les 6 plugins officiels Anthropic** · superpowers, context7, claude-md-management, frontend-design, code-review, code-simplifier. [Script d'install en 30 secondes](https://jerwis.fr/downloads/install-plugins.sh).
+- **Lire ma page GitHub** · [jerwis.fr/github.html](https://jerwis.fr/github.html). GitHub devient ton filet de sécurité · sauvegarde auto + déploiement si tu as un site.
 - **Ajouter Vercel à ta stack** · compte gratuit, déploie un site en 45 secondes à chaque git push.
 
 ### Semaine 3 · Construire
@@ -36,18 +36,18 @@ Voici par où je te suggère de continuer les 30 prochains jours, dans l'ordre.
 
 ### Semaine 4 · Industrialiser
 
-- **Créer ton propre skill** · un mode d'emploi permanent pour les tâches que tu fais le plus souvent. [Mon article](https://jeremysagnier.com/articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html) te guide.
-- **Structurer ton workflow éditorial** · article → LinkedIn → X avec un pipeline automatique. Inspire-toi du [mien](https://jeremysagnier.com/articles/demo-pipeline-publish.html).
+- **Créer ton propre skill** · un mode d'emploi permanent pour les tâches que tu fais le plus souvent. [Mon article](https://jerwis.fr/articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html) te guide.
+- **Structurer ton workflow éditorial** · article → LinkedIn → X avec un pipeline automatique. Inspire-toi du [mien](https://jerwis.fr/articles/demo-pipeline-publish.html).
 
 ### Au-delà du mois 1
 
-Si tu as tenu les 4 semaines · tu es prêt·e pour la stack avancée · Supabase (base de données), n8n (no-code workflows), Sanity (CMS), fal.ai/Remotion (vidéos programmatiques). Tout est détaillé dans [ma page outils](https://jeremysagnier.com/outils.html).
+Si tu as tenu les 4 semaines · tu es prêt·e pour la stack avancée · Supabase (base de données), n8n (no-code workflows), Sanity (CMS), fal.ai/Remotion (vidéos programmatiques). Tout est détaillé dans [ma page outils](https://jerwis.fr/outils.html).
 
 ## Ma veille continue, toi aussi
 
 Mes nouveaux tests, mes échecs, mes découvertes · je les partage **chaque vendredi** dans ma newsletter « AI Playbook ». Tu es déjà inscrit·e via ce cours, tu n'as rien à faire.
 
-Tu trouveras aussi tous mes articles sur [jeremysagnier.com/apprendre](https://jeremysagnier.com/apprendre.html) · un parcours structuré en 4 étapes, de zéro à construire tes propres agents.
+Tu trouveras aussi tous mes articles sur [jerwis.fr/apprendre](https://jerwis.fr/apprendre.html) · un parcours structuré en 4 étapes, de zéro à construire tes propres agents.
 
 ## Une question pour toi (et j'y tiens)
 
@@ -72,4 +72,4 @@ Si tu veux aller plus loin, tout est déjà sur mon site. Si tu veux suggérer u
 Jérémy
 
 —
-P.S. Si tu connais un ami ou collègue qui galère avec l'IA, transmets-lui ce cours · [jeremysagnier.com/cours](https://jeremysagnier.com/cours.html) (page d'inscription). C'est gratuit, ça fait 5 emails, il me remerciera. Et moi aussi.
+P.S. Si tu connais un ami ou collègue qui galère avec l'IA, transmets-lui ce cours · [jerwis.fr/cours](https://jerwis.fr/cours.html) (page d'inscription). C'est gratuit, ça fait 5 emails, il me remerciera. Et moi aussi.

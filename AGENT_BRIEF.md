@@ -1,4 +1,4 @@
-# AGENT_BRIEF — Contrat agent rédacteur jeremysagnier.com
+# AGENT_BRIEF — Contrat agent rédacteur jerwis.fr
 
 > **À lire intégralement avant de pondre le moindre draft.** Ce fichier est le contrat entre Jérémy et l'agent IA. Si tu le contredis, Jérémy refuse le draft. Si tu hésites sur un choix : stop et demande.
 

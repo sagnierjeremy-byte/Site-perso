@@ -2,7 +2,7 @@
 
 > 11 outils : 7 essentiels (tier 1) + 4 avancés (tier 2). Avec les commandes d'install et mon avis honnête.
 > Version publiée : 2026-04-22.
-> Site de référence : https://jeremysagnier.com/outils.html
+> Site de référence : https://jerwis.fr/outils.html
 
 ---
 
@@ -31,7 +31,7 @@ Pour démarrer un site, une newsletter, piloter Claude. **Tout le monde devrait 
 | 10 | **fal.ai** | API IA images/vidéos | Pay-as-you-go | https://fal.ai |
 | 11 | **Remotion** | Vidéos programmatiques (code → mp4) | Gratuit (solo) | https://remotion.dev |
 
-Détails complets, pourquoi je les ai choisis, alternatives que j'ai écartées : https://jeremysagnier.com/outils.html
+Détails complets, pourquoi je les ai choisis, alternatives que j'ai écartées : https://jerwis.fr/outils.html
 
 ---
 
@@ -61,9 +61,9 @@ installe dev-browser pour moi
 
 Claude te donnera la commande exacte (généralement `npm install -g @anthropic-ai/dev-browser`). Pré-requis : Node.js installé (`node --version` doit répondre).
 
-**Test** : demande à Claude « va sur jeremysagnier.com et dis-moi le titre de la page ». Si ça marche, tu es équipé.
+**Test** : demande à Claude « va sur jerwis.fr et dis-moi le titre de la page ». Si ça marche, tu es équipé.
 
-**Article complet** : https://jeremysagnier.com/articles/dev-browser.html
+**Article complet** : https://jerwis.fr/articles/dev-browser.html
 
 ---
 
@@ -244,7 +244,7 @@ claude plugin install code-review
 claude plugin install code-simplifier
 ```
 
-Chaque plugin est détaillé dans https://jeremysagnier.com/claude-code.html#plugins
+Chaque plugin est détaillé dans https://jerwis.fr/claude-code.html#plugins
 
 ---
 
@@ -260,4 +260,4 @@ Chaque plugin est détaillé dans https://jeremysagnier.com/claude-code.html#plu
 
 Réponds à ma newsletter du vendredi, elle arrive directement dans ma boîte. Je lis tout, je réponds, je peux me tromper — tes retours m'aident à corriger.
 
-https://jeremysagnier.com/#newsletters
+https://jerwis.fr/#newsletters

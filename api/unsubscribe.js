@@ -14,7 +14,7 @@ const AUDIENCE_IDS = [
 ].filter(Boolean);
 
 const ADMIN_EMAIL = "sagnier.jeremy@gmail.com";
-const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>"; // domaine par défaut Resend (pas besoin de vérif)
+const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>"; // domaine vérifié Resend (SPF+DKIM+DMARC présents dans DNS)
 
 const REASON_LABELS = {
   "trop-emails": "Trop d'emails",

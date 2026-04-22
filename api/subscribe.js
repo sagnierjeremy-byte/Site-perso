@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const FROM_EMAIL = "Jérémy Sagnier <onboarding@resend.dev>";
+const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Gérer ton abonnement — Jérémy Sagnier</title>
-<meta name="description" content="Gère tes préférences newsletter ou désabonne-toi en 1 clic. Sans friction. Sans jugement.">
+<meta name="description" content="Gère tes préférences newsletter, comprends comment elle est écrite, ou désabonne-toi en 1 clic. Transparence totale, ton ami qui t'écrit le dimanche soir.">
 
 <link rel="canonical" href="https://jerwis.fr/preferences.html">
 
@@ -15,12 +15,14 @@
 <link rel="stylesheet" href="assets/main.css">
 
 <style>
+  /* ====== Hero ====== */
   .prefs-hero {
-    padding: 70px 0 40px;
+    padding: 80px 0 50px;
     background: #0A0A0A;
     color: #FBF7F0;
     text-align: center;
     position: relative;
+    overflow: hidden;
   }
   .prefs-hero::before {
     content: "";
@@ -29,57 +31,257 @@
     height: 6px;
     background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
   }
+  /* Radial accent */
+  .prefs-hero::after {
+    content: "";
+    position: absolute;
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 620px; height: 260px;
+    background: radial-gradient(ellipse, rgba(239,66,111,.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .prefs-hero > .container { position: relative; z-index: 1; }
   .prefs-hero .kicker {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: .2em;
     text-transform: uppercase;
     color: rgba(255,255,255,.55);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
   .prefs-hero h1 {
     font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(38px, 6vw, 56px);
+    font-size: clamp(38px, 6.5vw, 64px);
     line-height: .95;
-    letter-spacing: -.03em;
+    letter-spacing: -.035em;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
-  .prefs-hero h1 em {
-    color: var(--fuchsia);
-    font-style: normal;
-  }
+  .prefs-hero h1 em { color: var(--fuchsia); font-style: normal; }
   .prefs-hero p.lead {
-    color: rgba(255,255,255,.8);
-    max-width: 580px;
+    color: rgba(255,255,255,.85);
+    max-width: 620px;
     margin: 0 auto;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
   }
 
+  /* ====== Mini-marquee (inherit assets/main.css) ====== */
+
+  /* ====== Section générique ====== */
   .prefs-wrap {
-    max-width: 640px;
-    margin: 50px auto;
+    max-width: 720px;
+    margin: 0 auto;
     padding: 0 24px;
   }
+  .prefs-section {
+    padding: 60px 0;
+    border-top: 1px solid var(--line);
+  }
+  .prefs-section:first-of-type { border-top: none; }
+  .prefs-section .section-kicker {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.15);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.15); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.15);  color: var(--orange) }
+  .prefs-section h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4.5vw, 40px);
+    line-height: 1;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .prefs-section h2 em { font-style: normal; }
+  .prefs-section h2 em.teal { color: var(--teal) }
+  .prefs-section h2 em.fuchsia { color: var(--fuchsia) }
+  .prefs-section h2 em.orange { color: var(--orange) }
+  .prefs-section p, .prefs-section li {
+    font-size: 16px; line-height: 1.7; color: var(--ink-soft);
+  }
+  .prefs-section h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 19px;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
 
+  /* ====== Stats badges ====== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin: 24px 0 10px;
+  }
+  .stat-badge {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+    border-top: 3px solid var(--teal);
+  }
+  .stat-badge.c-fuchsia { border-top-color: var(--fuchsia); }
+  .stat-badge.c-orange  { border-top-color: var(--orange); }
+  .stat-badge-value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -.02em;
+  }
+  .stat-badge-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 8px;
+  }
+
+  /* ====== Pipeline box ====== */
+  .pipeline {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 680px) {
+    .pipeline { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+  .pipeline-step {
+    padding: 12px 0;
+    border-top: 1px dashed var(--line);
+  }
+  .pipeline-step:first-child, .pipeline-step:nth-child(2) { border-top: none; }
+  @media (max-width: 679px) {
+    .pipeline-step:nth-child(2) { border-top: 1px dashed var(--line); }
+  }
+  .pipeline-step .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    margin-bottom: 4px;
+  }
+  .pipeline-step h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .pipeline-step p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* ====== Jamais list ====== */
+  .never-list {
+    background: color-mix(in srgb, var(--fuchsia) 5%, var(--bg-2));
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--fuchsia);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin: 24px 0;
+  }
+  .never-list h3 { margin-top: 0; }
+  .never-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+  .never-list li {
+    padding: 6px 0;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+  }
+  .never-list li::before {
+    content: "×";
+    color: var(--fuchsia);
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 1.1;
+    margin-top: -1px;
+  }
+
+  /* ====== Archive editions ====== */
+  .archive-box {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .archive-box .archive-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .archive-box h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .archive-box .archive-note {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-top: 10px;
+  }
+
+  /* ====== Cards préférences ====== */
   .prefs-card {
     background: var(--surface);
     border: 1px solid var(--line-strong);
     border-radius: 16px;
-    padding: 32px 30px;
+    padding: 28px 28px;
     margin-bottom: 22px;
   }
-
-  .prefs-card h2 {
+  .prefs-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: 20px;
-    letter-spacing: -.01em;
+    font-size: 19px;
     color: var(--ink);
+  }
+  .prefs-card p {
+    font-size: 15px;
     margin-bottom: 14px;
   }
-  .prefs-card p { color: var(--ink-soft); line-height: 1.6; margin-bottom: 14px; font-size: 15px; }
 
   .prefs-email {
     display: block;
@@ -91,19 +293,14 @@
     background: var(--bg-2);
     color: var(--ink);
     font-family: 'Archivo', sans-serif;
-    margin-bottom: 18px;
   }
-  .prefs-email:focus {
-    outline: none;
-    border-color: var(--fuchsia);
-    background: var(--surface);
-  }
+  .prefs-email:focus { outline: none; border-color: var(--fuchsia); background: var(--surface); }
 
   .segment {
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    padding: 16px 0;
+    padding: 18px 0;
     border-top: 1px solid var(--line);
   }
   .segment:first-of-type { border-top: none; }
@@ -112,10 +309,9 @@
     accent-color: var(--fuchsia);
     margin-top: 2px;
     flex-shrink: 0;
+    cursor: pointer;
   }
-  .segment-body {
-    flex: 1;
-  }
+  .segment-body { flex: 1; }
   .segment-name {
     font-family: 'Archivo', sans-serif;
     font-weight: 700;
@@ -165,7 +361,7 @@
 
   .feedback-form {
     margin-top: 16px;
-    padding: 18px 20px;
+    padding: 20px 22px;
     background: var(--bg-2);
     border-radius: 10px;
     border-left: 3px solid var(--fuchsia);
@@ -184,7 +380,7 @@
     font-family: 'Archivo', sans-serif;
     font-size: 14px;
   }
-  .feedback-form textarea { min-height: 70px; resize: vertical; }
+  .feedback-form textarea { min-height: 80px; resize: vertical; }
   .feedback-form label {
     display: block;
     font-family: 'JetBrains Mono', monospace;
@@ -193,7 +389,7 @@
     text-transform: uppercase;
     font-weight: 700;
     color: var(--ink-muted);
-    margin-top: 10px;
+    margin-top: 12px;
   }
   .feedback-form label:first-child { margin-top: 0; }
 
@@ -209,7 +405,7 @@
     text-transform: uppercase;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 16px;
+    margin-top: 18px;
   }
   .btn-danger:hover { filter: brightness(1.08); }
   .btn-danger:disabled { opacity: .55; cursor: wait; }
@@ -222,20 +418,75 @@
     display: none;
   }
   .status.show { display: block; }
-  .status.ok { background: color-mix(in srgb, var(--teal) 15%, var(--bg-2)); color: var(--teal); border-left: 3px solid var(--teal); }
+  .status.ok  { background: color-mix(in srgb, var(--teal) 15%, var(--bg-2)); color: var(--teal); border-left: 3px solid var(--teal); }
   .status.err { background: color-mix(in srgb, var(--fuchsia) 10%, var(--bg-2)); color: var(--fuchsia); border-left: 3px solid var(--fuchsia); }
 
+  /* ====== Leo note finale ====== */
   .leo-note {
-    margin-top: 30px;
-    padding: 22px 24px;
-    background: var(--bg-2);
-    border-radius: 14px;
-    border-left: 3px solid var(--teal);
+    margin-top: 40px;
+    padding: 28px 30px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
   }
-  .leo-note p { color: var(--ink-soft); line-height: 1.7; font-size: 14.5px; margin-bottom: 10px; }
-  .leo-note p:last-child { margin-bottom: 0; }
-  .leo-note a { color: var(--fuchsia); font-weight: 600; text-decoration: none; }
+  .leo-note::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .leo-note h3 {
+    color: #FBF7F0 !important;
+    font-family: 'Archivo Black', sans-serif !important;
+    font-size: 20px !important;
+    text-transform: uppercase;
+    letter-spacing: -.015em;
+    margin: 0 0 14px !important;
+  }
+  .leo-note p {
+    color: rgba(255,255,255,.82) !important;
+    line-height: 1.65;
+    font-size: 15px;
+    margin-bottom: 14px !important;
+  }
+  .leo-note p:last-child { margin-bottom: 0 !important; }
+  .leo-note a {
+    color: var(--fuchsia);
+    font-weight: 600;
+    text-decoration: none;
+  }
   .leo-note a:hover { text-decoration: underline; }
+  .leo-note strong { color: #FBF7F0; }
+
+  /* ====== Mini-marquee custom ====== */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 15px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
 </style>
 </head>
 <body>
@@ -258,71 +509,227 @@
   </div>
 </header>
 
+<!-- ============ Hero ============ -->
 <section class="prefs-hero">
   <div class="container">
-    <div class="kicker">— Gestion d'abonnement</div>
-    <h1>Gère ton<br><em>abonnement.</em></h1>
+    <div class="kicker">— Ton abonnement · transparence totale</div>
+    <h1>Tu choisis.<br><em>Je respecte.</em></h1>
     <p class="lead">
-      Tu peux activer/désactiver ce que tu reçois · ou partir complètement. Sans justification, sans jugement, sans formulaire de rétention bidon. Tu choisis, je respecte.
+      Avant de modifier tes préférences ou de partir, prends 2 minutes pour comprendre <strong>ce que tu reçois vraiment</strong>, comment je l'écris, et ce que je refuse de mettre dedans. Si après ça tu veux toujours ajuster · c'est juste en dessous.
     </p>
   </div>
 </section>
 
-<div class="prefs-wrap">
-
-  <div class="prefs-card">
-    <h2>Ton email</h2>
-    <p>L'adresse qui reçoit mes emails actuellement.</p>
-    <input type="email" id="email" class="prefs-email" placeholder="ton@email.com" required>
-  </div>
-
-  <div class="prefs-card">
-    <h2>Ce que tu reçois</h2>
-    <p>Coche les newsletters que tu veux garder. Décoche celles que tu ne veux plus.</p>
-    <div id="segmentsList"></div>
-    <div class="btn-row">
-      <button class="btn-main" id="btnSave">Enregistrer mes préférences</button>
-    </div>
-    <div class="status" id="statusSave" aria-live="polite"></div>
-  </div>
-
-  <div class="prefs-card">
-    <h2>Me désabonner complètement</h2>
-    <p>Tu sors de toutes mes listes. Plus aucun email de ma part. C'est définitif sauf si tu te réinscris.</p>
-    <button class="btn-secondary" id="btnShowUnsub">Je veux me désabonner</button>
-
-    <div class="feedback-form" id="feedbackForm">
-      <label for="reason">Pourquoi tu pars ? (optionnel, mais ça m'aide)</label>
-      <select id="reason">
-        <option value="">— Choisis une raison —</option>
-        <option value="trop-emails">Je reçois trop d'emails</option>
-        <option value="pas-interessant">Le contenu ne m'intéresse plus</option>
-        <option value="trop-technique">C'est trop technique pour moi</option>
-        <option value="pas-assez-technique">C'est pas assez technique pour moi</option>
-        <option value="ton-ne-colle-plus">Le ton ne me correspond pas</option>
-        <option value="inscription-par-erreur">Je me suis inscrit·e par erreur</option>
-        <option value="autre">Autre raison</option>
-      </select>
-
-      <label for="comment">Quelque chose à me dire ? (optionnel)</label>
-      <textarea id="comment" placeholder="Un mot, une critique, un conseil — je lis tout."></textarea>
-
-      <button class="btn-danger" id="btnUnsub">Confirmer le désabonnement</button>
-      <div class="status" id="statusUnsub" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <div class="leo-note">
-    <p>
-      <strong>Un mot avant de partir.</strong> Si c'est juste <em>un point précis</em> qui t'a gêné (un sujet, un ton, une fréquence), réponds directement à ma newsletter au lieu de te désabonner. J'ajuste ce qui coince · tes retours m'aident vraiment.
-    </p>
-    <p>
-      Sinon, je comprends. Pas de drama, pas de rétention. Bonne route · <a href="mailto:sagnier.jeremy@gmail.com">sagnier.jeremy@gmail.com</a> si tu veux m'écrire un jour.
-    </p>
+<!-- ============ Mini-marquee 01 ============ -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Un email par semaine</span><span>Vendredi 9 h</span><span>Écrit avec Claude</span><span>Relu par moi</span><span>Zéro pub</span>
+    <span>Un email par semaine</span><span>Vendredi 9 h</span><span>Écrit avec Claude</span><span>Relu par moi</span><span>Zéro pub</span>
   </div>
 </div>
 
-<footer class="footer" id="contact" style="margin-top:60px">
+<!-- ============ Section 1 · Comment AI Playbook fonctionne ============ -->
+<section class="prefs-section">
+  <div class="prefs-wrap">
+    <span class="section-kicker k-teal">— AI Playbook · comment ça marche</span>
+    <h2>Ce que tu<br>reçois <em class="teal">vraiment.</em></h2>
+    <p>
+      AI Playbook, c'est <strong>ma veille IA personnelle</strong>. Chaque vendredi matin, je te partage les 5 découvertes de ma semaine · outils que j'ai testés, prompts qui marchent, articles qui valent le coup, exemples concrets.
+    </p>
+    <p>
+      Je ne l'écris pas « pour toi ». Je l'écris <strong>pour moi d'abord</strong>, parce que je veux rester à jour dans l'IA sans y passer mes soirées. Si ça me sert, je me dis que ça peut servir à d'autres · alors je te l'envoie.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-badge">
+        <div class="stat-badge-value">1</div>
+        <div class="stat-badge-label">email / semaine</div>
+      </div>
+      <div class="stat-badge c-fuchsia">
+        <div class="stat-badge-value">Ven. 9h</div>
+        <div class="stat-badge-label">heure d'envoi</div>
+      </div>
+      <div class="stat-badge c-orange">
+        <div class="stat-badge-value">~140</div>
+        <div class="stat-badge-label">sources scannées</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-badge-value">5</div>
+        <div class="stat-badge-label">découvertes max</div>
+      </div>
+    </div>
+
+    <h3>Le pipeline, pas à pas</h3>
+    <p>
+      J'ai construit un script (Claude Code) qui tourne automatiquement et remonte les infos. Je te détaille les 4 étapes pour que tu sois au courant de comment ton email est cuisiné ·
+    </p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="num">01 · Lundi</div>
+        <h4>Scan multi-sources</h4>
+        <p>Reddit (11 subs IA + business), Hacker News, 8 blogs tech officiels (OpenAI, Google AI, Hugging Face…), GitHub, 16 chaînes YouTube, Google News. ~700 items bruts récupérés.</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="num">02 · Mardi-Jeudi</div>
+        <h4>Je filtre, je teste</h4>
+        <p>Le script score les items sur 5 axes (demande, pertinence, evergreen, vécu, gap). Je garde ~15 idées. J'en teste 2-3 vraiment. Les autres sautent.</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="num">03 · Jeudi soir</div>
+        <h4>Rédaction</h4>
+        <p>J'écris avec Claude Code en local (pas l'interface web). Un CLAUDE.md garde mes règles de ton et mes interdits. Je relis à voix haute avant d'envoyer.</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="num">04 · Vendredi 9h</div>
+        <h4>Envoi via Resend</h4>
+        <p>Tu reçois l'email. Je te laisse mon email direct en bas de chaque newsletter · si tu réponds, ça arrive dans ma boîte et je lis tout.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:22px;">
+      <strong>La transparence c'est ma règle #1</strong> · chaque newsletter mentionne en intro « écrit avec Claude, relu par moi ». Toutes les stats sont sourcées (tu peux cliquer sur chaque lien pour vérifier). Je n'invente rien.
+    </p>
+  </div>
+</section>
+
+<!-- ============ Mini-marquee 02 ============ -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Zéro pub</span><span>Zéro affiliation cachée</span><span>Zéro drama IA</span><span>Zéro « 7 jours pour maîtriser »</span><span>Sources vérifiables</span>
+    <span>Zéro pub</span><span>Zéro affiliation cachée</span><span>Zéro drama IA</span><span>Zéro « 7 jours pour maîtriser »</span><span>Sources vérifiables</span>
+  </div>
+</div>
+
+<!-- ============ Section 2 · Ce qui n'y sera jamais ============ -->
+<section class="prefs-section">
+  <div class="prefs-wrap">
+    <span class="section-kicker k-fuchsia">— Mes interdits</span>
+    <h2>Ce que tu n'y<br>trouveras <em class="fuchsia">jamais.</em></h2>
+    <p>
+      Autant de charte que de positionnement · voilà ce que je refuse d'écrire, quelles que soient les circonstances.
+    </p>
+
+    <div class="never-list">
+      <h3>Les 6 trucs qui ne rentreront pas dans ma newsletter</h3>
+      <ul>
+        <li><strong>Pub déguisée</strong> · si un outil m'a payé ou m'a offert un deal, je le dis clairement. Aucun outil de cette newsletter n'est sponsorisé (à ce jour).</li>
+        <li><strong>Affiliation non signalée</strong> · aucun lien affilié sans mention explicite « (lien affilié) » à côté.</li>
+        <li><strong>Drama IA</strong> · pas de titres style *« OpenAI va remplacer TOUS les devs »*, *« L'IA va tuer ton métier »*. Chuchotements de doomer, pas mon genre.</li>
+        <li><strong>Listes de prompts copiés sans contexte</strong> · je teste chaque prompt que je partage. Si je ne l'ai pas lancé moi-même, il n'y est pas.</li>
+        <li><strong>Promesses marketing creuses</strong> · pas de *« 7 jours pour maîtriser l'IA »*, *« Gagne 10 000 €/mois »*, *« Le secret que personne ne te dit »*.</li>
+        <li><strong>Stats floues ou inventées</strong> · chaque chiffre a une source cliquable. Si je ne peux pas sourcer, je ne le cite pas.</li>
+      </ul>
+    </div>
+
+    <p style="margin-top:22px;">
+      Si un jour tu repères un truc de cette liste dans un de mes emails, <strong>réponds-moi</strong>. Je corrige et je m'excuse dans la newsletter suivante. Cette transparence, c'est tout ce qui me reste pour mériter ton attention.
+    </p>
+  </div>
+</section>
+
+<!-- ============ Section 3 · Archive ============ -->
+<section class="prefs-section">
+  <div class="prefs-wrap">
+    <span class="section-kicker k-orange">— Archive</span>
+    <h2>Les dernières <em class="orange">éditions.</em></h2>
+    <p>
+      Pour que tu voies ce que tu reçois (ou ce que tu vas recevoir) avant de décider.
+    </p>
+
+    <div class="archive-box">
+      <div class="archive-date">Première édition</div>
+      <h3>Vendredi 24 avril 2026 · 9h</h3>
+      <p class="archive-note">
+        La première édition part <strong>ce vendredi</strong>. Les suivantes arrivent chaque vendredi même heure. Une fois publiée, tu pourras relire les archives directement depuis cette page.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Mini-marquee 03 ============ -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Ta décision t'appartient</span><span>Pas de rétention bidon</span><span>Sans jugement</span><span>Désabonnement 1 clic</span>
+    <span>Ta décision t'appartient</span><span>Pas de rétention bidon</span><span>Sans jugement</span><span>Désabonnement 1 clic</span>
+  </div>
+</div>
+
+<!-- ============ Section 4 · Préférences + désabonnement ============ -->
+<section class="prefs-section">
+  <div class="prefs-wrap">
+    <span class="section-kicker k-teal">— Ajuste ou pars</span>
+    <h2>Tes <em class="teal">préférences.</em></h2>
+    <p>
+      Maintenant que tu sais exactement ce que tu reçois · à toi.
+    </p>
+
+    <div class="prefs-card" style="margin-top:28px;">
+      <h3>Ton email</h3>
+      <p>L'adresse qui reçoit mes newsletters actuellement (ou qui va les recevoir).</p>
+      <input type="email" id="email" class="prefs-email" placeholder="ton@email.com" required>
+    </div>
+
+    <div class="prefs-card">
+      <h3>Ce que tu reçois</h3>
+      <p>Coche ce que tu veux garder. Décoche ce que tu ne veux plus. Change à chaque fois que ton envie évolue · c'est fait pour.</p>
+      <div id="segmentsList"></div>
+      <div class="btn-row">
+        <button class="btn-main" id="btnSave">Enregistrer mes préférences</button>
+      </div>
+      <div class="status" id="statusSave" aria-live="polite"></div>
+    </div>
+
+    <div class="prefs-card">
+      <h3>Me désabonner complètement</h3>
+      <p>
+        Tu sors de toutes mes listes. Plus aucun email de ma part. C'est définitif, sauf si tu te réinscris un jour. Pas de « Êtes-vous vraiment sûr ? », pas de dix clics pour partir.
+      </p>
+      <button class="btn-secondary" id="btnShowUnsub">Je veux me désabonner</button>
+
+      <div class="feedback-form" id="feedbackForm">
+        <p style="margin:0 0 14px; color: var(--ink-soft); font-size: 14px;">
+          Avant de partir · si tu as 30 secondes, dis-moi pourquoi. Ça m'aide vraiment à ajuster. Sinon zappe, confirme directement.
+        </p>
+
+        <label for="reason">Pourquoi tu pars ? (optionnel)</label>
+        <select id="reason">
+          <option value="">— Choisis une raison —</option>
+          <option value="trop-emails">Je reçois trop d'emails en général</option>
+          <option value="pas-interessant">Le contenu ne m'intéresse plus</option>
+          <option value="trop-technique">C'est trop technique pour moi</option>
+          <option value="pas-assez-technique">Ce n'est pas assez technique pour moi</option>
+          <option value="ton-ne-colle-plus">Le ton ne me correspond pas</option>
+          <option value="inscription-par-erreur">Je me suis inscrit·e par erreur</option>
+          <option value="autre">Autre raison</option>
+        </select>
+
+        <label for="comment">Un mot, une critique, un conseil ? (optionnel)</label>
+        <textarea id="comment" placeholder="Tout ce que tu veux · je lis vraiment tout."></textarea>
+
+        <button class="btn-danger" id="btnUnsub">Confirmer le désabonnement</button>
+        <div class="status" id="statusUnsub" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Leo note finale -->
+    <div class="leo-note">
+      <h3>Une dernière chose avant de partir</h3>
+      <p>
+        <strong>Si c'est un point précis qui t'a gêné</strong> (un sujet que je n'aurais pas dû couvrir, un ton qui t'a picoté, une fréquence trop soutenue), réponds plutôt à ma newsletter. J'ajuste ce qui coince · tes retours sont précieux, même les désagréables.
+      </p>
+      <p>
+        Si c'est global · je comprends. Pas de rancune, pas de drama. Tu sors de la liste et on passe à autre chose. Et si un jour tu veux me rejoindre, tu sais où me trouver · <a href="mailto:sagnier.jeremy@gmail.com">sagnier.jeremy@gmail.com</a>.
+      </p>
+      <p>
+        Bonne route. Et merci d'être passé par ici pour décider.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer" id="contact" style="margin-top:20px">
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 · Jérémy Sagnier · <a href="index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a></span>
@@ -336,7 +743,7 @@
     {
       id: 'ai-playbook',
       name: 'AI Playbook · ma veille du vendredi',
-      desc: 'Un email par semaine. Les outils, prompts, articles IA que je teste. Zéro pub, zéro filler.',
+      desc: 'Un email par semaine, vendredi 9h. Les 5 découvertes IA de ma semaine. Zéro pub, sources vérifiables, désinscription 1 clic.',
     },
     // Futur · ajouter d'autres audiences ici quand créées dans Resend
   ];
@@ -433,7 +840,7 @@
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'Erreur ' + res.status);
       }
-      showStatus('statusUnsub', '✓ Tu es désabonné·e. Bonne route, et merci pour les retours.', 'ok');
+      showStatus('statusUnsub', '✓ Tu es désabonné·e. Bonne route · et merci pour les retours.', 'ok');
       btn.textContent = 'Désabonné ✓';
     } catch (err) {
       showStatus('statusUnsub', '× ' + err.message, 'err');

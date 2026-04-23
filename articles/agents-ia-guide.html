@@ -674,6 +674,18 @@
     transform: translate(-2px, -2px);
     box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
+  .callout {
+    position: relative; padding: 14px 16px 14px 22px;
+    border-radius: 10px; margin: 16px 0;
+  }
+  .callout::before {
+    content: ""; position: absolute; left: 8px; top: 14px;
+    width: 4px; height: calc(100% - 28px); border-radius: 2px;
+  }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
 </style>
 </head>
 <body>
@@ -863,10 +875,17 @@
     <div class="tldr-label">Ce que tu vas apprendre, en 30 secondes</div>
     <h2>L'essentiel en trois points</h2>
     <ul>
-      <li>Un agent IA, ce n'est pas un chatbot. La définition la plus claire vient de Simon Willison&nbsp;: «&nbsp;un LLM qui exécute des outils en boucle pour atteindre un objectif&nbsp;». <strong>Sans outils, sans boucle, sans objectif, ce n'est pas un agent.</strong></li>
-      <li>Tu as trois façons d'en créer un en 2026 : <strong>no-code (Lindy, Zapier), low-code avec Claude Code, ou full développement</strong>. Le budget va de 15 € à plusieurs milliers d'euros par mois selon le cas.</li>
+      <li>Un agent IA, ce n'est pas un chatbot. La définition la plus claire vient de Simon Willison&nbsp;: «&nbsp;un LLM (Large Language Model · le « cerveau » qui se cache derrière ChatGPT, Claude ou Gemini) qui exécute des outils en boucle pour atteindre un objectif&nbsp;». <strong>Sans outils, sans boucle, sans objectif, ce n'est pas un agent.</strong></li>
+      <li>Tu as trois façons d'en créer un en 2026 : <strong>no-code (sans écrire une ligne de code, sur Lindy, Zapier), low-code avec Claude Code (un peu de config dans un terminal), ou full développement</strong>. Le budget va de 15 € à plusieurs milliers d'euros par mois selon le cas.</li>
       <li>Non, un agent <strong>n'apprend pas tout seul</strong> de ses erreurs. Les modèles sont figés après entraînement. Il s'améliore uniquement si tu lui donnes de meilleurs outils, de meilleures instructions ou des documents à consulter.</li>
     </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
 </div>
 
@@ -925,7 +944,7 @@
           <td><strong>Outils externes</strong></td>
           <td>Non</td>
           <td>Parfois</td>
-          <td>Oui (mail, web, APIs)</td>
+          <td>Oui (mail, web, APIs · interfaces qui permettent à un programme de parler à un autre)</td>
           <td>Oui, mais figés</td>
         </tr>
         <tr>
@@ -973,7 +992,7 @@
 
     <h3>2. Les mains</h3>
     <p>
-      Ce que les spécialistes appellent les «&nbsp;outils&nbsp;» ou le «&nbsp;tool use&nbsp;». Des fonctions que l'agent peut demander d'exécuter&nbsp;: envoyerEmail, chercherWeb, lireCRM, ajouterCalendrier. L'agent ne fait pas l'action lui-même. Il dit «&nbsp;j'ai besoin d'envoyer cet email&nbsp;», ton code exécute l'action, lui renvoie le résultat.
+      Ce que les spécialistes appellent les «&nbsp;outils&nbsp;» ou le «&nbsp;tool use&nbsp;» (en clair : la capacité du modèle à appeler des fonctions externes). Des fonctions que l'agent peut demander d'exécuter&nbsp;: envoyerEmail, chercherWeb, lireCRM, ajouterCalendrier. L'agent ne fait pas l'action lui-même. Il dit «&nbsp;j'ai besoin d'envoyer cet email&nbsp;», ton code exécute l'action, lui renvoie le résultat.
     </p>
 
     <h3>3. La mémoire</h3>
@@ -1306,7 +1325,7 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
 
     <h3>4. Fine-tuner le modèle</h3>
     <p>
-      Tu ré-entraînes le modèle sur des milliers d'exemples de ce que tu veux qu'il produise. C'est coûteux (plusieurs milliers d'euros et plusieurs semaines), ça demande de la donnée de qualité, et c'est rarement nécessaire. À réserver aux cas où les trois premiers leviers ne suffisent vraiment pas.
+      Tu ré-entraînes le modèle (en clair : tu refais une mini-école au LLM avec tes propres exemples) sur des milliers d'exemples de ce que tu veux qu'il produise. C'est coûteux (plusieurs milliers d'euros et plusieurs semaines), ça demande de la donnée de qualité, et c'est rarement nécessaire. À réserver aux cas où les trois premiers leviers ne suffisent vraiment pas.
     </p>
 
     <p>
@@ -1325,12 +1344,12 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
 
     <h3>1. Les hallucinations</h3>
     <p>
-      Un agent peut inventer une information, citer une source qui n'existe pas, se tromper avec aplomb. Les statistiques 2026 donnent <strong>8 % d'hallucinations en moyenne, 18 % en support client, 35 % en conversations longues à plusieurs tours</strong>. Réduisible avec du RAG et des vérifications humaines, pas éliminable.
+      Un agent peut « halluciner » (inventer une réponse fausse en ayant l'air sûr de lui), citer une source qui n'existe pas, se tromper avec aplomb. Les statistiques 2026 donnent <strong>8 % d'hallucinations en moyenne, 18 % en support client, 35 % en conversations longues à plusieurs tours</strong>. Réduisible avec du RAG et des vérifications humaines, pas éliminable.
     </p>
 
     <h3>2. La dérive</h3>
     <p>
-      Un agent autonome peut sortir de son scope initial, traiter des données qu'il ne devrait pas voir, répondre hors-sujet. Mets des garde-fous explicites dans ton prompt système.
+      Un agent autonome peut sortir de son scope initial (le périmètre de tâches qu'on lui a fixé), traiter des données qu'il ne devrait pas voir, répondre hors-sujet. Mets des garde-fous explicites dans ton prompt système.
     </p>
 
     <h3>3. Les coûts qui explosent</h3>
@@ -1340,12 +1359,12 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
 
     <h3>4. La sécurité</h3>
     <p>
-      Les «&nbsp;prompt injections&nbsp;» sont une attaque connue&nbsp;: quelqu'un glisse dans un email une instruction cachée que ton agent exécute à son insu. Ne donne jamais à un agent l'accès à des actions irréversibles (suppression, paiement, envoi) sans validation humaine.
+      Les «&nbsp;prompt injections&nbsp;» (en clair : des instructions piégées glissées dans un texte que l'agent va lire) sont une attaque connue&nbsp;: quelqu'un glisse dans un email une instruction cachée que ton agent exécute à son insu. Ne donne jamais à un agent l'accès à des actions irréversibles (suppression, paiement, envoi) sans validation humaine.
     </p>
 
     <h3>5. Le RGPD et l'EU AI Act</h3>
     <p>
-      Si ton agent traite des données personnelles, tu dois faire une étude d'impact (DPIA), signer un accord avec ton fournisseur (DPA), minimiser les données, et divulguer au utilisateurs qu'ils parlent à une IA (article 50 de l'EU AI Act). Les amendes vont jusqu'à <strong>15 millions d'euros ou 3 % du chiffre d'affaires mondial</strong>.
+      Si ton agent traite des données personnelles, tu dois faire une étude d'impact (DPIA · Data Protection Impact Assessment, l'analyse RGPD obligatoire pour les traitements à risque), signer un accord avec ton fournisseur (DPA · Data Processing Agreement, contrat type RGPD entre toi et le sous-traitant), minimiser les données, et divulguer au utilisateurs qu'ils parlent à une IA (article 50 de l'EU AI Act). Les amendes vont jusqu'à <strong>15 millions d'euros ou 3 % du chiffre d'affaires mondial</strong>.
     </p>
   </div>
 </section>

@@ -696,6 +696,13 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
+
 <!-- Intro -->
 <section class="block">
   <div class="container">
@@ -705,12 +712,12 @@
       Un loop, c'est une commande qui dit à Claude Code : <em>"Relance-moi cette action à intervalles réguliers."</em> Tu lances un loop, Claude relance tout seul la commande pendant que tu fais autre chose.
     </p>
     <p>
-      Pense à un cron job, mais beaucoup plus intelligent. Un cron te lance un script bête. Un loop Claude peut <strong>décider s'il relance, s'il change d'approche, s'il t'alerte</strong> — il comprend ce qu'il fait.
+      Pense à un cron job (une tâche planifiée qui se relance toute seule à heure fixe sur ton ordi), mais beaucoup plus intelligent. Un cron te lance un script bête. Un loop Claude peut <strong>décider s'il relance, s'il change d'approche, s'il t'alerte</strong> — il comprend ce qu'il fait.
     </p>
 
     <div class="callout warn">
       <h4>Important : le loop tourne tant que ta session est ouverte</h4>
-      <p>Un <code>/loop</code> est attaché à ta session Claude Code. Si tu fermes ton <a href="../lexique.html#cli">terminal</a> ou ton Mac, le loop s'arrête. Pour que ça tourne vraiment la nuit (Mac éteint), il faut <strong>Routines</strong> (la feature cloud d'Anthropic, sortie avril 2026) — j'y reviens plus bas.</p>
+      <p>Un <code>/loop</code> est attaché à ta session Claude Code. Si tu fermes ton <a href="../lexique.html#cli">terminal</a> ou ton Mac, le loop s'arrête. Pour que ça tourne vraiment la nuit (Mac éteint), il faut <strong>Routines</strong> (la feature cloud d'Anthropic — autrement dit, une tâche qui tourne sur les serveurs d'Anthropic et plus sur ton ordi, sortie avril 2026) — j'y reviens plus bas.</p>
     </div>
 
     <div class="callout tip">
@@ -751,7 +758,7 @@
 
     <div class="callout warn">
       <h4>Attention au cache prompt (5 min)</h4>
-      <p>Le cache prompt Anthropic a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les tokens mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
+      <p>Le cache prompt Anthropic (un mécanisme qui « met en mémoire » ton prompt pour ne pas le repayer à chaque appel) a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les tokens (les « briques » de texte facturées par l'IA · environ 0,75 mot chacun) mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss (le « cache raté » qui te fait repayer plein tarif) au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
     </div>
   </div>
 </section>
@@ -827,7 +834,7 @@ selon les règles de copywriting Hormozi."</pre>
     <div class="usecase">
       <div class="usecase-label">Cas 01 · Ma veille IA auto</div>
       <h4>Un brief IA qui m'arrive pendant que je dors</h4>
-      <p>Chaque matin, je veux un résumé des 10 publications IA les plus importantes de la nuit. J'écris un prompt de veille, je le lance en loop toutes les 4 heures, et je reçois la synthèse dès que je suis dispo.</p>
+      <p>Chaque matin, je veux un résumé des 10 publications IA les plus importantes de la nuit. J'écris un prompt (l'instruction que tu donnes à l'IA en mots) de veille, je le lance en loop toutes les 4 heures, et je reçois la synthèse dès que je suis dispo.</p>
       <pre>/loop 4h "Scanne les 50 dernières pubs sur mes 10 sources IA.
 Résume les 5 plus importantes. Format bullet + liens."</pre>
       <p>Tips : je stocke le résultat dans un fichier avec timestamp pour avoir un historique.</p>
@@ -896,7 +903,7 @@ Aucun changement sur les 4 autres sujets suivis
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>3 loops actifs · ~8 à 15 $/mois</h3>
-        <p>Veille IA + monitoring déploy + relecture article. 3 loops avec des prompts moyens (5 à 8k tokens par run). C'est mon setup actuel. À ce niveau, tu commences à sentir le ROI — tu économises 30 min à 1 h par jour, largement rentabilisé.</p>
+        <p>Veille IA + monitoring déploy + relecture article. 3 loops avec des prompts moyens (5 à 8k tokens par run). C'est mon setup actuel. À ce niveau, tu commences à sentir le ROI (Return On Investment, ou en clair : le retour sur investissement) — tu économises 30 min à 1 h par jour, largement rentabilisé.</p>
       </div>
     </div>
 
@@ -923,7 +930,7 @@ Aucun changement sur les 4 autres sujets suivis
     <h2>Les 3 pièges <em class="fuchsia">à éviter.</em></h2>
 
     <h4>Piège 1 · Mettre un intervalle trop court</h4>
-    <p>Tentation du débutant : <code>/loop 1m</code> (le minimum autorisé). Résultat : 60 appels à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
+    <p>Tentation du débutant : <code>/loop 1m</code> (le minimum autorisé). Résultat : 60 appels (chaque appel = une question envoyée à l'IA, donc facturée) à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
 
     <h4>Piège 2 · Oublier les états d'échec</h4>
     <p>Si ton loop surveille un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
@@ -949,7 +956,7 @@ Aucun changement sur les 4 autres sujets suivis
     <ol>
       <li><strong>Les sous-agents parallèles</strong> — lancer 5 tâches en parallèle, synthétiser. Je ferai un tuto dédié.</li>
       <li><strong>Les skills custom</strong> — créer ton propre "métier" réutilisable (comme <code>veille-ia</code>, <code>cold-email</code>). Voir mon <a href="../claude-code.html">pack Claude Code</a>.</li>
-      <li><strong>Les hooks settings.json</strong> — faire que Claude déclenche automatiquement une action à chaque fin de session (log, commit, notif Telegram).</li>
+      <li><strong>Les hooks settings.json</strong> (les « déclencheurs » que tu configures dans le fichier de réglages de Claude Code) — faire que Claude déclenche automatiquement une action à chaque fin de session (log, commit, notif Telegram).</li>
     </ol>
 
     <div class="callout tip">

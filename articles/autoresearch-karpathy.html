@@ -642,6 +642,13 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
     <span class="section-kicker k-teal">— Avant tout</span>
@@ -651,19 +658,19 @@
       Karpathy publie <code>autoresearch</code> en mars 2026 pour montrer une idée : les chercheurs en IA peuvent déléguer une partie de leur travail à <strong>des essaims d'agents IA</strong> qui font la recherche à leur place. Autoresearch, c'est la preuve de concept : tu donnes à un agent un mini-laboratoire, et il cherche tout seul comment faire mieux.
     </p>
     <p>
-      Concrètement : le repo contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU. L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur, hyperparamètres, tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert. Et boucler. Indéfiniment.
+      Concrètement : le repo (le dépôt de code public) contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU (carte graphique servant à entraîner les IA). L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur — l'algo qui ajuste le modèle, hyperparamètres — les réglages haut niveau type "vitesse d'apprentissage", tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert (revenir en arrière). Et boucler. Indéfiniment.
     </p>
     <p>
-      Les résultats publics sont parlants, sans être magiques : Karpathy a laissé tourner son agent pendant <strong>environ 48h</strong> sur un modèle taille <em>depth=12</em>. L'agent a retenu <strong>20 changements additifs</strong> qui, une fois appliqués à un modèle plus gros (depth=24), ont réduit le <em>Time-to-GPT-2</em> de <strong>2h02 à 1h48 — soit ~11% plus rapide</strong> (<a href="https://x.com/karpathy/status/2031135152349524125" target="_blank" rel="noopener">source : tweet Karpathy, 9 mars 2026</a>). C'est un gain réel mais borné — et obtenu sur un mini-modèle, donc à ne pas extrapoler naïvement à du GPT-4.
+      Les résultats publics sont parlants, sans être magiques : Karpathy a laissé tourner son agent pendant <strong>environ 48h</strong> sur un modèle taille <em>depth=12</em> (depth = profondeur, le nombre de couches du réseau de neurones — plus c'est haut, plus le modèle est puissant et lent). L'agent a retenu <strong>20 changements additifs</strong> qui, une fois appliqués à un modèle plus gros (depth=24), ont réduit le <em>Time-to-GPT-2</em> (le temps pour obtenir un modèle de qualité GPT-2) de <strong>2h02 à 1h48 — soit ~11% plus rapide</strong> (<a href="https://x.com/karpathy/status/2031135152349524125" target="_blank" rel="noopener">source : tweet Karpathy, 9 mars 2026</a>). C'est un gain réel mais borné — et obtenu sur un mini-modèle, donc à ne pas extrapoler naïvement à du GPT-4.
     </p>
 
     <div class="callout tip">
       <h4>Pourquoi c'est un moment charnière</h4>
       <p>On parle beaucoup d'"IA qui code". Autoresearch va un cran plus loin : <strong>l'IA fait de la recherche</strong>. Elle pose des hypothèses, teste, apprend, itère. Karpathy n'est pas seul sur ce chantier :</p>
       <ul>
-        <li><strong>Sakana AI — Darwin Gödel Machine</strong> (mai 2025) : un agent qui réécrit son propre code et grimpe de <strong>20% à 50% sur SWE-bench</strong>, et de 14% à 30% sur Polyglot. Transfert inter-modèles démontré.</li>
-        <li><strong>Sakana AI Scientist v2</strong> (avril 2025) : premier papier de recherche <strong>entièrement généré par une IA</strong> accepté à un workshop ICLR 2025. Nuance honnête : l'équipe a été critiquée pour des hallucinations et des résultats fragiles — le pipeline n'est pas magique.</li>
-        <li><strong>ADAS (Meta, ICLR 2025)</strong> : une IA invente elle-même de nouveaux designs d'agents qui battent les architectures conçues par des humains (+13,6 points F1 en lecture, +14,4% en maths).</li>
+        <li><strong>Sakana AI — Darwin Gödel Machine</strong> (mai 2025) : un agent qui réécrit son propre code et grimpe de <strong>20% à 50% sur SWE-bench</strong> (le test de référence pour mesurer si une IA sait résoudre des bugs réels de code), et de 14% à 30% sur Polyglot. Transfert inter-modèles démontré.</li>
+        <li><strong>Sakana AI Scientist v2</strong> (avril 2025) : premier papier de recherche <strong>entièrement généré par une IA</strong> accepté à un workshop ICLR 2025 (la grande conf annuelle d'IA). Nuance honnête : l'équipe a été critiquée pour des hallucinations et des résultats fragiles — le pipeline (la chaîne de traitement) n'est pas magique.</li>
+        <li><strong>ADAS (Meta, ICLR 2025)</strong> : une IA invente elle-même de nouveaux designs d'agents qui battent les architectures conçues par des humains (+13,6 points F1 — la métrique standard de précision en IA — en lecture, +14,4% en maths).</li>
       </ul>
       <p>Autoresearch s'inscrit dans ce mouvement : ce n'est pas un gadget isolé, c'est un pattern qui va se généraliser.</p>
     </div>
@@ -680,7 +687,7 @@
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>prepare.py · Le socle fixe</h3>
-        <p>C'est le code que l'agent <strong>ne touche pas</strong>. Il prépare les données, le tokenizer, les utilitaires. C'est le cadre stable qui garantit que les expériences sont comparables.</p>
+        <p>C'est le code que l'agent <strong>ne touche pas</strong>. Il prépare les données, le tokenizer (qui découpe le texte en morceaux que l'IA comprend), les utilitaires. C'est le cadre stable qui garantit que les expériences sont comparables.</p>
       </div>
     </div>
 
@@ -696,7 +703,7 @@
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>program.md · Les instructions de l'humain</h3>
-        <p>Le fichier que <strong>toi</strong> tu édites. Tu y écris, en langage naturel, comment l'agent doit travailler : "Essaye différentes tailles de batch", "Garde uniquement si val_bpb est plus bas", "Fais des tests courts d'abord, longs ensuite". C'est là que tu mets ton intelligence.</p>
+        <p>Le fichier que <strong>toi</strong> tu édites. Tu y écris, en langage naturel, comment l'agent doit travailler : "Essaye différentes tailles de batch" (lot d'exemples traités d'un coup), "Garde uniquement si val_bpb est plus bas" (val_bpb = la métrique qui mesure la qualité du modèle, plus bas = meilleur), "Fais des tests courts d'abord, longs ensuite". C'est là que tu mets ton intelligence.</p>
       </div>
     </div>
 
@@ -780,9 +787,9 @@
       <p>Tu n'as pas besoin de cloner le repo de Karpathy pour appliquer l'idée. Quatre outils accessibles qui font tourner la boucle "essai → mesure → ajuste" :</p>
       <ul>
         <li><strong>Claude Code (ou Codex)</strong> — ce que Karpathy utilise lui-même. Un fichier <code>program.md</code> bien écrit + une commande en boucle, et tu fais du "poor man's autoresearch" en 30 minutes.</li>
-        <li><strong>CrewAI</strong> — framework multi-agents avec rôles et mémoire persistante. Parfait si tu veux un "équipe" d'agents qui se passent le relais.</li>
+        <li><strong>CrewAI</strong> — framework (boîte à outils prêt-à-l'emploi) multi-agents avec rôles et mémoire persistante. Parfait si tu veux un "équipe" d'agents qui se passent le relais.</li>
         <li><strong>AutoGen (Microsoft)</strong> — conversation multi-agents, excellent pour le cycle "agent code → agent review → agent teste".</li>
-        <li><strong>LangGraph</strong> — devenu la référence 2026 pour les workflows d'agents complexes avec état partagé.</li>
+        <li><strong>LangGraph</strong> — devenu la référence 2026 pour les workflows (enchaînements d'étapes) d'agents complexes avec état partagé.</li>
       </ul>
       <p>Commence simple : un <code>program.md</code> + Claude Code + une métrique mesurable. Passe à CrewAI ou LangGraph seulement si le cas l'exige vraiment.</p>
     </div>

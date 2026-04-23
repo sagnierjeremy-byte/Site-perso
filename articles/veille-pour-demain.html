@@ -588,6 +588,18 @@
     transform: translate(-2px, -2px);
     box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
+  .callout {
+    position: relative; padding: 14px 16px 14px 22px;
+    border-radius: 10px; margin: 16px 0;
+  }
+  .callout::before {
+    content: ""; position: absolute; left: 8px; top: 14px;
+    width: 4px; height: calc(100% - 28px); border-radius: 2px;
+  }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
 </style>
 </head>
 <body>
@@ -765,6 +777,13 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
+
 <section class="block" id="idee">
   <div class="container">
     <span class="section-kicker k-teal">— Le point de départ</span>
@@ -783,7 +802,7 @@
     <span class="section-kicker k-fuchsia">— Le diagnostic</span>
     <h2>Ce que les sous-agents <em class="fuchsia">m'ont répondu.</em></h2>
     <p>
-      J'ai lancé trois sous-agents de recherche en parallèle. Leur mission : fouiller le marché des newsletters et des "second brain publics" en français, chiffrer le potentiel, benchmarker les acteurs existants.
+      J'ai lancé trois sous-agents de recherche en parallèle (des mini-IA spécialisées qui travaillent en parallèle de la conversation principale). Leur mission : fouiller le marché des newsletters et des "second brain publics" en français, chiffrer le potentiel, benchmarker les acteurs existants.
     </p>
     <p>
       Verdict brutal, que je ne voyais pas venir :
@@ -896,9 +915,9 @@
     </p>
     <ul>
       <li><strong>96 sources</strong> Business IA multilingues, en anglais, français, espagnol, allemand et japonais — Ethan Mollick, Stratechery, a16z, McKinsey, des podcasts, des chaînes YouTube, GitHub, Hacker News, Reddit, Product Hunt.</li>
-      <li><strong>Un worker qui tourne à 7h du matin</strong>, déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors.</li>
-      <li><strong>Une base SQLite</strong> qui vit entièrement sur mon disque. Aucun cloud. Un seul fichier portable.</li>
-      <li><strong>Un moteur de recherche sémantique</strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue qui comprend les 96 sources même quand elles parlent des langues différentes.</li>
+      <li><strong>Un worker qui tourne à 7h du matin</strong> (un petit programme qui s'exécute tout seul en tâche de fond), déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors.</li>
+      <li><strong>Une base SQLite</strong> (une mini-base de données stockée dans un seul fichier) qui vit entièrement sur mon disque. Aucun cloud. Un seul fichier portable.</li>
+      <li><strong>Un moteur de recherche sémantique</strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes.</li>
       <li><strong>Deux modèles Claude</strong> utilisés à des étapes différentes : Claude Sonnet pour proposer 30 sujets du jour, Claude Opus pour rédiger les analyses long-form quand je sélectionne un sujet.</li>
     </ul>
 

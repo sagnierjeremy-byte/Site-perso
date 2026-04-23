@@ -641,7 +641,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 05 · IA &amp; Outils</div>
     <h1>Le LLM Wiki,<br>ton <em>deuxième<br>cerveau.</em></h1>
     <p class="hero-lead">
-      Karpathy a partagé en 2026 un pattern simple mais puissant : au lieu d'un RAG classique qui cherche dans tes docs à chaque question, <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
+      Karpathy a partagé en 2026 un pattern (un schéma de conception réutilisable) simple mais puissant : au lieu d'un RAG classique (Retrieval Augmented Generation, en clair : l'IA va chercher la réponse dans tes documents à chaque question), <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
@@ -671,9 +671,16 @@
     <h2>Ce que tu vas apprendre</h2>
     <ul>
       <li><strong>Pourquoi le RAG ne suffit pas</strong> — l'IA "redécouvre" ta connaissance à chaque requête, rien ne s'accumule</li>
-      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources / wiki / schema), 3 opérations (ingest / query / lint)</li>
+      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources = sources brutes / wiki / schema = règles de structure), 3 opérations (ingest = ajouter une source / query = poser une question / lint = nettoyer)</li>
       <li><strong>5 cas d'usage</strong> concrets : personnel, recherche, lecture de livre, business, analyse concurrentielle</li>
     </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
 </div>
 
@@ -689,7 +696,7 @@
       <div class="step-num" style="width:auto; min-width:64px; padding:0 14px; font-size:15px">&lt; 10</div>
       <div class="step-body">
         <h3>Moins de 10 sources · Non</h3>
-        <p>C'est disproportionné. Utilise les <strong>Projects dans Claude.ai</strong> — tu téléverses tes 5-10 documents, tu converses, c'est réglé en 2 minutes. Pas besoin de schema, pas besoin d'Obsidian, pas besoin de Claude Code. Pas besoin de monter une machinerie complexe.</p>
+        <p>C'est disproportionné. Utilise les <strong>Projects dans Claude.ai</strong> (la fonctionnalité « Projets » de Claude qui regroupe docs + instructions partagées) — tu téléverses tes 5-10 documents, tu converses, c'est réglé en 2 minutes. Pas besoin de schema, pas besoin d'Obsidian (une appli de prise de notes en markdown très utilisée), pas besoin de Claude Code. Pas besoin de monter une machinerie complexe.</p>
       </div>
     </div>
 
@@ -758,7 +765,7 @@
             <td style="padding:12px 14px;"><strong>GraphRAG (Microsoft)</strong></td>
             <td style="padding:12px 14px;">10 000+ documents</td>
             <td style="padding:12px 14px;">Dev Python sérieux</td>
-            <td style="padding:12px 14px;">Oui (graphe d'entités)</td>
+            <td style="padding:12px 14px;">Oui (graphe d'entités — chaque concept devient un nœud relié aux autres)</td>
             <td style="padding:12px 14px;">Équipe tech, très gros corpus</td>
           </tr>
         </tbody>
@@ -804,7 +811,7 @@
     <div class="callout tip">
       <h4>La métaphore qui clique</h4>
       <p>Un RAG classique, c'est comme si tu avais un bibliothécaire qui ne connaît pas les livres, les lit uniquement quand tu poses une question, puis les oublie. <strong>Un LLM Wiki, c'est un bibliothécaire qui a lu chaque livre</strong>, a pris des notes, fait des fiches, relié les concepts entre eux. Quand tu lui poses une question, il répond depuis sa propre compréhension déjà construite.</p>
-      <p style="margin-top:10px;"><strong>Nuance importante :</strong> les RAG modernes (GraphRAG de Microsoft, Mem0, Zep) font aussi de l'accumulation. La vraie différence du LLM Wiki, c'est que l'accumulation est <strong>explicite et lisible par un humain</strong> (du markdown que tu peux ouvrir dans Obsidian), alors que les RAG modernes stockent tout dans des embeddings vectoriels opaques.</p>
+      <p style="margin-top:10px;"><strong>Nuance importante :</strong> les RAG modernes (GraphRAG de Microsoft, Mem0, Zep) font aussi de l'accumulation. La vraie différence du LLM Wiki, c'est que l'accumulation est <strong>explicite et lisible par un humain</strong> (du markdown — un format texte lisible avec quelques marqueurs simples — que tu peux ouvrir dans Obsidian), alors que les RAG modernes stockent tout dans des embeddings vectoriels (des représentations mathématiques du sens, illisibles à l'œil) opaques.</p>
     </div>
   </div>
 </section>
@@ -830,12 +837,12 @@
     <div class="layer-card l-3">
       <div class="layer-card-tag">Couche 03 · Co-évolutive</div>
       <div class="layer-card-title">Le schema</div>
-      <p>Un fichier type <code>CLAUDE.md</code> ou <code>AGENTS.md</code> qui définit <strong>comment le wiki est organisé</strong>, les conventions, les workflows. C'est ce qui transforme ton LLM d'un chatbot générique en mainteneur discipliné du wiki. Tu l'ajustes avec le temps.</p>
+      <p>Un fichier type <code>CLAUDE.md</code> ou <code>AGENTS.md</code> qui définit <strong>comment le wiki est organisé</strong>, les conventions, les workflows (les enchaînements d'étapes à suivre). C'est ce qui transforme ton LLM d'un chatbot générique en mainteneur discipliné du wiki. Tu l'ajustes avec le temps.</p>
     </div>
 
     <div class="callout ok">
       <h4>La combinaison recommandée par Karpathy</h4>
-      <p><strong>L'IA d'un côté, Obsidian de l'autre.</strong> L'IA fait les modifs via conversation, tu regardes les résultats dans Obsidian en temps réel (follow links, graph view, pages mises à jour). Analogie : "Obsidian est l'IDE, le LLM est le programmeur, le wiki est le codebase".</p>
+      <p><strong>L'IA d'un côté, Obsidian de l'autre.</strong> L'IA fait les modifs via conversation, tu regardes les résultats dans Obsidian en temps réel (follow links, graph view — la vue graphique qui relie tes notes entre elles, pages mises à jour). Analogie : "Obsidian est l'IDE (l'éditeur de code, ici de notes), le LLM est le programmeur, le wiki est le codebase (l'ensemble du contenu)".</p>
     </div>
   </div>
 </section>
@@ -859,7 +866,7 @@
           <li>Met à jour les <strong>pages d'entités et concepts</strong> pertinentes dans tout le wiki</li>
           <li>Ajoute une entrée au log</li>
         </ul>
-        <p>Une seule source peut toucher <strong>10-15 pages du wiki</strong>. C'est ça le compound effect.</p>
+        <p>Une seule source peut toucher <strong>10-15 pages du wiki</strong>. C'est ça le compound effect (en clair : l'effet boule de neige — chaque ajout enrichit tout le reste).</p>
       </div>
     </div>
 
@@ -884,8 +891,8 @@
     <div class="callout warn">
       <h4>Les 3 pièges qu'on ne te dit pas assez</h4>
       <ol>
-        <li><strong>Dérive épistémique</strong> — si l'IA hallucine au moment de l'ingestion (un nom mal orthographié, une date fausse, un résumé inexact), l'erreur devient permanente et contamine tous les ingests suivants. Relis toujours la page de résumé juste après la création.</li>
-        <li><strong>Duplication silencieuse</strong> — 3 sources sur le même sujet créent souvent 3 pages presque identiques. Sans règle explicite de <em>merge</em> dans ton schema, tu te retrouves vite avec un wiki pollué. La passe de lint mensuelle est là pour ça.</li>
+        <li><strong>Dérive épistémique</strong> — si l'IA hallucine (terme technique : génère du contenu plausible mais faux) au moment de l'ingestion (un nom mal orthographié, une date fausse, un résumé inexact), l'erreur devient permanente et contamine tous les ingests suivants. Relis toujours la page de résumé juste après la création.</li>
+        <li><strong>Duplication silencieuse</strong> — 3 sources sur le même sujet créent souvent 3 pages presque identiques. Sans règle explicite de <em>merge</em> (fusion) dans ton schema, tu te retrouves vite avec un wiki pollué. La passe de lint mensuelle est là pour ça.</li>
         <li><strong>Coût <a href="../lexique.html#token">tokens</a> réel</strong> — un ingest touche 5 à 15 pages = 20 000 à 50 000 tokens en sortie. À 15$ le million de tokens (Claude <a href="../lexique.html#modele">Sonnet</a>), compte <strong>0,5 à 1$ par source</strong>. 100 sources = 50 à 100$. Pas catastrophique, mais à savoir avant de foncer.</li>
       </ol>
     </div>
@@ -900,8 +907,8 @@
     <h3>1. Personnel · Track ta vie</h3>
     <p>Journal, articles que tu as aimés, podcasts écoutés, progression santé, objectifs. L'IA archive chaque entrée et construit une <strong>image structurée de qui tu es et où tu vas</strong>. Dans 2 ans tu peux demander "qu'est-ce qui a le plus changé dans ma vision du travail ?" et avoir une vraie réponse.</p>
 
-    <h3>2. Recherche · Deep dive un sujet</h3>
-    <p>Tu veux maîtriser un domaine (IA, Europe fiscale, physique quantique). Tu ingests 50 papers, 30 articles, 10 podcasts sur plusieurs semaines. Ton wiki devient une <strong>référence exhaustive et personnelle</strong> sur le sujet. Ta thèse évolue avec chaque source.</p>
+    <h3>2. Recherche · Creuser un sujet à fond</h3>
+    <p>Tu veux maîtriser un domaine (IA, Europe fiscale, physique quantique). Tu ajoutes 50 articles de recherche, 30 articles de presse, 10 podcasts sur plusieurs semaines. Ton wiki devient une <strong>référence exhaustive et personnelle</strong> sur le sujet. Ta thèse évolue avec chaque source.</p>
 
     <h3>3. Lecture d'un livre · Fan wiki personnel</h3>
     <p>Tu lis Seigneur des Anneaux. À chaque chapitre, tu ajoutes le texte. L'IA construit des pages pour les personnages, les lieux, les événements, les thèmes. À la fin, tu as <strong>ton propre Tolkien Gateway</strong> — riche, interconnecté, personnel.</p>
@@ -973,7 +980,7 @@ Tu es le mainteneur d'un wiki personnel sur [SUJET].
       <div class="step-num">04</div>
       <div class="step-body">
         <h3>Installe Obsidian (optionnel mais recommandé)</h3>
-        <p>Ouvre <code>wiki/</code> comme vault Obsidian. Tu peux naviguer dans ton deuxième cerveau en temps réel : graph view, links, recherche.</p>
+        <p>Ouvre <code>wiki/</code> comme vault Obsidian (un vault = un coffre, c'est-à-dire un dossier de notes qu'Obsidian sait afficher). Tu peux naviguer dans ton deuxième cerveau en temps réel : graph view, links, recherche.</p>
         <p><a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a></p>
       </div>
     </div>

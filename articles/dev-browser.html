@@ -380,7 +380,7 @@
     <div class="kicker"><span class="dot"></span>Outils · 08</div>
     <h1>Un navigateur<br>piloté<br><em>par ton IA.</em></h1>
     <p class="hero-lead">
-      Dev-browser, c'est le chaînon manquant entre Claude et le web. Tu demandes à ton IA de regarder une page, de remplir un formulaire, de prendre un screenshot, de comparer deux sites. Pas de clic humain. Juste un petit script que Claude écrit pour toi. Je l'utilise tous les jours pour scraper, tester mes pages, vérifier des sources. Voici comment ça marche, comment l'installer, et pourquoi c'est devenu indispensable.
+      Dev-browser, c'est le chaînon manquant entre Claude et le web. Tu demandes à ton IA de regarder une page, de remplir un formulaire, de prendre un screenshot (capture d'écran), de comparer deux sites. Pas de clic humain. Juste un petit script (un mini-programme) que Claude écrit pour toi. Je l'utilise tous les jours pour scraper (aspirer le contenu d'une page), tester mes pages, vérifier des sources. Voici comment ça marche, comment l'installer, et pourquoi c'est devenu indispensable.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>11 min</strong> de lecture</span>
@@ -397,14 +397,19 @@
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu repars avec</h2>
     <ul>
-      <li>Dev-browser est un <strong>navigateur sans fenêtre</strong> que ton IA pilote en JavaScript. Tu dis ce que tu veux, elle écrit le script, elle exécute, elle te renvoie le résultat.</li>
+      <li>Dev-browser est un <strong>navigateur sans fenêtre</strong> que ton IA pilote en JavaScript (le langage des pages web). Tu dis ce que tu veux, elle écrit le script, elle exécute, elle te renvoie le résultat.</li>
       <li>3 cas d'usage quotidiens : <strong>scraper une page, tester une page en local, prendre un screenshot</strong>. Et tu n'écris jamais de code toi-même — Claude le fait.</li>
-      <li>Installation : 1 ligne dans ton terminal. Configuration : zéro. Usage : tu dis à Claude « ouvre cette page et dis-moi ce que tu vois ». Écrit avec Claude, relu par moi.</li>
+      <li>Installation : 1 ligne dans ton terminal (la fenêtre noire où on tape des commandes). Configuration : zéro. Usage : tu dis à Claude « ouvre cette page et dis-moi ce que tu vois ». Écrit avec Claude, relu par moi.</li>
     </ul>
   </div>
 </div>
 
-
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
 
 <section class="block">
   <div class="container">
@@ -425,7 +430,7 @@
     <h3>Le vrai problème résolu</h3>
     <p>Claude connaît énormément de pages grâce à son entraînement. Mais deux limites :</p>
     <ol>
-    <li>Il ne connaît <strong>pas les pages récentes</strong> (créées après son cutoff).</li>
+    <li>Il ne connaît <strong>pas les pages récentes</strong> (créées après son cutoff, c'est-à-dire la date où son entraînement s'est arrêté).</li>
     <li>Il ne peut <strong>pas interagir</strong> avec une page : cliquer, remplir, attendre qu&#39;un script JS se lance, faire défiler.</li>
     </ol>
     <p>Dev-browser corrige les deux. Il ouvre vraiment un navigateur (Chromium en coulisse, comme Chrome sans les pubs) sans fenêtre graphique. Claude y envoie des ordres en JavaScript : « va sur cette page, attends 3 secondes, récupère le texte du h1, clique sur ce bouton ».</p>
@@ -513,11 +518,11 @@
   <div class="container">
     <h2>Les 3 limites que j&#39;ai rencontrées</h2>
     <h3>Limite 1 · Les sites qui détectent les bots</h3>
-    <p>Certains sites (X/Twitter, LinkedIn connecté, Reddit parfois) détectent les navigateurs automatisés et bloquent. Dev-browser peut se connecter à ton Chrome existant avec le flag <code>--connect</code>, mais c&#39;est plus technique. Pour le grand public, j&#39;accepte simplement que 10 % des sites refusent · je passe à autre chose.</p>
+    <p>Certains sites (X/Twitter, LinkedIn connecté, Reddit parfois) détectent les navigateurs automatisés et bloquent. Dev-browser peut se connecter à ton Chrome existant avec le flag <code>--connect</code> (un flag = une option qu'on passe à la commande), mais c&#39;est plus technique. Pour le grand public, j&#39;accepte simplement que 10 % des sites refusent · je passe à autre chose.</p>
     <h3>Limite 2 · Les pages très lourdes en JavaScript</h3>
     <p>Certaines pages mettent 5-10 secondes à se charger complètement. Par défaut, dev-browser attend 2 secondes. Si Claude ne trouve pas un élément, c&#39;est souvent un souci de timing. La solution : demande à Claude d&#39;ajouter <code>await new Promise(r => setTimeout(r, 5000))</code>. Il saura.</p>
     <h3>Limite 3 · Pas une solution si tu veux scraper à grande échelle</h3>
-    <p>Dev-browser est fait pour les tâches ponctuelles · vérifier une page, tester un flux, récupérer une donnée précise. Si tu veux scraper 10 000 pages pour un projet massif, il faut d&#39;autres outils (Apify, Bright Data, ou du code custom). Pour tout le reste, dev-browser suffit.</p>
+    <p>Dev-browser est fait pour les tâches ponctuelles · vérifier une page, tester un flux, récupérer une donnée précise. Si tu veux scraper 10 000 pages pour un projet massif, il faut d&#39;autres outils (Apify, Bright Data, ou du code custom — fait sur mesure). Pour tout le reste, dev-browser suffit.</p>
     <div class="callout ok">
       <h4>Ma check-list avant chaque usage</h4>
       <p>(1) Le flag <code>--headless</code> est bien là. (2) Je demande à Claude en français, pas en code. (3) Je valide le résultat qu'il me renvoie avant de le croire sur parole. → Ces 3 réflexes couvrent 95 % de mon usage.</p>

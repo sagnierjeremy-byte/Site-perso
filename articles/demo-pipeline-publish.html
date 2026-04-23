@@ -432,7 +432,7 @@
 <!-- /tts-player -->
 
     <p class="hero-lead">
-      Avant, publier un article sur mon site me prenait 3 heures de copier-coller HTML. Maintenant, j'écris un fichier markdown avec Claude Code, je lance une commande, l'article est en ligne. Voilà le pipeline complet.
+      Avant, publier un article sur mon site me prenait 3 heures de copier-coller HTML. Maintenant, j'écris un fichier markdown (un format texte simple avec quelques étoiles pour le gras) avec Claude Code, je lance une commande, l'article est en ligne. Voilà le pipeline (la chaîne automatisée) complet.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>5 min</strong> de lecture</span>
@@ -464,18 +464,23 @@
     <h2>Ce que tu repars avec</h2>
     <ul>
       <li>Un dossier <strong>drafts/</strong> pour les articles en cours de rédaction en markdown</li>
-      <li>Un script <strong>publish.js</strong> qui convertit MD → HTML en respectant le template</li>
-      <li>Déploiement auto via <strong>Vercel</strong> dès qu'on push le commit</li>
+      <li>Un script <strong>publish.js</strong> qui convertit MD → HTML en respectant le template (le gabarit visuel)</li>
+      <li>Déploiement auto via <strong>Vercel</strong> (l'hébergeur du site) dès qu'on push le commit (qu'on envoie la modification)</li>
     </ul>
   </div>
 </div>
 
-
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
 
 <section class="block">
   <div class="container">
     <h2>Avant de commencer</h2>
-    <p>Tu te dis peut-être que publier un article sur son site, c&#39;est simple. En théorie, oui. <strong>En pratique, ça vire vite à la corvée</strong> : copier-coller le template HTML, remplacer 15 placeholders, vérifier que rien ne casse, mettre à jour le sitemap, ajouter le lien dans le parcours d&#39;apprentissage...</p>
+    <p>Tu te dis peut-être que publier un article sur son site, c&#39;est simple. En théorie, oui. <strong>En pratique, ça vire vite à la corvée</strong> : copier-coller le template HTML, remplacer 15 placeholders (les emplacements à remplir, type {{TITRE}}), vérifier que rien ne casse, mettre à jour le sitemap (la carte du site lue par Google), ajouter le lien dans le parcours d&#39;apprentissage...</p>
     <p>Bref, 3 heures pour un article de 7 minutes de lecture. J&#39;ai décidé de craquer là-dessus.</p>
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
@@ -487,7 +492,7 @@
 <section class="block">
   <div class="container">
     <h2>Le concept</h2>
-    <p>Le pipeline fait une chose simple : <strong>tu écris en markdown, il génère l&#39;HTML</strong>. Comme un static site generator artisanal, mais pour mon site spécifiquement, avec mon template et ma charte.</p>
+    <p>Le pipeline fait une chose simple : <strong>tu écris en markdown, il génère l&#39;HTML</strong>. Comme un static site generator artisanal (en clair : un outil maison qui transforme tes textes en pages web), mais pour mon site spécifiquement, avec mon template et ma charte.</p>
     <p>Les 3 pièces :</p>
     <ol>
     <li>Un dossier <code>drafts/</code> où je dépose mes articles en <code>.md</code></li>
@@ -505,7 +510,7 @@
     <div class="usecase">
       <div class="usecase-label">Cas 01 · Écrire avec Claude Code</div>
       <h4>Claude me fait le premier jet, je retravaille</h4>
-      <p>J'ouvre Claude Code, je lui dis "écris un article sur X en suivant AGENT_BRIEF.md". Il me sort un <strong>draft markdown complet</strong> avec frontmatter, structure, callouts. Je relis, j'édite les passages qui sonnent faux, je valide.</p>
+      <p>J'ouvre Claude Code, je lui dis "écris un article sur X en suivant AGENT_BRIEF.md". Il me sort un <strong>draft markdown complet</strong> avec frontmatter (l'en-tête de méta-données : titre, date, catégorie), structure, callouts (les encadrés de mise en avant). Je relis, j'édite les passages qui sonnent faux, je valide.</p>
       <p>Temps passé à écrire : <strong>45 minutes</strong> (vs 2h avant). Qualité : identique, parfois meilleure parce que Claude me propose des angles auxquels je n'aurais pas pensé.</p>
     </div>
     
@@ -522,8 +527,8 @@
     <div class="usecase">
       <div class="usecase-label">Cas 03 · Déploiement Vercel auto</div>
       <h4>Git push, Vercel déploie</h4>
-      <p>Vercel est branché sur mon repo GitHub. Dès qu'un commit arrive sur <code>main</code>, il détecte les fichiers modifiés et redéploie le site. <strong>Temps moyen</strong> : 30-45 secondes.</p>
-      <p>Aucune config à gérer, aucune CI custom à maintenir. C'est la magie des sites statiques : on publie, ça marche.</p>
+      <p>Vercel est branché sur mon repo GitHub (mon dépôt de code). Dès qu'un commit (un enregistrement de modif) arrive sur <code>main</code> (la branche principale), il détecte les fichiers modifiés et redéploie le site. <strong>Temps moyen</strong> : 30-45 secondes.</p>
+      <p>Aucune config à gérer, aucune CI custom (chaîne de tests automatiques sur mesure) à maintenir. C'est la magie des sites statiques : on publie, ça marche.</p>
     </div>
   </div>
 </section>
@@ -532,11 +537,11 @@
   <div class="container">
     <h2>Les pièges que j&#39;ai rencontrés</h2>
     <h3>Piège 1 · Vouloir tout parser tout de suite</h3>
-    <p>Mon premier réflexe a été de supporter 100% de la syntaxe markdown + 50 composants custom. Résultat : 800 lignes de script pour une utilité marginale. <strong>Je suis revenu en arrière</strong> : marked + gray-matter + quelques regex suffisent pour 95% des cas. Le reste, j&#39;injecte du HTML brut dans mon markdown.</p>
+    <p>Mon premier réflexe a été de supporter 100% de la syntaxe markdown + 50 composants custom. Résultat : 800 lignes de script pour une utilité marginale. <strong>Je suis revenu en arrière</strong> : marked + gray-matter (deux librairies prêtes à l'emploi qui font le boulot) + quelques regex (motifs de recherche dans le texte) suffisent pour 95% des cas. Le reste, j&#39;injecte du HTML brut dans mon markdown.</p>
     <h3>Piège 2 · Oublier les métadonnées</h3>
     <p>Au début, je publiais sans mettre à jour <code>sitemap.xml</code> ni la carte <code>apprendre.html</code>. Google finit par indexer, mais ça traîne. Le script fait ces MAJ automatiquement maintenant — un piège de moins.</p>
     <h3>Piège 3 · Le cache Vercel</h3>
-    <p>Une fois, j&#39;ai commit un article avec un typo dans la meta description. Corrigé, pushé à nouveau, mais l&#39;Open Graph continuait à montrer la vieille version sur LinkedIn. <strong>Leçon</strong> : Vercel met un temps à invalider les previews OG. Prévoir une relecture sérieuse avant le premier push.</p>
+    <p>Une fois, j&#39;ai commit un article avec un typo (une coquille) dans la meta description (le résumé qu'affichent Google et les réseaux). Corrigé, pushé à nouveau, mais l&#39;Open Graph (l'aperçu carte avec image quand tu colles un lien sur LinkedIn/X/WhatsApp) continuait à montrer la vieille version sur LinkedIn. <strong>Leçon</strong> : Vercel met un temps à invalider les previews OG. Prévoir une relecture sérieuse avant le premier push.</p>
     <div class="callout ok">
       <h4>Ma check-list avant publish</h4>
       <p>(1) Le frontmatter est complet. (2) J'ai relu le MD à voix haute (test ton Leo). (3) Les liens internes pointent vers des articles qui existent. → Si OK aux 3, <strong>npm run publish</strong>.</p>
@@ -549,8 +554,8 @@
     <h2>Pour aller plus loin</h2>
     <p>Ce pipeline est la Phase 1 de mon plan agent IA. Ce qui arrive ensuite :</p>
     <ol>
-    <li><strong>Phase 2 · GitHub Actions</strong> — un agent qui ouvre une PR avec un draft dès que je crée une issue &quot;idée article : X&quot;. Je relis, je merge.</li>
-    <li><strong>Phase 3 · Editorial Mesh</strong> — plusieurs agents spécialisés (Scout, Writer, Editor) qui tournent en parallèle. Pas avant 50 articles validés.</li>
+    <li><strong>Phase 2 · GitHub Actions</strong> (les automatisations de GitHub qui se déclenchent toutes seules) — un agent qui ouvre une PR (Pull Request — une proposition de modification à valider) avec un draft dès que je crée une issue (un ticket) &quot;idée article : X&quot;. Je relis, je merge (je fusionne dans le code principal).</li>
+    <li><strong>Phase 3 · Editorial Mesh</strong> (en clair : maillage éditorial — un réseau d'agents qui se coordonnent) — plusieurs agents spécialisés (Scout, Writer, Editor) qui tournent en parallèle. Pas avant 50 articles validés.</li>
     </ol>
     <p>Si tu veux voir comment évolue cette stack, <strong>réponds à la newsletter</strong> — je publierai les retours d&#39;XP dès qu&#39;il y a quelque chose à raconter.</p>
     

@@ -588,6 +588,18 @@
     transform: translate(-2px, -2px);
     box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
+  .callout {
+    position: relative; padding: 14px 16px 14px 22px;
+    border-radius: 10px; margin: 16px 0;
+  }
+  .callout::before {
+    content: ""; position: absolute; left: 8px; top: 14px;
+    width: 4px; height: calc(100% - 28px); border-radius: 2px;
+  }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
 </style>
 </head>
 <body>
@@ -775,6 +787,13 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
+
 <section class="block" id="prerequis">
   <div class="container">
     <span class="section-kicker k-teal">— Préparation</span>
@@ -786,7 +805,7 @@
       <li><strong>Un Mac</strong> (Windows fonctionne aussi, mais les commandes cron sont différentes — je traite le cas Mac ici).</li>
       <li><strong>Un compte Gmail</strong> personnel ou professionnel.</li>
       <li><strong>Un abonnement Claude Pro à 20 € par mois</strong> (claude.ai). Il te permet d'utiliser Claude Code sans facturation à l'usage pour les volumes raisonnables.</li>
-      <li><strong>Quarante-cinq minutes devant toi</strong>, sans interruption. Si tu fais une pause au milieu d'une étape OAuth, tu devras tout recommencer.</li>
+      <li><strong>Quarante-cinq minutes devant toi</strong>, sans interruption. Si tu fais une pause au milieu d'une étape OAuth (la procédure standard pour autoriser une appli à accéder à ton compte Google sans donner ton mot de passe), tu devras tout recommencer.</li>
     </ul>
     <p>
       Si tu n'as jamais ouvert de terminal de ta vie, ce tutoriel reste faisable. Tu vas copier-coller cinq commandes. Mais prends ton temps sur chacune.
@@ -821,7 +840,7 @@
     </p>
 <pre><code>claude</code></pre>
     <p>
-      On te demande de te connecter avec ton compte Claude.ai. Suis le lien, autorise la connexion dans ton navigateur, reviens dans le terminal. Tu dois voir un prompt prêt à recevoir des instructions.
+      On te demande de te connecter avec ton compte Claude.ai. Suis le lien, autorise la connexion dans ton navigateur, reviens dans le terminal. Tu dois voir un prompt (la zone où tu tapes tes instructions à l'IA) prêt à recevoir des instructions.
     </p>
     <p>
       Tape <code>/exit</code> pour sortir pour l'instant. On y revient après.
@@ -847,11 +866,11 @@
 
     <h3>Option B — Un MCP server Gmail (pour aller plus loin).</h3>
     <p>
-      Si tu veux que l'agent puisse étiqueter et archiver les mails, il te faut un MCP server. Le plus propre aujourd'hui s'appelle <code>shinzo-labs/gmail-mcp</code>. Colle cette commande dans Claude Code&nbsp;:
+      Si tu veux que l'agent puisse étiqueter et archiver les mails, il te faut un MCP server (un petit programme qui fait le pont entre Claude et un service externe — ici Gmail). Le plus propre aujourd'hui s'appelle <code>shinzo-labs/gmail-mcp</code>. Colle cette commande dans Claude Code&nbsp;:
     </p>
 <pre><code>claude mcp add --transport stdio --scope user gmail -- npx -y @shinzolabs/gmail-mcp</code></pre>
     <p>
-      Cette option demande de créer un projet Google Cloud et de télécharger une clé OAuth. Si c'est ta première fois, commence par l'option A. Tu pourras basculer plus tard.
+      Cette option demande de créer un projet Google Cloud et de télécharger une clé OAuth (un fichier d'authentification fourni par Google qui prouve à Gmail que ton agent a le droit d'accéder à ta boîte). Si c'est ta première fois, commence par l'option A. Tu pourras basculer plus tard.
     </p>
 
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
@@ -864,7 +883,7 @@
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
       <img src="screenshots/gmail/gmail-github-mcp-server.png" alt="Page GitHub du projet Gmail MCP server le plus utilisé en 2026" style="width: 100%; height: auto; display: block;">
       <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
-        Le repo GitHub du MCP Gmail le plus utilisé en 2026 — fork actif depuis mars 2026
+        Le repo GitHub (le dépôt public où vit le code du projet) du MCP Gmail le plus utilisé en 2026 — fork (une copie indépendante d'un projet) actif depuis mars 2026
       </figcaption>
     </figure>
   </div>
@@ -882,7 +901,7 @@
     <span class="section-kicker k-teal">— Étape 3</span>
     <h2>Étape 3 — Écrire <em class="teal">le prompt système.</em></h2>
     <p>
-      C'est la partie la plus importante du tutoriel. Un agent sans instructions claires part dans tous les sens.
+      C'est la partie la plus importante du tutoriel. Le prompt système (les instructions de fond que l'agent garde en tête à chaque échange) cadre tout le reste. Un agent sans instructions claires part dans tous les sens.
     </p>
     <p>
       Dans ton terminal, crée un dossier pour ton agent&nbsp;:
@@ -967,7 +986,7 @@ Les plus chers à ignorer.</code></pre>
     <span class="section-kicker k-fuchsia">— Étape 4</span>
     <h2>Étape 4 — Créer ta <em class="fuchsia">commande slash.</em></h2>
     <p>
-      Une commande slash te permet de lancer ton agent en une seule commande au lieu de retaper les instructions à chaque fois.
+      Une commande slash (un raccourci personnalisé du type <code>/ma-commande</code>) te permet de lancer ton agent en une seule commande au lieu de retaper les instructions à chaque fois.
     </p>
     <p>
       Dans ton dossier, crée un fichier à l'emplacement <code>.claude/commands/tri-matinal.md</code> avec ce contenu&nbsp;:
@@ -1050,7 +1069,7 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
 
     <h3>Option 2 — launchd macOS (plus de contrôle).</h3>
     <p>
-      Tu crées un fichier de planification qui déclenche Claude Code chaque matin. Cela requiert que ton Mac soit allumé à 7 h. Les étapes sont plus techniques — je les documente dans le pack à télécharger (voir fin d'article).
+      Tu crées un fichier de planification (équivalent macOS d'un cron — un planificateur qui lance des tâches à heure fixe) qui déclenche Claude Code chaque matin. Cela requiert que ton Mac soit allumé à 7 h. Les étapes sont plus techniques — je les documente dans le pack à télécharger (voir fin d'article).
     </p>
 
     <h3>Option 3 — Zapier / Make.</h3>
@@ -1115,7 +1134,7 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
     </table>
 
     <p>
-      Soit environ <strong>33 heures récupérées par mois</strong> pour un coût d'environ <strong>5 € par mois</strong> de consommation API. Le tarif est Haiku 4.5 à 1 $ par million de tokens en entrée, et 5 $ en sortie — tu peux vérifier la consommation dans ton compte Anthropic.
+      Soit environ <strong>33 heures récupérées par mois</strong> pour un coût d'environ <strong>5 € par mois</strong> de consommation API (l'usage facturé à la requête, à l'opposé d'un abonnement fixe). Le tarif est Haiku 4.5 à 1 $ par million de tokens (les unités que le modèle compte pour facturer, ~3-4 caractères chacune) en entrée, et 5 $ en sortie — tu peux vérifier la consommation dans ton compte Anthropic.
     </p>
   </div>
 </section>

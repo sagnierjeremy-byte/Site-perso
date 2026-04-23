@@ -598,6 +598,18 @@
     transform: translate(-2px, -2px);
     box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
+  .callout {
+    position: relative; padding: 14px 16px 14px 22px;
+    border-radius: 10px; margin: 16px 0;
+  }
+  .callout::before {
+    content: ""; position: absolute; left: 8px; top: 14px;
+    width: 4px; height: calc(100% - 28px); border-radius: 2px;
+  }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
 </style>
 </head>
 <body>
@@ -795,8 +807,15 @@
     <ul>
       <li>Tu déposes un contrat PDF dans un dossier <code>inbox/</code>. L'agent le lit, le scanne pour <strong>12 clauses critiques</strong>, et produit une fiche d'analyse dans <code>analyses/</code> en moins de deux minutes.</li>
       <li>La fiche te donne un <strong>score de risque</strong>, cite les clauses problématiques avec numéro de page, et te propose les trois points à négocier avant signature.</li>
-      <li>Coût estimé : environ <strong>1 € de consommation API par mois</strong> pour 4 contrats, plus <strong>20 € de Claude Pro</strong>. Un disclaimer juridique obligatoire protège ta responsabilité.</li>
+      <li>Coût estimé : environ <strong>1 € de consommation API (l'usage facturé à la requête) par mois</strong> pour 4 contrats, plus <strong>20 € de Claude Pro</strong>. Un disclaimer juridique obligatoire protège ta responsabilité.</li>
     </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
 </div>
 
@@ -882,7 +901,7 @@ cd ~/contrats-agent</code></pre>
     <span class="section-kicker k-fuchsia">— Étape 3</span>
     <h2>Étape 3 — Autoriser l'agent à <em class="fuchsia">lire ton dossier.</em></h2>
     <p>
-      Pour que l'agent puisse lire les PDFs que tu déposes dans <code>inbox/</code>, tu dois ajouter un MCP filesystem. Colle cette commande&nbsp;:
+      Pour que l'agent puisse lire les PDFs que tu déposes dans <code>inbox/</code>, tu dois ajouter un MCP filesystem (un petit pont qui donne à Claude un accès contrôlé à un dossier précis de ton Mac). Colle cette commande&nbsp;:
     </p>
 <pre><code>claude mcp add filesystem npx @modelcontextprotocol/server-filesystem ~/contrats-agent</code></pre>
     <p>
@@ -906,7 +925,7 @@ cd ~/contrats-agent</code></pre>
     <span class="section-kicker k-orange">— Étape 4</span>
     <h2>Étape 4 — Écrire <em class="orange">le prompt système.</em></h2>
     <p>
-      C'est la partie la plus importante. Crée un fichier <code>CLAUDE.md</code> à la racine de <code>~/contrats-agent</code> avec ce contenu exact&nbsp;:
+      C'est la partie la plus importante. Le prompt système (les instructions de fond que l'agent garde en tête à chaque échange) cadre tout le reste. Crée un fichier <code>CLAUDE.md</code> à la racine de <code>~/contrats-agent</code> avec ce contenu exact&nbsp;:
     </p>
 <pre><code># Agent Lecteur de Contrats
 
@@ -987,7 +1006,7 @@ plus de 10 000 €, consultez un avocat.</code></pre>
     <span class="section-kicker k-teal">— Étape 5</span>
     <h2>Étape 5 — Créer ta <em class="teal">commande slash.</em></h2>
     <p>
-      Crée le fichier <code>.claude/commands/analyser.md</code> avec&nbsp;:
+      Crée le fichier <code>.claude/commands/analyser.md</code> — la commande slash (un raccourci personnalisé du type <code>/ma-commande</code>) — avec&nbsp;:
     </p>
 <pre><code>---
 description: Analyser un contrat PDF
@@ -1065,7 +1084,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <span class="section-kicker k-orange">— Étape 7</span>
     <h2>Étape 7 — Automatiser <em class="orange">sur drop de fichier.</em></h2>
     <p>
-      Pour que l'agent analyse automatiquement tout PDF déposé dans <code>inbox/</code>, on utilise un hook Claude Code qui écoute les changements de fichiers.
+      Pour que l'agent analyse automatiquement tout PDF déposé dans <code>inbox/</code>, on utilise un hook Claude Code (un déclencheur automatique qui lance une commande quand un événement précis se produit) qui écoute les changements de fichiers.
     </p>
     <p>
       Crée le fichier <code>.claude/settings.json</code> avec&nbsp;:
@@ -1097,13 +1116,13 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <h3>Quel plan Claude utiliser&nbsp;?</h3>
     <ul>
       <li><strong>Claude Pro (20 €/mois)</strong>&nbsp;: depuis août 2025, tes conversations ne sont plus utilisées pour entraîner les modèles <strong>sauf si tu as opt-in</strong> ou si tu es sur l'ancien modèle de consentement. Rétention&nbsp;: 5 ans par défaut. Acceptable pour des contrats standards de consultant indépendant, <strong>pas pour un cabinet d'avocats</strong>.</li>
-      <li><strong>Claude for Work / Enterprise</strong>&nbsp;: zéro entraînement par défaut, option Zero Data Retention disponible. <strong>Obligatoire pour cabinets d'avocats</strong>, directions juridiques, dossiers M&amp;A sensibles.</li>
-      <li><strong>API Claude direct (pay-as-you-go)</strong>&nbsp;: pas d'entraînement par défaut, ZDR activable sur demande.</li>
+      <li><strong>Claude for Work / Enterprise</strong>&nbsp;: zéro entraînement par défaut, option Zero Data Retention (ZDR — Anthropic ne stocke rien après traitement) disponible. <strong>Obligatoire pour cabinets d'avocats</strong>, directions juridiques, dossiers M&amp;A sensibles.</li>
+      <li><strong>API Claude direct (pay-as-you-go, paiement à l'usage)</strong>&nbsp;: pas d'entraînement par défaut, ZDR activable sur demande.</li>
     </ul>
 
     <h3>Faut-il anonymiser avant envoi&nbsp;?</h3>
     <p>
-      Pour les contrats très sensibles, un script Python de 20 lignes remplace les noms des parties, les numéros SIRET, les IBAN par des placeholders avant envoi à l'agent. Tu récupères ensuite la fiche et tu remplaces les placeholders côté humain. Ce n'est pas nécessaire pour des NDA standards.
+      Pour les contrats très sensibles, un script Python de 20 lignes remplace les noms des parties, les numéros SIRET, les IBAN par des placeholders (des marqueurs neutres type <code>[CLIENT_1]</code> qui remplacent les vraies valeurs) avant envoi à l'agent. Tu récupères ensuite la fiche et tu remplaces les placeholders côté humain. Ce n'est pas nécessaire pour des NDA (accord de confidentialité, standard B2B) standards.
     </p>
 
     <h3>RGPD</h3>
@@ -1120,12 +1139,12 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
 
     <h3>Piège 1 — PDF scannés de mauvaise qualité.</h3>
     <p>
-      Si le PDF est un scan flou ou une photo prise au téléphone, Claude peut halluciner (inventer des clauses qui n'existent pas). Règle simple&nbsp;: si la fiche contient des clauses sans numéro de page ou dont la citation semble bizarre, demande une version texte du contrat ou refais scanner en bonne qualité.
+      Si le PDF est un scan flou ou une photo prise au téléphone, Claude peut halluciner (terme technique : générer du contenu plausible mais faux, ici inventer des clauses qui n'existent pas). Règle simple&nbsp;: si la fiche contient des clauses sans numéro de page ou dont la citation semble bizarre, demande une version texte du contrat ou refais scanner en bonne qualité.
     </p>
 
     <h3>Piège 2 — Contrats de plus de 100 pages.</h3>
     <p>
-      Claude Code lit jusqu'à 20 pages par appel. Sur un contrat de 100 pages, tu dois itérer par plage. Le plus simple&nbsp;: splitter le PDF en sections (contrat principal, annexes techniques, annexes tarifaires) et lancer <code>/analyser</code> sur chaque section.
+      Claude Code lit jusqu'à 20 pages par appel (à cause de la context window — la quantité maximale de texte que le modèle peut lire d'un coup). Sur un contrat de 100 pages, tu dois itérer par plage. Le plus simple&nbsp;: splitter le PDF en sections (contrat principal, annexes techniques, annexes tarifaires) et lancer <code>/analyser</code> sur chaque section.
     </p>
 
     <h3>Piège 3 — Faire confiance à 100 % à l'agent.</h3>
@@ -1230,11 +1249,11 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <p>
       Si tu traites des <strong>contrats SaaS</strong>, focus&nbsp;:
     </p>
-<pre><code>Focus spécifique SaaS :
-- SLA chiffré (uptime %, temps de réponse support)
+<pre><code>Focus spécifique SaaS (logiciel en ligne par abonnement) :
+- SLA chiffré (Service Level Agreement, engagement de qualité : uptime %, temps de réponse support)
 - Stockage données (UE ou US ? sous-traitants listés ?)
 - Réversibilité : format export, délai, coût après résiliation
-- DPA annexé (art. 28 RGPD)
+- DPA annexé (Data Processing Agreement, art. 28 RGPD)
 - Limitation de responsabilité (cap = X mois d'abonnement)</code></pre>
 
     <p>

@@ -380,7 +380,7 @@
     <div class="kicker"><span class="dot"></span>Outils · 09</div>
     <h1>Superpowers.<br>Le plugin qui force<br><em>Claude à réfléchir.</em></h1>
     <p class="hero-lead">
-      Superpowers est le plugin Claude Code le plus installé du marketplace officiel (163 000 stars GitHub, 4e position chez Anthropic). Créé par Jesse Vincent, il impose une méthodologie : Claude ne code plus avant d'avoir brainstormé, planifié, testé. Je viens de l'installer. Voici ce que j'en ai compris après lecture de la doc et des retours d'utilisateurs avancés : à quoi ça sert, ce que ça change vraiment, et quand il vaut mieux le désactiver.
+      Superpowers est le plugin Claude Code le plus installé du marketplace officiel (le « magasin d'applications » de Claude Code) (163 000 stars GitHub, 4e position chez Anthropic). Créé par Jesse Vincent, il impose une méthodologie : Claude ne code plus avant d'avoir brainstormé, planifié, testé. Je viens de l'installer. Voici ce que j'en ai compris après lecture de la doc et des retours d'utilisateurs avancés : à quoi ça sert, ce que ça change vraiment, et quand il vaut mieux le désactiver.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>13 min</strong> de lecture</span>
@@ -397,21 +397,26 @@
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu repars avec</h2>
     <ul>
-      <li>Superpowers oblige Claude à <strong>brainstormer, écrire un plan, tester avant de coder</strong>. Fini les 400 lignes pondues à la volée · tu valides chaque étape.</li>
-      <li>14 skills qui se déclenchent automatiquement selon le contexte. Les 3 commandes slash (<code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code>) sont <strong>dépréciées</strong>, le plugin utilise maintenant un système de skills plus flexible.</li>
-      <li>Verdict honnête : parfait pour les vrais projets, <strong>overkill sur les petites tâches</strong>. Tu le désactives en une commande quand tu veux juste bricoler. Écrit avec Claude, relu par moi.</li>
+      <li>Superpowers oblige Claude à <strong>brainstormer, écrire un plan, tester avant de coder</strong>. Fini les 400 lignes générées à la volée · tu valides chaque étape.</li>
+      <li>14 skills (des « métiers » réutilisables que Claude charge tout seul) qui se déclenchent automatiquement selon le contexte. Les 3 commandes slash (les raccourcis qui commencent par <code>/</code>) — <code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code> — sont <strong>dépréciées</strong>, le plugin utilise maintenant un système de skills plus flexible.</li>
+      <li>Verdict honnête : parfait pour les vrais projets, <strong>disproportionné sur les petites tâches</strong>. Tu le désactives en une commande quand tu veux juste tester rapidement. Écrit avec Claude, relu par moi.</li>
     </ul>
   </div>
 </div>
 
-
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Tu débutes complet en IA ?</h4>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+  </div>
+</div>
 
 <section class="block">
   <div class="container">
     <h2>Avant de commencer</h2>
-    <p>Si tu utilises Claude Code depuis quelques semaines, tu connais cette scène : tu demandes quelque chose de simple, Claude te pond 400 lignes avec 10 options que tu n&#39;as pas demandées, tu passes 30 minutes à nettoyer. Ce n&#39;est pas la faute de Claude. C&#39;est la faute du format <em>« écris-moi du code »</em> qui invite au chaos.</p>
+    <p>Si tu utilises Claude Code depuis quelques semaines, tu connais cette scène : tu demandes quelque chose de simple, Claude te génère 400 lignes avec 10 options que tu n&#39;as pas demandées, tu passes 30 minutes à nettoyer. Ce n&#39;est pas la faute de Claude. C&#39;est la faute du format <em>« écris-moi du code »</em> qui invite au chaos.</p>
     <p>Jesse Vincent, un ex-ingénieur d&#39;Anthropic, a créé <strong>Superpowers</strong> pour régler ça. Le plugin force une discipline : <strong>Claude doit comprendre ce que tu veux, valider le design, écrire un plan, puis exécuter avec des tests · dans cet ordre</strong>. Sorti en octobre 2025, Superpowers a grimpé à <strong>163 000 étoiles GitHub en six mois</strong> et est le <strong>4e plugin le plus installé</strong> du marketplace officiel Anthropic. Simon Willison le décrit comme <em>« un morceau significatif en soi »</em>. Evan Schwartz dit <em>« je ne peux pas le recommander assez »</em>.</p>
-    <p>Mais il y a aussi des utilisateurs qui râlent : <em>« Depuis que j&#39;ai installé Superpowers, changer un bout de CSS prend des plombes »</em> (rodskagg sur Threads). Du overhead injustifié sur les petites tâches. Honnêteté oblige, je commence par ça.</p>
+    <p>Mais il y a aussi des utilisateurs qui râlent : <em>« Depuis que j&#39;ai installé Superpowers, changer un bout de CSS prend trois fois plus de temps »</em> (rodskagg sur Threads). Une surcharge inutile sur les petites tâches. Honnêteté oblige, je commence par ça.</p>
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
       <p>Superpowers, c'est la ceinture de sécurité de Claude Code. Indispensable quand tu lances un projet sérieux. Insupportable si tu veux juste bricoler. La bonne posture : installe, apprends à activer/désactiver à la demande. Tu auras le meilleur des deux mondes.</p>
@@ -426,10 +431,10 @@
     <h3>Les trois piliers de la méthode</h3>
     <p><strong>1. Brainstorming socratique</strong></p>
     <p>Au lieu de coder immédiatement, Claude te pose des questions. <em>« C&#39;est pour quel usage exactement ? Besoin de RGPD ? Envoi immédiat ou différé ? »</em> Tu réponds, il reformule sa compréhension, tu valides. Puis seulement il propose un design. Tu signes le design avant qu&#39;une ligne de code existe. Fini les malentendus à rallonge.</p>
-    <p><strong>2. Test-Driven Development (TDD)</strong></p>
-    <p>Claude écrit d&#39;abord <strong>un test qui échoue</strong>, puis le code qui le fait passer, puis il refactorise. C&#39;est contre-intuitif, mais ça garantit deux choses : le test vérifie vraiment ce que tu voulais, et le code fait exactement ce qu&#39;il faut. Zéro exception · pas de <em>« je testerai plus tard »</em>.</p>
-    <p><strong>3. Subagent-Driven Development</strong></p>
-    <p>Sur les gros projets, Claude découpe le travail en tâches indépendantes et lance <strong>plusieurs sous-agents en parallèle</strong>. Chacun fait sa tâche isolée, un autre agent relit et valide, un troisième audite la qualité. C&#39;est comme avoir 3 juniors vérifiés par un senior · mais automatique.</p>
+    <p><strong>2. Test-Driven Development (TDD, ou « développement piloté par les tests »)</strong></p>
+    <p>Claude écrit d&#39;abord <strong>un test qui échoue</strong>, puis le code qui le fait passer, puis il refactorise (réorganise le code sans changer ce qu'il fait). C&#39;est contre-intuitif, mais ça garantit deux choses : le test vérifie vraiment ce que tu voulais, et le code fait exactement ce qu&#39;il faut. Zéro exception · pas de <em>« je testerai plus tard »</em>.</p>
+    <p><strong>3. Subagent-Driven Development (en clair : développement par sous-agents)</strong></p>
+    <p>Sur les gros projets, Claude découpe le travail en tâches indépendantes et lance <strong>plusieurs sous-agents en parallèle</strong> (des « mini-Claude » qui bossent en même temps sur des bouts différents). Chacun fait sa tâche isolée, un autre agent relit et valide, un troisième audite la qualité. C&#39;est comme avoir 3 juniors vérifiés par un senior · mais automatique.</p>
     <div class="callout ok">
       <h4>Ce qui change concrètement dans ta journée</h4>
       <p><strong>Avant</strong> : « Fais-moi X » → Claude pond du code → tu découvres que ce n'était pas exactement ça → reprise.</p>
@@ -458,22 +463,22 @@
       <p><strong><code>subagent-driven-development</code></strong> · Le cœur · chaque tâche reçoit un sous-agent dédié, un autre la vérifie, un troisième l'audite.</p>
       <p><strong><code>dispatching-parallel-agents</code></strong> · Quand tu as 3+ problèmes indépendants, Claude lance 3 agents en parallèle au lieu de résoudre séquentiellement.</p>
       <p><strong><code>test-driven-development</code></strong> · Impose le cycle rouge → vert → refactor · zéro code sans test qui échoue d'abord.</p>
-      <p><strong><code>using-git-worktrees</code></strong> · Crée une branche isolée (worktree) avant de commencer, garde ton répertoire principal propre.</p>
+      <p><strong><code>using-git-worktrees</code></strong> · Crée une branche isolée (un <em>worktree</em> · un dossier de travail séparé pour expérimenter sans casser ton projet) avant de commencer, garde ton répertoire principal propre.</p>
     </div>
     
     <div class="usecase">
       <div class="usecase-label">Famille 03 · Déboguer avec méthode</div>
       <h4>2 skills anti-panique</h4>
-      <p><strong><code>systematic-debugging</code></strong> · Quatre phases obligatoires · (1) investigation de root cause, (2) pattern, (3) hypothèse + test, (4) fix. Interdit les *« je tente un truc »* qui créent plus de problèmes.</p>
+      <p><strong><code>systematic-debugging</code></strong> · Quatre phases obligatoires · (1) chercher la vraie cause du bug (la « root cause » en anglais), (2) repérer le motif récurrent, (3) formuler une hypothèse et la tester, (4) corriger. Interdit les essais à l'aveugle qui créent plus de problèmes qu'ils n'en règlent.</p>
       <p><strong><code>verification-before-completion</code></strong> · Avant de dire *« c'est fini »*, Claude doit **exécuter** la commande qui prouve le résultat et lire la sortie. Plus de *« devrait passer »* · des logs, des preuves.</p>
     </div>
     
     <div class="usecase">
       <div class="usecase-label">Famille 04 · Finir en beauté</div>
       <h4>3 skills pour ne rien laisser traîner</h4>
-      <p><strong><code>requesting-code-review</code></strong> · Claude lance un agent reviewer en isolation · il compare le code au plan, cherche bugs et anti-patterns, range par criticité.</p>
+      <p><strong><code>requesting-code-review</code></strong> · Claude lance un agent reviewer (un sous-agent dédié à la relecture) en isolation · il compare le code au plan, cherche bugs et anti-patterns (mauvaises habitudes de code à éviter), range par criticité.</p>
       <p><strong><code>receiving-code-review</code></strong> · Quand Claude reçoit un avis de review (humain ou agent), ce skill l'aide à évaluer techniquement avant d'appliquer aveuglément.</p>
-      <p><strong><code>finishing-a-development-branch</code></strong> · Vérifie tests verts, propose 4 options · merger, PR, garder pour plus tard, jeter. Nettoie les fichiers temporaires.</p>
+      <p><strong><code>finishing-a-development-branch</code></strong> · Vérifie tests verts, propose 4 options · merger (intégrer ton travail à la branche principale), PR (Pull Request · proposer ton code à relire avant fusion), garder pour plus tard, jeter. Nettoie les fichiers temporaires.</p>
     </div>
   </div>
 </section>
@@ -485,7 +490,7 @@
     <h3>Cas 1 · Le nouveau module admin</h3>
     <p>Mon back-office a déjà 13 modules. J&#39;en ajoute un tous les 2 jours. Sans Superpowers, Claude démarre et code directement une ébauche, je corrige après. <strong>Avec Superpowers</strong>, il me demande d&#39;abord <em>« ce module va lire quoi ? écrire où ? il remplace quelque chose ou c&#39;est nouveau ? il a besoin d&#39;un endpoint API ? »</em>. 5 minutes de questions, 0 de correction ensuite.</p>
     <h3>Cas 2 · Le script qui casse</h3>
-    <p>Mon script de brainstorm a planté une fois, impossible de retrouver pourquoi. Claude a essayé 4 fixes différents qui marchaient pas. <strong>Avec <code>systematic-debugging</code></strong>, il aurait été forcé d&#39;investiguer root cause avant de tenter quoi que ce soit. J&#39;aurais gagné 30 minutes.</p>
+    <p>Mon script de brainstorm a planté une fois, impossible de retrouver pourquoi. Claude a essayé 4 corrections différentes qui ne fonctionnaient pas. <strong>Avec <code>systematic-debugging</code></strong>, il aurait été forcé de chercher la vraie cause avant de tenter quoi que ce soit. J&#39;aurais gagné 30 minutes.</p>
     <h3>Cas 3 · La grosse feature qui touche 8 fichiers</h3>
     <p>Quand j&#39;ai monté le système de clusters éditoriaux, 8 fichiers ont bougé. Claude a écrit les 8 en 10 minutes, j&#39;ai découvert 2 bugs le lendemain. <strong>Avec <code>subagent-driven-development</code></strong>, chaque fichier aurait été écrit par un sous-agent + vérifié par un reviewer. Les 2 bugs auraient été attrapés avant que je les voie.</p>
     
@@ -496,15 +501,15 @@
   <div class="container">
     <h2>Ce qui pose vraiment problème (honnêteté)</h2>
     <p>Je ne te vends pas du rêve. Les critiques sont réelles.</p>
-    <h3>Problème 1 · Overkill sur les petites tâches</h3>
-    <p>Un utilisateur sur Threads : <em>« Depuis Superpowers, changer un bout de CSS prend des plombes. »</em> Mejba Ahmed, dans un <a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">benchmark sur 12 sessions</a>, mesure que <strong>les tâches simples consomment 10-15 % de tokens en plus</strong> avec Superpowers qu&#39;en Claude Code natif. La phase clarification + design est injustifiée quand tu veux juste changer une couleur.</p>
+    <h3>Problème 1 · Disproportionné sur les petites tâches</h3>
+    <p>Un utilisateur sur Threads : <em>« Depuis Superpowers, changer un bout de CSS prend trois fois plus de temps. »</em> Mejba Ahmed, dans une <a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">évaluation comparative sur 12 sessions</a>, mesure que <strong>les tâches simples consomment 10-15 % de tokens en plus</strong> (les tokens · les unités que l'IA facture, environ 0,75 mot chacun) avec Superpowers qu&#39;en Claude Code natif. La phase clarification + design est injustifiée quand tu veux juste changer une couleur.</p>
     <h3>Problème 2 · Activation automatique trop agressive</h3>
     <p>Depuis une récente mise à jour, le plugin s&#39;auto-invoque sur tout. Tu voulais juste faire une modif rapide, Claude te lance une session brainstorming de 5 minutes. Frustrant. La solution · tu désactives à la demande avec <code>claude plugin disable superpowers</code> et tu réactives quand tu en as besoin.</p>
     <h3>Problème 3 · Sous-agents qui oublient le contexte</h3>
-    <p>Des utilisateurs rapportent (<a href="https://github.com/obra/superpowers/issues/237">issue #237 du repo</a>) que les sous-agents ne reçoivent pas toujours le skill <code>using-superpowers</code> en profondeur d&#39;arborescence, ce qui casse la discipline attendue. Bug actif, probablement corrigé dans une version future.</p>
+    <p>Des utilisateurs rapportent (<a href="https://github.com/obra/superpowers/issues/237">issue #237 du repo</a> · le « repo » étant le dépôt de code public sur GitHub) que les sous-agents ne reçoivent pas toujours le skill <code>using-superpowers</code> en profondeur d&#39;arborescence, ce qui casse la discipline attendue. Bug actif, probablement corrigé dans une version future.</p>
     <div class="callout warn">
       <h4>Ma règle de désactivation</h4>
-      <p>Quand je veux juste bricoler (changer un texte, tester un bout de code, ajuster une couleur) · <code>claude plugin disable superpowers</code>. Quand je lance un vrai projet ou quand je débogue un truc complexe · <code>claude plugin enable superpowers</code>. 10 secondes de gestion, mais le plugin joue son rôle uniquement quand c'est pertinent.</p>
+      <p>Quand je veux juste tester un petit changement (modifier un texte, ajuster une couleur, essayer un bout de code) · <code>claude plugin disable superpowers</code>. Quand je lance un vrai projet ou que je débogue un cas complexe · <code>claude plugin enable superpowers</code>. 10 secondes de gestion, mais le plugin joue son rôle uniquement quand c'est pertinent.</p>
     </div>
   </div>
 </section>
@@ -536,7 +541,7 @@
     <ol>
     <li><strong><a href="https://blog.fsck.com/2025/10/09/superpowers/">Le billet fondateur de Jesse Vincent</a></strong> · comprendre la philosophie par l&#39;auteur lui-même. En anglais mais ça se lit très bien.</li>
     <li><strong><a href="https://simonwillison.net/2025/Oct/10/superpowers/">Simon Willison sur Superpowers</a></strong> · le référent technique du monde IA-dev donne son avis. Court, précis, honnête.</li>
-    <li><strong><a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">Le benchmark de Mejba Ahmed</a></strong> · 12 sessions réelles mesurées. Plus utile qu&#39;un review marketing.</li>
+    <li><strong><a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">L'évaluation de Mejba Ahmed</a></strong> · 12 sessions réelles mesurées. Plus utile qu&#39;une critique marketing.</li>
     <li><strong><a href="claude-code.html#plugins">Mes 6 plugins officiels</a></strong> · Superpowers + les 5 autres qui composent ma stack.</li>
     <li><strong><a href="outils.html">Ma page Outils</a></strong> · les 6 outils que j&#39;utilise tous les jours, au-delà des plugins.</li>
     </ol>

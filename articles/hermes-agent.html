@@ -631,7 +631,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 02 · IA &amp; Outils</div>
     <h1>Construire<br>un <em>Hermes Agent</em><br>pas à pas.</h1>
     <p class="hero-lead">
-      Hermes, c'est la famille de <a href="../lexique.html#modele">modèles</a> IA open-source de Nous Research. Leur particularité : ils sont fine-tunés pour <strong>agir</strong>, pas juste discuter. Je t'explique comment en faire un <a href="../lexique.html#skill-agent">agent</a> qui travaille pour toi — sans dépendre d'OpenAI ni payer une facture qui explose.
+      Hermes, c'est la famille de <a href="../lexique.html#modele">modèles</a> IA open-source de Nous Research. Leur particularité : ils sont fine-tunés (réentraînés sur des exemples ciblés) pour <strong>agir</strong>, pas juste discuter. Je t'explique comment en faire un <a href="../lexique.html#skill-agent">agent</a> qui travaille pour toi — sans dépendre d'OpenAI ni payer une facture qui explose.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>10 min</strong> de lecture</span>
@@ -660,9 +660,9 @@
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu vas apprendre</h2>
     <ul>
-      <li><strong>C'est quoi Hermes</strong> (Nous Research) et pourquoi c'est différent des autres LLMs</li>
+      <li><strong>C'est quoi Hermes</strong> (Nous Research) et pourquoi c'est différent des autres LLMs (les gros modèles d'IA type ChatGPT)</li>
       <li>Comment le faire tourner <strong>en local</strong> (gratuit, privé) via Ollama ou LM Studio</li>
-      <li>Construire un <strong>agent autonome</strong> qui utilise des outils (function calling natif)</li>
+      <li>Construire un <strong>agent autonome</strong> qui utilise des outils (function calling, c'est-à-dire la capacité du modèle à appeler tes fonctions tout seul)</li>
     </ul>
   </div>
 </div>
@@ -692,7 +692,7 @@
       Hermes, c'est une famille de modèles IA développée par <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a>, un des collectifs open-source les plus respectés de l'écosystème IA. Ils prennent des modèles de base (Llama, Mistral) et les fine-tunent pour qu'ils soient <strong>meilleurs sur des tâches réelles</strong> : suivre des instructions précises, appeler des outils, tenir une conversation structurée.
     </p>
     <p>
-      Les versions les plus utilisées aujourd'hui : <code>Hermes 3</code> (basé sur Llama 3.1, stable et massivement déployé) et <code>Hermes 4</code> (sorti août 2025, en 14B / 70B / 405B, avec un mode raisonnement intégré). Tous deux excellent en <strong>function calling</strong> — c'est-à-dire appeler des outils/fonctions via du JSON structuré. C'est la brique clé pour construire un agent.
+      Les versions les plus utilisées aujourd'hui : <code>Hermes 3</code> (basé sur Llama 3.1, stable et massivement déployé) et <code>Hermes 4</code> (sorti août 2025, en 14B / 70B / 405B — le « B » = milliards de paramètres, plus c'est gros plus c'est puissant et lourd, avec un mode raisonnement intégré). Tous deux excellent en <strong>function calling</strong> — c'est-à-dire appeler des outils/fonctions via du JSON structuré (un format texte standard pour échanger des données). C'est la brique clé pour construire un agent.
     </p>
 
     <div class="callout tip">
@@ -709,7 +709,7 @@
       <h4>Les alternatives sérieuses à Hermes en 2026</h4>
       <p>Hermes n'est plus le seul modèle open-source excellent en function calling. Trois alternatives à tester sur le même cas d'usage que toi :</p>
       <ul>
-        <li><strong>Llama 3.3 70B</strong> (Meta) — devenu une référence, très bon en tool-use, disponible sur Ollama (<code>llama3.3:70b</code>)</li>
+        <li><strong>Llama 3.3 70B</strong> (Meta) — devenu une référence, très bon en tool-use (l'usage d'outils par le modèle), disponible sur Ollama (<code>llama3.3:70b</code>)</li>
         <li><strong>Qwen 3</strong> (Alibaba) — performant en agent, souvent moins censuré, bon support multilingue (<code>qwen3:8b</code> ou <code>qwen3:14b</code>)</li>
         <li><strong>DeepSeek V3</strong> — très fort en raisonnement et code, si tu veux un modèle polyvalent</li>
       </ul>
@@ -765,7 +765,7 @@ ollama pull hermes3:70b</pre>
 
     <div class="callout warn">
       <h4>RAM et taille du modèle</h4>
-      <p>Règle réelle : il te faut environ <strong>1,2× la taille du fichier quantifié</strong> (le modèle charge en RAM + un peu d'overhead). Voici ce que ça donne sur Mac Apple Silicon :</p>
+      <p>Règle réelle : il te faut environ <strong>1,2× la taille du fichier quantifié</strong> (un modèle quantifié = compressé pour tenir en moins de mémoire, le modèle charge en RAM — la mémoire vive — + un peu d'overhead, c'est-à-dire de surplus). Voici ce que ça donne sur Mac Apple Silicon :</p>
 
       <div class="comparison-table" style="overflow-x:auto; margin:20px 0;">
         <table style="width:100%; border-collapse:collapse; font-size:14px;">
@@ -814,7 +814,7 @@ ollama pull hermes3:70b</pre>
     <span class="section-kicker k-orange">— Le cœur du sujet</span>
     <h2>Construire <em class="orange">un agent.</em></h2>
     <p>
-      Un agent, c'est un LLM qui peut <strong>appeler des outils</strong> quand il en a besoin. Exemple : "Quel temps fait-il à Paris ?" → le LLM appelle une API météo → il te donne la réponse. Sans tools, il te dit "je ne sais pas". Avec tools, il va chercher l'info.
+      Un agent, c'est un LLM qui peut <strong>appeler des outils</strong> quand il en a besoin. Exemple : "Quel temps fait-il à Paris ?" → le LLM appelle une API météo (un service externe qu'on interroge par programme) → il te donne la réponse. Sans tools (les outils branchés à l'agent), il te dit "je ne sais pas". Avec tools, il va chercher l'info.
     </p>
     <p>Voici le squelette d'un agent Hermes en Python. Tu peux copier-coller et adapter.</p>
 
@@ -848,7 +848,7 @@ tools = [{
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>Appeler Hermes avec les tools</h3>
-        <p>Ollama expose une API OpenAI-compatible. Utilise le SDK OpenAI avec la baseURL locale :</p>
+        <p>Ollama expose une API OpenAI-compatible (donc tu peux la requêter avec le même code que pour ChatGPT). Utilise le SDK OpenAI (la librairie officielle Python d'OpenAI) avec la baseURL locale (l'adresse de ton Ollama qui tourne chez toi) :</p>
         <pre>from openai import OpenAI
 client = OpenAI(
     base_url="http://localhost:11434/v1",
@@ -921,12 +921,12 @@ response = client.chat.completions.create(
     <ul>
       <li><a href="https://nousresearch.com" target="_blank" rel="noopener">nousresearch.com</a> — Le site officiel de Nous Research, avec tous leurs modèles</li>
       <li><a href="https://ollama.com/library/hermes3" target="_blank" rel="noopener">ollama.com/library/hermes3</a> — La page Ollama pour Hermes 3 (versions, tailles, usages)</li>
-      <li><a href="https://huggingface.co/NousResearch" target="_blank" rel="noopener">huggingface.co/NousResearch</a> — Tous leurs modèles pour usage avancé (GGUF, quantizations, etc.)</li>
+      <li><a href="https://huggingface.co/NousResearch" target="_blank" rel="noopener">huggingface.co/NousResearch</a> — Tous leurs modèles pour usage avancé (GGUF — un format de fichier modèle compressé, différentes quantizations — différents niveaux de compression, etc.)</li>
     </ul>
 
     <div class="callout tip">
       <h4>Prochaine étape</h4>
-      <p>Si tu veux passer à l'agent multi-étapes (par exemple "fais-moi une recherche + synthèse + rédige un mail"), j'ai prévu un futur tuto sur les chains d'agents avec Hermes. Inscris-toi à la newsletter pour être prévenu.</p>
+      <p>Si tu veux passer à l'agent multi-étapes (par exemple "fais-moi une recherche + synthèse + rédige un mail"), j'ai prévu un futur tuto sur les chains d'agents (en clair : enchaîner plusieurs agents en pipeline, chacun fait son bout) avec Hermes. Inscris-toi à la newsletter pour être prévenu.</p>
     </div>
   </div>
 </section>
@@ -967,7 +967,7 @@ response = client.chat.completions.create(
     <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
     <h2>Tu reçois mes <em class="fuchsia">prochains tutos.</em></h2>
     <p>
-      Chaque nouveau tuto IA que je publie arrive dans ma newsletter AI Playbook. Si tu ne veux pas manquer la suite (agents multi-étapes, fine-tuning, RAG), laisse ton email sur la home.
+      Chaque nouveau tuto IA que je publie arrive dans ma newsletter AI Playbook. Si tu ne veux pas manquer la suite (agents multi-étapes, fine-tuning — réentraîner un modèle sur tes données, RAG — l'IA qui répond depuis tes documents), laisse ton email sur la home.
     </p>
     <a href="../index.html#newsletters" class="back-btn">
       Voir les newsletters →

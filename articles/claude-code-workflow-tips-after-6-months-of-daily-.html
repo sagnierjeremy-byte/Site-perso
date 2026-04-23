@@ -409,7 +409,7 @@
 <section class="block">
   <div class="container">
     <h2>Avant de commencer</h2>
-    <p>Tu as vu passer sur Reddit ou LinkedIn un post du type « mes conseils Claude Code après six mois d&#39;usage quotidien ». L&#39;auteur est souvent un dev senior. Il parle de spec-driven development, de routines, de multi-agents, de serveurs MCP. Tu lis trois paragraphes, tu comprends un mot sur deux, tu fermes l&#39;onglet.</p>
+    <p>Tu as vu passer sur Reddit ou LinkedIn un post du type « mes conseils Claude Code après six mois d&#39;usage quotidien ». L&#39;auteur est souvent un dev senior. Il parle de spec-driven development (écrire d&#39;abord la spec détaillée, coder ensuite), de routines, de multi-agents (plusieurs IA qui travaillent en parallèle), de serveurs MCP (des connecteurs standards pour brancher des outils à l&#39;IA). Tu lis trois paragraphes, tu comprends un mot sur deux, tu fermes l&#39;onglet.</p>
     <p>C&#39;est normal. Ces posts sont écrits pour d&#39;autres devs. Le problème, c&#39;est que <strong>tu peux lire ça et te dire : ce n&#39;est pas pour moi, je ne suis pas du métier.</strong></p>
     <p>Je suis passé par là. Il y a six mois, je ne connaissais aucun de ces mots. Aujourd&#39;hui, je lance Claude Code tous les jours pour faire tourner mon business. Et j&#39;ai un avis tranché : <strong>Claude Code est plus facile pour un non-dev que pour un dev senior.</strong> Je t&#39;explique pourquoi dans cet article, et je te montre ce que j&#39;ai livré avec, en six mois, sans savoir coder.</p>
     <div class="callout tip">
@@ -424,8 +424,8 @@
     <h2>Deux façons d&#39;arriver à Claude Code</h2>
     <p>Il y a deux chemins pour utiliser cet outil. Selon ton chemin, tu ne vois pas les mêmes choses.</p>
     <h3>Le dev senior</h3>
-    <p>Il vient de son éditeur de code habituel, VS Code, Cursor, Zed. Il a déjà un workflow qui fonctionne. Il a des habitudes de travail installées depuis des années. Il cherche à automatiser ce qu&#39;il fait déjà, gagner en vitesse, industrialiser. Il parle naturellement de <em>tests</em>, <em>linting</em>, <em>refactoring</em>. Il juge la qualité du code que Claude produit.</p>
-    <p>Claude Code arrive dans sa vie comme un collègue ingénieur. Il l&#39;utilise en pair programming. Il corrige ses suggestions, il désactive ce qui ne marche pas chez lui, il cherche à optimiser chaque seconde.</p>
+    <p>Il vient de son éditeur de code habituel, VS Code, Cursor, Zed (les logiciels où les devs écrivent leur code). Il a déjà un workflow qui fonctionne (sa façon d&#39;enchaîner les étapes du travail). Il a des habitudes de travail installées depuis des années. Il cherche à automatiser ce qu&#39;il fait déjà, gagner en vitesse, industrialiser. Il parle naturellement de <em>tests</em>, <em>linting</em>, <em>refactoring</em>. Il juge la qualité du code que Claude produit.</p>
+    <p>Claude Code arrive dans sa vie comme un collègue ingénieur. Il l&#39;utilise en pair programming (à deux sur le même clavier, l&#39;un code, l&#39;autre relit). Il corrige ses suggestions, il désactive ce qui ne marche pas chez lui, il cherche à optimiser chaque seconde.</p>
     <h3>L&#39;entrepreneur non-dev</h3>
     <p>Moi, j&#39;arrive d&#39;ailleurs. Je veux publier un site, envoyer une newsletter, avoir un tableau de bord pour suivre mes idées d&#39;articles. Je ne pars pas d&#39;un éditeur. Je pars d&#39;un besoin.</p>
     <p>Je n&#39;ai pas d&#39;avis sur la qualité du code. Je valide le résultat : est-ce que le site est en ligne, est-ce que le formulaire marche, est-ce que l&#39;email arrive. Le reste, je fais confiance à Claude.</p>
@@ -451,8 +451,8 @@
     <div class="usecase">
       <div class="usecase-label">Cas 01 · Ce site</div>
       <h4>Mon site perso, en HTML statique sans framework</h4>
-      <p>Tu lis cet article sur le site que Claude Code a monté avec moi. HTML pur, CSS pur, JavaScript pur. Pas de React, pas de Next.js. <strong>Huit pages principales</strong>, cinq articles publiés, vingt idées dans mon backlog.</p>
-      <p>Je décris ce que je veux dans un fichier <code>CLAUDE.md</code>, j'ouvre Claude Code, je lui demande d'ajouter une section, de changer une couleur, de corriger un bug de navigation. Il le fait. Je relis en ouvrant la page dans un navigateur local. Si c'est bon, je commit et Vercel redéploie tout seul en 30 secondes.</p>
+      <p>Tu lis cet article sur le site que Claude Code a monté avec moi. HTML pur, CSS pur, JavaScript pur. Pas de React, pas de Next.js (deux frameworks — des grosses boîtes à outils pour construire des sites complexes). <strong>Huit pages principales</strong>, cinq articles publiés, vingt idées dans mon backlog.</p>
+      <p>Je décris ce que je veux dans un fichier <code>CLAUDE.md</code>, j'ouvre Claude Code, je lui demande d'ajouter une section, de changer une couleur, de corriger un bug de navigation. Il le fait. Je relis en ouvrant la page dans un navigateur local. Si c'est bon, je commit (j'enregistre une version stable du code) et Vercel redéploie tout seul en 30 secondes.</p>
       <p><strong>Temps moyen pour publier un article :</strong> 45 minutes de rédaction, 5 minutes de publication. Avant Claude Code, j'aurais mis trois heures rien qu'à copier-coller du HTML.</p>
     </div>
     
@@ -460,7 +460,7 @@
       <div class="usecase-label">Cas 02 · Mon back-office admin</div>
       <h4>Neuf modules pour piloter mon contenu depuis mon navigateur</h4>
       <p>J'ai un back-office local à l'adresse <code>localhost:3001</code>. Neuf modules : tableau de bord, idées d'articles, drafts, articles, newsletter, réseaux sociaux, audits SEO, trafic, système. Chaque module est un dossier de trois fichiers HTML. Pour en rajouter un, je crée un dossier.</p>
-      <p>Claude Code a écrit le serveur Node.js, le système de modules, la charte graphique <em>Fiesta</em> entière. J'ai <strong>cliqué « Je veux ça »</strong>, j'ai relu, j'ai validé. Deux semaines d'aller-retour, zéro ligne de code de ma main.</p>
+      <p>Claude Code a écrit le serveur Node.js (un mini-serveur web qui tourne sur ma machine), le système de modules, la charte graphique <em>Fiesta</em> entière. J'ai <strong>cliqué « Je veux ça »</strong>, j'ai relu, j'ai validé. Deux semaines d'aller-retour, zéro ligne de code de ma main.</p>
     </div>
     
     <div class="usecase">
@@ -473,7 +473,7 @@
     <div class="usecase">
       <div class="usecase-label">Cas 04 · Mon agent qui décline un article en posts réseaux</div>
       <h4>Un article = deux drafts LinkedIn + X prêts à publier</h4>
-      <p>Quand je publie un article, j'ouvre Claude Code avec un prompt contextuel (préparé par un bouton de mon back-office). Claude lit l'article, respecte le ton que j'ai défini dans mes règles Leo, et sort deux drafts sociaux dans le dossier <code>social-drafts/</code>.</p>
+      <p>Quand je publie un article, j'ouvre Claude Code avec un prompt contextuel (un message d'instruction pré-rempli, préparé par un bouton de mon back-office). Claude lit l'article, respecte le ton que j'ai défini dans mes règles Leo, et sort deux drafts sociaux (deux brouillons de posts prêts à relire) dans le dossier <code>social-drafts/</code>.</p>
       <p>Je relis, j'ajuste deux mots, je copie dans Zernio qui programme la publication. <strong>Total :</strong> 5 minutes. Avant, écrire un post LinkedIn qui me plaisait prenait 45 minutes.</p>
     </div>
   </div>

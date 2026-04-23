@@ -882,7 +882,7 @@
     <span class="section-kicker k-fuchsia">— Avant de commencer</span>
     <h2>Claude Code,<br><em class="fuchsia">c'est quoi ?</em></h2>
     <p>
-      Claude Code, c'est la version <strong><a href="lexique.html#cli">terminal</a></strong> de Claude. Au lieu d'ouvrir Claude.ai dans ton navigateur, tu lances une commande dans ton terminal, et Claude peut lire tes fichiers, lancer des scripts, modifier ton code, tester, corriger, commit.
+      Claude Code, c'est la version <strong><a href="lexique.html#cli">terminal</a></strong> de Claude. Au lieu d'ouvrir Claude.ai dans ton navigateur, tu lances une commande dans ton terminal, et Claude peut lire tes fichiers, lancer des scripts, modifier ton code, tester, corriger, commit (sauvegarder une version de ton travail dans Git).
     </p>
     <p>
       Concrètement, ça veut dire que tu peux lui dire "<em>Ajoute un formulaire d'inscription à ma page, connecte-le à Resend, teste que ça marche</em>" — et il le fait. Sans que tu aies à toucher au code toi-même.
@@ -903,7 +903,7 @@
     <ul>
       <li>Je lui demande d'écrire mes newsletters en respectant mon ton (skill <code>copywriting</code>)</li>
       <li>Je lui demande de construire des pages web comme celle-ci (skill <code>landing-page-generator</code>)</li>
-      <li>Je lui fais auditer la sécu de mes projets (skill <code>security-review</code>)</li>
+      <li>Je lui fais auditer la sécurité de mes projets (skill <code>security-review</code>)</li>
       <li>Je lui fais faire de la veille (skill <code>deep-research</code>)</li>
       <li>Je lui fais écrire et envoyer des cold emails (skill <code>cold-email</code>)</li>
     </ul>
@@ -1103,7 +1103,7 @@ cp ~/Downloads/CLAUDE.md ~/.claude/CLAUDE.md</pre>
     <span class="section-kicker k-teal">— Étape 04</span>
     <h2>Installer mes <em class="teal">26 skills.</em></h2>
     <p>
-      Les <strong><a href="lexique.html#skill-agent">skills</a></strong>, c'est ce qui transforme Claude Code d'un simple assistant en spécialiste. Un skill = un dossier qui contient des instructions pour un métier précis : cold email, SEO, landing page, audit sécu, etc.
+      Les <strong><a href="lexique.html#skill-agent">skills</a></strong> (en clair : des « métiers » prêts à l'emploi pour Claude), c'est ce qui transforme Claude Code d'un simple assistant en spécialiste. Un skill = un dossier qui contient des instructions pour un métier précis : cold email, SEO, landing page, audit sécu, etc.
     </p>
     <p>
       Quand tu demandes à Claude "<em>écris-moi un cold email B2B</em>", il charge automatiquement le skill <code>cold-email</code> et suit les règles définies dedans. Tu gagnes beaucoup de temps.
@@ -1239,7 +1239,7 @@ cp -R ~/Downloads/jeremy-claude-pack/skills/* ~/.claude/skills/</pre>
       <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>senior-backend</h5><p>Designer des backends : REST, microservices, DB, auth.</p></div>
       <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>senior-frontend</h5><p>Dev frontend React/Next.js : perf, accessibilité, bundle.</p></div>
       <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>search-first</h5><p>Workflow : chercher une lib existante avant d'écrire du custom.</p></div>
-      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>security-review</h5><p>Checklist sécu pour auth, inputs, secrets, API, paiements.</p></div>
+      <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>security-review</h5><p>Checklist sécurité pour auth, inputs, secrets, API, paiements.</p></div>
       <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>security-scan</h5><p>Scanner la config Claude Code pour détecter des vulnérabilités.</p></div>
       <div class="skill-card c-custom"><span class="skill-tag custom">Custom</span><h5>stripe-integration-expert</h5><p>Implémenter Stripe : subscriptions, paiements, billing usage-based.</p></div>
     </div>
@@ -1308,12 +1308,12 @@ cp -R ~/Downloads/jeremy-claude-pack/skills/* ~/.claude/skills/</pre>
 
     <h3>Le soir — Nettoyer le code</h3>
     <p>
-      Avant de commit, je lui fais passer <code>security-review</code> sur le diff. En 30 secondes il me dit si j'ai laissé une clé API traîner ou si une requête SQL est vulnérable.
+      Avant de commit, je lui fais passer <code>security-review</code> sur le diff (la liste des changements faits depuis la dernière sauvegarde). En 30 secondes il me dit si j'ai laissé une clé API (la « carte d'accès » qui permet à ton code de parler à un service externe payant) traîner ou si une requête SQL est vulnérable.
     </p>
 
     <div class="callout tip">
       <h4>Ce que je ne savais pas au début</h4>
-      <p>Claude Code lance <strong>plusieurs sous-agents en parallèle</strong>. Quand je lui demande "analyse ces 5 docs et synthétise", il lance 5 agents en parallèle, puis synthétise. 5× plus rapide qu'en séquentiel.</p>
+      <p>Claude Code lance <strong>plusieurs sous-agents en parallèle</strong> (des « mini-Claude » qui bossent en même temps sur des bouts différents). Quand je lui demande "analyse ces 5 docs et synthétise", il lance 5 agents en parallèle, puis synthétise. 5× plus rapide qu'en séquentiel.</p>
     </div>
   </div>
 </section>
@@ -1324,7 +1324,7 @@ cp -R ~/Downloads/jeremy-claude-pack/skills/* ~/.claude/skills/</pre>
     <span class="section-kicker k-teal">— Niveau supérieur</span>
     <h2>Les plugins officiels <em class="teal">à connaître.</em></h2>
     <p>
-      Anthropic expose plus de <strong>140 plugins officiels</strong> sur son marketplace (<a href="https://claude.com/plugins" target="_blank" rel="noopener">claude.com/plugins</a>). Un plugin, c'est un pack tout prêt de skills, commandes et agents qui s'installe <strong>en une ligne</strong>. Tu n'as rien à configurer, rien à copier à la main. Une fois installé, il est dispo dans tous tes projets.
+      Anthropic expose plus de <strong>140 plugins officiels</strong> sur son marketplace (le « magasin d'applications » officiel — <a href="https://claude.com/plugins" target="_blank" rel="noopener">claude.com/plugins</a>). Un plugin, c'est un pack tout prêt de skills, commandes et agents qui s'installe <strong>en une ligne</strong>. Tu n'as rien à configurer, rien à copier à la main. Une fois installé, il est dispo dans tous tes projets.
     </p>
     <p>
       Après plusieurs semaines de tests, voici <strong>les 6 que j'utilise</strong>. Tous ajoutent une vraie valeur pour un non-dev qui pilote des projets concrets.
@@ -1348,15 +1348,15 @@ claude plugin install code-simplifier</pre>
       <div class="step-num">01</div>
       <div class="step-body">
         <h3><code>superpowers</code> — Méthodologie de dev complète</h3>
-        <p>14 skills + 3 commandes slash (<code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code>). Force Claude à spécifier avant de coder, à faire du TDD, à passer en revue. <strong>Tape <code>/brainstorm</code></strong> sur une idée d'article ou de feature, tu verras la différence.</p>
+        <p>14 skills + 3 commandes slash (les raccourcis qui commencent par <code>/</code>) — <code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code>. Force Claude à spécifier avant de coder, à faire du TDD (Test-Driven Development · « écris d'abord le test, ensuite le code »), à passer en revue. <strong>Tape <code>/brainstorm</code></strong> sur une idée d'article ou de feature, tu verras la différence.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3><code>context7</code> — Docs à jour de n'importe quel framework</h3>
-        <p>Un MCP server qui fetch la documentation officielle à jour à la demande. Claude ne te répondra plus sur la version Next.js d'il y a 2 ans. <strong>Indispensable</strong> dès que tu touches à un framework récent (Next.js 16, Supabase, Stripe, Resend v3).</p>
+        <h3><code>context7</code> — Docs à jour de n'importe quel framework (le « squelette » technique sur lequel un site/app est construit, ex : Next.js, React)</h3>
+        <p>Un MCP server (un connecteur standardisé entre Claude et un service externe) qui fetch (télécharge) la documentation officielle à jour à la demande. Claude ne te répondra plus sur la version Next.js d'il y a 2 ans. <strong>Indispensable</strong> dès que tu touches à un framework récent (Next.js 16, Supabase, Stripe, Resend v3).</p>
       </div>
     </div>
 
@@ -1380,14 +1380,14 @@ claude plugin install code-simplifier</pre>
       <div class="step-num">05</div>
       <div class="step-body">
         <h3><code>code-review</code> — Review multi-agents avant commit</h3>
-        <p>Commande <code>/code-review</code>. Plusieurs agents spécialisés passent sur ton diff : sécurité, perf, lisibilité. Chacun filtre par confiance. Moins verbeux qu'un review humain, mais attrape les oublis bêtes.</p>
+        <p>Commande <code>/code-review</code>. Plusieurs agents spécialisés passent sur ton diff (la liste des changements faits depuis la dernière sauvegarde) : sécurité, perf, lisibilité. Chacun filtre par confiance. Moins verbeux qu'un review humain, mais attrape les oublis bêtes.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">06</div>
       <div class="step-body">
-        <h3><code>code-simplifier</code> — Nettoie ce que Claude a pondu en trop</h3>
+        <h3><code>code-simplifier</code> — Nettoie ce que Claude a généré en trop</h3>
         <p>Agent qui simplifie le code récemment modifié. Utile quand Claude a écrit 400 lignes pour une fonction qui en méritait 100. Tu lui demandes "simplifie", il réduit sans casser le comportement.</p>
       </div>
     </div>

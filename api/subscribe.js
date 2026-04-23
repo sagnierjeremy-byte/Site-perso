@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@eurofiscalis.com";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -66,13 +67,18 @@ export default async function handler(req, res) {
       contactId = data?.id || data?.data?.id || null;
     }
 
-    // Envoi du welcome email (best-effort · n'échoue pas si la notif rate)
+    // Envoi du welcome email + notif admin (best-effort · n'échoue pas si la notif rate)
     // On ne re-envoie PAS à un contact déjà inscrit (évite les doublons)
     if (!alreadySubscribed) {
       try {
         await sendWelcomeEmail(apiKey, email.toLowerCase().trim());
       } catch (e) {
         console.error("[subscribe] welcome email failed:", e);
+      }
+      try {
+        await sendAdminNotification(apiKey, email.toLowerCase().trim(), source, firstName);
+      } catch (e) {
+        console.error("[subscribe] admin notif failed:", e);
       }
     }
 
@@ -87,6 +93,49 @@ export default async function handler(req, res) {
       .status(500)
       .json({ error: "Erreur serveur", details: String(err) });
   }
+}
+
+async function sendAdminNotification(apiKey, email, source, firstName) {
+  const src = source || "(inconnu)";
+  const fn = firstName || "(non renseigné)";
+  const subject = `+1 newsletter · ${email}`;
+  const html =
+    `<h2>Nouvelle inscription</h2>` +
+    `<p><strong>Email</strong> · ${escapeHtml(email)}</p>` +
+    `<p><strong>Prénom</strong> · ${escapeHtml(fn)}</p>` +
+    `<p><strong>Source</strong> · ${escapeHtml(src)}</p>` +
+    `<p style="color:#888; font-size:12px;">Date · ${new Date().toISOString()}</p>` +
+    `<p><a href="https://resend.com/audiences">Dashboard Resend →</a></p>`;
+  const text =
+    `Nouvelle inscription\n\n` +
+    `Email · ${email}\n` +
+    `Prénom · ${fn}\n` +
+    `Source · ${src}\n` +
+    `Date · ${new Date().toISOString()}\n`;
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: FROM_EMAIL,
+      to: [ADMIN_EMAIL],
+      subject,
+      text,
+      html,
+    }),
+  });
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 async function sendWelcomeEmail(apiKey, email) {

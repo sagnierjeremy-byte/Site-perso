@@ -13,7 +13,7 @@ const AUDIENCE_IDS = [
   // Futur · ajouter d'autres audiences ici (cours, events, etc.)
 ].filter(Boolean);
 
-const ADMIN_EMAIL = "sagnier.jeremy@gmail.com";
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@eurofiscalis.com";
 const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
 
 const REASON_LABELS = {

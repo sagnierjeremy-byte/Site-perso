@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 · notifications admin sur inscriptions newsletter
+
+### Pourquoi
+Jérémy veut être alerté en temps réel à chaque nouvel inscrit (et à chaque désabonnement, déjà en place) pour suivre la croissance newsletter et réagir vite aux retours négatifs.
+
+### Livré
+- **`api/subscribe.js`** · nouvelle fonction `sendAdminNotification()` appelée best-effort après inscription réussie (pas sur doublon). Envoie à l'admin un email avec subject `+1 newsletter · <email>` + corps (email, prénom si fourni, source du form, date, lien dashboard Resend).
+- **`api/unsubscribe.js`** · notif admin déjà existante, adresse destinataire alignée.
+- **Destinataire admin** · `jeremy.sagnier@eurofiscalis.com` (remplace l'ancien `sagnier.jeremy@gmail.com`), override possible via env var `ADMIN_NOTIFY_EMAIL` sur Vercel si besoin de changer sans redéployer.
+- **Symétrie inscription / désabonnement** · `+1` vs `-1` dans les subjects, même structure de body.
+
+### Fichiers touchés
+- `api/subscribe.js` · ajout `ADMIN_EMAIL`, `sendAdminNotification()`, `escapeHtml()`, appel après welcome
+- `api/unsubscribe.js` · `ADMIN_EMAIL` passe de hardcodé à env var avec fallback
+
+### Best-effort (pas de régression possible)
+Les deux notifs admin sont encapsulées dans try/catch · si Resend rate, l'inscription/désabonnement réussit quand même. Log côté Vercel via `console.error`.
+
+### À venir
+- [ ] Tester en prod après redéploiement · s'inscrire avec un email test et vérifier la réception sur jeremy.sagnier@eurofiscalis.com
+- [ ] Ajouter env var `ADMIN_NOTIFY_EMAIL` sur Vercel si tu veux override le fallback
+
+---
+
 ## 2026-04-23 (second pass) · renommage slug article GMF + redirect 301
 
 ### Pourquoi

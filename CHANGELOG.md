@@ -1,5 +1,28 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 · migration MP3 podcast vers Cloudflare R2 (repo allégé)
+
+### Pourquoi
+Le setup R2 finalisé en parallèle (autre Claude Code) a uploadé les 3 MP3 masters. Source unique de vérité = R2 via URLs publiques. L'article `guerres-d-ia-podcast.html` doit pointer vers R2, pas vers `audio/podcast/` local. Avantages : repo Git redevient léger (~0 MB ajouté au lieu de ~69 MB), zéro doublon avec la future page `/podcast.html` qui pointera aux mêmes URLs, cache Cloudflare global.
+
+### Livré
+- **`articles/guerres-d-ia-podcast.html`** · 3 `<audio src=>` modifiés pour pointer vers R2 (`https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-XX-...-MASTER.mp3`). URLs récupérées depuis `data/episodes.json` (source unique) généré par le pipeline podcast en parallèle.
+- **`audio/podcast/`** · supprimé (3 fichiers, ~69 MB)
+- **`audio/`** · dossier supprimé (vide)
+
+### Fichiers touchés
+- `articles/guerres-d-ia-podcast.html`
+- `audio/podcast/*.mp3` (supprimés)
+- `audio/` (supprimé)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Si Cloudflare R2 expose un custom domain (`cdn.jerwis.fr/podcast/...`), remplacer les 3 URLs `pub-xxxx.r2.dev` par le custom domain pour pérennité
+- Tester streaming 3 audios en prod après push
+- Lecteur HTML5 custom (Task 8 parallèle) à intégrer dans cet article quand prêt — remplacera les `<audio>` natifs
+
+---
+
 ## 2026-04-23 · draft article « Le plan chinois 2026-2030, décrypté »
 
 ### Pourquoi

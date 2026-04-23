@@ -297,6 +297,25 @@ RESEND_AUDIENCE_ID=<uuid>        # audience AI Playbook dédiée jerwis.fr
 
 ---
 
+## Section Podcast · Jerwis Productions
+
+- **Source de vérité** · `data/episodes.json` uniquement. Jamais hardcoder les infos épisode ailleurs.
+- **Workflow nouvel épisode** :
+  1. Ajouter entrée dans `episodes[]` de `data/episodes.json` (titre, description courte/longue, duration, date, accent_color, casting voix)
+  2. Uploader le MP3 sur R2 · `npm run podcast:upload <chemin-mp3>`
+  3. Copier l'URL publique R2 retournée dans `episodes[N].audio_url`
+  4. Rebuild global · `npm run podcast:build` (régénère covers + RSS + page)
+  5. Commit + push → Vercel redéploie, Apple/Spotify scannent le RSS dans les 24h
+- **Pochettes** · Direction 4 (duotone glitch + chromatic aberration JetBrains Mono) générées par `build-podcast-covers.js`. Ne pas modifier manuellement les PNG. Pour changer le style, modifier `templates/podcast-cover.html` + regénérer.
+- **Label partout** · "Jerwis Productions" (pluriel). Jamais "par Jérémy Sagnier" seul sur les artefacts podcast (site, RSS, covers).
+- **Typo titres podcast** · JetBrains Mono 700 uppercase avec `//` en teal comme séparateur. Volontaire · casse avec la 90s Fiesta pour un ton narratif moderne.
+- **Player audio** · 1 seul joue à la fois (pause des autres au click play), position persistée en localStorage, raccourcis ←/→ ±5s, vitesses 1/1.25/1.5/2×.
+- **Host audio** · Cloudflare R2 bucket `jerwis-podcast-audio`. Credentials dans `.env.local` (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_PUBLIC_URL_BASE). Free tier 10 Go stockage + 0 egress.
+- **RSS feed** · `https://jerwis.fr/feed/podcast.xml` soumis à Apple Podcasts Connect + Spotify for Podcasters (délai review 24-72h).
+- **Scripts npm** · `podcast:build` (covers + rss + page), `podcast:upload`, `podcast:rss`, `podcast:covers`, `podcast:page`.
+
+---
+
 ## Sections détaillées
 
 ### Newsletters (2 veilles auto)

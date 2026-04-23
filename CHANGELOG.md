@@ -1,5 +1,49 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 · intégration podcast complète "Guerres d'IA" · Jerwis Productions
+
+### Pourquoi
+Trois épisodes de podcast narratif prêts dans `~/Projets/podcast-wondery/exports/` (La Fracture, Les Quatre Jours, Frères Ennemis). Fallait les diffuser publiquement — Apple Podcasts + Spotify + section dédiée sur jerwis.fr. Plus : poser la marque **Jerwis Productions** comme maison de production pour héberger d'autres séries plus tard.
+
+### Livré
+- **Direction visuelle** · pochette "Direction 4" (duotone glitch éditorial, JetBrains Mono + chromatic aberration + scanlines CRT). Palette Fiesta conservée mais typo et effets modernisés (s'éloigne du heritage 90s du reste du site pour un ton narratif plus contemporain).
+- **Pochettes générées automatiquement** · script `build-podcast-covers.js` avec Puppeteer + sharp. 8 PNG produites (série + 3 eps × 512 et 3000 px). Template paramétré `templates/podcast-cover.html`. Chaque ep a une teinte dominante (fuchsia pour ep01, orange pour ep02, fuchsia+teal pour ep03).
+- **Page `/podcast.html`** · Layout A éditorial magazine (hero série + liste épisodes + player inline + 2 CTAs newsletter + mini-marquee + footer cohérent avec le site).
+- **Lecteur HTML5 custom** · 0 dépendance, 136 lignes JS + CSS inline. Features : play/pause, seek, vitesse 1/1.25/1.5/2×, persistance position localStorage, 1 seul player actif à la fois (singleton), raccourcis clavier ←/→ ±5s, ARIA.
+- **Host audio** · Cloudflare R2 (free tier 10 Go + 0 egress). 3 MP3 uploadés via `scripts/podcast-upload.js` (aws-sdk-s3 compatible, validation extension + sanitization filename + rejet fichier vide).
+- **RSS feed iTunes-conforme** · `feed/podcast.xml` avec toutes les balises `<itunes:*>` requises par Apple/Spotify. Généré par `build-podcast-rss.js`. Validé xmllint + 3 enclosures R2.
+- **Nav site** · entrée `Podcast` ajoutée dans 6 pages avec nav principale (`index`, `apprendre`, `outils`, `github`, `quiz`, `preferences`). Les 4 pages articles longs (`workflows`, `claude-code`, `debutant`, `lexique`) gardent leur back-link simple volontairement épuré.
+- **Scripts npm** · `podcast:build` (covers + rss + page), `podcast:upload`, `podcast:rss`, `podcast:covers`, `podcast:page`.
+- **Tests unitaires** · 8 tests sur helpers (format duration MM:SS et HH:MM:SS, escape XML/HTML, rfc2822Date, accent colors) via `node:test` · `npm test`.
+- **Documentation** · section "Section Podcast · Jerwis Productions" dans CLAUDE.md + sitemap.xml mis à jour.
+
+### Architecture
+Source de vérité unique · `data/episodes.json`. Trois scripts de build (covers, rss, page) consomment ce JSON. Audio stocké hors repo sur Cloudflare R2 (CDN gratuit, 0 egress). Pas de base de données, pas de framework, pas de backend dédié. Chaque nouvel épisode = 1 entrée JSON + `npm run podcast:build` + commit.
+
+### Fichiers nouveaux
+- `podcast.html`, `feed/podcast.xml`
+- `data/episodes.json`
+- `podcast/covers/{serie,ep01,ep02,ep03}.png` (512×512) + `-3000.png` (3000×3000)
+- `templates/podcast-cover.html`
+- `scripts/build-podcast-page.js`, `build-podcast-rss.js`, `build-podcast-covers.js`, `podcast-upload.js`, `test-helpers.js`
+- `assets/podcast-player.js`
+- `docs/superpowers/specs/2026-04-23-podcast-integration-design.md`
+- `docs/superpowers/plans/2026-04-23-podcast-integration.md`
+
+### Fichiers modifiés
+- `index.html`, `apprendre.html`, `outils.html`, `github.html`, `quiz.html`, `preferences.html` (nav)
+- `sitemap.xml`, `CLAUDE.md`, `package.json`, `.gitignore`, `.env.local`
+
+### À venir
+- [ ] Rédiger descriptions longues (300-500 mots) des 3 épisodes en ton Leo — à faire par Jérémy avant submission plateformes
+- [ ] Soumettre le feed RSS à Apple Podcasts Connect + Spotify for Podcasters
+- [ ] Valider le feed sur https://castfeedvalidator.com/ une fois en prod
+- [ ] (Optionnel V2) Configurer custom domain `podcast-audio.jerwis.fr` CNAME vers bucket R2
+- [ ] (Optionnel V2) Refactorer `test-helpers.js` en `scripts/lib/helpers.js` + `scripts/test-helpers.js` pour éviter que les tests s'exécutent à chaque import par les scripts de build
+- [ ] (Optionnel V2) Page par épisode `/podcast/<slug>.html` avec transcript si audience grandit
+
+---
+
 ## 2026-04-23 · migration MP3 podcast vers Cloudflare R2 (repo allégé)
 
 ### Pourquoi

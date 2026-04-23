@@ -3,82 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Construire un Hermes Agent pas à pas — par Jérémy Sagnier</title>
-<meta name="description" content="Hermes de Nous Research, c'est le modèle open-source qui te permet de construire des agents IA sans dépendre d'OpenAI. Je t'explique comment, avec un exemple concret. Par Jérémy Sagnier.">
+<title>L'agent qui lit mes 200 mails à ma place chaque matin — par Jérémy Sagnier</title>
+<meta name="description" content="J'ai construit un petit assistant IA qui ouvre ma boîte mail à 7h, repère les vrais urgents et range le reste. 4h gagnées par semaine. Le tuto pas à pas pour quelqu'un qui n'a jamais codé.">
+<link rel="canonical" href="https://jerwis.fr/articles/hermes-agent">
 
-<!-- seo:jsonld-article -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Construire un Hermes Agent pas à pas",
-  "description": "Hermes de Nous Research, c'est le modèle open-source qui te permet de construire des agents IA sans dépendre d'OpenAI. Je t'explique comment, avec un exemple concret. Par Jérémy Sagnier.",
-  "author": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/",
-    "sameAs": [
-      "https://www.linkedin.com/in/jeremy-sagnier/",
-      "https://x.com/JeremySagnier",
-      "https://www.youtube.com/@jeremy-sagnier"
-    ]
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  },
-  "datePublished": "2026-04-10",
-  "dateModified": "2026-04-20",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://jerwis.fr/articles/hermes-agent.html"
-  },
-  "inLanguage": "fr-FR"
-}
-</script>
-<!-- /seo:jsonld-article -->
-
-<!-- Open Graph -->
-<meta property="og:title" content="Construire un Hermes Agent pas à pas">
-<meta property="og:description" content="Hermes de Nous Research, le modèle open-source qui te permet de construire des agents IA sans dépendre d'OpenAI. Exemple concret inclus.">
-<meta property="og:url" content="https://jerwis.fr/articles/hermes-agent.html">
 <meta property="og:type" content="article">
-<meta property="og:locale" content="fr_FR">
-<meta property="article:author" content="Jérémy Sagnier">
-<meta property="article:published_time" content="2026-04-20">
-
-<!-- Twitter Card -->
+<meta property="og:url" content="https://jerwis.fr/articles/hermes-agent">
+<meta property="og:title" content="L'agent qui lit mes 200 mails à ma place chaque matin">
+<meta property="og:description" content="4 mois d'usage, 91 % de précision, 4h gagnées par semaine. Et un jour, il a répondu à ma mère comme à un prospect. Voilà comment j'ai construit Hermes — et comment tu peux faire le tien.">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
-<meta name="twitter:creator" content="@JeremySagnier">
-<meta name="twitter:title" content="Construire un Hermes Agent pas à pas">
-<meta name="twitter:description" content="Hermes de Nous Research, le modèle open-source qui te permet de construire des agents IA sans dépendre d'OpenAI. Exemple concret inclus.">
 
-<!-- Canonical -->
-<link rel="canonical" href="https://jerwis.fr/articles/hermes-agent.html">
-
-<!-- Schema.org : TechArticle -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Construire un Hermes Agent pas à pas",
-  "description": "Hermes de Nous Research, le modèle open-source qui te permet de construire des agents IA sans dépendre d'OpenAI. Exemple concret inclus.",
-  "inLanguage": "fr-FR",
-  "url": "https://jerwis.fr/articles/hermes-agent.html",
-  "datePublished": "2026-04-20",
-  "dateModified": "2026-04-20",
-  "author": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  }
+  "headline": "L'agent qui lit mes 200 mails à ma place chaque matin",
+  "description": "Tutoriel pas à pas pour construire un agent IA qui trie ta boîte mail, écrit pour quelqu'un qui n'a jamais codé. Avec retour d'expérience honnête : 4 mois d'usage, 91 % de précision, 4h économisées par semaine, et l'incident où l'agent a répondu à ma mère comme à un prospect.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr"},
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/photos/og-jerwis.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/articles/hermes-agent"
 }
 </script>
 
@@ -87,79 +35,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --fuchsia: #EF426F;
-    --teal:    #00B2A9;
-    --orange:  #FF8200;
-  }
-  [data-theme="light"] {
-    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
-    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
-    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
-    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
-  }
-  [data-theme="dark"] {
-    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
-    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
-    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
-    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
-  }
-
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
   * { box-sizing: border-box; margin: 0; padding: 0 }
   html { scroll-behavior: smooth }
-  body {
-    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
-    line-height: 1.6; font-size: 16px; min-height: 100vh;
-    transition: background .3s, color .3s;
-  }
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
-    opacity: .3; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
   [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
-
   .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
   @media (min-width: 900px) { .container { padding: 0 48px } }
-  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
-  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
-
   .triple-stripe { display: flex; height: 6px; width: 100% }
   .triple-stripe span { flex: 1 }
 
-  .header {
-    position: sticky; top: 0; z-index: 50;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-  }
-  .header-inner {
-    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
   @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
-  .logo {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
-    text-decoration: none; color: var(--ink);
-    display: flex; align-items: center; gap: 10px;
-  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
   .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
-  .back-link {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: var(--ink-soft); text-decoration: none;
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: color .2s;
-  }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
   .back-link:hover { color: var(--fuchsia) }
-  .theme-toggle {
-    width: 40px; height: 40px; border-radius: 999px;
-    border: 1px solid var(--line-strong); background: var(--surface);
-    color: var(--ink); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .2s, border-color .2s; margin-left: 16px;
-  }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
   .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
   .theme-toggle svg { width: 16px; height: 16px }
   [data-theme="light"] .theme-toggle .icon-moon { display: block }
@@ -167,125 +63,40 @@
   [data-theme="dark"] .theme-toggle .icon-moon { display: none }
   [data-theme="dark"] .theme-toggle .icon-sun { display: block }
 
-  .hero {
-    padding: 64px 0 88px;
-    background:
-      radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.25), transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.2), transparent 55%),
-      #0A0A0A;
-    color: #F4EFE6;
-    position: relative; overflow: hidden;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
-  .kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
-    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
-    margin-bottom: 28px;
-  }
-  .kicker .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
-    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
-    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
-  }
-  .hero h1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(36px, 6vw, 72px);
-    line-height: .95; letter-spacing: -.03em;
-    text-transform: uppercase; color: #F4EFE6;
-    margin-bottom: 24px; max-width: 820px;
-  }
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,66,111,.5) } 70% { box-shadow: 0 0 0 12px rgba(239,66,111,0) } 100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
   .hero h1 em { font-style: normal; color: var(--fuchsia) }
-  .hero p.hero-lead {
-    font-size: 17.5px; color: #C4CED4;
-    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
-  }
-  .hero-meta {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: #C4CED4;
-  }
-  .hero-meta-item {
-    padding: 8px 14px; border-radius: 999px;
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
-  }
+  .hero h1 em.teal { color: var(--teal) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
   .hero-meta-item strong { color: var(--fuchsia); margin-right: 6px }
 
-  .tldr {
-    max-width: 880px; margin: -40px auto 0;
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 22px; padding: 28px 32px;
-    position: relative; z-index: 2;
-    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
-  }
-  .tldr::before {
-    content: ""; position: absolute; top: 0; left: 32px;
-    height: 4px; width: 80px;
-    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
-    border-radius: 4px;
-  }
-  .tldr-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
-  }
-  .tldr h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
-    margin-bottom: 16px;
-  }
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
   .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
-  .tldr li {
-    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
-    color: var(--ink-soft);
-  }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
   .tldr li strong { color: var(--ink) }
-  .tldr li::before {
-    content: "→"; position: absolute; left: 0; top: 0;
-    color: var(--fuchsia); font-weight: 700;
-  }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--fuchsia); font-weight: 700 }
 
   section.block { padding: 72px 0; border-top: 1px solid var(--line) }
   section.block:first-of-type { border-top: none }
-  .section-kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
-  }
-  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
   .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
-  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
-  h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(28px, 4vw, 44px);
-    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
   h2 em { font-style: normal }
-  h2 em.teal    { color: var(--teal) }
+  h2 em.teal { color: var(--teal) }
   h2 em.fuchsia { color: var(--fuchsia) }
-  h2 em.orange  { color: var(--orange) }
-  h3 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(20px, 2.3vw, 26px);
-    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
-    margin: 32px 0 14px;
-  }
-  h4 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
-    margin: 24px 0 10px;
-  }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
   p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
   p strong { color: var(--ink); font-weight: 700 }
   ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
@@ -293,313 +104,125 @@
   a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
   a:hover { color: var(--orange) }
 
-  .step {
-    display: flex; gap: 20px; padding: 26px 30px;
-    border-radius: 20px; background: var(--surface);
-    border: 1px solid var(--line-strong);
-    margin-bottom: 18px;
-    transition: box-shadow .2s, border-color .2s;
-  }
-  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.15); border-color: var(--fuchsia) }
-  .step-num {
-    flex-shrink: 0; width: 52px; height: 52px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
-  }
-  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
-  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
-  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
-  .step-body { flex: 1; min-width: 0 }
-  .step-body h3 { margin-top: 0; margin-bottom: 8px }
-  .step-body p:last-child { margin-bottom: 0 }
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
 
-  pre {
-    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
-    background: var(--code-bg); color: var(--code-ink);
-    padding: 14px 18px; border-radius: 10px;
-    overflow-x: auto; line-height: 1.5;
-    margin: 12px 0 20px;
-    border: 1px solid var(--line-strong);
-  }
-  code {
-    font-family: 'JetBrains Mono', monospace; font-size: .88em;
-    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
-    color: var(--code-ink);
-  }
-  pre code { background: transparent; padding: 0 }
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
 
-  .callout {
-    padding: 20px 24px; border-radius: 14px;
-    margin: 20px 0; position: relative; padding-left: 52px;
-  }
-  .callout::before {
-    content: ""; position: absolute;
-    left: 20px; top: 22px;
-    width: 16px; height: 16px; border-radius: 50%;
-  }
-  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
-  .callout.ok::before    { background: var(--teal) }
-  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
-  .callout.warn::before  { background: var(--orange) }
-  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
-  .callout.tip::before   { background: var(--fuchsia) }
+  /* Pieges */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Outils grid */
+  .outils { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 8px }
+  @media (min-width: 600px) { .outils { grid-template-columns: 1fr 1fr } }
+  .outil { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 16px 18px }
+  .outil h4 { margin: 0 0 4px; font-size: 15px }
+  .outil .lic { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .outil p { font-size: 14px; margin: 0; line-height: 1.55 }
+
+  /* Cas d'usage cards */
+  .cas { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 16px 0; display: grid; grid-template-columns: 1fr; gap: 8px }
+  @media (min-width: 720px) { .cas { grid-template-columns: 130px 1fr } }
+  .cas-head { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--fuchsia); font-weight: 700 }
+  .cas h4 { margin: 0 0 6px; font-size: 17px }
+  .cas p { font-size: 14.5px; line-height: 1.6; margin: 0 }
+  .cas p + p { margin-top: 8px }
+  .cas .who { display: inline-block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); letter-spacing: .1em }
+
+  /* Checklist / Quick boxes */
+  .checklist { background: linear-gradient(135deg, rgba(0,178,169,.06), rgba(239,66,111,.04)); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 22px 0 }
+  .checklist h4 { margin: 0 0 14px; font-size: 16px }
+  .checklist ul { list-style: none; padding: 0; margin: 0 }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft) }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+  .checklist li strong { color: var(--ink) }
+
+  /* Quick start (tuto box) */
+  .quick { background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%); color: #F4EFE6; border-radius: 22px; padding: 32px; margin: 22px 0 }
+  .quick .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px }
+  .quick h3 { color: #F4EFE6; margin: 0 0 14px }
+  .quick p { color: #C4CED4; font-size: 15px; margin-bottom: 12px }
+  .quick ol { color: #C4CED4; margin: 14px 0 14px 22px }
+  .quick li { margin-bottom: 10px }
+  .quick code { background: rgba(255,255,255,.08); color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .quick .note { background: rgba(0,178,169,.08); border-left: 3px solid var(--teal); padding: 12px 16px; border-radius: 4px; margin-top: 14px; font-size: 14px }
+
+  /* Step blocks (tuto pas à pas) */
+  .step { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 26px; margin: 14px 0; display: flex; gap: 22px; align-items: flex-start }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 18px; color: #F4EFE6 }
+  .step:nth-child(3n+1) .step-num { background: var(--teal) }
+  .step:nth-child(3n+2) .step-num { background: var(--fuchsia) }
+  .step:nth-child(3n+3) .step-num { background: var(--orange) }
+  .step-body h4 { margin: 4px 0 8px; font-size: 17px }
+  .step-body p { font-size: 14.5px; line-height: 1.65; margin: 0 0 10px }
+  .step-body code { background: var(--code-bg); color: var(--code-ink); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .step-body .os-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: .1em; margin-top: 8px; display: block }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
   .callout h4 { margin: 0 0 6px; font-size: 15px }
-  .callout p  { margin: 0; font-size: 14.5px }
+  .callout p { margin: 0; font-size: 14.5px }
+  .callout ul { margin: 8px 0 0 22px; font-size: 14.5px }
+  .callout ul li { margin-bottom: 4px }
 
-  .usecase {
-    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
-    border: 1px solid var(--line-strong);
-    border-radius: 20px; padding: 24px 28px; margin: 20px 0;
-  }
-  .usecase-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    color: var(--fuchsia); margin-bottom: 12px;
-  }
-  .usecase h4 { margin-top: 0 }
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
 
-  .final-cta {
-    padding: 72px 0 96px;
-    background:
-      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
-      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
-      var(--bg);
-    border-top: 1px solid var(--line);
-    text-align: center;
-  }
+  /* Final CTA */
+  .final-cta { padding: 72px 0 96px; background: radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%), radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%), var(--bg); border-top: 1px solid var(--line); text-align: center }
   .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
-  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 24px; border-radius: 999px;
-    background: var(--ink); color: var(--bg);
-    font-family: 'Archivo', sans-serif; font-weight: 700;
-    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
-    text-decoration: none; transition: transform .2s;
-  }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; background: var(--ink); color: var(--bg); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: transform .2s }
   .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
 
-  .footer {
-    background: var(--bg); padding: 48px 0 40px;
-    border-top: 1px solid var(--line); position: relative;
-  }
-  .footer::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
-  }
-  .footer-bottom {
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: var(--ink-muted);
-  }
-  /* === Composant Share (universel) === */
-  .share-block {
-    max-width: 820px;
-    margin: 72px auto 32px;
-    padding: 32px 32px 28px;
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 22px;
-    text-align: center;
-  }
-  .share-block-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .22em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 8px;
-  }
-  .share-block h3 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(22px, 3vw, 28px);
-    letter-spacing: -.02em;
-    color: var(--ink);
-    margin: 0 0 22px;
-    line-height: 1.15;
-  }
-  .share-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 18px;
-    border-radius: 999px;
-    background: var(--bg-2);
-    border: 1px solid var(--line-strong);
-    color: var(--ink);
-    font-family: 'Archivo', sans-serif;
-    font-weight: 700;
-    font-size: 13.5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform .2s, border-color .2s, background .2s, color .2s;
-  }
-  .share-btn svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-  .share-btn:hover {
-    transform: translateY(-2px);
-    border-color: currentColor;
-  }
-  .share-btn-x:hover       { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+
+  /* Share block (universel, repris du site) */
+  .share-block { max-width: 820px; margin: 72px auto 32px; padding: 32px 32px 28px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; text-align: center }
+  .share-block-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .share-block h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(22px, 3vw, 28px); letter-spacing: -.02em; color: var(--ink); margin: 0 0 22px; line-height: 1.15 }
+  .share-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px }
+  .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--bg-2); border: 1px solid var(--line-strong); color: var(--ink); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13.5px; text-decoration: none; cursor: pointer; transition: transform .2s, border-color .2s, background .2s, color .2s }
+  .share-btn svg { width: 16px; height: 16px; flex-shrink: 0 }
+  .share-btn:hover { transform: translateY(-2px); border-color: currentColor }
+  .share-btn-x:hover { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
   .share-btn-linkedin:hover { background: #0A66C2; color: #fff; border-color: #0A66C2 }
   .share-btn-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366 }
-  .share-btn-email:hover    { background: var(--orange); color: #fff; border-color: var(--orange) }
-  .share-btn-copy:hover     { background: var(--teal); color: #fff; border-color: var(--teal) }
-  .share-btn.copied {
-    background: var(--teal) !important;
-    color: #fff !important;
-    border-color: var(--teal) !important;
-  }
-
-  /* Mini-bouton share pour op-card (index.html) */
-  .op-share {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 3;
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: rgba(10,10,10,.45);
-    border: 1px solid rgba(255,255,255,.22);
-    color: #fff;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: transform .2s, background .2s;
-  }
-  .op-share svg { width: 14px; height: 14px }
-  .op-share:hover {
-    transform: scale(1.1);
-    background: var(--teal);
-    border-color: var(--teal);
-  }
-  .op-share.copied {
-    background: var(--teal);
-    border-color: var(--teal);
-  }
-  .op-share.copied::after {
-    content: "Copié !";
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    padding: 4px 10px;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .14em;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-
-
-  /* Bouton Instagram dans bloc share + sidebar sticky */
-  .share-btn-instagram:hover {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: #fff;
-    border-color: #cc2366;
-  }
-  .share-btn-instagram.copied {
-    background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%) !important;
-    color: #fff !important;
-    border-color: #cc2366 !important;
-  }
-
-  /* Sticky sidebar verticale (desktop uniquement) */
-  .share-rail {
-    display: none;
-  }
-  @media (min-width: 1200px) {
-    .share-rail {
-      display: flex;
-      position: fixed;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      flex-direction: column;
-      gap: 8px;
-      z-index: 40;
-      padding: 12px 10px;
-      background: var(--surface);
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,.2);
-    }
-  }
-  .share-rail-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: .2em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    text-align: center;
-    padding: 6px 0 4px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 4px;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    align-self: center;
-    max-height: 70px;
-    border-bottom: none;
-    border-right: 1px solid var(--line);
-    padding: 0 0 0 4px;
-    margin-bottom: 4px;
-    display: none; /* masqué par défaut, trop encombrant */
-  }
-  .share-rail-btn {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--bg-2);
-    border: 1px solid transparent;
-    color: var(--ink-soft);
-    cursor: pointer;
-    transition: background .2s, color .2s, transform .15s;
-    padding: 0;
-  }
-  .share-rail-btn svg { width: 15px; height: 15px }
-  .share-rail-btn:hover { transform: scale(1.1) }
-  .share-rail-btn-x:hover        { background: #0A0A0A; color: #fff }
-  .share-rail-btn-linkedin:hover { background: #0A66C2; color: #fff }
-  .share-rail-btn-instagram:hover{ background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff }
-  .share-rail-btn-whatsapp:hover { background: #25D366; color: #fff }
-  .share-rail-btn-copy:hover     { background: var(--teal); color: #fff }
-  .share-rail-btn.copied {
-    background: var(--teal) !important;
-    color: #fff !important;
-  }
-
+  .share-btn-email:hover { background: var(--orange); color: #fff; border-color: var(--orange) }
+  .share-btn-copy:hover { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .share-btn.copied { background: var(--teal) !important; color: #fff !important; border-color: var(--teal) !important }
 </style>
 </head>
 <body>
-
-<!-- Sidebar share sticky (desktop uniquement) -->
-<aside class="share-rail" aria-label="Partager">
-  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=Construire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jerwis.fr/articles/hermes-agent.html" data-share-title="Construire un Hermes Agent pas à pas" aria-label="Partager sur Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
-  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=Construire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas%0Ahttps%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jerwis.fr/articles/hermes-agent.html" aria-label="Copier le lien" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-</aside>
-
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -609,10 +232,7 @@
 
 <header class="header">
   <div class="header-inner">
-    <a href="../index.html" class="logo">
-      <span class="logo-dot"></span>
-      Jérémy Sagnier
-    </a>
+    <a href="../index.html" class="logo"><span class="logo-dot"></span>Jérémy Sagnier</a>
     <div style="display:flex; align-items:center">
       <a href="../index.html#learn" class="back-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -628,473 +248,593 @@
 
 <section class="hero">
   <div class="container">
-    <div class="kicker"><span class="dot"></span>Tuto · 02 · IA &amp; Outils</div>
-    <h1>Construire<br>un <em>Hermes Agent</em><br>pas à pas.</h1>
+    <div class="kicker"><span class="dot"></span>Tuto · Agent qui trie tes mails · Niveau découverte</div>
+    <h1>L'agent qui lit mes <em>200 mails</em><br>à ma place,<br><em class="teal">chaque matin.</em></h1>
     <p class="hero-lead">
-      Hermes, c'est la famille de <a href="../lexique.html#modele">modèles</a> IA open-source de Nous Research. Leur particularité : ils sont fine-tunés (réentraînés sur des exemples ciblés) pour <strong>agir</strong>, pas juste discuter. Je t'explique comment en faire un <a href="../lexique.html#skill-agent">agent</a> qui travaille pour toi — sans dépendre d'OpenAI ni payer une facture qui explose.
+      Je l'ai appelé Hermes. C'est un petit assistant que j'ai construit pour ouvrir ma boîte mail tous les matins à 7h, repérer les trois ou quatre vrais urgents, et ranger le reste. Quatre mois d'usage, 91 % de précision, environ 4 heures gagnées par semaine. Et oui, je raconte aussi le jour où il a répondu à ma mère comme à un prospect. Tuto pas à pas pour quelqu'un qui n'a jamais codé.
     </p>
     <div class="hero-meta">
-      <span class="hero-meta-item"><strong>10 min</strong> de lecture</span>
-      <span class="hero-meta-item"><strong>Niveau</strong> Avancé · Dev</span>
-      <span class="hero-meta-item"><strong>Coût</strong> 0€ en local</span>
+      <span class="hero-meta-item"><strong>18 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Tout public</span>
+      <span class="hero-meta-item"><strong>Date</strong> Avril 2026</span>
     </div>
   </div>
 </section>
-
-<!-- seo:byline -->
-<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:14px 20px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
-  <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:700">
-    <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
-    Jérémy Sagnier
-  </a>
-  <span style="color:var(--ink-muted)">·</span>
-  <span>Entrepreneur · pas dev · teste l'IA tous les jours</span>
-  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
-    Publié 10 avril 2026 · MAJ 20 avril 2026
-  </span>
-</div>
-<!-- /seo:byline -->
 
 <div class="container">
   <div class="tldr">
     <div class="tldr-label">En 30 secondes</div>
     <h2>Ce que tu vas apprendre</h2>
     <ul>
-      <li><strong>C'est quoi Hermes</strong> (Nous Research) et pourquoi c'est différent des autres LLMs (les gros modèles d'IA type ChatGPT)</li>
-      <li>Comment le faire tourner <strong>en local</strong> (gratuit, privé) via Ollama ou LM Studio</li>
-      <li>Construire un <strong>agent autonome</strong> qui utilise des outils (function calling, c'est-à-dire la capacité du modèle à appeler tes fonctions tout seul)</li>
+      <li><strong>Ce que fait Hermes</strong> — il ouvre ma boîte mail, repère les vrais urgents, range le reste en trois ou quatre dossiers, et écrit des brouillons de réponse pour les cas faciles. Je relis, je clique, j'envoie.</li>
+      <li><strong>Le gain mesuré</strong> — sur quatre mois d'usage, environ 200 mails par jour traités, 91 % bien rangés, 4 heures gagnées par semaine sur le tri. Pas une promesse marketing, mes vrais chiffres.</li>
+      <li><strong>Comment le construire</strong> — un compte chez l'IA (Claude ou ChatGPT), une connexion à Gmail, un texte qui explique tes règles à l'agent. Compte un samedi après-midi pour la première version.</li>
+      <li><strong>Pour qui c'est utile</strong> — boîte mail saturée (50+ mails/jour), envie de récupérer ton matin, à l'aise pour copier-coller. Si tu as 10 mails par jour, ne perds pas ton temps.</li>
+      <li><strong>Mon avis honnête</strong> — c'est l'outil qui m'a fait économiser le plus de temps en 2026. Mais j'ai eu trois ratés sérieux en chemin, je te les raconte tous pour que tu ne les répètes pas.</li>
     </ul>
   </div>
 </div>
 
 <section class="block">
   <div class="container">
-    <div class="callout warn">
-      <h4>⚠️ Article 100% dev · à lire avant de te lancer</h4>
-      <p>Celui-ci demande d'écrire du Python, d'installer Ollama en <a href="../lexique.html#cli">terminal</a>, et de comprendre les API. <strong>Tu n'es pas dev ? Pas grave</strong> — va voir le <a href="../debutant.html">parcours débutant</a> d'abord, ou l'<a href="loops-claude.html">article Loops Claude Code</a> qui fonctionne avec ton Claude Code standard, sans rien installer de nouveau.</p>
+    <span class="section-kicker k-fuchsia">— L'histoire honnête</span>
+    <h2>Quatre mois <em class="fuchsia">avec Hermes.</em></h2>
+    <p>
+      Avant de te vendre la magie, je veux te raconter comment ça s'est vraiment passé. Pas la version « tout va bien » des vidéos YouTube. La version où je galère, où je casse des trucs, et où je finis par trouver ce qui marche.
+    </p>
+    <p>
+      Décembre 2025. Je suis à 200 mails par jour en moyenne, entre les notifications que j'ai laissées s'accumuler, les newsletters que je ne lis jamais vraiment, les vrais clients qui m'écrivent, les démarcheurs en cold email (des emails de prospection qu'on reçoit sans les avoir demandés). Je passe environ 1 heure par matin à trier. Multiplié par 5 jours, c'est 5 heures par semaine. Sur l'année, c'est l'équivalent de six semaines de travail à plein temps. Pour trier des mails. Au-secours.
+    </p>
+    <p>
+      Je décide de construire un petit assistant. Je n'avais jamais fait ça. Je suis entrepreneur, pas développeur. Mais en 2026, tu peux construire ce genre d'outil avec une IA qui te tient la main (j'ai utilisé Claude, l'IA d'Anthropic, pour m'aider à écrire chaque ligne — j'expliquerai comment plus bas). Le premier prototype tient en un samedi après-midi.
+    </p>
+
+    <h3>Les chiffres réels après quatre mois</h3>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Précision</div>
+        <div class="num">91 %</div>
+        <div class="desc">Sur 200 mails testés en aveugle, l'agent en a bien rangé 182. Onze mauvais étiquetages, huit faux « pas important » qui auraient mérité un coup d'œil. Pas parfait, mais largement utilisable.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Temps gagné</div>
+        <div class="num">4 h / sem</div>
+        <div class="desc">Mesuré sur deux semaines avec et sans agent, en chronométrant pour de vrai. Je passe maintenant 12 minutes le matin au lieu de 60. Multiplie par 50 semaines de travail dans l'année.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Coût mensuel</div>
+        <div class="num">~ 8 €</div>
+        <div class="desc">L'IA me facture environ 8 euros par mois pour traiter mes 6 000 mails. C'est moins cher qu'un café par jour. Pour 4 heures gagnées par semaine, le retour sur investissement est ridicule.</div>
+      </div>
     </div>
 
-    <div class="usecase">
-      <div class="usecase-label">Mon test personnel · sur 1 semaine</div>
-      <h4>J'ai fait tourner Hermes sur 200 mails pendant 7 jours</h4>
-      <p><strong>Résultat :</strong> 91% bien classés (182 sur 200), 11 erreurs de tag, 8 faux positifs "spam soft", 4h économisées sur la semaine par rapport à mon tri manuel. Tout en local, zéro <a href="../lexique.html#token">token</a> facturé, mes mails ne sortent pas de ma machine.</p>
-      <p><strong>Les 3 prompts qui ont marché :</strong> (1) « Tag "urgent" uniquement si l'expéditeur demande une action dans les 48h ET si c'est un client payant. », (2) « Tag "à lire plus tard" si c'est une newsletter que j'ai ouverte moins de 2 fois sur les 5 derniers envois. », (3) « Tag "spam soft" si l'objet contient plus de 2 emojis ou un pourcentage de réduction. »</p>
-      <p><strong>Les 2 qui ont échoué :</strong> (1) « Tag "important" selon ton intuition » → trop vague, il taggait 80% des mails en "important". (2) « Réponds automatiquement aux mails simples » → il a commencé à répondre à ma mère comme si c'était un prospect. J'ai coupé le tool "send_email" immédiatement.</p>
+    <h3>Les trois consignes qui ont vraiment fonctionné</h3>
+    <p>
+      L'agent ne fait pas de magie. Il fait exactement ce que tu lui dis, à condition que tu le dises bien. Voilà les trois règles que j'ai fini par valider après plein d'essais ratés. Garde-les en tête, on y reviendra dans le tuto.
+    </p>
+
+    <div class="callout ok">
+      <h4>Règle 1 — « Urgent » seulement si c'est vraiment urgent</h4>
+      <p>Étiquette comme <strong>« urgent »</strong> uniquement si l'expéditeur me demande une action concrète dans les 48 heures <strong>ET</strong> si c'est un client qui me paie. Le « ET » est crucial — sans lui, l'agent étiquetait 80 % des mails en urgent. Avec, on est tombé à 5 %, ce qui correspond à la réalité de ma boîte.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>Règle 2 — « Plus tard » pour les newsletters jamais ouvertes</h4>
+      <p>Étiquette comme <strong>« à lire plus tard »</strong> toute newsletter que j'ai ouverte moins de 2 fois sur les 5 derniers envois. C'est le tri honnête : si tu n'as pas pris la peine de l'ouvrir 3 fois sur 5, c'est que ce n'est pas une priorité. Je me désabonne en lot une fois par mois.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>Règle 3 — « Spam doux » pour les démarchages déguisés</h4>
+      <p>Étiquette comme <strong>« spam doux »</strong> tout mail dont l'objet contient plus de 2 émojis OU un pourcentage de réduction. Étonnamment précis. Ce sont les démarchages qui passent les filtres anti-spam classiques mais qui n'ont rien à faire dans ta boîte principale.</p>
+    </div>
+
+    <h3>Et puis le jour où Hermes a répondu à ma mère</h3>
+    <p>
+      Je dois te raconter celui-là. Au bout de deux mois, je trouve que c'est tellement bien qu'il classe mes mails que je décide de lui donner un nouveau pouvoir : <strong>écrire et envoyer les réponses simples tout seul</strong>. Pas seulement préparer un brouillon — vraiment envoyer. Pour les cas où c'est juste « ok merci », « bien reçu », « on en reparle la semaine prochaine ». Tu vois le genre.
+    </p>
+    <p>
+      Premier jour. Tout va bien. Deuxième jour, je vois passer un mail de ma mère dans l'historique. Elle m'écrit : « Bonjour mon Jérémy, on déjeune dimanche avec ton frère ? Bisous Maman. » Réponse de Hermes : « Bonjour Madame Sagnier, je vous remercie pour votre proposition. Pourriez-vous m'indiquer votre disponibilité plus précise afin que nous puissions caler un créneau ? Cordialement, Jérémy. »
+    </p>
+    <p>
+      <strong>Le ton complet d'un commercial qui parle à un prospect chaud.</strong> À sa propre mère. J'ai coupé la fonction d'envoi automatique dans la minute. J'ai appelé maman pour rire avec elle, mais elle n'a pas tellement ri. Et j'ai ajouté une règle nouvelle : <strong>l'agent prépare des brouillons, il n'envoie jamais tout seul</strong>. Toujours. Sauf si je clique. Voilà ma cicatrice. Apprends de la mienne, n'apprends pas de la tienne.
+    </p>
+
+    <div class="callout warn">
+      <h4>Ce que tu retiens de cette histoire</h4>
+      <p>Un agent fait <strong>exactement</strong> ce que tu lui dis, sans bon sens. Si tu lui donnes le pouvoir d'envoyer, il enverra. Si tu lui donnes le pouvoir de supprimer, il supprimera. Tant que tu n'es pas sûr à 100 %, garde-le en mode « propose, je clique ». Mode actif uniquement sur des actions vraiment réversibles, comme étiqueter ou archiver.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>200 mails par jour</span><span>91 % bien rangés</span><span>4h gagnées par semaine</span><span>Quatre mois d'usage</span><span>Une histoire avec ma mère</span><span>Mon vrai retour</span>
+    <span>200 mails par jour</span><span>91 % bien rangés</span><span>4h gagnées par semaine</span><span>Quatre mois d'usage</span><span>Une histoire avec ma mère</span><span>Mon vrai retour</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— À quoi ça sert vraiment</span>
+    <h2>Trois choses utiles <em class="orange">qu'il fait pour moi.</em></h2>
+    <p>
+      Quand je dis « agent qui trie les mails », ça reste flou. Voilà les trois cas concrets que Hermes me résout chaque jour. Si l'un d'eux résonne avec ton quotidien, c'est probablement que ça vaut ton après-midi de samedi.
+    </p>
+
+    <div class="cas">
+      <div class="cas-head">Cas 01<br>Le tri du matin</div>
+      <div>
+        <h4>Séparer les vrais urgents du bruit</h4>
+        <p>Avant : j'ouvre Gmail, je vois 47 mails non lus, je les parcours tous, je décide à chaud, je rate parfois un truc important noyé dans le bruit. Après : Hermes a déjà tout étiqueté à 7h. J'ouvre la vue « urgent », je vois 3 ou 4 mails, je les traite en 10 minutes. Le reste attend l'après-midi ou le lendemain.</p>
+        <p><strong>Gain mesuré</strong> : 45 minutes par matin. C'est l'équivalent d'une grasse matinée gratuite chaque semaine. Sur quatre mois, ça représente exactement 60 heures de ma vie que je n'ai pas passées à trier des mails. C'est un long week-end gagné.</p>
+        <span class="who">Coût d'installation : un samedi après-midi</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">Cas 02<br>Les brouillons faciles</div>
+      <div>
+        <h4>Écrire les réponses « ok merci, bien reçu »</h4>
+        <p>Pour les mails de confirmation simples (un client qui dit merci, un fournisseur qui envoie une facture, un partenaire qui accuse réception), Hermes prépare un brouillon dans Gmail. Je l'ouvre, je relis, j'envoie. Trois secondes au lieu de trente. Pour 20 mails par jour de ce type, c'est 9 minutes gagnées tous les jours.</p>
+        <p><strong>Le truc clé</strong> : il <strong>prépare</strong>, il n'envoie jamais. Voir l'incident avec ma mère plus haut. Toujours valider d'un clic, jamais d'envoi automatique. Cette règle n'est pas négociable.</p>
+        <span class="who">Volume traité : ~ 20 brouillons / jour</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">Cas 03<br>Le grand rangement</div>
+      <div>
+        <h4>Classer les mails reçus dans des dossiers thématiques</h4>
+        <p>J'ai trois grands dossiers actifs : <strong>« clients »</strong>, <strong>« fournisseurs »</strong>, <strong>« veille »</strong>. Hermes range chaque mail entrant dans le bon. Quand je cherche une info trois mois plus tard (« quelle était la facture du graphiste de mars ? »), je vais directement dans « fournisseurs » au lieu de fouiller toute la boîte.</p>
+        <p><strong>Le bénéfice caché</strong> : ma boîte de réception ne contient plus que les choses récentes et non traitées. Plus jamais ce sentiment de ne plus voir le fond de l'océan. C'est mental, c'est invisible dans les chiffres, mais c'est sans doute le plus précieux.</p>
+        <span class="who">Précision moyenne : 91 %</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Avant tout</span>
-    <h2>C'est quoi <em class="fuchsia">Hermes ?</em></h2>
+    <span class="section-kicker k-teal">— Sans jargon</span>
+    <h2>Comment ça marche, <em class="teal">vraiment.</em></h2>
     <p>
-      Hermes, c'est une famille de modèles IA développée par <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a>, un des collectifs open-source les plus respectés de l'écosystème IA. Ils prennent des modèles de base (Llama, Mistral) et les fine-tunent pour qu'ils soient <strong>meilleurs sur des tâches réelles</strong> : suivre des instructions précises, appeler des outils, tenir une conversation structurée.
-    </p>
-    <p>
-      Les versions les plus utilisées aujourd'hui : <code>Hermes 3</code> (basé sur Llama 3.1, stable et massivement déployé) et <code>Hermes 4</code> (sorti août 2025, en 14B / 70B / 405B — le « B » = milliards de paramètres, plus c'est gros plus c'est puissant et lourd, avec un mode raisonnement intégré). Tous deux excellent en <strong>function calling</strong> — c'est-à-dire appeler des outils/fonctions via du JSON structuré (un format texte standard pour échanger des données). C'est la brique clé pour construire un agent.
+      Tu vas voir, ce n'est pas magique. Si tu comprends comment fonctionne un assistant humain, tu vas comprendre Hermes. C'est exactement la même logique, juste avec un ordinateur à la place du cerveau.
     </p>
 
-    <div class="callout tip">
-      <h4>Pourquoi je m'y intéresse</h4>
-      <p>Je suis entrepreneur, je ne veux pas dépendre à 100% d'OpenAI ou Anthropic pour mes outils IA. Hermes me permet de tourner des agents en local sur mon Mac — gratuit, privé, sans limite de tokens. C'est aussi un bon réflexe de sécurité pour les données sensibles de mes clients.</p>
-    </div>
-
-    <h3>Hermes vs ChatGPT / Claude</h3>
+    <h3>L'analogie qui parle</h3>
     <p>
-      Ne cherche pas à remplacer ChatGPT ou Claude sur les tâches complexes — ils restent supérieurs en raisonnement. Hermes est <strong>complémentaire</strong> : parfait pour les tâches répétitives, les automatisations simples, le traitement en lot, ou quand tu veux garder tes données en local.
+      Imagine que tu engages un nouvel assistant. Le premier jour, tu lui dis : <em>« Voilà ma boîte mail. Voilà mes règles : un mail de tel client, c'est urgent. Une newsletter, tu mets dans ‘plus tard’. Un démarchage, tu archives. »</em> Tu prends 30 minutes pour lui expliquer, tu lui montres dix exemples concrets, tu lui dis ce que tu attends.
+    </p>
+    <p>
+      Le lendemain, ton assistant arrive à 7h, ouvre ta boîte, applique tes règles. Quand il a un doute, il te met le mail de côté pour que tu décides. Au bout d'une semaine, tu corriges deux ou trois choses (« non, ce client-là c'est pas urgent en fait »), et c'est calé.
+    </p>
+    <p>
+      <strong>Hermes, c'est exactement ça.</strong> Sauf que ton « assistant » est une IA. Et que tu ne lui parles pas, tu lui écris ses règles dans un texte qu'on appelle <strong>« le prompt système »</strong> (l'équivalent du contrat de travail de l'assistant — la liste des règles qu'il doit suivre tout le temps, dans tous les cas).
     </p>
 
-    <div class="callout tip">
-      <h4>Les alternatives sérieuses à Hermes en 2026</h4>
-      <p>Hermes n'est plus le seul modèle open-source excellent en function calling. Trois alternatives à tester sur le même cas d'usage que toi :</p>
+    <h3>Les trois ingrédients (et c'est tout)</h3>
+
+    <div class="checklist">
+      <h4>Ce dont Hermes a besoin pour fonctionner</h4>
       <ul>
-        <li><strong>Llama 3.3 70B</strong> (Meta) — devenu une référence, très bon en tool-use (l'usage d'outils par le modèle), disponible sur Ollama (<code>llama3.3:70b</code>)</li>
-        <li><strong>Qwen 3</strong> (Alibaba) — performant en agent, souvent moins censuré, bon support multilingue (<code>qwen3:8b</code> ou <code>qwen3:14b</code>)</li>
-        <li><strong>DeepSeek V3</strong> — très fort en raisonnement et code, si tu veux un modèle polyvalent</li>
+        <li><strong>Un cerveau</strong> — l'IA elle-même. Tu en choisis une (Claude, ChatGPT, ou une IA gratuite installée chez toi). C'est elle qui lit chaque mail et décide.</li>
+        <li><strong>Des outils</strong> — la connexion à Gmail. C'est ce qui permet à l'IA de lire les mails, d'ajouter des étiquettes, de préparer des brouillons. Sans ça, l'IA est aveugle.</li>
+        <li><strong>Une consigne claire</strong> — le prompt système. Le texte de 20 à 50 lignes qui explique tes règles à l'IA. C'est là que tout se joue.</li>
       </ul>
-      <p>Mon conseil : teste les 3 sur ton cas réel, garde celui qui te sort les meilleurs résultats. Le "meilleur" varie selon la tâche.</p>
     </div>
 
-    <div class="callout warn">
-      <h4>Côté licence : à savoir avant de commercialiser</h4>
-      <p>Hermes 3 hérite de la licence <strong>Llama 3.1</strong> (Meta). Cette licence interdit l'usage commercial si ton service dépasse <strong>700 millions d'utilisateurs actifs mensuels</strong> sans accord explicite de Meta. Pour 99% des entrepreneurs c'est un non-sujet. Mais si tu vises du SaaS grand public avec forte croissance, lis les termes avant d'investir.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-teal">— Setup</span>
-    <h2>Installation <em class="teal">en 3 étapes.</em></h2>
-    <p>La méthode la plus simple : Ollama. C'est un outil qui télécharge et fait tourner des LLMs en local, sans configuration compliquée.</p>
-
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-body">
-        <h3>Installer Ollama</h3>
-        <p>Va sur <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> et télécharge l'app Mac. Double-clic, glisse dans Applications, lance. Ça tourne en fond dans ta barre de menu.</p>
-        <p>Vérifie dans ton terminal :</p>
-        <pre>ollama --version</pre>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-body">
-        <h3>Télécharger Hermes</h3>
-        <p>Une seule commande. Attention : le modèle fait 4-8 GB selon la taille choisie.</p>
-        <pre># Version légère (8 GB, rapide)
-ollama pull hermes3:8b
-
-# Ou version plus puissante si tu as 32 GB+ de RAM
-ollama pull hermes3:70b</pre>
-        <p>Laisse tourner le temps du téléchargement (5-15 min selon ta connexion).</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-body">
-        <h3>Premier test</h3>
-        <p>Lance une conversation rapide pour vérifier que tout marche :</p>
-        <pre>ollama run hermes3:8b</pre>
-        <p>Tu es dans un chat. Tape <em>"Raconte-moi ce que tu peux faire"</em> et vois ce qu'il te répond. Pour quitter : <code>/bye</code>.</p>
-      </div>
-    </div>
-
-    <div class="callout warn">
-      <h4>RAM et taille du modèle</h4>
-      <p>Règle réelle : il te faut environ <strong>1,2× la taille du fichier quantifié</strong> (un modèle quantifié = compressé pour tenir en moins de mémoire, le modèle charge en RAM — la mémoire vive — + un peu d'overhead, c'est-à-dire de surplus). Voici ce que ça donne sur Mac Apple Silicon :</p>
-
-      <div class="comparison-table" style="overflow-x:auto; margin:20px 0;">
-        <table style="width:100%; border-collapse:collapse; font-size:14px;">
-          <thead>
-            <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
-              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Modèle</th>
-              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Taille Q4</th>
-              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">RAM mini</th>
-              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Mac recommandé</th>
-              <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;">Vitesse</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom:1px solid var(--line);">
-              <td style="padding:12px 14px;"><code>hermes3:3b</code></td>
-              <td style="padding:12px 14px;">2 GB</td>
-              <td style="padding:12px 14px;">8 GB</td>
-              <td style="padding:12px 14px;">M1/M2 de base</td>
-              <td style="padding:12px 14px;">40-60 tok/s</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--line);">
-              <td style="padding:12px 14px;"><code>hermes3:8b</code></td>
-              <td style="padding:12px 14px;">4,7 GB</td>
-              <td style="padding:12px 14px;">16 GB</td>
-              <td style="padding:12px 14px;">M1/M2/M3 confortable</td>
-              <td style="padding:12px 14px;">20-40 tok/s</td>
-            </tr>
-            <tr>
-              <td style="padding:12px 14px;"><code>hermes3:70b</code></td>
-              <td style="padding:12px 14px;">40 GB</td>
-              <td style="padding:12px 14px;">64 GB</td>
-              <td style="padding:12px 14px;">M2/M3 Ultra ou Max 128 GB</td>
-              <td style="padding:12px 14px;">8-12 tok/s</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>Attention piège : le <strong>M3 Pro est plus lent que le M2 Pro</strong> pour les LLM (bande passante mémoire réduite de 200 à 150 GB/s). Si tu achètes pour l'IA locale, vise M-Max ou M-Ultra.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-orange">— Le cœur du sujet</span>
-    <h2>Construire <em class="orange">un agent.</em></h2>
     <p>
-      Un agent, c'est un LLM qui peut <strong>appeler des outils</strong> quand il en a besoin. Exemple : "Quel temps fait-il à Paris ?" → le LLM appelle une API météo (un service externe qu'on interroge par programme) → il te donne la réponse. Sans tools (les outils branchés à l'agent), il te dit "je ne sais pas". Avec tools, il va chercher l'info.
+      Quand tu démarres Hermes, voilà ce qui se passe en coulisses, pour de vrai :
     </p>
-    <p>Voici le squelette d'un agent Hermes en Python. Tu peux copier-coller et adapter.</p>
+
+    <ol>
+      <li>L'agent ouvre ta boîte mail (via la <strong>connexion Gmail</strong>) et récupère les mails non lus.</li>
+      <li>Pour chaque mail, il l'envoie à l'IA en disant : <em>« Voilà ce mail, voilà mes règles, dis-moi quelle étiquette tu lui colles. »</em></li>
+      <li>L'IA répond : <em>« Étiquette = urgent »</em> (ou à lire plus tard, ou veille, etc.).</li>
+      <li>L'agent applique l'étiquette dans Gmail (via la même connexion).</li>
+      <li>Si c'est un mail qui mérite un brouillon de réponse, l'IA l'écrit, l'agent le pose dans Gmail comme brouillon. Tu vois apparaître la petite mention « brouillon » dans Gmail le matin.</li>
+    </ol>
+
+    <p>
+      Voilà. Pas de magie. Pas de robotique avancée. Juste une IA qui lit du texte, applique tes règles, et coche des cases dans Gmail à ta place.
+    </p>
+
+    <div class="callout tip">
+      <h4>Pourquoi je l'ai appelé Hermes</h4>
+      <p>Hermes, dans la mythologie, c'est le messager des dieux. Le type qui transporte les nouvelles entre les mondes. C'était évident pour un agent qui passe sa vie dans ma boîte mail. Tu peux le rebaptiser comme tu veux — Jeeves, Alfred, Stuart, Postier-Pat — ça ne change rien à ce qu'il fait. C'est juste plus sympa de dire « Hermes a fait son tri » que « le script Python a tourné cette nuit ».</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Étape 1 · Compte IA</span><span>Étape 2 · Connecter Gmail</span><span>Étape 3 · Écrire les règles</span><span>Étape 4 · Tester sur 10 mails</span><span>Étape 5 · Mode actif</span><span>Une après-midi top chrono</span>
+    <span>Étape 1 · Compte IA</span><span>Étape 2 · Connecter Gmail</span><span>Étape 3 · Écrire les règles</span><span>Étape 4 · Tester sur 10 mails</span><span>Étape 5 · Mode actif</span><span>Une après-midi top chrono</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le tuto pas à pas</span>
+    <h2>On construit <em class="fuchsia">ton Hermes.</em></h2>
+    <p>
+      Voilà la marche à suivre, telle que je la referais aujourd'hui en 2026. <strong>Compte une après-midi de samedi pour la première version</strong>, plus une heure de réglages la semaine d'après pour ajuster les règles. Je prends Mac comme fil rouge parce que c'est ce que j'ai. Sur Windows ou Linux, c'est exactement la même logique, je te le précise quand ça change.
+    </p>
+
+    <div class="callout warn">
+      <h4>Avant de commencer — la version honnête</h4>
+      <p>Ce tuto demande de copier-coller, de créer 2 comptes, et de remplir un fichier texte. Si tu n'as jamais fait ça, c'est faisable. Si tu n'es pas à l'aise du tout avec un ordinateur, mieux vaut lire le bloc <strong>« Sans rien installer »</strong> tout en bas — tu auras 70 % du résultat en 2 minutes, et tu reviendras ici quand tu seras prêt à pousser plus loin. Pas de honte.</p>
+    </div>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
-        <h3>Définir tes outils</h3>
-        <p>Chaque outil = une fonction Python + une description JSON que le LLM peut lire.</p>
-        <pre>def get_weather(city: str) -> str:
-    # Appelle ton API météo ici
-    return f"Il fait 20°C à {city}"
-
-tools = [{
-    "type": "function",
-    "function": {
-        "name": "get_weather",
-        "description": "Récupère la météo d'une ville",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "city": {"type": "string"}
-            },
-            "required": ["city"]
-        }
-    }
-}]</pre>
+        <h4>Créer un compte chez Anthropic (l'éditeur de Claude)</h4>
+        <p>L'IA qui va faire le boulot, c'est Claude. C'est celle qui me donne les meilleurs résultats sur ce genre de tri (j'ai aussi essayé ChatGPT, c'est très bien aussi, choisis selon ce que tu connais déjà). Va sur <strong>console.anthropic.com</strong>. Clique sur « Sign up », mets ton email, vérifie via le lien reçu.</p>
+        <p>Une fois connecté, tu vas dans <strong>« API Keys »</strong> dans le menu de gauche. Clique sur « Create Key ». Donne-lui un nom (par exemple « Hermes mail »). Tu reçois une longue clé qui commence par <code>sk-ant-...</code>. <strong>Copie-la et garde-la précieusement</strong> — tu ne pourras plus jamais la revoir après. Colle-la dans une note locale sur ton ordi, jamais dans un mail.</p>
+        <span class="os-note">C'est gratuit pour créer le compte. Tu paies à l'usage : environ 8 € par mois pour 6 000 mails dans mon cas. Tu mets 5 € de crédit au début, c'est largement assez pour tester deux semaines.</span>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3>Appeler Hermes avec les tools</h3>
-        <p>Ollama expose une API OpenAI-compatible (donc tu peux la requêter avec le même code que pour ChatGPT). Utilise le SDK OpenAI (la librairie officielle Python d'OpenAI) avec la baseURL locale (l'adresse de ton Ollama qui tourne chez toi) :</p>
-        <pre>from openai import OpenAI
-client = OpenAI(
-    base_url="http://localhost:11434/v1",
-    api_key="ollama"  # valeur bidon, ignore
-)
-
-response = client.chat.completions.create(
-    model="hermes3:8b",
-    messages=[{"role": "user", "content": "Quel temps à Paris ?"}],
-    tools=tools,
-)</pre>
+        <h4>Choisir comment tu connectes Gmail</h4>
+        <p>Tu as deux voies, à choisir selon ton niveau de confort. Voilà la comparaison honnête, sans détour.</p>
+        <p><strong>Voie A — Make ou Zapier (l'option « pas de code »).</strong> Tu crées un compte sur <strong>make.com</strong> (ou zapier.com). Ces outils servent à brancher des services entre eux par glisser-déposer, sans écrire une ligne de code. Tu connectes Gmail dedans (clic, autorisation Google), puis tu connectes Anthropic (en collant ta clé). Compte 30 minutes pour comprendre l'interface. Tarif gratuit jusqu'à 1 000 actions par mois — largement assez pour démarrer.</p>
+        <p><strong>Voie B — Un petit script Python (l'option « j'aime bien comprendre »).</strong> Tu installes <strong>Python</strong> sur ton Mac (déjà présent, en fait), tu copies-colles un script de 50 lignes que je te donne plus bas, tu le fais tourner toutes les heures avec une commande système (cron sur Mac/Linux, Planificateur de tâches sur Windows — l'équivalent d'un réveil qui dit à ton ordi : « toutes les heures, lance ce script »). Plus de contrôle, mais demande de plonger dans un terminal.</p>
+        <span class="os-note">Mon conseil pour ton premier Hermes : voie A. Tu auras quelque chose qui marche en 2 heures. Tu pourras toujours migrer vers la voie B dans 6 mois si tu veux plus de finesse.</span>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-body">
-        <h3>La boucle agent</h3>
-        <p>L'agent = une boucle <em>LLM → appel outil → résultat → LLM</em>, jusqu'à ce qu'il ait fini.</p>
-        <pre>while True:
-    msg = response.choices[0].message
-    if msg.tool_calls:
-        # Le LLM veut appeler un outil
-        for call in msg.tool_calls:
-            result = get_weather(**json.loads(call.function.arguments))
-            messages.append({
-                "role": "tool",
-                "tool_call_id": call.id,   # ⚠️ obligatoire, sinon crash
-                "content": result,
-            })
-        response = client.chat.completions.create(...)
-    else:
-        # Réponse finale
-        print(msg.content)
-        break</pre>
-        <p style="margin-top:10px;"><strong>Le piège n°1 si tu copies-colles ce code ailleurs :</strong> le champ <code>tool_call_id</code> est obligatoire dans le message retour. Sans lui, la boucle crashe à la 2ᵉ itération. Je l'ai appris à mes dépens — noté pour toi.</p>
+        <h4>Connecter Gmail (5 minutes, voie A en exemple)</h4>
+        <p>Sur Make, tu crées un nouveau « scénario ». Le premier bloc, c'est <strong>« Gmail · Watch Emails »</strong> (surveiller les mails). Tu cliques, tu autorises Make à se connecter à ton Gmail (Google te montre un écran de permission, tu acceptes). Tu choisis « Inbox » comme dossier à surveiller. Tu mets « toutes les 15 minutes » comme fréquence.</p>
+        <p>Le deuxième bloc, c'est <strong>« Anthropic · Send Message »</strong>. Tu colles ta clé API, tu choisis le modèle <code>claude-haiku-4</code> (le plus rapide et le moins cher pour ce genre de tâche). Le troisième bloc, c'est <strong>« Gmail · Add Label »</strong> qui prend la réponse de Claude et applique l'étiquette correspondante.</p>
+        <span class="os-note">Make a un mode « test » : tu cliques sur « Run once » pour voir comment ça se comporte sur un seul mail avant de tout activer. Indispensable pour la suite.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h4>Écrire la consigne (le prompt système) — la partie qui change tout</h4>
+        <p>C'est ici que tu apprends à ton agent qui tu es, ce que tu attends, et comment tu fonctionnes. La qualité de ton tri à 91 % se joue à 80 % sur ce texte. Prends 30 minutes à le rédiger soigneusement. Voilà la trame que j'utilise, à adapter à ton cas.</p>
+        <pre style="background:var(--code-bg); padding:16px 20px; border-radius:10px; font-family:'JetBrains Mono', monospace; font-size:13px; overflow-x:auto; line-height:1.6; margin:14px 0; border:1px solid var(--line-strong); color:var(--code-ink); white-space:pre-wrap;">Tu es Hermes, mon assistant qui trie ma boîte mail.
+
+QUI JE SUIS : Jérémy Sagnier, entrepreneur basé à Nice.
+Mes vrais clients sont : [liste 3-5 noms ou domaines email].
+Ma famille proche utilise les emails : [liste].
+Mes fournisseurs habituels : [liste 3-5 domaines].
+
+POUR CHAQUE MAIL, ATTRIBUE UNE SEULE ÉTIQUETTE :
+
+- "urgent" : action demandée dans les 48h ET expéditeur
+  client payant. Sinon non.
+- "client" : email d'un de mes clients listés ci-dessus,
+  pas urgent.
+- "famille" : email d'une personne de ma famille listée.
+- "fournisseur" : facture, devis, ou échange avec
+  un fournisseur listé.
+- "veille" : newsletter ou actu IA / business utile.
+- "plus tard" : newsletter que je lis rarement, infos non
+  prioritaires.
+- "spam doux" : démarchage commercial, plus de 2 émojis
+  dans l'objet, ou pourcentage de réduction.
+
+RÈGLES IMPORTANTES :
+1. Si tu hésites entre deux étiquettes, choisis la moins
+   prioritaire ("plus tard" plutôt qu'"urgent").
+2. Tu ne réponds JAMAIS automatiquement aux mails. Tu
+   prépares des brouillons uniquement pour : confirmations
+   simples ("ok merci"), accusés de réception, refus polis
+   de démarchage.
+3. Si l'email vient de ma mère, ma sœur, ou mon frère,
+   tu n'écris AUCUN brouillon. Je leur réponds toujours
+   à la main. (Petite blague entre nous : tu sais pourquoi.)
+
+FORMAT DE RÉPONSE : retourne juste le mot de l'étiquette,
+en minuscules. Rien d'autre. Pas de phrase d'explication.</pre>
+        <p>Tu remplaces les <strong>[liste...]</strong> par tes vraies infos. Tu copies tout ce texte dans le bloc Anthropic de Make (champ « system prompt »). Le mail à analyser arrive en bloc « user message » via la variable Gmail.</p>
+        <span class="os-note">Le secret, c'est la précision. « Urgent si client payant ET demande sous 48h » donne 91 % de précision. « Urgent selon ton intuition » donne 80 % de mails étiquetés en urgent. La règle simple : pas d'adverbes flous (« important », « pertinent », « pour toi »), des critères mesurables.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h4>Tester sur 10 mails en mode « observation »</h4>
+        <p>Avant de laisser Hermes étiqueter ta boîte pour de vrai, tu vas le faire tourner en mode test. Sur Make, tu cliques sur « Run once » dix fois de suite, sur tes 10 derniers mails reçus. Tu regardes pour chaque mail : <strong>quelle étiquette propose Hermes ?</strong> Tu compares avec ce que toi tu aurais mis.</p>
+        <p>Si Hermes se trompe sur 1 ou 2 mails sur 10, c'est normal et acceptable, tu peaufineras les règles la semaine prochaine. Si Hermes se trompe sur 5 mails sur 10, ne lance pas le mode actif — retourne à l'étape 4, ton prompt système n'est pas assez précis. Ajoute des exemples concrets : <em>« exemple : un mail de support@stripe.com qui dit ‘votre paiement est arrivé’ → étiquette = fournisseur »</em>.</p>
+        <span class="os-note">Garder un journal des erreurs aide. J'ai noté pendant 2 semaines toutes les erreurs de Hermes dans une note Apple. Au bout de 14 jours, j'ai vu les patterns et j'ai ajouté 3 règles précises au prompt. La précision est passée de 78 % à 91 % en une après-midi de réglages.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h4>Activer pour de vrai (mode étiquetage seul)</h4>
+        <p>Quand ton test à 10 mails est bon, tu actives le scénario sur Make (gros bouton vert « ON » en haut). À partir de maintenant, toutes les 15 minutes, Make va lire tes nouveaux mails, demander à Claude de les étiqueter, appliquer l'étiquette dans Gmail. Tu n'as plus rien à faire.</p>
+        <p><strong>Garde-le en mode étiquetage seul</strong> pendant deux semaines minimum. C'est-à-dire : il étiquette uniquement, il n'archive rien, il ne supprime rien, il n'envoie rien. Tu valides chaque jour que les étiquettes posées te conviennent. Si oui, tu pourras passer aux fonctions plus actives ensuite.</p>
+        <span class="os-note">Surveille tes crédits Anthropic la première semaine. Tu vas voir combien il consomme exactement. Pour 200 mails par jour avec Haiku 4, je consomme environ 0,25 € par jour. Aucune mauvaise surprise.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <h4>Ajouter les brouillons de réponse (uniquement après 2 semaines stables)</h4>
+        <p>Si après 2 semaines tu es content du tri, tu peux passer au niveau au-dessus : laisser Hermes <strong>préparer des brouillons</strong> pour les mails simples. Tu ajoutes un nouveau bloc à ton scénario Make : <strong>« Gmail · Create Draft »</strong>. Le brouillon apparaît dans Gmail avec une petite mention « Brouillon » — tu l'ouvres, tu relis, tu envoies (ou tu jettes).</p>
+        <p>Tu modifies ton prompt système pour ajouter une instruction : <em>« Pour les mails étiquetés ‘fournisseur’ avec une simple confirmation, écris un brouillon court : ‘Bonjour, bien reçu, merci. Bonne journée. Jérémy.’ »</em>. Hermes prépare le texte, Make le pose dans Gmail comme brouillon. Aucun envoi automatique. Jamais.</p>
+        <span class="os-note">Souviens-toi de l'incident avec ma mère. Mode brouillon = OK. Mode envoi auto = JAMAIS. La règle vaut même quand tu pousses ton agent à 6 mois d'usage et que tu lui fais entièrement confiance.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">08</div>
+      <div class="step-body">
+        <h4>Surveiller pendant le premier mois</h4>
+        <p>Bloque 5 minutes chaque vendredi pour ouvrir l'historique de Make et regarder : combien de mails traités cette semaine ? Combien d'erreurs visibles ? Y a-t-il un type de mail qui tombe systématiquement dans la mauvaise catégorie ?</p>
+        <p>Au bout d'un mois, tu auras un tri qui tient à 90 %+ de précision, et tu auras récupéré ton matin. Ensuite, l'outil tourne en silence pendant des mois, sans toucher à rien. La maintenance, c'est 5 minutes par mois grand maximum.</p>
+        <span class="os-note">Les soirs où Hermes plante (Make est en panne, l'API d'Anthropic est saturée), tu reçois un mail de Make qui te prévient. C'est rare — sur 4 mois j'ai eu 2 incidents, tous deux résolus en 1h sans rien faire de mon côté.</span>
       </div>
     </div>
 
     <div class="callout ok">
-      <h4>Tu as compris ?</h4>
-      <p>L'agent Hermes, c'est ça : un LLM + des outils + une boucle. Rien de magique. Si tu maîtrises ces 3 briques, tu peux construire un agent pour n'importe quelle tâche : booking, recherche, automation, analyse, etc.</p>
+      <h4>Et voilà, tu as ton Hermes</h4>
+      <p>Si tout s'est bien passé, tu as maintenant un agent qui ouvre ta boîte mail toutes les 15 minutes, qui étiquette automatiquement, qui prépare quelques brouillons, et qui te laisse 45 minutes de plus le matin. Tu peux faire pareil pour ton calendrier (« réserve un créneau pour cette demande »), tes contrats clients (« lis et résume-moi »), tes factures (« range-les par mois »). Mais commence par un seul cas. Maîtrise-le. Ensuite tu en ajoutes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Vie privée d'abord</span><span>Commencer petit</span><span>Tester avant d'activer</span><span>Ne pas oublier maman</span><span>Surveiller un mois</span><span>Ensuite, lâcher</span>
+    <span>Vie privée d'abord</span><span>Commencer petit</span><span>Tester avant d'activer</span><span>Ne pas oublier maman</span><span>Surveiller un mois</span><span>Ensuite, lâcher</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les pièges à éviter</span>
+    <h2>Les <em class="orange">quatre erreurs</em> que j'ai faites.</h2>
+    <p>
+      Je te les liste dans l'ordre où je les ai vécues. Aucune n'est catastrophique, mais chacune m'a coûté du temps que tu peux éviter. La règle générale : <strong>commence petit, surveille beaucoup, n'active une nouvelle fonction qu'après deux semaines stables sur la précédente</strong>.
+    </p>
+
+    <div class="piege">
+      <div class="piege-icon">🔒</div>
+      <div class="piege-body">
+        <h4>Piège 1 — Envoyer ton historique de mails à une IA sans réfléchir</h4>
+        <p>Tu vas peut-être avoir envie d'envoyer tes 5 000 derniers mails à l'IA pour qu'elle « apprenne ton style ». Stop. Quand tu envoies un mail à Claude ou ChatGPT, ces données passent par leurs serveurs. Tes contrats, tes infos clients, tes échanges sensibles — tout. Pour Hermes, je n'envoie qu'un mail à la fois, juste l'objet et un petit extrait du corps, juste pour le tri. Jamais l'historique complet. Si tu veux faire mieux, tourne en local avec Ollama (j'en parle dans <a href="llm-local-pour-non-dev.html">l'article sur l'IA chez toi</a>) — rien ne sort de ta machine.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🎯</div>
+      <div class="piege-body">
+        <h4>Piège 2 — Vouloir 10 catégories d'emails dès le départ</h4>
+        <p>Au début, tu vas vouloir trier finement : « urgent client A », « urgent client B », « brouillon facile », « brouillon moyen », « à transférer à Sophie », « factures plus de 500 € », etc. C'est la catastrophe assurée. L'IA hésite, se trompe, ta précision tombe à 60 %. Commence par <strong>3 catégories maximum</strong> (par exemple : urgent / plus tard / archive). Quand tu as 95 % de précision sur 3, ajoute une 4ème. Puis une 5ème. Mon Hermes actuel a 7 étiquettes, mais j'ai mis 3 mois à y arriver, par paliers.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🚀</div>
+      <div class="piege-body">
+        <h4>Piège 3 — Activer le mode actif sans tester sur des vrais mails</h4>
+        <p>La tentation est forte : tu écris ton prompt système, ça marche sur 3 exemples que tu as inventés, tu cliques « ON » dans Make. Le lendemain, ton agent a archivé un mail important d'un client, tu ne le vois jamais, tu perds le client. Trois semaines plus tard, tu décortiques tout pour comprendre. Ne saute jamais l'étape 5 (test sur 10 vrais mails) du tuto. Et garde le mode étiquetage-seul pendant deux semaines minimum. C'est la seule règle qui te protège des catastrophes silencieuses.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">👵</div>
+      <div class="piege-body">
+        <h4>Piège 4 — Oublier la maman (et tous les cas humains)</h4>
+        <p>Mon célèbre incident. La règle : <strong>jamais d'envoi automatique, même pour les cas qui semblent triviaux</strong>. Tu peux préparer des brouillons, c'est génial. Mais l'humain doit toujours être le dernier maillon. Une IA n'a pas de bon sens — elle ne sait pas faire la différence entre « ma mère qui m'invite à déjeuner » et « un partenaire qui demande un rendez-vous ». Liste explicitement dans ton prompt système les cas où Hermes ne doit jamais répondre tout seul (famille, amis proches, sujets sensibles). Et même comme ça, garde le mode brouillon. Pas d'envoi auto. Jamais.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Cas d'usage</span>
-    <h2>Ce que j'en ai <em class="fuchsia">fait.</em></h2>
+    <span class="section-kicker k-teal">— Le verdict honnête</span>
+    <h2>Pour qui c'est vraiment utile, <em class="teal">pour qui non.</em></h2>
+    <p>
+      Je n'aime pas les articles qui te vendent un truc en disant « tout le monde devrait essayer ». Voilà ma matrice de décision, basée sur 4 mois d'usage et les retours d'une dizaine d'amis qui ont monté leur propre Hermes.
+    </p>
 
-    <div class="usecase">
-      <div class="usecase-label">Cas 01 · Agent de veille interne</div>
-      <h4>Un agent qui scanne des RSS et trie pour moi</h4>
-      <p>J'ai branché Hermes 3 à 15 flux RSS. Il lit chaque nouvelle entrée, note sa pertinence de 0 à 100 selon mes critères, ne me remonte que ce qui dépasse 70. Tout en local, gratuit, mes flux RSS sensibles ne sortent pas de ma machine.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Ton profil</th><th>Verdict</th><th>Pourquoi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Tu reçois 50+ mails / jour</strong></td><td>Vas-y</td><td>Le retour sur investissement est immédiat. Tu vas gagner 1 à 4 heures par semaine selon ton volume.</td></tr>
+          <tr><td><strong>Tu reçois 10-50 mails / jour</strong></td><td>Si ça t'amuse</td><td>Le gain de temps est marginal (15-30 min/semaine). Mais c'est un super premier projet pour comprendre comment marchent les agents IA. Construis-le pour apprendre, pas pour gagner du temps.</td></tr>
+          <tr><td><strong>Tu reçois moins de 10 mails / jour</strong></td><td>Pas la peine</td><td>Tu vas passer plus de temps à le construire qu'il ne t'en fera économiser. Ce n'est pas pour toi, c'est pour les boîtes saturées.</td></tr>
+          <tr><td><strong>Tu travailles sur des données ultra-sensibles</strong> (avocat, médical, secret pro)</td><td>Voie locale obligatoire</td><td>Pas Claude API. Tu installes Ollama et un modèle gratuit chez toi, comme expliqué dans <a href="llm-local-pour-non-dev.html">l'article IA chez toi</a>. Hermes existe en version 100 % locale, c'est juste un peu plus technique à monter.</td></tr>
+          <tr><td><strong>Tu n'es vraiment pas à l'aise avec un ordi</strong></td><td>Voie sans code</td><td>Va voir le bloc <strong>« Sans rien installer »</strong> en bas de cet article. Tu n'auras pas l'automatisation complète, mais tu auras 70 % du résultat avec un copier-coller dans Claude.ai.</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="usecase">
-      <div class="usecase-label">Cas 02 · Catégorisation de mails</div>
-      <h4>Un tri automatique de mes emails entrants</h4>
-      <p>J'ai exposé un outil "lire_email(id)" et un outil "tag_email(id, label)". L'agent lit ma boîte, tag chaque mail (urgent / client / à lire plus tard / spam soft). 200 emails/jour traités en arrière-plan, zéro token facturé.</p>
+    <h3>Si tu ne veux vraiment pas coder : trois alternatives prêtes à l'emploi</h3>
+    <p>
+      Si tu lis cet article et que tu te dis « bon, c'est trop pour moi, je veux juste que mes mails soient triés », il existe des outils tout faits qui font une partie du boulot. Honnêtement, ils sont moins puissants qu'un Hermes maison, mais ils marchent hors de la boîte.
+    </p>
+
+    <div class="outils">
+      <div class="outil">
+        <h4>SaneBox</h4>
+        <div class="lic">~ 7 €/mois · Gmail/Outlook/iCloud</div>
+        <p>L'historique. Tri automatique des mails non importants dans un dossier « SaneLater » que tu lis quand tu veux. Précis, simple, mais peu personnalisable. Bon point de départ.</p>
+      </div>
+      <div class="outil">
+        <h4>Superhuman</h4>
+        <div class="lic">~ 30 €/mois · Gmail/Outlook</div>
+        <p>L'option premium. Interface ultra rapide, fonctions IA pour rédiger les brouillons, tri intelligent. Cher, mais aimé par ceux qui passent leur vie dans leur boîte mail.</p>
+      </div>
+      <div class="outil">
+        <h4>Spark Mail</h4>
+        <div class="lic">Gratuit · iOS/Mac/Win/Android</div>
+        <p>Tri automatique de la boîte de réception en 3 sections : Personnel / Notifications / Newsletters. Pas d'IA personnalisée, mais un tri par défaut souvent suffisant. Et c'est gratuit.</p>
+      </div>
+      <div class="outil">
+        <h4>Microsoft Copilot dans Outlook</h4>
+        <div class="lic">~ 22 €/mois · Outlook</div>
+        <p>Si tu es sur Outlook (et donc Microsoft 365), le Copilot intégré te résume les longs fils, propose des réponses, et trie. Moins fin qu'un Hermes maison, mais zéro installation.</p>
+      </div>
     </div>
+
+    <p>
+      <strong>Mon avis tranché</strong> : si tu veux juste « ne plus subir ta boîte », commence par SaneBox (7 €/mois, 5 minutes pour activer). Si tu veux vraiment apprendre à construire un agent et que tu kiffes l'idée d'un outil sur mesure, monte ton Hermes — c'est 100 fois plus instructif et 50 fois moins cher à long terme.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Sans rien installer</span>
+    <h2>La version <em class="fuchsia">2 minutes.</em></h2>
+    <p>
+      Si tout ce qui précède te paraît trop, voilà la version express qui te donne 70 % du résultat sans rien installer, sans créer de compte API, sans toucher à Make. C'est ce que je conseille pour le tout premier essai.
+    </p>
+
+    <div class="quick">
+      <div class="label">Test express · 2 minutes chrono</div>
+      <h3>Trier 10 mails dans Claude.ai</h3>
+      <p>1. Va sur <strong>claude.ai</strong>. Crée un compte gratuit si tu n'en as pas.</p>
+      <p>2. Crée un nouveau « projet » (bouton dans le menu de gauche). Appelle-le <strong>« Tri mails »</strong>.</p>
+      <p>3. Dans le projet, mets cette consigne dans le champ <em>« Custom instructions »</em> (les instructions personnalisées) :</p>
+      <pre style="background:rgba(255,255,255,.08); color:#F4EFE6; padding:14px 18px; border-radius:6px; font-size:12.5px; margin:14px 0; line-height:1.6;">Tu es Hermes, mon assistant qui trie ma boîte mail.
+Pour chaque mail que je te montre, classe-le dans :
+- urgent (action sous 48h, client payant)
+- plus tard (newsletter, info non urgente)
+- archive (démarchage, déjà traité)
+Réponds en une seule ligne par mail :
+"Mail 1 : urgent, parce que [raison courte]"</pre>
+        <p>4. Ouvre Gmail. Copie le contenu de tes 10 derniers mails reçus dans le chat Claude (objet + premières lignes). Envoie.</p>
+        <p>5. Claude te renvoie une liste classée. Tu fais le tri à la main dans Gmail en suivant ses recommandations.</p>
+        <div class="note">
+          C'est manuel, c'est répétitif, mais ça te donne une idée du résultat sans rien installer. Si après 3 jours d'usage tu trouves que c'est utile, tu sais que ton Hermes complet vaudra l'investissement de l'après-midi de samedi.
+        </div>
+      </div>
   </div>
 </section>
 
 <section class="block">
   <div class="container">
     <span class="section-kicker k-teal">— Pour aller plus loin</span>
-    <h2>Les ressources <em class="teal">essentielles.</em></h2>
-    <ul>
-      <li><a href="https://nousresearch.com" target="_blank" rel="noopener">nousresearch.com</a> — Le site officiel de Nous Research, avec tous leurs modèles</li>
-      <li><a href="https://ollama.com/library/hermes3" target="_blank" rel="noopener">ollama.com/library/hermes3</a> — La page Ollama pour Hermes 3 (versions, tailles, usages)</li>
-      <li><a href="https://huggingface.co/NousResearch" target="_blank" rel="noopener">huggingface.co/NousResearch</a> — Tous leurs modèles pour usage avancé (GGUF — un format de fichier modèle compressé, différentes quantizations — différents niveaux de compression, etc.)</li>
-    </ul>
-
-    <div class="callout tip">
-      <h4>Prochaine étape</h4>
-      <p>Si tu veux passer à l'agent multi-étapes (par exemple "fais-moi une recherche + synthèse + rédige un mail"), j'ai prévu un futur tuto sur les chains d'agents (en clair : enchaîner plusieurs agents en pipeline, chacun fait son bout) avec Hermes. Inscris-toi à la newsletter pour être prévenu.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-teal">— Alternative sans Python</span>
-    <h2>Tu veux juste <em class="teal">trier tes mails ?</em></h2>
+    <h2>Et <em class="teal">après ?</em></h2>
     <p>
-      Si tout ce qui précède t'a un peu perdu, bonne nouvelle : tu peux avoir 70% du résultat sans écrire une ligne de code. Voici la version 2 minutes.
+      Une fois que tu maîtrises ton premier Hermes, tu as débloqué une compétence transférable. Tu peux la rejouer pour plein d'autres tâches répétitives de ta vie. Voilà mes idées pour la suite, par ordre de difficulté.
     </p>
 
-    <div class="callout tip">
-      <h4>La version sans terminal, sans Python, sans rien installer</h4>
-      <p>Ouvre <strong>Claude.ai</strong> dans ton navigateur, crée un Project appelé <em>"Tri mails"</em>, colle tes 10 derniers mails dedans, et demande-lui : <em>"Classe-les par priorité (urgent / à traiter cette semaine / à lire plus tard / ignorable) et dis-moi pourquoi en une phrase."</em>. C'est moins puissant qu'un vrai agent Hermes (tu dois copier-coller, rien n'est automatique), mais ça tourne en 2 minutes et ça couvre 70% du besoin réel. Quand tu sentiras que tu as besoin de plus — du vrai temps réel, des volumes plus gros, de la confidentialité locale — reviens sur cet article.</p>
-    </div>
-  </div>
-</section>
+    <ul>
+      <li><strong>Hermes-calendrier</strong> — un agent qui lit les demandes de rendez-vous dans tes mails, croise avec ton agenda Google, et propose 3 créneaux dans la réponse brouillon. 2 heures de plus par semaine gagnées chez moi.</li>
+      <li><strong>Hermes-factures</strong> — un agent qui lit les pièces jointes des mails « fournisseur », extrait le montant, la date, le nom, et range tout dans un Google Sheet. Fini la compta du dimanche soir.</li>
+      <li><strong>Hermes-veille</strong> — un agent qui lit chaque matin 15 newsletters business/IA, en extrait les 3 vraies infos, et te les envoie en un seul mail digest. C'est exactement ce que je fais pour <a href="../index.html#newsletters">AI Playbook</a>.</li>
+      <li><strong>Hermes-local</strong> — la même chose mais sans envoyer le moindre mail chez Anthropic. Tu installes Ollama (gratuit) et un modèle qui tourne chez toi, et tu branches Make sur cette IA locale via une connexion technique. Pour les pros qui ne peuvent pas envoyer leurs données ailleurs. C'est ma prochaine étape.</li>
+    </ul>
 
-<!-- seo:corrections -->
-<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
-  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
-    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
-      <span style="font-size:22px; flex-shrink:0">✉</span>
-      <div>
-        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
-        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
-          Une info obsolète, un chiffre qui a bougé, une source périmée ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut de l'article. Les retours terrain valent mille fois les articles — je lis tout, je réponds.
-        </p>
-      </div>
-    </div>
+    <p>
+      Si tu n'as pas encore lu mon article qui pose les bases de l'IA chez toi (Ollama, modèles, comment ça marche en local), il est juste là : <a href="llm-local-pour-non-dev.html">Faire tourner une vraie IA chez toi</a>. C'est le complément naturel de cet article si tu veux un Hermes 100 % privé. Et si l'idée des agents en général t'intéresse, mon article <a href="loops-claude.html">Les loops Claude Code</a> explique le principe profond derrière toute la mécanique.
+    </p>
+
+    <h3>Trois choses à faire ce week-end</h3>
+    <ol>
+      <li><strong>Teste la version 2 minutes dans Claude.ai</strong> sur tes 10 derniers mails. Sans rien installer. Tu sauras en 5 minutes si l'idée te parle.</li>
+      <li><strong>Si oui, monte ton premier Hermes</strong> avec Make et la voie A du tuto. Compte une après-midi de samedi pour la première version qui tourne.</li>
+      <li><strong>Garde-le en mode étiquetage-seul pendant deux semaines</strong> avant de toucher à quoi que ce soit d'autre. Surveille, note les erreurs, ajuste les règles. C'est ce qui fait passer la précision de 78 % à 91 %.</li>
+    </ol>
+
+    <p>
+      Et si tu galères sur une étape, ou si tu trouves que je me trompe quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je réponds. C'est exactement le type de retour qui m'a fait améliorer mon propre Hermes au fil des mois — et c'est probablement ce qui me sortira un nouveau tuto pour toi dans 6 mois.
+    </p>
   </div>
 </section>
-<!-- /seo:corrections -->
 
 <section class="final-cta">
   <div class="container">
     <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
-    <h2>Tu reçois mes <em class="fuchsia">prochains tutos.</em></h2>
+    <h2>Reçois mes <em class="fuchsia">prochains tutos.</em></h2>
     <p>
-      Chaque nouveau tuto IA que je publie arrive dans ma newsletter AI Playbook. Si tu ne veux pas manquer la suite (agents multi-étapes, fine-tuning — réentraîner un modèle sur tes données, RAG — l'IA qui répond depuis tes documents), laisse ton email sur la home.
+      Chaque semaine, je partage les agents et outils IA que je teste pour moi. Pas de blabla, pas de pub. Désinscription en un clic, je ne le prends pas mal.
     </p>
-    <a href="../index.html#newsletters" class="back-btn">
-      Voir les newsletters →
-    </a>
+    <a href="../index.html#newsletters" class="back-btn">Voir les newsletters →</a>
   </div>
 </section>
 
-
-<!-- Partage sur les réseaux -->
 <div class="share-block">
   <div class="share-block-label">Partage</div>
   <h3>Cet article t'a servi ? Dis-le.</h3>
   <div class="share-buttons">
-    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=Construire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur X">
+    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Partager sur X">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="share-label">X</span>
     </a>
-    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">
+    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="share-label">LinkedIn</span>
     </a>
-    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=Construire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas%0Ahttps%3A//jerwis.fr/articles/hermes-agent.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">
+    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%0Ahttps%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="share-label">WhatsApp</span>
     </a>
-    <button class="share-btn share-btn-instagram" data-url="https://jerwis.fr/articles/hermes-agent.html" data-share-title="Construire un Hermes Agent pas à pas" aria-label="Partager sur Instagram" type="button">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg><span class="share-label">Instagram</span>
-    </button>
-    <a class="share-btn share-btn-email" href="mailto:?subject=Construire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0AConstruire%20un%20Hermes%20Agent%20pas%20%C3%A0%20pas%0Ahttps%3A//jerwis.fr/articles/hermes-agent.html" aria-label="Partager par email">
+    <a class="share-btn share-btn-email" href="mailto:?subject=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0AL%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%0Ahttps%3A//jerwis.fr/articles/hermes-agent" aria-label="Partager par email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="share-label">Email</span>
     </a>
-    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/hermes-agent.html" aria-label="Copier le lien" type="button">
+    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/hermes-agent" aria-label="Copier le lien" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copier le lien</span>
     </button>
   </div>
 </div>
 
-<script>
-// Copy-to-clipboard pour les boutons .share-btn-copy
-document.querySelectorAll('.share-btn-copy').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const url = btn.dataset.url || window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      const original = btn.querySelector('.share-label').textContent;
-      btn.querySelector('.share-label').textContent = 'Copié !';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.querySelector('.share-label').textContent = original;
-        btn.classList.remove('copied');
-      }, 1800);
-    } catch (err) {
-      prompt('Copie le lien :', url);
-    }
-  });
-});
-</script>
-
 <footer class="footer">
-  <div class="container-wide">
+  <div class="container">
     <div class="footer-bottom">
-      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+      © 2026 Jérémy Sagnier · jerwis.fr · sagnier.jeremy@gmail.com
     </div>
   </div>
 </footer>
 
 <script>
   const themeToggle = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('theme');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
   const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-theme', initialTheme);
+  const initialTheme = saved || (systemDark ? 'dark' : 'light');
+  html.setAttribute('data-theme', initialTheme);
   themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
-</script>
 
-
-<!-- JS partage Instagram (mobile : navigator.share, desktop : copy + toast) -->
-<script>
-document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const shareUrl = btn.dataset.url || window.location.href;
-    const shareTitle = btn.dataset.shareTitle || document.title;
-
-    if (navigator.share) {
+  // Copy-to-clipboard pour les boutons .share-btn-copy
+  document.querySelectorAll('.share-btn-copy').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const url = btn.dataset.url || window.location.href;
       try {
-        await navigator.share({ title: shareTitle, text: shareTitle, url: shareUrl });
-        return;
+        await navigator.clipboard.writeText(url);
+        const label = btn.querySelector('.share-label');
+        if (label) {
+          const original = label.textContent;
+          label.textContent = 'Copié !';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = original;
+            btn.classList.remove('copied');
+          }, 1800);
+        }
       } catch (err) {
-        if (err.name === 'AbortError') return;
+        prompt('Copie le lien :', url);
       }
-    }
-    // Desktop fallback : copie + toast
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      const label = btn.querySelector('.share-label');
-      if (label) {
-        const original = label.textContent;
-        label.textContent = 'Copié ! (colle dans IG)';
-        btn.classList.add('copied');
-        setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
-      } else {
-        btn.classList.add('copied');
-        setTimeout(() => btn.classList.remove('copied'), 1800);
-      }
-    } catch (err) {
-      prompt('Copie ce lien pour le coller dans Instagram :', shareUrl);
-    }
+    });
   });
-});
-// Rail-btn-copy : copy classique
-document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const url = btn.dataset.url || window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      btn.classList.add('copied');
-      setTimeout(() => btn.classList.remove('copied'), 1800);
-    } catch (err) {
-      prompt('Copie le lien :', url);
-    }
-  });
-});
 </script>
+
 </body>
 </html>

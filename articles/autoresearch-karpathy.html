@@ -3,82 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autoresearch de Karpathy — les agents qui s'auto-améliorent</title>
-<meta name="description" content="Karpathy a publié autoresearch en 2026 : des agents IA qui tournent toute la nuit, modifient leur propre code, gardent ce qui marche, jettent ce qui rate. Je t'explique le concept et ce que tu peux en tirer, même si tu n'es pas chercheur.">
+<title>J'ai laissé une IA s'améliorer toute seule pendant la nuit — par Jérémy Sagnier</title>
+<meta name="description" content="Karpathy l'a montré : on peut laisser une IA modifier son propre travail, tester, garder ce qui marche, jeter ce qui rate. Voilà ce qui s'est passé quand j'ai tenté le coup chez moi sur mon tri d'emails. Sans jargon, écrit pour un non-dev.">
+<link rel="canonical" href="https://jerwis.fr/articles/autoresearch-karpathy">
 
-<!-- seo:jsonld-article -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/articles/autoresearch-karpathy">
+<meta property="og:title" content="J'ai laissé une IA s'améliorer toute seule pendant la nuit">
+<meta property="og:description" content="L'idée folle de Karpathy : un agent qui modifie son propre travail, teste, garde si meilleur, recommence. J'ai essayé sur mon tri d'emails. Récit.">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Autoresearch de Karpathy — les agents qui s'auto-améliorent",
-  "description": "Karpathy a publié autoresearch en 2026 : des agents IA qui tournent toute la nuit, modifient leur propre code, gardent ce qui marche, jettent ce qui rate. Je t'explique le concept et ce que tu peux en tirer, même si tu n'es pas chercheur.",
-  "author": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/",
-    "sameAs": [
-      "https://www.linkedin.com/in/jeremy-sagnier/",
-      "https://x.com/JeremySagnier",
-      "https://www.youtube.com/@jeremy-sagnier"
-    ]
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  },
-  "datePublished": "2026-04-12",
-  "dateModified": "2026-04-20",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://jerwis.fr/articles/autoresearch-karpathy.html"
-  },
-  "inLanguage": "fr-FR"
-}
-</script>
-<!-- /seo:jsonld-article -->
-
-<!-- Open Graph -->
-<meta property="og:title" content="Autoresearch de Karpathy — les agents qui s'auto-améliorent">
-<meta property="og:description" content="Karpathy a publié autoresearch en 2026 : des agents IA qui tournent la nuit, modifient leur propre code, gardent ce qui marche. Explication concrète.">
-<meta property="og:url" content="https://jerwis.fr/articles/autoresearch-karpathy.html">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="fr_FR">
-<meta property="article:author" content="Jérémy Sagnier">
-<meta property="article:published_time" content="2026-04-20">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@JeremySagnier">
-<meta name="twitter:creator" content="@JeremySagnier">
-<meta name="twitter:title" content="Autoresearch de Karpathy — les agents qui s'auto-améliorent">
-<meta name="twitter:description" content="Karpathy a publié autoresearch en 2026 : des agents IA qui tournent la nuit, modifient leur propre code, gardent ce qui marche. Explication concrète.">
-
-<!-- Canonical -->
-<link rel="canonical" href="https://jerwis.fr/articles/autoresearch-karpathy.html">
-
-<!-- Schema.org : TechArticle -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Autoresearch de Karpathy — les agents qui s'auto-améliorent",
-  "description": "Karpathy a publié autoresearch en 2026 : des agents IA qui tournent la nuit, modifient leur propre code, gardent ce qui marche. Explication concrète.",
-  "inLanguage": "fr-FR",
-  "url": "https://jerwis.fr/articles/autoresearch-karpathy.html",
-  "datePublished": "2026-04-20",
-  "dateModified": "2026-04-20",
-  "author": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
-  }
+  "headline": "J'ai laissé une IA s'améliorer toute seule pendant la nuit",
+  "description": "Récit d'une nuit où j'ai laissé Claude tester 14 versions d'un script de tri d'emails. L'idée vient de Karpathy. Je raconte ce qui s'est passé, ce que j'ai retenu et comment toi aussi tu peux essayer, même sans être dev.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr"},
+  "datePublished": "2026-04-24",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/photos/og-jerwis.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/articles/autoresearch-karpathy"
 }
 </script>
 
@@ -87,74 +35,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200 }
-  [data-theme="light"] {
-    --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
-    --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
-    --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
-    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
-  }
-  [data-theme="dark"] {
-    --bg: #0A0A0A; --bg-2: #141414; --surface: #141414;
-    --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
-    --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
-    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
-  }
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
   * { box-sizing: border-box; margin: 0; padding: 0 }
   html { scroll-behavior: smooth }
-  body {
-    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
-    line-height: 1.6; font-size: 16px; min-height: 100vh;
-    transition: background .3s, color .3s;
-  }
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
-    opacity: .3; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
   [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
-
   .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
   @media (min-width: 900px) { .container { padding: 0 48px } }
-  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
-  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
-
   .triple-stripe { display: flex; height: 6px; width: 100% }
   .triple-stripe span { flex: 1 }
 
-  .header {
-    position: sticky; top: 0; z-index: 50;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-  }
-  .header-inner {
-    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
   @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
-  .logo {
-    font-family: 'Archivo Black', sans-serif; font-size: 20px;
-    letter-spacing: -.02em; text-transform: uppercase;
-    text-decoration: none; color: var(--ink);
-    display: flex; align-items: center; gap: 10px;
-  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
   .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
-  .back-link {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: var(--ink-soft); text-decoration: none;
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: color .2s;
-  }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
   .back-link:hover { color: var(--fuchsia) }
-  .theme-toggle {
-    width: 40px; height: 40px; border-radius: 999px;
-    border: 1px solid var(--line-strong); background: var(--surface);
-    color: var(--ink); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .2s, border-color .2s; margin-left: 16px;
-  }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
   .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
   .theme-toggle svg { width: 16px; height: 16px }
   [data-theme="light"] .theme-toggle .icon-moon { display: block }
@@ -162,81 +63,22 @@
   [data-theme="dark"] .theme-toggle .icon-moon { display: none }
   [data-theme="dark"] .theme-toggle .icon-sun { display: block }
 
-  .hero {
-    padding: 64px 0 88px;
-    background:
-      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
-      #0A0A0A;
-    color: #F4EFE6;
-    position: relative; overflow: hidden;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
-  .kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
-    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
-    margin-bottom: 28px;
-  }
-  .kicker .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--teal); box-shadow: 0 0 10px var(--teal);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
-    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
-    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
-  }
-  .hero h1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(36px, 6vw, 72px);
-    line-height: .95; letter-spacing: -.03em;
-    text-transform: uppercase; color: #F4EFE6;
-    margin-bottom: 24px; max-width: 820px;
-  }
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,178,169,.5) } 70% { box-shadow: 0 0 0 12px rgba(0,178,169,0) } 100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
   .hero h1 em { font-style: normal; color: var(--teal) }
-  .hero p.hero-lead {
-    font-size: 17.5px; color: #C4CED4;
-    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
-  }
-  .hero-meta {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: #C4CED4;
-  }
-  .hero-meta-item {
-    padding: 8px 14px; border-radius: 999px;
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
-  }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
   .hero-meta-item strong { color: var(--teal); margin-right: 6px }
 
-  .tldr {
-    max-width: 880px; margin: -40px auto 0;
-    background: var(--surface); border: 1px solid var(--line-strong);
-    border-radius: 22px; padding: 28px 32px;
-    position: relative; z-index: 2;
-    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
-  }
-  .tldr::before {
-    content: ""; position: absolute; top: 0; left: 32px;
-    height: 4px; width: 80px;
-    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
-    border-radius: 4px;
-  }
-  .tldr-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
-  }
-  .tldr h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
-    margin-bottom: 16px;
-  }
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
   .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
   .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
   .tldr li strong { color: var(--ink) }
@@ -244,31 +86,16 @@
 
   section.block { padding: 72px 0; border-top: 1px solid var(--line) }
   section.block:first-of-type { border-top: none }
-  .section-kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
-  }
-  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
   .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
-  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
-  h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(28px, 4vw, 44px);
-    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
   h2 em { font-style: normal }
-  h2 em.teal    { color: var(--teal) }
+  h2 em.teal { color: var(--teal) }
   h2 em.fuchsia { color: var(--fuchsia) }
-  h2 em.orange  { color: var(--orange) }
-  h3 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(20px, 2.3vw, 26px);
-    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
-    margin: 32px 0 14px;
-  }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
   h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
   p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
   p strong { color: var(--ink); font-weight: 700 }
@@ -277,307 +104,108 @@
   a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
   a:hover { color: var(--orange) }
 
-  .step {
-    display: flex; gap: 20px; padding: 26px 30px;
-    border-radius: 20px; background: var(--surface);
-    border: 1px solid var(--line-strong);
-    margin-bottom: 18px;
-    transition: box-shadow .2s, border-color .2s;
-  }
-  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.15); border-color: var(--teal) }
-  .step-num {
-    flex-shrink: 0; width: 52px; height: 52px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
-  }
-  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
-  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
-  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
-  .step-body { flex: 1; min-width: 0 }
-  .step-body h3 { margin-top: 0; margin-bottom: 8px }
-  .step-body p:last-child { margin-bottom: 0 }
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
 
-  pre {
-    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
-    background: var(--code-bg); color: var(--code-ink);
-    padding: 14px 18px; border-radius: 10px;
-    overflow-x: auto; line-height: 1.5;
-    margin: 12px 0 20px;
-    border: 1px solid var(--line-strong);
-  }
-  code { font-family: 'JetBrains Mono', monospace; font-size: .88em; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; color: var(--code-ink) }
-  pre code { background: transparent; padding: 0 }
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
 
-  .callout {
-    padding: 20px 24px; border-radius: 14px;
-    margin: 20px 0; position: relative; padding-left: 52px;
-  }
+  /* Pieges */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Outils grid */
+  .outils { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 8px }
+  @media (min-width: 600px) { .outils { grid-template-columns: 1fr 1fr } }
+  .outil { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 16px 18px }
+  .outil h4 { margin: 0 0 4px; font-size: 15px }
+  .outil .lic { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .outil p { font-size: 14px; margin: 0; line-height: 1.55 }
+
+  /* Cas d'usage cards */
+  .cas { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 16px 0; display: grid; grid-template-columns: 1fr; gap: 8px }
+  @media (min-width: 720px) { .cas { grid-template-columns: 130px 1fr } }
+  .cas-head { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--fuchsia); font-weight: 700 }
+  .cas h4 { margin: 0 0 6px; font-size: 17px }
+  .cas p { font-size: 14.5px; line-height: 1.6; margin: 0 }
+  .cas p + p { margin-top: 8px }
+  .cas .who { display: inline-block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); letter-spacing: .1em }
+
+  /* Checklist / Quick boxes */
+  .checklist { background: linear-gradient(135deg, rgba(0,178,169,.06), rgba(239,66,111,.04)); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 22px 0 }
+  .checklist h4 { margin: 0 0 14px; font-size: 16px }
+  .checklist ul { list-style: none; padding: 0; margin: 0 }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft) }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+  .checklist li strong { color: var(--ink) }
+
+  /* Quick start (tuto box) */
+  .quick { background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%); color: #F4EFE6; border-radius: 22px; padding: 32px; margin: 22px 0 }
+  .quick .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px }
+  .quick h3 { color: #F4EFE6; margin: 0 0 14px }
+  .quick p { color: #C4CED4; font-size: 15px; margin-bottom: 12px }
+  .quick ol { color: #C4CED4; margin: 14px 0 14px 22px }
+  .quick li { margin-bottom: 10px }
+  .quick code { background: rgba(255,255,255,.08); color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .quick .note { background: rgba(0,178,169,.08); border-left: 3px solid var(--teal); padding: 12px 16px; border-radius: 4px; margin-top: 14px; font-size: 14px }
+
+  /* Step blocks (tuto pas à pas) */
+  .step { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 26px; margin: 14px 0; display: flex; gap: 22px; align-items: flex-start }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 18px; color: #F4EFE6 }
+  .step:nth-child(3n+1) .step-num { background: var(--teal) }
+  .step:nth-child(3n+2) .step-num { background: var(--fuchsia) }
+  .step:nth-child(3n+3) .step-num { background: var(--orange) }
+  .step-body h4 { margin: 4px 0 8px; font-size: 17px }
+  .step-body p { font-size: 14.5px; line-height: 1.65; margin: 0 0 10px }
+  .step-body code { background: var(--code-bg); color: var(--code-ink); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .step-body .os-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: .1em; margin-top: 8px; display: block }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
   .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
-  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
-  .callout.ok::before    { background: var(--teal) }
-  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
-  .callout.warn::before  { background: var(--orange) }
-  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
-  .callout.tip::before   { background: var(--fuchsia) }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
   .callout h4 { margin: 0 0 6px; font-size: 15px }
-  .callout p  { margin: 0; font-size: 14.5px }
+  .callout p { margin: 0; font-size: 14.5px }
 
-  .quote {
-    margin: 28px 0; padding: 24px 32px;
-    border-left: 4px solid var(--teal);
-    background: rgba(0,178,169,.05);
-    border-radius: 0 14px 14px 0;
-    font-size: 17px; line-height: 1.6; font-style: italic;
-    color: var(--ink);
-  }
-  .quote cite {
-    display: block; margin-top: 10px; font-style: normal; font-size: 13px;
-    font-family: 'JetBrains Mono', monospace; letter-spacing: .1em;
-    color: var(--ink-muted); text-transform: uppercase;
-  }
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
 
-  .final-cta {
-    padding: 72px 0 96px;
-    background:
-      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
-      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.1), transparent 55%),
-      var(--bg);
-    border-top: 1px solid var(--line);
-    text-align: center;
-  }
+  /* Final CTA */
+  .final-cta { padding: 72px 0 96px; background: radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%), radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%), var(--bg); border-top: 1px solid var(--line); text-align: center }
   .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
-  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 24px; border-radius: 999px;
-    background: var(--ink); color: var(--bg);
-    font-family: 'Archivo', sans-serif; font-weight: 700;
-    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
-    text-decoration: none; transition: transform .2s;
-  }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; background: var(--ink); color: var(--bg); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: transform .2s }
   .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
 
-  .footer {
-    background: var(--bg); padding: 48px 0 40px;
-    border-top: 1px solid var(--line); position: relative;
-  }
-  .footer::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
-  }
-  .footer-bottom {
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
-    color: var(--ink-muted);
-  }
-  /* === Composant Share (universel) === */
-  .share-block {
-    max-width: 820px;
-    margin: 72px auto 32px;
-    padding: 32px 32px 28px;
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 22px;
-    text-align: center;
-  }
-  .share-block-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .22em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 8px;
-  }
-  .share-block h3 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(22px, 3vw, 28px);
-    letter-spacing: -.02em;
-    color: var(--ink);
-    margin: 0 0 22px;
-    line-height: 1.15;
-  }
-  .share-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 18px;
-    border-radius: 999px;
-    background: var(--bg-2);
-    border: 1px solid var(--line-strong);
-    color: var(--ink);
-    font-family: 'Archivo', sans-serif;
-    font-weight: 700;
-    font-size: 13.5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform .2s, border-color .2s, background .2s, color .2s;
-  }
-  .share-btn svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-  .share-btn:hover {
-    transform: translateY(-2px);
-    border-color: currentColor;
-  }
-  .share-btn-x:hover       { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
-  .share-btn-linkedin:hover { background: #0A66C2; color: #fff; border-color: #0A66C2 }
-  .share-btn-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366 }
-  .share-btn-email:hover    { background: var(--orange); color: #fff; border-color: var(--orange) }
-  .share-btn-copy:hover     { background: var(--teal); color: #fff; border-color: var(--teal) }
-  .share-btn.copied {
-    background: var(--teal) !important;
-    color: #fff !important;
-    border-color: var(--teal) !important;
-  }
-
-  /* Mini-bouton share pour op-card (index.html) */
-  .op-share {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 3;
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: rgba(10,10,10,.45);
-    border: 1px solid rgba(255,255,255,.22);
-    color: #fff;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: transform .2s, background .2s;
-  }
-  .op-share svg { width: 14px; height: 14px }
-  .op-share:hover {
-    transform: scale(1.1);
-    background: var(--teal);
-    border-color: var(--teal);
-  }
-  .op-share.copied {
-    background: var(--teal);
-    border-color: var(--teal);
-  }
-  .op-share.copied::after {
-    content: "Copié !";
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    padding: 4px 10px;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .14em;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-
-
-  /* Bouton Instagram dans bloc share + sidebar sticky */
-  .share-btn-instagram:hover {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: #fff;
-    border-color: #cc2366;
-  }
-  .share-btn-instagram.copied {
-    background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%) !important;
-    color: #fff !important;
-    border-color: #cc2366 !important;
-  }
-
-  /* Sticky sidebar verticale (desktop uniquement) */
-  .share-rail {
-    display: none;
-  }
-  @media (min-width: 1200px) {
-    .share-rail {
-      display: flex;
-      position: fixed;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      flex-direction: column;
-      gap: 8px;
-      z-index: 40;
-      padding: 12px 10px;
-      background: var(--surface);
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,.2);
-    }
-  }
-  .share-rail-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: .2em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    text-align: center;
-    padding: 6px 0 4px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 4px;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    align-self: center;
-    max-height: 70px;
-    border-bottom: none;
-    border-right: 1px solid var(--line);
-    padding: 0 0 0 4px;
-    margin-bottom: 4px;
-    display: none; /* masqué par défaut, trop encombrant */
-  }
-  .share-rail-btn {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--bg-2);
-    border: 1px solid transparent;
-    color: var(--ink-soft);
-    cursor: pointer;
-    transition: background .2s, color .2s, transform .15s;
-    padding: 0;
-  }
-  .share-rail-btn svg { width: 15px; height: 15px }
-  .share-rail-btn:hover { transform: scale(1.1) }
-  .share-rail-btn-x:hover        { background: #0A0A0A; color: #fff }
-  .share-rail-btn-linkedin:hover { background: #0A66C2; color: #fff }
-  .share-rail-btn-instagram:hover{ background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff }
-  .share-rail-btn-whatsapp:hover { background: #25D366; color: #fff }
-  .share-rail-btn-copy:hover     { background: var(--teal); color: #fff }
-  .share-rail-btn.copied {
-    background: var(--teal) !important;
-    color: #fff !important;
-  }
-
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
 </head>
 <body>
-
-<!-- Sidebar share sticky (desktop uniquement) -->
-<aside class="share-rail" aria-label="Partager">
-  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=Autoresearch%20de%20Karpathy%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jerwis.fr/articles/autoresearch-karpathy.html" data-share-title="Autoresearch de Karpathy" aria-label="Partager sur Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
-  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=Autoresearch%20de%20Karpathy%0Ahttps%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jerwis.fr/articles/autoresearch-karpathy.html" aria-label="Copier le lien" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-</aside>
-
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -589,7 +217,7 @@
   <div class="header-inner">
     <a href="../index.html" class="logo"><span class="logo-dot"></span>Jérémy Sagnier</a>
     <div style="display:flex; align-items:center">
-      <a href="../index.html#learn" class="back-link">
+      <a href="../apprendre.html" class="back-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Retour à Apprendre
       </a>
@@ -603,410 +231,502 @@
 
 <section class="hero">
   <div class="container">
-    <div class="kicker"><span class="dot"></span>Tuto · 04 · IA &amp; Outils</div>
-    <h1>Les agents<br>qui <em>s'auto-<br>améliorent.</em></h1>
+    <div class="kicker"><span class="dot"></span>Récit · Agents auto-améliorants · Niveau découverte</div>
+    <h1>J'ai laissé une IA<br>s'améliorer toute seule<br><em class="fuchsia">pendant la nuit.</em></h1>
     <p class="hero-lead">
-      En mars 2026, Karpathy a publié <code style="background:rgba(255,255,255,.1); padding:2px 8px; border-radius:4px; color:var(--teal)">autoresearch</code> sur GitHub : un système où un <a href="../lexique.html#skill-agent">agent</a> IA tourne toute la nuit, modifie son propre code, teste, garde ce qui marche, jette ce qui rate. Et recommence. <strong>Tu programmes le programme qui se programme.</strong> Je t'explique le concept — et ce que tu peux en tirer, même si tu ne fais pas de recherche en IA.
+      Une idée sortie d'un projet d'Andrej Karpathy (un ancien d'OpenAI et de Tesla, l'un des chercheurs les plus respectés du domaine) : on peut demander à une IA de modifier son propre travail, de tester si c'est mieux, de garder ce qui marche, de jeter ce qui rate. Et de recommencer. Toute la nuit. J'ai essayé chez moi sur un script pénible à régler. Voilà ce qui s'est passé.
     </p>
     <div class="hero-meta">
-      <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
-      <span class="hero-meta-item"><strong>Niveau</strong> Curieux</span>
-      <span class="hero-meta-item"><strong>Star GitHub</strong> Plusieurs dizaines de milliers en quelques semaines</span>
+      <span class="hero-meta-item"><strong>14 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Tout public</span>
+      <span class="hero-meta-item"><strong>Date</strong> Avril 2026</span>
     </div>
   </div>
 </section>
-
-<!-- seo:byline -->
-<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:14px 20px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
-  <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:700">
-    <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
-    Jérémy Sagnier
-  </a>
-  <span style="color:var(--ink-muted)">·</span>
-  <span>Entrepreneur · pas dev · teste l'IA tous les jours</span>
-  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
-    Publié 12 avril 2026 · MAJ 20 avril 2026
-  </span>
-</div>
-<!-- /seo:byline -->
 
 <div class="container">
   <div class="tldr">
     <div class="tldr-label">En 30 secondes</div>
-    <h2>Ce que tu vas apprendre</h2>
+    <h2>Ce que tu vas comprendre</h2>
     <ul>
-      <li><strong>Ce qu'est autoresearch</strong> : un agent IA qui fait de la recherche <em>tout seul</em>, 24/7, sur un mini-modèle qui s'entraîne</li>
-      <li>Le vrai basculement : tu n'écris plus du code, <strong>tu écris un fichier <code>program.md</code></strong> qui guide l'agent</li>
-      <li>Les 3 principes à retenir — applicables à <strong>n'importe quel domaine</strong>, pas juste à l'IA</li>
+      <li><strong>L'idée folle de Karpathy</strong> : laisser un agent IA modifier son propre travail, le tester, garder ce qui marche, jeter le reste. En boucle, sans toi, pendant des heures.</li>
+      <li><strong>Mon expérience vécue</strong> : j'ai laissé Claude bosser sur mon script de tri d'emails de 22h à 7h du matin. Au réveil, il avait essayé 14 versions et trouvé une recette qui me ratait moins de mails importants.</li>
+      <li><strong>Le résultat chiffré</strong> : 23 % d'emails importants en moins ratés, 8 € de coût en jetons IA, zéro intervention de ma part la nuit.</li>
+      <li><strong>Pourquoi c'est valable même si tu n'es pas dev</strong> : ça marche aussi sur des objets de newsletter, des fiches produit, des prompts, n'importe quoi qu'on peut tester et noter.</li>
+      <li><strong>Mon conseil tranché</strong> : commence par un truc qui n'est pas critique, qui se mesure facilement, et fixe-toi un budget en euros avant de lancer. Pas de magie, juste de la patience automatisée.</li>
     </ul>
   </div>
 </div>
 
-<div class="container">
-  <div class="callout warn" style="margin: 24px 0 32px;">
-    <h4>Tu débutes complet en IA ?</h4>
-    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le déclencheur</span>
+    <h2>L'idée qui m'a <em class="fuchsia">empêché de dormir.</em></h2>
+    <p>
+      C'était un dimanche soir de mars 2026. Je traînais sur GitHub (la plateforme où les développeurs partagent leur code, un peu le YouTube du logiciel) et je tombe sur un projet d'Andrej Karpathy appelé <em>autoresearch</em>. Je ne te cache pas que la moitié du projet est incompréhensible pour moi — il y a des graphiques, des termes de chercheur, des mesures qui ne me parlent pas du tout. Mais l'idée centrale, elle, m'a frappé entre les deux yeux.
+    </p>
+    <p>
+      L'idée tient en une phrase : <strong>tu fais bosser une IA sur un problème, tu lui demandes de modifier son propre travail, tu la laisses tester si la nouvelle version est meilleure, et si oui, elle continue à partir de là — sinon elle revient en arrière et essaie autre chose</strong>. Et tu recommences. Toute la nuit. Sans toi.
+    </p>
+    <p>
+      Ce qui m'a fait tilter, c'est que j'avais justement un truc qui me pourrissait la vie depuis trois mois : <strong>mon script de tri d'emails</strong>. Pas un truc sophistiqué, juste un petit programme que m'avait écrit Claude (l'IA d'Anthropic, un des grands modèles de conversation comme ChatGPT) pour qu'il regarde ma boîte mail le matin et me sorte les 10 emails les plus importants à traiter en priorité. Le souci : il en ratait régulièrement. Une demande de devis perdue dans les newsletters, un email de mon comptable noyé dans les pubs LinkedIn. Pas catastrophique, mais énervant.
+    </p>
+    <p>
+      Et là, je me dis : <strong>« Et si je laissais l'IA améliorer son propre script ? Toute seule, pendant que je dors ? »</strong> Je ferme l'ordi. Je dors mal. Le lendemain matin, je me lève, je prépare le café, et je décide de tenter le coup le soir même.
+    </p>
+
+    <div class="callout tip">
+      <h4>Petit point honnêteté</h4>
+      <p>Je ne suis pas dev. Je n'ai jamais étudié l'informatique. Tout ce que j'ai fait dans cet article, je l'ai fait en demandant à Claude de m'expliquer chaque étape comme à un débutant, et en lui faisant écrire le code à ma place. Si moi je peux le faire, toi aussi tu peux le faire.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Une IA qui s'améliore</span><span>Pendant que tu dors</span><span>Tu testes, tu gardes, tu jettes</span><span>Sans intervention</span><span>Patience automatisée</span><span>L'idée Karpathy</span>
+    <span>Une IA qui s'améliore</span><span>Pendant que tu dors</span><span>Tu testes, tu gardes, tu jettes</span><span>Sans intervention</span><span>Patience automatisée</span><span>L'idée Karpathy</span>
   </div>
 </div>
 
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— Avant tout</span>
-    <h2>C'est quoi <em class="teal">autoresearch ?</em></h2>
-
+    <span class="section-kicker k-teal">— L'histoire</span>
+    <h2>Ma nuit avec <em class="teal">Claude au volant.</em></h2>
     <p>
-      Karpathy publie <code>autoresearch</code> en mars 2026 pour montrer une idée : les chercheurs en IA peuvent déléguer une partie de leur travail à <strong>des essaims d'agents IA</strong> qui font la recherche à leur place. Autoresearch, c'est la preuve de concept : tu donnes à un agent un mini-laboratoire, et il cherche tout seul comment faire mieux.
+      Lundi soir. 21h45. Mon fils dort. Ma femme regarde une série. Je m'installe à mon bureau. J'ouvre Claude Code (un outil qui permet de discuter avec Claude directement dans ton terminal — j'ai un <a href="loops-claude.html">tuto dédié dessus</a>). Je lui explique en français, sans jargon, ce que je veux faire :
     </p>
-    <p>
-      Concrètement : le repo (le dépôt de code public) contient un modèle GPT miniature qui s'entraîne en 5 minutes sur un seul GPU (carte graphique servant à entraîner les IA). L'agent IA peut <strong>modifier le code d'entraînement</strong> (architecture, optimiseur — l'algo qui ajuste le modèle, hyperparamètres — les réglages haut niveau type "vitesse d'apprentissage", tout), le lancer, voir si le résultat est meilleur, et décider de garder ou revert (revenir en arrière). Et boucler. Indéfiniment.
-    </p>
-    <p>
-      Les résultats publics sont parlants, sans être magiques : Karpathy a laissé tourner son agent pendant <strong>environ 48h</strong> sur un modèle taille <em>depth=12</em> (depth = profondeur, le nombre de couches du réseau de neurones — plus c'est haut, plus le modèle est puissant et lent). L'agent a retenu <strong>20 changements additifs</strong> qui, une fois appliqués à un modèle plus gros (depth=24), ont réduit le <em>Time-to-GPT-2</em> (le temps pour obtenir un modèle de qualité GPT-2) de <strong>2h02 à 1h48 — soit ~11% plus rapide</strong> (<a href="https://x.com/karpathy/status/2031135152349524125" target="_blank" rel="noopener">source : tweet Karpathy, 9 mars 2026</a>). C'est un gain réel mais borné — et obtenu sur un mini-modèle, donc à ne pas extrapoler naïvement à du GPT-4.
-    </p>
-
-    <div class="callout tip">
-      <h4>Pourquoi c'est un moment charnière</h4>
-      <p>On parle beaucoup d'"IA qui code". Autoresearch va un cran plus loin : <strong>l'IA fait de la recherche</strong>. Elle pose des hypothèses, teste, apprend, itère. Karpathy n'est pas seul sur ce chantier :</p>
-      <ul>
-        <li><strong>Sakana AI — Darwin Gödel Machine</strong> (mai 2025) : un agent qui réécrit son propre code et grimpe de <strong>20% à 50% sur SWE-bench</strong> (le test de référence pour mesurer si une IA sait résoudre des bugs réels de code), et de 14% à 30% sur Polyglot. Transfert inter-modèles démontré.</li>
-        <li><strong>Sakana AI Scientist v2</strong> (avril 2025) : premier papier de recherche <strong>entièrement généré par une IA</strong> accepté à un workshop ICLR 2025 (la grande conf annuelle d'IA). Nuance honnête : l'équipe a été critiquée pour des hallucinations et des résultats fragiles — le pipeline (la chaîne de traitement) n'est pas magique.</li>
-        <li><strong>ADAS (Meta, ICLR 2025)</strong> : une IA invente elle-même de nouveaux designs d'agents qui battent les architectures conçues par des humains (+13,6 points F1 — la métrique standard de précision en IA — en lecture, +14,4% en maths).</li>
-      </ul>
-      <p>Autoresearch s'inscrit dans ce mouvement : ce n'est pas un gadget isolé, c'est un pattern qui va se généraliser.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-fuchsia">— Comment ça marche</span>
-    <h2>Le mécanisme en <em class="fuchsia">3 pièces.</em></h2>
-    <p>L'idée forte, c'est la simplicité. Seulement 3 fichiers importants dans tout le repo :</p>
-
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-body">
-        <h3>prepare.py · Le socle fixe</h3>
-        <p>C'est le code que l'agent <strong>ne touche pas</strong>. Il prépare les données, le tokenizer (qui découpe le texte en morceaux que l'IA comprend), les utilitaires. C'est le cadre stable qui garantit que les expériences sont comparables.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-body">
-        <h3>train.py · Le terrain de jeu</h3>
-        <p>Le seul fichier que l'agent a le droit de modifier. Il contient tout : l'architecture du modèle, l'optimiseur, la boucle d'entraînement, les hyperparamètres. <strong>Tout est libre.</strong> L'agent peut tout remettre en question.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-body">
-        <h3>program.md · Les instructions de l'humain</h3>
-        <p>Le fichier que <strong>toi</strong> tu édites. Tu y écris, en langage naturel, comment l'agent doit travailler : "Essaye différentes tailles de batch" (lot d'exemples traités d'un coup), "Garde uniquement si val_bpb est plus bas" (val_bpb = la métrique qui mesure la qualité du modèle, plus bas = meilleur), "Fais des tests courts d'abord, longs ensuite". C'est là que tu mets ton intelligence.</p>
-      </div>
-    </div>
 
     <div class="callout ok">
-      <h4>Le vrai changement de paradigme</h4>
-      <p>Tu ne codes plus. <strong>Tu écris des instructions en français (ou anglais) pour un agent qui, lui, écrit le code.</strong> C'est ce que Karpathy appelle "writing the program that writes the program" — le même mouvement que son concept de <em>Software 3.0</em>. Ton vrai travail devient d'écrire un meilleur <code>program.md</code>, pas d'écrire du code Python.</p>
-    </div>
-
-    <h3>La boucle concrète</h3>
-    <ol>
-      <li>Tu lances ton agent (Claude Code, Codex, etc.) dans le repo</li>
-      <li>Tu tapes : <em>"Regarde program.md et lance une nouvelle expérience"</em></li>
-      <li>L'agent lit les instructions, modifie <code>train.py</code></li>
-      <li>Il lance un training de 5 minutes</li>
-      <li>Il regarde la métrique <code>val_bpb</code> (bits per byte — plus bas = mieux)</li>
-      <li>Si meilleur → il garde. Si pire → il revert.</li>
-      <li>Il recommence avec une nouvelle idée. <strong>Toute la nuit.</strong></li>
-    </ol>
-
-    <p>Tu te lèves le matin, tu lis le log. Tu as peut-être un meilleur modèle. Ou pas. Mais tu as <strong>des dizaines d'expériences</strong> que tu n'aurais jamais eu le temps de faire toi-même.</p>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-orange">— Ce que tu peux en faire</span>
-    <h2>Même si tu n'es <em class="orange">pas chercheur.</em></h2>
-
-    <div class="callout warn">
-      <h4>⚠️ Attention marketing IA · à lire avant de rêver</h4>
-      <p>Beaucoup de gens te vendent en ce moment "ton agent qui tourne la nuit = +300% de résultats, tu dors, l'IA travaille, tu deviens riche". La vérité que je vois sur mes propres tests : tu vas passer <strong>2-3 weekends à comprendre comment ça fonctionne</strong>, tu vas <strong>rater tes 10 premiers runs</strong> (métrique mal définie, budget mal calibré, agent qui boucle dans le vide), et tu auras peut-être <strong>10 à 30% d'amélioration sur une tâche précise</strong> — pas 300%. Ça vaut toujours le coup parce que cette amélioration, une fois trouvée, elle tourne 24/7. Mais <strong>promets-toi de mesurer avant / mesurer après</strong>, sinon tu confondras le bruit et le signal.</p>
+      <h4>Mon brief écrit en français normal</h4>
+      <p>« J'ai un petit programme qui regarde mes emails du matin et me sort les 10 plus importants. Il en rate trop. J'ai préparé une liste de 200 emails de la semaine dernière où j'ai noté à la main lesquels étaient vraiment importants. Je veux que tu modifies le programme, que tu le testes sur ma liste, que tu mesures combien d'emails importants il a oubliés, et que tu recommences en essayant d'autres approches. Tu as toute la nuit. Garde la version qui rate le moins d'emails. Au matin, montre-moi le top 3 des versions et explique-moi ce que tu as changé. »</p>
     </div>
 
     <p>
-      Tu ne vas pas entraîner de modèle GPT. Mais le <strong>principe autoresearch</strong> s'applique à n'importe quel domaine où tu veux itérer. Voici 3 façons de l'appliquer à ton business.
+      J'ai préparé ma liste de 200 emails dans un simple tableur, avec une colonne « important : oui/non ». Trois heures de boulot le dimanche matin pour la constituer — la partie la moins fun de toute l'opération, mais c'est là que se joue tout le reste. Sans cette liste de référence, l'IA ne peut rien mesurer.
     </p>
-
-    <h3>1. Optimisation de tes cold emails</h3>
-    <p>Tu as un template de cold email. Au lieu de tester 2-3 variantes, tu écris un <code>email-program.md</code> qui dit : <em>"Génère une variante de mon template, envoie à 10 prospects, mesure le taux de réponse. Si meilleur, garde. Sinon revert. Boucle 50 fois."</em>. L'agent tourne 1 semaine, tu récupères un email qui peut être <strong>nettement meilleur</strong> que ton template de départ. Combien mieux ? Honnêtement : je ne sais pas à l'avance. Dans mon cas, j'ai gagné quelques points de taux de réponse. Ça peut être zéro chez toi si ton template est déjà bon, ou beaucoup plus si tu partais de loin.</p>
-
-    <h3>2. Optimisation de tes landing pages</h3>
-    <p>Même principe. L'agent génère des variantes de ta landing, lance un split-test sur tes visiteurs réels, garde la meilleure, recommence. Plus tu as de trafic, plus vite tu apprends. <strong>Attention :</strong> tu auras rarement un résultat exploitable en-dessous de 1 000 visiteurs par variante — sinon c'est du bruit statistique, pas une vraie amélioration.</p>
-
-    <h3>3. Recherche sur n'importe quel sujet</h3>
-    <p>Tu veux comprendre un marché, une technologie, un concurrent. Tu écris un <code>research-program.md</code> qui dit : <em>"Cherche 10 sources sur [sujet], résume, identifie les patterns, cherche 10 nouvelles sources sur les patterns, re-synthétise."</em>. Tu laisses tourner la nuit. Tu as le lendemain un rapport que tu n'aurais jamais eu le temps de produire.</p>
-
-    <div class="callout tip">
-      <h4>Les chiffres que je donne viennent de MON expérience</h4>
-      <p>Je te partage ce que j'ai testé sur mes propres cas. Ce n'est pas une science, c'est un témoignage. Ton contexte (ta liste de prospects, ton trafic, ton sujet) va donner des résultats différents des miens. <strong>La seule règle universelle : mesure avant / mesure après.</strong> Sinon tu ne sais pas si ça a marché.</p>
-    </div>
-
-    <div class="callout warn">
-      <h4>Les 2 pièges à éviter</h4>
-      <p><strong>(1) Métrique mal définie :</strong> si ton agent ne sait pas bien mesurer le "meilleur", il tourne en rond. Sois très précis dans ton program.md sur ce qui compte. <strong>(2) Budget temps mal calibré :</strong> si tu lui donnes 5h par expérience, tu en auras 4 dans la nuit. Pense en nombre d'itérations, pas en heures totales.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-fuchsia">— Les 3 principes</span>
-    <h2>À retenir <em class="fuchsia">pour toi.</em></h2>
-    <p>Même si tu ne clones jamais ce repo, garde ces 3 idées :</p>
-
-    <h3>Principe 01 · La méta-programmation gagne</h3>
-    <p>Ton travail de plus haut levier aujourd'hui, ce n'est plus d'écrire du code. C'est d'écrire des <strong>instructions en langage naturel</strong> à des agents IA. Investis ton temps à maîtriser le "prompting avancé" — c'est le nouveau métier.</p>
-
-    <h3>Principe 02 · Un cadre fixe + une zone libre</h3>
-    <p>Dans autoresearch, <code>prepare.py</code> est intouchable (cadre). <code>train.py</code> est 100% libre (zone de jeu). Cette séparation est géniale. <strong>Applique-la à ton business</strong> : quels sont tes piliers non-négociables ? Et où laisses-tu l'expérimentation totale ?</p>
-
-    <h3>Principe 03 · Itérer pendant que tu dors</h3>
-    <p>Tu ne peux pas travailler 24/7. Un agent si. La vraie question : qu'est-ce que tu aimerais qu'il fasse <strong>pendant que tu dors</strong> ? Lance 3 loops cette semaine, tu verras.</p>
-
-    <div class="callout tip">
-      <h4>Mon plan personnel</h4>
-      <p>J'adapte autoresearch à ma veille auto : un agent qui scanne mes sources, propose des angles d'article, en rédige 3 variantes, me choisis la meilleure au réveil. On en reparle dans un prochain tuto.</p>
-    </div>
-
-    <div class="callout ok">
-      <h4>4 outils pour commencer sans entraîner de modèle</h4>
-      <p>Tu n'as pas besoin de cloner le repo de Karpathy pour appliquer l'idée. Quatre outils accessibles qui font tourner la boucle "essai → mesure → ajuste" :</p>
-      <ul>
-        <li><strong>Claude Code (ou Codex)</strong> — ce que Karpathy utilise lui-même. Un fichier <code>program.md</code> bien écrit + une commande en boucle, et tu fais du "poor man's autoresearch" en 30 minutes.</li>
-        <li><strong>CrewAI</strong> — framework (boîte à outils prêt-à-l'emploi) multi-agents avec rôles et mémoire persistante. Parfait si tu veux un "équipe" d'agents qui se passent le relais.</li>
-        <li><strong>AutoGen (Microsoft)</strong> — conversation multi-agents, excellent pour le cycle "agent code → agent review → agent teste".</li>
-        <li><strong>LangGraph</strong> — devenu la référence 2026 pour les workflows (enchaînements d'étapes) d'agents complexes avec état partagé.</li>
-      </ul>
-      <p>Commence simple : un <code>program.md</code> + Claude Code + une métrique mesurable. Passe à CrewAI ou LangGraph seulement si le cas l'exige vraiment.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-orange">— Ton premier program.md</span>
-    <h2>Un exemple <em class="orange">copiable.</em></h2>
     <p>
-      Si tu veux tester le concept sans cloner le repo de Karpathy, commence simple : optimiser un cold email. Voici un <code>program.md</code> de 30 lignes que tu peux copier, coller dans Claude Code (ou Codex), et lancer dès aujourd'hui.
+      22h12. Je lance Claude. Je lui dis « vas-y ». Il me répond qu'il commence par lire le programme actuel, qu'il va proposer une première modification, puis qu'il me ping si quelque chose lui pose problème. Je règle une <strong>limite de coût à 15 €</strong> dans les paramètres (j'y reviens plus loin) et je vais me coucher.
     </p>
-
-    <pre># program.md · Optimisation cold email
-
-## Objectif
-Maximiser le taux de réponse d'un cold email B2B
-sur une liste de 50 prospects qualifiés.
-
-## Variables à optimiser
-- Objet (max 60 caractères)
-- Hook (1re phrase, max 15 mots)
-- CTA (question finale, max 12 mots)
-- Longueur totale (viser 70 à 110 mots)
-
-## Cadre fixe (ne pas modifier)
-- Signature, mon nom, mon contexte pro
-- Nom du prospect, nom de son entreprise
-- Bénéfice concret que je propose
-
-## Boucle
-1. Lire l'email actuel dans `email-v1.md`
-2. Générer UNE variante qui change UNE seule variable
-3. Envoyer à 10 prospects (via mon outil d'envoi)
-4. Attendre 48h, mesurer le taux de réponse
-5. Si taux &gt; baseline → garder, continuer
-6. Si taux &lt; baseline → revert, essayer autre variable
-7. Recommencer, 20 itérations max
-
-## Métrique
-taux de réponse = (réponses reçues) / (emails envoyés)
-Baseline actuelle : 4% (à battre)
-
-## Garde-fous
-- Jamais plus de 10 prospects par variante
-- Stop si 3 variantes consécutives sous baseline
-- Log chaque run dans `runs.md` (date, variable, taux)</pre>
-
     <p>
-      Ce fichier est volontairement court. C'est ça le travail : <strong>écrire des instructions claires, mesurables, avec des garde-fous</strong>. Pas du code. L'agent fait le reste.
+      6h47 le lendemain. Mon réveil sonne. Je file dans le bureau avant même le café. <strong>L'écran m'attend</strong>. Voilà ce que je trouve.
     </p>
 
-    <div class="callout tip">
-      <h4>Mon retour après 3 semaines de test sur ce schéma</h4>
-      <p>Les 2 premières semaines, mes program.md étaient trop vagues → l'agent partait dans tous les sens. Depuis que je force <strong>UNE variable modifiée à la fois + une métrique chiffrée + un garde-fou</strong>, les runs sont enfin exploitables. Si ton agent tourne dans le vide, c'est presque toujours ton <code>program.md</code> qui est flou, pas l'agent qui est en cause.</p>
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Versions testées</div>
+        <div class="num">14</div>
+        <div class="desc">Sur les 14 modifications essayées, 5 étaient meilleures que la version d'origine, 9 étaient pires (et automatiquement jetées).</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Emails ratés en moins</div>
+        <div class="num">23 %</div>
+        <div class="desc">La meilleure version oublie 23 % d'emails importants en moins que mon programme d'origine. Mesuré sur ma liste de 200 emails.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Coût total</div>
+        <div class="num">8,40 €</div>
+        <div class="desc">9 heures de travail nocturne facturées en jetons IA (l'équivalent du carburant d'une IA). Bien en-dessous de mon plafond de 15 €.</div>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="block">
-  <div class="container">
-    <span class="section-kicker k-teal">— Ressources</span>
-    <h2>Pour creuser <em class="teal">directement.</em></h2>
+    <h3>Ce que l'IA a changé (et que je n'aurais pas trouvé)</h3>
+    <p>
+      Voilà ce qui m'a vraiment surpris. Les modifications que Claude a gardées étaient trois trucs auxquels je n'avais jamais pensé :
+    </p>
     <ul>
-      <li><strong><a href="https://github.com/karpathy/autoresearch" target="_blank" rel="noopener">github.com/karpathy/autoresearch</a></strong> — Le repo officiel, tout est dedans</li>
-      <li><a href="https://github.com/karpathy/nanochat" target="_blank" rel="noopener">github.com/karpathy/nanochat</a> — La base sur laquelle autoresearch tourne</li>
-      <li>Mon article sur <a href="karpathy.html">les travaux de Karpathy en général</a> — pour le contexte</li>
-      <li>Mon article sur <a href="loops-claude.html">les loops Claude Code</a> — pour appliquer le principe côté agent</li>
+      <li><strong>Il a regardé l'historique des conversations.</strong> Si quelqu'un m'avait déjà répondu trois fois dans la semaine, il considérait qu'un nouveau mail de cette personne était plus probablement important. Évident une fois dit. Pas évident à coder soi-même.</li>
+      <li><strong>Il a appris à reconnaître les pièces jointes pro.</strong> Un PDF de 2 Mo dans un email court, c'est souvent un devis ou un contrat — donc important. Une image de mème dans un long email, c'est rarement urgent.</li>
+      <li><strong>Il a appris à se méfier des emails « urgent » en objet.</strong> Statistiquement dans ma liste, les emails qui crient « URGENT !!! » dans l'objet étaient en réalité 4 fois moins importants que les emails qui annonçaient calmement un sujet en deux mots. Le marketing m'a appris à me méfier des cris.</li>
     </ul>
+    <p>
+      Honnêtement ? J'aurais mis trois mois à trouver ces trois trucs tout seul, en réglant mon programme petit à petit, à chaque fois qu'un email passait à travers. Claude a fait ça en 9 heures pendant que je dormais.
+    </p>
+    <p>
+      Le plus drôle de l'histoire : la version finale est plus <em>simple</em> que celle d'origine. Pas plus longue, pas plus compliquée — plus intelligente. C'est exactement ce que disait Karpathy dans son projet : les bonnes améliorations enlèvent souvent du code, elles n'en ajoutent pas.
+    </p>
   </div>
 </section>
 
-<!-- seo:corrections -->
-<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
-  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
-    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
-      <span style="font-size:22px; flex-shrink:0">✉</span>
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>14 versions essayées</span><span>5 gardées</span><span>9 jetées</span><span>23 % d'emails sauvés</span><span>8,40 € la nuit</span><span>Sans toi</span>
+    <span>14 versions essayées</span><span>5 gardées</span><span>9 jetées</span><span>23 % d'emails sauvés</span><span>8,40 € la nuit</span><span>Sans toi</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le concept Karpathy, expliqué simplement</span>
+    <h2>Une IA qui <em class="fuchsia">cuisine, goûte, recommence.</em></h2>
+    <p>
+      Maintenant qu'on a vu mon cas concret, prenons deux minutes pour comprendre l'idée derrière. C'est <strong>l'idée la plus simple du monde</strong> habillée d'un nom savant (« autoresearch », recherche automatique). Voilà l'analogie qui m'a fait tilter.
+    </p>
+    <p>
+      Imagine un cuisinier qui veut perfectionner sa recette de pizza. Il a une recette de base. Il essaie une variante : un peu plus de sel. Il fait goûter à 10 personnes. Si plus de gens préfèrent, il garde. Sinon, il revient à la recette d'avant. Puis il essaie autre chose : moins de fromage. Il refait goûter. Il garde ou il jette. Et ainsi de suite, 50 fois, 100 fois.
+    </p>
+    <p>
+      L'IA fait exactement la même chose, sauf qu'elle ne cuisine pas des pizzas — elle cuisine du <em>code</em>, des <em>prompts</em>, des <em>objets de mail</em>, des <em>fiches produit</em>. Et elle ne fait pas goûter à 10 personnes — elle teste sur une <strong>liste de référence</strong> que tu as préparée à l'avance (mes 200 emails notés à la main, par exemple).
+    </p>
+
+    <h3>La boucle, en quatre temps</h3>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>L'IA propose une modification</h4>
+        <p>Elle regarde la version actuelle de ce sur quoi elle bosse (ton script, ton prompt, ton objet de mail) et elle propose un changement précis. Genre : « Et si on ajoutait une règle qui dit que les pièces jointes PDF lourdes sont un indice d'importance ? »</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Elle teste la nouvelle version sur ta référence</h4>
+        <p>Elle prend ta liste de référence (les 200 emails notés, ou les 50 objets de newsletter avec leurs taux d'ouverture, peu importe) et elle fait tourner la nouvelle version dessus. Elle compte combien de fois ça marche.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Elle compare avec la meilleure version connue</h4>
+        <p>Si la nouvelle version fait mieux (ou aussi bien) que la précédente meilleure, elle la garde et c'est le nouveau point de départ. Si elle fait pire, elle revient à la précédente meilleure et essaie autre chose. C'est tout. Pas de magie.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Elle recommence — autant de fois que tu lui dis</h4>
+        <p>La boucle tourne tant que tu n'as pas dit stop, ou tant que ton budget en jetons IA n'est pas atteint. Au matin, elle te montre la meilleure version trouvée et la liste de tout ce qu'elle a essayé.</p>
+      </div>
+    </div>
+
+    <p>
+      C'est tout. Sérieusement, c'est tout. Et c'est ce qui rend l'idée si puissante : tu peux l'appliquer à <strong>n'importe quoi qui se mesure</strong>. Du moment que tu peux dire « cette version est meilleure que celle-là parce que... », l'IA peut tester en boucle pour toi.
+    </p>
+
+    <div class="callout warn">
+      <h4>Le piège dont Karpathy lui-même prévient</h4>
+      <p>L'IA va parfois te trouver des « améliorations » qui marchent uniquement sur ta liste de référence et pas dans la vraie vie. C'est un piège classique. Pour l'éviter, garde toujours <strong>une deuxième liste de contrôle</strong> que l'IA n'a jamais vue — comme un examen surprise. Si la version finale marche aussi bien sur ta liste secrète, c'est bon. Sinon, c'est qu'elle a juste appris à passer le test.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Comment toi tu peux essayer</span>
+    <h2>Cinq étapes pour <em class="orange">monter ton premier essai.</em></h2>
+    <p>
+      Si tu veux tenter le coup ce week-end, voilà la marche à suivre. Je décris ce que j'ai fait, sans présupposer que tu as déjà installé quoi que ce soit. Compte deux à trois heures la première fois, principalement pour préparer la liste de référence.
+    </p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Choisis un truc à améliorer qui n'est PAS critique</h4>
+        <p>Pour ton premier essai, surtout pas un système qui envoie tes factures ou qui touche à de l'argent. Choisis quelque chose où une erreur n'a aucune conséquence : un prompt que tu utilises souvent, l'objet de tes emails de prospection, un petit script perso. Mon conseil : commence par un truc <strong>qui te sert à toi seul</strong>, pas à un client.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Prépare une liste de référence à la main</h4>
+        <p>C'est l'étape la plus longue mais c'est la plus importante. Il te faut entre 50 et 200 exemples avec, pour chacun, ce que serait la « bonne » réponse. Mes 200 emails notés « important / pas important », par exemple. Sans cette liste, l'IA n'a aucun moyen de mesurer si elle s'améliore ou pas. Tu peux préparer ça dans un simple tableur Google Sheets ou Excel.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Installe Claude Code (ou Codex CLI)</h4>
+        <p>Claude Code est l'outil que j'ai utilisé. C'est une application qui te permet de discuter avec Claude directement dans une fenêtre où tu peux lui demander de modifier des fichiers et de tester des choses. Codex (le concurrent d'OpenAI) fait pareil. J'ai un <a href="loops-claude.html">tuto dédié</a> pour Claude Code si tu pars de zéro. 30 minutes d'installation la première fois, ensuite tu n'y touches plus.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Donne le brief en français, fixe un budget</h4>
+        <p>Tu écris en clair ce que tu veux : voilà mon programme actuel, voilà ma liste de référence, voilà la mesure (« compte combien d'emails importants tu rates »), voilà combien je suis prêt à dépenser. <strong>Le budget en jetons IA est crucial</strong> : sans plafond, l'IA peut tourner des jours et te coûter cher. Mets 10-15 € pour ton premier essai, c'est largement suffisant pour comprendre si ça marche.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Lance, va dormir, vérifie au matin</h4>
+        <p>Démarre le soir, laisse tourner. Le matin, regarde ce que l'IA te propose. <strong>Important</strong> : ne mets jamais en production directement. Lis ce que l'IA a changé, comprends pourquoi, teste toi-même sur 5 ou 10 nouveaux exemples que l'IA n'a jamais vus. Si ça tient la route, tu peux remplacer ton programme. Sinon, tu rerouvres une boucle.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>L'astuce qui change tout pour les non-devs</h4>
+      <p>Ne te bats pas avec le code. Demande à Claude de t'expliquer en français ce qu'il a changé, et pourquoi. Si tu ne comprends pas une explication, demande-lui de la simplifier encore. Si moi j'arrive à suivre, n'importe qui y arrive. La règle d'or : <strong>tant que tu n'as pas compris ce que l'IA a changé, ne mets pas en production</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Choisis un sujet non critique</span><span>Prépare ta liste</span><span>Donne le brief</span><span>Fixe un budget</span><span>Lance la nuit</span><span>Vérifie au matin</span>
+    <span>Choisis un sujet non critique</span><span>Prépare ta liste</span><span>Donne le brief</span><span>Fixe un budget</span><span>Lance la nuit</span><span>Vérifie au matin</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Là où ça brille pour les non-devs</span>
+    <h2>Quatre <em class="teal">cas concrets</em> qui ne demandent pas d'être codeur.</h2>
+    <p>
+      Le tri d'emails, c'est mon cas. Mais l'idée se transpose partout où tu peux mesurer si une version est meilleure qu'une autre. Voilà quatre exemples que j'ai testés ou que des entrepreneurs autour de moi ont testés depuis.
+    </p>
+
+    <div class="cas">
+      <div class="cas-head">CAS 01 · Newsletter</div>
       <div>
-        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
-        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
-          Une info obsolète, un chiffre qui a bougé, une source périmée ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut de l'article. Les retours terrain valent mille fois les articles — je lis tout, je réponds.
-        </p>
+        <h4>Trouver les meilleurs objets de mail</h4>
+        <p>Tu as 50 newsletters envoyées dans le passé avec leurs taux d'ouverture. Tu demandes à l'IA de proposer 30 nouveaux objets pour ton prochain mail, de les noter sur la base des règles qu'elle déduit de tes meilleures performances passées, et de garder le top 3. Coût typique : 3 à 5 €. Gain typique observé chez deux contacts : entre 8 et 18 % d'ouvertures en plus sur les semaines suivantes.</p>
+        <span class="who">Pour : tous les créateurs de newsletter</span>
       </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CAS 02 · Cold email</div>
+      <div>
+        <h4>Tester 50 variantes de premier message</h4>
+        <p>Tu as une liste de 100 prospects. Tu prépares 50 variantes de ton premier message. Tu en envoies 2 à chaque prospect (en alternant). L'IA mesure les taux de réponse, identifie ce qui marche le mieux (longueur, ton, accroche), te propose 10 nouvelles variantes inspirées des gagnantes, et tu recommences. Très puissant, mais respecte les règles anti-spam — n'envoie pas n'importe quoi à n'importe qui.</p>
+        <span class="who">Pour : commerciaux, freelances, fondateurs</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CAS 03 · Article de blog</div>
+      <div>
+        <h4>Améliorer la clarté de tes textes</h4>
+        <p>Tu donnes à l'IA tes 20 meilleurs articles passés (ceux qui ont été le plus partagés ou commentés). Tu lui dis : « Réécris mon nouveau brouillon dans le style de ces 20-là. Mesure la lisibilité, la longueur des phrases, l'accroche. Garde la version la plus claire ». Ce n'est pas exactement le même schéma que Karpathy mais l'idée est la même : test, mesure, garde, recommence.</p>
+        <span class="who">Pour : rédacteurs, freelances, créateurs de contenu</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CAS 04 · Fiche produit</div>
+      <div>
+        <h4>Optimiser tes pages de vente</h4>
+        <p>Tu as 30 fiches produits sur ta boutique en ligne avec leurs taux de conversion. L'IA déduit les règles qui distinguent les meilleures (longueur, photos, structure du texte, position du prix) et te propose des réécritures. Tu valides, tu mets en ligne, tu mesures. C'est de l'A/B test (la pratique de comparer deux versions d'une page pour voir laquelle marche le mieux), mais pilotée par l'IA au lieu de toi.</p>
+        <span class="who">Pour : e-commerçants, SaaS, sites de services</span>
+      </div>
+    </div>
+
+    <p>
+      Le point commun de ces quatre cas : <strong>tu peux mesurer le résultat</strong>. Sans mesure objective, l'idée Karpathy ne marche pas. C'est l'unique limite, mais c'est une vraie limite. Si tu ne peux pas dire « cette version est mesurablement meilleure que celle-là », change de méthode.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Les pièges</span>
+    <h2>Quatre <em class="orange">trous dans la raquette</em> à connaître.</h2>
+    <p>
+      Je préfère te le dire maintenant plutôt que tu les découvres en perdant 50 €. Les voilà, les quatre choses qui peuvent te frustrer si tu ne les sais pas dès le départ.
+    </p>
+
+    <div class="piege">
+      <div class="piege-icon">💸</div>
+      <div class="piege-body">
+        <h4>Piège 1 — Lancer sans plafond de coût</h4>
+        <p>Une IA qui tourne en boucle peut consommer beaucoup de jetons. Sans limite, ton 5 € prévu peut devenir 80 € en une nuit (ça m'est arrivé une fois sur un autre essai). <strong>Toujours fixer un plafond avant de lancer</strong>. Pour Claude Code, ça se règle dans les paramètres en deux clics. Pour les autres outils, demande à l'IA elle-même comment faire — elle te guidera.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🎯</div>
+      <div class="piege-body">
+        <h4>Piège 2 — Ne pas garder de liste secrète</h4>
+        <p>L'IA peut « apprendre par cœur » ta liste de référence et te sortir une version qui marche très bien dessus mais ratée dans la vraie vie. Pour l'éviter : prépare une <strong>deuxième liste de 30-50 exemples que tu ne donnes pas à l'IA</strong>. Au matin, teste la version finale dessus. Si elle marche aussi bien, c'est bon. Si elle s'effondre, l'IA a triché — recommence avec un brief plus serré.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🚨</div>
+      <div class="piege-body">
+        <h4>Piège 3 — Laisser ça tourner sur du critique</h4>
+        <p>Jamais sur ton CRM client. Jamais sur ta facturation. Jamais sur ton site en production. <strong>Toujours sur une copie</strong>. L'IA peut très bien casser des choses en essayant de les améliorer. Pour ton premier essai, choisis un truc où la pire chose qui peut arriver, c'est que tu rigoles. Pas que tu perdes un client.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🛑</div>
+      <div class="piege-body">
+        <h4>Piège 4 — Croire que plus = mieux</h4>
+        <p>Plus de versions testées ne donne pas forcément un meilleur résultat. Au-delà de 20-30 modifications, le gain marginal devient minuscule, mais le coût continue de grimper. Mon expérience après quelques essais : <strong>arrête à la première version qui te satisfait</strong>. Tu pourras toujours relancer une boucle plus tard si besoin. Le mieux est l'ennemi du bien, l'IA y compris.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:24px">
+      Et un cinquième, plus sournois : <strong>ne pas comprendre ce que l'IA a changé</strong>. Si tu mets en production une version que tu n'as pas relue, tu vas avoir des surprises. Toujours demander à Claude de te résumer ses modifications en français normal, et toujours lire ce résumé avant d'adopter la nouvelle version.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Plafond de coût</span><span>Liste secrète de contrôle</span><span>Jamais sur du critique</span><span>Mieux ennemi du bien</span><span>Comprendre avant d'adopter</span><span>Garde la main</span>
+    <span>Plafond de coût</span><span>Liste secrète de contrôle</span><span>Jamais sur du critique</span><span>Mieux ennemi du bien</span><span>Comprendre avant d'adopter</span><span>Garde la main</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Ce qu'il ne faut pas attendre</span>
+    <h2>Les promesses <em class="fuchsia">à débrancher</em> tout de suite.</h2>
+    <p>
+      Je vois passer beaucoup de hype sur les agents auto-améliorants en ce moment. « L'IA va se développer toute seule, on n'aura plus besoin de devs ». Calme. Voilà les vrais ordres de grandeur, après deux mois de tests chez moi.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>La promesse marketing</th><th>La réalité de mon banc d'essai</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>« L'IA s'améliore toute seule sans toi »</strong></td>
+            <td>L'IA améliore <em>une chose précise</em> que toi tu as définie, sur des exemples que toi tu as préparés. Sans cette préparation humaine, elle ne sait rien améliorer.</td>
+          </tr>
+          <tr>
+            <td><strong>« Gains de 200, 300 % »</strong></td>
+            <td>10 à 30 % d'amélioration par boucle, dans mes essais. Parfois plus, jamais 300 %. Et ça plafonne vite : la deuxième boucle gagne moins que la première.</td>
+          </tr>
+          <tr>
+            <td><strong>« Ça remplace les devs »</strong></td>
+            <td>Ça aide les devs à itérer plus vite et permet aux non-devs comme moi d'améliorer des petits bouts de logiciel. Personne ne se fait remplacer, certains se font augmenter.</td>
+          </tr>
+          <tr>
+            <td><strong>« Bientôt l'IA construira ses successeurs »</strong></td>
+            <td>Karpathy lui-même calme le jeu : on est sur des micro-améliorations sur des sujets précis. Pas sur une IA qui se redessine elle-même de A à Z. Ça viendra peut-être, mais on n'y est pas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Mon avis honnête : <strong>c'est puissant, c'est vrai, c'est utilisable dès aujourd'hui pour des cas précis</strong>. Mais ce n'est pas la révolution qu'on te vend sur LinkedIn. C'est un nouveau levier de productivité, comme l'a été l'apparition d'Excel pour les comptables ou des moteurs de recherche pour les journalistes. Important. Pas magique.
+    </p>
+
+    <div class="callout warn">
+      <h4>Mon vrai conseil après deux mois d'essais</h4>
+      <p>N'investis pas trois weekends à monter ton premier banc d'essai en pensant que tu vas découvrir le secret du business. Investis trois heures, fais un essai sur un truc bête (un objet de newsletter, par exemple), regarde si ça te plaît, et si oui, applique-le à un cas plus utile la semaine suivante. <strong>L'apprentissage progressif bat l'enthousiasme initial</strong> à tous les coups.</p>
     </div>
   </div>
 </section>
-<!-- /seo:corrections -->
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Le verdict</span>
+    <h2>Pour qui c'est <em class="teal">utile</em>, pour qui ça ne l'est pas.</h2>
+    <p>
+      Après ces deux mois et une bonne dizaine d'essais (réussis et ratés), voilà mon tri.
+    </p>
+
+    <h3>Ça va te servir si tu es...</h3>
+    <ul>
+      <li><strong>Entrepreneur ou freelance</strong> qui a déjà des routines automatisées (envoi de mails, tri de leads, génération de devis) et qui aimerait les rendre 20-30 % plus précises sans embaucher quelqu'un.</li>
+      <li><strong>Créateur de contenu</strong> avec assez d'historique mesurable (ouvertures, clics, conversions) pour que l'IA ait de la matière à analyser.</li>
+      <li><strong>Curieux de l'IA</strong> qui a déjà touché à Claude Code ou à un outil similaire et qui veut passer au cran d'après. Si c'est toi, c'est l'étape logique après mon <a href="loops-claude.html">tuto sur les loops</a> et mon <a href="hermes-agent.html">tuto sur les agents</a>.</li>
+    </ul>
+
+    <h3>Ça ne va PAS te servir si tu es...</h3>
+    <ul>
+      <li><strong>Débutant complet en IA</strong> qui n'a pas encore installé Claude Code ou équivalent. Commence par mon <a href="../debutant.html">guide débutant</a> avant. Sans bases, ce sera de la frustration pure.</li>
+      <li><strong>Quelqu'un qui n'a rien à mesurer</strong>. Si tu ne sais pas dire objectivement « cette version est meilleure », ça ne marchera pas. Pas grave, plein d'autres usages de l'IA fonctionnent sans mesure.</li>
+      <li><strong>Pressé de voir un retour sur investissement</strong>. Compte deux à cinq essais avant de gagner vraiment du temps. Le premier est toujours pour apprendre.</li>
+    </ul>
+
+    <h3>Ce qui va arriver en 2026-2028</h3>
+    <p>
+      Trois choses, très probables, qui vont changer le paysage :
+    </p>
+    <ul>
+      <li><strong>Les outils vont devenir plus simples</strong>. Aujourd'hui il faut Claude Code et un peu de patience pour configurer une boucle. D'ici 18 mois, ce sera un bouton « optimise ce script pendant la nuit » dans des outils comme Notion, Zapier ou Make. Pas besoin de comprendre le terminal.</li>
+      <li><strong>Le coût va chuter de 80 %</strong>. Les jetons IA sont divisés par deux à peu près tous les ans. Mes essais qui coûtent 8 € aujourd'hui en coûteront 1 ou 2 dans deux ans.</li>
+      <li><strong>De nouveaux usages vont apparaître</strong>. Notamment dans la maintenance des sites web, l'optimisation de tunnels de vente, l'amélioration de support client. Les boîtes qui s'y prennent maintenant prendront de l'avance.</li>
+    </ul>
+    <p>
+      Ce qui ne va pas arriver, à mon sens : une IA totalement autonome qui se remodèle elle-même de zéro, sans humain dans la boucle. On en est très loin, et probablement pour de bonnes raisons que les chercheurs eux-mêmes nous expliquent.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Pour aller plus loin</span>
+    <h2>Trois pistes <em class="orange">pour creuser</em> ce week-end.</h2>
+
+    <div class="checklist">
+      <h4>Si tu veux tester maintenant</h4>
+      <ul>
+        <li><strong>Choisis le sujet le moins risqué possible.</strong> Pas ton CRM. Pas ta facturation. Plutôt un objet de newsletter, un prompt qui te sert souvent, ou un petit script jamais critique.</li>
+        <li><strong>Prépare une liste de référence de 50 exemples minimum.</strong> Sans elle, l'IA n'a rien à mesurer. C'est la partie la plus chiante, c'est celle qui fait toute la différence.</li>
+        <li><strong>Fixe un plafond à 10 €.</strong> C'est assez pour comprendre si ça marche, c'est pas assez pour te ruiner si ça part en vrille.</li>
+        <li><strong>Lance un soir où tu n'as rien d'urgent le lendemain matin.</strong> Au cas où il faille tout reprendre de zéro.</li>
+        <li><strong>Note tes apprentissages.</strong> Trois lignes dans un carnet : ce qui a marché, ce qui a raté, ce que je ferais différemment. C'est la vraie valeur de ton premier essai.</li>
+      </ul>
+    </div>
+
+    <h3>Trois articles pour pousser plus loin</h3>
+    <p>
+      Si cet article t'a parlé, voilà les trois suivants à lire dans cet ordre :
+    </p>
+    <ul>
+      <li><strong><a href="loops-claude.html">Les loops Claude Code, expliquées</a></strong> — la base technique pour comprendre comment Claude peut tourner en boucle. Indispensable avant de tenter ton propre essai.</li>
+      <li><strong><a href="hermes-agent.html">Construire un Hermes Agent pas à pas</a></strong> — comment monter un agent qui fait des trucs précis pour toi. La marche d'avant l'auto-amélioration.</li>
+      <li><strong><a href="karpathy.html">Les travaux de Karpathy, vulgarisés</a></strong> — si tu veux comprendre qui est le bonhomme et pourquoi ses idées comptent dans le monde de l'IA.</li>
+    </ul>
+
+    <p>
+      Et si tu n'as encore jamais touché à Claude ni à ChatGPT, ne saute pas d'étapes. Va lire mon <a href="../debutant.html">guide débutant</a> d'abord. Tout le reste sera plus facile après.
+    </p>
+
+    <p>
+      Si tu veux que je t'envoie d'autres récits comme celui-ci (ce que je teste, ce qui marche, ce qui rate), inscris-toi à <a href="../index.html#newsletters">AI Playbook</a> — c'est ma veille hebdomadaire, je te partage la même chose qu'à moi-même. Et si tu lances ton premier essai et que tu galères, ou que tu trouves que je raconte n'importe quoi quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je ne le prends pas mal, et j'apprends souvent plus de tes retours que de mes propres essais.
+    </p>
+  </div>
+</section>
 
 <section class="final-cta">
   <div class="container">
-    <span class="section-kicker k-teal" style="display:inline-flex">— Et maintenant ?</span>
-    <h2>Les prochains tutos <em class="teal">arrivent.</em></h2>
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Reçois mes <em class="fuchsia">prochains récits.</em></h2>
     <p>
-      Je prépare un tuto pratique : comment adapter le concept d'autoresearch à ton cold email. Si tu ne veux pas manquer ça, inscris-toi à AI Playbook.
+      Chaque semaine, je partage les outils et les idées IA que je teste pour moi. Pas de blabla, pas de pub. Désinscription en un clic, je ne le prends pas mal.
     </p>
     <a href="../index.html#newsletters" class="back-btn">Voir les newsletters →</a>
   </div>
 </section>
 
-
-<!-- Partage sur les réseaux -->
-<div class="share-block">
-  <div class="share-block-label">Partage</div>
-  <h3>Cet article t'a servi ? Dis-le.</h3>
-  <div class="share-buttons">
-    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=Autoresearch%20de%20Karpathy%20%E2%80%94%20les%20agents%20qui%20s%27auto-am%C3%A9liorent%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur X">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="share-label">X</span>
-    </a>
-    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="share-label">LinkedIn</span>
-    </a>
-    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=Autoresearch%20de%20Karpathy%20%E2%80%94%20les%20agents%20qui%20s%27auto-am%C3%A9liorent%0Ahttps%3A//jerwis.fr/articles/autoresearch-karpathy.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="share-label">WhatsApp</span>
-    </a>
-    <button class="share-btn share-btn-instagram" data-url="https://jerwis.fr/articles/autoresearch-karpathy.html" data-share-title="Autoresearch de Karpathy" aria-label="Partager sur Instagram" type="button">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg><span class="share-label">Instagram</span>
-    </button>
-    <a class="share-btn share-btn-email" href="mailto:?subject=Autoresearch%20de%20Karpathy%20%E2%80%94%20les%20agents%20qui%20s%27auto-am%C3%A9liorent&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0AAutoresearch%20de%20Karpathy%20%E2%80%94%20les%20agents%20qui%20s%27auto-am%C3%A9liorent%0Ahttps%3A//jerwis.fr/articles/autoresearch-karpathy.html" aria-label="Partager par email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="share-label">Email</span>
-    </a>
-    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/autoresearch-karpathy.html" aria-label="Copier le lien" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copier le lien</span>
-    </button>
-  </div>
-</div>
-
-<script>
-// Copy-to-clipboard pour les boutons .share-btn-copy
-document.querySelectorAll('.share-btn-copy').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const url = btn.dataset.url || window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      const original = btn.querySelector('.share-label').textContent;
-      btn.querySelector('.share-label').textContent = 'Copié !';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.querySelector('.share-label').textContent = original;
-        btn.classList.remove('copied');
-      }, 1800);
-    } catch (err) {
-      prompt('Copie le lien :', url);
-    }
-  });
-});
-</script>
-
 <footer class="footer">
-  <div class="container-wide">
-    <div class="footer-bottom">© 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a></div>
+  <div class="container">
+    <div class="footer-bottom">
+      © 2026 Jérémy Sagnier · jerwis.fr · sagnier.jeremy@gmail.com
+    </div>
   </div>
 </footer>
 
 <script>
   const themeToggle = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('theme');
-  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
   themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
 </script>
 
-
-<!-- JS partage Instagram (mobile : navigator.share, desktop : copy + toast) -->
-<script>
-document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const shareUrl = btn.dataset.url || window.location.href;
-    const shareTitle = btn.dataset.shareTitle || document.title;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: shareTitle, text: shareTitle, url: shareUrl });
-        return;
-      } catch (err) {
-        if (err.name === 'AbortError') return;
-      }
-    }
-    // Desktop fallback : copie + toast
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      const label = btn.querySelector('.share-label');
-      if (label) {
-        const original = label.textContent;
-        label.textContent = 'Copié ! (colle dans IG)';
-        btn.classList.add('copied');
-        setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
-      } else {
-        btn.classList.add('copied');
-        setTimeout(() => btn.classList.remove('copied'), 1800);
-      }
-    } catch (err) {
-      prompt('Copie ce lien pour le coller dans Instagram :', shareUrl);
-    }
-  });
-});
-// Rail-btn-copy : copy classique
-document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const url = btn.dataset.url || window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      btn.classList.add('copied');
-      setTimeout(() => btn.classList.remove('copied'), 1800);
-    } catch (err) {
-      prompt('Copie le lien :', url);
-    }
-  });
-});
-</script>
 </body>
 </html>

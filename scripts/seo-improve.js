@@ -67,7 +67,6 @@ const PUBLISH_DATES = {
   'tuto-agent-contrats':              { published: '2026-04-17', modified: '2026-04-20' },
   'tuto-agent-gmail':                 { published: '2026-04-16', modified: '2026-04-20' },
   'veille-pour-demain':               { published: '2026-04-14', modified: '2026-04-20' },
-  'demo-pipeline-publish':            { published: '2026-04-21', modified: '2026-04-21' },
 };
 
 function extractMeta(html) {

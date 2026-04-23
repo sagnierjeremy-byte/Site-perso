@@ -450,35 +450,35 @@
     <div class="usecase">
       <div class="usecase-label">Famille 01 · Comprendre avant d'agir</div>
       <h4>4 skills qui forcent la clarification</h4>
-      <p><strong><code>brainstorming</code></strong> · Claude te pose des questions, reformule, valide le design avant toute ligne de code.</p>
-      <p><strong><code>writing-plans</code></strong> · Transforme le design validé en plan d'implémentation détaillé · une tâche par 2-5 minutes, avec le code exact à écrire.</p>
-      <p><strong><code>writing-skills</code></strong> · T'aide à documenter une procédure récurrente pour que Claude la réutilise dans les futures sessions.</p>
-      <p><strong><code>using-superpowers</code></strong> · Le mode d'emploi du plugin · Claude le lit au début pour savoir quand invoquer les autres skills.</p>
+      <p><strong>Brainstormer avant de foncer</strong> <em>(<code>brainstorming</code>)</em> · Claude te pose des questions, reformule, valide le projet avant toute ligne de code.</p>
+      <p><strong>Écrire un plan détaillé</strong> <em>(<code>writing-plans</code>)</em> · Transforme l'idée validée en plan étape par étape · une tâche par 2-5 minutes, avec le détail exact à faire.</p>
+      <p><strong>Documenter ce qui marche pour le réutiliser</strong> <em>(<code>writing-skills</code>)</em> · T'aide à écrire un mode d'emploi pour une procédure que tu refais souvent — Claude la réutilisera dans les futures sessions.</p>
+      <p><strong>Le mode d'emploi du plugin</strong> <em>(<code>using-superpowers</code>)</em> · Claude le lit au démarrage pour savoir quand activer les autres skills tout seul.</p>
     </div>
-    
+
     <div class="usecase">
       <div class="usecase-label">Famille 02 · Exécuter proprement</div>
       <h4>5 skills pour dérouler sans chaos</h4>
-      <p><strong><code>executing-plans</code></strong> · Claude lit un plan existant, le critique, puis l'exécute tâche par tâche avec checkpoints.</p>
-      <p><strong><code>subagent-driven-development</code></strong> · Le cœur · chaque tâche reçoit un sous-agent dédié, un autre la vérifie, un troisième l'audite.</p>
-      <p><strong><code>dispatching-parallel-agents</code></strong> · Quand tu as 3+ problèmes indépendants, Claude lance 3 agents en parallèle au lieu de résoudre séquentiellement.</p>
-      <p><strong><code>test-driven-development</code></strong> · Impose le cycle rouge → vert → refactor · zéro code sans test qui échoue d'abord.</p>
-      <p><strong><code>using-git-worktrees</code></strong> · Crée une branche isolée (un <em>worktree</em> · un dossier de travail séparé pour expérimenter sans casser ton projet) avant de commencer, garde ton répertoire principal propre.</p>
+      <p><strong>Lire un plan, le critiquer, l'exécuter</strong> <em>(<code>executing-plans</code>)</em> · Claude prend un plan existant, repère ce qui manque, puis le déroule tâche par tâche en te montrant où il en est.</p>
+      <p><strong>Découper en mini-Claude qui se relisent</strong> <em>(<code>subagent-driven-development</code>)</em> · Le cœur du plugin · chaque tâche est confiée à un sous-agent dédié, un autre vérifie, un troisième audite.</p>
+      <p><strong>Lancer 3 problèmes en parallèle</strong> <em>(<code>dispatching-parallel-agents</code>)</em> · Quand tu as 3 trucs indépendants à régler, Claude lance 3 agents en même temps au lieu d'enchaîner.</p>
+      <p><strong>Coder en commençant par le test</strong> <em>(<code>test-driven-development</code>)</em> · Méthode TDD · zéro ligne de code écrite sans avoir d'abord posé un test qui échoue. Garantit qu'on sait quoi vérifier avant de commencer.</p>
+      <p><strong>Travailler dans un dossier à part</strong> <em>(<code>using-git-worktrees</code>)</em> · Crée un dossier de travail isolé (un « worktree ») avant de commencer, ton dossier principal reste propre.</p>
     </div>
-    
+
     <div class="usecase">
       <div class="usecase-label">Famille 03 · Déboguer avec méthode</div>
       <h4>2 skills anti-panique</h4>
-      <p><strong><code>systematic-debugging</code></strong> · Quatre phases obligatoires · (1) chercher la vraie cause du bug (la « root cause » en anglais), (2) repérer le motif récurrent, (3) formuler une hypothèse et la tester, (4) corriger. Interdit les essais à l'aveugle qui créent plus de problèmes qu'ils n'en règlent.</p>
-      <p><strong><code>verification-before-completion</code></strong> · Avant de dire *« c'est fini »*, Claude doit **exécuter** la commande qui prouve le résultat et lire la sortie. Plus de *« devrait passer »* · des logs, des preuves.</p>
+      <p><strong>Chercher la vraie cause d'un bug</strong> <em>(<code>systematic-debugging</code>)</em> · Quatre phases obligatoires · (1) chercher la vraie cause du bug (la « root cause » en anglais), (2) repérer le motif récurrent, (3) formuler une hypothèse et la tester, (4) corriger. Interdit les essais à l'aveugle qui créent plus de problèmes qu'ils n'en règlent.</p>
+      <p><strong>Prouver que c'est fini avant de dire fini</strong> <em>(<code>verification-before-completion</code>)</em> · Avant de te dire « c'est terminé », Claude doit lancer la commande qui prouve le résultat et lire la sortie. Plus de « ça devrait marcher » sans preuve.</p>
     </div>
-    
+
     <div class="usecase">
       <div class="usecase-label">Famille 04 · Finir en beauté</div>
       <h4>3 skills pour ne rien laisser traîner</h4>
-      <p><strong><code>requesting-code-review</code></strong> · Claude lance un agent reviewer (un sous-agent dédié à la relecture) en isolation · il compare le code au plan, cherche bugs et anti-patterns (mauvaises habitudes de code à éviter), range par criticité.</p>
-      <p><strong><code>receiving-code-review</code></strong> · Quand Claude reçoit un avis de review (humain ou agent), ce skill l'aide à évaluer techniquement avant d'appliquer aveuglément.</p>
-      <p><strong><code>finishing-a-development-branch</code></strong> · Vérifie tests verts, propose 4 options · merger (intégrer ton travail à la branche principale), PR (Pull Request · proposer ton code à relire avant fusion), garder pour plus tard, jeter. Nettoie les fichiers temporaires.</p>
+      <p><strong>Faire relire le code par un autre Claude</strong> <em>(<code>requesting-code-review</code>)</em> · Claude lance un sous-agent dédié à la relecture · il compare le code au plan, cherche les bugs et les mauvaises habitudes (« anti-patterns »), range par gravité.</p>
+      <p><strong>Recevoir un avis et savoir quoi en faire</strong> <em>(<code>receiving-code-review</code>)</em> · Quand Claude reçoit une critique (humain ou agent), ce skill l'aide à juger techniquement avant d'appliquer aveuglément.</p>
+      <p><strong>Boucler une branche proprement</strong> <em>(<code>finishing-a-development-branch</code>)</em> · Vérifie que tous les tests passent, propose 4 options · intégrer (« merger »), proposer à relire (« PR » ou Pull Request), garder pour plus tard, jeter. Nettoie les fichiers temporaires au passage.</p>
     </div>
   </div>
 </section>
@@ -486,13 +486,13 @@
 <section class="block">
   <div class="container">
     <h2>Les 3 cas où Superpowers m&#39;a vraiment servi</h2>
-    <p>Je n&#39;ai Superpowers que depuis quelques jours. Voici 3 scénarios concrets où je l&#39;activerai la semaine prochaine.</p>
-    <h3>Cas 1 · Le nouveau module admin</h3>
+    <p>Je n&#39;ai Superpowers que depuis quelques jours. Voici 3 scénarios concrets où je l&#39;activerai la semaine prochaine. Pour info : je donne ici 3 exemples côté code, mais <strong>la même méthode marche aussi sur des projets non-code</strong> (refondre un article long, planifier le lancement d'un produit, écrire une séquence de 12 emails) — partout où une réflexion structurée vaut mieux qu'un brouillon balancé d'un coup.</p>
+    <h3>Cas 1 · La séquence d'emails à 12 messages</h3>
+    <p>J&#39;ai dû écrire récemment un cours email de 5 jours. Sans Superpowers, j&#39;aurais demandé à Claude « écris-moi un cours email de 5 jours sur l'IA pour débutants » et il m&#39;aurait sorti 5 mails moyens en 2 minutes. <strong>Avec Superpowers</strong>, il me poserait d&#39;abord 4-5 questions (« quel est le profil exact ? quel niveau de départ ? quelle action concrète à la fin ? »), proposerait un plan, validerait, puis écrirait. Plus long au démarrage, beaucoup moins de réécriture après.</p>
+    <h3>Cas 2 · Le nouveau module admin</h3>
     <p>Mon back-office a déjà 13 modules. J&#39;en ajoute un tous les 2 jours. Sans Superpowers, Claude démarre et code directement une ébauche, je corrige après. <strong>Avec Superpowers</strong>, il me demande d&#39;abord <em>« ce module va lire quoi ? écrire où ? il remplace quelque chose ou c&#39;est nouveau ? il a besoin d&#39;un endpoint API ? »</em>. 5 minutes de questions, 0 de correction ensuite.</p>
-    <h3>Cas 2 · Le script qui casse</h3>
+    <h3>Cas 3 · Le script qui casse</h3>
     <p>Mon script de brainstorm a planté une fois, impossible de retrouver pourquoi. Claude a essayé 4 corrections différentes qui ne fonctionnaient pas. <strong>Avec <code>systematic-debugging</code></strong>, il aurait été forcé de chercher la vraie cause avant de tenter quoi que ce soit. J&#39;aurais gagné 30 minutes.</p>
-    <h3>Cas 3 · La grosse feature qui touche 8 fichiers</h3>
-    <p>Quand j&#39;ai monté le système de clusters éditoriaux, 8 fichiers ont bougé. Claude a écrit les 8 en 10 minutes, j&#39;ai découvert 2 bugs le lendemain. <strong>Avec <code>subagent-driven-development</code></strong>, chaque fichier aurait été écrit par un sous-agent + vérifié par un reviewer. Les 2 bugs auraient été attrapés avant que je les voie.</p>
     
   </div>
 </section>

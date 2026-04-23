@@ -1,5 +1,54 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · article « L'open source, expliqué pour ceux qui ne sont pas dev »
+
+### Pourquoi
+Tutoriel complet pour non-dev sur l'open source. Couvrir définition, licences, modèles économiques, IA ouverte, top outils, veille, pièges, sécurité — sans jargon, ton Leo, lecteur novice doit pouvoir comprendre. 5 sous-agents Superpowers déployés en parallèle pour la recherche.
+
+### Livré
+- **`articles/open-source-pour-non-dev.html`** · ~786 lignes, ~4000 mots — 10 sections : C'est quoi exactement (frise 5 étapes) · Licences (tableau décisionnel) · Modèles économiques (5 modèles + 3 bignum cards Red Hat 34G$ / MongoDB 2G$ / GitLab 750M$) · Controverse 2024-2026 (HashiCorp/Redis/Elastic) · Open source et IA (tableau OSAID + DeepSeek 27 jan 2025 + tutoriel Ollama 5 min) · 30 outils par catégorie · Veille (Korben/HN/Console.dev) · 5 pièges majeurs · Sécurité supply chain (log4j/xz/Polyfill) · Pour commencer aujourd'hui
+- **`drafts/research-open-source/`** · 5 fichiers research consolidés (~14 000 mots) issus des 5 sous-agents
+- Visuels HTML stylés : frise temporelle, tableau décisionnel, cards modèles, bignum, tableau IA, grid outils, encart Ollama style "quick start" noir, cards pièges, checklist audit
+- Lien croisé vers article making-of podcast Guerres d'IA sur le moment DeepSeek
+- Schema.org TechArticle + canonical + OG/Twitter Card
+- Ton Leo respecté : 1ère personne, pas familier, transparent IA, mots simples, gloses inline du jargon
+
+### Fichiers touchés
+- `articles/open-source-pour-non-dev.html` (nouveau)
+- `drafts/research-open-source/*.md` (5 nouveaux)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- **Intégration dans `apprendre.html`** — devrait s'inscrire en étape 01 « Poser les bases ». Non fait dans cette session.
+- Ajout d'une card dédiée dans `#opinions` ou nouvelle section tutos sur la home
+- Tester en prod après push, suivre les retours
+
+---
+
+## 2026-04-24 · draft article « À quoi ressemblera le monde dans 5, 10, 20 ans avec l'IA »
+
+### Pourquoi
+Jérémy a demandé un 2e article d'opinion sur l'avenir du monde avec l'IA. Brief : angle pédagogique scénarios (option A), profondeur 3500-4500 mots, probabilités chiffrées assumées, fil rouge = opinion personnelle forte de Jérémy en tant que père d'un fils de 4 ans. Opinion centrale : le vrai basculement à 20-30 ans ne sera pas imposé d'en haut — les humains eux-mêmes préféreront la machine (santé, éducation, conduite, travail). Recherche préalable via 5 sous-agents parallèles (AGI timeline, horizon 5 ans, 10 ans, 20 ans, risques/géopolitique).
+
+### Livré
+- **`drafts/monde-ia-5-10-20-ans.md`** · draft MD ~3850 mots (19 min lecture) avec frontmatter complet : slug, titre, titre_seo, description 149 chars, catégorie `Opinion`, numéro 11, hero 3 lignes centré « J'ai un fils de 4 ans · Voici son monde », lead 130 mots posant directement la question du fils, 3 bullets TL;DR (incl. mention « Écrit avec Claude, relu par moi » pour conformité EU AI Act).
+- **Structure** : 7 sections avec kickers rotatifs (fuchsia/teal/orange) · Avant de commencer (histoire du fils) → État actuel avril 2026 (benchmarks + METR + marché) → Dans 5 ans (3 usecases signaux concrets + tableau métiers exposés + callout compression carrière) → Dans 10 ans (patrons + chercheurs + paris + tableau 3 scénarios + 3 trends certains) → Dans 20 ans (tableau 4 scénarios documentés + focus abondance/catastrophe/muddling) → Les 3 vraies questions (3 faits ignorés + concentration pouvoir + callout) → Mon pari personnel (permis, métiers refuge, travail comme organisation sociale, éducation fils, callout chiffré 70/20/40 %).
+- **Composants visuels** : 3 usecases (signaux 5 ans), 3 tableaux chiffrés (métiers exposés, 3 scénarios 10 ans, 4 scénarios 20 ans), 4 callouts (tip avis 20s, warn compression carrière, warn faits ignorés, ok pari chiffré), 8 sources externes linkées inline.
+- **Opinion assumée en fil rouge** : le basculement majeur à 20-30 ans = humains choisissent IA par préférence (santé, éducation, transport, travail). Chiffres subjectifs assumés (70 % consultation IA avant médecin d'ici 2046, 20 % fils passe permis avant 25 ans, 40 % exerce un « métier »).
+- **Ton Leo respecté** : 1ère personne, chaleureux non familier, transparent sur l'IA, mots simples, appels à réponse, assume les limites, posture père-observateur-curieux pas expert.
+
+### Fichiers touchés
+- `drafts/monde-ia-5-10-20-ans.md` (nouveau)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Relecture Jérémy du draft MD
+- `npm run publish monde-ia-5-10-20-ans` pour générer `articles/monde-ia-5-10-20-ans.html` + MAJ `sitemap.xml`
+- Éventuellement ajout d'un teaser dans `index.html` section `#opinions`
+- Commit + push pour déclencher auto-deploy Vercel
+
+---
+
 ## 2026-04-23 · intégration podcast complète "Guerres d'IA" · Jerwis Productions
 
 ### Pourquoi

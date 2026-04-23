@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le monde avec l'IA dans 5, 10, 20 ans — Jérémy Sagnier</title>
+<meta name="description" content="J'ai un fils de 4 ans. À quoi ressemblera le monde quand il aura 14, 24, 34 ans ? Scénarios IA à 5, 10, 20 ans et mon pari personnel.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Opinion · 11</div>
+    <h1>J'ai un fils<br>de 4 ans.<br><em>Voici son monde.</em></h1>
+    <p class="hero-lead">
+      Quand mon fils aura 24 ans et commencera sa vie active, en 2046, je ne suis pas sûr qu'il connaisse le monde du travail tel que je l'ai connu. Je ne suis même pas sûr qu'il passe un jour son permis de conduire. Les métiers qu'on enseigne aujourd'hui comme « valeurs refuge » — médecin, avocat, expert-comptable, professeur — je ne suis pas sûr qu'ils existent encore à 2046. Pas parce qu'ils vont être « remplacés » dans la violence. Parce que les humains eux-mêmes vont préférer l'IA. Voici pourquoi, dans 5 ans, dans 10 ans, dans 20 ans.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>19 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Tous niveaux</span>
+      <span class="hero-meta-item"><strong>Outils</strong> IA · Prospective</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Dans 5 ans, l'IA <strong>a déjà commencé à licencier</strong> (78 557 départs tech au T1 2026) et à casser l'entrée en carrière des juniors. La crise arrive vite, elle est mesurable aujourd'hui.</li>
+      <li>Dans 10 ans, la vraie question n'est pas <strong>« AGI ou pas »</strong> — c'est savoir si 5 entreprises privées vont concentrer un pouvoir civilisationnel inédit avant qu'on ait de vraies règles.</li>
+      <li>Dans 20 ans, mon pari : les humains eux-mêmes choisiront la machine pour se soigner, s'éduquer, se déplacer. <strong>Par préférence</strong>, pas par contrainte. Écrit avec Claude, relu par moi.</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+    <h2>Avant de commencer</h2>
+    <p>J&#39;ai un fils de 4 ans. Il s&#39;appelle… enfin, peu importe. Il a 4 ans. Quand il aura 14 ans, on sera en 2036. Quand il aura 24 ans et qu&#39;il commencera sa vie active, on sera en 2046.</p>
+    <p>Je me pose une question qui m&#39;accompagne depuis des mois : <strong>dans quel monde est-ce qu&#39;il va vraiment arriver ?</strong></p>
+    <p>Est-ce qu&#39;il va apprendre à conduire un jour ? Avec les voitures autonomes qui roulent déjà en ce moment dans dix villes américaines, j&#39;en doute sérieusement. Est-ce qu&#39;il va faire des études de médecine, de droit, d&#39;expertise-comptable comme on le conseille aujourd&#39;hui aux jeunes qui hésitent ? Je pense que ces métiers vont fondamentalement changer. Pas dans la violence — par choix des humains eux-mêmes.</p>
+    <p>Je te partage cette analyse aujourd&#39;hui parce que j&#39;ai demandé à Claude de lancer cinq sous-agents en parallèle sur le sujet de l&#39;IA à horizon 5, 10 et 20 ans. Deux jours de lecture dense après, je reviens avec une synthèse qui m&#39;a fait changer d&#39;avis sur plusieurs choses — et qui m&#39;a confirmé d&#39;autres intuitions. Je te livre ce qui ressort, avec les vrais chiffres, les sources, et mon opinion personnelle à la fin.</p>
+    <p>Je peux me tromper. C&#39;est un sujet où personne ne sait vraiment. Mais on peut au moins <strong>cadrer les scénarios</strong> avec les gens qui étudient ça sérieusement.</p>
+    <div class="callout tip">
+      <h4>Mon avis en 20 secondes</h4>
+      <p>L'IA n'est pas en train de « révolutionner » le monde du travail au futur. Elle a déjà commencé à licencier, à compresser, à transformer — <strong>au présent</strong>. Dans 20 ans, mon pari c'est que le basculement majeur ne viendra pas d'un choc technologique imposé d'en haut. Il viendra du fait que <strong>les humains eux-mêmes vont préférer la machine</strong> — pour leur santé, pour l'éducation de leurs enfants, pour leurs déplacements. Par préférence, pas par contrainte. Et ça, c'est bien plus vertigineux.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Là où on en est vraiment — avril 2026</h2>
+    <p>Avant de projeter dans 5, 10 ou 20 ans, il faut comprendre <strong>précisément où on en est aujourd&#39;hui</strong>. Parce que le hype marketing des dirigeants de labs IA (Sam Altman, Dario Amodei, Elon Musk) n&#39;est pas toujours aligné avec la réalité technique.</p>
+    <h3>Ce que les meilleures IA savent faire aujourd&#39;hui</h3>
+    <p>Les modèles de pointe en avril 2026 (Claude Opus 4.7, GPT-5.4, Gemini 3.1 Pro) <strong>saturent la plupart des examens académiques</strong> :</p>
+    <ul>
+    <li>Le test de sciences niveau doctorat (GPQA Diamond) : <strong>96,2 %</strong> pour Claude Sonnet 5, vs <strong>65 %</strong> pour un expert humain.</li>
+    <li>Le test d&#39;ingénierie logicielle SWE-bench Verified (corriger des bugs réels GitHub) : <strong>92,4 %</strong> pour Claude Sonnet 5.</li>
+    <li>Le test de mathématiques de recherche FrontierMath (problèmes inédits, niveau chercheur) : <strong>50 %</strong> pour GPT-5.4 — contre quasi 0 % pour un humain grand public.</li>
+    </ul>
+    <p>Ces chiffres font tourner la tête. Mais il y a un <strong>mais énorme</strong>.</p>
+    <h3>Où les IA butent encore</h3>
+    <p>Quand on passe aux <strong>tâches longues</strong> — celles qui demandent plusieurs heures ou plusieurs jours de travail en autonomie — les scores s&#39;effondrent :</p>
+    <ul>
+    <li>SWE-bench Pro (bugs qui nécessitent de modifier plusieurs fichiers) : <strong>64,3 % maximum</strong> pour les meilleurs modèles.</li>
+    <li>ARC-AGI-2 sous contrainte de coût : <strong>24 %</strong> (contre 95 % pour un humain normal).</li>
+    </ul>
+    <p>Il existe une métrique plus parlante : le <strong>« time horizon »</strong> mesuré par l&#39;institut METR. C&#39;est la durée maximale qu&#39;un agent IA tient en autonomie avant de dérailler. En avril 2026, cette durée est d&#39;environ <strong>50 minutes</strong>. Elle <strong>double tous les 4,3 mois</strong> depuis 2023. À ce rythme, on arriverait à un mois de travail autonome vers 2027.</p>
+    <p>Si ce rythme tient. C&#39;est ça toute la question.</p>
+    <h3>Le cadre économique</h3>
+    <ul>
+    <li><strong>581,7 milliards de dollars</strong> investis dans l&#39;IA mondialement en 2025, en hausse de 130 % sur un an.</li>
+    <li><strong>Anthropic</strong> est passée à <strong>30 milliards de dollars de revenus annuels récurrents</strong> en avril 2026 (multipliée par 30 en 14 mois), dépassant OpenAI. Sa valorisation sur le marché secondaire atteint <strong>1 000 milliards de dollars</strong>.</li>
+    <li><strong>53 % de la population mondiale</strong> utilise de l&#39;IA générative — une adoption <strong>plus rapide que celle du PC ou d&#39;Internet</strong>.</li>
+    </ul>
+    <p>Ce qu&#39;il faut retenir : on n&#39;est plus dans la phase « hype ». On est dans la phase où l&#39;argent, les usages et les emplois se recomposent concrètement chaque trimestre.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Dans 5 ans (2026-2031) — ce qui est déjà en cours</h2>
+    <p>C&#39;est la partie la plus solide de l&#39;analyse, parce qu&#39;elle ne demande pas de prédiction. Elle demande juste de <strong>regarder ce qui a déjà commencé</strong>.</p>
+    <div class="usecase">
+      <div class="usecase-label">Signal 01 · Les licenciements ont démarré</div>
+      <h4>78 557 départs tech en 3 mois, dont la moitié explicitement « IA »</h4>
+      <p>Au premier trimestre 2026, <strong>78 557 licenciements</strong> ont été annoncés dans l'industrie tech américaine. <strong>47,9 % de ces coupes sont attribuées explicitement à l'IA</strong> par les employeurs eux-mêmes, contre moins de 8 % en 2025. <a href="https://www.tomshardware.com/tech-industry/tech-industry-lays-off-nearly-80-000-employees-in-the-first-quarter-of-2026-almost-50-percent-of-affected-positions-cut-due-to-ai">Les chiffres viennent de Tom's Hardware</a>, sur base des rapports publics des entreprises.</p>
+      <p>L'exemple marquant : Block (Cash App, Square) est passée de 10 000 à moins de 6 000 employés en mars 2026 — la plus grosse coupe explicitement « IA » de l'histoire. Ce n'est plus de l'anticipation, c'est du constat.</p>
+    </div>
+    
+    <div class="usecase">
+      <div class="usecase-label">Signal 02 · Les juniors n'entrent plus</div>
+      <h4>Embauches de jeunes développeurs : -20 % depuis 2024</h4>
+      <p>L'emploi des développeurs juniors aux États-Unis a <strong>baissé de 20 % entre 2024 et 2026</strong>. Les offres d'emploi d'entrée de carrière dans la tech ont chuté de <strong>67 % aux États-Unis et 46 % au Royaume-Uni</strong> sur la même période. Le chômage des jeunes diplômés en informatique est à <strong>6,1 %</strong> — niveau jamais vu en 20 ans.</p>
+      <p>Goldman Sachs chiffre les <strong>destructions d'emplois dues à l'IA à 16 000 par mois aux États-Unis</strong>, concentrées sur les 20-30 ans. Le paradoxe cruel : les postes qui restent affichent « entry-level » mais exigent 2-3 ans d'expérience. Le premier barreau de l'échelle a disparu.</p>
+    </div>
+    
+    <div class="usecase">
+      <div class="usecase-label">Signal 03 · La première licorne à 1 employé</div>
+      <h4>Dario Amodei : 70-80 % de chances d'ici fin 2026</h4>
+      <p>Le patron d'Anthropic prédit l'apparition de la <strong>première entreprise valorisée 1 milliard de dollars avec un seul employé d'ici fin 2026</strong>, avec une confiance de 70-80 %. Ce n'est plus une blague de Silicon Valley : Gamma est à 100 M$ de revenus, HeadshotPro à 3,6 M$ en solo, Base44 vendue 80 M$ à Wix en 6 mois.</p>
+      <p><strong>36,3 % des nouvelles startups en 2026 sont lancées par une seule personne.</strong> La stack d'agents IA pour un solo-founder coûte environ 400 $/mois. L'équivalent en équipe humaine coûterait 100 000 $/mois. Le calcul est vite fait.</p>
+    </div>
+    
+    <h3>Quels métiers sont vraiment exposés</h3>
+    <p>L&#39;Anthropic Economic Index de mars 2026 a mesuré que <strong>68 % des tâches observées sur Claude sont complètement automatisables</strong> par un modèle IA seul. Voici le classement par profession, consolidé à partir des études Goldman Sachs, McKinsey, OCDE, Stanford.</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Métier</th>
+    <th>Part de tâches automatisables</th>
+    <th>Statut 2026</th>
+    <th>Horizon 2031</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td>Développeur junior</td>
+    <td>75 %</td>
+    <td>-20 % d&#39;embauches</td>
+    <td>Compression massive, seniors survivent</td>
+    </tr>
+    <tr>
+    <td>Service client niveau 1</td>
+    <td>70 %</td>
+    <td>Block : 70-80 % tickets résolus sans humain</td>
+    <td>Quasi-disparition</td>
+    </tr>
+    <tr>
+    <td>Saisie de données</td>
+    <td>67 %</td>
+    <td>En voie d&#39;extinction</td>
+    <td>Disparu</td>
+    </tr>
+    <tr>
+    <td>Graphistes, rédacteurs web</td>
+    <td>~60 %</td>
+    <td>2e catégorie la plus licenciée</td>
+    <td>Direction artistique uniquement</td>
+    </tr>
+    <tr>
+    <td>Traducteurs</td>
+    <td>65 %</td>
+    <td>Marge effondrée</td>
+    <td>Niche premium seulement</td>
+    </tr>
+    <tr>
+    <td>Juristes d&#39;appui (paralegals)</td>
+    <td>55 %</td>
+    <td>Cabinets tournent à 30-50 % agents</td>
+    <td>Restructuration profonde</td>
+    </tr>
+    <tr>
+    <td>Radiologues, pathologistes</td>
+    <td>40 %</td>
+    <td>Productivité x3, pas remplacés</td>
+    <td>Croissance structurelle</td>
+    </tr>
+    <tr>
+    <td>Plombier, électricien</td>
+    <td>&lt;10 %</td>
+    <td>Intact</td>
+    <td>Intact, tensions haussières</td>
+    </tr>
+    <tr>
+    <td>Infirmier, aide-soignant</td>
+    <td>&lt;15 %</td>
+    <td>Demande en hausse</td>
+    <td>Pénurie structurelle</td>
+    </tr>
+    </tbody></table>
+    <h3>Dans la vie quotidienne</h3>
+    <p>Trois transformations déjà en cours pour les 5 prochaines années :</p>
+    <ul>
+    <li><strong>Les lunettes intelligentes</strong> : Meta a vendu 7 millions de Ray-Ban IA en 2025, avec <strong>82 % de part de marché</strong> du segment. Apple sort son modèle fin 2026. Horizon 2028 : 50 à 100 millions d&#39;utilisateurs.</li>
+    <li><strong>Les voitures autonomes</strong> : Waymo tourne à 500 000 trajets par semaine dans 10 villes américaines, cible le million fin 2026. Londres lance en 2026, première ville hors États-Unis. Tesla a obtenu l&#39;autorisation de rouler sans supervision depuis janvier 2026 — mais avec une flotte ridicule pour l&#39;instant.</li>
+    <li><strong>Les robots humanoïdes</strong> : l&#39;Unitree R1 Air chinois coûte <strong>4 900 $ et est disponible aujourd&#39;hui</strong>. Tesla veut produire Optimus à 20-30 000 $, 50 000 à 100 000 unités en 2026. L&#39;horizon réaliste pour un robot humanoïde domestique grand public : <strong>2029-2031</strong>.</li>
+    </ul>
+    <div class="callout warn">
+      <h4>Le vrai risque à 5 ans que personne ne regarde</h4>
+      <p>Ce n'est pas l'AGI. C'est la <strong>compression du milieu de carrière</strong>. Les seniors qui ont déjà 10 ans d'expérience explosent leur productivité — certains font x10. Les juniors n'entrent plus. Conséquence mécanique : vers 2030-2032, il va manquer une génération entière de seniors formés entre 2022 et 2027. Ils n'existeront pas parce qu'ils n'ont jamais été embauchés juniors. C'est une crise de pénurie qui arrive, silencieuse pour l'instant.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Dans 10 ans (2031-2036) — la vraie bifurcation</h2>
+    <p>À 10 ans, les scénarios se séparent. La question centrale : <strong>l&#39;intelligence artificielle générale (AGI) arrive-t-elle, ou est-ce qu&#39;on butte sur un plateau ?</strong></p>
+    <p>L&#39;AGI, c&#39;est une IA aussi polyvalente qu&#39;un humain sur à peu près tous les terrains cognitifs. Aujourd&#39;hui, les modèles excellent dans leur zone d&#39;entraînement et ratent dès qu&#39;on sort du cadre. L&#39;AGI, ça serait la fin de cette limite.</p>
+    <h3>Ce que disent les grands patrons de labs</h3>
+    <ul>
+    <li><strong>Dario Amodei</strong> (Anthropic) : <em>« Powerful AI »</em> d&#39;ici fin 2026 ou début 2027, ensuite « 50 à 100 ans de progrès scientifique compressés en 5-10 ans ». <a href="https://www.darioamodei.com/essay/machines-of-loving-grace">Essai « Machines of Loving Grace »</a>, octobre 2024.</li>
+    <li><strong>Sam Altman</strong> (OpenAI) : « On sait faire l&#39;AGI », la superintelligence est la mission suivante. Conflit d&#39;intérêt énorme — la valorisation d&#39;OpenAI est bâtie là-dessus.</li>
+    <li><strong>Demis Hassabis</strong> (Google DeepMind) : 50 % de chances d&#39;AGI dans 5-10 ans, soit 2030-2035. <strong>Le plus prudent des patrons de labs</strong>, reconnaît des trous (créativité, monde physique).</li>
+    <li><strong>Elon Musk</strong> (xAI) : AGI 2026-2027, superintelligence 2030. Prédictions passées <strong>systématiquement ratées</strong> (robotaxi 2020, FSD 2019…).</li>
+    </ul>
+    <h3>Ce que disent les chercheurs académiques</h3>
+    <ul>
+    <li><strong>Geoffrey Hinton</strong>, prix Turing : AGI dans 5-20 ans, <strong>10 à 20 % de risque d&#39;extinction humaine</strong>. A cosigné en octobre 2025 un appel à suspendre le développement de l&#39;AGI.</li>
+    <li><strong>Yoshua Bengio</strong>, prix Turing : AGI « plausible d&#39;ici quelques années à une décennie », préside le rapport international sur la sécurité IA 2026.</li>
+    <li><strong>Yann LeCun</strong>, prix Turing : les grands modèles de langage sont « une impasse ». A <strong>quitté Meta en novembre 2025</strong> pour fonder AMI Labs (levée <strong>1,03 milliard de dollars</strong>). Son pari : il faut des modèles du monde, pas juste de la prédiction du prochain mot.</li>
+    <li><strong>Andrej Karpathy</strong>, ex-OpenAI et Tesla : <em>« La décennie des agents, pas l&#39;année. »</em> AGI dans 10 ans et plus.</li>
+    </ul>
+    <h3>Les paris publics</h3>
+    <p>Les marchés prédictifs donnent une photographie utile parce qu&#39;ils obligent à parier de l&#39;argent réel :</p>
+    <ul>
+    <li><strong>Metaculus</strong> (la principale plateforme de prévisions) : médiane pour une <strong>AGI faible à avril 2028</strong>, AGI complète vers <strong>mi-2030</strong>.</li>
+    <li><strong>Manifold Markets</strong> : 31 % de probabilité d&#39;AGI avant 2030.</li>
+    <li><strong>Rapport d&#39;experts 80 000 Hours</strong> (mars 2025) : les délais d&#39;AGI sont <strong>passés de 2060 à 2033 en 6 ans</strong> dans les estimations d&#39;experts.</li>
+    </ul>
+    <h3>Trois scénarios à 10 ans, avec probabilités</h3>
+    <table>
+    <thead>
+    <tr>
+    <th>Scénario</th>
+    <th>Probabilité médiane</th>
+    <th>Ce que ça donne</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td><strong>A — AGI atteinte</strong></td>
+    <td>40-55 %</td>
+    <td>Croissance économique +7 % cumulés sur 10 ans, -50 % des emplois d&#39;entrée de carrière cols blancs, espérance de vie 90-100 ans, cures cancer/Alzheimer vers 2035</td>
+    </tr>
+    <tr>
+    <td><strong>B — Plateau, muddling through</strong></td>
+    <td>25-40 %</td>
+    <td>Gains de productivité 20-30 %, transformation type « Internet + smartphone », correction de la bulle IA 2027-2028 puis redémarrage</td>
+    </tr>
+    <tr>
+    <td><strong>C — Catastrophe technologique</strong></td>
+    <td>5-15 %</td>
+    <td>Désalignement d&#39;une superintelligence, armes biologiques conçues par IA, conflit USA-Chine avec armes autonomes</td>
+    </tr>
+    </tbody></table>
+    <h3>Ce qui se produit dans les trois scénarios</h3>
+    <p>Trois choses arrivent <strong>quel que soit le scénario</strong> :</p>
+    <ol>
+    <li><p><strong>Concentration de pouvoir inédite</strong>. 4 à 5 hyperscalers américains captent l&#39;essentiel de la valeur. Le Golfe monte en 3e pôle (projet Stargate des Émirats à 5 GW, HUMAIN saoudien à 500 MW + 70 000 puces Nvidia GB300 débloquées en novembre 2025). L&#39;Europe est largement spectatrice.</p>
+    </li>
+    <li><p><strong>Pression énergétique massive</strong>. La consommation des centres de données va <strong>doubler à 945 TWh en 2030</strong> selon l&#39;Agence internationale de l&#39;énergie. <strong>45 GW de petits réacteurs nucléaires modulaires</strong> sont déjà sous contrat avec Microsoft, Google, Amazon. La fusion nucléaire passe du labo à l&#39;industrie : 35 des 45 entreprises du secteur visent un pilote commercial entre 2030 et 2035. Helion livre 50 MW à Microsoft en 2028.</p>
+    </li>
+    <li><p><strong>Désinformation industrialisée</strong>. Les deepfakes à coût marginal nul vont gangrener les élections 2028 (États-Unis, France en partie) dans un paysage épistémique déjà affaibli.</p>
+    </li>
+    </ol>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Dans 20 ans (2036-2046) — le monde que va vivre mon fils</h2>
+    <p>À 20 ans, on quitte la prédiction technique pour entrer dans la prospective documentée. Mais ce n&#39;est pas de la science-fiction — ce sont des scénarios étudiés sérieusement par des chercheurs de l&#39;université d&#39;Oxford (Future of Humanity Institute), du Future of Life Institute, du MIRI, du Center for AI Safety.</p>
+    <h3>Les quatre scénarios documentés</h3>
+    <table>
+    <thead>
+    <tr>
+    <th>Scénario</th>
+    <th>Promoteurs</th>
+    <th>Probabilité subjective</th>
+    <th>Implications</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td><strong>Superintelligence alignée → abondance</strong></td>
+    <td>Amodei, Kurzweil, Altman</td>
+    <td>10-25 %</td>
+    <td>Fin de la rareté matérielle, espérance de vie 150+ ans, interfaces cerveau-machine courantes, exploration spatiale accélérée</td>
+    </tr>
+    <tr>
+    <td><strong>Transformation profonde sans superintelligence</strong> (« muddling through »)</td>
+    <td>Majorité silencieuse des chercheurs</td>
+    <td>40-55 %</td>
+    <td>Marchés du travail recomposés, revenu universel expérimenté, coexistence stable humain-IA</td>
+    </tr>
+    <tr>
+    <td><strong>Risque existentiel</strong> (Ord, Yudkowsky, Bostrom)</td>
+    <td>Future of Humanity Institute</td>
+    <td>10-25 %</td>
+    <td>Catastrophe technologique (IA désalignée, armes biologiques conçues par IA, conflit autonome majeur)</td>
+    </tr>
+    <tr>
+    <td><strong>Stagnation / plateau durable</strong></td>
+    <td>Marcus, partiellement LeCun</td>
+    <td>10-20 %</td>
+    <td>IA utile mais pas transformatrice, retour à des cycles d&#39;innovation plus lents</td>
+    </tr>
+    </tbody></table>
+    <h3>Le scénario optimiste : l&#39;abondance</h3>
+    <p>Ray Kurzweil maintient dans <a href="https://news.ssbcrack.com/the-singularity-is-nearer-ray-kurzweils-predictions-for-human-ai-integration-by-2045/">« The Singularity Is Nearer »</a> (juin 2024) son échéance <strong>2045 pour la singularité</strong> — le moment où l&#39;intelligence artificielle dépasse l&#39;humaine dans tous les domaines et s&#39;auto-améliore. Il prédit la « vitesse d&#39;évasion » de la longévité au début des années 2030 — l&#39;espérance de vie augmenterait alors de plus d&#39;un an par an grâce à la médecine IA.</p>
+    <p>Le marché de la longévité est passé de <strong>25 milliards de dollars en 2024 à une projection de 600 milliards en 2035</strong>. Life Biosciences a lancé <strong>le premier essai humain de reprogrammation épigénétique partielle</strong> en janvier 2026, approuvé par la FDA.</p>
+    <h3>Le scénario catastrophique : le risque existentiel</h3>
+    <p>Le philosophe Toby Ord (université d&#39;Oxford) chiffre dans <a href="https://en.wikipedia.org/wiki/The_Precipice:_Existential_Risk_and_the_Future_of_Humanity">« The Precipice »</a> le risque existentiel global au siècle à <strong>1 sur 6</strong>. Il attribue <strong>1 sur 10 à l&#39;IA non alignée seule</strong> — plus que toutes les autres sources combinées (pandémies, climat, nucléaire).</p>
+    <p>Eliezer Yudkowsky (MIRI) va plus loin : dans son livre de 2025 <em>« If Anyone Builds It, Everyone Dies »</em>, il chiffre le risque d&#39;extinction entre <strong>95 et 99,5 %</strong> si on construit une superintelligence avec les techniques actuelles.</p>
+    <h3>Le scénario le plus probable : le « muddling through »</h3>
+    <p>C&#39;est le scénario que défendent la majorité des chercheurs qui n&#39;ont pas d&#39;intérêt financier direct dans le hype. L&#39;idée : on obtient une IA <strong>très puissante mais pas superintelligente</strong>, et on vit avec. Transformation comparable à Internet + smartphone combinés. Marchés du travail recomposés, pas effondrés. Revenu universel expérimenté localement, pas généralisé.</p>
+    <p>L&#39;étude du revenu universel de Sam Altman et OpenResearch (2020-2023, 3 000 participants au Texas et en Illinois) a donné des résultats <strong>modestes</strong> : un bénéficiaire de 1 000 $/mois travaille 1,3 heure de moins par semaine, va plus chez le médecin et le dentiste, mais la baisse du stress n&#39;est pas durable dans le temps. Ça plaide pour un déploiement prudent, pas une révolution sociale.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les trois vraies questions que personne ne pose assez fort</h2>
+    <p>Avant de passer à mon opinion personnelle, il y a trois faits qui devraient choquer plus qu&#39;ils ne le font. Je les mets ici parce qu&#39;ils recadrent tout le débat.</p>
+    <h3>Fait 1 · L&#39;équipe sécurité d&#39;OpenAI a été dissoute deux fois en 18 mois</h3>
+    <p>L&#39;équipe « Superalignment » d&#39;OpenAI (celle qui devait précisément aligner la superintelligence sur les valeurs humaines) a été <strong>dissoute en mai 2024</strong> (départs du directeur Ilya Sutskever vers SSI, du co-directeur Jan Leike vers Anthropic). L&#39;équipe « Mission Alignment » qui lui a succédé a été <strong>dissoute en février 2026</strong>, après 16 mois d&#39;existence. Les <strong>20 % de puissance de calcul promis publiquement</strong> au superalignement n&#39;ont <strong>jamais été livrés</strong>. <a href="https://fortune.com/2024/05/21/openai-superalignment-20-compute-commitment-never-fulfilled-sutskever-leike-altman-brockman-murati/">Source : Fortune, mai 2024</a>.</p>
+    <h3>Fait 2 · Le leader mondial de l&#39;interprétabilité mécaniste reconnaît son échec</h3>
+    <p>Neel Nanda (Google DeepMind) a déclaré publiquement en 2026 que « la vision la plus ambitieuse de l&#39;interprétabilité mécaniste est probablement morte ». Autrement dit : il n&#39;y a <strong>pas de chemin crédible</strong> pour comprendre ce que pense vraiment une IA avant que la pression compétitive déploie des modèles plus intelligents que nous. C&#39;est un aveu industriel majeur, quasi inaperçu dans la presse grand public.</p>
+    <h3>Fait 3 · Claude Opus 4 déclenche le niveau ASL-3 et reste déployé</h3>
+    <p>Anthropic a officiellement déclaré en mai 2025 que <strong>Claude Opus 4 fournit un « uplift substantiel »</strong> à un novice de niveau STEM pour fabriquer une arme biologique — ce qui déclenche son niveau de sécurité ASL-3. <strong>Et le modèle est quand même déployé</strong>, avec des mesures d&#39;atténuation. <a href="https://time.com/7287806/anthropic-claude-4-opus-safety-bio-risk/">Source : TIME, mai 2025</a>.</p>
+    <div class="callout warn">
+      <h4>Ce que ça veut dire concrètement</h4>
+      <p>Les garde-fous techniques (alignement, interprétabilité) sont <strong>structurellement en retard</strong> sur les capacités. Les garde-fous institutionnels (équipes sécurité des labs) sont <strong>dissous ou fragilisés</strong> sous pression commerciale. Les garde-fous internationaux (traités, régulations) sont <strong>bloqués</strong> par la course USA-Chine. Dans ce contexte, le scénario médian à 10-20 ans n'est pas « Terminator ». C'est la concentration massive de pouvoir dans 5 entreprises privées opérant sans contre-pouvoir crédible.</p>
+    </div>
+    
+    <h3>La concentration du pouvoir</h3>
+    <p>Cinq labos privés (OpenAI, Anthropic, Google DeepMind, Meta, xAI) plus DeepSeek en Chine contrôlent la frontière technologique. Les investissements 2026 : Alphabet <strong>93 milliards de dollars de capex</strong>, Meta <strong>72 milliards</strong>. Les patrimoines personnels de leurs dirigeants : Musk <strong>428 milliards</strong>, Zuckerberg <strong>253 milliards</strong>, Bezos <strong>241 milliards</strong>.</p>
+    <p><strong>Jamais aucune industrie n&#39;a eu autant de pouvoir dans aussi peu de mains.</strong> Et jamais autant de patrons non élus n&#39;ont eu autant de levier civilisationnel. C&#39;est la vraie bascule historique, à mon avis — plus que la question AGI.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Mon pari personnel sur le monde de mon fils</h2>
+    <p>Maintenant, je te donne mon opinion. Elle ne vaut pas plus que celle d&#39;un autre, mais elle est assumée. Je l&#39;ai construite en croisant tout ce qui précède avec ce que j&#39;observe dans ma propre famille et autour de moi.</p>
+    <p><strong>Mon pari : dans 20 à 30 ans, le basculement majeur ne viendra pas d&#39;une imposition technologique d&#39;en haut. Il viendra du fait que les humains eux-mêmes vont préférer la machine à l&#39;humain pour la plupart des services essentiels.</strong></p>
+    <h3>Le permis de conduire</h3>
+    <p>Mon fils a 4 ans. À 18 ans, il sera en 2040. Waymo tourne déjà à 500 000 trajets par semaine dans 10 villes américaines en avril 2026. Tesla a ouvert la conduite sans supervision en janvier 2026. En 2040, les voitures autonomes seront dominantes dans les centres urbains denses — pas dans l&#39;absolu, mais pour les usages du quotidien.</p>
+    <p>Je pense que <strong>mon fils ne conduira jamais</strong>. Pas « n&#39;aura pas son permis » — ne conduira jamais. Il n&#39;en aura pas besoin. Les voitures autonomes seront là pour lui avant ses 18 ans, partout où il vivra. Comme aujourd&#39;hui plus personne n&#39;apprend à allumer un feu sans briquet — techniquement possible, pratiquement inutile.</p>
+    <h3>Les métiers dits « refuge »</h3>
+    <p>On dit aujourd&#39;hui à un jeune qui hésite : <em>« Fais médecin, fais avocat, fais expert-comptable. Ces métiers ne seront jamais remplacés. »</em> Je pense que c&#39;est faux. Et pas pour les raisons qu&#39;on donne habituellement.</p>
+    <p>Mon pari, c&#39;est que <strong>les humains vont activement choisir l&#39;IA</strong> pour ces services. Pas parce qu&#39;on les y force. Parce qu&#39;ils vont préférer.</p>
+    <p><strong>Pour leur santé.</strong> Quand une IA aura accès à toutes les données médicales mondiales mises à jour en temps réel, à toute la littérature scientifique, à l&#39;historique complet du patient, et qu&#39;elle pourra proposer un diagnostic en quelques secondes avec une justification transparente — qui va encore vouloir attendre 3 semaines un rendez-vous chez un médecin qui aura vu 40 patients dans la journée et qui oublie parfois des détails ? Je pense que les patients eux-mêmes vont <strong>demander</strong> l&#39;IA. D&#39;abord par choix. Puis comme norme. L&#39;humain médecin deviendra un spécialiste des cas complexes — ou un accompagnant émotionnel.</p>
+    <p><strong>Pour l&#39;éducation de leurs enfants.</strong> Je pense que dans 20 ans, les parents vont préférer qu&#39;un professeur IA enseigne à leur enfant, plutôt qu&#39;un enseignant humain. Non pas parce que les enseignants sont mauvais — la plupart sont formidables. Mais parce qu&#39;une IA peut être <strong>adaptée individuellement</strong> à chaque enfant, avoir une patience infinie, répondre à toutes les questions sans jugement, s&#39;ajuster au rythme de chacun, maintenir un enthousiasme constant. Les études d&#39;OpenResearch et d&#39;autres sur les tuteurs IA montrent déjà des gains d&#39;apprentissage de deux écarts types (2 sigma effect de Bloom) dans les conditions favorables.</p>
+    <p><strong>Pour leur comptabilité, leurs impôts, leurs contrats.</strong> Ces tâches sont déjà en train de basculer. En 2026, les cabinets de grand droit américains tournent à 30-50 % d&#39;agents IA. Un particulier qui a un contrat à relire va-t-il payer un avocat 500 € de l&#39;heure, ou demander à une IA qui a lu toute la jurisprudence mondiale et qui répond en 3 secondes pour 2 € ? Question rhétorique.</p>
+    <h3>Le travail comme organisation sociale</h3>
+    <p>Mon pari le plus fort : <strong>mon fils ne connaîtra probablement pas le monde du travail tel que je l&#39;ai connu</strong>. Pas parce qu&#39;il sera au chômage — mais parce que la définition même du travail aura changé.</p>
+    <p>En 2046, quand il aura 24 ans et commencera sa vie active, je pense qu&#39;on sera dans un monde où :</p>
+    <ul>
+    <li>Une proportion importante de la valeur économique est produite par des agents IA et des robots.</li>
+    <li>Les humains contribuent par leur créativité, leur jugement, leur capacité à donner du sens — pas par leur force de travail répétitive.</li>
+    <li>Le revenu universel est en place dans plusieurs pays développés, partiel ou total.</li>
+    <li>Ce qu&#39;on appelle « travailler » ressemble plus à ce qu&#39;on appelle aujourd&#39;hui « un projet », « une passion », « un engagement associatif ».</li>
+    </ul>
+    <p>Plus qu&#39;une obligation, le travail deviendra <strong>un loisir avec sens</strong>. Un choix, pas une nécessité de survie.</p>
+    <h3>Pourquoi ça ne fait pas peur, ça fait réfléchir</h3>
+    <p>Je sais que cette opinion peut sembler vertigineuse ou même déprimante pour certains. Elle ne l&#39;est pas pour moi. Elle me pousse à poser des questions différentes.</p>
+    <p>Si mon fils va vivre dans ce monde, qu&#39;est-ce que je dois lui apprendre <strong>aujourd&#39;hui</strong>, à 4 ans ? Pas à coder — l&#39;IA code mieux. Pas à mémoriser — l&#39;IA se souvient mieux. Pas à calculer — l&#39;IA calcule mieux.</p>
+    <p>Je dois lui apprendre à <strong>juger</strong>, à <strong>choisir</strong>, à <strong>aimer</strong>, à <strong>créer</strong>, à <strong>se tenir</strong> face à l&#39;inconnu. Je dois lui apprendre à avoir une opinion, à la défendre, à la changer quand elle est fausse. Je dois lui apprendre à être en relation — vraiment en relation — avec d&#39;autres humains. Parce que c&#39;est peut-être tout ce qu&#39;il lui restera d&#39;irréductiblement humain dans 20 ans.</p>
+    <p>Et je dois aussi lui apprendre, paradoxalement, à ne pas avoir peur de la machine. À en comprendre la logique. À la diriger, pas à la subir. À rester en position de choix — au moment où tout le monde autour de lui préférera la facilité du choix déjà fait pour soi.</p>
+    <div class="callout ok">
+      <h4>Mon pari chiffré, en une phrase</h4>
+      <p>Probabilité qu'en 2046 la majorité des français aient consulté une IA plutôt qu'un médecin humain pour leur dernier problème de santé : <strong>70 %</strong>. Probabilité que mon fils passe son permis de conduire avant 25 ans : <strong>20 %</strong>. Probabilité qu'il exerce un « métier » au sens actuel du terme : <strong>40 %</strong>. Ces chiffres sont subjectifs. Je les assume. Écris-moi si tu n'es pas d'accord.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pour aller plus loin</h2>
+    <p>Si le sujet t&#39;intéresse, voici les cinq sources qui m&#39;ont le plus nourri :</p>
+    <ol>
+    <li><strong><a href="https://www.darioamodei.com/essay/machines-of-loving-grace">Dario Amodei · Machines of Loving Grace</a></strong> — l&#39;essai de référence sur le scénario optimiste, par le patron d&#39;Anthropic.</li>
+    <li><strong><a href="https://situational-awareness.ai/">Leopold Aschenbrenner · Situational Awareness</a></strong> — 165 pages denses sur la trajectoire technique vers l&#39;AGI et ses enjeux géopolitiques.</li>
+    <li><strong><a href="https://en.wikipedia.org/wiki/The_Precipice:_Existential_Risk_and_the_Future_of_Humanity">Toby Ord · The Precipice</a></strong> — le livre de référence sur le risque existentiel, par un philosophe d&#39;Oxford.</li>
+    <li><strong><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report">Stanford AI Index 2026</a></strong> — le rapport annuel le plus complet, sans hype marketing.</li>
+    <li><strong><a href="https://www.anthropic.com/research/economic-index-march-2026-report">Anthropic Economic Index</a></strong> — la meilleure mesure en temps réel de l&#39;impact de l&#39;IA sur le travail.</li>
+    </ol>
+    <p>Cet article est mon opinion à un moment donné, avec les données que j&#39;ai en avril 2026. Elle va évoluer avec les faits. Si tu veux recevoir mes prochaines prises de position quand les choses bougent, <strong>inscris-toi à ma newsletter</strong>. Et si tu es d&#39;accord, pas d&#39;accord, ou si tu as un angle que je n&#39;ai pas couvert, <strong>réponds à l&#39;email, je lis tout</strong>. C&#39;est un sujet où on a besoin de plusieurs voix pour y voir clair.</p>
+    
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
+    <p>
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
+    </p>
+    <a href="../index.html#newsletters" class="back-btn">
+      Voir les newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #00B2A9;
+    --fuchsia: #EF426F;
+    --orange: #FF8200;
+    --ink-deep: #050507;
+    --cream: #FBF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 3000px;
+    height: 3000px;
+    overflow: hidden;
+    background: var(--ink-deep);
+  }
+  .cover {
+    position: relative;
+    width: 3000px;
+    height: 3000px;
+    overflow: hidden;
+    background: var(--ink-deep);
+  }
+  .shape {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 35%, {{C1}} 0%, transparent 35%),
+      radial-gradient(circle at 70% 45%, {{C2}} 0%, transparent 38%),
+      radial-gradient(circle at 50% 72%, {{C3}} 0%, transparent 30%);
+    filter: blur(30px) contrast(1.45) saturate(1.4);
+    opacity: 0.88;
+    mix-blend-mode: screen;
+  }
+  .noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    background-size: 600px 600px;
+    mix-blend-mode: overlay;
+  }
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 24px,
+      rgba(0,0,0,0.22) 24.5px,
+      rgba(0,0,0,0.22) 32px
+    );
+    z-index: 2;
+  }
+  .top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 180px 180px 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+  .bot {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0 180px 200px;
+    z-index: 4;
+  }
+  .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: {{TITLE_SIZE}}px;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--cream);
+    text-transform: uppercase;
+    text-shadow:
+      12px 0 0 rgba(239,66,111,0.65),
+      -12px 0 0 rgba(0,178,169,0.65);
+  }
+  .title .slash {
+    color: var(--teal);
+    font-weight: 400;
+    text-shadow: none;
+  }
+  .sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    color: rgba(251,247,240,0.75);
+    letter-spacing: 0.02em;
+    margin-top: 48px;
+    max-width: 2100px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="shape"></div>
+  <div class="noise"></div>
+  <div class="scanlines"></div>
+  <div class="top">
+    <span>{{LABEL_TOP_LEFT}}</span>
+    <span>{{LABEL_TOP_RIGHT}}</span>
+  </div>
+  <div class="bot">
+    <div class="title">{{TITLE_LINE_1}}<br><span class="slash">//</span> {{TITLE_LINE_2}}</div>
+    <div class="sub">{{SUBTITLE}}</div>
+  </div>
+</div>
+</body>
+</html>

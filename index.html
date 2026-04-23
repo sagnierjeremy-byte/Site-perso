@@ -159,7 +159,10 @@
   .projects-grid.single { grid-template-columns: 1fr !important; max-width: 780px; margin: 0 auto; }
   .projects-grid.single .project-card { min-height: 440px }
   @media (min-width: 1100px) {
-    .opinions-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 1000px; margin: 0 auto }
+    .opinions-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 22px; max-width: 1400px; margin: 0 auto }
+  }
+  @media (min-width: 1100px) {
+    .opinions-grid .op-title { font-size: 26px; line-height: 1.05 }
   }
 
   /* === Hero H1 v2 — 3 couleurs + crescendo typo === */
@@ -706,6 +709,109 @@
     border: 1px solid var(--line-strong);
     color: var(--ink-soft);
   }
+
+  /* === Podcast section === */
+  #podcast { padding: 100px 0; position: relative; }
+  .podcast-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 12px;
+  }
+  @media (min-width: 900px) {
+    .podcast-grid { grid-template-columns: repeat(3, 1fr); gap: 26px }
+  }
+  .podcast-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .podcast-card:hover {
+    border-color: var(--fuchsia);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.18);
+  }
+  .podcast-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 28px;
+    height: 4px;
+    width: 80px;
+    border-radius: 0 0 4px 4px;
+  }
+  .podcast-card.ep-01::before { background: var(--fuchsia); }
+  .podcast-card.ep-02::before { background: var(--orange); }
+  .podcast-card.ep-03::before { background: linear-gradient(90deg, var(--fuchsia), var(--teal)); }
+  .podcast-ep-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 14px;
+  }
+  .podcast-ep-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    line-height: 1.02;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 6px 0 8px;
+  }
+  .podcast-ep-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 600;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .podcast-ep-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .podcast-card audio {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    outline: none;
+  }
+  .podcast-footer {
+    margin-top: 44px;
+    display: flex;
+    justify-content: center;
+  }
+  .podcast-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s;
+  }
+  .podcast-cta-link:hover { transform: translateY(-2px); color: var(--bg); }
+  [data-theme="dark"] .podcast-cta-link { background: var(--fuchsia); color: #fff }
+  [data-theme="dark"] .podcast-cta-link:hover { color: #fff }
 </style>
 </head>
 <body>
@@ -1730,6 +1836,62 @@
         </div>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PODCAST — Guerres d'IA                                        -->
+<!-- ============================================================ -->
+<section id="podcast">
+  <svg class="rowel-bg" style="top:100px; left:-80px; width:280px; height:280px; color:var(--fuchsia)">
+    <use href="#rowel"/>
+  </svg>
+
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label lbl-fuchsia">— 06 bis · Guerres d'IA</span>
+        <h2 class="section-title">Un podcast<br><em>pour comprendre.</em></h2>
+      </div>
+      <p class="section-sub">
+        J'ai voulu raconter la guerre qui se joue en ce moment dans le monde de l'intelligence artificielle. Pas avec un article de plus — avec un récit sonore, style Wondery, en français. Trois épisodes, entre quinze et dix-sept minutes chacun. <strong>Voix synthétiques, scénarios documentés, mastering studio.</strong> Écoute ici, directement.
+      </p>
+    </div>
+
+    <div class="podcast-grid">
+
+      <article class="podcast-card ep-01">
+        <div class="podcast-ep-num">Épisode 01</div>
+        <h3 class="podcast-ep-title">La Fracture</h3>
+        <div class="podcast-ep-meta">17 min 16 · 22 avril 2026</div>
+        <p class="podcast-ep-desc">La nuit où Dario Amodei quitte OpenAI pour fonder Anthropic. Deux visions de l'IA qui ne peuvent plus cohabiter.</p>
+        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-01-la-fracture-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+      </article>
+
+      <article class="podcast-card ep-02">
+        <div class="podcast-ep-num">Épisode 02</div>
+        <h3 class="podcast-ep-title">Les Quatre Jours</h3>
+        <div class="podcast-ep-meta">17 min 24 · 23 avril 2026</div>
+        <p class="podcast-ep-desc">Le coup d'État OpenAI de novembre 2023, minute par minute. Sutskever vote, Brockman part, Satya ramasse.</p>
+        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-02-les-quatre-jours-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+      </article>
+
+      <article class="podcast-card ep-03">
+        <div class="podcast-ep-num">Épisode 03</div>
+        <h3 class="podcast-ep-title">Frères Ennemis</h3>
+        <div class="podcast-ep-meta">15 min 18 · 24 avril 2026</div>
+        <p class="podcast-ep-desc">Musk contre Altman. Cent trente-quatre milliards sur la table. Le père fondateur qui poursuit son ancienne création.</p>
+        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-03-freres-ennemis-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+      </article>
+
+    </div>
+
+    <div class="podcast-footer">
+      <a href="articles/guerres-d-ia-podcast.html" class="podcast-cta-link">
+        <span>Comment j'ai créé ce podcast en 24 heures</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </div>
 </section>

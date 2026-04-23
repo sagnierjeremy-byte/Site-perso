@@ -164,6 +164,7 @@ Les newsletters sont **des veilles automatiques** que Jérémy se produit à lui
 - ❌ "Inscrivez-vous pour recevoir du contenu exclusif" → pose commerciale
 - ❌ Mentions de projets Eurofiscalis/Kevin internes si pas pertinent
 - ❌ Disclaimer consultant "il est important de noter que..."
+- ❌ **"GMF", "chez GMF", "produit GMF"** → toujours remplacer par "en assurance" / "outil de vente" / formulation neutre. Le slug technique `construit-avec-claude-code-gmf.html` reste en place pour ne pas casser les URLs indexées, mais AUCUN texte visible ne doit contenir "GMF". Raison : anonymisation du nom de l'employeur de Shirley (décidée 2026-04-23).
 
 ---
 
@@ -184,7 +185,7 @@ Ordre des sections (ne pas changer sans raison) :
 7. **Mini-marquee 03** — Pas envie de t'abonner ? · Normal · Prends déjà ces 3 outils
 8. **Freebies** (`#freebies`) — 3 cards téléchargement
 9. **Mini-marquee 04** — Tu as la méthode · Les outils · Voilà les preuves
-10. **Projets** (`#projects`) — 3 cards : live (GMF) · construction (veille) · recherche (agent qualif)
+10. **Projets** (`#projects`) — 3 cards : live (outil de vente) · construction (veille) · recherche (agent qualif)
 11. **Opinions** (`#opinions`) — 6 cards style magazine cover
 12. **Mini-marquee 05** — Ma voix · Ce qui la nourrit
 13. **Sources** (`#content`) — tabs YouTube (34 chaînes) · X · Newsletters
@@ -211,7 +212,7 @@ Page dédiée au parcours pédagogique. Structure :
 3. **Étape 01 · Poser les bases** (teal) — 2 cards : debutant.html + lexique.html
 4. **Étape 02 · Passer à Claude Code** (fuchsia) — 2 cards : claude-code.html + loops-claude
 5. **Étape 03 · Construire tes agents** (orange) — 4 cards : agents-ia-guide + gmail + contrats + hermes
-6. **Étape 04 · Aller plus loin** (ink) — 5 cards : GMF + veille + 3× Karpathy
+6. **Étape 04 · Aller plus loin** (ink) — 5 cards : outil de vente + veille + 3× Karpathy
 7. **Parcours-end** (gradient teal→fuchsia→orange) — CTA vers `index.html#newsletters`
 8. Footer identique à la home
 

@@ -1,5 +1,34 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 · anonymisation GMF + abandon player TTS
+
+### Pourquoi
+Décision d'anonymiser le nom de l'employeur de Shirley sur tout le site (remplacé par "en assurance" / "outil de vente"). Le projet de player TTS (audio généré de l'article GMF) est également arrêté — on retire les artefacts locaux et la balise injectée dans l'article.
+
+### Livré
+- **Article GMF** (`articles/construit-avec-claude-code-gmf.html`) · retrait du `<link rel="stylesheet" href="../css/tts-player.css">` (CSS jamais committé) + retrait du bloc `<div class="tts-player">` injecté au-dessus du hero-lead
+- **apprendre.html** · titre card "L'outil *GMF*" → "L'outil *de vente*" + preview "chargée de clientèle GMF" → "chargée de clientèle en assurance"
+- **index.html** · projet #01 preview "chez GMF" → "en assurance" + commentaire HTML mis à jour
+- **workflows.html** · lex-block-reassure "(chargée de clientèle GMF)" → "(chargée de clientèle en assurance)"
+- **quiz.html** · reco qualifieur "l'outil de vente GMF" → "l'outil de vente de ma femme"
+- **CLAUDE.md** · 2 références GMF remplacées dans la carto des sections + nouvelle règle "JAMAIS dire/écrire GMF" (slug technique conservé pour SEO)
+- **AGENT_BRIEF.md** · exemple de slug changé (`construit-avec-claude-code-gmf` → `hermes-agent`) + règle ajoutée dans exclusions
+- **Suppression locale** · dossier `articles/audio/` (5.8 Mo, 3 versions : orig / retell / clones voix) + `generate-audio.sh` · aucun de ces fichiers n'était committé, donc aucun historique à purger
+
+### Décisions
+- **Slug technique conservé** (`construit-avec-claude-code-gmf.html`, canonical, og:url, sitemap, `source: 'article-gmf'`). Raison : URLs déjà indexées par Google + partagées. Renommer casserait le SEO et les liens externes. Le slug ne fuit pas publiquement (l'utilisateur voit l'URL mais pas le mot sur la page).
+- **`scripts/seo-improve.js` et `admin/modules/articles/page.html`** · références techniques au slug → laissées intactes (logique interne, pas visible).
+
+### Fichiers touchés
+- `articles/construit-avec-claude-code-gmf.html`
+- `apprendre.html`, `index.html`, `workflows.html`, `quiz.html`
+- `CLAUDE.md`, `AGENT_BRIEF.md`
+
+### À venir
+- [ ] Quand le projet TTS reprendra, recréer `css/tts-player.css` + décider du stockage audio (CDN vs repo — 5.8 Mo / épisode, donc probablement pas dans le repo)
+
+---
+
 ## 2026-04-22 (soir) · domaine jerwis.fr verifie cote Resend · FROM_EMAIL switch
 
 ### Pourquoi

@@ -56,6 +56,7 @@ Le ton imite la mascotte Leo d'Eurofiscalis. Appliqué partout.
 - ❌ "Révolution", "game-changer", "incroyable" → hype marketing
 - ❌ "Dans cet article, nous allons voir..." → vieux format blog SEO
 - ❌ Promesses comme "7 jours pour maîtriser l'IA" → bullshit détection
+- ❌ **"GMF"** sous toute forme (chez GMF, produit GMF, chargée de clientèle GMF…) → Shirley est "chargée de clientèle en assurance" ou "ma femme". Jamais le nom de l'employeur en clair.
 
 ---
 
@@ -75,7 +76,7 @@ Cette garantie est sur la page Story de la home — **NE PAS la répéter dans c
 4. **Divulgation IA obligatoire** (EU AI Act art. 50 — août 2026). Chaque article doit contenir une mention visible en haut du type : *"Écrit avec Claude, relu par Jérémy."* → déjà géré dans le template en kicker hero ou TL;DR.
 5. **Meta description** : 140-160 caractères, avec mot-clé principal, bénéfice lecteur explicite.
 6. **Title SEO** : format `{titre accrocheur} — par Jérémy Sagnier`
-7. **Slug URL** : kebab-case, 3-5 mots max, mots-clés principaux. Ex : `tuto-agent-gmail`, `construit-avec-claude-code-gmf`.
+7. **Slug URL** : kebab-case, 3-5 mots max, mots-clés principaux. Ex : `tuto-agent-gmail`, `hermes-agent`, `loops-claude`.
 
 ---
 

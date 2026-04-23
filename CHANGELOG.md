@@ -1,5 +1,79 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 · draft article « Le plan chinois 2026-2030, décrypté »
+
+### Pourquoi
+Jérémy a demandé une synthèse pédagogique du 15e plan quinquennal chinois (adopté 12 mars 2026) pour son blog perso. Brief : ton Leo, sans jargon, angle observateur curieux qui décrypte, impact business mondial sur les années à venir. Recherche préalable effectuée en 5 sous-agents parallèles (politique, tech, économie, défense, climat) → synthèse consolidée en français simple.
+
+### Livré
+- **`drafts/plan-chine-2026-2030.md`** · draft MD ~2850 mots (13 min lecture) avec frontmatter complet : slug, titre, titre_seo, description 141 chars, catégorie `Opinion`, numéro 10, hero 3 lignes, lead 80 mots, 3 bullets TL;DR (incl. mention « Écrit avec Claude, relu par moi » pour conformité EU AI Act).
+- **Structure** : 7 sections avec kickers rotatifs (fuchsia/teal/orange) · Avant de commencer → C'est quoi un plan quinquennal → 3 crises (usecases) → Pari de Xi → 5 leviers (steps numérotés) → 3 contradictions → Impact mondial/business → Pour aller plus loin.
+- **Composants visuels** : 3 usecases (crises), 5 steps (leviers), 4 callouts (tip/warn/warn/ok), 5 sources externes linkées inline (Rhodium, Asia Times, Carnegie, Carbon Brief, CSIS, SIPRI, Climate Action Tracker).
+- **Ton Leo respecté** : 1ère personne, chaleureux non familier, transparent sur l'IA, mots simples (plan quinquennal expliqué comme « programme politique + plan d'investissement + feuille de route militaire »), appels à réponse (« réponds à l'email, je lis tout »), assume les limites (« je peux me tromper »).
+- **Posture Jérémy préservée** : pas de « dev »/« codeur », positionnement « entrepreneur curieux qui décrypte avec Claude ».
+
+### Fichiers touchés
+- `drafts/plan-chine-2026-2030.md` (nouveau)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Relecture Jérémy du draft MD
+- `npm run publish plan-chine-2026-2030` pour générer `articles/plan-chine-2026-2030.html` + MAJ `sitemap.xml`
+- Éventuellement ajout d'un teaser dans `index.html` section `#opinions` (6 cards style magazine)
+- Commit + push pour déclencher auto-deploy Vercel
+
+---
+
+## 2026-04-23 · feedback widgets podcast (vote 👍/👎 par épisode + suggestion ép 4)
+
+### Pourquoi
+Jérémy veut récolter l'avis des auditeurs des 3 épisodes Guerres d'IA pour décider la suite : quel épisode marche le mieux, faut-il un ép 4, sur quel sujet. Ton Leo « réponds, je lis tout » mais en widget intégré sous chaque audio + form suggestion globale en bas d'article.
+
+### Livré
+- **`api/episode-feedback.js`** · nouveau endpoint serverless calqué sur `subscribe.js`. Gère 2 types : `kind: 'vote'` (avec `episode`, `vote: up|down`, `comment` optionnel) et `kind: 'suggestion'` (textarea ép 4). Envoie email Resend à `ADMIN_NOTIFY_EMAIL` (override env, fallback `jeremy.sagnier@eurofiscalis.com`). Pas de stockage DB — tout passe par email comme la notif `+1 newsletter`.
+- **`articles/guerres-d-ia-podcast.html`** · 3 widgets feedback (un sous chaque `<audio>`) avec boutons 👍/👎 + textarea facultatif `+ Pourquoi`. Form `Suggestion ép 4` en bas avant final-cta avec textarea + bouton envoi. Anti double-vote via `localStorage` (clé `pod_vote_<episode>`). États visuels : voted (border teal), thanks, error.
+- CSS cohérent charte Fiesta (boutons radius 12px, hover translate, error orange, thanks teal mono).
+- JS frontend : event listeners, restauration état localStorage au load, fetch POST, gestion silencieuse des échecs (le vote reste enregistré localement même si le réseau échoue).
+
+### Fichiers touchés
+- `api/episode-feedback.js` (nouveau)
+- `articles/guerres-d-ia-podcast.html` (CSS + 3 widgets HTML + form HTML + JS frontend)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Tester le pipeline complet en prod après push (vote + comment + suggestion)
+- Vérifier que `ADMIN_NOTIFY_EMAIL` est bien défini sur Vercel (sinon fallback `jeremy.sagnier@eurofiscalis.com`)
+- Potentiellement ajouter compteurs publics si Vercel KV configuré plus tard
+- Re-déployer après push R2 (URLs `<audio src>` à modifier en parallèle)
+
+---
+
+## 2026-04-23 · article « Comment j'ai créé un podcast avec une voix IA en 24h »
+
+### Pourquoi
+Storytelling sur la production de la trilogie pilote du podcast *Guerres d'IA* (3 épisodes Wondery FR sur la guerre IA, voix synthétiques, scénarios écrits par sous-agents Claude, mixage automatisé). Récit narratif demandé par Jérémy : tout vrai, tout documenté, ton Leo, pas de jargon, lecteur novice doit comprendre.
+
+### Livré
+- **`articles/guerres-d-ia-podcast.html`** · nouvel article long-form (~2500 mots) — structure : hero dark + TL;DR + 9 sections (déclic / sujet / 3 audios embeddés / pipeline / test 5 min / bug invisible / 3 bonds par épisode / coût $33 / 6 leçons) + final CTA newsletter
+- **`audio/podcast/`** · 3 MP3 masters embeddés (24 + 24 + 21 MB = ~69 MB) : `episode-01-la-fracture-MASTER.mp3`, `episode-02-les-quatre-jours-MASTER.mp3`, `episode-03-freres-ennemis-MASTER.mp3`
+- **`index.html`** · ajout 2ème card dans section #projects (« Un podcast Wondery FR en 24 heures ») à côté de l'outil de vente. Grid `projects-grid` (sans `single`) pour 2 cards.
+- Schema.org TechArticle + canonical + OG/Twitter Card complets
+- Visuels HTML stylés : 4 cartes pipeline, carte « bug invisible » (mono vs stéréo), carte coût $33 noir, grille 6 leçons, 3 mini-marquees signature
+- Ton Leo respecté (1ère personne Jérémy, chaleureux pas familier, transparent sur l'usage IA, pas de jargon, mots simples)
+
+### Fichiers touchés
+- `articles/guerres-d-ia-podcast.html` (nouveau, ~700 lignes)
+- `audio/podcast/*.mp3` (nouveaux, 3 fichiers)
+- `index.html` (card podcast ajoutée section #projects)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Demander à Jérémy si on push Vercel (les 3 MP3 ajoutent ~69 MB au repo)
+- Éventuellement : remplacer les MP3 embed par liens externes Ausha/Spotify quand publiés
+- Ajouter potentiellement une card dans #content (Sources) si Jérémy veut référencer son propre podcast
+
+---
+
 ## 2026-04-23 · notifications admin sur inscriptions newsletter
 
 ### Pourquoi

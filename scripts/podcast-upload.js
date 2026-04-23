@@ -31,8 +31,22 @@ if (!fs.existsSync(localPath)) {
   process.exit(1);
 }
 
+if (!localPath.toLowerCase().endsWith('.mp3')) {
+  console.error(`[upload] Extension inattendue. Ce script gère uniquement les .mp3.`);
+  process.exit(1);
+}
+
 const filename = path.basename(localPath);
+if (!/^[\w.\-]+$/.test(filename)) {
+  console.error(`[upload] Nom de fichier invalide : "${filename}" (caracteres autorises : alphanumerique, point, tiret, underscore)`);
+  process.exit(1);
+}
+
 const size = fs.statSync(localPath).size;
+if (size === 0) {
+  console.error(`[upload] Fichier vide (0 byte), upload annule.`);
+  process.exit(1);
+}
 
 const client = new S3Client({
   region: 'auto',

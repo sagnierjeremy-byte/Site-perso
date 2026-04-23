@@ -1,5 +1,33 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · article « Faire tourner une vraie IA chez toi » + intégration apprendre.html
+
+### Pourquoi
+Suite logique de l'article open source : passer de la théorie à la pratique. Tutoriel non-dev pour installer un LLM en local sur son ordi, avec Ollama + Open WebUI + RAG. Public débutant absolu, ton Leo, zéro jargon, mots simples. 5 sous-agents Superpowers déployés en parallèle (hardware, outils logiciels, modèles, cas d'usage + RAG, limites/futur).
+
+### Livré
+- **`articles/llm-local-pour-non-dev.html`** · ~785 lignes, ~4500 mots — 10 sections : Pourquoi c'est devenu sérieux (DeepSeek 589 G$ NVIDIA + 3 bignum cards confidentialité/coût/offline) · Pourquoi tu pourrais abandonner (4 callouts honnêtes multimodal/web/agentic/MAJ) · Le matos (3 budgets 800€/2400€/4500€ + Mac vs PC + piège bande passante) · 4 outils (Ollama / Open WebUI / LM Studio / GPT4All) · Modèles (6 familles + 5 modèles à essayer + piège base/instruct) · Tuto pas-à-pas 6 étapes step cards (Mac fil rouge + variantes Win/Linux) · 6 cas d'usage par profession (avocat/DAF/journaliste/formateur/étudiant/créatif) · RAG « discuter avec tes docs » (analogie + 3 étapes Open WebUI + tableau 6 cas) · Local vs cloud (matrice décisionnelle + workflow perso) · 5 erreurs débutant + Pour aller plus loin
+- **`drafts/research-llm-local/`** · 5 fichiers research consolidés (~14 000 mots) issus des 5 sous-agents
+- **`apprendre.html`** · 2 cards ajoutées en fin étape 04 (open source 04.6 c-teal + LLM local 04.7 c-orange) — intégration des 2 articles non-dev dans le parcours pédagogique
+- Visuels HTML stylés réutilisés du template open source : bignum cards, callouts ok/warn/tip, outils grid, cas cards, step cards numérotées, mini-marquees signature, tableaux comparatifs
+- Liens croisés : llm-local ↔ open-source dans intro et conclusion (continuité éditoriale)
+- Schema.org TechArticle + canonical + OG/Twitter Card
+- Ton Leo strict : 1ère personne, mots simples, pas familier, transparent IA, gloses inline (RAM, VRAM, RAG, Q4_K_M, base vs instruct)
+
+### Fichiers touchés
+- `articles/llm-local-pour-non-dev.html` (nouveau)
+- `drafts/research-llm-local/*.md` (5 nouveaux)
+- `apprendre.html` (2 cards ajoutées)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Tester en prod après push (parcours étape 04 + lecture article + responsive mobile)
+- Captures d'écran tuto (idéal : Ollama install + Open WebUI premier chat) — non fait, pourrait améliorer
+- Card dédiée dans `index.html#projects` ou `#opinions` pour mettre en avant le combo LLM local + open source
+- Article 3 possible : « Mon pipeline de production avec mes IA en local » (workflow réel quotidien)
+
+---
+
 ## 2026-04-24 · article « L'open source, expliqué pour ceux qui ne sont pas dev »
 
 ### Pourquoi

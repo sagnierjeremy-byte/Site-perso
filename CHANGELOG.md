@@ -1,5 +1,36 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-23 (second pass) · renommage slug article GMF + redirect 301
+
+### Pourquoi
+Après le premier passage d'anonymisation (texte visible), le slug URL `construit-avec-claude-code-gmf.html` restait visible dans la barre d'adresse et dans les liens partagés. Décision d'aller au bout du renommage, avec redirect 301 pour préserver le SEO et les liens déjà diffusés.
+
+### Livré
+- **Renommage fichier** · `articles/construit-avec-claude-code-gmf.html` → `articles/outil-vente-claude-code.html` (via `git mv`, historique préservé)
+- **URLs internes du fichier** · canonical, og:url, twitter:url, schema.org `@id` + `url`, 5× share buttons (X, LinkedIn, Instagram, WhatsApp, copy link, email) + `mailto` body
+- **Source formulaire** · `source: 'article-gmf'` → `source: 'article-outil-vente'` (nouvelles inscriptions taguées ainsi dans Resend)
+- **Liens sortants mis à jour** · `apprendre.html`, `index.html`, `workflows.html`, `quiz.html`, `sitemap.xml`
+- **Fichiers tech internes** · `SEO-GUIDE.md` (table), `scripts/seo-improve.js` (map PUBLISH_DATES), `admin/modules/articles/page.html` (logique classification `slug.includes('outil-vente')`), `CLAUDE.md` (mention slug MAJ)
+- **Redirect 301 ajouté dans `vercel.json`** · `/articles/construit-avec-claude-code-gmf(.html)?` → `/articles/outil-vente-claude-code.html` · permanent. Préserve le juice SEO Google + empêche le 404 pour les liens externes déjà partagés.
+
+### Vérifications
+- `grep -r "GMF"` sur fichiers publics (HTML/XML) → 0 occurrence
+- `grep -r "construit-avec-claude-code-gmf"` sur tout le projet → seulement le redirect `vercel.json` + CHANGELOG historique
+- Tous les liens internes pointent vers le nouveau slug
+
+### Fichiers touchés
+- `articles/outil-vente-claude-code.html` (renommé + URLs internes)
+- `apprendre.html`, `index.html`, `workflows.html`, `quiz.html`, `sitemap.xml`
+- `SEO-GUIDE.md`, `scripts/seo-improve.js`, `admin/modules/articles/page.html`
+- `CLAUDE.md`
+- `vercel.json` (redirect 301)
+
+### À venir
+- [ ] Après redéploiement Vercel, tester manuellement que `/articles/construit-avec-claude-code-gmf.html` redirige bien en 301 vers le nouveau slug
+- [ ] Si l'ancien slug a déjà été soumis à Google Search Console, attendre réindexation (2-4 semaines)
+
+---
+
 ## 2026-04-23 · anonymisation GMF + abandon player TTS
 
 ### Pourquoi

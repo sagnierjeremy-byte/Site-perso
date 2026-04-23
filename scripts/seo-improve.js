@@ -58,7 +58,7 @@ const PUBLISH_DATES = {
   'agents-ia-guide':                  { published: '2026-04-15', modified: '2026-04-21' },
   'autoresearch-karpathy':            { published: '2026-04-12', modified: '2026-04-20' },
   'better-call-vs-associe':           { published: '2026-04-20', modified: '2026-04-20' },
-  'construit-avec-claude-code-gmf':   { published: '2026-04-15', modified: '2026-04-20' },
+  'outil-vente-claude-code':   { published: '2026-04-15', modified: '2026-04-20' },
   'hermes-agent':                     { published: '2026-04-10', modified: '2026-04-20' },
   'karpathy':                         { published: '2026-04-08', modified: '2026-04-20' },
   'limova-vs-claude-code':            { published: '2026-04-20', modified: '2026-04-20' },

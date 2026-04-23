@@ -118,7 +118,7 @@ Bing = 3% de part en France mais **source principale de Perplexity, ChatGPT Sear
 | `/articles/karpathy.html` | andrej karpathy vulgarisé, karpathy cours ia |
 | `/articles/llm-wiki-karpathy.html` | llm wiki karpathy, deuxième cerveau ia |
 | `/articles/autoresearch-karpathy.html` | autoresearch karpathy, agents auto-améliorants |
-| `/articles/construit-avec-claude-code-gmf.html` | cas concret claude code, outil vente ia |
+| `/articles/outil-vente-claude-code.html` | cas concret claude code, outil vente ia |
 
 ---
 

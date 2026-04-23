@@ -164,7 +164,7 @@ Les newsletters sont **des veilles automatiques** que Jérémy se produit à lui
 - ❌ "Inscrivez-vous pour recevoir du contenu exclusif" → pose commerciale
 - ❌ Mentions de projets Eurofiscalis/Kevin internes si pas pertinent
 - ❌ Disclaimer consultant "il est important de noter que..."
-- ❌ **"GMF", "chez GMF", "produit GMF"** → toujours remplacer par "en assurance" / "outil de vente" / formulation neutre. Le slug technique `construit-avec-claude-code-gmf.html` reste en place pour ne pas casser les URLs indexées, mais AUCUN texte visible ne doit contenir "GMF". Raison : anonymisation du nom de l'employeur de Shirley (décidée 2026-04-23).
+- ❌ **"GMF", "chez GMF", "produit GMF"** → toujours remplacer par "en assurance" / "outil de vente" / formulation neutre. Article renommé `outil-vente-claude-code.html` avec redirect 301 depuis l'ancien slug. AUCUN texte visible ne doit contenir "GMF". Raison : anonymisation du nom de l'employeur de Shirley (décidée 2026-04-23).
 
 ---
 

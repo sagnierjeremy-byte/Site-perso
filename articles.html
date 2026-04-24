@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tous les articles — Jérémy Sagnier</title>
+<meta name="description" content="Tous les articles du site : tutos Claude Code, vulgarisation IA, making-of projets, opinions. 21 articles, triés par date.">
+
+<meta property="og:title" content="Tous les articles — Jérémy Sagnier">
+<meta property="og:description" content="Tutos, making-of, vulgarisation, opinions. Tout ce que j'ai publié, au même endroit.">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jerwis.fr/articles.html">
+<meta property="og:locale" content="fr_FR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Tous les articles — Jérémy Sagnier">
+<meta name="twitter:description" content="Tutos, making-of, vulgarisation, opinions. Tout au même endroit.">
+
+<link rel="canonical" href="https://jerwis.fr/articles.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/main.css">
+<link rel="stylesheet" href="assets/nav-v2.css">
+
+<style>
+  /* === Page /articles — liste complète === */
+
+  /* Hero compact */
+  .arts-hero {
+    padding: 56px 0 72px;
+    background:
+      radial-gradient(ellipse at 85% 15%, rgba(255,130,0,.18), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.18), transparent 55%),
+      radial-gradient(ellipse at 55% 55%, rgba(239,66,111,.15), transparent 60%),
+      #0A0A0A;
+    color: #F4EFE6;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .arts-hero-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  }
+  .arts-hero-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(244,239,230,.7);
+    padding: 8px 14px;
+    border: 1px solid rgba(244,239,230,.18);
+    border-radius: 999px;
+    background: rgba(244,239,230,.04);
+    margin-bottom: 22px;
+  }
+  .arts-hero-kicker .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--fuchsia);
+    box-shadow: 0 0 0 4px rgba(239,66,111,.2);
+  }
+  .arts-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(44px, 7vw, 88px);
+    line-height: .92;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    margin: 0 0 18px;
+  }
+  .arts-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .arts-hero-lead {
+    font-size: 18px; line-height: 1.55;
+    color: rgba(244,239,230,.78);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* Barre de filtres */
+  .arts-filters-wrap {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+  }
+  .arts-filters {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+  }
+  .arts-filters-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .arts-filter-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all .2s cubic-bezier(.2,.7,.2,1);
+  }
+  .arts-filter-btn:hover {
+    color: var(--ink); border-color: var(--ink); transform: translateY(-1px);
+  }
+  .arts-filter-btn.active {
+    color: #FBF7F0; background: #0A0A0A; border-color: #0A0A0A;
+  }
+  .arts-filter-btn .count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 20px; height: 18px; padding: 0 6px;
+    font-size: 10px;
+    background: var(--bg-2);
+    border-radius: 999px;
+    color: var(--ink-muted);
+  }
+  .arts-filter-btn.active .count {
+    background: rgba(251,247,240,.15); color: #FBF7F0;
+  }
+  .arts-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .arts-count strong { color: var(--ink); font-weight: 700; }
+
+  /* Grid + cards */
+  .arts-grid-wrap {
+    padding: 40px 0 80px;
+  }
+  .arts-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .art-card {
+    position: relative;
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 28px 26px 26px;
+    text-decoration: none; color: inherit;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, border-color .3s;
+    overflow: hidden;
+  }
+  .art-card::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--card-accent, var(--teal));
+    opacity: .85;
+  }
+  .art-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 50px -24px rgba(0,0,0,.22), 0 4px 14px -6px rgba(0,0,0,.12);
+    border-color: var(--ink);
+  }
+  .art-card[data-accent="teal"]     { --card-accent: #00B2A9; }
+  .art-card[data-accent="fuchsia"]  { --card-accent: #EF426F; }
+  .art-card[data-accent="orange"]   { --card-accent: #FF8200; }
+  .art-card[data-accent="ink"]      { --card-accent: #0A0A0A; }
+
+  .art-card-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    align-self: flex-start;
+    padding: 6px 11px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+  .art-card-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+  .art-card-badge[data-type="tuto"] {
+    background: rgba(0,178,169,.12); color: #007A74;
+  }
+  .art-card-badge[data-type="tuto"] .dot { background: #00B2A9; }
+  .art-card-badge[data-type="opinion"] {
+    background: rgba(239,66,111,.12); color: #C4375D;
+  }
+  .art-card-badge[data-type="opinion"] .dot { background: #EF426F; }
+  .art-card-badge[data-type="makingof"] {
+    background: rgba(255,130,0,.14); color: #BF5F00;
+  }
+  .art-card-badge[data-type="makingof"] .dot { background: #FF8200; }
+  .art-card-badge[data-type="vulgarisation"] {
+    background: rgba(10,10,10,.08); color: #0A0A0A;
+  }
+  .art-card-badge[data-type="vulgarisation"] .dot { background: #0A0A0A; }
+  .art-card-badge[data-type="podcast"] {
+    background: linear-gradient(90deg, rgba(0,178,169,.12), rgba(239,66,111,.12), rgba(255,130,0,.12));
+    color: var(--ink);
+  }
+  .art-card-badge[data-type="podcast"] .dot { background: var(--fuchsia); }
+
+  [data-theme="dark"] .art-card-badge[data-type="tuto"] { color: #5FE3DA; }
+  [data-theme="dark"] .art-card-badge[data-type="opinion"] { color: #F97FA0; }
+  [data-theme="dark"] .art-card-badge[data-type="makingof"] { color: #FFAE5C; }
+  [data-theme="dark"] .art-card-badge[data-type="vulgarisation"] { color: #F4EFE6; background: rgba(244,239,230,.08); }
+  [data-theme="dark"] .art-card-badge[data-type="vulgarisation"] .dot { background: #F4EFE6; }
+
+  .art-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; line-height: 1.1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  .art-card-desc {
+    font-family: 'Archivo', sans-serif;
+    font-size: 14.5px; line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    flex: 1;
+    text-wrap: pretty;
+  }
+  .art-card-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .art-card-meta .date-time { display: flex; align-items: center; gap: 10px; }
+  .art-card-meta .date-time .sep {
+    width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong);
+  }
+  .art-card-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .art-card:hover .art-card-link { color: var(--fuchsia); }
+  .art-card:hover .art-card-link .arrow { transform: translateX(4px); }
+  .art-card-link .arrow {
+    display: inline-block;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1);
+  }
+
+  /* Empty state (quand filtre ne matche rien) */
+  .arts-empty {
+    max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+    text-align: center;
+    display: none;
+  }
+  .arts-empty.show { display: block; }
+  .arts-empty h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px; line-height: 1; letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .arts-empty p {
+    color: var(--ink-soft); font-size: 16px;
+  }
+
+  /* Mini-marquee signature (repris de CLAUDE.md) */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .arts-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .arts-hero { padding: 44px 0 56px; }
+    .arts-hero h1 { font-size: clamp(38px, 9vw, 64px); }
+    .arts-hero-lead { font-size: 16px; }
+    .arts-filters { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .arts-filters-wrap { position: static; }
+  }
+  @media (max-width: 640px) {
+    .arts-grid { grid-template-columns: 1fr; }
+    .art-card { padding: 24px 22px; }
+    .art-card h3 { font-size: 20px; }
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .35; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08; }
+</style>
+</head>
+<body>
+
+<!-- Triple-stripe signature -->
+<div class="top-stripe" aria-hidden="true" style="display:flex; height:5px; width:100%;">
+  <span style="flex:1; background:#00B2A9"></span>
+  <span style="flex:1; background:#EF426F"></span>
+  <span style="flex:1; background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="apprendre.html">Apprendre</a>
+    <a href="articles.html" aria-current="page">Articles</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="arts-hero">
+  <div class="arts-hero-inner">
+    <span class="arts-hero-kicker">
+      <span class="dot"></span>
+      La bibliothèque · 21 articles
+    </span>
+    <h1>Tous les articles.<br><em>Triés par date.</em></h1>
+    <p class="arts-hero-lead">
+      Tout ce que j'ai publié au même endroit. Tutos Claude Code, vulgarisation IA, making-of projets, opinions. Filtre par type, lis dans l'ordre qui te parle.
+    </p>
+  </div>
+</section>
+
+<!-- Mini-marquee -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tutos</span><span>Vulgarisation</span><span>Making-of</span><span>Opinions</span><span>Podcast</span><span>Tout au même endroit</span>
+    <span>Tutos</span><span>Vulgarisation</span><span>Making-of</span><span>Opinions</span><span>Podcast</span><span>Tout au même endroit</span>
+  </div>
+</div>
+
+<!-- FILTRES -->
+<div class="arts-filters-wrap">
+  <div class="arts-filters">
+    <div class="arts-filters-list" id="artsFilters">
+      <button class="arts-filter-btn active" data-filter="all">Tous <span class="count" id="count-all">21</span></button>
+      <button class="arts-filter-btn" data-filter="tuto">Tutos <span class="count" id="count-tuto">0</span></button>
+      <button class="arts-filter-btn" data-filter="opinion">Opinions <span class="count" id="count-opinion">0</span></button>
+      <button class="arts-filter-btn" data-filter="vulgarisation">Vulgarisation <span class="count" id="count-vulgarisation">0</span></button>
+      <button class="arts-filter-btn" data-filter="makingof">Making-of <span class="count" id="count-makingof">0</span></button>
+      <button class="arts-filter-btn" data-filter="podcast">Podcast <span class="count" id="count-podcast">0</span></button>
+    </div>
+    <span class="arts-count"><strong id="artsVisibleCount">21</strong> articles visibles</span>
+  </div>
+</div>
+
+<!-- GRID -->
+<section class="arts-grid-wrap">
+  <div class="arts-grid" id="artsGrid"></div>
+  <div class="arts-empty" id="artsEmpty">
+    <h2>Rien dans ce filtre pour le moment</h2>
+    <p>Reviens plus tard, ou change de filtre.</p>
+  </div>
+</section>
+
+<!-- Mini-marquee 2 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Je teste</span><span>Je trie</span><span>Je partage</span><span>Tu reçois</span><span>Tu utilises</span><span>Tu gagnes du temps</span>
+    <span>Je teste</span><span>Je trie</span><span>Je partage</span><span>Tu reçois</span><span>Tu utilises</span><span>Tu gagnes du temps</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Salut — moi c'est Jérémy. Je teste l'IA tous les jours pour ne jamais être dépassé, et je partage ce que je trouve en chemin. Une question sur un article ? Écris-moi — je lis tout.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li>
+            <a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6a3 3 0 0 0-2.1 2.1A31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
+              YT · Frères Sagnier
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6a3 3 0 0 0-2.1 2.1A31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
+              YT · Jérémy solo
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04c-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85c3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 0 1 0-4.12a2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li>
+            <a href="mailto:sagnier.jeremy@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              Email
+            </a>
+          </li>
+          <li>
+            <a href="index.html#newsletters">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Newsletters
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta / 89
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // Données articles (tri: date desc, nulls last)
+  const ARTICLES = [
+    {"slug":"monde-ia-5-10-20-ans","title":"Le monde de mon fils de 4 ans","description":"J'ai un fils de 4 ans. À quoi ressemblera le monde quand il aura 14, 24, 34 ans ? Trois horizons, un pari personnel sur l'IA.","type":"opinion","duration":"12 min","date":"2026-04-24","accent":"teal"},
+    {"slug":"plan-chine-2026-2030","title":"Le plan chinois 2026-2030, décrypté","description":"Plan quinquennal chinois 2026-2030 : trois crises, cinq leviers, un objectif caché. Ce qui va peser sur notre quotidien.","type":"opinion","duration":"13 min","date":"2026-04-23","accent":"teal"},
+    {"slug":"llm-wiki-karpathy","title":"Le LLM Wiki, ton deuxième cerveau","description":"Le pattern de Karpathy pour bâtir une base de connaissances perso avec un LLM. Pas un RAG, un vrai deuxième cerveau.","type":"vulgarisation","duration":"12 min","date":"2026-04-20","accent":"fuchsia"},
+    {"slug":"dev-browser","title":"Un navigateur piloté par ton IA","description":"Dev-browser : un navigateur que l'IA pilote via un script. Cliquer, lire, screenshoter, tester. Ce que j'en fais chaque jour.","type":"tuto","duration":"11 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"loops-claude","title":"Les loops Claude Code, expliqués","description":"Automatise tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets, coûts chiffrés.","type":"tuto","duration":"7 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"superpowers","title":"Superpowers : le plugin qui force Claude à réfléchir","description":"Superpowers force Claude à brainstormer, planifier, TDD et reviewer avant de coder. À quoi ça sert et quand l'éviter.","type":"tuto","duration":"13 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"karpathy","title":"Les travaux de Karpathy, vulgarisés","description":"Andrej Karpathy, ex-OpenAI et ex-Tesla, le meilleur prof d'IA du monde. Je te résume ce qu'il enseigne, même si tu n'es pas dev.","type":"vulgarisation","duration":"15 min","date":"2026-04-20","accent":"orange"},
+    {"slug":"claude-code-workflow-tips","title":"6 mois de Claude Code, vu par un non-dev","description":"Un dev senior partage ses tips Claude Code après 6 mois. Non-dev, je l'utilise aussi chaque jour. Ce qui change sans background tech.","type":"tuto","duration":"14 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"outil-vente-claude-code","title":"Pourquoi tu restes sur Claude Code jusqu'à 2h","description":"Shirley est chargée de clientèle en assurance. En 3 soirées, on a construit avec Claude Code un outil qui l'aide en RDV client.","type":"makingof","duration":"8 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"booking-eurofiscalis-making-of","title":"On a viré Calendly et Letsignit","description":"On a remplacé Calendly et Letsignit par un outil maison en une semaine avec Claude Code. ~345 €/mois économisés. Sans filtre.","type":"makingof","duration":"15 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"autoresearch-karpathy","title":"J'ai laissé une IA s'améliorer toute seule","description":"Karpathy l'a montré : laisser une IA modifier son propre travail, tester, garder ce qui marche. J'ai tenté sur mon tri d'emails.","type":"vulgarisation","duration":"14 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"guerres-d-ia-podcast","title":"Un podcast avec voix IA en 24h","description":"3 épisodes de podcast narratif style Wondery sur la guerre IA en 24h, pour 33 $. Voix IA, sous-agents, mixage auto. Comment.","type":"podcast","duration":"10 min","date":"2026-04-20","accent":"teal"},
+    {"slug":"tuto-agent-contrats","title":"Un agent qui lit tes contrats PDF","description":"Tutoriel étape par étape : un agent Claude Code qui lit tes contrats PDF et liste les 12 clauses à négocier. 60 min, 20 €/mois.","type":"tuto","duration":"14 min","date":"2026-04-17","accent":"teal"},
+    {"slug":"agents-ia-guide","title":"Agents IA : à quoi ça sert, comment ça marche","description":"Guide complet agents IA pour débutants : ce que c'est, comment ça marche, comment en créer un, combien ça coûte.","type":"tuto","duration":"14 min","date":"2026-04-15","accent":"teal"},
+    {"slug":"veille-pour-demain","title":"Je voulais lancer une newsletter. J'ai fait autre chose","description":"Je voulais lancer une newsletter, les sous-agents m'ont dit non. Pivoté 4 fois. J'ai fini par construire un outil de veille à 5 €/mois.","type":"opinion","duration":"9 min","date":"2026-04-14","accent":"teal"},
+    {"slug":"tuto-agent-gmail","title":"Un agent qui trie ta boîte Gmail","description":"Tutoriel pas à pas pour créer un agent Claude Code qui trie 80 mails/jour, repère les 3 urgents, résumé matinal. 45 min, 5 €/mois.","type":"tuto","duration":"12 min","date":null,"accent":"teal"},
+    {"slug":"hermes-agent","title":"L'agent qui lit mes 200 mails chaque matin","description":"J'ai construit Hermes, un assistant IA qui ouvre ma boîte mail à 7h, repère les vrais urgents et range le reste. 4h gagnées/semaine.","type":"tuto","duration":"18 min","date":null,"accent":"fuchsia"},
+    {"slug":"llm-local-pour-non-dev","title":"Faire tourner une vraie IA chez toi","description":"Installer une IA chez toi, sans abonnement, sans cloud. Le tuto pas à pas pour quelqu'un qui n'a jamais codé. Sans jargon.","type":"tuto","duration":"20 min","date":null,"accent":"teal"},
+    {"slug":"open-source-pour-non-dev","title":"L'open source, expliqué pour les non-dev","description":"L'open source, c'est quoi ? À quoi ça sert ? Quels outils essayer ? Comment ça change avec l'IA en 2026 ? Le tuto sans jargon.","type":"tuto","duration":"15 min","date":null,"accent":"teal"},
+    {"slug":"better-call-vs-associe","title":"Oussama Ammar comme associé, à 7 000 €/an","description":"J'ai eu un associé. Testé Better Call deux fois. Pourquoi je préfère Oussama Ammar à 7 000 €/an plutôt que céder 50 %.","type":"opinion","duration":"10 min","date":null,"accent":"teal"},
+    {"slug":"limova-vs-claude-code","title":"Avant de payer Limova 840 €/an, lis ça","description":"Limova : 9 agents IA à 70-120 €/mois. Ce qui m'a attiré, ce qui m'a fait tiquer, ce que tu peux construire avec Claude Code pour 5× moins.","type":"opinion","duration":"11 min","date":null,"accent":"teal"}
+  ];
+
+  const TYPE_LABELS = {
+    tuto: 'Tuto',
+    opinion: 'Opinion',
+    vulgarisation: 'Vulgarisation',
+    makingof: 'Making-of',
+    podcast: 'Podcast'
+  };
+
+  const DATE_MONTHS_FR = ['jan','fév','mar','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    if (isNaN(d)) return '—';
+    return `${d.getDate()} ${DATE_MONTHS_FR[d.getMonth()]} ${d.getFullYear()}`;
+  }
+
+  function renderCard(a) {
+    return `
+      <a class="art-card" href="articles/${a.slug}.html" data-type="${a.type}" data-accent="${a.accent}">
+        <span class="art-card-badge" data-type="${a.type}"><span class="dot"></span>${TYPE_LABELS[a.type]}</span>
+        <h3>${a.title}</h3>
+        <p class="art-card-desc">${a.description}</p>
+        <div class="art-card-meta">
+          <span class="date-time">
+            <span>${formatDate(a.date)}</span>
+            <span class="sep"></span>
+            <span>${a.duration}</span>
+          </span>
+          <span class="art-card-link">Lire <span class="arrow">→</span></span>
+        </div>
+      </a>
+    `;
+  }
+
+  function renderGrid(filter) {
+    const grid = document.getElementById('artsGrid');
+    const empty = document.getElementById('artsEmpty');
+    const items = filter === 'all' ? ARTICLES : ARTICLES.filter(a => a.type === filter);
+    grid.innerHTML = items.map(renderCard).join('');
+    document.getElementById('artsVisibleCount').textContent = items.length;
+    empty.classList.toggle('show', items.length === 0);
+    grid.style.display = items.length === 0 ? 'none' : 'grid';
+  }
+
+  function updateCounts() {
+    const counts = ARTICLES.reduce((acc, a) => {
+      acc[a.type] = (acc[a.type] || 0) + 1;
+      return acc;
+    }, {});
+    document.getElementById('count-all').textContent = ARTICLES.length;
+    Object.keys(TYPE_LABELS).forEach(t => {
+      const el = document.getElementById(`count-${t}`);
+      if (el) el.textContent = counts[t] || 0;
+    });
+  }
+
+  // Init
+  updateCounts();
+  renderGrid('all');
+
+  // Filter clicks
+  document.getElementById('artsFilters').addEventListener('click', (e) => {
+    const btn = e.target.closest('.arts-filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.arts-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid(btn.dataset.filter);
+  });
+</script>
+
+</body>
+</html>

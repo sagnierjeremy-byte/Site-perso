@@ -1,5 +1,35 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · Nav Jerwis v2 propagée + page `/articles`
+
+### Pourquoi
+Le nouveau hero Jerwis v2 sur `index.html` utilisait une mini-nav (4 liens + logo stamp + theme toggle) qui n'existait que sur la home. Les autres pages gardaient l'ancien header, d'où rupture visuelle à chaque clic. Besoin aussi d'une page catalogue `/articles` pour surfacer les 21 articles au même endroit (accessible depuis la nav).
+
+### Livré
+- **`assets/nav-v2.css`** (nouveau) : mini-nav Jerwis v2 partageable · logo stamp « PAR JEREMY SAGNIER · JERWIS » · 4 liens (Apprendre · Articles · Podcast · Newsletter) · theme toggle rond · règles pour cacher l'ancien header.
+- **Propagation sur 31 pages** : 10 pages racine (`apprendre`, `claude-code`, `debutant`, `github`, `lexique`, `outils`, `podcast`, `preferences`, `quiz`, `workflows`) + 21 articles (`articles/*.html`). Lien CSS + bloc `<nav class="mini-nav">` ajoutés, theme toggle JS branché.
+- **`articles.html`** (nouveau, page catalogue) :
+  - Hero compact dark « Tous les articles · Triés par date. » avec kicker + lead.
+  - Barre de filtres sticky 6 boutons : Tous (21) · Tutos (10) · Opinions (5) · Vulgarisation (3) · Making-of (2) · Podcast (1).
+  - Compteur live « 21 articles visibles » qui update au filtre.
+  - Grid 3 colonnes desktop / 2 tablet / 1 mobile. Cards avec bandeau top coloré par accent, badge type coloré, titre Archivo Black, description, date + durée, « Lire → ».
+  - Mini-marquees signature entre sections.
+  - Empty state si filtre vide.
+  - Dark mode OK (badges couleurs inversées, bg inverté, pas de var(--ink) sur blocs fixes).
+- **Tri par date desc** : monde-ia (2026-04-24) → plan-chine (2026-04-23) → vague 2026-04-20 → tuto-agent-contrats (2026-04-17) → agents-ia-guide (2026-04-15) → veille-pour-demain (2026-04-14) → 6 articles sans date en fin.
+
+### Validation
+Test dev-browser : 21 cards initiales, filter opinion = 5 cards, filter tuto = 10 cards, dark mode OK, responsive 400px OK. Compteurs cohérents (10+5+3+2+1 = 21).
+
+### Fichiers touchés
+`assets/nav-v2.css` (nouveau), `articles.html` (nouveau), `index.html`, `apprendre.html`, `claude-code.html`, `debutant.html`, `github.html`, `lexique.html`, `outils.html`, `podcast.html`, `preferences.html`, `quiz.html`, `workflows.html`, `articles/*.html` (21 fichiers).
+
+### À venir
+- Ajouter une image OG par article (placeholders actuellement tous sur `og-jerwis.jpg`).
+- Regrouper peut-être les articles par « cluster thématique » (Claude Code · IA·Karpathy · Agents · Opinions géopolitique) en secondaire du filtre type.
+
+---
+
 ## 2026-04-24 · CORE-EEAT boost · 3 opinions sous 80/100
 
 ### Pourquoi

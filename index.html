@@ -741,7 +741,7 @@
     color: var(--ink-soft);
   }
 
-  /* === Podcast section === */
+  /* === Podcast section · Dark studio + waveform (V3) === */
   #podcast { padding: 100px 0; position: relative; }
   .podcast-grid {
     display: grid;
@@ -753,71 +753,134 @@
     .podcast-grid { grid-template-columns: repeat(3, 1fr); gap: 26px }
   }
   .podcast-card {
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 22px;
-    padding: 28px 28px 24px;
+    position: relative;
+    background: #0A0A0A;
+    border-radius: 16px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
+    min-height: 400px;
+    box-shadow: 0 20px 40px -24px rgba(0,0,0,.4);
+    transition: transform .25s, box-shadow .25s;
+    padding: 0;
+    border: none;
   }
   .podcast-card:hover {
-    border-color: var(--fuchsia);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px -20px rgba(0,0,0,.18);
+    transform: translateY(-3px);
+    box-shadow: 0 26px 52px -22px rgba(0,0,0,.5);
   }
   .podcast-card::before {
     content: "";
     position: absolute;
-    top: 0; left: 28px;
-    height: 4px;
-    width: 80px;
-    border-radius: 0 0 4px 4px;
+    top: 0; left: 0; right: 0; height: 130px;
+    opacity: .55;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 6px,
+        currentColor 6px 8px,
+        transparent 8px 14px,
+        currentColor 14px 18px,
+        transparent 18px 28px,
+        currentColor 28px 30px
+      );
+    -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 65%, transparent 100%);
+            mask: linear-gradient(180deg, transparent, #000 20%, #000 65%, transparent 100%);
+    pointer-events: none;
+    border-radius: 0;
+    width: auto;
   }
-  .podcast-card.ep-01::before { background: var(--fuchsia); }
-  .podcast-card.ep-02::before { background: var(--orange); }
-  .podcast-card.ep-03::before { background: linear-gradient(90deg, var(--fuchsia), var(--teal)); }
-  .podcast-ep-num {
+  .podcast-card.ep-01::before { color: var(--fuchsia); background-color: transparent; }
+  .podcast-card.ep-02::before { color: var(--orange); background-color: transparent; }
+  .podcast-card.ep-03::before { color: var(--teal); background-color: transparent; }
+  .podcast-head {
+    padding: 22px 22px 12px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .podcast-ep-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .2em;
+    font-size: 10.5px;
+    letter-spacing: .22em;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-top: 14px;
+    color: rgba(244,239,230,.65);
+  }
+  .podcast-ep-label strong { font-weight: 700; color: #F4EFE6; }
+  .podcast-card.ep-01 .podcast-ep-label strong { color: var(--fuchsia); }
+  .podcast-card.ep-02 .podcast-ep-label strong { color: var(--orange); }
+  .podcast-card.ep-03 .podcast-ep-label strong { color: var(--teal); }
+  .podcast-live {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .25em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(244,239,230,.08);
+    border: 1px solid rgba(244,239,230,.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .podcast-live .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ff4545;
+    animation: podcast-live-pulse 1.8s infinite;
+  }
+  @keyframes podcast-live-pulse {
+    50% { opacity: .3 }
+  }
+  .podcast-body {
+    padding: 120px 22px 18px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
   .podcast-ep-title {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 28px;
-    line-height: 1.02;
-    letter-spacing: -.02em;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -.03em;
     text-transform: uppercase;
-    color: var(--ink);
-    margin: 6px 0 8px;
+    color: #F4EFE6;
+    margin: 0;
   }
   .podcast-ep-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 10.5px;
     letter-spacing: .12em;
-    font-weight: 600;
-    color: var(--ink-muted);
-    margin-bottom: 14px;
+    color: rgba(244,239,230,.55);
     text-transform: uppercase;
+    margin: 0;
+    font-weight: 600;
   }
   .podcast-ep-desc {
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 18px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: rgba(244,239,230,.8);
     flex: 1;
+    margin: 0;
+  }
+  .podcast-player-wrap {
+    padding: 0 22px 22px;
+    position: relative;
+    z-index: 2;
   }
   .podcast-card audio {
     width: 100%;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 6px;
     outline: none;
+    filter: invert(.92) hue-rotate(180deg);
   }
   .podcast-footer {
     margin-top: 44px;
@@ -2360,27 +2423,48 @@
     <div class="podcast-grid">
 
       <article class="podcast-card ep-01" id="episode-01" data-published="2026-04-22">
-        <div class="podcast-ep-num">Épisode 01</div>
-        <h3 class="podcast-ep-title">La Fracture</h3>
-        <div class="podcast-ep-meta">17 min 16 · 22 avril 2026</div>
-        <p class="podcast-ep-desc">La nuit où Dario Amodei quitte OpenAI pour fonder Anthropic. Deux visions de l'IA qui ne peuvent plus cohabiter.</p>
-        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-01-la-fracture-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        <div class="podcast-head">
+          <span class="podcast-ep-label">Épisode · <strong>01</strong></span>
+          <span class="podcast-live"><span class="dot"></span>En ligne</span>
+        </div>
+        <div class="podcast-body">
+          <h3 class="podcast-ep-title">La Fracture.</h3>
+          <div class="podcast-ep-meta">17 min 16 · 22 avril 2026</div>
+          <p class="podcast-ep-desc">La nuit où Dario Amodei quitte OpenAI pour fonder Anthropic. Deux visions de l'IA qui ne peuvent plus cohabiter.</p>
+        </div>
+        <div class="podcast-player-wrap">
+          <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-01-la-fracture-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        </div>
       </article>
 
       <article class="podcast-card ep-02" id="episode-02" data-published="2026-04-23">
-        <div class="podcast-ep-num">Épisode 02</div>
-        <h3 class="podcast-ep-title">Les Quatre Jours</h3>
-        <div class="podcast-ep-meta">17 min 24 · 23 avril 2026</div>
-        <p class="podcast-ep-desc">Le coup d'État OpenAI de novembre 2023, minute par minute. Sutskever vote, Brockman part, Satya ramasse.</p>
-        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-02-les-quatre-jours-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        <div class="podcast-head">
+          <span class="podcast-ep-label">Épisode · <strong>02</strong></span>
+          <span class="podcast-live"><span class="dot"></span>En ligne</span>
+        </div>
+        <div class="podcast-body">
+          <h3 class="podcast-ep-title">Les Quatre Jours.</h3>
+          <div class="podcast-ep-meta">17 min 24 · 23 avril 2026</div>
+          <p class="podcast-ep-desc">Le coup d'État OpenAI de novembre 2023, minute par minute. Sutskever vote, Brockman part, Satya ramasse.</p>
+        </div>
+        <div class="podcast-player-wrap">
+          <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-02-les-quatre-jours-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        </div>
       </article>
 
       <article class="podcast-card ep-03" id="episode-03" data-published="2026-04-24">
-        <div class="podcast-ep-num">Épisode 03</div>
-        <h3 class="podcast-ep-title">Frères Ennemis</h3>
-        <div class="podcast-ep-meta">15 min 18 · 24 avril 2026</div>
-        <p class="podcast-ep-desc">Musk contre Altman. Cent trente-quatre milliards sur la table. Le père fondateur qui poursuit son ancienne création.</p>
-        <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-03-freres-ennemis-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        <div class="podcast-head">
+          <span class="podcast-ep-label">Épisode · <strong>03</strong></span>
+          <span class="podcast-live"><span class="dot"></span>En ligne</span>
+        </div>
+        <div class="podcast-body">
+          <h3 class="podcast-ep-title">Frères Ennemis.</h3>
+          <div class="podcast-ep-meta">15 min 18 · 24 avril 2026</div>
+          <p class="podcast-ep-desc">Musk contre Altman. Cent trente-quatre milliards sur la table. Le père fondateur qui poursuit son ancienne création.</p>
+        </div>
+        <div class="podcast-player-wrap">
+          <audio controls preload="none" src="https://pub-13be70d367034b9eb7903c6b3b80eaa0.r2.dev/episode-03-freres-ennemis-MASTER.mp3">Ton navigateur ne gère pas l'audio.</audio>
+        </div>
       </article>
 
     </div>

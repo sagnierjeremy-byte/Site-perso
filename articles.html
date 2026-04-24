@@ -381,12 +381,10 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(18px, 2vw, 28px);
     margin-bottom: 72px;
-    grid-auto-flow: dense;
+    align-items: stretch;
   }
-  .b-grid .art.size-m { grid-row: span 2; }
   @media (max-width: 1020px) {
     .b-grid { grid-template-columns: repeat(2, 1fr); }
-    .b-grid .art.size-m { grid-row: span 1; }
   }
   @media (max-width: 680px) {
     .b-grid { grid-template-columns: 1fr; }
@@ -422,7 +420,6 @@
     aspect-ratio: 16 / 10;
     overflow: hidden;
   }
-  .art.size-m .art-scene { aspect-ratio: 4 / 3; }
   .art-scene::after {
     content:""; position:absolute; inset:0;
     background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.3));

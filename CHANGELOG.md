@@ -25,6 +25,23 @@ Les 33 HTML publiques : `index.html`, `apprendre.html`, `articles.html`, `claude
 
 ---
 
+## 2026-04-24 · Fix grille articles + avatar pré-croppé Jeremy
+
+### Pourquoi
+Deux bugs visibles signalés par Jeremy :
+1. **Grille `/articles`** : les cards `size:m` (LE PLAN CHINOIS, UN PODCAST) spannaient 2 rows en masonry mais leur contenu était court → 50% de blanc en bas, cards visuellement cassées.
+2. **Avatar byline** : malgré le zoom 280% en background-position, on voyait encore un bout de Kevin (le frère jumeau) dans le cercle.
+
+### Livré
+- **Grille uniforme** : suppression de `.b-grid .art.size-m { grid-row: span 2 }` et `grid-auto-flow: dense`. Toutes les cards ont la même hauteur (= contenu). Plus de blanc.
+- **Avatar pré-croppé** : nouveau fichier `photos/jeremy-avatar.jpg` (256×256, 13 Ko) — crop manuel via PIL sur le visage de Jeremy seul (zone 360×360 autour de x=720, y=800 sur la photo source 1078×1600), redimensionné. Plus besoin de bidouiller `background-position`.
+- 15 articles : remplacement du `<span>` background-image par un simple `<img src="../photos/jeremy-avatar.jpg">` avec `object-fit:cover`. Plus rapide à charger (256×256 vs 1078×1600).
+
+### Fichiers touchés
+`articles.html`, `articles/*.html` (15), `photos/jeremy-avatar.jpg` (nouveau), `CHANGELOG.md`.
+
+---
+
 ## 2026-04-24 · Byline SEO uniformisée + photo de profil sur 15 articles
 
 ### Pourquoi

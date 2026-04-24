@@ -44,6 +44,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/main.css">
+<link rel="stylesheet" href="assets/nav-v2.css">
 
 <style>
   /* === Page parcours — styles spécifiques === */
@@ -463,6 +464,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="apprendre.html" aria-current="page">Apprendre</a>
+    <a href="articles.html">Articles</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <!-- Header -->
 <header class="header">
@@ -1176,6 +1203,22 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 
   // Progress rail — active state au scroll
   const steps = ['etape-01','etape-02','etape-03','etape-04'];

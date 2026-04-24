@@ -33,6 +33,95 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte exactement un agent qui trie les mails comme Hermes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Environ 8 euros par mois pour traiter 6 000 mails (200 par jour) avec le modèle claude-haiku-4 d'Anthropic. Soit 0,25 euro par jour. Make est gratuit jusqu'à 1 000 actions par mois, largement assez pour démarrer. Aucun autre coût caché : pas d'abonnement, pas de licence à acheter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mes mails passent-ils chez Anthropic quand Hermes les trie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, Hermes envoie à Claude l'objet et un extrait du corps de chaque mail à classer. Anthropic a un engagement de non-conservation par défaut sur l'API, mais tes données transitent par leurs serveurs. Pour des données ultra-sensibles (avocat, médical, secret pro), il faut basculer sur la voie locale avec Ollama et un modèle qui tourne 100 % chez toi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hermes marche-t-il avec Outlook ou seulement avec Gmail ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make et Zapier ont tous les deux des connecteurs Outlook et Microsoft 365 officiels. Le tuto reprend exactement la même logique : tu remplaces le bloc Gmail par le bloc Outlook, le reste est identique. Si tu es déjà sur Microsoft 365, Microsoft Copilot pour Outlook (~ 22 €/mois) couvre une partie du besoin sans rien installer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps prend le setup complet du tuto ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte une après-midi de samedi pour la première version qui tourne (création des comptes Anthropic et Make, connexion Gmail, écriture du prompt système, test sur 10 mails). Plus une heure de réglages la semaine d'après pour ajuster les règles. Au total : 4 à 6 heures pour passer de zéro à un Hermes opérationnel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que se passe-t-il si l'API Anthropic plante en pleine nuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make te prévient par mail dès qu'un scénario échoue. Tes mails restent dans ta boîte, simplement non triés jusqu'à ce que le service revienne. Sur 4 mois d'usage, j'ai eu 2 incidents (Make en panne ou API d'Anthropic saturée), tous deux résolus en moins d'une heure sans rien faire de mon côté. Aucun mail perdu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la sécurité de Make pour mes données mails ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make stocke les données traitées 30 jours par défaut pour le débogage. Tu peux baisser ce délai à 7 jours dans les réglages du scénario, ou activer le mode \"Data structures\" pour ne stocker que les variables et pas le corps des mails. Make est certifié ISO 27001 et conforme RGPD, hébergé en UE. Pour du sensible, voie locale obligatoire."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de modifications faut-il faire sur le prompt système avant que ça marche bien ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte 5 à 10 itérations sur les deux premières semaines. J'ai noté pendant 14 jours toutes les erreurs de Hermes dans une note Apple, j'ai vu les patterns, et j'ai ajouté 3 règles précises au prompt. La précision est passée de 78 % à 91 % en une après-midi de réglages. Ensuite, 1 modification par mois grand maximum."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hermes peut-il gérer 1 000 mails par jour sans planter ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui sans problème. Make absorbe largement (10 000+ actions/mois en plan payant à partir de 9 €/mois), claude-haiku-4 traite chaque mail en moins d'une seconde. Tu paieras environ 40 € par mois côté Anthropic pour 30 000 mails. Le facteur limitant n'est pas technique mais la précision du tri quand le volume devient trop varié."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre Hermes et SaneBox ou Superhuman ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SaneBox (~ 7 €/mois) trie automatiquement les mails non importants dans un dossier, sans personnalisation poussée. Superhuman (~ 30 €/mois) propose une interface premium avec des fonctions IA pré-câblées. Hermes est sur mesure, écrit avec tes vraies règles à toi, intégré à Gmail/Outlook, et coûte 8 €/mois. Plus fin mais demande un samedi de setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il savoir coder pour construire son propre Hermes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. La voie A du tuto (Make + Anthropic + Gmail) n'écrit pas une ligne de code : c'est du glisser-déposer dans une interface visuelle. Si tu sais copier-coller un texte et créer 2 comptes en ligne, tu peux le faire. La voie B (script Python) est pour les curieux qui veulent comprendre — elle reste 50 lignes de code prêtes à coller."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -224,6 +313,7 @@
   .share-btn-copy:hover { background: var(--teal); color: #fff; border-color: var(--teal) }
   .share-btn.copied { background: var(--teal) !important; color: #fff !important; border-color: var(--teal) !important }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -232,6 +322,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -274,7 +390,7 @@
       <li><strong>Comment le construire</strong> — un compte chez l'IA (Claude ou ChatGPT), une connexion à Gmail, un texte qui explique tes règles à l'agent. Compte un samedi après-midi pour la première version.</li>
       <li><strong>Pour qui c'est utile</strong> — boîte mail saturée (50+ mails/jour), envie de récupérer ton matin, à l'aise pour copier-coller. Si tu as 10 mails par jour, ne perds pas ton temps.</li>
       <li><strong>Mon avis honnête</strong> — c'est l'outil qui m'a fait économiser le plus de temps en 2026. Mais j'ai eu trois ratés sérieux en chemin, je te les raconte tous pour que tu ne les répètes pas.</li>
-      <li><strong>Transparence</strong> : article écrit avec Claude (Anthropic), relu et validé par moi. Hermes lui-même tourne avec Claude. Si tu repères une erreur, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
+      <li><strong>Transparence</strong> : article écrit avec Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), relu et validé par moi. Hermes lui-même tourne avec Claude. Si tu repères une erreur, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -475,8 +591,8 @@
       <div class="step-num">01</div>
       <div class="step-body">
         <h4>Créer un compte chez Anthropic (l'éditeur de Claude)</h4>
-        <p>L'IA qui va faire le boulot, c'est Claude. C'est celle qui me donne les meilleurs résultats sur ce genre de tri (j'ai aussi essayé ChatGPT, c'est très bien aussi, choisis selon ce que tu connais déjà). Va sur <strong>console.anthropic.com</strong>. Clique sur « Sign up », mets ton email, vérifie via le lien reçu.</p>
-        <p>Une fois connecté, tu vas dans <strong>« API Keys »</strong> dans le menu de gauche. Clique sur « Create Key ». Donne-lui un nom (par exemple « Hermes mail »). Tu reçois une longue clé qui commence par <code>sk-ant-...</code>. <strong>Copie-la et garde-la précieusement</strong> — tu ne pourras plus jamais la revoir après. Colle-la dans une note locale sur ton ordi, jamais dans un mail.</p>
+        <p>L'IA qui va faire le boulot, c'est Claude. C'est celle qui me donne les meilleurs résultats sur ce genre de tri (j'ai aussi essayé ChatGPT, c'est très bien aussi, choisis selon ce que tu connais déjà). Va sur <strong><a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a></strong>. Clique sur « Sign up », mets ton email, vérifie via le lien reçu.</p>
+        <p>Une fois connecté, tu vas dans <strong>« <a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener">API Keys</a> »</strong> dans le menu de gauche. Clique sur « Create Key ». Donne-lui un nom (par exemple « Hermes mail »). Tu reçois une longue clé qui commence par <code>sk-ant-...</code>. <strong>Copie-la et garde-la précieusement</strong> — tu ne pourras plus jamais la revoir après. Colle-la dans une note locale sur ton ordi, jamais dans un mail.</p>
         <span class="os-note">C'est gratuit pour créer le compte. Tu paies à l'usage : environ 8 € par mois pour 6 000 mails dans mon cas. Tu mets 5 € de crédit au début, c'est largement assez pour tester deux semaines.</span>
       </div>
     </div>
@@ -486,7 +602,7 @@
       <div class="step-body">
         <h4>Choisir comment tu connectes Gmail</h4>
         <p>Tu as deux voies, à choisir selon ton niveau de confort. Voilà la comparaison honnête, sans détour.</p>
-        <p><strong>Voie A — Make ou Zapier (l'option « pas de code »).</strong> Tu crées un compte sur <strong>make.com</strong> (ou zapier.com). Ces outils servent à brancher des services entre eux par glisser-déposer, sans écrire une ligne de code. Tu connectes Gmail dedans (clic, autorisation Google), puis tu connectes Anthropic (en collant ta clé). Compte 30 minutes pour comprendre l'interface. Tarif gratuit jusqu'à 1 000 actions par mois — largement assez pour démarrer.</p>
+        <p><strong>Voie A — Make ou Zapier (l'option « pas de code »).</strong> Tu crées un compte sur <strong><a href="https://www.make.com/" target="_blank" rel="noopener">make.com</a></strong> (ou <a href="https://zapier.com/" target="_blank" rel="noopener">zapier.com</a>). Ces outils servent à brancher des services entre eux par glisser-déposer, sans écrire une ligne de code. Tu connectes Gmail dedans (clic, <a href="https://developers.google.com/gmail/api/auth/scopes" target="_blank" rel="noopener">autorisation Google</a>), puis tu connectes Anthropic (en collant ta clé). Compte 30 minutes pour comprendre l'interface. Tarif gratuit jusqu'à 1 000 actions par mois — largement assez pour démarrer.</p>
         <p><strong>Voie B — Un petit script Python (l'option « j'aime bien comprendre »).</strong> Tu installes <strong>Python</strong> sur ton Mac (déjà présent, en fait), tu copies-colles un script de 50 lignes que je te donne plus bas, tu le fais tourner toutes les heures avec une commande système (cron sur Mac/Linux, Planificateur de tâches sur Windows — l'équivalent d'un réveil qui dit à ton ordi : « toutes les heures, lance ce script »). Plus de contrôle, mais demande de plonger dans un terminal.</p>
         <span class="os-note">Mon conseil pour ton premier Hermes : voie A. Tu auras quelque chose qui marche en 2 heures. Tu pourras toujours migrer vers la voie B dans 6 mois si tu veux plus de finesse.</span>
       </div>
@@ -497,7 +613,7 @@
       <div class="step-body">
         <h4>Connecter Gmail (5 minutes, voie A en exemple)</h4>
         <p>Sur Make, tu crées un nouveau « scénario ». Le premier bloc, c'est <strong>« Gmail · Watch Emails »</strong> (surveiller les mails). Tu cliques, tu autorises Make à se connecter à ton Gmail (Google te montre un écran de permission, tu acceptes). Tu choisis « Inbox » comme dossier à surveiller. Tu mets « toutes les 15 minutes » comme fréquence.</p>
-        <p>Le deuxième bloc, c'est <strong>« Anthropic · Send Message »</strong>. Tu colles ta clé API, tu choisis le modèle <code>claude-haiku-4</code> (le plus rapide et le moins cher pour ce genre de tâche). Le troisième bloc, c'est <strong>« Gmail · Add Label »</strong> qui prend la réponse de Claude et applique l'étiquette correspondante.</p>
+        <p>Le deuxième bloc, c'est <strong>« Anthropic · Send Message »</strong>. Tu colles ta clé API, tu choisis le modèle <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> (le plus rapide et le moins cher pour ce genre de tâche). Le troisième bloc, c'est <strong>« Gmail · Add Label »</strong> qui prend la réponse de Claude et applique l'étiquette correspondante.</p>
         <span class="os-note">Make a un mode « test » : tu cliques sur « Run once » pour voir comment ça se comporte sur un seul mail avant de tout activer. Indispensable pour la suite.</span>
       </div>
     </div>
@@ -688,9 +804,9 @@ en minuscules. Rien d'autre. Pas de phrase d'explication.</pre>
         <p>Tri automatique de la boîte de réception en 3 sections : Personnel / Notifications / Newsletters. Pas d'IA personnalisée, mais un tri par défaut souvent suffisant. Et c'est gratuit.</p>
       </div>
       <div class="outil">
-        <h4>Microsoft Copilot dans Outlook</h4>
+        <h4><a href="https://www.microsoft.com/microsoft-365/copilot" target="_blank" rel="noopener">Microsoft Copilot</a> dans Outlook</h4>
         <div class="lic">~ 22 €/mois · Outlook</div>
-        <p>Si tu es sur Outlook (et donc Microsoft 365), le Copilot intégré te résume les longs fils, propose des réponses, et trie. Moins fin qu'un Hermes maison, mais zéro installation.</p>
+        <p>Si tu es sur <a href="https://www.microsoft.com/microsoft-365/outlook/" target="_blank" rel="noopener">Outlook</a> (et donc Microsoft 365), le Copilot intégré te résume les longs fils, propose des réponses, et trie. Moins fin qu'un Hermes maison, mais zéro installation.</p>
       </div>
     </div>
 
@@ -749,6 +865,10 @@ Réponds en une seule ligne par mail :
       Si tu n'as pas encore lu mon article qui pose les bases de l'IA chez toi (Ollama, modèles, comment ça marche en local), il est juste là : <a href="llm-local-pour-non-dev.html">Faire tourner une vraie IA chez toi</a>. C'est le complément naturel de cet article si tu veux un Hermes 100 % privé. Et si l'idée des agents en général t'intéresse, mon article <a href="loops-claude.html">Les loops Claude Code</a> explique le principe profond derrière toute la mécanique.
     </p>
 
+    <p>
+      Pour pousser plus loin sur les agents : <a href="agents-ia-guide.html">Le guide complet des agents IA</a> pose le cadre théorique, <a href="tuto-agent-gmail.html">Construire un agent Gmail</a> reprend la même mécanique sur un autre cas d'usage, et <a href="tuto-agent-contrats.html">L'agent qui lit mes contrats</a> montre comment appliquer Hermes à des PDF métier. Tu peux les lire dans n'importe quel ordre.
+    </p>
+
     <h3>Trois choses à faire ce week-end</h3>
     <ol>
       <li><strong>Teste la version 2 minutes dans Claude.ai</strong> sur tes 10 derniers mails. Sans rien installer. Tu sauras en 5 minutes si l'idée te parle.</li>
@@ -759,6 +879,63 @@ Réponds en une seule ligne par mail :
     <p>
       Et si tu galères sur une étape, ou si tu trouves que je me trompe quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je réponds. C'est exactement le type de retour qui m'a fait améliorer mon propre Hermes au fil des mois — et c'est probablement ce qui me sortira un nouveau tuto pour toi dans 6 mois.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">Hermes.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien coûte exactement un agent comme Hermes ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Environ <strong>8 € par mois</strong> pour traiter 6 000 mails (200 par jour) avec le modèle <code>claude-haiku-4</code>. Soit <strong>0,25 € par jour</strong>. <a href="https://www.make.com/" target="_blank" rel="noopener">Make</a> est gratuit jusqu'à 1 000 actions par mois, largement assez pour démarrer. Aucun autre coût caché : pas d'abonnement, pas de licence à acheter.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes mails passent-ils chez Anthropic quand Hermes les trie ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui — Hermes envoie à Claude l'objet et un extrait du corps de chaque mail à classer. Anthropic a un engagement de non-conservation par défaut sur l'API, mais tes données transitent par leurs serveurs. Pour des données ultra-sensibles (avocat, médical, secret pro), il faut basculer sur la <strong>voie locale</strong> avec Ollama et un modèle qui tourne 100 % chez toi (voir <a href="llm-local-pour-non-dev.html">l'article IA chez toi</a>).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Hermes marche-t-il avec Outlook ou seulement avec Gmail ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make et Zapier ont tous les deux des connecteurs Outlook et Microsoft 365 officiels. Le tuto reprend exactement la même logique : tu remplaces le bloc Gmail par le bloc Outlook, le reste est identique. Si tu es déjà sur Microsoft 365, <strong>Microsoft Copilot pour Outlook</strong> (~ 22 €/mois) couvre une partie du besoin sans rien installer.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps prend le setup complet du tuto ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>une après-midi de samedi</strong> pour la première version qui tourne (création des comptes Anthropic et Make, connexion Gmail, écriture du prompt système, test sur 10 mails). Plus une heure de réglages la semaine d'après pour ajuster les règles. Au total : <strong>4 à 6 heures</strong> pour passer de zéro à un Hermes opérationnel.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Que se passe-t-il si l'API Anthropic plante en pleine nuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make te prévient par mail dès qu'un scénario échoue. Tes mails restent dans ta boîte, simplement non triés jusqu'à ce que le service revienne. Sur 4 mois d'usage, j'ai eu <strong>2 incidents</strong> (Make en panne ou API Anthropic saturée), tous deux résolus en moins d'une heure sans rien faire de mon côté. Aucun mail perdu.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle est la sécurité de Make pour mes données mails ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make stocke les données traitées <strong>30 jours par défaut</strong> pour le débogage. Tu peux baisser ce délai à 7 jours dans les réglages du scénario, ou activer le mode <em>Data structures</em> pour ne stocker que les variables et pas le corps des mails. Make est certifié <strong>ISO 27001</strong> et conforme RGPD, hébergé en UE. Pour du sensible, voie locale obligatoire.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de modifications faut-il faire sur le prompt système avant que ça marche bien ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>5 à 10 itérations</strong> sur les deux premières semaines. J'ai noté pendant 14 jours toutes les erreurs de Hermes dans une note Apple, j'ai vu les patterns, et j'ai ajouté 3 règles précises au prompt. La précision est passée de <strong>78 % à 91 %</strong> en une après-midi de réglages. Ensuite, 1 modification par mois grand maximum.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Hermes peut-il gérer 1 000 mails par jour sans planter ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui sans problème. Make absorbe largement (10 000+ actions/mois en plan payant à partir de 9 €/mois), <code>claude-haiku-4</code> traite chaque mail en moins d'une seconde. Tu paieras environ <strong>40 € par mois</strong> côté Anthropic pour 30 000 mails. Le facteur limitant n'est pas technique mais la précision du tri quand le volume devient trop varié.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle est la différence entre Hermes et SaneBox ou Superhuman ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>SaneBox</strong> (~ 7 €/mois) trie automatiquement les mails non importants dans un dossier, sans personnalisation poussée. <strong>Superhuman</strong> (~ 30 €/mois) propose une interface premium avec des fonctions IA pré-câblées. <strong>Hermes</strong> est sur mesure, écrit avec tes vraies règles à toi, intégré à Gmail/Outlook, et coûte 8 €/mois. Plus fin mais demande un samedi de setup.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il savoir coder pour construire son propre Hermes ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. La <strong>voie A</strong> du tuto (Make + Anthropic + Gmail) n'écrit pas une ligne de code : c'est du glisser-déposer dans une interface visuelle. Si tu sais copier-coller un texte et créer 2 comptes en ligne, tu peux le faire. La <strong>voie B</strong> (script Python) est pour les curieux qui veulent comprendre — elle reste 50 lignes de code prêtes à coller.</p>
+    </details>
   </div>
 </section>
 
@@ -838,6 +1015,24 @@ Réponds en une seule ligne par mail :
       }
     });
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

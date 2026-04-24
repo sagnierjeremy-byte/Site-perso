@@ -39,17 +39,140 @@
   "inLanguage": "fr-FR",
   "url": "https://jerwis.fr/articles/dev-browser.html",
   "datePublished": "2026-04-20",
-  "dateModified": "2026-04-20",
+  "dateModified": "2026-04-24",
   "author": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/"
+    "url": "https://jerwis.fr/",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
   },
   "publisher": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
     "url": "https://jerwis.fr/"
   }
+}
+</script>
+
+<!-- FAQPage JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Dev-browser, c'est gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, totalement. C'est un package open source qu'on installe en 1 ligne. Pas d'abonnement, pas de quota, pas de carte bleue à filer. Le seul coût, c'est ton abonnement Claude Code (autour de 20 $/mois pour le plan Pro, ou gratuit avec des limites)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dev-browser fonctionne sur Windows ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, mais il faut passer par WSL (Windows Subsystem for Linux), un Linux intégré à Windows. Trois minutes à activer dans les paramètres Windows, après ça marche pareil que sur Mac."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il savoir coder pour utiliser dev-browser ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Tu demandes en français à Claude « va sur cette page et fais ça », il écrit le script, il l'exécute, te renvoie le résultat. Tu n'écris jamais une ligne de code. Le seul moment où tu touches au terminal, c'est pour copier-coller la commande d'installation, une fois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dev-browser remplace-t-il un outil comme Apify ou Bright Data ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Apify et Bright Data sont faits pour le scraping industriel (10 000+ pages, rotation d'IP, contournement de captchas). Dev-browser est fait pour les usages perso et ponctuels (vérifier 1 page, capturer 5 sites, tester 1 formulaire). Pour 99 % des entrepreneurs solo, dev-browser suffit largement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le risque légal à scraper avec dev-browser ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le scraping de pages publiques est généralement toléré, à condition de respecter le fichier robots.txt du site. En revanche, scraper du contenu derrière un login, contourner un paywall, ou aspirer massivement des données perso te place dans une zone grise voire interdite. Ma règle : j'utilise dev-browser pour ce que je consulterais déjà à la main."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps avant de maîtriser dev-browser ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 minutes pour le premier usage qui marche. Une semaine pour avoir 5 commandes prêtes que tu réutilises. Un mois pour que ce soit un réflexe. Aucune courbe abrupte parce que c'est Claude qui fait le code."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre dev-browser et Playwright ou Puppeteer ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Playwright et Puppeteer sont les bibliothèques d'automatisation navigateur que les devs utilisent depuis des années. Dev-browser s'appuie dessus mais ajoute une couche d'abstraction pensée pour Claude : tu dis ce que tu veux en français, l'IA écrit le script, le sandbox QuickJS l'exécute. Tu n'as pas à apprendre l'API Playwright pour t'en servir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mes captures d'écran restent-elles privées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Dev-browser tourne en local sur ta machine via un Chromium piloté par un daemon local. Les screenshots et les contenus extraits sont stockés dans ~/.dev-browser/tmp/ sur ton ordi. Rien ne part ailleurs sauf si tu uploads toi-même ou si Claude Code analyse l'image dans la conversation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien ça coûte d'utiliser dev-browser tous les jours ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le tool en lui-même est gratuit. Le coût vient de Claude qui écrit et lit les scripts : sur un usage de 10-15 runs par jour avec des prompts courts, je sens à peine la différence sur ma facture Claude Code Max. Compte 1 à 3 € de tokens par jour selon la taille des pages que tu scrapes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que faire si dev-browser bloque sur un site avec captcha ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu acceptes que ce site n'est pas pour toi. Cloudflare niveau max, captcha visuel, fingerprint navigateur : ce sont des défenses anti-bot industrielles, pas faites pour être contournées par un outil perso. Pour ces 5-10 % de sites, je passe à autre chose ou j'ouvre la page à la main."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- HowTo JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Installer dev-browser en 3 minutes",
+  "description": "Installation de dev-browser sur Mac, Linux ou WSL pour piloter un navigateur via Claude Code.",
+  "totalTime": "PT3M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Vérifier les pré-requis",
+      "text": "Mac ou Linux (Windows Subsystem for Linux fonctionne aussi), Node.js installé, Claude Code (gratuit ou Max)."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Installer le package",
+      "text": "Ouvre ton terminal et lance la commande d'installation. Demande à Claude la commande exacte actuelle (généralement npm install -g)."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Tester l'installation",
+      "text": "Tape `dev-browser --help`. Si la liste des options s'affiche, tu es prêt. Demande ensuite à Claude d'utiliser dev-browser pour récupérer le titre d'une page."
+    }
+  ]
 }
 </script>
 
@@ -371,6 +494,21 @@
   }
   .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
 
+  /* Figures (screenshots) */
+  .fig {
+    margin: 28px 0 32px; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    box-shadow: 0 18px 36px -22px rgba(0,0,0,.18);
+  }
+  .fig img { width: 100%; height: auto; display: block }
+  .fig figcaption {
+    padding: 12px 18px; font-size: 13px; color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace; letter-spacing: .06em;
+    text-transform: uppercase; border-top: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+
   /* Footer */
   .footer {
     background: var(--bg); padding: 48px 0 40px;
@@ -388,6 +526,7 @@
     color: var(--ink-muted);
   }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -397,6 +536,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <!-- Header -->
 <header class="header">
@@ -434,9 +599,23 @@
       <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
       <span class="hero-meta-item"><strong>Outils</strong> Claude Code · dev-browser</span>
     </div>
-  
+
   </div>
 </section>
+
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:14px 20px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:700">
+    <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>Entrepreneur · pas dev · teste l'IA tous les jours</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Publié 20 avril 2026 · MAJ 24 avril 2026
+  </span>
+</div>
+<!-- /seo:byline -->
 
 <!-- TL;DR -->
 <div class="container">
@@ -462,7 +641,7 @@
   <div class="container">
     <h2>Avant de commencer</h2>
     <p>Tu as déjà essayé de demander à ChatGPT ou Claude d&#39;aller lire une page web ? Tu connais la frustration. Parfois il y arrive, parfois il te dit « Désolé, je ne peux pas accéder à cette URL ». Ou pire : il hallucine un contenu qu&#39;il n&#39;a jamais vu, te raconte des choses qui n'existent pas, te cite des chiffres inventés. Tu cliques le lien pour vérifier, et tu te rends compte que la page parle d'un sujet complètement différent.</p>
-    <p>Dev-browser règle ce problème. C&#39;est un <strong>navigateur sans fenêtre</strong> que ton IA pilote en écrivant un petit script. Tu n&#39;ouvres jamais Chrome toi-même. Tu dis ce que tu veux, Claude écrit le script, il s&#39;exécute dans un Chrome invisible, tu récupères ce qui t&#39;intéresse · le texte d'un article, un chiffre précis dans un tableau, un screenshot d'une page, le rendu d'une page que tu viens de modifier.</p>
+    <p>Dev-browser règle ce problème. C&#39;est un <strong>navigateur sans fenêtre</strong> (Chromium en coulisse, comme <a href="https://www.google.com/intl/fr/chrome/" target="_blank" rel="noopener">Chrome</a> sans les pubs) que ton IA pilote en écrivant un petit script. Tu n&#39;ouvres jamais Chrome toi-même. Tu dis ce que tu veux, Claude écrit le script, il s&#39;exécute dans un Chrome invisible, tu récupères ce qui t&#39;intéresse · le texte d'un article, un chiffre précis dans un tableau, un screenshot d'une page, le rendu d'une page que tu viens de modifier. Sous le capot, dev-browser s'appuie sur la même mécanique que <a href="https://playwright.dev/" target="_blank" rel="noopener">Playwright</a> et <a href="https://pptr.dev/" target="_blank" rel="noopener">Puppeteer</a> (les deux librairies de référence pour piloter un navigateur), mais tu ne touches jamais leur API : Claude le fait pour toi.</p>
     <p>Je l&#39;ai installé sur mon Mac il y a deux mois. Aujourd&#39;hui, je l&#39;utilise presque tous les jours : vérifier qu&#39;une page est bien déployée, scraper un site que Claude ne connaît pas, prendre un screenshot pour valider un design, tester le formulaire d&#39;inscription de mon site sans ouvrir Chrome à la main, capturer un article concurrent avant qu'il change.</p>
     <p><strong>Le déclic, pour moi, ça a été le moment où j'ai compris que dev-browser n'est pas un outil de dev.</strong> C'est un outil d'entrepreneur curieux qui veut que son IA puisse <em>vraiment</em> faire ce qu'il lui demande. Tu ne te bats plus avec des « je ne peux pas accéder », tu ne copies-colles plus du contenu à la main, tu n'ouvres plus dix onglets Chrome pour vérifier dix pages. Tu délègues, et ton IA exécute pour de vrai.</p>
     <div class="callout tip">
@@ -504,6 +683,12 @@
     EOF
     </code></pre>
     <p>Lecture en français : « ouvre un navigateur, va sur jerwis.fr, récupère le texte du gros titre (le h1), affiche-le dans le terminal ». Fin. Le navigateur se ferme tout seul, le titre s'affiche, Claude te le renvoie. Cinq secondes chrono.</p>
+
+    <figure class="fig">
+      <img src="../photos/dev-browser/terminal-output.png" alt="Capture du terminal montrant une commande dev-browser exécutée et son output : titre H1 récupéré, screenshot enregistré sur disque.">
+      <figcaption>À quoi ça ressemble dans mon terminal · une commande dev-browser et son output</figcaption>
+    </figure>
+
     <div class="callout ok">
       <h4>La règle d'or que j'applique</h4>
       <p>Tu ne tapes jamais un script dev-browser toi-même. Tu demandes ce que tu veux en français à Claude. Claude fait le script. Tu restes à 100 % dans ton rôle d'entrepreneur qui demande, jamais de développeur qui code.</p>
@@ -561,6 +746,11 @@
       console.log(&quot;Screenshot enregistré : stripe-home.png&quot;);
     EOF
     </code></pre>
+
+      <figure class="fig">
+        <img src="../photos/dev-browser/anthropic-home.png" alt="Screenshot complet de la page d'accueil d'anthropic.com capturée par dev-browser en 1440x900.">
+        <figcaption>Exemple de capture · anthropic.com en 1440×900, prise par dev-browser pendant que j'écrivais ce tuto</figcaption>
+      </figure>
     </div>
 
     <div class="usecase">
@@ -671,7 +861,7 @@
     <div class="usecase">
       <div class="usecase-label">Bonus 02 · Vérifier que ton tunnel de vente fonctionne</div>
       <h4>Du clic « acheter » jusqu'à la confirmation Stripe · simulé en 30 secondes</h4>
-      <p>Tu modifies ta page de vente, tu veux vérifier que tout le tunnel marche encore. <strong>Dev-browser peut simuler un acheteur</strong> : aller sur la home, cliquer « acheter », remplir le formulaire CB de test Stripe (numéro <code>4242 4242 4242 4242</code>), valider, vérifier la page de confirmation. En 30 secondes, tu sais si quelque chose est cassé. Pratique avant chaque mise en prod sur un site e-commerce.</p>
+      <p>Tu modifies ta page de vente, tu veux vérifier que tout le tunnel marche encore. <strong>Dev-browser peut simuler un acheteur</strong> : aller sur la home, cliquer « acheter », remplir le formulaire CB de test <a href="https://docs.stripe.com/testing#cards" target="_blank" rel="noopener">Stripe</a> (le numéro officiel <code>4242 4242 4242 4242</code>, valable sur n'importe quel site Stripe en mode test), valider, vérifier la page de confirmation. En 30 secondes, tu sais si quelque chose est cassé. Pratique avant chaque mise en prod sur un site e-commerce.</p>
     </div>
 
     <div class="usecase">
@@ -709,7 +899,12 @@
     <p>Toujours dans ton terminal, tape :</p>
     <pre><code class="language-bash">dev-browser --help
     </code></pre>
-    <p>Si tu vois une liste d&#39;options qui défile, c&#39;est installé. Sinon, relance ton terminal ou demande à Claude de t&#39;aider à débugger.</p>
+    <p>Si tu vois une liste d&#39;options qui défile (un truc dans le genre de la capture ci-dessous), c&#39;est installé. Sinon, relance ton terminal ou demande à Claude de t&#39;aider à débugger.</p>
+
+    <figure class="fig">
+      <img src="../photos/dev-browser/terminal-help.png" alt="Capture du terminal montrant la sortie de la commande dev-browser --help : sandbox QuickJS, API browser, exemples d'invocation.">
+      <figcaption>Sortie de <code>dev-browser --help</code> · ce que tu dois voir si l'install s'est bien passée</figcaption>
+    </figure>
     <h3>Étape 3 · Premier usage</h3>
     <p>Ouvre Claude Code dans un dossier, n&#39;importe lequel, et dis-lui :</p>
     <blockquote>
@@ -740,27 +935,60 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block" id="faq">
   <div class="container">
-    <h2>FAQ · ce qu'on me demande le plus</h2>
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">dev-browser.</em></h2>
 
-    <h3>Dev-browser, c'est gratuit ?</h3>
-    <p>Oui, totalement. C'est un package open source qu'on installe en 1 ligne. Pas d'abonnement, pas de quota, pas de carte bleue à filer. Le seul coût, c'est ton abonnement Claude Code (qui tourne autour de 20 $/mois pour le plan Pro, ou gratuit avec des limites).</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Dev-browser, c'est gratuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui, totalement. C'est un package open source qu'on installe en 1 ligne. Pas d'abonnement, pas de quota, pas de carte bleue à filer. Le seul coût, c'est ton abonnement Claude Code (autour de <strong>20 $/mois</strong> pour le plan Pro, ou gratuit avec des limites).</p>
+    </details>
 
-    <h3>Ça marche sur Windows ?</h3>
-    <p>Oui, mais il faut passer par WSL (Windows Subsystem for Linux), qui est un Linux intégré à Windows. Trois minutes à activer dans les paramètres Windows, après ça marche pareil que sur Mac. Si tu n'as jamais touché à WSL, demande à Claude de te guider · il fait ça les yeux fermés.</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Ça marche sur Windows ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui, mais il faut passer par <strong>WSL</strong> (Windows Subsystem for Linux), un Linux intégré à Windows. Trois minutes à activer dans les paramètres Windows, après ça marche pareil que sur Mac. Si tu n'as jamais touché à WSL, demande à Claude de te guider.</p>
+    </details>
 
-    <h3>Faut-il savoir coder pour utiliser dev-browser ?</h3>
-    <p>Non, pas du tout. C'est même <strong>tout le contraire</strong> de ce que l'outil veut. Tu demandes en français à Claude « va sur cette page et fais ça », il écrit le script, il l'exécute, te renvoie le résultat. Tu n'écris jamais une ligne de code. Le seul moment où tu touches au terminal, c'est pour copier-coller la commande d'installation, une fois.</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il savoir coder pour utiliser dev-browser ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, pas du tout. Tu demandes en français à Claude « va sur cette page et fais ça », il écrit le script, il l'exécute, te renvoie le résultat. Tu n'écris jamais une ligne de code. Le seul moment où tu touches au terminal, c'est pour <strong>copier-coller la commande d'installation, une fois</strong>.</p>
+    </details>
 
-    <h3>Est-ce que dev-browser remplace un outil comme Apify ou Bright Data ?</h3>
-    <p>Non. Apify et Bright Data sont faits pour le scraping <strong>industriel</strong> (10 000+ pages, rotation d'IP, contournement de captchas). Dev-browser est fait pour les usages <strong>perso et ponctuels</strong> (vérifier 1 page, capturer 5 sites, tester 1 formulaire). Ils ne jouent pas dans la même cour. Pour 99 % des entrepreneurs solo, dev-browser suffit largement.</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Dev-browser remplace-t-il Apify ou Bright Data ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. <strong>Apify</strong> et <strong>Bright Data</strong> sont faits pour le scraping industriel (10 000+ pages, rotation d'IP, contournement de captchas). Dev-browser est fait pour les usages perso et ponctuels (vérifier 1 page, capturer 5 sites, tester 1 formulaire). Pour 99 % des entrepreneurs solo, dev-browser suffit largement.</p>
+    </details>
 
-    <h3>Est-ce qu'il y a un risque légal à scraper avec dev-browser ?</h3>
-    <p>Question importante. Le scraping de pages publiques est généralement toléré, à condition de respecter le <code>robots.txt</code> du site (un fichier qui dit ce que les bots ont le droit de lire). En revanche, scraper du contenu derrière un login, contourner un paywall, ou aspirer massivement des données perso → là tu rentres dans une zone grise voire interdite. Ma règle : <strong>j'utilise dev-browser pour ce que je consulterais déjà à la main</strong>. Si je n'ouvrirais pas le site avec mon navigateur perso pour cette tâche, je ne demande pas non plus à dev-browser de le faire.</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel risque légal à scraper avec dev-browser ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le scraping de pages publiques est généralement toléré, à condition de respecter le <a href="https://www.rfc-editor.org/rfc/rfc9309.html" target="_blank" rel="noopener"><code>robots.txt</code></a> du site (la RFC 9309 décrit le standard). En revanche, scraper du contenu derrière un login, contourner un paywall, ou aspirer massivement des données perso → zone grise voire interdite (voir les <a href="https://www.cnil.fr/fr/la-reutilisation-des-donnees-publiquement-accessibles-en-ligne-des-fins-de-demarchage-commercial" target="_blank" rel="noopener">positions de la CNIL</a>). Ma règle : <strong>j'utilise dev-browser pour ce que je consulterais déjà à la main</strong>.</p>
+    </details>
 
-    <h3>Combien de temps avant que je le maîtrise ?</h3>
-    <p>10 minutes pour le premier usage qui marche. Une semaine pour avoir 5 commandes prêtes que tu réutilises. Un mois pour que ce soit un réflexe, comme allumer ton mac le matin. Aucune courbe d'apprentissage abrupte parce que c'est Claude qui fait le code · toi tu fais juste évoluer ce que tu lui demandes.</p>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps pour maîtriser ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>10 minutes</strong> pour le premier usage qui marche. <strong>Une semaine</strong> pour avoir 5 commandes prêtes que tu réutilises. <strong>Un mois</strong> pour que ce soit un réflexe. Aucune courbe d'apprentissage abrupte parce que c'est Claude qui fait le code.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle différence avec Playwright ou Puppeteer ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><a href="https://playwright.dev/" target="_blank" rel="noopener">Playwright</a> et <a href="https://pptr.dev/" target="_blank" rel="noopener">Puppeteer</a> sont les bibliothèques d'automatisation navigateur que les devs utilisent depuis des années. Dev-browser s'appuie dessus mais ajoute une <strong>couche d'abstraction pensée pour Claude</strong> : tu dis ce que tu veux en français, l'IA écrit le script, le sandbox QuickJS l'exécute. Tu n'as pas à apprendre l'API Playwright pour t'en servir.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes captures restent-elles privées ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui. Dev-browser tourne en local sur ta machine via un Chromium piloté par un daemon local. Les screenshots et les contenus extraits sont stockés dans <code>~/.dev-browser/tmp/</code> sur ton ordi. <strong>Rien ne part ailleurs</strong> sauf si tu uploads toi-même ou si Claude Code analyse l'image dans la conversation.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte d'utiliser dev-browser tous les jours ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le tool en lui-même est gratuit. Le coût vient de Claude qui écrit et lit les scripts : sur un usage de 10-15 runs par jour avec des prompts courts, je sens à peine la différence sur ma facture Claude Code Max. Compte <strong>1 à 3 € de tokens par jour</strong> selon la taille des pages que tu scrapes.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Que faire si dev-browser bloque sur un captcha ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Tu acceptes que ce site n'est pas pour toi. Cloudflare niveau max, captcha visuel, fingerprint navigateur : ce sont des défenses anti-bot industrielles, pas faites pour être contournées par un outil perso. Pour ces <strong>5-10 % de sites</strong>, je passe à autre chose ou j'ouvre la page à la main.</p>
+    </details>
   </div>
 </section>
 
@@ -770,13 +998,30 @@
     <p>Si tu veux creuser :</p>
     <ol>
     <li><strong><a href="../claude-code.html">Claude Code · le setup complet</a></strong> — à installer avant dev-browser, évidemment</li>
-    <li><strong><a href="claude-code.html#plugins">Les 6 plugins Claude Code à installer</a></strong> — la suite logique, avec <code>context7</code> qui complémente bien dev-browser pour les docs officielles</li>
+    <li><strong><a href="claude-code-workflow-tips.html">Les workflow tips Claude Code</a></strong> — la suite logique pour structurer tes sessions et combiner dev-browser avec d'autres réflexes</li>
+    <li><strong><a href="loops-claude.html">Les loops Claude Code, expliqués</a></strong> — ce que tu déclenches en boucle quand dev-browser fait son travail (veille, monitoring)</li>
     <li><strong><a href="../outils.html">Ma page Outils</a></strong> — les 6 outils que j&#39;utilise en complément de Claude Code tous les jours</li>
     </ol>
     <p>Si tu installes dev-browser cette semaine et que tu l&#39;utilises pour un vrai cas, <strong>réponds à ma newsletter et raconte-moi</strong>. Ça m&#39;aide à savoir ce qui marche pour les autres. Je lis tout, je réponds, je peux me tromper sur tes besoins — tes retours me recadrent.</p>
     
   </div>
 </section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          Une commande qui a changé, une option dépréciée, une nouvelle version de dev-browser ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut de l'article. Les retours terrain valent mille fois les articles — je lis tout, je réponds.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
 
 <!-- Final CTA -->
 <section class="final-cta">
@@ -813,6 +1058,24 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

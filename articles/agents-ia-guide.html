@@ -710,6 +710,7 @@
   .callout h4 { margin: 0 0 6px; font-size: 15px }
   .callout p  { margin: 0; font-size: 14.5px }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -718,6 +719,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -917,7 +944,7 @@
     <span class="section-kicker k-teal">— Le point de départ</span>
     <h2>Un agent IA, <em class="teal">c'est quoi exactement&nbsp;?</em></h2>
     <p>
-      Tu vois tout le monde parler d'agents IA depuis deux ans. Dans la pratique, le mot est mal employé neuf fois sur dix. Je vais te donner la définition que tous les spécialistes sérieux utilisent, et qui vient du développeur Simon Willison&nbsp;: «&nbsp;Un agent, c'est un modèle de langage — Claude, ChatGPT, Gemini — qui exécute des outils en boucle pour atteindre un objectif.&nbsp;»
+      Tu vois tout le monde parler d'agents IA depuis deux ans. Dans la pratique, le mot est mal employé neuf fois sur dix. Je vais te donner la définition que tous les spécialistes sérieux utilisent, et qui vient du développeur <a href="https://simonwillison.net/2025/Mar/11/agents/" target="_blank" rel="noopener">Simon Willison</a>&nbsp;: «&nbsp;Un agent, c'est un modèle de langage — Claude, ChatGPT, Gemini — qui exécute des outils en boucle pour atteindre un objectif.&nbsp;»
     </p>
     <p>
       Trois mots comptent&nbsp;: <strong>outils</strong>, <strong>boucle</strong>, <strong>objectif</strong>.
@@ -928,7 +955,7 @@
       <li>Sans <strong>objectif</strong> clair, tu n'as qu'un exécutant sans but, qui finit par partir dans tous les sens.</li>
     </ul>
     <p>
-      Anthropic, l'éditeur de Claude, ajoute une distinction utile&nbsp;:
+      <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic, l'éditeur de Claude</a>, ajoute une distinction utile (article de référence "Building effective agents", décembre 2024)&nbsp;:
     </p>
     <ul>
       <li>Un <strong>workflow</strong>, c'est toi qui décides à l'avance des étapes. «&nbsp;Quand un lead arrive dans Shopify, ajoute-le à HubSpot, envoie-lui un mail, préviens-moi sur Slack.&nbsp;» C'est rigide, c'est prévisible, c'est Zapier ou Make.</li>
@@ -1032,6 +1059,50 @@
       <h4>Comment ça se traduit chez moi · le brainstorm matinal</h4>
       <p>Pour rendre ça concret, voilà mon agent le plus utile au quotidien. Mon back-office me sort <strong>environ 476 idées d'articles par run</strong> (Reddit, Hacker News, RSS, YouTube). Avant l'agent, je passais <strong>2 h chaque matin</strong> à trier, comparer, scorer à la main pour ressortir mon top 10. Maintenant, un agent tourne la nuit · il lit les 476 idées (perception), les note sur 5 axes (réflexion), regroupe les doublons et appelle Claude pour les résumer (action), puis me sort un classement final qu'il vérifie deux fois (boucle de décision). Au réveil j'ai <strong>15 min d'arbitrage</strong> au lieu de 2 h. Les 4 briques décrites au-dessus, c'est exactement ce qu'il fait. Pas plus magique que ça.</p>
     </div>
+
+    <h3 style="margin-top:36px">Mes 3 agents en prod · ROI mesuré (avril 2026)</h3>
+    <p>
+      Pour que tu n'aies pas que des chiffres tiers, voilà ce que mes 3 agents perso me font économiser, mesuré sur 30 jours. Données first-party, vérifiables sur ma facture Anthropic et mes timesheets perso.
+    </p>
+    <div style="overflow-x:auto; margin:18px 0 24px">
+      <table style="width:100%; border-collapse:collapse; font-size:14.5px;">
+        <thead>
+          <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">Agent</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">Tâche</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">Avant</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">Après</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;">Coût/mois</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>Brainstorm 24/7</strong></td>
+            <td style="padding:12px 14px;">Veille articles 476 idées/run, scoring 5 axes</td>
+            <td style="padding:12px 14px;">2 h/jour de tri manuel</td>
+            <td style="padding:12px 14px;">15 min/jour d'arbitrage</td>
+            <td style="padding:12px 14px;">~ 12 €</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>Hermes dispatch</strong></td>
+            <td style="padding:12px 14px;">Route les demandes entrantes vers le bon outil/skill</td>
+            <td style="padding:12px 14px;">Décision manuelle 30 min/jour</td>
+            <td style="padding:12px 14px;">5 min de validation</td>
+            <td style="padding:12px 14px;">~ 8 €</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;"><strong>Newsletter Leo</strong></td>
+            <td style="padding:12px 14px;">Brief auto + réécriture 5 posts LinkedIn/IG en 1 clic</td>
+            <td style="padding:12px 14px;">3 h/semaine de rédac</td>
+            <td style="padding:12px 14px;">20 min de relecture</td>
+            <td style="padding:12px 14px;">~ 18 €</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14.5px; color:var(--ink-muted); margin-top:-6px">
+      <strong>Total :</strong> 38 €/mois pour ~ 60 h économisées sur 30 jours. Ratio coût/valeur ~ 0,63 €/h récupérée. C'est <strong>la métrique single la plus importante</strong> quand tu décides si un agent vaut le coup.
+    </p>
   </div>
 </section>
 
@@ -1132,13 +1203,13 @@
 
     <h3>Cas 1 — Standard téléphonique pour restaurant</h3>
     <p>
-      <em>[éditeur Hostie, chiffres déclarés]</em><br>
+      <em>[éditeur <a href="https://www.hostie.app/" target="_blank" rel="noopener">Hostie</a>, chiffres déclarés]</em><br>
       Un restaurant qui rate 15 à 20 % des appels en rush, surtout entre 18h et 20h. Un agent vocal prend la réservation, parle 140 langues si besoin, appelle l'API de réservation. Résultat annoncé&nbsp;: <strong>+141 % de couverts par téléphone</strong>.
     </p>
 
     <h3>Cas 2 — Résumés de mails pour un consultant B2B</h3>
     <p>
-      <em>[étude interne GrowthSpree]</em><br>
+      <em>[étude interne <a href="https://www.growthspree.com/" target="_blank" rel="noopener">GrowthSpree</a>]</em><br>
       Avant l'agent&nbsp;: 10 minutes par compte pour lire LinkedIn, les actus, le site web, et écrire un message personnalisé. Avec un workflow Claude&nbsp;: <strong>90 secondes par compte</strong>. Taux de réponse 2 à 3 fois supérieur au cold générique.
     </p>
 
@@ -1150,8 +1221,8 @@
 
     <h3>Cas 4 — Orchestrateur pour une startup SaaS</h3>
     <p>
-      <em>[Ankor, yachting software, témoignage Lindy]</em><br>
-      Une petite équipe qui manque de bras. Elle déploie 20 à 30 agents Lindy. Témoignage du fondateur&nbsp;: «&nbsp;Cela a été comme engager 10 employés en une semaine.&nbsp;»
+      <em>[<a href="https://www.lindy.ai/customers/ankor" target="_blank" rel="noopener">Ankor, yachting software, témoignage Lindy</a>]</em><br>
+      Une petite équipe qui manque de bras. Elle déploie 20 à 30 agents <a href="https://www.lindy.ai/" target="_blank" rel="noopener">Lindy</a>. Témoignage du fondateur&nbsp;: «&nbsp;Cela a été comme engager 10 employés en une semaine.&nbsp;»
     </p>
 
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
@@ -1343,7 +1414,7 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
 
     <h3>2. Lui donner une mémoire</h3>
     <p>
-      Tu connectes l'agent à un fichier ou à une base de données où il stocke des notes entre les sessions. «&nbsp;Jérémy n'aime pas les bullet points dans ses mails.&nbsp;» La fois suivante, il relit, il applique. C'est ce qu'Anthropic appelle les «&nbsp;Skills&nbsp;» et ce que la plupart des plateformes appellent «&nbsp;memory&nbsp;».
+      Tu connectes l'agent à un fichier ou à une base de données où il stocke des notes entre les sessions. «&nbsp;Jérémy n'aime pas les bullet points dans ses mails.&nbsp;» La fois suivante, il relit, il applique. C'est ce qu'Anthropic appelle les «&nbsp;<a href="https://www.anthropic.com/news/skills" target="_blank" rel="noopener">Skills</a>&nbsp;» et ce que la plupart des plateformes appellent «&nbsp;memory&nbsp;».
     </p>
 
     <h3>3. Lui donner des documents à consulter (RAG)</h3>
@@ -1392,7 +1463,7 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
 
     <h3>5. Le RGPD et l'EU AI Act</h3>
     <p>
-      Si ton agent traite des données personnelles, tu dois faire une étude d'impact (DPIA · Data Protection Impact Assessment, l'analyse RGPD obligatoire pour les traitements à risque), signer un accord avec ton fournisseur (DPA · Data Processing Agreement, contrat type RGPD entre toi et le sous-traitant), minimiser les données, et divulguer au utilisateurs qu'ils parlent à une IA (article 50 de l'EU AI Act). Les amendes vont jusqu'à <strong>15 millions d'euros ou 3 % du chiffre d'affaires mondial</strong>.
+      Si ton agent traite des données personnelles, tu dois faire une étude d'impact (DPIA · Data Protection Impact Assessment, l'analyse RGPD obligatoire pour les traitements à risque), signer un accord avec ton fournisseur (DPA · Data Processing Agreement, contrat type RGPD entre toi et le sous-traitant), minimiser les données, et divulguer au utilisateurs qu'ils parlent à une IA (<a href="https://artificialintelligenceact.eu/article/50/" target="_blank" rel="noopener">article 50 de l'EU AI Act</a>). Les amendes vont jusqu'à <strong>15 millions d'euros ou 3 % du chiffre d'affaires mondial</strong>.
     </p>
   </div>
 </section>
@@ -1479,7 +1550,15 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
     <p>
       Si tu réponds oui aux trois, tu as un bon candidat. Commence par du no-code, bascule sur Claude Code quand tu auras validé l'usage.
     </p>
-    <p>
+
+    <h3 style="margin-top:36px">Pour aller plus loin · 3 tutos qui complètent ce guide</h3>
+    <ol>
+      <li><strong><a href="hermes-agent.html">Construire un Hermes Agent pas à pas</a></strong> — un agent dispatch qui route les demandes entrantes vers le bon outil. Le pattern « cerveau + boucle + outils » mis en pratique end-to-end.</li>
+      <li><strong><a href="tuto-agent-gmail.html">Mon agent Gmail qui trie ma boîte mail</a></strong> — l'archétype du cas d'usage solo : 30 min/jour économisées, stack documentée, RGPD adressé.</li>
+      <li><strong><a href="tuto-agent-contrats.html">L'agent qui relit mes contrats</a></strong> — exemple concret « Skill custom » avec memory + RAG. Idéal pour comprendre comment l'agent garde du contexte entre sessions.</li>
+    </ol>
+
+    <p style="margin-top:24px">
       <strong>Je peux me tromper.</strong> Si tu as déployé un agent récemment et que ton expérience est différente, écris-moi. Je lis tout, je réponds. Les retours terrain valent mille fois les articles.
     </p>
   </div>
@@ -1565,6 +1644,24 @@ tu proposes toujours 3 créneaux pour un rendez-vous, tu tutoies.</code></pre>
       submitBtn.disabled = false;
     }
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

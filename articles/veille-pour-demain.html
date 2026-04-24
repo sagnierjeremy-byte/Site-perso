@@ -62,6 +62,95 @@
 </script>
 <!-- /seo:jsonld-article -->
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi le scoring 5 axes utilisé par l'outil de veille ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cinq axes pondérés : Demande (l'engagement brut, votes, commentaires), Pertinence (matching avec mes sujets de prédilection), Evergreen (longévité du sujet, pas seulement la news fraîche), Vécu (correspondance avec mes propres usages) et Gap (sujet rare versus ceux que j'ai déjà couverts). Le score brut est multiplié par un coefficient cluster (1.0 à 1.25 selon la catégorie éditoriale) et un boost YouTube (1.0 à 1.15 pour les chaînes-phares)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte le pipeline de veille par mois ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Environ 5 € par mois, parfois jusqu'à 10 € les mois où je fais beaucoup d'analyses long-form. Ce sont les appels à Claude Sonnet (les 30 sujets proposés chaque jour) et à Claude Opus (les analyses) qui composent presque tout ce montant. Le reste — l'ingestion des 96 sources, les embeddings Ollama, la base SQLite — tourne gratuitement sur mon Mac."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien d'idées sont produites par run de l'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une run typique : 476 items ingérés depuis 96 sources, 310 clusters après déduplication par similarité Jaccard, 60 items après filtrage signal/bruit, 15 items dans le backlog actif, 10 items que je retiens vraiment pour analyse approfondie. Soit un taux de rétention de 2 % entre l'ingestion brute et ce qui mérite mon attention, ce qui correspond à ma capacité de lecture quotidienne."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sources scanne l'outil chaque matin ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "96 sources réparties en quatre familles. Onze subreddits (r/ClaudeAI, r/ChatGPTCoding, r/LocalLLaMA, r/MachineLearning, r/Entrepreneur, etc.). Sept sources Hacker News + GitHub via Algolia API. Huit flux RSS officiels (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best). Seize chaînes YouTube via flux Atom (Underscore_, Silicon Carne, Vision IA, Hormozi, GaryVee, Iman Gadzhi, etc.). Plus dix flux Google News dynamiques sur mes mots-clés. Total réel : 96 à 110 sources actives selon les semaines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour reproduire ce pipeline ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Pour le niveau 3 (le pipeline complet Claude Code), il faut savoir installer Claude Code, créer un compte Anthropic et accepter de passer une journée pleine ou un mois en fil rouge à construire-tester-ajuster. Mais 70 à 80 % de la valeur s'obtient au niveau 1 (Feedly + 5 RSS officiels, 5 minutes de mise en place) ou au niveau 2 (n8n auto-hébergé + scraping Reddit/HN, un weekend). Commence au niveau 1, monte si tu en sens le besoin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre cet outil et Feedly ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Feedly est un agrégateur RSS qui te liste les derniers articles publiés. Cet outil va trois crans plus loin : il scrape aussi Reddit, Hacker News et YouTube (que Feedly ne fait pas), il déduplique par similarité Jaccard pour grouper les variantes d'un même sujet, il score chaque cluster sur cinq axes pondérés selon mes obsessions, et il appelle Claude Opus pour produire une analyse française de 1 000 mots par sujet retenu. Feedly te donne du brut, cet outil te donne du digéré et priorisé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi pas un LLM pour scorer plutôt qu'une formule mathématique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "J'ai volontairement renoncé à un LLM pour scorer. Trois raisons. Trop cher : sur 476 items par jour, ça ferait des dizaines de milliers d'appels par mois. Trop opaque : impossible de comprendre pourquoi un item bascule vers le haut ou le bas. Trop lent : chaque appel ajoute deux à dix secondes, soit des heures de latence sur l'ensemble du pipeline. La formule mathématique avec multiplicateurs cluster est rapide, lisible et auditable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment ajouter une nouvelle source à l'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois étapes selon le type de source. Pour un subreddit ou un flux RSS officiel, j'ajoute l'URL dans le tableau de configuration et je relance. Pour une chaîne YouTube, je résous le channelId une fois (mis en cache 90 jours), je l'ajoute au fichier youtube-channels.js avec son boost. Pour une recherche Google News dynamique, j'ajoute les mots-clés dans le worker. Compte 5 à 15 minutes pour intégrer une source proprement, tester sur un run et ajuster les filtres signal/bruit si besoin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi Ollama plutôt que les embeddings OpenAI ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ollama tourne en local sur mon Mac avec un modèle d'embedding multilingue, gratuitement, sans envoyer une seule ligne sur Internet. OpenAI text-embedding-3-small coûte 0,02 $ par million de tokens — pas cher mais payant, et mes données partent chez OpenAI. Sur 476 items par jour, l'écart financier est minime mais le contrôle des données est total avec Ollama. Et j'évite une dépendance de plus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le pipeline marche-t-il sur Windows ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le code est en Node.js avec SQLite, deux briques cross-platform. Ollama tourne sur Windows depuis 2024, Claude Code aussi. La seule friction : le worker tourne actuellement sur mon Mac via launchctl pour le déclenchement à heure fixe. Sur Windows il faudrait passer par le Planificateur de tâches Windows ou WSL2. Pour 99 % du code, zéro modification nécessaire."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -624,6 +713,7 @@
   .callout h4 { margin: 0 0 6px; font-size: 15px }
   .callout p  { margin: 0; font-size: 14.5px }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -632,6 +722,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -835,7 +951,7 @@
       Je voulais lancer un site. Un hub personnel où je partagerais ce que je lis, ce que je regarde, ce que je teste. Pas seulement sur l'IA : aussi sur le business, le sport, la paternité, la géopolitique. L'envie était là depuis des mois. Je me disais qu'à force d'accumuler de la veille, j'avais quelque chose à transmettre.
     </p>
     <p>
-      Avant de coder la première ligne, j'ai fait ce que je fais toujours maintenant : j'ai demandé à Claude Code de vérifier si l'idée tenait la route. Je n'avais pas envie de passer six mois sur un projet pour découvrir en route qu'il n'y avait pas de public.
+      Avant de coder la première ligne, j'ai fait ce que je fais toujours maintenant : j'ai demandé à Claude Code de vérifier si l'idée tenait la route. Je n'avais pas envie de passer six mois sur un projet pour découvrir en route qu'il n'y avait pas de public. Cette logique de <a href="autoresearch-karpathy.html">faire travailler des agents en parallèle</a> avant de coder, je l'ai apprise en lisant les travaux de Karpathy.
     </p>
   </div>
 </section>
@@ -958,9 +1074,9 @@
     </p>
     <ul>
       <li><strong>96 sources</strong> Business IA multilingues, en anglais, français, espagnol, allemand et japonais — Ethan Mollick, Stratechery, a16z, McKinsey, des podcasts, des chaînes YouTube, GitHub, Hacker News, Reddit, Product Hunt.</li>
-      <li><strong>Un worker qui tourne à 7h du matin</strong> (un petit programme qui s'exécute tout seul en tâche de fond), déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors.</li>
+      <li><strong>Un worker qui tourne à 7h du matin</strong> (un petit programme qui s'exécute tout seul en tâche de fond), déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors. C'est le même pattern de boucle que je décris dans <a href="loops-claude.html">les loops Claude Code</a> — un agent qui tourne sans surveillance pour produire un livrable au réveil.</li>
       <li><strong>Une base SQLite</strong> (une mini-base de données stockée dans un seul fichier) qui vit entièrement sur mon disque. Aucun cloud. Un seul fichier portable.</li>
-      <li><strong>Un moteur de recherche sémantique</strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes.</li>
+      <li><strong>Un moteur de recherche sémantique</strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes. Si l'<a href="open-source-pour-non-dev.html">open source</a> te paraît un sujet de dev, il l'est de moins en moins — Ollama et SQLite sont accessibles sans bagage technique.</li>
       <li><strong>Deux modèles Claude</strong> utilisés à des étapes différentes : Claude Sonnet pour proposer 30 sujets du jour, Claude Opus pour rédiger les analyses long-form quand je sélectionne un sujet.</li>
     </ul>
 
@@ -972,7 +1088,7 @@
     </figure>
 
     <p>
-      Le tout, en une journée de conception et d'écriture de code. Avec Claude Code.
+      Le tout, en une journée de conception et d'écriture de code. Avec Claude Code. Si tu veux comprendre la philosophie du « second cerveau » qui sous-tend ce genre d'outil, j'ai longuement écrit sur le <a href="llm-wiki-karpathy.html">LLM Wiki de Karpathy</a> qui est une des grandes inspirations de cette approche.
     </p>
   </div>
 </section>
@@ -1257,6 +1373,9 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
     <p>
       <strong>La checklist papier en bonus.</strong> 3 questions sur un post-it à côté du clavier : (1) « Est-ce que ça touche mon travail ? » (2) « Est-ce que je vais m'en souvenir dans 3 mois ? » (3) « Est-ce que j'ai une raison de partager ça ? ». Si la réponse est non aux trois, tu fermes l'onglet. Ça paraît bête mais ça change tout : tu arrêtes de stocker du bruit.
     </p>
+    <p>
+      <strong>Quelques sources complémentaires utiles à brancher dès le niveau 1</strong> selon ton angle : <a href="https://korben.info" target="_blank" rel="noopener">Korben.info</a> pour la veille tech française grand public, <a href="https://console.dev" target="_blank" rel="noopener">Console.dev</a> pour les outils dev nouveaux et bien filtrés, et <a href="https://news.ycombinator.com" target="_blank" rel="noopener">Hacker News</a> directement (ou via <a href="https://hn.algolia.com" target="_blank" rel="noopener">son Algolia</a>) pour les conversations qui sortent du circuit officiel.
+    </p>
 
     <h3>Niveau 2 — n8n ou Make + scraping Reddit/HN + scoring manuel <span style="color:var(--ink-muted); font-weight:400">(1 weekend)</span></h3>
     <p>
@@ -1390,6 +1509,63 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
   </div>
 </section>
 
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">pipeline de veille IA.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi le scoring 5 axes ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Cinq axes pondérés : <strong>Demande</strong> (engagement brut, votes, commentaires), <strong>Pertinence</strong> (matching avec mes sujets), <strong>Evergreen</strong> (longévité, pas seulement la news fraîche), <strong>Vécu</strong> (correspondance avec mes usages) et <strong>Gap</strong> (sujet rare versus déjà couvert). Le score brut est multiplié par un coefficient cluster (1.0 à 1.25 selon la catégorie éditoriale) et un boost YouTube (1.0 à 1.15 pour les chaînes-phares).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Environ 5 € par mois</strong>, parfois jusqu'à 10 € les mois où je fais beaucoup d'analyses long-form. Ce sont les appels à Claude Sonnet (les 30 sujets par jour) et à Claude Opus (les analyses) qui composent presque tout. Le reste — ingestion des 96 sources, embeddings Ollama, base SQLite — tourne <strong>gratuitement</strong> sur mon Mac.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien d'idées par run ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Une run typique : <strong>476 items ingérés</strong> depuis 96 sources, <strong>310 clusters</strong> après déduplication par similarité Jaccard, <strong>60 items</strong> après filtrage signal/bruit, <strong>15 items</strong> dans le backlog actif, <strong>10 items</strong> que je retiens vraiment pour analyse approfondie. Soit un taux de rétention de 2 % entre l'ingestion brute et ce qui mérite mon attention.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelles sources scanne l'outil ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>96 sources</strong> en quatre familles. <strong>Onze subreddits</strong> (r/ClaudeAI, r/ChatGPTCoding, r/LocalLLaMA, r/MachineLearning, r/Entrepreneur, etc.). <strong>Sept sources HN + GitHub</strong> via Algolia API. <strong>Huit flux RSS officiels</strong> (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best). <strong>Seize chaînes YouTube</strong> via flux Atom. Plus dix flux Google News dynamiques. Total réel : 96 à 110 sources actives selon les semaines.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur pour reproduire ce pipeline ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Pour le <strong>niveau 3</strong> (le pipeline complet Claude Code), il faut savoir installer Claude Code, créer un compte Anthropic et accepter une journée pleine ou un mois en fil rouge à construire-tester-ajuster. Mais <strong>70 à 80 % de la valeur</strong> s'obtient au niveau 1 (Feedly + 5 RSS officiels, 5 minutes) ou au niveau 2 (n8n auto-hébergé + scraping Reddit/HN, un weekend). Commence au niveau 1, monte si tu en sens le besoin.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle différence entre cet outil et Feedly ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Feedly</strong> est un agrégateur RSS qui te liste les derniers articles publiés. Cet outil va trois crans plus loin : il scrape aussi <strong>Reddit, Hacker News et YouTube</strong>, il <strong>déduplique par similarité Jaccard</strong> pour grouper les variantes d'un même sujet, il <strong>score sur cinq axes pondérés</strong> selon mes obsessions, et il appelle <strong>Claude Opus pour produire une analyse française de 1 000 mots</strong> par sujet retenu. Feedly te donne du brut, cet outil te donne du digéré et priorisé.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi pas un LLM pour scorer plutôt qu'une formule ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">J'ai volontairement renoncé à un LLM pour scorer. <strong>Trop cher</strong> : sur 476 items par jour, ça ferait des dizaines de milliers d'appels par mois. <strong>Trop opaque</strong> : impossible de comprendre pourquoi un item bascule vers le haut ou le bas. <strong>Trop lent</strong> : chaque appel ajoute 2 à 10 secondes, soit des heures de latence sur l'ensemble. La formule mathématique avec multiplicateurs cluster est rapide, lisible et auditable.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment ajouter une nouvelle source ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois étapes selon le type. Pour un <strong>subreddit ou un RSS officiel</strong> : ajoute l'URL dans le tableau de configuration et relance. Pour une <strong>chaîne YouTube</strong> : résous le channelId une fois (mis en cache 90 jours), ajoute-la au fichier youtube-channels.js avec son boost. Pour une <strong>recherche Google News dynamique</strong> : ajoute les mots-clés dans le worker. Compte 5 à 15 minutes pour intégrer une source proprement, tester sur un run et ajuster les filtres signal/bruit si besoin.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi Ollama plutôt qu'OpenAI embeddings ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Ollama tourne en local</strong> sur mon Mac avec un modèle d'embedding multilingue, gratuitement, sans envoyer une seule ligne sur Internet. <strong>OpenAI text-embedding-3-small</strong> coûte 0,02 $ par million de tokens — pas cher mais payant, et mes données partent chez OpenAI. Sur 476 items par jour, l'écart financier est minime mais le contrôle des données est total avec Ollama. Et j'évite une dépendance de plus.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Le pipeline marche-t-il sur Windows ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui. Le code est en <strong>Node.js + SQLite</strong>, deux briques cross-platform. Ollama tourne sur Windows depuis 2024, Claude Code aussi. La seule friction : le worker tourne actuellement sur mon Mac via launchctl pour le déclenchement à heure fixe. Sur Windows il faudrait passer par le <strong>Planificateur de tâches Windows ou WSL2</strong>. Pour 99 % du code, zéro modification nécessaire.</p>
+    </details>
+  </div>
+</section>
+
 <!-- seo:corrections -->
 <section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
   <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
@@ -1470,6 +1646,24 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
       submitBtn.disabled = false;
     }
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

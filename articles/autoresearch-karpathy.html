@@ -296,6 +296,7 @@
   .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
   .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -304,6 +305,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -326,7 +353,7 @@
     <div class="kicker"><span class="dot"></span>Récit · Agents auto-améliorants · Niveau découverte</div>
     <h1>J'ai laissé une IA<br>s'améliorer toute seule<br><em class="fuchsia">pendant la nuit.</em></h1>
     <p class="hero-lead">
-      Une idée sortie d'un projet d'Andrej Karpathy (un ancien d'OpenAI et de Tesla, l'un des chercheurs les plus respectés du domaine) : on peut demander à une IA de modifier son propre travail, de tester si c'est mieux, de garder ce qui marche, de jeter ce qui rate. Et de recommencer. Toute la nuit. J'ai essayé chez moi sur un script pénible à régler. Voilà ce qui s'est passé.
+      Une idée sortie d'un projet d'<a href="https://github.com/karpathy" target="_blank" rel="noopener">Andrej Karpathy</a> (un ancien d'<a href="https://openai.com/" target="_blank" rel="noopener">OpenAI</a> et de Tesla, l'un des chercheurs les plus respectés du domaine) : on peut demander à une IA de modifier son propre travail, de tester si c'est mieux, de garder ce qui marche, de jeter ce qui rate. Et de recommencer. Toute la nuit. J'ai essayé chez moi sur un script pénible à régler. Voilà ce qui s'est passé.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>14 min</strong> de lecture</span>
@@ -356,13 +383,13 @@
     <span class="section-kicker k-fuchsia">— Le déclencheur</span>
     <h2>L'idée qui m'a <em class="fuchsia">empêché de dormir.</em></h2>
     <p>
-      C'était un dimanche soir de mars 2026. Je traînais sur GitHub (la plateforme où les développeurs partagent leur code, un peu le YouTube du logiciel) et je tombe sur un projet d'Andrej Karpathy appelé <em>autoresearch</em>. Je ne te cache pas que la moitié du projet est incompréhensible pour moi — il y a des graphiques, des termes de chercheur, des mesures qui ne me parlent pas du tout. Mais l'idée centrale, elle, m'a frappé entre les deux yeux.
+      C'était un dimanche soir de mars 2026. Je traînais sur <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a> (la plateforme où les développeurs partagent leur code, un peu le YouTube du logiciel) et je tombe sur un <a href="https://github.com/karpathy" target="_blank" rel="noopener">projet d'Andrej Karpathy</a> appelé <em>autoresearch</em>. Je ne te cache pas que la moitié du projet est incompréhensible pour moi — il y a des graphiques, des termes de chercheur, des mesures qui ne me parlent pas du tout. Mais l'idée centrale, elle, m'a frappé entre les deux yeux.
     </p>
     <p>
       L'idée tient en une phrase : <strong>tu fais bosser une IA sur un problème, tu lui demandes de modifier son propre travail, tu la laisses tester si la nouvelle version est meilleure, et si oui, elle continue à partir de là — sinon elle revient en arrière et essaie autre chose</strong>. Et tu recommences. Toute la nuit. Sans toi.
     </p>
     <p>
-      Ce qui m'a fait tilter, c'est que j'avais justement un truc qui me pourrissait la vie depuis trois mois : <strong>mon script de tri d'emails</strong>. Pas un truc sophistiqué, juste un petit programme que m'avait écrit Claude (l'IA d'Anthropic, un des grands modèles de conversation comme ChatGPT) pour qu'il regarde ma boîte mail le matin et me sorte les 10 emails les plus importants à traiter en priorité. Le souci : il en ratait régulièrement. Une demande de devis perdue dans les newsletters, un email de mon comptable noyé dans les pubs LinkedIn. Pas catastrophique, mais énervant.
+      Ce qui m'a fait tilter, c'est que j'avais justement un truc qui me pourrissait la vie depuis trois mois : <strong>mon script de tri d'emails</strong>. Pas un truc sophistiqué, juste un petit programme que m'avait écrit Claude (l'IA d'<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>, un des grands modèles de conversation comme ChatGPT) pour qu'il regarde ma boîte mail le matin et me sorte les 10 emails les plus importants à traiter en priorité. Le souci : il en ratait régulièrement. Une demande de devis perdue dans les newsletters, un email de mon comptable noyé dans les pubs LinkedIn. Pas catastrophique, mais énervant.
     </p>
     <p>
       Et là, je me dis : <strong>« Et si je laissais l'IA améliorer son propre script ? Toute seule, pendant que je dors ? »</strong> Je ferme l'ordi. Je dors mal. Le lendemain matin, je me lève, je prépare le café, et je décide de tenter le coup le soir même.
@@ -387,7 +414,7 @@
     <span class="section-kicker k-teal">— L'histoire</span>
     <h2>Ma nuit avec <em class="teal">Claude au volant.</em></h2>
     <p>
-      Lundi soir. 21h45. Mon fils dort. Ma femme regarde une série. Je m'installe à mon bureau. J'ouvre Claude Code (un outil qui permet de discuter avec Claude directement dans ton terminal — j'ai un <a href="loops-claude.html">tuto dédié dessus</a>). Je lui explique en français, sans jargon, ce que je veux faire :
+      Lundi soir. 21h45. Mon fils dort. Ma femme regarde une série. Je m'installe à mon bureau. J'ouvre <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> (un outil qui permet de discuter avec Claude directement dans ton terminal — j'ai un <a href="loops-claude.html">tuto dédié dessus</a>). Je lui explique en français, sans jargon, ce que je veux faire :
     </p>
 
     <div class="callout ok">
@@ -535,7 +562,7 @@
       <div class="step-num">3</div>
       <div class="step-body">
         <h4>Installe Claude Code (ou Codex CLI)</h4>
-        <p>Claude Code est l'outil que j'ai utilisé. C'est une application qui te permet de discuter avec Claude directement dans une fenêtre où tu peux lui demander de modifier des fichiers et de tester des choses. Codex (le concurrent d'OpenAI) fait pareil. J'ai un <a href="loops-claude.html">tuto dédié</a> pour Claude Code si tu pars de zéro. 30 minutes d'installation la première fois, ensuite tu n'y touches plus.</p>
+        <p>Claude Code est l'outil que j'ai utilisé. C'est une application qui te permet de discuter avec Claude directement dans une fenêtre où tu peux lui demander de modifier des fichiers et de tester des choses. <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex CLI</a> (le concurrent d'OpenAI) fait pareil. J'ai un <a href="loops-claude.html">tuto dédié</a> pour Claude Code si tu pars de zéro. 30 minutes d'installation la première fois, ensuite tu n'y touches plus.</p>
       </div>
     </div>
 
@@ -778,6 +805,8 @@
       <li><strong><a href="loops-claude.html">Les loops Claude Code, expliquées</a></strong> — la base technique pour comprendre comment Claude peut tourner en boucle. Indispensable avant de tenter ton propre essai.</li>
       <li><strong><a href="hermes-agent.html">Construire un Hermes Agent pas à pas</a></strong> — comment monter un agent qui fait des trucs précis pour toi. La marche d'avant l'auto-amélioration.</li>
       <li><strong><a href="karpathy.html">Les travaux de Karpathy, vulgarisés</a></strong> — si tu veux comprendre qui est le bonhomme et pourquoi ses idées comptent dans le monde de l'IA.</li>
+      <li><strong><a href="llm-wiki-karpathy.html">Le LLM Wiki, ton deuxième cerveau</a></strong> — l'autre projet Karpathy qui complète l'auto-recherche · une encyclopédie locale qui apprend de tes retours.</li>
+      <li><strong><a href="claude-code-workflow-tips.html">Mon retour d'XP Claude Code après 6 mois</a></strong> — la routine quotidienne qui rend ce genre d'essais nocturnes possibles sans tout casser le matin.</li>
     </ul>
 
     <p>
@@ -876,6 +905,24 @@
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

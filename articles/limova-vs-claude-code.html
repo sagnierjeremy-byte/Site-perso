@@ -52,6 +52,95 @@
 </script>
 <!-- /seo:jsonld-article -->
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte Limova par rapport à Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Limova facture 69,90 € à 119,90 € par mois selon le plan, plus 0,20 € par minute d'appel sortant pour l'agent Tom. Soit 840 à 1 440 € par an. Construire l'équivalent en Claude Code DIY revient à 10-20 € par mois pour un trieur de mails, 50-160 € par mois pour un chatbot WhatsApp + site, et environ 5 € par mois pour un agent de veille. Tu paies l'API Claude (3 $ par million de tokens en entrée sur Sonnet) plus l'hébergement Vercel ou Railway."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels cas d'usage justifient encore Limova ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deux cas concrets. Un, tu veux un standard téléphonique IA en production dans la semaine : Tom est sérieusement packagé et reconstruire l'équivalent en Twilio + Deepgram + ElevenLabs + agent Claude prend au moins 80 heures de développement. Deux, tu n'as ni envie d'apprendre à coder ni quelqu'un autour de toi pour t'aider : tu paies pour le service, pas pour la technologie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel niveau technique faut-il pour reproduire les agents Limova en Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas besoin d'être développeur. Claude Code lit ce que tu lui dictes en français et écrit le code à ta place. Il faut savoir installer Claude Code, créer un compte Anthropic, brancher une carte bancaire pour l'API, et accepter de passer 10 à 20 heures réparties sur quelques soirées pour construire-tester-ajuster ton premier agent. Le vrai prérequis c'est la patience d'itérer, pas la maîtrise du JavaScript."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps pour reproduire les neuf agents Limova ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte deux soirées pour un trieur de mails, une soirée pour un agent de veille, deux soirées pour un agent qui écrit tes posts LinkedIn, une soirée pour un agent qui surveille ton site, deux soirées pour un agent qui prépare tes rendez-vous. Soit huit à dix soirées de deux heures pour couvrir six à sept des besoins que Limova vend pour 70 € par mois. L'agent téléphonique Tom à lui seul vaut 80 heures de dev, ne le reproduis pas si tu n'en as pas vraiment besoin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Limova vs n8n ou Make.com, quelles différences ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "n8n et Make.com sont des plateformes d'automatisation no-code orientées workflow (déclencheur → action). Limova est positionné comme suite d'agents IA préemballés sur des cas d'usage métier (standard téléphonique, SEO, prospection LinkedIn). Pour un workflow simple type mail entrant → résumé → notification Slack, n8n self-hosted coûte 0 € par mois et fait le travail. Pour un agent conversationnel qui prend des décisions, Claude Code est plus adapté que les deux."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi le modèle d'IA derrière Limova n'est-il pas nommé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Limova ne précise nulle part si ses agents tournent sur Claude, GPT, Mistral ou un modèle maison. La FAQ évoque seulement des IA comme ChatGPT. Pour quelqu'un qui manipule des données clients, savoir à qui ces données sont envoyées est un sujet de conformité, en particulier sous RGPD. Cette opacité est l'une des raisons pour lesquelles je recommande de vérifier auprès du support avant de signer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment résilier Limova proprement après l'essai gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'essai dure sept jours sans carte bancaire, donc en théorie il suffit de ne pas confirmer pour ne pas être facturé. Plusieurs retours sur des sites de comparatifs et la presse spécialisée mentionnent des problèmes de désabonnement après l'essai. Avant de signer, demande au support en écrit la procédure de résiliation exacte et le délai de remboursement, et garde la trace de l'échange par email."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les avis Trustpilot 4,9 sur 5 de Limova sont-ils fiables ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La note est de 4,9 sur 5 sur environ 885 avis. Quand on les lit un par un, 95 % mentionnent un prénom de chargé de clientèle, sont courts, et parlent surtout de l'onboarding ou du support, pas du produit. Surtout, zéro avis sur G2, Capterra, Reddit ou Product Hunt — les plateformes où les utilisateurs business laissent normalement leurs retours. Ce silence ailleurs interroge."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour utiliser Claude Code à la place de Limova ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Claude Code est l'agent en ligne de commande d'Anthropic qui écrit du code à partir de tes instructions en français. Tu lui décris ce que tu veux, il propose le code et l'exécute. La courbe d'apprentissage est de quelques heures pour les bases (installer, lancer, comprendre les permissions). J'ai construit l'outil de vente de ma femme en trois soirées sans coder une ligne moi-même."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les coûts cachés à anticiper sur Limova ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois coûts variables à intégrer. Un, 0,20 € par minute d'appel sortant pour l'agent Tom : sur un usage intense la facture grimpe vite. Deux, les éventuels frais WhatsApp Business API si tu actives l'agent chatbot. Trois, le plan Business+ obligatoire sur devis pour les équipes au-dessus de cinq ou dix personnes — pas de tarif public. Demande un devis détaillé avec ton volume d'appels et ton nombre de sièges avant de signer."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -622,6 +711,7 @@
     box-shadow: 2px 2px 0 rgba(244,239,230,.3);
   }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -630,6 +720,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -797,6 +913,11 @@
   <div class="container">
     <span class="section-kicker k-teal">— Le point de départ</span>
     <h2>Le pitch de Limova, <em class="teal">en clair.</em></h2>
+
+    <div style="margin: 0 0 28px; padding: 18px 22px; background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25); border-left: 4px solid var(--teal); border-radius: 12px;">
+      <p style="margin: 0; font-size: 15.5px; line-height: 1.65;"><strong>Note de méthode.</strong> Je n'ai pas testé Limova en utilisateur. Cet article est une analyse à distance basée sur leur site, leurs démos publiques, leurs tarifs affichés, leurs avis publics (Trustpilot, G2, Capterra, Reddit) et la presse spécialisée disponible. Si tu utilises Limova en production et que ton expérience contredit ce que j'écris, écris-moi : je mets à jour avec ton retour.</p>
+    </div>
+
     <p>
       Limova est une plateforme française basée à Nice, créée en 2024. Les fondateurs sont Réouven Bokobza et Yoan Drahy. L'entreprise se présente comme une solution clé en main pour les TPE et PME qui veulent installer de l'IA dans leur quotidien sans savoir coder.
     </p>
@@ -882,6 +1003,9 @@
     <p>
       Si je devais choisir aujourd'hui entre démarrer un call center IA en trois jours avec Tom et le construire moi-même, Limova gagnerait probablement.
     </p>
+    <p>
+      C'est exactement le même type de calcul que je fais quand je compare un service IA packagé à une alternative DIY — j'ai détaillé ce raisonnement ailleurs sur la question d'un <a href="better-call-vs-associe.html">associé IA à 7 000 € par an</a>, où le verdict bascule pour des raisons proches.
+    </p>
   </div>
 </section>
 
@@ -932,7 +1056,7 @@
       <div class="step-body">
         <h3>Certains articles de presse tempèrent franchement l'enthousiasme</h3>
         <p>
-          Un article dédié sur <code>journal-economique.fr</code> pointe des « fonctionnalités annoncées qui ne fonctionnent pas » et un SAV « extrêmement lent ». D'autres retours sur des sites de comparatifs mentionnent des bugs, un produit qui ressemblerait plus à un MVP (un produit à peine fini, juste assez pour être testé) qu'à une solution finalisée, et des problèmes de désabonnement après l'essai gratuit.
+          Un article dédié sur <a href="https://www.journal-economique.fr/" target="_blank" rel="noopener"><code>journal-economique.fr</code></a> pointe des « fonctionnalités annoncées qui ne fonctionnent pas » et un SAV « extrêmement lent ». D'autres retours sur des sites de comparatifs mentionnent des bugs, un produit qui ressemblerait plus à un MVP (un produit à peine fini, juste assez pour être testé) qu'à une solution finalisée, et des problèmes de désabonnement après l'essai gratuit.
         </p>
       </div>
     </div>
@@ -1113,10 +1237,16 @@
       <li><strong>Un agent qui t'aide à préparer tes rendez-vous</strong> en lisant les documents que tu lui passes. Deux soirées, 5 € par mois.</li>
     </ul>
     <p>
-      Avec Claude Code, <a href="https://www.anthropic.com/claude/sonnet" target="_blank" rel="noopener">Claude Sonnet</a> à 3 $ par million de tokens en entrée (les tokens, ce sont les morceaux de mots que l'IA compte pour facturer), les serveurs MCP qui se branchent à Gmail, Google Calendar, LinkedIn, Notion, et un hébergement Vercel ou Railway à 5 € par mois, tu couvres six à sept besoins que Limova te vendrait pour 70 € par mois.
+      Avec <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">Claude Code</a> et <a href="https://www.anthropic.com/claude/sonnet" target="_blank" rel="noopener">Claude Sonnet</a> à 3 $ par million de tokens en entrée (les tokens, ce sont les morceaux de mots que l'IA compte pour facturer), les serveurs MCP qui se branchent à Gmail, Google Calendar, LinkedIn, Notion, et un hébergement Vercel ou Railway à 5 € par mois, tu couvres six à sept besoins que Limova te vendrait pour 70 € par mois.
     </p>
     <p>
       Ce n'est pas gratuit en temps. Il faut compter une dizaine d'heures réparties sur quelques soirées pour construire, tester, ajuster. Mais une fois construit, c'est à toi. Ton code, tes prompts, tes données, tes intégrations. Pas de dépendance à un éditeur qui peut augmenter ses prix, modifier ses conditions, ou disparaître.
+    </p>
+    <p>
+      Si tu n'as jamais touché Claude Code, commence par mes <a href="claude-code-workflow-tips.html">retours après six mois</a> sur l'outil — ce qui marche, ce qui pique, ce que je referais autrement. Pour pousser la machine plus loin, j'ai aussi documenté l'écosystème <a href="superpowers.html">Superpowers</a> qui ajoute des sous-agents et des skills réutilisables.
+    </p>
+    <p>
+      Si tu cherches plutôt des plateformes no-code orientées workflow (déclencheur → action) plutôt qu'agents conversationnels, regarde <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> en self-hosted (0 € par mois sur ton serveur) ou <a href="https://www.make.com/" target="_blank" rel="noopener">Make.com</a> en SaaS — ils ne font pas le même travail que Limova mais couvrent une bonne partie des automatisations simples.
     </p>
   </div>
 </section>
@@ -1167,6 +1297,63 @@
     <p>
       Réponds-moi avec ta situation. Je ne vends rien. Je cherche simplement à comprendre ce qui fait pencher la décision d'un côté ou de l'autre.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">Limova vs Claude Code.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien coûte Limova par rapport à Claude Code ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Limova facture <strong>69,90 € à 119,90 € par mois</strong> selon le plan, plus 0,20 € par minute d'appel sortant pour Tom. Soit 840 à 1 440 € par an. Construire l'équivalent en Claude Code DIY revient à <strong>10-20 € par mois</strong> pour un trieur de mails, 50-160 € par mois pour un chatbot WhatsApp + site, et environ 5 € par mois pour un agent de veille. Tu paies l'API Claude (3 $ par million de tokens en entrée sur Sonnet) plus l'hébergement.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels cas d'usage justifient encore Limova ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Deux cas concrets. <strong>Un</strong>, tu veux un standard téléphonique IA en production dans la semaine : Tom est sérieusement packagé et reconstruire l'équivalent en Twilio + Deepgram + ElevenLabs + agent Claude prend au moins 80 heures. <strong>Deux</strong>, tu n'as ni envie d'apprendre à coder ni quelqu'un autour de toi pour t'aider : tu paies pour le service, pas pour la technologie.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel niveau technique faut-il pour reproduire les agents en Claude Code ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pas besoin d'être développeur. <strong>Claude Code lit ce que tu lui dictes en français</strong> et écrit le code à ta place. Il faut savoir l'installer, créer un compte Anthropic, brancher une carte bancaire pour l'API, et accepter de passer 10 à 20 heures réparties sur quelques soirées pour construire-tester-ajuster ton premier agent. Le vrai prérequis c'est la patience d'itérer, pas la maîtrise du JavaScript.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps pour reproduire les neuf agents ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte deux soirées pour un trieur de mails, une soirée pour un agent de veille, deux soirées pour un agent qui écrit tes posts LinkedIn, une soirée pour un agent qui surveille ton site, deux soirées pour un agent qui prépare tes rendez-vous. Soit <strong>huit à dix soirées de deux heures</strong> pour couvrir six à sept des besoins que Limova vend pour 70 € par mois. L'agent téléphonique Tom à lui seul vaut 80 heures de dev — ne le reproduis pas si tu n'en as pas vraiment besoin.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Limova vs n8n ou Make.com, quelles différences ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>n8n et Make.com</strong> sont des plateformes d'automatisation no-code orientées workflow (déclencheur → action). <strong>Limova</strong> est positionné comme suite d'agents IA préemballés sur des cas d'usage métier (standard téléphonique, SEO, prospection LinkedIn). Pour un workflow simple type mail entrant → résumé → notification Slack, n8n self-hosted coûte 0 € par mois et fait le travail. Pour un agent conversationnel qui prend des décisions, Claude Code est plus adapté que les deux.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi le modèle d'IA derrière Limova n'est-il pas nommé ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Limova ne précise nulle part si ses agents tournent sur Claude, GPT, Mistral ou un modèle maison. La FAQ évoque seulement « des IA comme ChatGPT ». Pour quelqu'un qui manipule des <strong>données clients</strong>, savoir à qui ces données sont envoyées est un sujet de conformité, en particulier sous RGPD. Vérifie auprès du support avant de signer.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment résilier Limova proprement après l'essai gratuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">L'essai dure sept jours sans carte bancaire, donc en théorie il suffit de ne pas confirmer pour ne pas être facturé. Plusieurs retours mentionnent des problèmes de désabonnement après l'essai. <strong>Avant de signer, demande au support en écrit la procédure de résiliation exacte et le délai de remboursement</strong>, et garde la trace de l'échange par email.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Les avis Trustpilot 4,9 sur 5 sont-ils fiables ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">La note est de 4,9 sur 5 sur ~885 avis. Quand on les lit un par un, <strong>95 % mentionnent un prénom de chargé de clientèle</strong>, sont courts, et parlent surtout de l'onboarding ou du support, pas du produit. Surtout, zéro avis sur G2, Capterra, Reddit ou Product Hunt — les plateformes où les utilisateurs business laissent normalement leurs retours. Ce silence ailleurs interroge.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur pour utiliser Claude Code ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Claude Code est l'agent en ligne de commande d'Anthropic qui <strong>écrit du code à partir de tes instructions en français</strong>. Tu lui décris ce que tu veux, il propose le code et l'exécute. La courbe d'apprentissage est de quelques heures pour les bases. J'ai construit l'outil de vente de ma femme en trois soirées sans coder une ligne moi-même.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels sont les coûts cachés à anticiper sur Limova ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois coûts variables. <strong>Un</strong>, 0,20 € par minute d'appel sortant pour Tom : sur un usage intense la facture grimpe vite. <strong>Deux</strong>, les éventuels frais WhatsApp Business API si tu actives l'agent chatbot. <strong>Trois</strong>, le plan Business+ obligatoire sur devis pour les équipes au-dessus de 5-10 personnes — pas de tarif public. Demande un devis détaillé avec ton volume d'appels et ton nombre de sièges avant de signer.</p>
+    </details>
   </div>
 </section>
 
@@ -1250,6 +1437,24 @@
       submitBtn.disabled = false;
     }
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

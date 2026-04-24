@@ -1,0 +1,102 @@
+/* ============================================================
+ * Nav v2 Jerwis · mini-nav + logo stamp + 4 liens
+ * À inclure dans chaque page via <link rel="stylesheet" href="assets/nav-v2.css">
+ * (depuis /articles/ : ../assets/nav-v2.css)
+ * ============================================================ */
+
+:root {
+  --ink-fixed: #0A0A0A;
+  --cream-fixed: #FBF7F0;
+  --font-display-v2: 'Archivo Black', 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono-v2: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Cache tout ancien header */
+body > header.header,
+body > header.article-header { display: none !important; }
+
+/* Mini-nav stamp */
+.mini-nav {
+  position: relative; z-index: 15;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  font-family: var(--font-mono-v2); font-size: 11px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0; transform: translateY(-8px);
+  animation: mnv2-navIn .8s .2s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes mnv2-navIn { to { opacity: 1; transform: translateY(0); } }
+
+.mini-nav .brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display-v2); font-size: 19px;
+  letter-spacing: -.02em; color: var(--ink); text-decoration: none;
+}
+.mini-nav .brand-stamp {
+  position: relative; padding: 4px 0;
+  transform: rotate(-3deg);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.mini-nav .brand-stamp:hover { transform: rotate(0deg) scale(1.02); }
+.mini-nav .brand-stamp .stamp {
+  position: relative; display: inline-block;
+  border: 2px solid var(--ink-fixed);
+  background: var(--cream-fixed);
+  padding: 6px 14px 8px;
+  box-shadow: 5px 5px 0 var(--fuchsia);
+}
+.mini-nav .brand-stamp .stamp-kicker {
+  display: block;
+  font-family: var(--font-mono-v2); font-size: 8px; font-weight: 700;
+  letter-spacing: .28em; color: var(--ink-fixed);
+  margin-bottom: 2px;
+}
+.mini-nav .brand-stamp .stamp-word {
+  display: block;
+  font-family: var(--font-display-v2);
+  font-size: 28px; letter-spacing: -.04em; line-height: .9;
+  color: var(--ink-fixed);
+}
+.mini-nav .brand-stamp .stamp-bar { display: flex; height: 3px; margin-top: 4px; }
+.mini-nav .brand-stamp .stamp-bar span { flex: 1; }
+.mini-nav .brand-stamp .stamp-bar span:nth-child(1) { background: var(--teal); }
+.mini-nav .brand-stamp .stamp-bar span:nth-child(2) { background: var(--fuchsia); }
+.mini-nav .brand-stamp .stamp-bar span:nth-child(3) { background: var(--orange); }
+
+.mini-nav .links { display: flex; gap: 28px; }
+.mini-nav .links a {
+  color: var(--ink-soft); text-decoration: none; position: relative;
+  padding-bottom: 2px;
+}
+.mini-nav .links a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 2px;
+  background: var(--fuchsia); transition: right .3s cubic-bezier(.2,.7,.2,1);
+}
+.mini-nav .links a:hover::after,
+.mini-nav .links a[aria-current="page"]::after { right: 0; }
+.mini-nav .links a[aria-current="page"] { color: var(--ink); }
+
+.mini-nav .theme-toggle-v2 {
+  width: 38px; height: 38px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .2s, border-color .2s;
+}
+.mini-nav .theme-toggle-v2:hover { transform: rotate(15deg); border-color: var(--fuchsia); }
+.mini-nav .theme-toggle-v2 svg { width: 16px; height: 16px; }
+[data-theme="light"] .mini-nav .theme-toggle-v2 .icon-moon { display: block; }
+[data-theme="light"] .mini-nav .theme-toggle-v2 .icon-sun { display: none; }
+[data-theme="dark"] .mini-nav .theme-toggle-v2 .icon-moon { display: none; }
+[data-theme="dark"] .mini-nav .theme-toggle-v2 .icon-sun { display: block; }
+
+@media (max-width: 960px) {
+  .mini-nav { padding: 14px 20px; }
+  .mini-nav .links { display: none; }
+  .mini-nav .brand-stamp .stamp-word { font-size: 22px; }
+  .mini-nav .brand-stamp .stamp-kicker { font-size: 7px; }
+}
+@media (max-width: 560px) {
+  .mini-nav .brand-stamp { transform: rotate(-2deg); }
+}

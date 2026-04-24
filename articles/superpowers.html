@@ -53,6 +53,95 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour utiliser Superpowers Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je suis non-dev et Superpowers a même plus de valeur dans ce cas : la phase brainstorm + plan compense l'absence de réflexes d'architecture. Sur 6 semaines de tests, mes 3 cas non-code (article long, lancement produit, séquence emails) ont gagné autant que mes cas code, parfois plus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel coût en tokens supplémentaire avec Superpowers ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sur les tâches simples : 10 à 15 % de tokens en plus selon l'évaluation comparative de Mejba Ahmed sur 12 sessions. Sur les vraies sessions ≥ 30 minutes, le surcoût en tokens est largement compensé par les heures économisées (-41 % en moyenne sur 23 sessions chronométrées chez moi). Règle simple : actif au-dessus de 30 min, désactivé pour les bricolages rapides."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment désactiver Superpowers Claude Code temporairement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une commande dans le terminal : claude plugin disable superpowers. Pour le réactiver : claude plugin enable superpowers. Dix secondes de gestion à chaque switch, mais le plugin ne s'invoque que quand c'est pertinent. C'est la pratique que je recommande à tous ceux qui trouvent Superpowers trop lourd sur les petites tâches."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Superpowers fonctionne-t-il avec Cursor ou seulement Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Superpowers est un plugin du marketplace officiel Claude Code uniquement, donc pas compatible Cursor ni Continue.dev en l'état. La méthodologie (brainstorm → plan → exécution testée → review) peut s'appliquer manuellement dans Cursor en collant les prompts de Jesse Vincent, mais sans l'auto-invocation et l'orchestration des sous-agents qui font la valeur du plugin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le bug des sous-agents qui oublient le contexte est-il corrigé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bug toujours actif au moment où j'écris cet article (avril 2026), tracké dans l'issue #237 du repo GitHub. Le skill using-superpowers n'est pas systématiquement chargé en profondeur d'arborescence, ce qui casse la discipline attendue. Workaround : invoquer explicitement le skill au début d'un sous-agent imbriqué. Une version corrective est annoncée par Jesse Vincent sans ETA précis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Superpowers vs autres plugins du marketplace Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Superpowers est le seul plugin du top 5 marketplace qui change la méthodologie de Claude (brainstorm + plan + TDD + sous-agents). Les autres top 5 (context7, claude-md-management, frontend-design, code-review) ajoutent des capacités ponctuelles. Les 5 sont complémentaires, pas concurrents : j'utilise les 5 en parallèle sur le même setup Claude Code Max."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps pour s'approprier Superpowers ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte 1 semaine pour identifier les 5 skills que tu utilises vraiment chaque semaine (brainstorming, writing-plans, executing-plans, systematic-debugging, requesting-code-review). Compte 2 à 3 semaines avant d'avoir le réflexe de désactiver le plugin sur les petits fix. Au bout de 6 semaines, tu pilotes l'outil au lieu de le subir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Superpowers fonctionne-t-il pour des projets non-code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, et souvent mieux. La méthode brainstorm + plan + exécution validée est universelle. Mes 3 cas non-code testés : refonte article 8 000 mots (gain 2 h 20), planification lancement produit (4 jours au lieu de 2 semaines), séquence emails 5 jours (2 h 10 au lieu de 4 h estimées). Astuce : invoquer le skill explicitement au début (utilise brainstorming pour m'aider à clarifier)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sont les 3 critiques principales contre Superpowers ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois critiques honnêtes et mesurables : (1) disproportionné sur les petites tâches (+10-15 % de tokens, +58 % de temps sur les fix ≤ 2 fichiers), (2) auto-invocation trop agressive depuis une récente mise à jour, (3) sous-agents qui oublient le contexte en profondeur d'arborescence (issue #237 du repo). Les 3 sont contournables : désactivation à la demande, invocation explicite, ou suivi de l'issue GitHub."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment installer Superpowers en 30 secondes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois étapes : (1) vérifier Claude Code installé via claude --version, (2) lancer claude plugin install superpowers depuis le marketplace officiel Anthropic, (3) redémarrer Claude Code pour charger les skills. Test : ouvre un projet et dis utilise superpowers pour m'aider à clarifier mon idée. Si Claude pose des questions au lieu de coder, c'est installé."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -371,6 +460,72 @@
   }
   .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
 
+  /* Mini-marquees (charte FIESTA, obligatoire entre grandes sections) */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* TOC sticky */
+  .toc {
+    max-width: 880px; margin: 28px auto 0; padding: 18px 24px;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 14px;
+  }
+  .toc-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 10px;
+  }
+  .toc ol {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+  }
+  .toc li { margin: 0 }
+  .toc a {
+    font-family: 'Archivo', sans-serif; font-size: 14px;
+    color: var(--ink-soft); text-decoration: none;
+    border-bottom: 1px dashed var(--line-strong);
+    padding-bottom: 1px;
+  }
+  .toc a:hover { color: var(--fuchsia); border-bottom-color: var(--fuchsia) }
+
+  /* FAQ details */
+  details.faq-q {
+    margin-bottom: 14px; padding: 18px 22px;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 14px;
+  }
+  details.faq-q summary {
+    cursor: pointer; font-family: 'Archivo Black', sans-serif;
+    font-size: 16px; text-transform: uppercase;
+    letter-spacing: -.01em; color: var(--ink);
+  }
+  details.faq-q p {
+    margin-top: 14px; font-size: 15.5px; line-height: 1.65;
+  }
+
   /* Footer */
   .footer {
     background: var(--bg); padding: 48px 0 40px;
@@ -388,6 +543,7 @@
     color: var(--ink-muted);
   }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -397,6 +553,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <!-- Header -->
 <header class="header">
@@ -446,9 +628,27 @@
     <ul>
       <li>Superpowers oblige Claude à <strong>brainstormer, écrire un plan, tester avant de coder</strong>. Fini les 400 lignes générées à la volée · tu valides chaque étape.</li>
       <li>14 skills (des « métiers » réutilisables que Claude charge tout seul) qui se déclenchent automatiquement selon le contexte. Les 3 commandes slash (les raccourcis qui commencent par <code>/</code>) — <code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code> — sont <strong>dépréciées</strong>, le plugin utilise maintenant un système de skills plus flexible.</li>
-      <li>Verdict honnête : parfait pour les vrais projets, <strong>disproportionné sur les petites tâches</strong>. Tu le désactives en une commande quand tu veux juste tester rapidement. Écrit avec Claude, relu par moi.</li>
+      <li>Verdict honnête : parfait pour les vrais projets, <strong>disproportionné sur les petites tâches</strong>. Tu le désactives en une commande quand tu veux juste tester rapidement.</li>
+      <li><strong>Transparence</strong> · article écrit avec <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> (Anthropic), relu et signé par moi. Si tu repères une erreur, écris-moi à <a href="mailto:sagnier.jeremy@gmail.com">sagnier.jeremy@gmail.com</a>, je corrige.</li>
     </ul>
   </div>
+</div>
+
+<div class="container">
+  <nav class="toc" aria-label="Table des matières">
+    <div class="toc-label">Sommaire de l'article</div>
+    <ol>
+      <li><a href="#avant-de-commencer">1 · Avant de commencer</a></li>
+      <li><a href="#concept">2 · Concept · Claude devient discipliné</a></li>
+      <li><a href="#skills">3 · Les 14 skills en clair</a></li>
+      <li><a href="#retour-xp">4 · Retour d'XP après 6 semaines</a></li>
+      <li><a href="#non-code">5 · Pour un projet non-code ?</a></li>
+      <li><a href="#problemes">6 · Ce qui pose vraiment problème</a></li>
+      <li><a href="#installation">7 · Installation 30 secondes</a></li>
+      <li><a href="#faq">8 · FAQ</a></li>
+      <li><a href="#aller-plus-loin">9 · Pour aller plus loin</a></li>
+    </ol>
+  </nav>
 </div>
 
 <div class="container">
@@ -458,12 +658,20 @@
   </div>
 </div>
 
+<!-- Mini-marquee 01 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>14 skills</span><span>163 000 stars</span><span>23 sessions chronométrées</span><span>Brainstorm avant de coder</span><span>Plan validé</span><span>Tests en premier</span>
+    <span>14 skills</span><span>163 000 stars</span><span>23 sessions chronométrées</span><span>Brainstorm avant de coder</span><span>Plan validé</span><span>Tests en premier</span>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
-    <h2>Avant de commencer</h2>
+    <h2 id="avant-de-commencer">Avant de commencer</h2>
     <p>Si tu utilises Claude Code depuis quelques semaines, tu connais cette scène : tu demandes quelque chose de simple, Claude te génère 400 lignes avec 10 options que tu n&#39;as pas demandées, tu passes 30 minutes à nettoyer. Ce n&#39;est pas la faute de Claude. C&#39;est la faute du format <em>« écris-moi du code »</em> qui invite au chaos.</p>
     <p>Jesse Vincent, un ex-ingénieur d&#39;Anthropic, a créé <strong>Superpowers</strong> pour régler ça. Le plugin force une discipline : <strong>Claude doit comprendre ce que tu veux, valider le design, écrire un plan, puis exécuter avec des tests · dans cet ordre</strong>. Sorti en octobre 2025, Superpowers a grimpé à <strong>163 000 étoiles GitHub en six mois</strong> et est le <strong>4e plugin le plus installé</strong> du marketplace officiel Anthropic. Simon Willison le décrit comme <em>« un morceau significatif en soi »</em>. Evan Schwartz dit <em>« je ne peux pas le recommander assez »</em>.</p>
-    <p>Mais il y a aussi des utilisateurs qui râlent : <em>« Depuis que j&#39;ai installé Superpowers, changer un bout de CSS prend trois fois plus de temps »</em> (rodskagg sur Threads). Une surcharge inutile sur les petites tâches. Honnêteté oblige, je commence par ça.</p>
+    <p>Mais il y a aussi des utilisateurs qui râlent : <em>« Depuis que j&#39;ai installé Superpowers, changer un bout de CSS prend trois fois plus de temps »</em> (rodskagg sur Threads). Une surcharge inutile sur les petites tâches. Honnêteté oblige, je commence par ça. Pour le contexte plus large d'un usage Claude Code au quotidien (workflow non-dev, routine, erreurs vraiment chères), j'ai aussi écrit <a href="claude-code-workflow-tips.html">mon retour d'XP après 6 mois</a>.</p>
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
       <p>Superpowers, c'est la ceinture de sécurité de Claude Code. Indispensable quand tu lances un projet sérieux. Insupportable si tu veux juste bricoler. La bonne posture : installe, apprends à activer/désactiver à la demande. Tu auras le meilleur des deux mondes.</p>
@@ -473,7 +681,7 @@
 
 <section class="block">
   <div class="container">
-    <h2>Le concept · Claude devient discipliné</h2>
+    <h2 id="concept">Le concept · Claude devient discipliné</h2>
     <p>Superpowers n&#39;ajoute pas de fonctionnalité. Il <strong>change le comportement</strong> de Claude Code, en lui donnant des skills qui s&#39;activent automatiquement selon le contexte.</p>
     <h3>Les trois piliers de la méthode</h3>
     <p><strong>1. Brainstorming socratique</strong></p>
@@ -492,7 +700,7 @@
 
 <section class="block">
   <div class="container">
-    <h2>Les 14 skills en clair (regroupés par fonction)</h2>
+    <h2 id="skills">Les 14 skills en clair (regroupés par fonction)</h2>
     <p>Le plugin active 14 skills qui se déclenchent automatiquement. Je les ai regroupés en 4 familles pour que tu voies à quoi ça correspond vraiment.</p>
     <p>Plutôt que de te balancer 14 noms en vrac, je vais d'abord m'arrêter sur les <strong>5 skills que j'utilise vraiment chaque semaine</strong>. Pour chacun je te dis ce qu'il fait, à quel moment il s'allume tout seul, et un cas concret où il m'a sauvé la mise. Les 9 autres sont listés plus bas par familles, en mode catalogue · tu reviendras les lire si tu en as besoin.</p>
 
@@ -572,7 +780,7 @@
 
 <section class="block">
   <div class="container">
-    <h2>Mon retour d'XP après 6 semaines · les chiffres</h2>
+    <h2 id="retour-xp">Mon retour d'XP après 6 semaines · les chiffres</h2>
     <p>J'utilise Superpowers depuis 6 semaines, en continu, sur 4 projets parallèles · ce site, mon back-office local, mon script de brainstorm éditorial, et le pipeline du podcast Jerwis Productions. Sur cette période, j'ai loggé <strong>23 sessions de plus de 30 minutes</strong> (c'est-à-dire des vraies tâches, pas des micro-tweaks). Voici ce que j'ai mesuré au chrono, comparé à mes 6 semaines précédentes en Claude Code natif.</p>
 
     <h3>Le tableau brut</h3>
@@ -664,7 +872,7 @@
 
 <section class="block">
   <div class="container">
-    <h2>Et pour un projet <em>non-code</em> ?</h2>
+    <h2 id="non-code">Et pour un projet <em>non-code</em> ?</h2>
     <p>Superpowers s'appelle « Claude Code » dans son nom officiel, mais la méthode (brainstorm → plan → exécution validée → review) <strong>fonctionne sur n'importe quel projet structuré</strong>. Je l'ai testée sur 3 cas non-code en 6 semaines. Verdict · les gains sont équivalents, parfois supérieurs, parce que les sujets non-techniques sont plus flous au départ et le brainstorm fait encore plus de tri.</p>
 
     <div class="usecase">
@@ -700,7 +908,7 @@
 
 <section class="block">
   <div class="container">
-    <h2>Ce qui pose vraiment problème (honnêteté)</h2>
+    <h2 id="problemes">Ce qui pose vraiment problème (honnêteté)</h2>
     <p>Je ne te vends pas du rêve. Les critiques sont réelles.</p>
     <h3>Problème 1 · Disproportionné sur les petites tâches</h3>
     <p>Un utilisateur sur Threads : <em>« Depuis Superpowers, changer un bout de CSS prend trois fois plus de temps. »</em> Mejba Ahmed, dans une <a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">évaluation comparative sur 12 sessions</a>, mesure que <strong>les tâches simples consomment 10-15 % de tokens en plus</strong> (les tokens · les unités que l'IA facture, environ 0,75 mot chacun) avec Superpowers qu&#39;en Claude Code natif. La phase clarification + design est injustifiée quand tu veux juste changer une couleur.</p>
@@ -717,13 +925,13 @@
 
 <section class="block">
   <div class="container">
-    <h2>Installation · 30 secondes chrono</h2>
+    <h2 id="installation">Installation · 30 secondes chrono</h2>
     <h3>Étape 1 · Vérifier Claude Code</h3>
     <p>Ouvre ton terminal, tape <code>claude --version</code>. Si ça répond avec un numéro, tu es prêt. Sinon, va d&#39;abord lire <a href="../claude-code.html">mon guide Claude Code</a>.</p>
     <h3>Étape 2 · Installer</h3>
     <pre><code class="language-bash">claude plugin install superpowers
     </code></pre>
-    <p>Une seule commande. Installation en quelques secondes depuis le marketplace officiel Anthropic.</p>
+    <p>Une seule commande. Installation en quelques secondes depuis le <a href="https://docs.anthropic.com/en/docs/claude-code/plugins" target="_blank" rel="noopener">marketplace officiel Anthropic</a>.</p>
     <h3>Étape 3 · Redémarrer Claude Code</h3>
     <p>Ferme ta session Claude Code et rouvre. Les skills se chargent au démarrage.</p>
     <h3>Étape 4 · Tester</h3>
@@ -735,14 +943,82 @@
   </div>
 </section>
 
+<!-- Mini-marquee 02 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Installé</span><span>Brainstorm activé</span><span>Plan validé</span><span>Réponses aux questions fréquentes</span><span>Honnêteté technique</span><span>Pour aller plus loin</span>
+    <span>Installé</span><span>Brainstorm activé</span><span>Plan validé</span><span>Réponses aux questions fréquentes</span><span>Honnêteté technique</span><span>Pour aller plus loin</span>
+  </div>
+</div>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">Superpowers.</em></h2>
+
+    <details class="faq-q">
+      <summary>Faut-il être développeur pour utiliser Superpowers ?</summary>
+      <p>Non. Je suis non-dev et Superpowers a même <strong>plus de valeur</strong> dans ce cas · la phase brainstorm + plan compense l'absence de réflexes d'architecture. Sur 6 semaines de tests, mes 3 cas non-code (article long, lancement produit, séquence emails) ont gagné autant que mes cas code, parfois plus.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Quel coût en tokens supplémentaire avec Superpowers ?</summary>
+      <p>Sur les tâches simples · <strong>10 à 15 % de tokens en plus</strong> selon l'évaluation comparative de Mejba Ahmed sur 12 sessions. Sur les vraies sessions ≥ 30 minutes, le surcoût en tokens est largement compensé par les heures économisées (-41 % en moyenne sur 23 sessions chronométrées chez moi). Règle simple · actif au-dessus de 30 min, désactivé pour les bricolages.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Comment désactiver Superpowers temporairement ?</summary>
+      <p>Une commande dans le terminal · <code>claude plugin disable superpowers</code>. Pour le réactiver · <code>claude plugin enable superpowers</code>. Dix secondes de gestion à chaque switch, mais le plugin ne s'invoque que quand c'est pertinent. C'est la pratique que je recommande à tous ceux qui trouvent Superpowers trop lourd sur les petites tâches.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Superpowers fonctionne-t-il avec Cursor ou seulement Claude Code ?</summary>
+      <p>Superpowers est un plugin du marketplace officiel <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> uniquement, donc <strong>pas compatible Cursor ni Continue.dev</strong> en l'état. La méthodologie (brainstorm → plan → exécution testée → review) peut s'appliquer manuellement dans Cursor en collant les prompts de Jesse Vincent, mais sans l'auto-invocation et l'orchestration des sous-agents qui font la valeur du plugin.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Le bug des sous-agents qui oublient le contexte est-il corrigé ?</summary>
+      <p>Bug toujours actif au moment où j'écris cet article (avril 2026), tracké dans <a href="https://github.com/obra/superpowers/issues/237" target="_blank" rel="noopener">l'issue #237 du repo GitHub</a>. Le skill <code>using-superpowers</code> n'est pas systématiquement chargé en profondeur d'arborescence, ce qui casse la discipline attendue. Workaround · invoquer explicitement le skill au début d'un sous-agent imbriqué.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Superpowers vs autres plugins du marketplace Claude Code ?</summary>
+      <p>Superpowers est le seul plugin du top 5 marketplace qui <strong>change la méthodologie</strong> de Claude (brainstorm + plan + TDD + sous-agents). Les autres top 5 (<code>context7</code>, <code>claude-md-management</code>, <code>frontend-design</code>, <code>code-review</code>) ajoutent des capacités ponctuelles. Les 5 sont complémentaires, pas concurrents · j'utilise les 5 en parallèle sur le même setup Claude Code Max.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Combien de temps pour s'approprier Superpowers ?</summary>
+      <p>Compte <strong>1 semaine</strong> pour identifier les 5 skills que tu utilises vraiment chaque semaine (<code>brainstorming</code>, <code>writing-plans</code>, <code>executing-plans</code>, <code>systematic-debugging</code>, <code>requesting-code-review</code>). Compte <strong>2 à 3 semaines</strong> avant d'avoir le réflexe de désactiver le plugin sur les petits fix. Au bout de 6 semaines, tu pilotes l'outil au lieu de le subir.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Superpowers fonctionne-t-il pour des projets non-code ?</summary>
+      <p>Oui, et souvent <strong>mieux</strong>. La méthode brainstorm + plan + exécution validée est universelle. Mes 3 cas non-code testés · refonte article 8 000 mots (gain 2 h 20), planification lancement produit (4 jours au lieu de 2 semaines), séquence emails 5 jours (2 h 10 au lieu de 4 h estimées). Astuce · invoquer le skill explicitement au début (« utilise <code>brainstorming</code> pour m'aider à clarifier »).</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Quelles sont les 3 critiques principales contre Superpowers ?</summary>
+      <p>Trois critiques honnêtes et mesurables · (1) <strong>disproportionné sur les petites tâches</strong> (+10-15 % de tokens, +58 % de temps sur les fix ≤ 2 fichiers), (2) <strong>auto-invocation trop agressive</strong> depuis une récente mise à jour, (3) <strong>sous-agents qui oublient le contexte</strong> en profondeur d'arborescence (issue #237). Les 3 sont contournables · désactivation à la demande, invocation explicite, ou suivi de l'issue GitHub.</p>
+    </details>
+
+    <details class="faq-q">
+      <summary>Comment installer Superpowers en 30 secondes ?</summary>
+      <p>Trois étapes · (1) vérifier Claude Code installé via <code>claude --version</code>, (2) lancer <code>claude plugin install superpowers</code> depuis le marketplace officiel Anthropic, (3) redémarrer Claude Code pour charger les skills. Test · ouvre un projet et dis « utilise superpowers pour m'aider à clarifier mon idée ». Si Claude pose des questions au lieu de coder, c'est installé.</p>
+    </details>
+  </div>
+</section>
+
 <section class="block">
   <div class="container">
-    <h2>Pour aller plus loin</h2>
+    <h2 id="aller-plus-loin">Pour aller plus loin</h2>
     <p>Superpowers est un gros morceau · voici ce que je te recommande pour creuser :</p>
     <ol>
-    <li><strong><a href="https://blog.fsck.com/2025/10/09/superpowers/">Le billet fondateur de Jesse Vincent</a></strong> · comprendre la philosophie par l&#39;auteur lui-même. En anglais mais ça se lit très bien.</li>
-    <li><strong><a href="https://simonwillison.net/2025/Oct/10/superpowers/">Simon Willison sur Superpowers</a></strong> · le référent technique du monde IA-dev donne son avis. Court, précis, honnête.</li>
-    <li><strong><a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review">L'évaluation de Mejba Ahmed</a></strong> · 12 sessions réelles mesurées. Plus utile qu&#39;une critique marketing.</li>
+    <li><strong><a href="https://blog.fsck.com/2025/10/09/superpowers/" target="_blank" rel="noopener">Le billet fondateur de Jesse Vincent</a></strong> · comprendre la philosophie par l&#39;auteur lui-même. En anglais mais ça se lit très bien.</li>
+    <li><strong><a href="https://simonwillison.net/2025/Oct/10/superpowers/" target="_blank" rel="noopener">Simon Willison sur Superpowers</a></strong> · le référent technique du monde IA-dev donne son avis. Court, précis, honnête.</li>
+    <li><strong><a href="https://www.mejba.me/blog/superpowers-plugin-claude-code-review" target="_blank" rel="noopener">L'évaluation de Mejba Ahmed</a></strong> · 12 sessions réelles mesurées. Plus utile qu&#39;une critique marketing.</li>
+    <li><strong><a href="https://docs.anthropic.com/en/docs/claude-code/plugins" target="_blank" rel="noopener">Doc officielle plugins Claude Code (Anthropic)</a></strong> · le marketplace au complet, comment publier ton propre plugin.</li>
+    <li><strong><a href="claude-code-workflow-tips.html">Mon retour d'XP Claude Code après 6 mois</a></strong> · le contexte d'usage non-dev qui rend Superpowers vraiment pertinent.</li>
+    <li><strong><a href="loops-claude.html">Les loops Claude Code expliqués</a></strong> · comprendre la boucle interne qui rend l'orchestration des skills possible.</li>
     <li><strong><a href="claude-code.html#plugins">Mes 6 plugins officiels</a></strong> · Superpowers + les 5 autres qui composent ma stack.</li>
     <li><strong><a href="../outils.html">Ma page Outils</a></strong> · les 6 outils que j&#39;utilise tous les jours, au-delà des plugins.</li>
     </ol>
@@ -786,6 +1062,24 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

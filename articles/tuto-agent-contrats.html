@@ -62,6 +62,95 @@
 </script>
 <!-- /seo:jsonld-article -->
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Mes contrats sont confidentiels, faut-il un LLM en local pour ce tutoriel ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas obligatoirement. Pour des contrats freelance ou SaaS standards, l'API Anthropic ou Claude Pro suffisent : Anthropic n'entraîne pas par défaut sur ces données. Pour des dossiers M&A, contrats clients d'un cabinet d'avocats ou contenus très sensibles, il faut basculer sur Claude for Work / Enterprise avec Zero Data Retention (ZDR), ou un modèle local type Mistral 7B via Ollama."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le Zero Data Retention (ZDR) et le DPA chez Anthropic ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le ZDR (Zero Data Retention) garantit qu'Anthropic ne stocke aucune donnée envoyée après traitement — pas même 30 jours pour la conformité. Le DPA (Data Processing Agreement) est le contrat de sous-traitance au sens RGPD : il encadre les obligations d'Anthropic comme sous-traitant de tes données. Le DPA est disponible pour les comptes Pro / Team / Enterprise sur demande, le ZDR est inclus en Enterprise et activable à la demande sur l'API."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de pages de contrat l'agent peut-il analyser d'un coup ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'agent traite confortablement jusqu'à 20 pages dans une seule passe (limite confortable du context window pour rester précis). Au-delà, jusqu'à 100 pages en découpant en plusieurs passes par section (préambule, prix, durée, clauses techniques, annexes). Au-dessus de 100 pages, mieux vaut un outil dédié type Luminance ou Spellbook, ou faire de la pré-analyse avec un agent qui résume chaque section avant l'analyse globale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel format pour les hooks Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les hooks se définissent dans .claude/settings.json avec une structure { event, matcher, command }. Pour cet agent, on utilise le hook PostToolUse avec un matcher pattern qui déclenche /analyser quand un PDF est ajouté dans inbox/. Le matcher accepte des patterns glob, l'event peut être PreToolUse, PostToolUse, UserPromptSubmit ou Stop. Voir la doc officielle Claude Code hooks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cas d'usage juridiques YMYL : peut-on vraiment se passer d'un avocat ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, et l'agent ne le prétend pas. Il fait gagner 80 % du temps de pré-lecture en sortant les 12 clauses critiques, le score de risque par clause et les zones à creuser. Pour signer des contrats à fort enjeu (associé, M&A, levée, IP, sortie), un avocat reste obligatoire — l'agent te prépare la conversation au lieu de la remplacer. Cas YMYL (santé, finance, droit) = filet humain non négociable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'agent peut-il réécrire ou négocier les clauses pour moi ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, ce tutoriel reste en mode lecture seule : analyse + fiche + score de risque. Pour générer des contre-propositions de clauses, il faut un autre prompt système (rédaction) et idéalement croiser plusieurs templates de référence (lawinsider.com par exemple). Risque sinon : l'agent invente une formulation qui semble juste mais ouvre une faille. Mieux vaut séparer analyse et rédaction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Compatible avec les fichiers Word .docx ou seulement les PDF ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le support natif Claude couvre les PDF (depuis fin 2024). Pour du Word, deux options : convertir le .docx en PDF avant de le glisser dans inbox/, ou ajouter un MCP qui sait lire les .docx (par exemple un MCP unstructured-io ou un script Python qui fait pandoc docx → md en pré-traitement). Le PDF reste le format le plus fiable pour préserver la mise en page contractuelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "RGPD : que faire si je traite les contrats de mes clients ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu deviens sous-traitant au sens de l'article 28 du RGPD vis-à-vis de tes clients. Tu dois signer un contrat de sous-traitance avec eux qui mentionne explicitement l'usage d'un LLM (Anthropic Claude), les garanties de confidentialité, la durée de conservation, le lieu de traitement (US ou EU pour Claude). Côté Anthropic, tu activeras le DPA et idéalement le ZDR. Voir la fiche CNIL sur l'IA et le RGPD pour le cadre complet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien ça coûte par mois et qu'est-ce qui est inclus ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte 20 € pour Claude Pro (interface + Claude Code en abonnement) + environ 1,5 $ par mois d'API Anthropic pour 4 contrats analysés par mois en complément. Soit ~21,5 € par mois, contre 99 $/mois pour Spellbook (add-in Word) ou plusieurs milliers d'euros pour Luminance / Ironclad. Le prix Claude se vérifie sur la grille officielle Anthropic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Différence entre cet agent maison et Spellbook, Luminance ou Ironclad ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Spellbook (99 $/mois) cible les avocats avec un add-in Word pour rédiger et négocier dans le flux. Luminance et Ironclad sont des plateformes CLM enterprise (plusieurs milliers d'euros par mois) qui couvrent tout le cycle de vie contractuel, multi-utilisateurs, audit trail, intégrations CRM. L'agent maison cible le freelance / entrepreneur indépendant : tu paies 21 €/mois, tu gardes la main sur le prompt, tu n'as pas de seat fee — en échange, tu n'as ni rédaction guidée, ni workflow équipe, ni signature électronique intégrée."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -634,6 +723,7 @@
   .callout h4 { margin: 0 0 6px; font-size: 15px }
   .callout p  { margin: 0; font-size: 14.5px }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -642,6 +732,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -853,7 +969,10 @@
       Si tu signes un contrat engageant plus de 10 000 € ou de la propriété intellectuelle sensible, fais toujours valider par un avocat. L'agent te fera gagner du temps de préparation et ne loupera pas les pièges classiques. Il n'a pas la responsabilité professionnelle d'un juriste.
     </p>
     <p>
-      Chaque fiche produite par l'agent contiendra un disclaimer explicite. Garde ce disclaimer, il te protège.
+      Le sujet relève du <strong>YMYL (Your Money Your Life)</strong> : décisions à fort impact financier ou juridique. Les analyses produites ici sont indicatives, jamais des conseils juridiques personnalisés. Pour tout contrat à enjeu (associé, M&amp;A, levée, IP, sortie), un avocat reste obligatoire — l'agent te prépare la conversation, il ne la remplace pas.
+    </p>
+    <p>
+      Chaque fiche produite par l'agent contiendra un disclaimer explicite. Garde ce disclaimer, il te protège. <strong>Aucune décision finale ne doit reposer uniquement sur l'agent.</strong>
     </p>
 
     <figure class="article-figure">
@@ -876,7 +995,7 @@
 
     <figure class="article-figure">
       <img src="screenshots/contrats/01-anthropic-pdf-support.png" alt="Documentation officielle Anthropic sur le support des fichiers PDF par Claude">
-      <figcaption>La doc officielle Anthropic sur le support PDF — Claude lit nativement les PDF depuis fin 2024</figcaption>
+      <figcaption>La <a href="https://docs.anthropic.com/en/docs/build-with-claude/pdf-support" target="_blank" rel="noopener">doc officielle Anthropic sur le support PDF</a> — Claude lit nativement les PDF depuis fin 2024</figcaption>
     </figure>
   </div>
 </section>
@@ -924,7 +1043,7 @@ cd ~/contrats-agent</code></pre>
     <span class="section-kicker k-fuchsia">— Étape 3</span>
     <h2>Étape 3 — Autoriser l'agent à <em class="fuchsia">lire ton dossier.</em></h2>
     <p>
-      Pour que l'agent puisse lire les PDFs que tu déposes dans <code>inbox/</code>, tu dois ajouter un MCP filesystem (un petit pont qui donne à Claude un accès contrôlé à un dossier précis de ton Mac). Colle cette commande&nbsp;:
+      Pour que l'agent puisse lire les PDFs que tu déposes dans <code>inbox/</code>, tu dois ajouter un <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem" target="_blank" rel="noopener">MCP filesystem</a> (un petit pont qui donne à Claude un accès contrôlé à un dossier précis de ton Mac, voir aussi la <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">spec MCP</a>). Colle cette commande&nbsp;:
     </p>
 <pre><code>claude mcp add filesystem npx @modelcontextprotocol/server-filesystem ~/contrats-agent</code></pre>
     <p>
@@ -1058,7 +1177,7 @@ Ne pose aucune question. Exécute, puis affiche un résumé.</code></pre>
     <span class="section-kicker k-fuchsia">— Étape 6</span>
     <h2>Étape 6 — <em class="fuchsia">Premier test.</em></h2>
     <p>
-      Télécharge un contrat type pour tester. Si tu n'en as pas sous la main, récupère un NDA template public sur <code>lawinsider.com</code> et sauvegarde-le dans <code>inbox/nda-test.pdf</code>.
+      Télécharge un contrat type pour tester. Si tu n'en as pas sous la main, récupère un NDA template public sur <a href="https://www.lawinsider.com/" target="_blank" rel="noopener">lawinsider.com</a> et sauvegarde-le dans <code>inbox/nda-test.pdf</code>.
     </p>
     <p>
       Dans Terminal, lance&nbsp;:
@@ -1107,7 +1226,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <span class="section-kicker k-orange">— Étape 7</span>
     <h2>Étape 7 — Automatiser <em class="orange">sur drop de fichier.</em></h2>
     <p>
-      Pour que l'agent analyse automatiquement tout PDF déposé dans <code>inbox/</code>, on utilise un hook Claude Code (un déclencheur automatique qui lance une commande quand un événement précis se produit) qui écoute les changements de fichiers.
+      Pour que l'agent analyse automatiquement tout PDF déposé dans <code>inbox/</code>, on utilise un <a href="https://docs.claude.com/en/docs/claude-code/hooks" target="_blank" rel="noopener">hook Claude Code</a> (un déclencheur automatique qui lance une commande quand un événement précis se produit) qui écoute les changements de fichiers.
     </p>
     <p>
       Crée le fichier <code>.claude/settings.json</code> avec&nbsp;:
@@ -1139,7 +1258,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <h3>Quel plan Claude utiliser&nbsp;?</h3>
     <ul>
       <li><strong>Claude Pro (20 €/mois)</strong>&nbsp;: depuis août 2025, tes conversations ne sont plus utilisées pour entraîner les modèles <strong>sauf si tu as opt-in</strong> ou si tu es sur l'ancien modèle de consentement. Rétention&nbsp;: 5 ans par défaut. Acceptable pour des contrats standards de consultant indépendant, <strong>pas pour un cabinet d'avocats</strong>.</li>
-      <li><strong>Claude for Work / Enterprise</strong>&nbsp;: zéro entraînement par défaut, option Zero Data Retention (ZDR — Anthropic ne stocke rien après traitement) disponible. <strong>Obligatoire pour cabinets d'avocats</strong>, directions juridiques, dossiers M&amp;A sensibles.</li>
+      <li><strong>Claude for Work / Enterprise</strong>&nbsp;: zéro entraînement par défaut, option <a href="https://privacy.anthropic.com/en/articles/10440198-how-long-do-you-store-personal-data" target="_blank" rel="noopener">Zero Data Retention (ZDR)</a> disponible — Anthropic ne stocke rien après traitement. <strong>Obligatoire pour cabinets d'avocats</strong>, directions juridiques, dossiers M&amp;A sensibles. Le <a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">DPA</a> (Data Processing Agreement) est disponible sur demande pour les comptes Pro / Team / Enterprise.</li>
       <li><strong>API Claude direct (pay-as-you-go, paiement à l'usage)</strong>&nbsp;: pas d'entraînement par défaut, ZDR activable sur demande.</li>
     </ul>
 
@@ -1150,7 +1269,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
 
     <h3>RGPD</h3>
     <p>
-      Si tu analyses les contrats de tes clients pour leur compte, tu deviens sous-traitant au sens de l'article 28 du RGPD. Tu dois signer un contrat de sous-traitance avec tes clients qui encadre cet usage.
+      Si tu analyses les contrats de tes clients pour leur compte, tu deviens sous-traitant au sens de l'<a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article28" target="_blank" rel="noopener">article 28 du RGPD</a>. Tu dois signer un contrat de sous-traitance avec tes clients qui encadre cet usage. Voir aussi les <a href="https://www.cnil.fr/fr/intelligence-artificielle/recommandations-cnil-systeme-ia-rgpd" target="_blank" rel="noopener">recommandations CNIL sur l'IA et le RGPD</a> pour le cadre complet.
     </p>
   </div>
 </section>
@@ -1194,17 +1313,17 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
 
     <figure class="article-figure">
       <img src="screenshots/contrats/03-luminance.png" alt="Site de Luminance, plateforme LegalTech leader pour l'analyse contractuelle">
-      <figcaption>Luminance, un des leaders LegalTech — à titre de comparaison, leur offre démarre à plusieurs milliers d'euros par mois</figcaption>
+      <figcaption><a href="https://www.luminance.com/" target="_blank" rel="noopener">Luminance</a>, un des leaders LegalTech — à titre de comparaison, leur offre démarre à plusieurs milliers d'euros par mois</figcaption>
     </figure>
 
     <figure class="article-figure">
       <img src="screenshots/contrats/04-ironclad.png" alt="Site d'Ironclad, plateforme CLM mainstream pour la gestion du cycle de vie des contrats">
-      <figcaption>Ironclad, CLM mainstream — enterprise, tarification sur devis</figcaption>
+      <figcaption><a href="https://ironcladapp.com/" target="_blank" rel="noopener">Ironclad</a>, CLM mainstream — enterprise, tarification sur devis</figcaption>
     </figure>
 
     <figure class="article-figure">
       <img src="screenshots/contrats/05-spellbook.png" alt="Site de Spellbook, add-in Word d'IA juridique pour avocats">
-      <figcaption>Spellbook, add-in Word pour avocats — concurrent direct à 99 $ par mois</figcaption>
+      <figcaption><a href="https://www.spellbook.legal/" target="_blank" rel="noopener">Spellbook</a>, add-in Word pour avocats — concurrent direct à 99 $ par mois</figcaption>
     </figure>
 
     <table>
@@ -1316,6 +1435,66 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <p>
       <strong>Je peux me tromper.</strong> Cet agent évolue avec les versions de Claude Code et les capacités PDF du modèle. Si une commande ne fonctionne plus, écris-moi.
     </p>
+    <p style="margin-top:18px;">
+      Tu veux d'autres tutos d'agents Claude Code ? Le tuto <a href="tuto-agent-gmail.html">agent qui trie ta boîte Gmail</a> (même mécanique, données moins sensibles), l'<a href="hermes-agent.html">Hermes Agent pas à pas</a> (multi-outils plus avancé) et le <a href="agents-ia-guide.html">guide général sur les agents IA</a> pour le cadre de réflexion.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">agent contrats.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes contrats sont confidentiels, faut-il un LLM en local ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pas obligatoirement. Pour des contrats freelance ou SaaS standards, l'<strong>API Anthropic</strong> ou Claude Pro suffisent (pas d'entraînement par défaut). Pour des dossiers M&amp;A, contrats clients d'un cabinet d'avocats ou contenus très sensibles, il faut <strong>Claude for Work / Enterprise</strong> avec ZDR, ou <a href="llm-local-pour-non-dev.html">un modèle en local</a> (Mistral 7B via Ollama).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi le ZDR et le DPA chez Anthropic ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le <strong>ZDR (Zero Data Retention)</strong> garantit qu'<a href="https://privacy.anthropic.com/en/articles/10440198-how-long-do-you-store-personal-data" target="_blank" rel="noopener">Anthropic ne stocke aucune donnée</a> envoyée après traitement — pas même 30 jours pour la conformité. Le <strong><a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">DPA (Data Processing Agreement)</a></strong> est le contrat de sous-traitance au sens RGPD : il encadre les obligations d'Anthropic. DPA disponible en Pro / Team / Enterprise sur demande, ZDR inclus en Enterprise.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de pages de contrat l'agent peut-il analyser d'un coup ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Confortablement <strong>jusqu'à 20 pages</strong> dans une seule passe (limite du context window pour rester précis). Au-delà, jusqu'à 100 pages en découpant en plusieurs passes par section (préambule, prix, durée, clauses techniques, annexes). Au-dessus de 100 pages, mieux vaut un outil dédié type <a href="https://www.luminance.com/" target="_blank" rel="noopener">Luminance</a> ou <a href="https://www.spellbook.legal/" target="_blank" rel="noopener">Spellbook</a>, ou faire de la pré-analyse résumée avant l'analyse globale.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel format pour les hooks Claude Code ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les <a href="https://docs.claude.com/en/docs/claude-code/hooks" target="_blank" rel="noopener">hooks Claude Code</a> se définissent dans <code>.claude/settings.json</code> avec une structure <code>{ event, matcher, command }</code>. Pour cet agent on utilise un hook qui déclenche <code>/analyser</code> quand un PDF est ajouté dans <code>inbox/</code>. Le matcher accepte des patterns glob ; les events possibles : <code>PreToolUse</code>, <code>PostToolUse</code>, <code>UserPromptSubmit</code>, <code>Stop</code>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Cas d'usage juridiques YMYL : peut-on se passer d'un avocat ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Non, et l'agent ne le prétend pas.</strong> Il fait gagner 80 % du temps de pré-lecture en sortant les 12 clauses critiques, le score de risque et les zones à creuser. Pour signer des contrats à fort enjeu (associé, M&amp;A, levée, IP, sortie), un avocat reste obligatoire — l'agent te <em>prépare</em> la conversation, il ne la remplace pas. Cas YMYL (santé, finance, droit) = filet humain non négociable.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">L'agent peut-il réécrire ou négocier les clauses ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, ce tutoriel reste en mode <strong>lecture seule</strong> : analyse + fiche + score de risque. Pour générer des contre-propositions, il faut un autre prompt système (rédaction) et croiser plusieurs templates de référence (<a href="https://www.lawinsider.com/" target="_blank" rel="noopener">lawinsider.com</a>). Risque sinon : l'agent invente une formulation qui semble juste mais ouvre une faille. Mieux vaut <strong>séparer analyse et rédaction</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Compatible avec les fichiers Word .docx ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le support natif Claude couvre les <strong>PDF</strong> (depuis fin 2024). Pour du Word, deux options : convertir le <code>.docx</code> en PDF avant de le glisser dans <code>inbox/</code>, ou ajouter un MCP qui sait lire le <code>.docx</code> (par exemple un MCP <a href="https://github.com/Unstructured-IO" target="_blank" rel="noopener">unstructured-io</a> ou un script <code>pandoc docx → md</code> en pré-traitement). Le PDF reste le format le plus fiable pour préserver la mise en page contractuelle.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">RGPD : que faire si je traite les contrats de mes clients ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Tu deviens <strong>sous-traitant</strong> au sens de l'<a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article28" target="_blank" rel="noopener">article 28 du RGPD</a> vis-à-vis de tes clients. Tu dois signer un contrat de sous-traitance avec eux qui mentionne explicitement l'usage du LLM Anthropic, les garanties de confidentialité, la durée de conservation, le lieu de traitement. Côté Anthropic, active le DPA et idéalement le ZDR. Voir aussi les <a href="https://www.cnil.fr/fr/intelligence-artificielle/recommandations-cnil-systeme-ia-rgpd" target="_blank" rel="noopener">recommandations CNIL sur l'IA et le RGPD</a>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois et qu'est-ce qui est inclus ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>20 € pour Claude Pro</strong> (interface + Claude Code en abonnement) + <strong>~ 1,5 $/mois d'API</strong> Anthropic pour 4 contrats analysés/mois en complément. Soit ~21,5 €/mois, contre 99 $/mois pour <a href="https://www.spellbook.legal/" target="_blank" rel="noopener">Spellbook</a> ou plusieurs milliers d'euros pour <a href="https://www.luminance.com/" target="_blank" rel="noopener">Luminance</a> / <a href="https://ironcladapp.com/" target="_blank" rel="noopener">Ironclad</a>. Prix vérifiable sur la <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">grille officielle Anthropic</a>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Différence avec Spellbook, Luminance ou Ironclad ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Spellbook (99 $/mois)</strong> cible les avocats avec un add-in Word pour rédiger et négocier dans le flux. <strong>Luminance et Ironclad</strong> sont des plateformes CLM enterprise (plusieurs milliers d'euros/mois) qui couvrent tout le cycle de vie contractuel, multi-utilisateurs, audit trail, intégrations CRM. <strong>L'agent maison</strong> cible le freelance / entrepreneur indépendant : 21 €/mois, prompt sous ton contrôle, pas de seat fee — en échange, ni rédaction guidée, ni workflow équipe, ni e-signature intégrée.</p>
+    </details>
   </div>
 </section>
 
@@ -1399,6 +1578,24 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
       submitBtn.disabled = false;
     }
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

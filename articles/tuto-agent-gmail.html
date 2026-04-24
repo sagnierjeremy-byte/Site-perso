@@ -39,6 +39,95 @@
 </script>
 <!-- /seo:jsonld-article -->
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quels sont les prérequis pour créer un agent Gmail avec Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre éléments : un Mac (Windows fonctionne aussi mais les commandes de planification diffèrent), un compte Gmail personnel ou professionnel, un abonnement Claude Pro à 20 € par mois, et 45 minutes sans interruption. Tu n'as pas besoin de savoir coder, juste copier-coller cinq commandes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un agent Gmail Claude Code par mois ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Environ 5 € par mois de consommation API Anthropic pour 80 mails par jour traités, avec Haiku 4.5 (1 $ par million de tokens en entrée, 5 $ en sortie). Si tu utilises l'abonnement Claude Pro à 20 €, les volumes raisonnables sont déjà inclus. Tu peux suivre la consommation réelle dans ton dashboard Anthropic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il un MCP server pour brancher Gmail ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, pas pour démarrer. Le connecteur Gmail natif de Claude (sur claude.ai/settings/connectors) suffit pour lire les mails et créer des brouillons. Tu n'as besoin d'un MCP server (par exemple shinzo-labs/gmail-mcp) que si tu veux étiqueter ou archiver automatiquement — et là tu dois passer par un projet Google Cloud avec une clé OAuth."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment éviter les hallucinations sur le tri des mails ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois leviers : un prompt système précis avec des catégories nommées (rôle, contexte, outils, limites, format de sortie), un format de réponse imposé que l'agent doit respecter, et une calibration manuelle pendant la première semaine où tu corriges les classements ratés en ajoutant des règles type « les mails de telle adresse sont toujours urgents »."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'agent Gmail peut-il envoyer des mails en mon nom et risquer du spam ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, et c'est volontaire. Le prompt système interdit explicitement l'envoi automatique : l'agent crée des brouillons que tu valides toi-même. Règle absolue : ne donne jamais de permission d'envoi avant un mois d'usage. Un mail parti par erreur à un client coûte plus cher que deux ans d'abonnement Claude Pro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ça fonctionne avec Outlook, Yahoo ou un Gmail pro Workspace ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le connecteur natif Claude couvre Gmail (perso et Workspace). Pour Outlook ou Yahoo, il faut passer par un MCP server tiers ou un orchestrateur type Make.com / Zapier qui pousse les mails à Claude. Le tutoriel ici cible Gmail uniquement — la logique du prompt reste identique sur d'autres clients mails."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de mails par jour l'agent peut-il traiter ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le prompt système plafonne à 50 mails analysés par run pour rester rapide et lisible. Tu peux le pousser à 100-150 si tu veux, le coût grimpe proportionnellement (compte 0,05 à 0,10 $ pour 100 mails avec Haiku 4.5). Au-delà, mieux vaut filtrer en amont avec une règle Gmail qui exclut les newsletters connues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mes mails sont-ils utilisés pour entraîner Claude ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Anthropic n'utilise pas par défaut les données envoyées via Claude Pro, l'API ou Claude Code pour entraîner ses modèles. Pour les comptes Enterprise, l'option Zero Data Retention (ZDR) garantit que rien n'est stocké après traitement. Pour un usage perso ou freelance, le réglage par défaut suffit dans 95 % des cas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on utiliser cet agent sans abonnement Claude Pro ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, en passant directement par l'API Anthropic en pay-as-you-go (paiement à l'usage). Tu installes Claude Code, tu crées une clé API, tu paies à la consommation. Pour 80 mails par jour avec Haiku 4.5, tu restes sous 5 € par mois — moins cher que Claude Pro mais sans l'interface chat sur claude.ai."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment automatiser le tri Gmail tous les matins à 7 h ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois options par ordre de simplicité. Option 1 : la commande /schedule de Claude Code qui tourne dans le cloud Anthropic (Mac éteint OK). Option 2 : launchd sur macOS (équivalent cron) qui exige que ton Mac soit allumé. Option 3 : Make.com ou Zapier qui déclenchent Claude Code à distance et te livrent le résumé par SMS ou WhatsApp."
+      }
+    }
+  ]
+}
+</script>
+
 <meta property="og:type" content="article">
 <meta property="og:title" content="Créer un agent qui trie ta boîte Gmail (tutoriel)">
 <meta property="og:description" content="Tutoriel pas à pas pour créer un agent Claude Code qui trie 80 mails/jour, repère les 3 urgents et t'envoie un résumé matinal. Setup 45 min, 5 €/mois.">
@@ -605,6 +694,7 @@
   .callout h4 { margin: 0 0 6px; font-size: 15px }
   .callout p  { margin: 0; font-size: 14.5px }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -613,6 +703,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -822,7 +938,7 @@
     <span class="section-kicker k-fuchsia">— Étape 1</span>
     <h2>Étape 1 — Installer <em class="fuchsia">Claude Code.</em></h2>
     <p>
-      Ouvre l'application Terminal sur ton Mac (tape «&nbsp;Terminal&nbsp;» dans Spotlight).
+      Ouvre l'application Terminal sur ton Mac (tape «&nbsp;Terminal&nbsp;» dans Spotlight). Doc officielle <a href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code &amp; Agent SDK</a>.
     </p>
 
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
@@ -870,11 +986,11 @@
 
     <h3>Option B — Un MCP server Gmail (pour aller plus loin).</h3>
     <p>
-      Si tu veux que l'agent puisse étiqueter et archiver les mails, il te faut un MCP server (un petit programme qui fait le pont entre Claude et un service externe — ici Gmail). Le plus propre aujourd'hui s'appelle <code>shinzo-labs/gmail-mcp</code>. Colle cette commande dans Claude Code&nbsp;:
+      Si tu veux que l'agent puisse étiqueter et archiver les mails, il te faut un MCP server (un petit programme qui fait le pont entre Claude et un service externe — ici Gmail). Spec officielle de la <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a>. Le plus propre aujourd'hui s'appelle <a href="https://github.com/shinzo-labs/gmail-mcp" target="_blank" rel="noopener"><code>shinzo-labs/gmail-mcp</code></a>. Colle cette commande dans Claude Code&nbsp;:
     </p>
 <pre><code>claude mcp add --transport stdio --scope user gmail -- npx -y @shinzolabs/gmail-mcp</code></pre>
     <p>
-      Cette option demande de créer un projet Google Cloud et de télécharger une clé OAuth (un fichier d'authentification fourni par Google qui prouve à Gmail que ton agent a le droit d'accéder à ta boîte). Si c'est ta première fois, commence par l'option A. Tu pourras basculer plus tard.
+      Cette option demande de créer un projet sur la <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a> et de télécharger une clé OAuth (un fichier d'authentification fourni par Google qui prouve à Gmail que ton agent a le droit d'accéder à ta boîte). Doc officielle <a href="https://developers.google.com/gmail/api/guides" target="_blank" rel="noopener">Gmail API</a>. Si c'est ta première fois, commence par l'option A. Tu pourras basculer plus tard.
     </p>
 
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
@@ -890,6 +1006,9 @@
         Le repo GitHub (le dépôt public où vit le code du projet) du MCP Gmail le plus utilisé en 2026 — fork (une copie indépendante d'un projet) actif depuis mars 2026
       </figcaption>
     </figure>
+    <p style="font-size:14px; color:var(--ink-muted); font-style:italic; margin-top:8px;">
+      Note : je referai les captures du flow OAuth Google (écran de consentement, scopes Gmail, génération de la clé) dans la prochaine MAJ — pour l'instant, suis les écrans pas-à-pas dans la doc officielle <a href="https://developers.google.com/gmail/api/quickstart" target="_blank" rel="noopener">Gmail API quickstart</a>.
+    </p>
   </div>
 </section>
 
@@ -1078,7 +1197,7 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
 
     <h3>Option 3 — Zapier / Make.</h3>
     <p>
-      Tu peux aussi orchestrer depuis Zapier ou Make qui déclenche Claude Code à distance. Utile si tu veux recevoir le résumé par SMS ou WhatsApp. Documentation sur zapier.com/claude-code.
+      Tu peux aussi orchestrer depuis <a href="https://zapier.com/" target="_blank" rel="noopener">Zapier</a> ou <a href="https://www.make.com/" target="_blank" rel="noopener">Make.com</a> qui déclenche Claude Code à distance. Utile si tu veux recevoir le résumé par SMS ou WhatsApp.
     </p>
   </div>
 </section>
@@ -1138,7 +1257,7 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
     </table>
 
     <p>
-      Soit environ <strong>33 heures récupérées par mois</strong> pour un coût d'environ <strong>5 € par mois</strong> de consommation API (l'usage facturé à la requête, à l'opposé d'un abonnement fixe). Le tarif est Haiku 4.5 à 1 $ par million de tokens (les unités que le modèle compte pour facturer, ~3-4 caractères chacune) en entrée, et 5 $ en sortie — tu peux vérifier la consommation dans ton compte Anthropic.
+      Soit environ <strong>33 heures récupérées par mois</strong> pour un coût d'environ <strong>5 € par mois</strong> de consommation API (l'usage facturé à la requête, à l'opposé d'un abonnement fixe). Le tarif est Haiku 4.5 à 1 $ par million de tokens (les unités que le modèle compte pour facturer, ~3-4 caractères chacune) en entrée, et 5 $ en sortie — voir la <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">grille de prix Anthropic</a>. Tu peux vérifier la consommation dans ton compte.
     </p>
   </div>
 </section>
@@ -1228,6 +1347,66 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
     <p>
       <strong>Je peux me tromper.</strong> Les MCP Gmail évoluent vite et certains repos GitHub utilisés dans ce tutoriel peuvent devenir obsolètes. Si une commande ne fonctionne plus, écris-moi, je mets le tutoriel à jour.
     </p>
+    <p style="margin-top:18px;">
+      Pour aller plus loin sur les agents Claude Code : le tuto <a href="tuto-agent-contrats.html">agent qui analyse tes contrats PDF</a> (même logique, sujet juridique), l'<a href="hermes-agent.html">Hermes Agent pas à pas</a> (agent multi-outils plus avancé) et le <a href="agents-ia-guide.html">guide général sur les agents IA</a> pour comprendre la mécanique.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">agent Gmail.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels sont les prérequis pour créer un agent Gmail avec Claude Code ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre éléments : un <strong>Mac</strong> (Windows OK mais commandes de planification différentes), un <strong>compte Gmail</strong> perso ou pro, un <strong>abonnement Claude Pro à 20 €/mois</strong>, et <strong>45 minutes</strong> sans interruption. Pas besoin de savoir coder, juste copier-coller cinq commandes.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Environ <strong>5 €/mois de consommation API</strong> Anthropic pour 80 mails/jour avec Haiku 4.5 (1 $ par million de tokens en entrée, 5 $ en sortie). Avec Claude Pro à 20 €, les volumes raisonnables sont déjà inclus. Tu peux suivre la conso réelle dans ton dashboard Anthropic.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il un MCP server pour brancher Gmail ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, pas pour démarrer. Le <strong>connecteur Gmail natif</strong> (claude.ai/settings/connectors) suffit pour lire les mails et créer des brouillons. Tu n'as besoin d'un MCP server (ex. shinzo-labs/gmail-mcp) que si tu veux étiqueter ou archiver automatiquement — et là tu dois passer par un projet <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud</a> avec une clé OAuth.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment éviter les hallucinations sur le tri ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois leviers : un <strong>prompt système précis</strong> avec catégories nommées (rôle, contexte, outils, limites, format), un <strong>format de sortie imposé</strong> que l'agent doit respecter, et une <strong>calibration manuelle</strong> pendant la première semaine où tu corriges les classements ratés en ajoutant des règles type « les mails de telle adresse sont toujours urgents ».</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">L'agent peut-il envoyer des mails et risquer du spam ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, et c'est volontaire. Le prompt système <strong>interdit explicitement l'envoi automatique</strong> : l'agent crée des brouillons que tu valides toi-même. Règle absolue : ne donne jamais la permission d'envoi avant un mois d'usage. Un mail parti par erreur à un client coûte plus cher que deux ans d'abonnement Claude Pro.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Ça fonctionne avec Outlook, Yahoo ou Workspace ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le connecteur natif Claude couvre <strong>Gmail (perso et Workspace)</strong>. Pour Outlook ou Yahoo, il faut un MCP server tiers ou un orchestrateur type <a href="https://www.make.com/" target="_blank" rel="noopener">Make.com</a> ou Zapier qui pousse les mails à Claude. Ce tutoriel cible Gmail uniquement — la logique du prompt reste identique sur d'autres clients.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de mails par jour il peut traiter ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le prompt système plafonne à <strong>50 mails analysés par run</strong> pour rester rapide et lisible. Tu peux pousser à 100-150 si besoin, le coût grimpe proportionnellement (~ 0,05 à 0,10 $ pour 100 mails avec Haiku 4.5). Au-delà, mieux vaut filtrer en amont avec une règle Gmail qui exclut les newsletters connues.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes mails sont-ils utilisés pour entraîner Claude ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic</a> n'utilise pas par défaut les données Claude Pro, API ou Claude Code pour entraîner ses modèles. Pour les comptes Enterprise, l'option <strong>Zero Data Retention (ZDR)</strong> garantit que rien n'est stocké après traitement. Pour un usage perso ou freelance, le réglage par défaut suffit largement.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">On peut s'en passer sans Claude Pro ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui, en passant directement par l'<a href="https://docs.anthropic.com/en/api/overview" target="_blank" rel="noopener">API Anthropic</a> en pay-as-you-go. Tu installes Claude Code, tu crées une clé API, tu paies à la consommation. Pour 80 mails/jour avec Haiku 4.5, tu restes sous 5 €/mois — moins cher que Claude Pro mais sans l'interface chat sur claude.ai.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment automatiser le tri tous les matins à 7 h ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois options par ordre de simplicité. <strong>Option 1</strong> : <code>/schedule</code> de Claude Code qui tourne dans le cloud Anthropic (Mac éteint OK). <strong>Option 2</strong> : <code>launchd</code> macOS (équivalent cron) qui exige Mac allumé. <strong>Option 3</strong> : <a href="https://www.make.com/" target="_blank" rel="noopener">Make.com</a> ou Zapier qui déclenche Claude Code à distance et livre le résumé par SMS ou WhatsApp.</p>
+    </details>
   </div>
 </section>
 
@@ -1311,6 +1490,24 @@ N'ose aucune question. Exécute, puis affiche le rapport.</code></pre>
       submitBtn.disabled = false;
     }
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

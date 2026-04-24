@@ -1,5 +1,107 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · CORE-EEAT boost · 3 opinions sous 80/100
+
+### Pourquoi
+Audits CORE-EEAT révèlent 3 opinions Medium (69-73/100) plombées par les mêmes Fail/Partial : R08 (zéro liens internes), Ept01/T02/T06 (pas de byline visible / contact / corrections), C09 (pas de FAQ sauf monde-ia), R02 (citations faibles sur better-call), O03/O10 (pas de tableau ni visuel sur plan-chine).
+
+### Livré (3 articles)
+| Article | Score avant | Améliorations |
+|---|---|---|
+| `monde-ia-5-10-20-ans.html` | 72 | + sameAs LinkedIn/X/YT · + bloc byline visible · + bloc corrections email · + tableau 5 paris (visuel) · + cross-links plan-chine + guerres-d-ia + karpathy · + 3 sources actu (Khan Labs · Doctolib blog · Waymo blog) |
+| `plan-chine-2026-2030.html` | 69 | + FAQ 10 Q/R + FAQPage JSON-LD · + sameAs · + byline · + bloc corrections · + tableau 5 leviers (Levier · 2025 · 2030 · Risque) · + bloc « ce que cet article n'aborde pas » (Taïwan / Russie / Parti) · + cross-links monde-ia + guerres-d-ia + open-source · + 3 sources actu (Bloomberg China · FT China · Carnegie China) |
+| `better-call-vs-associe.html` | 70 | schema Article → **OpinionPiece** · + FAQ 10 Q/R + FAQPage JSON-LD · + encadré « C'est quoi un Better Call ? » · + tableau comparatif 8 critères Associé vs Better Call · + bloc « limites honnêtes » (N=2, exit 1,5 M€ scénario unique) · + cross-links limova + outil-vente + monde-ia + plan-chine · + 5 sources externes (Maddyness · BPI · Anthropic Projects · TheFamily · LEGEND) · + 7e item sidebar Roster (FAQ) |
+
+### Pattern réutilisable
+Bloc byline + bloc corrections + sameAs schema = template à coller systématiquement sur tout nouvel article. Source canonique : `articles/better-call-vs-associe.html`.
+
+### Validation
+- 3 articles : structure HTML OK (parser stack-based, 0 mismatch)
+- 6 JSON-LD blocks valides (2 par article : OpinionPiece + FAQPage)
+- 100 % des liens internes pointent vers fichiers existants
+
+### Score visé
+Tous &gt; 80/100 après FAQ (boost C09 +1.2 GEO) + cross-links (boost R08 +1.8 R) + byline/corrections/sameAs (boost Ept+T+A ~2 pts) + tableaux/visuels (boost O03/O10 +2.5 O).
+
+---
+
+## 2026-04-24 · Boost Good→Excellent · 3 tutos agents (FAQ + sources + cross-links)
+
+### Pourquoi
+Trois articles audités CORE-EEAT à 75-81/100 (Good) avec 3 lacunes communes : C09 FAQ Coverage en Fail, R02 Citation Density faible, R08 Internal Link Graph partiel. Objectif : passer à 84-88/100 en injectant 30 Q/R structurées + sources externes hiérarchisées + maillage interne cluster agents.
+
+### Livré (3 articles)
+| Article | Score avant | FAQ ajoutée | Sources externes | Cross-links |
+|---|---|---|---|---|
+| `tuto-agent-gmail.html` | 78 | 10 Q/R + FAQPage JSON-LD | 7 (Anthropic SDK, MCP spec, Google Cloud, Gmail API, pricing, Make, Zapier) | contrats + hermes-agent + agents-ia-guide |
+| `tuto-agent-contrats.html` | 81 | 10 Q/R + FAQPage JSON-LD | 12 (Anthropic ZDR/DPA, MCP filesystem, CNIL art.28, CNIL IA, hooks, lawinsider, Luminance, Ironclad, Spellbook, pricing, unstructured-io, PDF) | gmail + hermes-agent + agents-ia-guide + llm-local |
+| `llm-wiki-karpathy.html` | 75 | 10 Q/R + FAQPage JSON-LD | 7 (Karpathy gist, Obsidian, Notion AI, Claude Projects, NotebookLM, GraphRAG, Cursor) | karpathy + autoresearch + veille-pour-demain + llm-local |
+
+### Améliorations spécifiques d'après audits
+- **gmail (E05/Exp04)** : note "captures OAuth à venir" + lien Gmail API quickstart en attendant
+- **contrats (T08)** : disclaimer juridique YMYL renforcé — 2 paragraphes ajoutés "ne remplace pas un avocat" + "aucune décision finale ne doit reposer uniquement sur l'agent"
+- **llm-wiki (E03/Exp05)** : encadré orange "première version, retour d'XP en mai 2026" — assume le pivot, transparence sur l'absence d'usage prolongé
+
+### Validation
+- HTML : 3 articles parsent OK (Python html.parser, zéro erreur)
+- JSON-LD : 7 blocs validés (TechArticle x2 + Article + FAQPage x3) — 30 questions structurées
+- Balises `<details>` : 10 ouverts / 10 fermés par article
+
+### Fichiers touchés
+- `articles/tuto-agent-gmail.html` (+135 lignes)
+- `articles/tuto-agent-contrats.html` (+155 lignes)
+- `articles/llm-wiki-karpathy.html` (+125 lignes)
+
+### Score attendu post-MAJ
+- gmail : 78 → ~84 (FAQ +1.8, citations +1.2, internal links +0.5)
+- contrats : 81 → ~85 (FAQ +0.9, citations +1.5, disclaimer renforcé, internal links +0.5)
+- llm-wiki : 75 → ~80 (FAQ +1.5, citations +0.5 sur déjà bon, internal links +0.5)
+
+### À venir
+- Mai 2026 : retour d'XP LLM Wiki réel (30 jours, 50 sources) → débloque Exp dimension 60 → 85
+- Captures OAuth Gmail (option B MCP) si demande forte
+- Re-audit dans 30 jours
+
+---
+
+## 2026-04-24 · CORE-EEAT push 90+ · 3 articles llm-local / open-source / hermes
+
+### Pourquoi
+Pousser au-dessus de 90/100 (rating Excellent) trois articles audités à 84/82/86. Cibles audit : R03 Source Hierarchy (Fail) + R08 Internal Link Graph (Partial) + C09 FAQ Coverage (Fail sur hermes) + R02 Citation Density.
+
+### Livré
+| Article | Avant | FAQ + JSON-LD | Sources externes ajoutées | Liens internes |
+|---|---|---|---|---|
+| `hermes-agent.html` | 86 | **+10 questions + FAQPage schema** (manquait totalement) | Anthropic, console.anthropic, API Keys docs, Make, Zapier, Gmail OAuth scopes, claude-haiku-4 docs, Microsoft Copilot, Outlook | +3 cluster agents (agents-ia-guide, tuto-agent-gmail, tuto-agent-contrats) |
+| `llm-local-pour-non-dev.html` | 84 | déjà OK (10Q + schema) | Mistral, DeepSeek, Reuters NVIDIA -589G$, r/LocalLLaMA, Ollama, Open WebUI, LM Studio, GPT4All | +1 vers guerres-d-ia-podcast (cluster IA ouverte) |
+| `open-source-pour-non-dev.html` | 82 | déjà OK (10Q + schema) | Anthropic, OSI + 10 critères, Linux Foundation, Apache Foundation, Reuters Red Hat 34G$, MongoDB Atlas, GitLab, HashiCorp BSL announcement, OpenSearch, OpenTofu, Valkey, Mistral AI, DeepSeek, Reuters NVIDIA, Andres Freund XZ post, Sansec Polyfill report | +1 vers llm-local (cluster IA ouverte, manque flagrant signalé par audit) |
+
+### Détails techniques
+- FAQ hermes : pattern repris exactement de llm-local (section .block#faq + 10 `<details>` charte fiesta + FAQPage JSON-LD après TechArticle)
+- Tous les liens externes : `target="_blank" rel="noopener"` sur 1ère mention uniquement
+- Date NVIDIA harmonisée : 27 janvier 2025 partout (1 occurrence "20 janvier" corrigée dans llm-local body)
+- Path corrigé : `../articles/guerres-d-ia-podcast.html` → `guerres-d-ia-podcast.html` dans open-source (déjà dans articles/)
+
+### Validation HTML
+- hermes-agent.html : 0 erreur · 10 details · 2 JSON-LD valides (TechArticle + FAQPage)
+- llm-local-pour-non-dev.html : 0 erreur · 10 details · 2 JSON-LD valides
+- open-source-pour-non-dev.html : 0 erreur · 10 details · 2 JSON-LD valides
+
+### Gain estimé pondéré
+- hermes : +1.5 pts (FAQ C09) + 1.5 pts (R03) + 0.75 pts (R08 cluster) = **86 → ~90/100**
+- llm-local : +1.5 pts (R03) + 0.5 pts (R08 podcast) = **84 → ~86/100**
+- open-source : +1.5 pts (R03) + 0.75 pts (R08 cluster) = **82 → ~84/100**
+
+### Sections NON modifiées
+- TLDR (sauf disclosure transparence Anthropic linké), hero, mini-marquees, structure générale, share-block hermes, footer, scripts JS
+
+### À venir (hors scope cette session)
+- Screenshots réels (Exp04 / E05) pour pousser open-source et llm-local à 90+
+- Mini-bench tokens/sec maison (E03) sur llm-local
+- Mini-bio crédibilité (Ept02)
+
+---
+
 ## 2026-04-24 · SEO Phase 3 · refontes contenu 5 articles + rename slug
 
 ### Pourquoi

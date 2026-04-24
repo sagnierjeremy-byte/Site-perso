@@ -86,6 +86,95 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi un LLM Wiki au sens de Karpathy ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le LLM Wiki est un pattern partagé par Andrej Karpathy en 2026 : au lieu d'un RAG classique qui va chercher la réponse dans tes documents à chaque question, l'IA construit et maintient un vrai wiki en markdown qui s'enrichit à chaque source que tu lui donnes. C'est un deuxième cerveau lisible par un humain (pas des embeddings opaques) où chaque ingest crée des résumés, met à jour les pages d'entités et tisse des liens entre concepts. L'accumulation est explicite et auditable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre LLM Wiki et Notion AI ou Obsidian classique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Notion AI cherche dans tes pages existantes mais ne les enrichit pas automatiquement. Obsidian classique est un éditeur markdown excellent mais sans intelligence : c'est toi qui crées les pages, fais les liens, maintiens la cohérence. Le LLM Wiki combine les deux : Obsidian comme IDE (vue graph + édition) et le LLM comme programmeur qui ingest, met à jour, et fait le lint. La grosse différence vs un RAG : tu vois (et tu peux corriger) ce que l'IA a compris."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un LLM Wiki par mois ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte 0,5 à 1 $ par source ingérée avec Sonnet (15 $/M tokens), soit 50-100 $ pour bâtir un wiki de 100 sources sur 30 jours. Ensuite, le coût décroît : tu n'ingères plus que les nouvelles sources, plus quelques opérations de lint et de query. Pour un usage perso à 5-10 sources/mois, compte 5-10 $/mois. Obsidian est gratuit. Tu n'as besoin de rien d'autre que Claude Code (Pro à 20 €/mois ou API en pay-as-you-go)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour monter un LLM Wiki ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Si tu sais ouvrir un terminal, créer trois dossiers et copier-coller un schéma CLAUDE.md, tu peux monter un wiki. La difficulté n'est pas technique, elle est conceptuelle : définir le bon schema, rester impliqué au début pour cadrer le style, ne pas tout vouloir automatiser. Si tu n'es vraiment pas à l'aise avec le terminal, commence par Claude Projects ou NotebookLM : tu auras 80 % des bénéfices sans monter la machinerie complète."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps avant la première valeur d'un LLM Wiki ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le setup tient en 30 minutes (créer la structure + le schema + ingérer 5 sources). La première vraie valeur arrive entre 20 et 50 sources ingérées : c'est là que les connexions inattendues commencent à émerger lors des queries. En dessous de 10 sources, le LLM Wiki est disproportionné et Claude Projects fait aussi bien. Au-dessus de 50 sources, le compound effect de l'accumulation devient flagrant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre LLM Wiki et Cursor ou Claude Projects ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cursor est un IDE pour coder qui utilise un LLM en temps réel sur ta codebase — proche dans l'esprit (l'IA et l'éditeur cohabitent), mais ciblé code. Claude Projects regroupe documents et instructions partagées dans claude.ai : tu téléverses tes 5-10 docs, tu converses, parfait jusqu'à 20-30 sources mais rien ne s'accumule entre conversations. Le LLM Wiki conserve l'accumulation explicite en markdown sur ton disque, ce qui change tout passé 50 sources."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le LLM Wiki remplace-t-il un RAG ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un usage personnel ou semi-pro : oui, sur la plupart des cas. Pour des bases multi-utilisateurs, multi-Go, en production avec contraintes de latence et de gouvernance : non, les RAG modernes (GraphRAG de Microsoft, Mem0, Zep) restent nécessaires. La vraie différence : l'accumulation du LLM Wiki est lisible (markdown), celle des RAG est dans des embeddings opaques. Le wiki gagne sur la transparence et la maintenabilité, le RAG gagne sur l'échelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qui se passe si je migre Notion vers un LLM Wiki ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu exportes tes pages Notion en markdown (export natif Notion → Markdown & CSV), tu les déposes dans le dossier sources/ du wiki, et tu lances l'opération ingest. L'IA va générer les résumés, créer les pages d'entités et tisser les liens. Compte 1 à 2 jours pour 200 pages Notion. Garde Notion pour ce qui est collaboratif (équipe, projet client) et bascule en wiki pour ta veille perso et ta KB métier — les deux peuvent coexister."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle sécurité pour les données personnelles dans un LLM Wiki ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tes sources et le wiki vivent en local dans un dossier sur ton Mac. Les requêtes envoyées à Claude pour ingest/query/lint passent par l'API Anthropic, donc soumis aux mêmes garanties que Claude Pro (pas d'entraînement par défaut, ZDR en Enterprise). Pour des données vraiment sensibles (santé, juridique client, IP confidentielle), envisage un modèle local via Ollama ou Mistral 7B en backend du wiki — la mécanique pattern reste identique, seul change le moteur LLM."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le LLM Wiki marche-t-il pour des contenus en plusieurs langues ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Claude Sonnet est multilingual et gère sans souci ingest et query en français, anglais, allemand, espagnol, italien, etc. Bonnes pratiques : impose dans le schema CLAUDE.md la langue de sortie du wiki (par exemple toutes les pages d'entités en français même si les sources sont en anglais), pour éviter un wiki bilingue incohérent. Tu peux aussi avoir un wiki par langue si tu travailles sur des marchés distincts."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -605,6 +694,7 @@
   }
 
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -623,6 +713,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -645,7 +761,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 05 · IA &amp; Outils</div>
     <h1>Le LLM Wiki,<br>ton <em>deuxième<br>cerveau.</em></h1>
     <p class="hero-lead">
-      Karpathy a partagé en 2026 un pattern (un schéma de conception réutilisable) simple mais puissant : au lieu d'un RAG classique (Retrieval Augmented Generation, en clair : l'IA va chercher la réponse dans tes documents à chaque question), <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
+      <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a> a partagé en 2026 un pattern (un schéma de conception réutilisable) simple mais puissant : au lieu d'un RAG classique (Retrieval Augmented Generation, en clair : l'IA va chercher la réponse dans tes documents à chaque question), <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
@@ -686,6 +802,10 @@
     <h4>Tu débutes complet en IA ?</h4>
     <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant.html">le guide débutant</a> et garde <a href="../lexique.html">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
+  <div class="callout tip" style="margin: 0 0 32px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--orange); border-radius:14px;">
+    <h4 style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-.01em; margin-bottom:8px; color:var(--ink)">Statut de cet article — première version</h4>
+    <p style="font-size:14.5px; line-height:1.6; margin:0; color:var(--ink-soft)">C'est un explainer + guide de démarrage du pattern. <strong>Je lance mon propre wiki ce mois-ci</strong> et je publierai un retour d'expérience chiffré <strong>en mai 2026</strong> (mesures réelles : ingest, query, lint, coût total, captures Obsidian, pièges concrets). En attendant, le contenu ici est conceptuel et issu du gist Karpathy + 4 mois de tests dispersés sur Claude Projects et NotebookLM. <a href="mailto:sagnier.jeremy@gmail.com">Écris-moi</a> si tu veux que je te ping quand le retour d'XP sort.</p>
+  </div>
 </div>
 
 <section class="block">
@@ -700,7 +820,7 @@
       <div class="step-num" style="width:auto; min-width:64px; padding:0 14px; font-size:15px">&lt; 10</div>
       <div class="step-body">
         <h3>Moins de 10 sources · Non</h3>
-        <p>C'est disproportionné. Utilise les <strong>Projects dans Claude.ai</strong> (la fonctionnalité « Projets » de Claude qui regroupe docs + instructions partagées) — tu téléverses tes 5-10 documents, tu converses, c'est réglé en 2 minutes. Pas besoin de schema, pas besoin d'Obsidian (une appli de prise de notes en markdown très utilisée), pas besoin de Claude Code. Pas besoin de monter une machinerie complexe.</p>
+        <p>C'est disproportionné. Utilise les <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener"><strong>Projects dans Claude.ai</strong></a> (la fonctionnalité « Projets » de Claude qui regroupe docs + instructions partagées) — tu téléverses tes 5-10 documents, tu converses, c'est réglé en 2 minutes. Pas besoin de schema, pas besoin d'<a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> (une appli de prise de notes en markdown très utilisée), pas besoin de Claude Code. Pas besoin de monter une machinerie complexe.</p>
       </div>
     </div>
 
@@ -745,28 +865,28 @@
             <td style="padding:12px 14px;">Non-dev, usage ponctuel, tu démarres</td>
           </tr>
           <tr style="border-bottom:1px solid var(--line);">
-            <td style="padding:12px 14px;"><strong>NotebookLM</strong></td>
+            <td style="padding:12px 14px;"><strong><a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a></strong></td>
             <td style="padding:12px 14px;">Jusqu'à 300 sources</td>
             <td style="padding:12px 14px;">Zéro (web)</td>
             <td style="padding:12px 14px;">Non</td>
             <td style="padding:12px 14px;">Étude, recherche d'un sujet précis, gratuit</td>
           </tr>
           <tr style="border-bottom:1px solid var(--line);">
-            <td style="padding:12px 14px;"><strong>Notion AI + agents</strong></td>
+            <td style="padding:12px 14px;"><strong><a href="https://www.notion.com/product/ai" target="_blank" rel="noopener">Notion AI</a> + agents</strong></td>
             <td style="padding:12px 14px;">Illimité</td>
             <td style="padding:12px 14px;">Faible (no-code)</td>
             <td style="padding:12px 14px;">Partiel</td>
             <td style="padding:12px 14px;">Équipe déjà sur Notion</td>
           </tr>
           <tr style="border-bottom:1px solid var(--line);">
-            <td style="padding:12px 14px;"><strong>LLM Wiki (Karpathy)</strong></td>
+            <td style="padding:12px 14px;"><strong>LLM Wiki (<a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a>)</strong></td>
             <td style="padding:12px 14px;">100 à 500 pages</td>
             <td style="padding:12px 14px;">Claude Code basique</td>
             <td style="padding:12px 14px;"><strong>Oui, explicitement</strong></td>
             <td style="padding:12px 14px;">Curieux patient, sujet unique qui grossit</td>
           </tr>
           <tr>
-            <td style="padding:12px 14px;"><strong>GraphRAG (Microsoft)</strong></td>
+            <td style="padding:12px 14px;"><strong><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG (Microsoft)</a></strong></td>
             <td style="padding:12px 14px;">10 000+ documents</td>
             <td style="padding:12px 14px;">Dev Python sérieux</td>
             <td style="padding:12px 14px;">Oui (graphe d'entités — chaque concept devient un nœud relié aux autres)</td>
@@ -778,7 +898,7 @@
 
     <div class="callout ok">
       <h4>Tu n'es pas à l'aise avec la ligne de commande ?</h4>
-      <p>Commence par <strong>Claude Projects</strong> ou <strong>NotebookLM</strong>. Tu auras 80% des bénéfices d'un LLM Wiki sans toucher à Claude Code. Quand tu butes sur la limite (volume, accumulation, maintenance), tu migres vers le vrai pattern Karpathy. Pas l'inverse.</p>
+      <p>Commence par <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener"><strong>Claude Projects</strong></a> ou <a href="https://notebooklm.google.com" target="_blank" rel="noopener"><strong>NotebookLM</strong></a>. Tu auras 80% des bénéfices d'un LLM Wiki sans toucher à Claude Code. Une logique proche existe aussi dans <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> côté code. Quand tu butes sur la limite (volume, accumulation, maintenance), tu migres vers le vrai pattern Karpathy. Pas l'inverse.</p>
     </div>
   </div>
 </section>
@@ -1030,9 +1150,69 @@ Tu es le mainteneur d'un wiki personnel sur [SUJET].
     <ul>
       <li><strong><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Le gist original de Karpathy</a></strong> — 3 pages, tout est là</li>
       <li><a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> — Pour explorer ton wiki en graph view</li>
+      <li><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG (Microsoft)</a> — l'alternative RAG moderne pour très gros corpus</li>
+      <li><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> — la même logique IDE + LLM côté code</li>
       <li>Mon article <a href="karpathy.html">Les travaux de Karpathy, vulgarisés</a> — contexte sur le personnage</li>
       <li>Mon article <a href="autoresearch-karpathy.html">Les agents auto-améliorants</a> — l'autre projet clé de Karpathy 2026</li>
+      <li>Mon article <a href="veille-pour-demain.html">Construire ta veille IA pour demain</a> — pipeline pratique pour alimenter le wiki</li>
     </ul>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">LLM Wiki.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi un LLM Wiki au sens de Karpathy ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Un pattern partagé par <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy en 2026</a> : au lieu d'un RAG classique, l'IA construit et maintient un <strong>vrai wiki en markdown</strong> qui s'enrichit à chaque source. Un deuxième cerveau lisible (pas des embeddings opaques) où chaque ingest crée des résumés, met à jour les pages d'entités, tisse des liens. L'accumulation est explicite et auditable.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle différence vs Notion AI ou Obsidian classique ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><a href="https://www.notion.com/product/ai" target="_blank" rel="noopener">Notion AI</a> cherche dans tes pages mais ne les enrichit pas auto. <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> est un excellent éditeur markdown sans intelligence : c'est toi qui crées les pages et fais les liens. Le LLM Wiki combine les deux : <strong>Obsidian comme IDE</strong> (graph + édition) et <strong>le LLM comme programmeur</strong> qui ingest, met à jour, fait le lint. Différence clé vs un RAG : tu vois (et corriges) ce que l'IA a compris.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>0,5 à 1 $ par source ingérée</strong> avec Sonnet (15 $/M tokens), soit 50-100 $ pour bâtir un wiki de 100 sources sur 30 jours. Ensuite, le coût décroît : tu n'ingères que les nouvelles sources, plus quelques opérations de lint et de query. Pour un usage perso à 5-10 sources/mois, compte <strong>5-10 $/mois</strong>. Obsidian gratuit. Tu n'as besoin que de Claude Code (Pro à 20 €/mois ou API en pay-as-you-go).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Si tu sais ouvrir un terminal, créer trois dossiers et copier-coller un schéma <code>CLAUDE.md</code>, tu peux monter un wiki. La difficulté n'est pas technique mais conceptuelle : <strong>définir le bon schema</strong>, rester impliqué au début pour cadrer le style, ne pas tout vouloir automatiser. Si tu n'es vraiment pas à l'aise avec le terminal, commence par <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener">Claude Projects</a> ou <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a> : 80 % des bénéfices sans la machinerie.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps avant la première valeur ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Setup en <strong>30 minutes</strong> (structure + schema + 5 sources ingérées). La première vraie valeur arrive entre <strong>20 et 50 sources</strong> ingérées : c'est là que les connexions inattendues émergent lors des queries. En dessous de 10 sources, le wiki est disproportionné (Claude Projects fait aussi bien). Au-dessus de 50 sources, le compound effect de l'accumulation devient flagrant.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Différence avec Cursor ou Claude Projects ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> est un IDE pour coder qui utilise un LLM en temps réel sur ta codebase — proche dans l'esprit (IA + éditeur cohabitent), ciblé code. <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener">Claude Projects</a> regroupe documents et instructions partagées sur claude.ai : 5-10 docs, conversation, parfait jusqu'à 20-30 sources mais <strong>rien ne s'accumule entre conversations</strong>. Le LLM Wiki conserve l'accumulation explicite en markdown sur ton disque, ce qui change tout passé 50 sources.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Le LLM Wiki remplace-t-il un RAG ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pour usage perso ou semi-pro : <strong>oui</strong> sur la plupart des cas. Pour bases multi-utilisateurs, multi-Go, en production avec contraintes de latence/gouvernance : non, les RAG modernes (<a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG Microsoft</a>, Mem0, Zep) restent nécessaires. Vraie différence : l'accumulation du wiki est <strong>lisible</strong> (markdown), celle des RAG est dans des embeddings <strong>opaques</strong>. Wiki = transparence + maintenabilité, RAG = échelle.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment migrer Notion vers un LLM Wiki ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Tu exportes tes pages Notion en markdown (export natif Notion → <em>Markdown &amp; CSV</em>), tu les déposes dans le dossier <code>sources/</code> du wiki, et tu lances l'opération <em>ingest</em>. L'IA génère les résumés, crée les pages d'entités et tisse les liens. Compte <strong>1 à 2 jours</strong> pour 200 pages Notion. Garde Notion pour ce qui est collaboratif et bascule en wiki pour ta veille perso et KB métier — les deux peuvent coexister.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle sécurité pour les données personnelles ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Tes sources et le wiki vivent <strong>en local</strong> dans un dossier sur ton Mac. Les requêtes envoyées à Claude pour ingest/query/lint passent par l'API Anthropic, donc soumis aux mêmes garanties que Claude Pro (pas d'entraînement par défaut, ZDR en Enterprise). Pour des données vraiment sensibles (santé, juridique client, IP), envisage <a href="llm-local-pour-non-dev.html">un modèle local via Ollama</a> en backend du wiki — la mécanique pattern reste identique, seul change le moteur LLM.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Ça marche en plusieurs langues ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Oui. Claude Sonnet est multilingual et gère sans souci ingest et query en français, anglais, allemand, espagnol, italien, etc. Bonne pratique : <strong>impose la langue de sortie</strong> dans le schema <code>CLAUDE.md</code> (par exemple toutes les pages d'entités en français même si les sources sont en anglais), pour éviter un wiki bilingue incohérent. Tu peux aussi avoir un wiki par langue si tu travailles sur des marchés distincts.</p>
+    </details>
   </div>
 </section>
 
@@ -1181,5 +1361,23 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
   });
 });
 </script>
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
 </body>
 </html>

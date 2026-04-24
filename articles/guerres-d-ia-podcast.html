@@ -31,7 +31,107 @@
   "dateModified": "2026-04-23",
   "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
   "image": "https://jerwis.fr/photos/og/guerres-d-ia-podcast.jpg",
-  "mainEntityOfPage": "https://jerwis.fr/articles/guerres-d-ia-podcast"
+  "mainEntityOfPage": "https://jerwis.fr/articles/guerres-d-ia-podcast",
+  "mentions": [
+    {"@type": "Person", "name": "Sam Altman", "sameAs": "https://en.wikipedia.org/wiki/Sam_Altman"},
+    {"@type": "Person", "name": "Dario Amodei", "sameAs": "https://en.wikipedia.org/wiki/Dario_Amodei"},
+    {"@type": "Person", "name": "Elon Musk", "sameAs": "https://en.wikipedia.org/wiki/Elon_Musk"},
+    {"@type": "Person", "name": "Ilya Sutskever", "sameAs": "https://en.wikipedia.org/wiki/Ilya_Sutskever"},
+    {"@type": "Organization", "name": "OpenAI", "url": "https://openai.com/"},
+    {"@type": "Organization", "name": "Anthropic", "url": "https://www.anthropic.com/"},
+    {"@type": "Organization", "name": "ElevenLabs", "url": "https://elevenlabs.io/"},
+    {"@type": "Organization", "name": "Wondery", "url": "https://wondery.com/"},
+    {"@type": "Organization", "name": "DeepSeek", "url": "https://www.deepseek.com/"}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien ça coûte vraiment de produire un épisode podcast IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour la trilogie pilote Guerres d'IA, le coût total a été de 33 dollars pour les trois épisodes : 8 dollars pour l'épisode 1, 10 dollars pour l'épisode 2, 15 dollars pour l'épisode 3. Tout compris : génération voix ElevenLabs, musique, bruitages, contrôle qualité automatisé. Aucun équipement ajouté. Pour un épisode unique de 15 minutes en mode pilote, compte 8 à 15 dollars selon la complexité du dialogue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle voix synthétique choisir pour de la narration dramatique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sur ElevenLabs, j'ai testé Theodore HQ (étiqueté sereine, calibré pour la méditation) et Paul K (narrateur français profond). Theodore est entraîné à baisser le rythme cardiaque, exactement l'inverse de ce que cherche un thriller Wondery. Paul K, voix grave et chaude, taillée pour la narration documentaire, est validé. Règle d'or : tester 75 secondes pour 30 centimes avant de générer 15 minutes complètes à 10 dollars."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel temps reel humain ca prend (vs temps machine) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "24 heures réelles entre la première idée et le master du troisième épisode, en parallèle d'une journée normale. La majorité du temps, je ne faisais rien : les sous-agents tournaient en tâche de fond. Mon vrai travail (peut-être 4 à 6 heures cumulées) a été de valider à l'écoute, refuser les pistes faibles, et recadrer quand le rendu dérivait."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce legal d'utiliser des voix synthetiques pour citer Sam Altman, Musk, etc. ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les voix utilisées sont celles de la bibliothèque publique ElevenLabs (Paul K, etc.) — aucune voix clonée à partir de Sam Altman, Musk ou Sutskever. C'est une narration journalistique en voix off, pas une imitation. La transparence est assumée dès le hero du making-of et au début de chaque épisode. Cas Scarlett Johansson vs OpenAI Sky en mai 2024 : à éviter absolument toute voix qui ressemblerait à une personne réelle sans son accord. Reste en zone safe avec les voix de bibliothèque."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le risque d'hallucination IA dans un script narratif ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Réel. Sur la trilogie, un sous-agent a halluciné un identifiant de voix qui n'existait pas dans la bibliothèque (404 à la génération). À l'épisode 3, j'ai utilisé par erreur un personnage de l'épisode 2 dans un rôle de journaliste anonyme — bug majeur attrapé par un sous-agent contrôle qualité. Règle : faire relire chaque script par deux sous-agents critiques avant publication. Et si l'info est sensible (date, citation, chiffre), vérifier toi-même contre une source primaire."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels outils utiliser pour produire un podcast IA en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le combo testé : Claude Code pour orchestrer les sous-agents, Anthropic Claude pour l'écriture des scripts, ElevenLabs pour la génération voix (mode classique pour la narration, mode multi-voix pour les dialogues), Python pour le mixage et le mastering aux normes Spotify et Apple Podcasts, hébergement audio sur Cloudflare R2, distribution via un flux RSS soumis à Spotify for Podcasters et Apple Podcasts Connect."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps les fichiers MP3 vont rester en ligne ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les MP3 sont hébergés sur Cloudflare R2 (free tier 10 Go stockage et 0 egress) tant que le projet vit. Le RSS feed est soumis à Apple Podcasts et Spotify for Podcasters, donc tant que la chaîne Jerwis Productions reste active, les épisodes restent diffusés. Pas de date d'expiration prévue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi ne pas mettre ta vraie voix au micro ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choix éditorial assumé. Le projet voulait tester si on peut produire un format Wondery-like en assumant complètement l'IA — voix synthétiques, scripts par sous-agents, mixage auto. Pas en cachette, pas en finissant à la main. Vraiment de bout en bout. Mettre ma voix aurait cassé la démonstration. J'ai un autre projet pilote (Le Mac qui se ferme à minuit) avec ma voix clonée et celle de ma femme, mais c'est un format intime de 3 minutes, pas un thriller business de 15 minutes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "C'est quoi le workflow Claude Code exact ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre phases plus une : recherche (3 ou 4 sous-agents en parallèle qui collectent histoire, techniques d'écriture Wondery, audit voix synthétiques), écriture (un sous-agent scénariste qui suit cold open / 3 actes / climax / outro), génération voix (script Python qui appelle ElevenLabs réplique par réplique), mixage (assembleur Python qui ajoute musique, bruitages, silences, transitions, puis masterisation aux normes Spotify-Apple). Phase 5 ajoutée à l'épisode 3 : contrôle qualité par 2 sous-agents critiques (un sur les bruitages, un sur la clarté éditoriale)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A partir de quel volume ca vaut le coup vs un comedien ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wondery US dépense des dizaines de milliers de dollars par épisode (équipe d'écriture, sound designer, comédiens, studio, droits musique). Un comédien français pour 15 minutes de narration tourne entre 300 et 800 euros HT selon son tarif et la diffusion. Pour un pilote, un side project ou un format où tu testes un sujet, l'IA à 8-15 dollars l'épisode est imbattable. Pour une série signature avec un présentateur identifiable et monétisée, le comédien reste pertinent — l'IA est en complément, pas en remplacement."
+      }
+    }
+  ]
 }
 </script>
 
@@ -335,6 +435,7 @@
   .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
   .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -343,6 +444,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -375,6 +502,20 @@
   </div>
 </section>
 
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:14px 20px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:700">
+    <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>Entrepreneur · construit des projets IA pour apprendre · Jerwis Productions</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Publié 23 avril 2026 · MAJ 24 avril 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
 <div class="container">
   <div class="tldr">
     <div class="tldr-label">En 30 secondes</div>
@@ -385,6 +526,9 @@
       <li>Comment j'ai choisi la voix qui dramatise, écouté un test de cinq minutes, et failli tout casser avec un bug invisible</li>
       <li>Le système qui transforme un script écrit en MP3 finalisé : <strong>recherche → écriture → voix synthétique → mixage</strong></li>
       <li><strong>Les trois épisodes à écouter</strong> directement plus bas</li>
+    </ul>
+    <ul style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line)">
+      <li><strong>Transparence</strong> : article rédigé avec Claude (Anthropic), production audio orchestrée par sous-agents Claude Code + ElevenLabs, voix synthétiques (bibliothèque publique, aucune voix clonée de personne réelle). Si tu repères une erreur factuelle, une voix mal attribuée, un chiffre obsolète, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -766,8 +910,84 @@
     <p>
       Si tu veux les détails techniques (le code Python, les paramètres exacts, les prompts donnés aux sous-agents), <a href="../index.html#newsletters">inscris-toi à AI Playbook</a> — je te raconterai dans une prochaine édition comment je raffine encore le système. Si tu veux juste écouter les épisodes proprement (lecteur dédié, abonnement RSS / Spotify / Apple Podcasts), <a href="../podcast.html">la page podcast</a> est faite pour ça. Et si tu veux <a href="mailto:sagnier.jeremy@gmail.com">m'envoyer ton avis</a> sur les trois épisodes, je lis tout. C'est l'oreille humaine qui tranche.
     </p>
+    <p>
+      Pour aller plus loin sur la guerre IA elle-même, je t'invite à lire <a href="monde-ia-5-10-20-ans.html">à quoi ressemble le monde IA dans 5, 10, 20 ans</a> — c'est ma lecture forward sur les acteurs cités dans la trilogie. Et si tu veux voir un autre making-of dans le même esprit (un outil de vente terrain construit en deux semaines avec Claude Code), c'est <a href="outil-vente-claude-code.html">par ici</a>.
+    </p>
   </div>
 </section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-teal">— Questions fréquentes</span>
+    <h2>FAQ <em class="teal">podcast IA.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte vraiment de produire un épisode podcast IA ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pour la trilogie pilote, le coût total a été de <strong>33 dollars pour les trois épisodes</strong> : 8 $ pour l'ép 1, 10 $ pour l'ép 2, 15 $ pour l'ép 3. Tout compris : génération voix <a href="https://elevenlabs.io/" target="_blank" rel="noopener nofollow">ElevenLabs</a>, musique, bruitages, contrôle qualité auto. Aucun équipement ajouté. Pour un épisode unique de 15 minutes, compte 8 à 15 $ selon la complexité du dialogue.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle voix synthétique choisir pour de la narration dramatique ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Sur ElevenLabs, j'ai testé <strong>Theodore HQ</strong> (étiqueté sereine, calibré pour la méditation) et <strong>Paul K</strong> (narrateur français profond). Theodore est entraîné à <em>baisser</em> le rythme cardiaque — exactement l'inverse d'un thriller Wondery. Paul K, voix grave et chaude, taillée pour la narration documentaire, est validé. Règle d'or : <strong>tester 75 secondes pour 30 centimes</strong> avant de générer 15 minutes complètes à 10 $.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel temps réel humain ça prend (vs temps machine) ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>24 heures réelles</strong> entre la première idée et le master du troisième épisode, en parallèle d'une journée normale. La majorité du temps, je ne faisais rien — les sous-agents tournaient en tâche de fond. Mon vrai travail (peut-être 4 à 6 heures cumulées) a été de valider à l'écoute, refuser les pistes faibles, recadrer.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Est-ce légal d'utiliser des voix synthétiques pour citer Sam Altman, Musk, etc. ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les voix utilisées sont celles de la <strong>bibliothèque publique ElevenLabs</strong> (Paul K, etc.) — aucune voix clonée à partir de Sam Altman, Musk ou Sutskever. C'est une narration journalistique en voix off, pas une imitation. La transparence est assumée dès le hero du making-of. Cas <a href="https://www.npr.org/2024/05/20/1252495087/openai-pulls-ai-voice-that-was-compared-to-scarlett-johansson-in-chatgpt" target="_blank" rel="noopener nofollow">Scarlett Johansson vs OpenAI Sky</a> en mai 2024 : à éviter absolument toute voix qui ressemblerait à une personne réelle sans son accord.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel est le risque d'hallucination IA dans un script narratif ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Réel. Sur la trilogie, un sous-agent a halluciné un identifiant de voix qui n'existait pas (404 à la génération). À l'épisode 3, j'ai utilisé par erreur un personnage de l'épisode 2 dans un rôle de journaliste anonyme — bug majeur attrapé par un sous-agent contrôle qualité. Règle : <strong>faire relire chaque script par deux sous-agents critiques</strong> avant publication. Sur l'info sensible (date, citation, chiffre), vérifier toi-même contre une source primaire.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels outils utiliser pour produire un podcast IA en 2026 ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le combo testé : <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener nofollow">Claude Code</a> pour orchestrer les sous-agents, <a href="https://www.anthropic.com/" target="_blank" rel="noopener nofollow">Anthropic Claude</a> pour les scripts, <a href="https://elevenlabs.io/" target="_blank" rel="noopener nofollow">ElevenLabs</a> pour la voix (mode classique narration, mode multi-voix dialogues), Python pour le mixage et le mastering aux normes <a href="https://podcasters.spotify.com/" target="_blank" rel="noopener nofollow">Spotify</a> et <a href="https://podcasters.apple.com/" target="_blank" rel="noopener nofollow">Apple Podcasts</a>, hébergement audio sur Cloudflare R2, distribution via flux RSS.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps les fichiers MP3 vont rester en ligne ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les MP3 sont hébergés sur <strong>Cloudflare R2</strong> (free tier 10 Go stockage et 0 egress) tant que le projet vit. Le RSS feed est soumis à Apple Podcasts et Spotify for Podcasters. Tant que la chaîne <strong>Jerwis Productions</strong> reste active, les épisodes restent diffusés. Pas de date d'expiration prévue.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi ne pas mettre ta vraie voix au micro ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Choix éditorial assumé. Le projet voulait tester si on peut produire un format Wondery-like en assumant <strong>complètement</strong> l'IA — voix synthétiques, scripts par sous-agents, mixage auto. Pas en cachette, pas en finissant à la main. Mettre ma voix aurait cassé la démonstration. J'ai un autre projet pilote (<em>Le Mac qui se ferme à minuit</em>) avec ma voix clonée et celle de ma femme, mais c'est un format intime de 3 minutes, pas un thriller business de 15 minutes.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi le workflow Claude Code exact ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Quatre phases plus une</strong> : recherche (3-4 sous-agents en parallèle qui collectent histoire, techniques d'écriture Wondery, audit voix), écriture (sous-agent scénariste qui suit cold open / 3 actes / climax / outro), génération voix (Python qui appelle ElevenLabs réplique par réplique), mixage (assembleur Python qui ajoute musique, bruitages, silences, transitions, puis masterisation Spotify-Apple). Phase 5 ajoutée à l'ép 3 : <strong>contrôle qualité par 2 sous-agents critiques</strong> (un sur les bruitages, un sur la clarté éditoriale).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">À partir de quel volume ça vaut le coup vs un comédien ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Wondery US dépense <strong>des dizaines de milliers de dollars par épisode</strong> (équipe d'écriture, sound designer, comédiens, studio, droits musique). Un comédien français pour 15 minutes de narration tourne entre <strong>300 et 800 € HT</strong> selon son tarif et la diffusion. Pour un pilote ou un side project, l'IA à 8-15 $ l'épisode est imbattable. Pour une série signature monétisée, le comédien reste pertinent — l'IA est en complément, pas en remplacement.</p>
+    </details>
+  </div>
+</section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          Une voix mal attribuée, un fait historique faux, un coût qui a changé ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut. Sur les sujets sensibles (citations historiques, attribution de propos), tes corrections valent de l'or.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
 
 <section class="block">
   <div class="container">
@@ -921,6 +1141,24 @@
         .finally(() => { suggestionSend.disabled = false; });
     });
   }
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

@@ -71,8 +71,8 @@
   "description": "Comment automatiser tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets, coûts chiffrés et pièges à éviter.",
   "inLanguage": "fr-FR",
   "url": "https://jerwis.fr/articles/loops-claude.html",
-  "datePublished": "2026-04-20",
-  "dateModified": "2026-04-20",
+  "datePublished": "2026-04-05",
+  "dateModified": "2026-04-24",
   "author": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
@@ -83,6 +83,96 @@
     "name": "Jérémy Sagnier",
     "url": "https://jerwis.fr/"
   }
+}
+</script>
+
+<!-- FAQPage JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre un loop Claude Code et un cron ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un cron lance bêtement un script à heure fixe sans comprendre le résultat. Un loop Claude Code peut décider s'il relance, s'il change d'approche ou s'il t'alerte selon ce qu'il observe. Le loop est intelligent, le cron est mécanique."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un loop Claude Code fonctionne-t-il quand mon Mac est éteint ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Un /loop dans une session Claude Code s'arrête dès que tu fermes ton terminal ou ton Mac. Pour qu'une tâche tourne vraiment 24/7 (la nuit, le weekend, en vacances), il faut passer par les Routines cloud d'Anthropic, sorties en avril 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment arrêter un loop Claude Code en cours ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois options : appuie sur Esc dans ta session pour stopper le run en cours, dis simplement à Claude « stoppe le loop en cours », ou attends 7 jours — chaque loop expire automatiquement passé ce délai (garde-fou natif Anthropic)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un loop Claude Code par mois ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois ordres de grandeur : 1 à 2 €/mois pour un loop léger (3 000 tokens, 4 runs/jour), 8 à 15 €/mois pour 3 loops actifs (mon setup), et jusqu'à 50-80 €/jour si tu lances /loop 1m sur un prompt lourd et que tu oublies. Active le plafond de dépense Anthropic à 20 €/mois pour démarrer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le loop Claude Code marche-t-il avec l'API gratuite ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les loops sont une commande de Claude Code (le CLI), pas de l'API web. Tu y accèdes avec ton abonnement Claude Code (gratuit avec limites strictes, ou Pro/Max payant). L'API Anthropic permet de bricoler ton propre système de boucles, mais ce n'est pas le même produit que /loop."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est l'intervalle minimum d'un loop Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 minute. Les intervalles en secondes (30s par exemple) sont arrondis à la minute supérieure. Ma règle perso : jamais en dessous de 2 minutes sauf urgence vraie, sinon tu fais 60 appels/heure inutiles et ta facture explose."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment fonctionne le cache prompt Anthropic dans un loop ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le cache prompt garde ton prompt en mémoire 5 minutes, rafraîchi à chaque appel réussi. Tant que tes loops tournent à moins de 5 minutes d'écart, tu paies les tokens en cache à environ -90 %. Au-delà, le cache tombe et tu repaies plein tarif. Reste sous 5 minutes pour optimiser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les Routines Anthropic remplacent-elles complètement /loop ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, elles complètent. /loop reste idéal quand tu travailles avec Claude et veux une vérif en fond. Routines (cloud) sert quand il faut tourner sans Mac allumé : veille de nuit, monitoring weekend. Quotas Routines : 5/jour sur Pro, 15 sur Max, 25 sur Team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on lancer un loop sur autre chose que Claude Code (ChatGPT, Cursor) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le /loop natif est spécifique à Claude Code. Sur Cursor ou ChatGPT, tu n'as pas l'équivalent intégré, mais tu peux reproduire le pattern via un cron + appel à l'API du modèle, ou via un workflow n8n qui appelle l'API à intervalles. Plus de boilerplate, même résultat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment recevoir une notification quand un loop trouve quelque chose ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois canaux que j'utilise : message dans la console Claude Code (par défaut), email via l'API Resend (pour les alertes calmes), notification Slack via webhook (pour les alertes urgentes). Tu demandes à Claude « si tu trouves X, ping-moi sur Slack #veille » et il intègre l'appel webhook dans le loop."
+      }
+    }
+  ]
 }
 </script>
 
@@ -614,6 +704,7 @@
   }
 
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -633,6 +724,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <!-- Header -->
 <header class="header">
@@ -773,7 +890,7 @@
     <span class="section-kicker k-fuchsia">— Session, machine, ou cloud</span>
     <h2>3 façons <em class="fuchsia">d'automatiser.</em></h2>
     <p>
-      Tous les loops ne se valent pas. Selon ce que tu veux (ordi allumé ou non, vraiment la nuit ou pas), Claude Code propose trois mécanismes. Le plus souvent, les gens utilisent <code>/loop</code> par défaut alors qu'ils auraient besoin d'une Routine cloud. Voici la différence.
+      Tous les loops ne se valent pas. Selon ce que tu veux (ordi allumé ou non, vraiment la nuit ou pas), Claude Code propose trois mécanismes. Le plus souvent, les gens utilisent <code>/loop</code> par défaut alors qu'ils auraient besoin d'une Routine cloud. Voici la différence. Si tu veux comparer avec d'autres approches d'agents IA en boucle hors écosystème Anthropic, regarde aussi du côté de <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> (chat agent in-IDE) ou de <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> (workflows visuels self-hosted) — chacun a ses tradeoffs.
     </p>
 
     <div class="comparison-table" style="overflow-x:auto; margin:32px 0;">
@@ -958,7 +1075,9 @@ Aucun changement sur les 4 autres sujets suivis
     <p>Les loops sont le début. Si tu veux vraiment exploiter Claude Code en agent, voici mes prochaines étapes :</p>
 
     <ol>
-      <li><strong>Les sous-agents parallèles</strong> — lancer 5 tâches en parallèle, synthétiser. Je ferai un tuto dédié.</li>
+      <li><strong><a href="claude-code-workflow-tips.html">Les workflow tips Claude Code</a></strong> — comment je structure mes sessions et mes prompts pour que Claude bosse vraiment pour moi (et pas l'inverse).</li>
+      <li><strong><a href="superpowers.html">Le plugin Superpowers</a></strong> — l'add-on qui débloque les sous-agents parallèles, le TDD piloté et les patterns avancés.</li>
+      <li><strong><a href="dev-browser.html">Dev-browser, navigateur piloté par l'IA</a></strong> — l'outil que je couple souvent à un loop pour qu'il vérifie, scrape ou screenshote pendant que je fais autre chose.</li>
       <li><strong>Les skills custom</strong> — créer ton propre "métier" réutilisable (comme <code>veille-ia</code>, <code>cold-email</code>). Voir mon <a href="../claude-code.html">pack Claude Code</a>.</li>
       <li><strong>Les hooks settings.json</strong> (les « déclencheurs » que tu configures dans le fichier de réglages de Claude Code) — faire que Claude déclenche automatiquement une action à chaque fin de session (log, commit, notif Telegram).</li>
     </ol>
@@ -969,6 +1088,64 @@ Aucun changement sur les 4 autres sujets suivis
     </div>
 
     <p>Chaque sujet = un futur article ici. Si tu veux être prévenu quand je publie, l'inscription newsletter est en bas.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">loops Claude Code.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle différence entre un loop et un cron ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Un <strong>cron</strong> lance bêtement un script à heure fixe sans comprendre le résultat. Un <strong>loop Claude Code</strong> peut décider s'il relance, change d'approche ou t'alerte selon ce qu'il observe. Le loop est intelligent, le cron est mécanique.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Un loop fonctionne-t-il quand mon Mac est éteint ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Un <code>/loop</code> dans une session Claude Code <strong>s'arrête dès que tu fermes ton terminal ou ton Mac</strong>. Pour tourner vraiment 24/7 (la nuit, le weekend, en vacances), passe par les <strong>Routines cloud Anthropic</strong>, sorties en avril 2026.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment arrêter un loop en cours ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois options : appuie sur <code>Esc</code> dans ta session pour stopper le run, dis simplement à Claude <em>« stoppe le loop en cours »</em>, ou attends 7 jours — chaque loop expire automatiquement passé ce délai (garde-fou natif Anthropic).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois ordres de grandeur : <strong>1 à 2 €/mois</strong> pour un loop léger (3 000 tokens, 4 runs/jour), <strong>8 à 15 €/mois</strong> pour 3 loops actifs (mon setup), et jusqu'à <strong>50-80 €/jour</strong> si tu lances <code>/loop 1m</code> sur un prompt lourd et que tu oublies. Active le plafond Anthropic à 20 €/mois pour démarrer.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Le loop marche-t-il avec l'API gratuite ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les loops sont une commande de <strong>Claude Code</strong> (le CLI), pas de l'API web. Tu y accèdes avec ton abonnement (gratuit limité, ou Pro/Max payant). L'API Anthropic permet de bricoler ton propre système de boucles, mais ce n'est pas le même produit que <code>/loop</code>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel est l'intervalle minimum d'un loop ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>1 minute.</strong> Les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure. Ma règle perso : jamais en dessous de 2 minutes sauf urgence vraie, sinon tu fais 60 appels/heure inutiles.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment fonctionne le cache prompt dans un loop ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le cache garde ton prompt en mémoire <strong>5 minutes</strong>, rafraîchi à chaque appel réussi. Tant que tes loops tournent à moins de 5 minutes d'écart, tu paies les tokens en cache à environ <strong>−90 %</strong>. Au-delà, le cache tombe et tu repaies plein tarif. Reste sous 5 minutes pour optimiser.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Les Routines remplacent-elles complètement /loop ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, elles complètent. <code>/loop</code> reste idéal quand tu travailles avec Claude et veux une vérif en fond. <strong>Routines (cloud)</strong> sert quand il faut tourner sans Mac allumé : veille de nuit, monitoring weekend. Quotas : 5/jour sur Pro, 15 sur Max, 25 sur Team.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Peut-on lancer un loop sur ChatGPT ou Cursor ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le <code>/loop</code> natif est spécifique à Claude Code. Sur <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> ou ChatGPT, pas d'équivalent intégré — mais tu peux reproduire le pattern via un cron + appel à l'API du modèle, ou via un workflow <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> qui appelle l'API à intervalles. Plus de boilerplate, même résultat.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment recevoir une notif quand un loop trouve quelque chose ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois canaux : <strong>console</strong> Claude Code (par défaut), <strong>email</strong> via l'API <a href="https://resend.com/docs" target="_blank" rel="noopener">Resend</a> (pour les alertes calmes), <strong>Slack</strong> via webhook (pour les urgentes). Tu demandes à Claude <em>« si tu trouves X, ping-moi sur Slack #veille »</em> et il intègre l'appel webhook dans le loop.</p>
+    </details>
   </div>
 </section>
 
@@ -1124,5 +1301,23 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
   });
 });
 </script>
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
 </body>
 </html>

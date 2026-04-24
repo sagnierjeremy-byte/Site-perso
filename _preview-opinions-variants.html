@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Preview · 4 designs de cards « Opinions »</title>
+<title>Preview · Opinions v2 · 4 nouvelles pistes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
   .page-header p { font-size: 15px; color: var(--ink-soft); max-width: 900px }
 
   .variant {
-    max-width: 1400px; margin: 0 auto 72px;
+    max-width: 1400px; margin: 0 auto 80px;
     padding-top: 44px; border-top: 1px solid var(--line-strong);
   }
   .variant-head {
@@ -64,225 +64,271 @@
   @media (min-width: 1100px) { .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 22px } }
 
   /* ============================================================
-   * VARIANTE A · Cover épurée (photo + overlay léger)
+   * VARIANTE 1 · Cover propre (ancien A réparé)
    * ============================================================ */
-  .va-card {
+  .v1-card {
     position: relative;
     aspect-ratio: 4/5;
     border-radius: 20px;
     overflow: hidden;
     text-decoration: none;
     color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 22px;
-    box-shadow: 0 20px 40px -24px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.1);
+    display: block;
+    box-shadow: 0 20px 40px -24px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.1);
     transition: transform .25s;
   }
-  .va-card:hover { transform: translateY(-4px) }
-  .va-bg {
-    position: absolute; inset: 0; z-index: 0;
+  .v1-card:hover { transform: translateY(-4px) }
+  .v1-bg {
+    position: absolute; inset: 0;
     background-size: cover; background-position: center;
-    filter: contrast(1.05) saturate(.95) brightness(.9);
+    filter: contrast(1.05) saturate(.95) brightness(.92);
   }
-  .va-overlay {
-    position: absolute; inset: 0; z-index: 1;
-    background:
-      linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.8) 85%, rgba(10,10,10,.92) 100%);
+  .v1-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.55) 60%, rgba(10,10,10,.9) 100%);
   }
-  .va-card.c-fuchsia .va-overlay { background: linear-gradient(180deg, rgba(112,31,55,.2) 0%, rgba(239,66,111,.55) 70%, rgba(139,25,37,.92) 100%); }
-  .va-card.c-orange .va-overlay { background: linear-gradient(180deg, rgba(110,52,0,.2) 0%, rgba(255,130,0,.55) 70%, rgba(110,52,0,.92) 100%); }
-  .va-card.c-teal .va-overlay { background: linear-gradient(180deg, rgba(0,61,59,.2) 0%, rgba(0,178,169,.55) 70%, rgba(0,61,59,.92) 100%); }
-  .va-card > * { position: relative; z-index: 2 }
-  .va-type {
+  .v1-card.c-red .v1-overlay    { background: linear-gradient(180deg, rgba(112,31,55,.25) 0%, rgba(139,25,37,.65) 60%, rgba(10,10,10,.92) 100%); }
+  .v1-card.c-blue .v1-overlay   { background: linear-gradient(180deg, rgba(0,61,59,.25) 0%, rgba(0,122,116,.65) 60%, rgba(10,10,10,.92) 100%); }
+  .v1-card.c-orange .v1-overlay { background: linear-gradient(180deg, rgba(110,52,0,.25) 0%, rgba(191,95,0,.65) 60%, rgba(10,10,10,.92) 100%); }
+  .v1-card.c-fuchsia .v1-overlay{ background: linear-gradient(180deg, rgba(112,31,55,.25) 0%, rgba(239,66,111,.55) 60%, rgba(10,10,10,.92) 100%); }
+  .v1-content {
+    position: absolute; inset: 0; z-index: 3;
+    padding: 22px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .v1-top {
+    display: inline-flex; align-self: flex-start;
+    align-items: center; gap: 8px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase;
-    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
     padding: 6px 12px; border-radius: 999px;
-    background: rgba(255,255,255,.14);
-    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(10,10,10,.5);
+    border: 1px solid rgba(255,255,255,.2);
+  }
+  .v1-top .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor }
+  .v1-bottom h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; line-height: 1.02; letter-spacing: -.02em;
+    text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .va-type .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor }
-  .va-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 24px; line-height: 1.02; letter-spacing: -.02em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .va-meta {
+  .v1-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; letter-spacing: .12em; font-weight: 600; text-transform: uppercase;
-    color: rgba(255,255,255,.75);
-    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(255,255,255,.8);
+    display: flex; justify-content: space-between;
   }
 
   /* ============================================================
-   * VARIANTE B · Éditorial clair (sans photo)
+   * VARIANTE 2 · Magazine split (photo gauche, bloc ink droite)
    * ============================================================ */
-  .vb-card {
+  .v2-card {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    background: #0A0A0A;
+    border-radius: 18px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #F4EFE6;
+    min-height: 380px;
+    box-shadow: 0 20px 40px -24px rgba(0,0,0,.32);
+    transition: transform .25s;
+  }
+  .v2-card:hover { transform: translateY(-4px) }
+  .v2-photo {
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .v2-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(10,10,10,.1), rgba(10,10,10,.45));
+  }
+  .v2-body {
+    padding: 22px 22px 22px;
+    display: flex; flex-direction: column;
+  }
+  .v2-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase;
+  }
+  .v2-num { font-family: 'Archivo Black', sans-serif; font-size: 28px; line-height: 1; letter-spacing: -.03em; }
+  .v2-card.c-red .v2-num    { color: #EF5E6E }
+  .v2-card.c-blue .v2-num   { color: var(--teal) }
+  .v2-card.c-orange .v2-num { color: var(--orange) }
+  .v2-card.c-fuchsia .v2-num{ color: var(--fuchsia) }
+  .v2-type { opacity: .7 }
+  .v2-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; line-height: 1.05; letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    flex: 1;
+  }
+  .v2-bar { height: 3px; width: 40px; margin-bottom: 12px; }
+  .v2-card.c-red .v2-bar { background: #EF5E6E }
+  .v2-card.c-blue .v2-bar { background: var(--teal) }
+  .v2-card.c-orange .v2-bar { background: var(--orange) }
+  .v2-card.c-fuchsia .v2-bar { background: var(--fuchsia) }
+  .v2-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(244,239,230,.55);
+    display: flex; justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(244,239,230,.15);
+  }
+
+  /* ============================================================
+   * VARIANTE 3 · Polaroid inclinée heritage
+   * ============================================================ */
+  .v3-row { padding: 30px 0 }
+  .v3-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px 22px;
+  }
+  @media (min-width: 720px) { .v3-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 28px } }
+  @media (min-width: 1100px) { .v3-grid { grid-template-columns: repeat(4, 1fr); gap: 36px 24px } }
+  .v3-card {
+    background: var(--surface);
+    border: 3px solid var(--ink);
+    border-radius: 4px;
+    padding: 16px 16px 46px;
+    text-decoration: none; color: var(--ink);
+    display: flex; flex-direction: column;
+    box-shadow: 8px 8px 0 var(--ink);
+    transition: transform .25s, box-shadow .25s;
+    min-height: 340px;
+    position: relative;
+  }
+  .v3-card:nth-child(1) { transform: rotate(-1.5deg) }
+  .v3-card:nth-child(2) { transform: rotate(1deg) }
+  .v3-card:nth-child(3) { transform: rotate(-1deg) }
+  .v3-card:nth-child(4) { transform: rotate(1.5deg) }
+  .v3-card:hover {
+    transform: rotate(0) translateY(-5px);
+    box-shadow: 12px 12px 0 var(--ink);
+  }
+  .v3-stamp {
+    align-self: flex-start;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; letter-spacing: .05em;
+    padding: 5px 12px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .v3-card.c-red .v3-stamp { background: #c94a4a }
+  .v3-card.c-blue .v3-stamp { background: var(--teal) }
+  .v3-card.c-orange .v3-stamp { background: var(--orange) }
+  .v3-card.c-fuchsia .v3-stamp { background: var(--fuchsia) }
+  .v3-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; line-height: 1.05; letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .v3-punch {
+    flex: 1;
+    font-size: 13px; line-height: 1.5;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .v3-foot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ink-muted);
+    display: flex; justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed var(--ink);
+  }
+  .v3-tape {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+    width: 80px; height: 24px;
+    background: rgba(255,130,0,.35);
+    border: 1px dashed rgba(10,10,10,.3);
+  }
+
+  /* ============================================================
+   * VARIANTE 4 · Drop cap editorial
+   * ============================================================ */
+  .v4-card {
     background: var(--surface);
     border: 1px solid var(--line-strong);
-    border-radius: 20px;
-    padding: 28px 26px 22px;
-    text-decoration: none; color: inherit;
-    display: flex; flex-direction: column; gap: 12px;
-    position: relative; overflow: hidden;
-    transition: transform .2s, border-color .2s, box-shadow .2s;
-    min-height: 380px;
+    border-radius: 4px;
+    text-decoration: none; color: var(--ink);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    min-height: 340px;
+    overflow: hidden;
+    transition: transform .2s, border-color .2s;
   }
-  .vb-card:hover { transform: translateY(-4px); border-color: var(--ink); box-shadow: 0 22px 44px -22px rgba(0,0,0,.22) }
-  .vb-card::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  .v4-card:hover { transform: translateY(-3px); border-color: var(--ink) }
+  .v4-drop {
+    background: #0A0A0A;
+    color: #F4EFE6;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 14px;
+    position: relative;
   }
-  .vb-card.c-red::before { background: #c94a4a }
-  .vb-card.c-blue::before { background: var(--teal) }
-  .vb-card.c-orange::before { background: var(--orange) }
-  .vb-card.c-fuchsia::before { background: var(--fuchsia) }
-  .vb-num {
+  .v4-card.c-red .v4-drop    { background: #8B1925 }
+  .v4-card.c-blue .v4-drop   { background: #003D3B }
+  .v4-card.c-orange .v4-drop { background: #6E3400 }
+  .v4-card.c-fuchsia .v4-drop{ background: #701F37 }
+  .v4-num {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 58px; line-height: .85; letter-spacing: -.05em;
-    margin-top: 4px;
+    font-size: 56px; line-height: .85; letter-spacing: -.05em;
+    transform: translateX(-4px);
   }
-  .vb-card.c-red .vb-num { color: #c94a4a }
-  .vb-card.c-blue .vb-num { color: var(--teal) }
-  .vb-card.c-orange .vb-num { color: var(--orange) }
-  .vb-card.c-fuchsia .vb-num { color: var(--fuchsia) }
-  .vb-type {
+  .v4-card.c-red .v4-num    { color: #EF5E6E }
+  .v4-card.c-blue .v4-num   { color: var(--teal) }
+  .v4-card.c-orange .v4-num { color: var(--orange) }
+  .v4-card.c-fuchsia .v4-num{ color: var(--fuchsia) }
+  .v4-rot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: rgba(244,239,230,.6);
+  }
+  .v4-body {
+    padding: 22px 22px;
+    display: flex; flex-direction: column;
+  }
+  .v4-type {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase;
     color: var(--ink-muted);
-    margin-top: -4px;
+    margin-bottom: 8px;
   }
-  .vb-title {
+  .v4-title {
     font-family: 'Archivo Black', sans-serif;
     font-size: 22px; line-height: 1.05; letter-spacing: -.02em;
-    text-transform: uppercase; margin-top: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
   }
-  .vb-punch {
+  .v4-punch {
     flex: 1;
     font-size: 13.5px; line-height: 1.5;
     color: var(--ink-soft);
     font-style: italic;
   }
-  .vb-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 12px; border-top: 1px solid var(--line-strong);
+  .v4-foot {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px; letter-spacing: .1em; color: var(--ink-muted);
-    text-transform: uppercase;
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-muted);
+    display: flex; justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-strong);
+    margin-top: 12px;
   }
-  .vb-cta { color: var(--ink); font-weight: 700; letter-spacing: .18em; transition: color .2s }
-  .vb-card:hover .vb-cta { color: var(--fuchsia) }
-
-  /* ============================================================
-   * VARIANTE C · Ticket vertical (cohérent avec À la une)
-   * ============================================================ */
-  .vc-card {
-    background: var(--surface);
-    border-radius: 14px;
-    overflow: hidden;
-    text-decoration: none; color: inherit;
-    display: flex; flex-direction: column;
-    box-shadow: 0 6px 18px -8px rgba(0,0,0,.15), inset 0 0 0 1px var(--line-strong);
-    transition: transform .2s, box-shadow .2s;
-    min-height: 340px;
-  }
-  .vc-card:hover { transform: translateY(-3px); box-shadow: 0 20px 42px -20px rgba(0,0,0,.22), inset 0 0 0 1px var(--line-strong) }
-  .vc-stub {
-    padding: 18px 20px 14px;
-    color: #fff;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .vc-card.c-red .vc-stub { background: #c94a4a }
-  .vc-card.c-blue .vc-stub { background: var(--teal) }
-  .vc-card.c-orange .vc-stub { background: var(--orange) }
-  .vc-card.c-fuchsia .vc-stub { background: var(--fuchsia) }
-  .vc-stub-type {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 14px; letter-spacing: -.01em; text-transform: uppercase;
-  }
-  .vc-stub-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: .2em; font-weight: 700;
-    padding: 4px 10px; border: 1.5px solid rgba(255,255,255,.65); border-radius: 999px;
-  }
-  .vc-bar {
-    height: 5px;
-    background: linear-gradient(to right,
-      var(--teal) 0%, var(--teal) 33.33%,
-      var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
-      var(--orange) 66.66%, var(--orange) 100%);
-  }
-  .vc-body { padding: 22px 22px 20px; display: flex; flex-direction: column; flex: 1; gap: 14px }
-  .vc-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 21px; line-height: 1.05; letter-spacing: -.02em;
-    text-transform: uppercase; color: var(--ink);
-  }
-  .vc-punch {
-    flex: 1;
-    font-size: 13.5px; line-height: 1.5;
-    color: var(--ink-soft);
-    font-style: italic;
-  }
-  .vc-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 12px; border-top: 1px solid var(--line-strong);
-  }
-  .vc-date { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: .1em }
-  .vc-cta { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); transition: color .2s }
-  .vc-card:hover .vc-cta { color: var(--fuchsia) }
-
-  /* ============================================================
-   * VARIANTE D · Hero typographique (fond coloré + mega titre)
-   * ============================================================ */
-  .vd-card {
-    position: relative;
-    aspect-ratio: 4/5;
-    border-radius: 20px;
-    overflow: hidden;
-    text-decoration: none;
-    color: #fff;
-    display: flex; flex-direction: column; justify-content: space-between;
-    padding: 26px 24px;
-    box-shadow: 0 20px 40px -24px rgba(0,0,0,.3), inset 0 0 0 1px rgba(255,255,255,.1);
-    transition: transform .25s;
-  }
-  .vd-card:hover { transform: translateY(-4px) }
-  .vd-card.c-red    { background: linear-gradient(135deg, #8B1925 0%, #C94A4A 100%) }
-  .vd-card.c-blue   { background: linear-gradient(135deg, #003D3B 0%, #00B2A9 100%) }
-  .vd-card.c-orange { background: linear-gradient(135deg, #6E3400 0%, #FF8200 100%) }
-  .vd-card.c-fuchsia { background: linear-gradient(135deg, #701F37 0%, #EF426F 100%) }
-  .vd-card::after {
-    content: ""; position: absolute; top: -30%; right: -15%;
-    width: 70%; height: 70%;
-    background: radial-gradient(circle, rgba(255,255,255,.18), transparent 60%);
-    filter: blur(2px);
-    pointer-events: none;
-  }
-  .vd-card > * { position: relative; z-index: 2 }
-  .vd-num {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 13px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase;
-    opacity: .75;
-  }
-  .vd-mega {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 32px; line-height: .95; letter-spacing: -.025em;
-    text-transform: uppercase;
-    flex: 1; display: flex; align-items: center;
-  }
-  .vd-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 14px; border-top: 1px solid rgba(255,255,255,.2);
-  }
-  .vd-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px; letter-spacing: .12em; font-weight: 600; text-transform: uppercase;
-    opacity: .9;
-  }
+  .v4-cta { color: var(--ink); font-weight: 700 }
+  .v4-card:hover .v4-cta { color: var(--fuchsia) }
 
   .legend {
     margin: 50px auto 0;
@@ -305,170 +351,214 @@
 <body>
 
 <div class="page-header">
-  <h1>4 pistes pour les cards « Opinions »</h1>
-  <p>Les cards actuelles ont un design « magazine cover » avec photo en fond et overlay coloré. Problème : 2 des 4 opinions n'ont pas de photo pertinente (Chine, Fils), du coup incohérence visuelle. Voici 4 pistes pour unifier le rendu.</p>
+  <h1>4 nouvelles pistes pour les cards « Opinions »</h1>
+  <p>J'ai corrigé le bug d'affichage (la variante A précédente ne montrait rien à cause d'un conflit CSS). Voici 4 directions complètement différentes de B/C/D. Dis-moi celle qui t'attire.</p>
 </div>
 
-<!-- VARIANTE A -->
+<!-- VARIANTE 1 -->
 <section class="variant">
   <div class="variant-head">
-    <h2 class="variant-title">A · Cover épurée</h2>
-    <span class="variant-meta">Photo conservée · Overlay plus doux</span>
+    <h2 class="variant-title">1 · Cover propre</h2>
+    <span class="variant-meta">Photo en fond · Dégradé lisible</span>
   </div>
   <p class="variant-desc">
-    On garde le principe « photo en cover » mais l'overlay est retravaillé pour laisser la photo respirer en haut. Le texte reste en bas dans une zone sombre. <strong>Problème</strong> : toutes les opinions n'ont pas de photo.
+    L'ancien A réparé. Photo cover, dégradé de couleur + assombrissement progressif vers le bas, titre blanc bien lisible en bas. Badge type flottant en haut. <strong>Design magazine cover qui fonctionne vraiment cette fois.</strong>
   </p>
   <div class="grid-4">
-    <a class="va-card c-red" href="#">
-      <div class="va-bg" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%;"></div>
-      <div class="va-overlay"></div>
-      <span class="va-type"><span class="dot"></span>Opinion · 01</span>
-      <h3 class="va-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
-      <div class="va-meta"><span>Business · 20 avril</span><span>10 min</span></div>
-    </a>
-    <a class="va-card c-blue" href="#">
-      <div class="va-bg" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%;"></div>
-      <div class="va-overlay"></div>
-      <span class="va-type"><span class="dot"></span>Opinion · 02</span>
-      <h3 class="va-title">Avant de payer Limova 840 €/an, lis ça.</h3>
-      <div class="va-meta"><span>Business · 20 avril</span><span>11 min</span></div>
-    </a>
-    <a class="va-card c-orange" href="#">
-      <div class="va-bg" style="background: linear-gradient(135deg, #2a1600, #FF8200);"></div>
-      <div class="va-overlay"></div>
-      <span class="va-type"><span class="dot"></span>Opinion · 03</span>
-      <h3 class="va-title">Le plan chinois 2026-2030, décrypté.</h3>
-      <div class="va-meta"><span>Géopolitique · 23 avril</span><span>13 min</span></div>
-    </a>
-    <a class="va-card c-fuchsia" href="#">
-      <div class="va-bg" style="background: linear-gradient(135deg, #2a0b1a, #EF426F);"></div>
-      <div class="va-overlay"></div>
-      <span class="va-type"><span class="dot"></span>Opinion · 04</span>
-      <h3 class="va-title">J'ai un fils de quatre ans. Voici son monde.</h3>
-      <div class="va-meta"><span>Prospective · 24 avril</span><span>12 min</span></div>
-    </a>
-  </div>
-</section>
-
-<!-- VARIANTE B -->
-<section class="variant">
-  <div class="variant-head">
-    <h2 class="variant-title">B · Éditorial clair</h2>
-    <span class="variant-meta">Fond clair · Gros numéro + extrait</span>
-  </div>
-  <p class="variant-desc">
-    Fond cream, sans photo. Énorme numéro coloré (01, 02, 03, 04), titre noir gros, puis un extrait de phrase italique pour donner envie. Barre de couleur en haut pour identifier le type. <strong>Très éditorial, très cohérent</strong> entre les 4 cards.
-  </p>
-  <div class="grid-4">
-    <a class="vb-card c-red" href="#">
-      <div class="vb-num">01</div>
-      <div class="vb-type">Opinion · Business</div>
-      <h3 class="vb-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
-      <p class="vb-punch">« Je ne paye pas Oussama pour qu'il me forme. Je le paye pour qu'il me fasse faire les bons choix. »</p>
-      <div class="vb-foot"><span>20 avril · 10 min</span><span class="vb-cta">Lire →</span></div>
-    </a>
-    <a class="vb-card c-blue" href="#">
-      <div class="vb-num">02</div>
-      <div class="vb-type">Opinion · Business</div>
-      <h3 class="vb-title">Avant de payer Limova 840 €/an, lis ça.</h3>
-      <p class="vb-punch">« J'ai testé Limova une semaine. Claude Code fait la même chose en deux prompts, gratuit et mieux fait. »</p>
-      <div class="vb-foot"><span>20 avril · 11 min</span><span class="vb-cta">Lire →</span></div>
-    </a>
-    <a class="vb-card c-orange" href="#">
-      <div class="vb-num">03</div>
-      <div class="vb-type">Opinion · Géopolitique</div>
-      <h3 class="vb-title">Le plan chinois 2026-2030, décrypté.</h3>
-      <p class="vb-punch">« Pékin joue à 15 ans pendant que Washington joue à 4. C'est un plan de forteresse, pas de conquête. »</p>
-      <div class="vb-foot"><span>23 avril · 13 min</span><span class="vb-cta">Lire →</span></div>
-    </a>
-    <a class="vb-card c-fuchsia" href="#">
-      <div class="vb-num">04</div>
-      <div class="vb-type">Opinion · Prospective</div>
-      <h3 class="vb-title">J'ai un fils de quatre ans. Voici son monde.</h3>
-      <p class="vb-punch">« Je ne suis même pas sûr qu'il passe un jour son permis. Par choix — pas par contrainte. »</p>
-      <div class="vb-foot"><span>24 avril · 12 min</span><span class="vb-cta">Lire →</span></div>
-    </a>
-  </div>
-</section>
-
-<!-- VARIANTE C -->
-<section class="variant">
-  <div class="variant-head">
-    <h2 class="variant-title">C · Ticket vertical (cohérent À la une)</h2>
-    <span class="variant-meta">Même style ticket que la section du haut</span>
-  </div>
-  <p class="variant-desc">
-    Reprend exactement le style ticket utilisé pour la section « À la une » (stub coloré + barre tricolore). <strong>Unifie visuellement le site</strong> : un visiteur habitué reconnaît le gabarit. Plus calme que les covers.
-  </p>
-  <div class="grid-4">
-    <a class="vc-card c-red" href="#">
-      <div class="vc-stub"><span class="vc-stub-type">Opinion</span><span class="vc-stub-num">Nº 01</span></div>
-      <div class="vc-bar"></div>
-      <div class="vc-body">
-        <h3 class="vc-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
-        <p class="vc-punch">« Je ne paye pas Oussama pour qu'il me forme. Je le paye pour qu'il me fasse faire les bons choix. »</p>
-        <div class="vc-foot"><span class="vc-date">Business · 20 avril</span><span class="vc-cta">Lire →</span></div>
+    <a class="v1-card c-red" href="#">
+      <div class="v1-bg" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%;"></div>
+      <div class="v1-overlay"></div>
+      <div class="v1-content">
+        <span class="v1-top"><span class="dot"></span>Opinion · 01</span>
+        <div class="v1-bottom">
+          <h3>Oussama Ammar comme associé, à 7 000 €/an.</h3>
+          <div class="v1-meta"><span>Business · 20 avril</span><span>10 min</span></div>
+        </div>
       </div>
     </a>
-    <a class="vc-card c-blue" href="#">
-      <div class="vc-stub"><span class="vc-stub-type">Opinion</span><span class="vc-stub-num">Nº 02</span></div>
-      <div class="vc-bar"></div>
-      <div class="vc-body">
-        <h3 class="vc-title">Avant de payer Limova 840 €/an, lis ça.</h3>
-        <p class="vc-punch">« J'ai testé Limova une semaine. Claude Code fait la même chose en deux prompts, gratuit. »</p>
-        <div class="vc-foot"><span class="vc-date">Business · 20 avril</span><span class="vc-cta">Lire →</span></div>
+    <a class="v1-card c-blue" href="#">
+      <div class="v1-bg" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%;"></div>
+      <div class="v1-overlay"></div>
+      <div class="v1-content">
+        <span class="v1-top"><span class="dot"></span>Opinion · 02</span>
+        <div class="v1-bottom">
+          <h3>Avant de payer Limova 840 €/an, lis ça.</h3>
+          <div class="v1-meta"><span>Business · 20 avril</span><span>11 min</span></div>
+        </div>
       </div>
     </a>
-    <a class="vc-card c-orange" href="#">
-      <div class="vc-stub"><span class="vc-stub-type">Opinion</span><span class="vc-stub-num">Nº 03</span></div>
-      <div class="vc-bar"></div>
-      <div class="vc-body">
-        <h3 class="vc-title">Le plan chinois 2026-2030, décrypté.</h3>
-        <p class="vc-punch">« Pékin joue à 15 ans pendant que Washington joue à 4. Plan de forteresse, pas de conquête. »</p>
-        <div class="vc-foot"><span class="vc-date">Géopolitique · 23 avril</span><span class="vc-cta">Lire →</span></div>
+    <a class="v1-card c-orange" href="#">
+      <div class="v1-bg" style="background: linear-gradient(135deg, #2a1600, #FF8200);"></div>
+      <div class="v1-overlay"></div>
+      <div class="v1-content">
+        <span class="v1-top"><span class="dot"></span>Opinion · 03</span>
+        <div class="v1-bottom">
+          <h3>Le plan chinois 2026-2030, décrypté.</h3>
+          <div class="v1-meta"><span>Géopolitique · 23 avril</span><span>13 min</span></div>
+        </div>
       </div>
     </a>
-    <a class="vc-card c-fuchsia" href="#">
-      <div class="vc-stub"><span class="vc-stub-type">Opinion</span><span class="vc-stub-num">Nº 04</span></div>
-      <div class="vc-bar"></div>
-      <div class="vc-body">
-        <h3 class="vc-title">J'ai un fils de quatre ans. Voici son monde.</h3>
-        <p class="vc-punch">« Je ne suis même pas sûr qu'il passe un jour son permis. Par choix — pas par contrainte. »</p>
-        <div class="vc-foot"><span class="vc-date">Prospective · 24 avril</span><span class="vc-cta">Lire →</span></div>
+    <a class="v1-card c-fuchsia" href="#">
+      <div class="v1-bg" style="background: linear-gradient(135deg, #2a0b1a, #EF426F);"></div>
+      <div class="v1-overlay"></div>
+      <div class="v1-content">
+        <span class="v1-top"><span class="dot"></span>Opinion · 04</span>
+        <div class="v1-bottom">
+          <h3>J'ai un fils de quatre ans. Voici son monde.</h3>
+          <div class="v1-meta"><span>Prospective · 24 avril</span><span>12 min</span></div>
+        </div>
       </div>
     </a>
   </div>
 </section>
 
-<!-- VARIANTE D -->
+<!-- VARIANTE 2 -->
 <section class="variant">
   <div class="variant-head">
-    <h2 class="variant-title">D · Hero typographique</h2>
-    <span class="variant-meta">Fond coloré plein · Mega titre blanc</span>
+    <h2 class="variant-title">2 · Magazine split ink</h2>
+    <span class="variant-meta">Photo gauche · Bloc ink droite</span>
   </div>
   <p class="variant-desc">
-    Fond coloré uni (dégradé), énorme titre blanc qui domine toute la card. Zéro photo, zéro extrait. Brut, punchy, très affirmé. <strong>Impact visuel maximum</strong> mais demande des titres vraiment forts.
+    Une moitié photo à gauche, une moitié block noir avec texte à droite. Gros numéro coloré, barre d'accent, titre clair. <strong>Style rédaction / magazine d'opinion</strong> — le lecteur comprend tout de suite que c'est une prise de position.
   </p>
   <div class="grid-4">
-    <a class="vd-card c-red" href="#">
-      <div class="vd-num">Opinion · 01</div>
-      <h3 class="vd-mega">Oussama Ammar comme associé, à 7 000 €/an.</h3>
-      <div class="vd-foot"><span class="vd-meta">Business · 20 avril</span><span class="vd-meta">10 min →</span></div>
+    <a class="v2-card c-red" href="#">
+      <div class="v2-photo" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%;"></div>
+      <div class="v2-body">
+        <div class="v2-top"><span class="v2-num">01</span><span class="v2-type">Business</span></div>
+        <div class="v2-bar"></div>
+        <h3 class="v2-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
+        <div class="v2-meta"><span>20 avril 2026</span><span>10 min → LIRE</span></div>
+      </div>
     </a>
-    <a class="vd-card c-blue" href="#">
-      <div class="vd-num">Opinion · 02</div>
-      <h3 class="vd-mega">Avant de payer Limova 840 €/an, lis ça.</h3>
-      <div class="vd-foot"><span class="vd-meta">Business · 20 avril</span><span class="vd-meta">11 min →</span></div>
+    <a class="v2-card c-blue" href="#">
+      <div class="v2-photo" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%;"></div>
+      <div class="v2-body">
+        <div class="v2-top"><span class="v2-num">02</span><span class="v2-type">Business</span></div>
+        <div class="v2-bar"></div>
+        <h3 class="v2-title">Avant de payer Limova 840 €/an, lis ça.</h3>
+        <div class="v2-meta"><span>20 avril 2026</span><span>11 min → LIRE</span></div>
+      </div>
     </a>
-    <a class="vd-card c-orange" href="#">
-      <div class="vd-num">Opinion · 03</div>
-      <h3 class="vd-mega">Le plan chinois 2026-2030, décrypté.</h3>
-      <div class="vd-foot"><span class="vd-meta">Géopolitique · 23 avril</span><span class="vd-meta">13 min →</span></div>
+    <a class="v2-card c-orange" href="#">
+      <div class="v2-photo" style="background: linear-gradient(135deg, #2a1600, #FF8200);"></div>
+      <div class="v2-body">
+        <div class="v2-top"><span class="v2-num">03</span><span class="v2-type">Géopolitique</span></div>
+        <div class="v2-bar"></div>
+        <h3 class="v2-title">Le plan chinois 2026-2030, décrypté.</h3>
+        <div class="v2-meta"><span>23 avril 2026</span><span>13 min → LIRE</span></div>
+      </div>
     </a>
-    <a class="vd-card c-fuchsia" href="#">
-      <div class="vd-num">Opinion · 04</div>
-      <h3 class="vd-mega">J'ai un fils de quatre ans. Voici son monde.</h3>
-      <div class="vd-foot"><span class="vd-meta">Prospective · 24 avril</span><span class="vd-meta">12 min →</span></div>
+    <a class="v2-card c-fuchsia" href="#">
+      <div class="v2-photo" style="background: linear-gradient(135deg, #2a0b1a, #EF426F);"></div>
+      <div class="v2-body">
+        <div class="v2-top"><span class="v2-num">04</span><span class="v2-type">Prospective</span></div>
+        <div class="v2-bar"></div>
+        <h3 class="v2-title">J'ai un fils de quatre ans. Voici son monde.</h3>
+        <div class="v2-meta"><span>24 avril 2026</span><span>12 min → LIRE</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- VARIANTE 3 -->
+<section class="variant v3-row">
+  <div class="variant-head">
+    <h2 class="variant-title">3 · Polaroid inclinée heritage</h2>
+    <span class="variant-meta">Streetwear · Cards tilted · Bordure épaisse</span>
+  </div>
+  <p class="variant-desc">
+    Cards inclinées alternées (±1,5°), grosse bordure noire, ombre dure déportée. Étiquette de couleur en haut comme un stamp. <strong>Très streetwear / heritage Fiesta</strong>. Effet « affiches accrochées ». Au hover, la card redresse et l'ombre grossit.
+  </p>
+  <div class="v3-grid">
+    <a class="v3-card c-red" href="#">
+      <div class="v3-tape"></div>
+      <span class="v3-stamp">Opinion · 01</span>
+      <h3 class="v3-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
+      <p class="v3-punch">« Je ne paye pas Oussama pour qu'il me forme. Je le paye pour qu'il me fasse faire les bons choix. »</p>
+      <div class="v3-foot"><span>Business · 20 avril</span><span>10 min →</span></div>
+    </a>
+    <a class="v3-card c-blue" href="#">
+      <div class="v3-tape"></div>
+      <span class="v3-stamp">Opinion · 02</span>
+      <h3 class="v3-title">Avant de payer Limova 840 €/an, lis ça.</h3>
+      <p class="v3-punch">« Claude Code fait la même chose en deux prompts, gratuit et mieux fait. »</p>
+      <div class="v3-foot"><span>Business · 20 avril</span><span>11 min →</span></div>
+    </a>
+    <a class="v3-card c-orange" href="#">
+      <div class="v3-tape"></div>
+      <span class="v3-stamp">Opinion · 03</span>
+      <h3 class="v3-title">Le plan chinois 2026-2030, décrypté.</h3>
+      <p class="v3-punch">« Pékin joue à 15 ans pendant que Washington joue à 4. Plan de forteresse, pas de conquête. »</p>
+      <div class="v3-foot"><span>Géopolitique · 23 avril</span><span>13 min →</span></div>
+    </a>
+    <a class="v3-card c-fuchsia" href="#">
+      <div class="v3-tape"></div>
+      <span class="v3-stamp">Opinion · 04</span>
+      <h3 class="v3-title">J'ai un fils de quatre ans. Voici son monde.</h3>
+      <p class="v3-punch">« Je ne suis même pas sûr qu'il passe un jour son permis. Par choix — pas par contrainte. »</p>
+      <div class="v3-foot"><span>Prospective · 24 avril</span><span>12 min →</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- VARIANTE 4 -->
+<section class="variant">
+  <div class="variant-head">
+    <h2 class="variant-title">4 · Drop cap éditorial</h2>
+    <span class="variant-meta">Colonne noire + numéro géant · Body clair</span>
+  </div>
+  <p class="variant-desc">
+    Colonne verticale ink à gauche avec un énorme chiffre coloré (01, 02, 03, 04) + type rotated. Body clair à droite : type + titre + extrait + meta. <strong>Air de journal d'opinion</strong>, typographique, calme et lisible.
+  </p>
+  <div class="grid-4">
+    <a class="v4-card c-red" href="#">
+      <div class="v4-drop">
+        <span class="v4-num">01</span>
+        <span class="v4-rot">Opinion</span>
+      </div>
+      <div class="v4-body">
+        <div class="v4-type">Business</div>
+        <h3 class="v4-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
+        <p class="v4-punch">« Je ne paye pas Oussama pour qu'il me forme. Je le paye pour qu'il me fasse faire les bons choix. »</p>
+        <div class="v4-foot"><span>20 avril · 10 min</span><span class="v4-cta">LIRE →</span></div>
+      </div>
+    </a>
+    <a class="v4-card c-blue" href="#">
+      <div class="v4-drop">
+        <span class="v4-num">02</span>
+        <span class="v4-rot">Opinion</span>
+      </div>
+      <div class="v4-body">
+        <div class="v4-type">Business</div>
+        <h3 class="v4-title">Avant de payer Limova 840 €/an, lis ça.</h3>
+        <p class="v4-punch">« Claude Code fait la même chose en deux prompts, gratuit et mieux fait. »</p>
+        <div class="v4-foot"><span>20 avril · 11 min</span><span class="v4-cta">LIRE →</span></div>
+      </div>
+    </a>
+    <a class="v4-card c-orange" href="#">
+      <div class="v4-drop">
+        <span class="v4-num">03</span>
+        <span class="v4-rot">Opinion</span>
+      </div>
+      <div class="v4-body">
+        <div class="v4-type">Géopolitique</div>
+        <h3 class="v4-title">Le plan chinois 2026-2030, décrypté.</h3>
+        <p class="v4-punch">« Pékin joue à 15 ans pendant que Washington joue à 4. Plan de forteresse, pas de conquête. »</p>
+        <div class="v4-foot"><span>23 avril · 13 min</span><span class="v4-cta">LIRE →</span></div>
+      </div>
+    </a>
+    <a class="v4-card c-fuchsia" href="#">
+      <div class="v4-drop">
+        <span class="v4-num">04</span>
+        <span class="v4-rot">Opinion</span>
+      </div>
+      <div class="v4-body">
+        <div class="v4-type">Prospective</div>
+        <h3 class="v4-title">J'ai un fils de quatre ans. Voici son monde.</h3>
+        <p class="v4-punch">« Je ne suis même pas sûr qu'il passe un jour son permis. Par choix — pas par contrainte. »</p>
+        <div class="v4-foot"><span>24 avril · 12 min</span><span class="v4-cta">LIRE →</span></div>
+      </div>
     </a>
   </div>
 </section>
@@ -476,14 +566,14 @@
 <div class="legend">
   <h3>Comment choisir</h3>
   <ul>
-    <li><strong>A · Cover épurée</strong> — garde les photos existantes (Oussama, Yoan) et met un dégradé pour les autres. Problème persistant : mélange photo réelle + dégradé artificiel.</li>
-    <li><strong>B · Éditorial clair</strong> — fond clair, gros numéro coloré + extrait italique. Très cohérent entre les 4 cards, très éditorial. Idéal si tu veux ressembler à un journal de pensée.</li>
-    <li><strong>C · Ticket vertical</strong> — reprend le style « À la une » appliqué en format vertical. Unité maximale avec le reste du site. Moins d'impact visuel, plus de cohérence.</li>
-    <li><strong>D · Hero typographique</strong> — fond coloré plein + titre géant. Le plus brut, le plus punchy. Fonctionne si tes titres sont des claques.</li>
+    <li><strong>1 · Cover propre</strong> — tu retrouves la direction « magazine cover » qui avait échoué la première fois. Fonctionne maintenant. Garde photos et dégradés pour les opinions sans photo.</li>
+    <li><strong>2 · Magazine split ink</strong> — photo à gauche + bloc noir à droite avec gros numéro. Air pro/magazine. Très identifiable comme « opinion tranchée ».</li>
+    <li><strong>3 · Polaroid inclinée</strong> — cards tilted avec bordure épaisse noire et ombre dure. <strong>Très streetwear / heritage</strong>. Effet « affiches placardées au mur ». Signature très forte.</li>
+    <li><strong>4 · Drop cap éditorial</strong> — colonne ink à gauche avec gros numéro coloré + body clair. Air de journal d'opinion tranché, calme et lisible.</li>
   </ul>
   <br>
   <p style="font-size:14px; color:var(--ink-soft)">
-    <strong>Ma recommandation</strong> : <strong>B</strong> pour l'éditorial (les extraits italiques + gros numéro donnent un air de vraie prise de position) OU <strong>C</strong> pour l'unité avec À la une. La D est super mais tes titres doivent tous faire claque (« À 7 000 €/an » fonctionne, « Avant de payer Limova » un peu moins en titre géant).
+    <strong>Ma recommandation</strong> : <strong>3 (polaroid)</strong> si tu veux un parti-pris visuel très marqué et cohérent avec l'ADN streetwear/Fiesta du site — c'est le plus mémorable. <strong>2 (magazine split ink)</strong> si tu veux plus classique / pro.
   </p>
 </div>
 

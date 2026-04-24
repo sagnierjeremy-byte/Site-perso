@@ -296,6 +296,7 @@
   .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
   .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -304,6 +305,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -359,7 +386,7 @@
       Il y a deux ans, faire tourner une IA chez soi, c'était un truc de geek barbu qui passait ses week-ends dans le terminal. Aujourd'hui, c'est devenu plus simple qu'installer Photoshop. Tu télécharges une app, tu cliques deux fois, tu choisis un modèle dans une liste, c'est joué.
     </p>
     <p>
-      Ce qui a changé en 2025-2026 : <strong>les modèles ouverts ont rattrapé les modèles fermés</strong>. Mistral, Llama, DeepSeek, Qwen — tu peux télécharger des IA gratuitement qui rivalisent avec ChatGPT pour la plupart des usages quotidiens. Et le 20 janvier 2025, <strong>une boîte chinoise inconnue (DeepSeek) a publié un modèle qui a fait perdre 589 milliards de dollars à NVIDIA en une seule journée</strong>. Toute la thèse « il faut des milliards et des serveurs à 100 000 € pour faire de l'IA » s'est effondrée.
+      Ce qui a changé en 2025-2026 : <strong>les modèles ouverts ont rattrapé les modèles fermés</strong>. <a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a>, Llama, <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a>, Qwen — tu peux télécharger des IA gratuitement qui rivalisent avec ChatGPT pour la plupart des usages quotidiens. Et le 27 janvier 2025, <strong>une boîte chinoise inconnue (DeepSeek) a publié un modèle qui a fait perdre <a href="https://www.reuters.com/technology/chinas-deepseek-sets-off-ai-market-rout-2025-01-27/" target="_blank" rel="noopener">589 milliards de dollars à NVIDIA</a> en une seule journée</strong>. Toute la thèse « il faut des milliards et des serveurs à 100 000 € pour faire de l'IA » s'est effondrée.
     </p>
     <p>
       Si tu as déjà lu mon <a href="open-source-pour-non-dev.html">article sur l'open source</a>, tu sais d'où vient ce mouvement. Là, on passe à l'étape d'après : <strong>comment tu en profites concrètement, sur ton ordi, ce week-end</strong>.
@@ -488,7 +515,7 @@
     </div>
 
     <p>
-      <strong>L'option maline qui change tout</strong> : récupérer un PC fixe + une carte graphique <strong>RTX 3090 d'occasion</strong> (650 à 800 €) + 64 Go de RAM, total environ 1 500 €. C'est ce que la communauté qui s'y connaît (sur Reddit, r/LocalLLaMA) recommande depuis 18 mois comme meilleur rapport qualité-prix du marché.
+      <strong>L'option maline qui change tout</strong> : récupérer un PC fixe + une carte graphique <strong>RTX 3090 d'occasion</strong> (650 à 800 €) + 64 Go de RAM, total environ 1 500 €. C'est ce que la communauté qui s'y connaît (sur Reddit, <a href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">r/LocalLLaMA</a>) recommande depuis 18 mois comme meilleur rapport qualité-prix du marché.
     </p>
 
     <h3>Mac ou PC ?</h3>
@@ -523,22 +550,22 @@
 
     <div class="outils">
       <div class="outil">
-        <h4>Ollama — le défaut absolu</h4>
+        <h4><a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a> — le défaut absolu</h4>
         <div class="lic">Gratuit · Open source · Mac/Win/Linux</div>
         <p>Le standard 2026. Tu installes, tu tapes une commande, tu chattes. Devenu tellement incontournable que tous les autres outils de la liste s'appuient dessus. Mon premier choix pour 99 % des gens.</p>
       </div>
       <div class="outil">
-        <h4>Open WebUI — l'interface ChatGPT chez toi</h4>
+        <h4><a href="https://openwebui.com/" target="_blank" rel="noopener">Open WebUI</a> — l'interface ChatGPT chez toi</h4>
         <div class="lic">Gratuit · Open source · web app</div>
         <p>Une interface qui ressemble à 99 % à ChatGPT, qui se branche sur Ollama. Tu peux glisser-déposer tes PDF pour discuter avec, créer des comptes pour ta famille. 15 minutes de setup la première fois, ensuite imbattable.</p>
       </div>
       <div class="outil">
-        <h4>LM Studio — la voie premium</h4>
+        <h4><a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a> — la voie premium</h4>
         <div class="lic">Gratuit · Propriétaire · Mac/Win/Linux</div>
         <p>L'app la plus polie du marché. Tu télécharges, tu lances, tu chattes — sans jamais ouvrir un terminal. Inconvénient : pas open source. À choisir si tu détestes la ligne de commande et que la philosophie open source ne te tient pas particulièrement à cœur.</p>
       </div>
       <div class="outil">
-        <h4>GPT4All — le « install et c'est joué »</h4>
+        <h4><a href="https://www.nomic.ai/gpt4all" target="_blank" rel="noopener">GPT4All</a> — le « install et c'est joué »</h4>
         <div class="lic">Gratuit · Open source · Mac/Win/Linux</div>
         <p>Le plus simple de tous. Tu télécharges, tu choisis un modèle dans une liste intégrée, tu chattes. Idéal pour le tout premier essai. Moins puissant que les autres ensuite, mais zéro friction au démarrage.</p>
       </div>
@@ -950,7 +977,7 @@
     </p>
 
     <p>
-      Si tu n'as pas encore lu mon article qui pose les bases — ce qu'est l'open source, comment les boîtes vivent en faisant du gratuit, pourquoi l'IA ouverte change tout — il est juste là : <a href="open-source-pour-non-dev.html">L'open source expliqué pour ceux qui ne sont pas dev</a>. C'est le complément naturel de celui-ci.
+      Si tu n'as pas encore lu mon article qui pose les bases — ce qu'est l'open source, comment les boîtes vivent en faisant du gratuit, pourquoi l'IA ouverte change tout — il est juste là : <a href="open-source-pour-non-dev.html">L'open source expliqué pour ceux qui ne sont pas dev</a>. C'est le complément naturel de celui-ci. Et si tu veux le récit du moment où DeepSeek a fait s'effondrer NVIDIA, je le raconte dans <a href="guerres-d-ia-podcast.html">l'épisode 4 de mon podcast Guerres d'IA</a>.
     </p>
 
     <h3>Trois choses à faire ce week-end</h3>
@@ -1052,6 +1079,24 @@
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

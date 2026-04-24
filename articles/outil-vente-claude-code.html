@@ -62,6 +62,95 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il pour construire un outil similaire avec Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour l'outil de Shirley : trois soirées de deux heures, soit environ six heures de travail réparties sur une semaine devant Netflix. Compte plutôt huit à douze heures si tu pars de zéro, le temps de prendre en main Claude Code et d'apprendre à formuler tes demandes. Le facteur clé n'est pas la complexité technique mais la clarté avec laquelle tu décris ton problème métier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour construire un outil avec Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je ne suis pas développeur, je n'ai jamais pris de cours de programmation, je sais juste ce qu'est une variable parce que j'ai lu quelques articles. Claude Code lit les instructions que tu lui donnes en français, propose une architecture, écrit le code, l'exécute. Le vrai prérequis c'est de savoir poser un problème clairement et d'accepter d'itérer plusieurs fois jusqu'à obtenir le résultat voulu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel coût pour utiliser Claude Code en mode Max sur ce type de projet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'abonnement Claude Code Max d'Anthropic est à 100 $ ou 200 $ par mois selon le palier de quota. Pour un projet comme celui de Shirley (3 soirées, ~6 heures), le quota mensuel inclus suffit largement. Si tu veux payer à l'usage via l'API Claude (Sonnet à 3 $ par million de tokens en entrée), compte 5 à 15 $ pour construire ce type d'outil."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment Shirley utilise-t-elle l'outil au quotidien en rendez-vous client ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elle ouvre l'outil sur son Mac avant le rendez-vous, saisit le profil du prospect (âge, statut professionnel, situation familiale, propriétaire ou locataire, motif du rendez-vous). L'outil affiche instantanément les alertes priorisées (rouge pour critique, orange pour attention), le script d'accroche adapté au motif, les produits à proposer dans l'ordre avec tarifs et pitchs, et les objections probables avec réponses préparées. Elle me dit se sentir dix fois mieux préparée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sur quel système d'exploitation l'outil tourne-t-il ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est un fichier HTML autonome qui fonctionne sur n'importe quel ordinateur en double-cliquant : Mac, PC Windows, Linux. Aucune installation requise, aucune dépendance, aucune connexion Internet nécessaire. L'outil peut tourner sur le Mac de Shirley en rendez-vous même quand le wifi du bureau est capricieux. Toutes les données et règles métier sont embarquées dans le fichier lui-même."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment Claude Code lit-il un fichier PDF ou Word ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code dispose d'outils intégrés pour lire les fichiers texte et les documents. Il appelle un outil de lecture qui extrait le contenu, puis envoie ce contenu au modèle Claude pour analyse. Pour les 28 documents Word de Shirley, il a mis quatre minutes à tout lire, résumer et proposer une architecture. Pour les PDFs, c'est pareil. La seule galère a été DataDome qui bloquait le téléchargement automatique des PDFs depuis le site de l'employeur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Et si l'outil bug pendant un rendez-vous client ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'outil étant un fichier HTML autonome qui tourne en local, il ne bug pas pour cause de connexion ou de serveur. Si une règle métier est mal écrite ou si une donnée est obsolète (un tarif a bougé, un nouveau produit), tu rouvres Claude Code, tu pointes le fichier, tu décris le problème en français, il propose la correction. Compte 10 à 30 minutes pour un fix simple."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi Claude Code et pas ChatGPT pour ce projet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ChatGPT répond dans une fenêtre de chat. Claude Code écrit, lit et exécute du code directement sur ton ordinateur. Pour Shirley, j'avais besoin d'un outil qui digère 28 Word + 12 PDFs + 60 pages web et produit un fichier HTML autonome. ChatGPT aurait demandé du copier-coller manuel à chaque étape. Claude Code travaille dans le dossier, lit tout, structure, code et teste sans intervention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les risques quand on construit avec Claude Code sans être dev ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois risques. Un, du code généré qui marche en surface mais cache des bugs subtils — d'où l'importance de tester le parcours utilisateur réel, pas juste de vérifier que ça compile. Deux, des dépendances ou des bibliothèques tierces que Claude installe sans que tu comprennes ce qu'elles font — préfère les outils qui restent en HTML pur quand c'est possible. Trois, la tentation de demander des features à rallonge sans validation — coupe court, valide chaque brique avant la suivante."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peux-tu partager le code de l'outil de Shirley ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Les tarifs et argumentaires commerciaux de l'employeur de Shirley n'ont pas vocation à être publics, et le nom de la marque a été anonymisé pour cet article. Mais la méthode complète est partagée ici — lire les sources métier, proposer une architecture, extraire la donnée, dicter les règles métier en français, faire implémenter par Claude Code. Tu peux la rejouer sur ton propre Word."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -814,6 +903,7 @@
   }
 
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -832,6 +922,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -1063,10 +1179,10 @@
       J'aurais pu lui répondre « utilise ChatGPT, colle ton profil prospect et demande-lui un script ». Mais Shirley voulait un outil à elle, utilisable hors-ligne, sans dépendre d'une connexion Internet dans un bureau où le wifi est capricieux. Et surtout, un outil <strong>qui garde toutes ses règles métier</strong> : les tarifs exacts, les âges limites d'éligibilité des produits, les subtilités de la prévoyance par corps de fonctionnaire.
     </p>
     <p>
-      Claude Code, c'était la bonne porte. Parce que Claude Code peut lire <strong>tous les Word d'un coup</strong>, comprendre la structure, et proposer une architecture d'application complète (en clair : le plan de tous les écrans et de la logique qui les relie). C'est ce que je ne saurais pas faire seul.
+      <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">Claude Code</a>, c'était la bonne porte. Parce que Claude Code peut lire <strong>tous les Word d'un coup</strong>, comprendre la structure, et proposer une architecture d'application complète (en clair : le plan de tous les écrans et de la logique qui les relie). C'est ce que je ne saurais pas faire seul.
     </p>
     <p>
-      Je précise : je ne suis pas développeur. Je n'ai jamais pris de cours de programmation. Je sais ce qu'est une variable parce que j'ai lu quelques articles. Mais je sais poser un problème clairement, et Claude Code fait le reste.
+      Je précise : je ne suis pas développeur. Je n'ai jamais pris de cours de programmation. Je sais ce qu'est une variable parce que j'ai lu quelques articles. Mais je sais poser un problème clairement, et Claude Code fait le reste. Si tu veux comprendre ma méthode après six mois d'usage quotidien, j'ai détaillé ça dans <a href="claude-code-workflow-tips.html">Claude Code après 6 mois vu par un non-dev</a>.
     </p>
   </div>
 </section>
@@ -1103,7 +1219,7 @@
           Je lui demande d'extraire <strong>toutes les données factuelles</strong> des Word : les onze produits de son catalogue avec leur pitch, leur tarif de base, leurs options. Les dix profils métier avec leurs spécificités statutaires. Les quarante-cinq objections récurrentes.
         </p>
         <p>
-          Je tombe sur une vraie galère : Sa boîte publie ses Conditions Générales en PDF, mais le site est protégé par un système anti-robot appelé DataDome. Impossible de récupérer les fichiers automatiquement. Je les télécharge à la main, un par un. Douze PDFs. Claude Code les lit et en extrait les âges limites de souscription, les clauses particulières, les exclusions importantes.
+          Je tombe sur une vraie galère : Sa boîte publie ses Conditions Générales en PDF, mais le site est protégé par un système anti-robot appelé <a href="https://datadome.co/" target="_blank" rel="noopener">DataDome</a>. Impossible de récupérer les fichiers automatiquement. Je les télécharge à la main, un par un. Douze PDFs. Claude Code les lit et en extrait les âges limites de souscription, les clauses particulières, les exclusions importantes.
         </p>
         <p>
           En fin de soirée, l'outil affiche le bon pitch pour le bon profil. L'interface est rustique, mais la logique fonctionne.
@@ -1222,6 +1338,9 @@
         <p>
           Je ne sais pas coder. Mais je sais poser un problème. Claude Code sait traduire cela en code fonctionnel. La compétence rare dans ce duo, ce n'est pas de savoir taper du JavaScript (le langage qui fait tourner les pages web) — c'est de savoir formuler précisément ce que tu veux.
         </p>
+        <p>
+          Si cette logique making-of t'intéresse, j'ai aussi documenté le projet <a href="booking-eurofiscalis-making-of.html">On a viré Calendly et Letsignit</a> où on a remplacé deux SaaS payants par un outil Claude Code interne, et l'écosystème <a href="superpowers.html">Superpowers Claude Code</a> qui ajoute des sous-agents pour aller plus loin que le mode mono-agent.
+        </p>
       </div>
     </div>
   </div>
@@ -1254,6 +1373,9 @@
     <p>
       L'outil reste privé — les tarifs et les argumentaires commerciaux de sa boîte n'ont pas vocation à être publics. Mais la méthode, elle, je la partage volontiers.
     </p>
+    <p>
+      <strong>La stack en clair&nbsp;:</strong> un seul fichier HTML standalone qui embarque tout (données, règles, interface). Pas de framework, pas de base de données, pas de serveur. Pour un projet plus ambitieux qui demanderait un backend ou un déploiement public, je serais parti sur <a href="https://vercel.com/" target="_blank" rel="noopener">Vercel</a> pour l'hébergement (5 € par mois), <a href="https://zod.dev/" target="_blank" rel="noopener">Zod</a> pour valider les inputs côté serveur, et l'<a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener">API Anthropic</a> pour les appels modèle. Mais tant que tu peux rester en HTML pur, fais-le : zéro maintenance, zéro dépendance, ça tourne dans dix ans.
+    </p>
   </div>
 </section>
 
@@ -1274,6 +1396,63 @@
     <p>
       Réponds à cet email avec ton fichier. Je lis tout, je te partage mes idées. Je ne garantis rien, mais je trouve souvent des pistes.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">construire avec Claude Code.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps pour construire un outil similaire ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pour l'outil de Shirley : <strong>trois soirées de deux heures</strong>, soit environ six heures sur une semaine devant Netflix. Compte plutôt huit à douze heures si tu pars de zéro, le temps de prendre en main Claude Code et d'apprendre à formuler tes demandes. Le facteur clé n'est pas la complexité technique mais la clarté avec laquelle tu décris ton problème métier.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur pour faire pareil ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Non.</strong> Je ne suis pas dev, je n'ai jamais pris de cours de programmation. Claude Code lit les instructions que tu lui donnes en français, propose une architecture, écrit le code, l'exécute. Le vrai prérequis c'est de savoir <strong>poser un problème clairement</strong> et d'accepter d'itérer plusieurs fois jusqu'à obtenir le résultat voulu.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel coût Claude Code Max sur ce type de projet ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">L'abonnement <strong>Claude Code Max</strong> d'Anthropic est à 100 $ ou 200 $ par mois selon le palier de quota. Pour un projet comme celui de Shirley (6 heures), le quota mensuel inclus suffit largement. Si tu paies à l'usage via l'API Claude (Sonnet à 3 $ par million de tokens en entrée), compte 5 à 15 $ pour construire ce type d'outil.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment Shirley s'en sert en rendez-vous ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Elle ouvre l'outil sur son Mac avant le rendez-vous, saisit le profil du prospect (âge, statut professionnel, situation familiale, propriétaire ou locataire, motif). L'outil affiche instantanément les <strong>alertes priorisées</strong> (rouge pour critique, orange pour attention), le script d'accroche adapté au motif, les produits à proposer dans l'ordre avec tarifs et pitchs, et les objections probables avec réponses préparées. Elle me dit se sentir <strong>dix fois mieux préparée</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">L'outil tourne sur quel OS ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">C'est un <strong>fichier HTML autonome</strong> qui fonctionne sur n'importe quel ordinateur en double-cliquant : Mac, PC Windows, Linux. Aucune installation requise, aucune dépendance, aucune connexion Internet nécessaire. L'outil tourne sur le Mac de Shirley en rendez-vous même quand le wifi du bureau est capricieux. Toutes les données et règles métier sont embarquées dans le fichier.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment Claude Code lit un fichier PDF ou Word ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Claude Code dispose d'<strong>outils intégrés de lecture de fichiers</strong>. Il appelle un outil de lecture qui extrait le contenu, puis envoie ce contenu au modèle Claude pour analyse. Pour les 28 documents Word de Shirley, il a mis quatre minutes à tout lire, résumer et proposer une architecture. Pour les PDFs, c'est pareil. La seule galère a été DataDome qui bloquait le téléchargement automatique depuis le site de l'employeur.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Et si l'outil bug pendant un rendez-vous ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">L'outil étant un <strong>fichier HTML autonome qui tourne en local</strong>, il ne bug pas pour cause de connexion ou de serveur. Si une règle métier est mal écrite ou si une donnée est obsolète (un tarif a bougé, un nouveau produit), tu rouvres Claude Code, tu pointes le fichier, tu décris le problème en français, il propose la correction. Compte 10 à 30 minutes pour un fix simple.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi Claude Code et pas ChatGPT ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>ChatGPT</strong> répond dans une fenêtre de chat. <strong>Claude Code</strong> écrit, lit et exécute du code directement sur ton ordinateur. Pour Shirley, j'avais besoin d'un outil qui digère 28 Word + 12 PDFs + 60 pages web et produit un fichier HTML autonome. ChatGPT aurait demandé du copier-coller manuel à chaque étape. Claude Code travaille dans le dossier, lit tout, structure, code et teste sans intervention.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels risques quand on construit avec Claude Code sans être dev ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois risques. <strong>Un</strong>, du code généré qui marche en surface mais cache des bugs subtils — d'où l'importance de <strong>tester le parcours utilisateur réel</strong>, pas juste de vérifier que ça compile. <strong>Deux</strong>, des dépendances ou bibliothèques tierces que Claude installe sans que tu comprennes ce qu'elles font — préfère les outils qui restent en HTML pur quand c'est possible. <strong>Trois</strong>, la tentation de demander des features à rallonge sans validation — coupe court, valide chaque brique avant la suivante.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Peux-tu partager le code de l'outil de Shirley ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Non.</strong> Les tarifs et argumentaires commerciaux de l'employeur de Shirley n'ont pas vocation à être publics, et le nom de la marque a été anonymisé pour cet article. Mais la <strong>méthode complète</strong> est partagée ici — lire les sources métier, proposer une architecture, extraire la donnée, dicter les règles métier en français, faire implémenter par Claude Code. Tu peux la rejouer sur ton propre Word.</p>
+    </details>
   </div>
 </section>
 
@@ -1459,5 +1638,23 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
 });
 </script>
   <script src="../js/tts-player.js" defer></script>
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
 </body>
 </html>

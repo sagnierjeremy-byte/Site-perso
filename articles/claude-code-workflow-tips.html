@@ -53,6 +53,95 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Tu as vraiment besoin du plan Claude Code Max à 200 $ ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour mon usage (sessions quotidiennes, sous-agents, projets en parallèle), oui. J'avais commencé sur le plan Pro à 20 $, je touchais le plafond de tokens en 2 jours. Au-dessus d'une session sérieuse par jour, le plan Max devient le bon ratio. En dessous, le Pro suffit largement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cursor, Continue, Zed AI, Claude Code : lequel choisir ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un non-dev, Claude Code direct dans le terminal est plus simple : pas d'IDE à apprendre, pas de plug-in à configurer. Pour un dev senior qui vit déjà dans VS Code ou Zed, Cursor ou Continue.dev peuvent être plus naturels. La vraie différence n'est pas l'outil mais la discipline (CLAUDE.md, plan, CHANGELOG)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Tu vas finir par savoir coder à force d'utiliser Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sans doute un peu. Je comprends mieux qu'avant ce qu'est une variable, un import, une fonction asynchrone. Mais je ne deviendrai pas dev. Mon objectif est de livrer des outils qui me servent, sans dépendre d'un freelance pour chaque petite modif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment gérer la sécurité avec Claude Code quand on n'est pas dev ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Je m'appuie sur le sous-agent security-review de Claude après chaque feature sensible (API, paiement, auth), je vérifie systématiquement mes .env, et je rotate les clés à la moindre alerte. Sur les projets vraiment critiques (SaaS clients, données tierces), je ferais quand même relire par un dev humain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps avant d'être autonome avec Claude Code en non-dev ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un non-dev qui s'y met sérieusement : 3 à 4 semaines pour livrer son premier projet utile, 3 mois pour avoir le réflexe de découper en plans et d'écrire un CLAUDE.md, 6 mois pour vraiment sentir qu'on pilote l'outil et plus l'inverse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien d'heures par semaine pour utiliser Claude Code sérieusement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte 8 à 12 heures par semaine sur les 3 premiers mois si tu pars de zéro : 1 à 2 sessions de 90 minutes par jour, plus la lecture de docs et la digestion des erreurs. Ensuite la cadence baisse à 6 à 10 heures par semaine, mais le rendement par heure monte fortement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle stack non-dev minimale autour de Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cinq briques suffisent : Claude Code Max (200 $/mois), un éditeur VS Code gratuit pour relire les diffs, Vercel (gratuit) pour héberger, Resend (gratuit jusqu'à 3 000 emails) pour la transactionnel, et un compte GitHub. Total : 200 $/mois pour aller de zéro à plusieurs projets en prod."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il connaître git avant de démarrer Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Avant Claude Code je n'avais jamais commit de ma vie. Je demande à Claude de m'expliquer chaque commande git la première fois (commit, branch, merge, revert), aujourd'hui c'est devenu un réflexe à chaque session. Compte 2 semaines pour être à l'aise sur les 6 ou 7 commandes courantes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la pire erreur à éviter en démarrant Claude Code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lancer une migration de base de données sans backup. Ça m'est arrivé une fois, j'ai perdu un week-end à reconstruire mes données à la main. Règle d'or : avant tout DELETE, UPDATE ou migration de schéma, demande à Claude de faire d'abord un dump SQL et de te confirmer que le fichier de backup est lisible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Claude Code peut-il vraiment remplacer un dev freelance ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour des outils internes, des sites perso, des scripts d'automatisation et des MVP : oui, et j'économise environ 3 000 € par mois de TJM dev freelance équivalent. Pour des SaaS clients facturés ou des systèmes critiques, non : la responsabilité juridique et la dette technique long terme demandent encore un humain qui signe."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -461,6 +550,7 @@
     color: var(--ink-muted);
   }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -470,6 +560,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <!-- Header -->
 <header class="header">
@@ -522,8 +638,8 @@
       <li><strong>Un cas de bout en bout</strong> : la trilogie podcast « Guerres d'IA » écrite, sonorisée et publiée en 36 h. Heures comptées, étapes décrites.</li>
       <li><strong>3 erreurs vraiment chères</strong> que j'ai faites. Une m'a coûté un week-end. Tu vas savoir comment les éviter.</li>
       <li><strong>Ma routine quotidienne</strong> matin / après-midi / soir avec Claude Code. Ce qui tourne en parallèle pendant que je vis ma vie.</li>
+      <li><strong>Transparence</strong> · article écrit avec <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> (Anthropic), relu et signé par moi. Le pack Skills, le site, la trilogie podcast Wondery et le back-office mentionnés ici ont aussi été pilotés via Claude Code. Si tu vois une coquille, écris-moi à <a href="mailto:sagnier.jeremy@gmail.com">sagnier.jeremy@gmail.com</a>, je corrige.</li>
     </ul>
-    <p style="margin-top:14px; font-size:14px; color:var(--ink-muted)"><em>Article écrit avec Claude, relu et signé par moi. Si tu vois une coquille ou un raccourci, réponds à la newsletter, je corrige.</em></p>
   </div>
 </div>
 
@@ -566,7 +682,7 @@
       <li><strong>~1 850 commits Git</strong> sur l'ensemble des dépôts perso. J'ai compté en faisant <code>git log --since="6 months ago" --oneline | wc -l</code> sur chaque repo, puis additionné. Avant Claude Code, je n'avais jamais commit de ma vie. Aujourd'hui c'est devenu un réflexe à chaque session.</li>
       <li><strong>0 ligne de code écrite à la main</strong>. 100 % via Claude Code, en langage naturel. Je relis, je valide, je commit. Mais j'ai zéro touche clavier sur du JS, du CSS ou du Python. Ce qui ne veut pas dire « zéro effort » — la part humaine s'est juste déplacée vers le prompt, le plan, la relecture critique.</li>
       <li><strong>~12 heures économisées par semaine</strong> sur la production éditoriale. Avant : 3 h pour rédiger un article + 1 h pour le mettre en ligne + 1 h pour décliner en posts sociaux × 2 publications/semaine = 10 h. Aujourd'hui : 45 min de rédaction assistée + 5 min de publication + 5 min de déclinaison sociale × 2 = 1 h 50. Compté heure par heure sur 4 semaines de mars 2026.</li>
-      <li><strong>~340 € / mois de stack</strong> · Claude Code Max plan 200 $ + Vercel Hobby (gratuit) + Resend (gratuit jusqu'à 3 000 emails) + ElevenLabs Creator 22 $ + R2 Cloudflare (~0 €) + nom de domaine 1,20 €/mois. Avant, je n'avais aucun de ces outils — donc 100 % d'investissement nouveau, mais aussi 0 € d'agence ou de freelance.</li>
+      <li><strong>~340 € / mois de stack</strong> · Claude Code Max plan 200 $ + <a href="https://vercel.com/" target="_blank" rel="noopener">Vercel</a> Hobby (gratuit) + <a href="https://resend.com/" target="_blank" rel="noopener">Resend</a> (gratuit jusqu'à 3 000 emails) + <a href="https://elevenlabs.io/" target="_blank" rel="noopener">ElevenLabs</a> Creator 22 $ + R2 <a href="https://www.cloudflare.com/developer-platform/r2/" target="_blank" rel="noopener">Cloudflare</a> (~0 €) + nom de domaine 1,20 €/mois. Avant, je n'avais aucun de ces outils — donc 100 % d'investissement nouveau, mais aussi 0 € d'agence ou de freelance.</li>
       <li><strong>~3 000 € / mois de dev freelance évités</strong> · à 600 €/jour le TJM pour 5 jours/mois d'équivalent (chiffrage très conservateur d'un dev mid sur HTML + Vercel + scripts Node). Le delta net : ~2 660 €/mois récupérés, soit ~16 000 € sur 6 mois.</li>
       <li><strong>14 articles publiés</strong> sur jerwis.fr, dont 5 en avril 2026 sur les 4 premières semaines de mise en ligne du site.</li>
       <li><strong>10 freebies téléchargeables</strong> (CLAUDE.md anonymisé, pack de 26 skills, guide cours email, etc.) — tout généré et structuré avec Claude Code.</li>
@@ -602,7 +718,7 @@
     <h2>Pourquoi un non-dev a <em class="fuchsia">l'avantage</em></h2>
     <p>Avant les leçons, un détour rapide. Il y a deux chemins pour arriver à Claude Code, et selon ton chemin, tu n'utilises pas du tout le même outil.</p>
     <h3>Le dev senior</h3>
-    <p>Il vient de son éditeur de code habituel · VS Code, Cursor, Zed (les logiciels où les devs écrivent leur code). Il a déjà un workflow qui fonctionne (sa façon d'enchaîner les étapes du travail). Il a quinze ans d'habitudes installées. Il cherche à automatiser ce qu'il fait déjà, gagner en vitesse, industrialiser. Il parle naturellement de <em>tests</em>, <em>linting</em>, <em>refactoring</em>. Il juge la qualité du code que Claude produit.</p>
+    <p>Il vient de son éditeur de code habituel · VS Code, <a href="https://cursor.sh/" target="_blank" rel="noopener">Cursor</a>, Zed (les logiciels où les devs écrivent leur code). Il a déjà un workflow qui fonctionne (sa façon d'enchaîner les étapes du travail). Il a quinze ans d'habitudes installées. Il cherche à automatiser ce qu'il fait déjà, gagner en vitesse, industrialiser. Il parle naturellement de <em>tests</em>, <em>linting</em>, <em>refactoring</em>. Il juge la qualité du code que Claude produit.</p>
     <p>Claude Code arrive dans sa vie comme un collègue ingénieur. Il l'utilise en pair programming (à deux sur le même clavier, l'un code, l'autre relit). Il corrige ses suggestions, il désactive ce qui ne marche pas chez lui, il cherche à optimiser chaque seconde.</p>
     <h3>L'entrepreneur non-dev</h3>
     <p>Moi, j'arrive d'ailleurs. Je veux publier un site, envoyer une newsletter, avoir un tableau de bord pour suivre mes idées d'articles. Je ne pars pas d'un éditeur. Je pars d'un besoin.</p>
@@ -865,7 +981,7 @@
     <p>Je passerais pour un vendeur de tapis si je m'arrêtais aux belles histoires. Voilà ce qui ne marche toujours pas, après 6 mois.</p>
 
     <h3>Les hallucinations sur les versions de librairies</h3>
-    <p>Claude propose régulièrement des syntaxes qui ont disparu il y a un an, ou des packages npm qui n'existent pas. Sur du Next.js récent (App Router, Server Actions), il faut systématiquement croiser avec la doc à jour. Le plugin <code>context7</code> aide énormément · il va chercher la doc officielle au moment de répondre, plutôt que de se reposer sur sa mémoire d'entraînement. Sans ça, je reproduis le bug.</p>
+    <p>Claude propose régulièrement des syntaxes qui ont disparu il y a un an, ou des packages npm qui n'existent pas. Sur du <a href="https://nextjs.org/docs" target="_blank" rel="noopener">Next.js récent</a> (App Router, Server Actions), il faut systématiquement croiser avec la doc à jour. Le plugin <a href="https://github.com/upstash/context7" target="_blank" rel="noopener"><code>context7</code></a> aide énormément · il va chercher la doc officielle au moment de répondre, plutôt que de se reposer sur sa mémoire d'entraînement. Sans ça, je reproduis le bug.</p>
 
     <h3>Les sessions trop longues</h3>
     <p>Au-delà de ~90 min, Claude commence à perdre le fil. Il oublie une décision prise au début, ou il « invente » une fonction qu'il pense avoir écrite. La parade : redémarrer une session avec un prompt récap de 5 lignes (« voilà où on en est, voilà ce qu'on doit faire, voilà les contraintes »), et fermer la précédente.</p>
@@ -874,7 +990,7 @@
     <p>Claude est très mauvais pour estimer combien de temps une tâche va prendre. Il dit « 5 minutes » et ça en prend 45. Il dit « ça va coûter 2 € en API » et tu finis à 18 €. Je ne lui demande plus d'estimer · je mesure moi-même après coup, et je note dans le CHANGELOG.</p>
 
     <h3>Les sujets très récents (post-novembre 2025)</h3>
-    <p>Les modèles Claude ont une coupure de connaissances. Sur tout ce qui s'est passé après leur date d'entraînement, ils sont à côté ou inventent. Pour une recherche d'actualité réelle, je passe par un sous-agent qui a accès au web (dev-browser, ou un MCP web). Jamais Claude tout seul.</p>
+    <p>Les modèles Claude ont une coupure de connaissances. Sur tout ce qui s'est passé après leur date d'entraînement, ils sont à côté ou inventent. Pour une recherche d'actualité réelle, je passe par un sous-agent qui a accès au web (dev-browser, ou un <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">MCP</a> web). Jamais Claude tout seul.</p>
 
     <div class="callout warn">
       <h4>La règle qui m'a sauvé plusieurs fois</h4>
@@ -902,6 +1018,24 @@
 
     <h3>« Combien de temps avant d'être autonome ? »</h3>
     <p>Pour un non-dev qui s'y met sérieusement, 3-4 semaines pour livrer ton premier projet utile (un site simple, un script automatisé). 3 mois pour avoir le réflexe de découper en plans, d'écrire un CLAUDE.md, de demander un CHANGELOG. 6 mois pour vraiment sentir que tu pilotes l'outil et plus l'inverse.</p>
+
+    <h3>« Combien d'heures par semaine pour utiliser Claude Code sérieusement ? »</h3>
+    <p>Compte 8 à 12 heures par semaine sur les 3 premiers mois si tu pars de zéro · une à deux sessions de 90 minutes par jour, plus la lecture de docs et la digestion des erreurs. Ensuite la cadence baisse à 6-10 heures par semaine, mais le rendement par heure monte fortement (tu sais quoi prompter, tu vérifies plus vite, tu coupes les sessions qui partent en vrille).</p>
+
+    <h3>« Quelle stack non-dev minimale autour de Claude Code ? »</h3>
+    <p>Cinq briques suffisent · Claude Code Max (200 $/mois), un éditeur VS Code gratuit pour relire les diffs, Vercel (gratuit) pour héberger, Resend (gratuit jusqu'à 3 000 emails) pour la transactionnel, et un compte GitHub. Total · 200 $/mois pour aller de zéro à plusieurs projets en prod. Ajoute ElevenLabs (22 $) si tu fais du voix, Cloudflare R2 (gratuit) si tu héberges des fichiers lourds.</p>
+
+    <h3>« Faut-il connaître git avant de démarrer ? »</h3>
+    <p>Non. Avant Claude Code je n'avais jamais commit de ma vie. Je demande à Claude de m'expliquer chaque commande la première fois (commit, branch, merge, revert), aujourd'hui c'est devenu un réflexe à chaque session. Compte 2 semaines pour être à l'aise sur les 6-7 commandes courantes. Le piège · ne JAMAIS faire <code>git push --force</code> sur main sans avoir compris ce que ça écrase.</p>
+
+    <h3>« Quelle est la pire erreur à éviter en démarrant ? »</h3>
+    <p>Lancer une migration de base de données sans backup. Ça m'est arrivé une fois (raconté plus haut), j'ai perdu un week-end à reconstruire mes données à la main. Règle d'or · avant tout DELETE, UPDATE ou migration de schéma, demande à Claude de faire d'abord un dump SQL et de te confirmer que le fichier de backup est lisible. C'est 30 secondes, ça t'évite des sueurs froides.</p>
+
+    <h3>« Claude Code peut vraiment remplacer un dev freelance ? »</h3>
+    <p>Pour des outils internes, des sites perso, des scripts d'automatisation et des MVP · oui, et j'économise environ 3 000 € par mois de TJM dev freelance équivalent (chiffrage à 600 €/jour × 5 jours/mois). Pour des SaaS clients facturés ou des systèmes critiques (paiement, données médicales, SLA contractuel), non · la responsabilité juridique et la dette technique long terme demandent encore un humain qui signe.</p>
+
+    <h3>« <a href="../articles/booking-eurofiscalis-making-of.html">Tu peux montrer un cas concret de bout en bout ?</a> »</h3>
+    <p>Oui · le making-of complet du booking Eurofiscalis (un widget de prise de rendez-vous embarqué dans 4 sites WordPress) est documenté heure par heure dans <a href="../articles/booking-eurofiscalis-making-of.html">cet article</a>. Tu y verras le brief initial, les pièges rencontrés, le coût réel et les compromis assumés. C'est probablement le plus représentatif de ce que Claude Code change en non-dev sur un vrai projet client.</p>
   </div>
 </section>
 
@@ -969,6 +1103,24 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

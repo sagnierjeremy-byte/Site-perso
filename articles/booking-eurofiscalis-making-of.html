@@ -281,6 +281,7 @@
   .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
   .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -289,6 +290,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -321,6 +348,20 @@
   </div>
 </section>
 
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:14px 20px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:700">
+    <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>Entrepreneur · pas dev · construit des outils internes avec Claude Code</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Publié 24 avril 2026 · MAJ 24 avril 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
 <div class="container">
   <div class="tldr">
     <div class="tldr-label">En 30 secondes</div>
@@ -344,10 +385,10 @@
       Pour planter le décor : Eurofiscalis, c'est une boîte de fiscalité internationale fondée par mon frère Kevin en 2017. On accompagne des e-commerçants partout en Europe sur la TVA, l'autoliquidation, les déclarations en ligne. Et comme tout cabinet de conseil, on prend beaucoup de rendez-vous. Premier contact, suivi client, audit, présentation commerciale. Plusieurs centaines par mois, sur 20 personnes.
     </p>
     <p>
-      Pendant longtemps, on a fait ça avec <strong>Calendly</strong>. Outil parfait sur le papier : tu donnes ton lien, le client choisit son créneau, l'événement apparaît dans ton agenda. C'est devenu un standard du marché. Plan d'équipe à <strong>16 dollars par utilisateur et par mois</strong>. Multiplié par 20 commerciaux et conseillers, ça nous coûtait <strong>autour de 320 dollars chaque mois</strong>. Pas la mort.
+      Pendant longtemps, on a fait ça avec <strong><a href="https://calendly.com/" target="_blank" rel="noopener nofollow">Calendly</a></strong>. Outil parfait sur le papier : tu donnes ton lien, le client choisit son créneau, l'événement apparaît dans ton agenda. C'est devenu un standard du marché. Plan d'équipe à <strong>16 dollars par utilisateur et par mois</strong> (cf. <a href="https://calendly.com/pricing" target="_blank" rel="noopener nofollow">Calendly pricing</a>). Multiplié par 20 commerciaux et conseillers, ça nous coûtait <strong>autour de 320 dollars chaque mois</strong>. Pas la mort.
     </p>
     <p>
-      En parallèle, on payait aussi <strong>Letsignit</strong>, un autre logiciel français spécialisé dans la signature email. L'idée · que tous les conseillers aient une signature uniforme dans Outlook (photo, titre, téléphone, lien de réservation, logo Eurofiscalis), maintenue depuis une console centrale. Compte autour de <strong>80 € par mois</strong> pour 20 utilisateurs sur le plan standard. Là encore, pas la mort, mais ça finissait par faire <strong>~ 375 € chaque mois</strong> entre les deux outils, juste pour gérer des rendez-vous et des signatures.
+      En parallèle, on payait aussi <strong><a href="https://www.letsignit.com/" target="_blank" rel="noopener nofollow">Letsignit</a></strong>, un autre logiciel français spécialisé dans la signature email. L'idée · que tous les conseillers aient une signature uniforme dans Outlook (photo, titre, téléphone, lien de réservation, logo Eurofiscalis), maintenue depuis une console centrale. Compte autour de <strong>80 € par mois</strong> pour 20 utilisateurs sur le plan standard. Là encore, pas la mort, mais ça finissait par faire <strong>~ 375 € chaque mois</strong> entre les deux outils, juste pour gérer des rendez-vous et des signatures.
     </p>
     <p>
       Mais un dimanche soir de mars, en regardant la page de booking d'une conseillère qui venait d'arriver, j'ai bloqué. La photo n'était pas au bon format. Le titre était mal centré. Les couleurs n'étaient pas les nôtres. Aucun avis client en bas. Rien qui dise « tu es sur le point de rencontrer quelqu'un d'Eurofiscalis ». C'était une page Calendly de plus, comme il en existe des millions. Et la signature email de la même conseillère ne s'affichait pas correctement chez la moitié de ses destinataires (souci classique de Letsignit avec Outlook Windows ancienne génération).
@@ -622,12 +663,12 @@
           <tr><th>Outil</th><th>À quoi ça sert</th><th>Pourquoi celui-là</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Next.js</strong></td><td>Le moteur du site (l'équivalent du moteur dans une voiture)</td><td>C'est le standard moderne pour faire un site rapide, et Claude Code le maîtrise très bien.</td></tr>
-          <tr><td><strong>Supabase</strong></td><td>La base de données dans le cloud (où sont stockés les conseillers, les RDV, les dispos)</td><td>Gratuit jusqu'à un certain volume, simple à brancher, et il gère aussi les comptes utilisateurs.</td></tr>
-          <tr><td><strong>Microsoft Graph</strong></td><td>Le pont qui permet à notre site de parler à Outlook (lire l'agenda, créer un événement)</td><td>Obligatoire puisqu'on est en environnement Microsoft 365. Pas le plus agréable, mais c'est le seul.</td></tr>
-          <tr><td><strong>Resend</strong></td><td>Le service qui envoie les emails de confirmation et de rappel</td><td>Plus fiable que d'envoyer via Microsoft Graph. Marche du premier coup et a une interface claire.</td></tr>
-          <tr><td><strong>Vercel</strong></td><td>L'hébergeur qui fait tourner le site 24h/24</td><td>Couplage parfait avec Next.js · tu pousses ton code sur GitHub, c'est en ligne en 30 secondes.</td></tr>
-          <tr><td><strong>Sentry</strong></td><td>Le système qui te prévient quand quelque chose casse en prod</td><td>Indispensable quand 20 personnes utilisent l'outil et que tu ne peux pas tester chaque réservation à la main.</td></tr>
+          <tr><td><strong><a href="https://nextjs.org/" target="_blank" rel="noopener nofollow">Next.js</a></strong></td><td>Le moteur du site (l'équivalent du moteur dans une voiture)</td><td>C'est le standard moderne pour faire un site rapide, et Claude Code le maîtrise très bien.</td></tr>
+          <tr><td><strong><a href="https://supabase.com/" target="_blank" rel="noopener nofollow">Supabase</a></strong></td><td>La base de données dans le cloud (où sont stockés les conseillers, les RDV, les dispos)</td><td>Gratuit jusqu'à un certain volume, simple à brancher, et il gère aussi les comptes utilisateurs.</td></tr>
+          <tr><td><strong><a href="https://learn.microsoft.com/graph/" target="_blank" rel="noopener nofollow">Microsoft Graph</a></strong></td><td>Le pont qui permet à notre site de parler à Outlook (lire l'agenda, créer un événement)</td><td>Obligatoire puisqu'on est en environnement Microsoft 365. Pas le plus agréable, mais c'est le seul.</td></tr>
+          <tr><td><strong><a href="https://resend.com/" target="_blank" rel="noopener nofollow">Resend</a></strong></td><td>Le service qui envoie les emails de confirmation et de rappel</td><td>Plus fiable que d'envoyer via Microsoft Graph. Marche du premier coup et a une interface claire.</td></tr>
+          <tr><td><strong><a href="https://vercel.com/" target="_blank" rel="noopener nofollow">Vercel</a></strong></td><td>L'hébergeur qui fait tourner le site 24h/24</td><td>Couplage parfait avec Next.js · tu pousses ton code sur GitHub, c'est en ligne en 30 secondes.</td></tr>
+          <tr><td><strong><a href="https://sentry.io/" target="_blank" rel="noopener nofollow">Sentry</a></strong></td><td>Le système qui te prévient quand quelque chose casse en prod</td><td>Indispensable quand 20 personnes utilisent l'outil et que tu ne peux pas tester chaque réservation à la main.</td></tr>
         </tbody>
       </table>
     </div>
@@ -795,7 +836,7 @@
 
     <ol>
       <li><strong>Installe Claude Code</strong> · c'est le compagnon qui rend tout ça possible. Mon guide complet est <a href="../claude-code.html">ici</a>.</li>
-      <li><strong>Lis mon retour d'XP après 6 mois</strong> de Claude Code au quotidien · ce qui marche, ce qui ne marche pas, comment je l'utilise pour piloter mes projets. <a href="claude-code-workflow-tips.html">L'article est là</a>.</li>
+      <li><strong>Lis mon retour d'XP après 6 mois</strong> de Claude Code au quotidien · ce qui marche, ce qui ne marche pas, comment je l'utilise pour piloter mes projets. <a href="claude-code-workflow-tips.html">L'article est là</a>. Et pour un autre making-of similaire (un outil de vente terrain construit en deux semaines avec Claude Code), c'est <a href="outil-vente-claude-code.html">par ici</a>.</li>
       <li><strong>Teste avec un projet petit d'abord</strong>. N'attaque pas un Calendly directement. Commence par un mini-outil interne (un formulaire, un dashboard simple) pour te faire la main. Tu verras vite si Claude Code te convient.</li>
       <li><strong>Trouve un Max</strong>. Avoir un développeur de confiance qui peut prendre 1-2 jours pour la sécu et la mise en ligne, c'est inestimable. Sans Max, je n'aurais jamais osé mettre cet outil entre les mains de 20 personnes.</li>
     </ol>
@@ -852,10 +893,26 @@
     </details>
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
       <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels pièges techniques avons-nous rencontrés ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre pièges principaux : la gestion des fuseaux horaires (résolue avec <strong>date-fns-tz</strong>), les doubles réservations sur le même créneau (réglées par un index unique en base), les emails Microsoft Graph qui plantaient en silence (basculement sur Resend) et les jetons Outlook qui expirent toutes les heures (système de rafraîchissement automatique).</p>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre pièges principaux : la gestion des fuseaux horaires (résolue avec <strong><a href="https://github.com/marnusw/date-fns-tz" target="_blank" rel="noopener nofollow">date-fns-tz</a></strong>), les doubles réservations sur le même créneau (réglées par un index unique en base), les emails Microsoft Graph qui plantaient en silence (basculement sur Resend) et les jetons Outlook qui expirent toutes les heures (système de rafraîchissement automatique).</p>
     </details>
   </div>
 </section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          Une info obsolète, un chiffre qui a bougé, un détail technique faux ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut de l'article. Les retours terrain valent mille fois les articles — je lis tout, je réponds.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
 
 <section class="final-cta">
   <div class="container">
@@ -886,6 +943,24 @@
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

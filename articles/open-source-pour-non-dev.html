@@ -228,6 +228,7 @@
   .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
   .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
 </style>
+<link rel="stylesheet" href="../assets/nav-v2.css">
 </head>
 <body>
 
@@ -236,6 +237,32 @@
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
 </div>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../articles.html" aria-current="page">Articles</a>
+    <a href="../podcast.html">Podcast</a>
+    <a href="../index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
 
 <header class="header">
   <div class="header-inner">
@@ -278,7 +305,7 @@
       <li>Les boîtes qui font de l'open source <strong>gagnent leur vie</strong> sur le service, l'hébergement, ou les fonctions entreprise — pas sur le code lui-même</li>
       <li>L'<strong>IA en 2026</strong> est en plein clivage : Mistral, Llama, DeepSeek (ouverts) contre GPT-5, Claude, Gemini (fermés). Tu peux tester un modèle ouvert sur ton ordi en cinq minutes</li>
       <li>Top 5 d'outils à essayer demain : <strong>Bitwarden, Firefox, LibreOffice, Joplin, Audacity</strong>. Zéro carte bancaire, plein de données reprises en main</li>
-      <li><strong>Transparence</strong> : article écrit avec Claude (Anthropic), relu et validé par moi. Si tu repères une erreur ou un truc qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
+      <li><strong>Transparence</strong> : article écrit avec Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), relu et validé par moi. Si tu repères une erreur ou un truc qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -288,7 +315,7 @@
     <span class="section-kicker k-fuchsia">— Avant de commencer</span>
     <h2>C'est quoi <em class="fuchsia">exactement ?</em></h2>
     <p>
-      L'open source, c'est du code informatique que tu as le droit de <strong>lire</strong>, de <strong>modifier</strong> et de <strong>redistribuer</strong>. Imagine une recette de cuisine publiée en entier, avec la liste des ingrédients et chaque étape : tu peux la cuisiner, la changer à ta sauce, et la repartager modifiée. Pour qu'un logiciel mérite vraiment l'étiquette « open source », il doit cocher dix critères très précis posés par l'<strong>Open Source Initiative</strong> (l'OSI), une association de référence créée en 1998.
+      L'open source, c'est du code informatique que tu as le droit de <strong>lire</strong>, de <strong>modifier</strong> et de <strong>redistribuer</strong>. Imagine une recette de cuisine publiée en entier, avec la liste des ingrédients et chaque étape : tu peux la cuisiner, la changer à ta sauce, et la repartager modifiée. Pour qu'un logiciel mérite vraiment l'étiquette « open source », il doit cocher <a href="https://opensource.org/osd" target="_blank" rel="noopener">dix critères très précis</a> posés par l'<strong><a href="https://opensource.org/" target="_blank" rel="noopener">Open Source Initiative</a></strong> (l'OSI), une association de référence créée en 1998.
     </p>
     <p>
       Pas de petits caractères, pas d'exclusion par profession, pas de « gratuit pour les particuliers seulement ». Sans ces dix critères, ce n'est plus de l'open source. C'est autre chose. Et la nuance compte beaucoup, comme tu vas voir.
@@ -406,17 +433,17 @@
 
     <div class="bignum-grid">
       <div class="bignum">
-        <div class="label">Red Hat · 1993</div>
+        <div class="label"><a href="https://www.redhat.com/" target="_blank" rel="noopener">Red Hat</a> · 1993</div>
         <div class="num">34 G$</div>
-        <div class="desc">Racheté par IBM en 2019. Modèle « services + support » : Linux gratuit, contrats payants pour les banques qui veulent un téléphone à appeler à 3h du matin.</div>
+        <div class="desc"><a href="https://www.reuters.com/article/business/ibm-closes-34-billion-deal-to-buy-red-hat-idUSKCN1UR0Y1/" target="_blank" rel="noopener">Racheté par IBM en 2019</a>. Modèle « services + support » : Linux gratuit, contrats payants pour les banques qui veulent un téléphone à appeler à 3h du matin.</div>
       </div>
       <div class="bignum">
-        <div class="label">MongoDB · 2007</div>
+        <div class="label"><a href="https://www.mongodb.com/" target="_blank" rel="noopener">MongoDB</a> · 2007</div>
         <div class="num">2 G$</div>
-        <div class="desc">Chiffre d'affaires annuel. Le code de la base est libre, mais 73% du revenu vient d'Atlas, leur service hébergé qui gère sauvegardes, monitoring, sécurité.</div>
+        <div class="desc">Chiffre d'affaires annuel. Le code de la base est libre, mais 73% du revenu vient d'<a href="https://www.mongodb.com/atlas" target="_blank" rel="noopener">Atlas</a>, leur service hébergé qui gère sauvegardes, monitoring, sécurité.</div>
       </div>
       <div class="bignum">
-        <div class="label">GitLab · 2011</div>
+        <div class="label"><a href="https://about.gitlab.com/" target="_blank" rel="noopener">GitLab</a> · 2011</div>
         <div class="num">750 M$</div>
         <div class="desc">Modèle « open core » : version Community gratuite (qui couvre les besoins d'un dev solo), versions Premium et Ultimate payantes pour les fonctions entreprise.</div>
       </div>
@@ -462,7 +489,7 @@
 
     <div class="callout ok">
       <h4>Le mythe du bénévole barbu en pull</h4>
-      <p>L'image d'Épinal du contributeur qui code Linux le week-end pour la beauté du geste, c'est faux. <strong>84% des commits du noyau Linux en 2025 sont signés par des salariés en CDI dans des grandes entreprises</strong> : Intel, Google, Red Hat, IBM. Pourquoi ? Parce qu'Intel a besoin que Linux supporte parfaitement ses processeurs, Google fait tourner Android dessus sur trois milliards de smartphones, et Red Hat vend du support. L'open source moderne, c'est de l'investissement industriel partagé, pas du bénévolat romantique.</p>
+      <p>L'image d'Épinal du contributeur qui code Linux le week-end pour la beauté du geste, c'est faux. <strong>84% des commits du noyau Linux en 2025 sont <a href="https://www.linuxfoundation.org/research/world-of-open-source-2024" target="_blank" rel="noopener">signés par des salariés en CDI dans des grandes entreprises</a></strong> : Intel, Google, Red Hat, IBM. Pourquoi ? Parce qu'Intel a besoin que Linux supporte parfaitement ses processeurs, Google fait tourner Android dessus sur trois milliards de smartphones, et Red Hat vend du support. L'open source moderne, c'est de l'investissement industriel partagé, pas du bénévolat romantique. Gouvernance assurée par la <a href="https://www.linuxfoundation.org/" target="_blank" rel="noopener">Linux Foundation</a>, l'<a href="https://www.apache.org/" target="_blank" rel="noopener">Apache Software Foundation</a> et leurs équivalents.</p>
     </div>
   </div>
 </section>
@@ -481,9 +508,9 @@
           <tr><th>Outil</th><th>Date</th><th>Avant → Après</th><th>Réaction</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Elastic</strong></td><td>Janvier 2021</td><td>Apache 2.0 → SSPL</td><td>AWS forke → <strong>OpenSearch</strong></td></tr>
-          <tr><td><strong>HashiCorp Terraform</strong></td><td>Août 2023</td><td>MPL → BSL</td><td>Linux Foundation forke → <strong>OpenTofu</strong></td></tr>
-          <tr><td><strong>Redis</strong></td><td>Mars 2024</td><td>BSD → SSPL</td><td>AWS, Google, Oracle forkent → <strong>Valkey</strong></td></tr>
+          <tr><td><strong>Elastic</strong></td><td>Janvier 2021</td><td>Apache 2.0 → SSPL</td><td>AWS forke → <strong><a href="https://opensearch.org/" target="_blank" rel="noopener">OpenSearch</a></strong></td></tr>
+          <tr><td><strong><a href="https://www.hashicorp.com/blog/hashicorp-adopts-business-source-license" target="_blank" rel="noopener">HashiCorp Terraform</a></strong></td><td>Août 2023</td><td>MPL → BSL</td><td>Linux Foundation forke → <strong><a href="https://opentofu.org/" target="_blank" rel="noopener">OpenTofu</a></strong></td></tr>
+          <tr><td><strong>Redis</strong></td><td>Mars 2024</td><td>BSD → SSPL</td><td>AWS, Google, Oracle forkent → <strong><a href="https://valkey.io/" target="_blank" rel="noopener">Valkey</a></strong></td></tr>
         </tbody>
       </table>
     </div>
@@ -521,7 +548,7 @@
         </thead>
         <tbody>
           <tr><td><strong>Llama 4</strong></td><td>Meta</td><td>Llama Community License</td><td>Non — restrictions commerciales (clause anti-concurrence à 700M utilisateurs)</td></tr>
-          <tr><td><strong>Mistral Small 4</strong></td><td>Mistral AI (France)</td><td>Apache 2.0</td><td>Open weights libre — utilisable commercialement sans contrainte</td></tr>
+          <tr><td><strong>Mistral Small 4</strong></td><td><a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral AI</a> (France)</td><td>Apache 2.0</td><td>Open weights libre — utilisable commercialement sans contrainte</td></tr>
           <tr><td><strong>DeepSeek R1</strong></td><td>DeepSeek (Chine)</td><td>MIT</td><td>Open weights libre — celui qui a fait s'effondrer la bourse</td></tr>
           <tr><td><strong>Qwen 3</strong></td><td>Alibaba</td><td>Apache 2.0</td><td>Open weights libre — supporte 119 langues</td></tr>
           <tr><td><strong>OLMo 3</strong></td><td>Allen Institute (AI2)</td><td>Apache 2.0 + dataset Dolma</td><td><strong>Vraiment open source</strong> — weights + code training + données publiés</td></tr>
@@ -531,7 +558,7 @@
 
     <div class="callout warn">
       <h4>Le moment DeepSeek</h4>
-      <p>Le 27 janvier 2025, une boîte chinoise quasi inconnue publie DeepSeek R1, un modèle de raisonnement comparable à GPT-o1 d'OpenAI. Coût d'entraînement annoncé : <strong>5,6 millions de dollars</strong> au lieu des centaines de millions habituels. Open source. Le marché tranche le lendemain : <strong>NVIDIA perd 589 milliards de capitalisation en une seule séance</strong>, le plus grand jour de pertes pour une entreprise unique de toute l'histoire de la finance. Toute la thèse « il faut des milliards et des GPU à 30 000 dollars pour faire de l'IA » s'effondre. Si tu veux le récit complet de cette journée, je le raconte dans <a href="../articles/guerres-d-ia-podcast.html">l'épisode 4 de mon podcast Guerres d'IA</a>.</p>
+      <p>Le 27 janvier 2025, une boîte chinoise quasi inconnue publie <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a> R1, un modèle de raisonnement comparable à GPT-o1 d'OpenAI. Coût d'entraînement annoncé : <strong>5,6 millions de dollars</strong> au lieu des centaines de millions habituels. Open source. Le marché tranche le lendemain : <strong><a href="https://www.reuters.com/technology/chinas-deepseek-sets-off-ai-market-rout-2025-01-27/" target="_blank" rel="noopener">NVIDIA perd 589 milliards de capitalisation en une seule séance</a></strong>, le plus grand jour de pertes pour une entreprise unique de toute l'histoire de la finance. Toute la thèse « il faut des milliards et des GPU à 30 000 dollars pour faire de l'IA » s'effondre. Si tu veux le récit complet de cette journée, je le raconte dans <a href="guerres-d-ia-podcast.html">l'épisode 4 de mon podcast Guerres d'IA</a>.</p>
     </div>
 
     <h3>Pourquoi ça change tout pour toi</h3>
@@ -556,6 +583,7 @@
         <li>Tu te retrouves avec une interface de chat comme ChatGPT. Sauf que tu peux couper ton wifi et continuer à discuter. Magique.</li>
       </ol>
       <p>Si tu préfères une vraie interface graphique, regarde <strong>LM Studio</strong> (interface propre style Discord) ou <strong>Open WebUI</strong> (qui imite parfaitement ChatGPT). Avec 16 Go de RAM (le standard d'un MacBook moderne), tu fais tourner sereinement Mistral 7B ou Llama 3 8B. Qualité comparable à GPT-3.5.</p>
+      <p style="margin-top:12px;">Pour le tuto complet — choix matos, modèles, RAG, comparaison cloud vs local, pièges débutants — j'ai écrit l'article jumeau de celui-ci : <a href="llm-local-pour-non-dev.html">Faire tourner une vraie IA chez toi</a>. C'est la suite naturelle quand tu veux passer du « je télécharge en 5 min » au « je l'utilise tous les jours sur mes vrais documents ».</p>
     </div>
   </div>
 </section>
@@ -727,10 +755,10 @@
       <strong>Log4Shell (décembre 2021)</strong> : faille de gravité maximale dans Log4j, librairie utilisée partout dans le monde. Permettait à n'importe qui d'exécuter du code à distance sur n'importe quel serveur vulnérable. Existait silencieusement depuis 2013.
     </p>
     <p>
-      <strong>XZ Utils (mars 2024)</strong> : l'attaque la plus glaçante de l'histoire récente. Un attaquant a passé plus de deux ans à contribuer honnêtement à un utilitaire de compression utilisé par toutes les distributions Linux. Il a gagné la confiance, est devenu co-mainteneur, puis a inséré une porte dérobée. Détectée par hasard par un ingénieur Microsoft (Andres Freund) qui avait remarqué que ses connexions SSH prenaient 500 ms au lieu de 100 ms.
+      <strong>XZ Utils (mars 2024)</strong> : l'attaque la plus glaçante de l'histoire récente. Un attaquant a passé plus de deux ans à contribuer honnêtement à un utilitaire de compression utilisé par toutes les distributions Linux. Il a gagné la confiance, est devenu co-mainteneur, puis a inséré une porte dérobée. <a href="https://www.openwall.com/lists/oss-security/2024/03/29/4" target="_blank" rel="noopener">Détectée par hasard par un ingénieur Microsoft (Andres Freund)</a> qui avait remarqué que ses connexions SSH prenaient 500 ms au lieu de 100 ms.
     </p>
     <p>
-      <strong>Polyfill.io (juin 2024)</strong> : un service JavaScript utilisé sur 100 000 sites est racheté par un acteur malveillant. À partir de juin, le service injecte du code malveillant qui redirige les visiteurs mobiles vers des sites de scam.
+      <strong>Polyfill.io (juin 2024)</strong> : un service JavaScript utilisé sur 100 000 sites est racheté par un acteur malveillant. À partir de juin, <a href="https://sansec.io/research/polyfill-supply-chain-attack" target="_blank" rel="noopener">le service injecte du code malveillant qui redirige les visiteurs mobiles vers des sites de scam</a>.
     </p>
 
     <div class="checklist">
@@ -860,6 +888,24 @@
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
 </script>
 
 </body>

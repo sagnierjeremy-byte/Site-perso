@@ -1446,6 +1446,7 @@
 
   /* ============================================================
    * HERO JERWIS v2 · design animé (vars + stamp + hero)
+   * Nav CSS aussi dans assets/nav-v2.css pour cohérence inter-pages
    * ============================================================ */
   :root {
     --ink-fixed: #0A0A0A;
@@ -1455,10 +1456,10 @@
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
-  /* Cache l'ancien header, utilise .mini-nav */
+  /* Cache l'ancien header (double sécurité · aussi dans nav-v2.css) */
   body > header.header { display: none !important; }
 
-  /* Mini-nav (remplace le header) */
+  /* Mini-nav stamp (dupliqué avec nav-v2.css, isolé pour la home) */
   .mini-nav {
     position: relative; z-index: 15;
     display: flex; align-items: center; justify-content: space-between;

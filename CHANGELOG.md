@@ -1,5 +1,57 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · SEO Phase 2 · og:image dédiées + FAQ JSON-LD + template anti-régression
+
+### Pourquoi
+Suite de la Phase 1 SEO (qui a fait passer la moyenne site de 68 à ~85/100). Phase 2 = passer à 90+ via partage social pro + citabilité LLM (Perplexity, ChatGPT Search, Google AI Overview) + bloquer la régression sur les futurs articles.
+
+### Livré (3 actions parallèles via 7 sous-agents)
+
+#### P2-A1 · 21 og:image dédiées (1 sous-agent)
+- **`scripts/og-batch.html`** : template paramétrable 1200×630 avec mapping 21 slugs (kicker, h1, tagline, accent, size). Charte fiesta respectée (stripe gradient teal-fuchsia-orange + portrait Jérémy à gauche + accent color par article).
+- **`scripts/generate-og-batch.mjs`** : script Node Puppeteer qui boucle sur les 21 slugs, capture chaque cover en 1200×630, sauve en PNG.
+- **`scripts/patch-og-images.mjs`** : patcher idempotent qui remplace les `og:image=og-jerwis.jpg` par `og:image=/photos/og/<slug>.jpg` sur les 21 articles + ajoute `og:image:width/height` + `twitter:image` + met à jour le JSON-LD `image`.
+- **`photos/og/*.jpg`** × 21 : générés via Puppeteer + optimisés sips qual 82, taille moyenne 117 KB (cible <200 KB OG).
+- **0 régression** : plus aucune référence à `og-jerwis.jpg` dans les 21 articles.
+
+#### P2-A2 · FAQ + FAQPage JSON-LD sur 5 articles stratégiques (5 sous-agents en parallèle)
+- **booking-eurofiscalis-making-of** : 10 Q/R (+136 lignes, 753→889)
+- **llm-local-pour-non-dev** : 10 Q/R (+146 lignes, 909→1055)
+- **open-source-pour-non-dev** : 10 Q/R (+76 lignes, 787→863)
+- **monde-ia-5-10-20-ans** : 10 Q/R (~+200 lignes)
+- **autoresearch-karpathy** : 10 Q/R
+- **Total : 50 Q/R ajoutées au site**, citables directement par Perplexity / ChatGPT Search / Google AI Overview
+- Format : section `<section class="block" id="faq">` avant Final CTA + `<details>` repliables charte fiesta + `FAQPage` JSON-LD dans head après JSON-LD existant
+
+#### P2-A3 · MAJ `_TEMPLATE.html` anti-régression (moi-même)
+- Bloc Meta complet ajouté en haut avec placeholders `{{TITRE}}`, `{{META_DESCRIPTION_140_155_CHARS}}`, `{{TITRE_OG_60_CHARS_MAX}}`, `{{OG_DESCRIPTION_110_CHARS_MAX}}`, `{{SLUG}}`, `{{DATE_PUBLI_AAAA-MM-JJ}}`, `{{DATE_MAJ_AAAA-MM-JJ}}`
+- Commentaire HTML `⚠️ SEO REQUIREMENTS` qui rappelle les 6 contraintes (title ≤ 60, meta desc 140-155, OG/Twitter ≤ 110, canonical, 1 seul JSON-LD, og:image vers `photos/og/{{SLUG}}.jpg`)
+- Tout futur article créé depuis ce template héritera des bons réflexes SEO
+- Suffixe « — par Jérémy Sagnier » SUPPRIMÉ du title placeholder
+
+### État après Phase 2 (estimations)
+- Moyenne site : ~85 → ~92/100 (+7 pts moyens grâce à og:image + FAQ sur stratégiques)
+- 21/21 articles : og:image dédiée + meta complet + dimensions correctes
+- 5/5 stratégiques : FAQ visible + JSON-LD (50 Q/R total)
+- Template `_TEMPLATE.html` : anti-régression activé
+- Tous les HTML validés (21/21 OK)
+
+### Fichiers touchés
+- 21 articles `articles/*.html` (og:image + 5 d'entre eux ont aussi FAQ)
+- `articles/_TEMPLATE.html` (bloc Meta complet ajouté)
+- `scripts/og-batch.html` (nouveau)
+- `scripts/generate-og-batch.mjs` (nouveau)
+- `scripts/patch-og-images.mjs` (nouveau)
+- `photos/og/*.jpg` (21 nouveaux)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir (Phase 3 non faite)
+- Refonte contenu des 5 articles initialement <60 (workflow-tips, monde-ia, dev-browser, superpowers, veille) — pas juste meta mais structure et profondeur
+- Renommer slug `claude-code-workflow-tips-after-6-months-of-daily-` → `claude-code-workflow-tips` + redirect 301
+- Ajouter chiffres first-party mesurés sur 4 semaines pour boost CORE-EEAT Experience
+
+---
+
 ## 2026-04-24 · audit SEO + Phase 1 fix · 21 articles refondus
 
 ### Pourquoi

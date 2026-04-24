@@ -3,8 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{TITRE}} — par Jérémy Sagnier</title>
-<meta name="description" content="{{META_DESCRIPTION}}">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/{{SLUG}}.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>{{TITRE}}</title>
+<meta name="description" content="{{META_DESCRIPTION_140_155_CHARS}}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{TITRE_OG_60_CHARS_MAX}}">
+<meta property="og:description" content="{{OG_DESCRIPTION_110_CHARS_MAX}}">
+<meta property="og:url" content="https://jerwis.fr/articles/{{SLUG}}.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/{{SLUG}}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="{{DATE_PUBLI_AAAA-MM-JJ}}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="{{TITRE_OG_60_CHARS_MAX}}">
+<meta name="twitter:description" content="{{OG_DESCRIPTION_110_CHARS_MAX}}">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/{{SLUG}}.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/{{SLUG}}.html">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "{{TITRE_OG_60_CHARS_MAX}}",
+  "description": "{{META_DESCRIPTION_140_155_CHARS}}",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/{{SLUG}}.html",
+  "datePublished": "{{DATE_PUBLI_AAAA-MM-JJ}}",
+  "dateModified": "{{DATE_MAJ_AAAA-MM-JJ}}",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  },
+  "image": "https://jerwis.fr/photos/og/{{SLUG}}.jpg"
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

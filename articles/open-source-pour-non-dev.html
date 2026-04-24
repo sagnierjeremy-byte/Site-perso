@@ -11,7 +11,10 @@
 <meta property="og:url" content="https://jerwis.fr/articles/open-source-pour-non-dev">
 <meta property="og:title" content="L'open source, expliqué pour ceux qui ne sont pas dev">
 <meta property="og:description" content="C'est quoi, à quoi ça sert, quels outils essayer, comment l'IA change tout, comment éviter les pièges. Le tuto complet sans jargon.">
-<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image" content="https://jerwis.fr/photos/og/open-source-pour-non-dev.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/open-source-pour-non-dev.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
 
@@ -25,8 +28,27 @@
   "datePublished": "2026-04-24",
   "dateModified": "2026-04-24",
   "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
-  "image": "https://jerwis.fr/photos/og-jerwis.jpg",
+  "image": "https://jerwis.fr/photos/og/open-source-pour-non-dev.jpg",
   "mainEntityOfPage": "https://jerwis.fr/articles/open-source-pour-non-dev"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "C'est quoi vraiment l'open source ?", "acceptedAnswer": {"@type": "Answer", "text": "L'open source, c'est du code informatique que tu as le droit de lire, de modifier et de redistribuer. Pour mériter l'étiquette, un logiciel doit cocher dix critères précis posés par l'Open Source Initiative (OSI), une association de référence créée en 1998. Sans ces dix critères, ce n'est plus de l'open source, c'est autre chose."}},
+    {"@type": "Question", "name": "Open source veut dire gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Open source ne veut pas dire gratuit. Red Hat, racheté 34 milliards de dollars par IBM en 2019, vend du Linux. Le code est libre, mais le support, l'hébergement, les fonctions entreprise et la garantie juridique se paient."}},
+    {"@type": "Question", "name": "Quels outils open source essayer en premier ?", "acceptedAnswer": {"@type": "Answer", "text": "Mon top 5 pour démarrer : Bitwarden (gestionnaire de mots de passe, sécurité immédiate), Firefox (navigateur indépendant de Google), LibreOffice (95% des besoins bureautiques perso), Joplin (notes Markdown chiffrées) et Audacity (édition audio). Zéro carte bancaire, installation en deux clics."}},
+    {"@type": "Question", "name": "Comment les boîtes vivent en faisant du gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Cinq modèles économiques principaux : services et support payants (Red Hat), hosted SaaS clé en main (MongoDB Atlas génère 73% du revenu), open core avec fonctions entreprise payantes (GitLab), dual license commerciale (MySQL historique, Qt) et sponsoring via GitHub Sponsors. Le code est gratuit, mais tout ce qui l'entoure ne l'est pas."}},
+    {"@type": "Question", "name": "C'est quoi la différence entre open source et open weights ?", "acceptedAnswer": {"@type": "Answer", "text": "Open source au sens strict, c'est code source plus données plus droit de modifier et redistribuer. Open weights, c'est spécifique à l'IA : tu peux télécharger les paramètres du modèle, mais pas les données qui ont servi à l'entraîner. Ce n'est pas vraiment open source au sens OSI. Llama et Mistral sont open weights, OLMo 3 de l'Allen Institute est vraiment open source."}},
+    {"@type": "Question", "name": "Les modèles d'IA Mistral et Llama sont-ils vraiment libres ?", "acceptedAnswer": {"@type": "Answer", "text": "Mistral Small 4 est sous licence Apache 2.0, vraiment libre commercialement. Llama 4 ne l'est pas : sa Llama Community License contient une clause anti-concurrence à 700 millions d'utilisateurs et l'OSI a tranché en 2024 que ce n'est pas open source. Lis la licence avant d'engager du temps de dev sur un modèle."}},
+    {"@type": "Question", "name": "Quels sont les pièges à éviter avec l'open source ?", "acceptedAnswer": {"@type": "Answer", "text": "Cinq pièges majeurs : la contamination GPL qui force à publier ton code propriétaire, le projet abandonné ou saboté par son mainteneur (cas colors.js en 2022), le changement unilatéral de licence (Elastic, Redis, HashiCorp), le piège du gratuit non-open-source (Discord, Notion, Zoom) et la fausse open source dans l'IA (open weights présentée comme libre)."}},
+    {"@type": "Question", "name": "Comment auditer un outil open source avant de l'installer ?", "acceptedAnswer": {"@type": "Answer", "text": "Six critères à vérifier : licence reconnue par l'OSI (MIT, Apache 2.0, BSD, MPL), repo officiel actif avec commits récents, mainteneurs identifiables avec historique, sponsors visibles (GitHub Sponsors, fondation reconnue), au moins 100 stars et forks, et zéro CVE non patché sur cve.mitre.org. Active aussi GitHub Dependabot sur tes repos."}},
+    {"@type": "Question", "name": "C'est quoi le drame Elasticsearch, Redis et HashiCorp ?", "acceptedAnswer": {"@type": "Answer", "text": "Entre 2021 et 2024, ces trois éditeurs ont changé la licence de leur produit phare du jour au lendemain pour bloquer Amazon Web Services. Elastic est passée d'Apache 2.0 à SSPL en 2021, HashiCorp Terraform de MPL à BSL en 2023, Redis de BSD à SSPL en 2024. La communauté a réagi en créant des forks sous l'ancienne licence : OpenSearch, OpenTofu, Valkey."}},
+    {"@type": "Question", "name": "Pourquoi DeepSeek a fait s'effondrer NVIDIA ?", "acceptedAnswer": {"@type": "Answer", "text": "Le 27 janvier 2025, la boîte chinoise DeepSeek publie R1, un modèle de raisonnement open source comparable à GPT-o1 d'OpenAI, entraîné pour 5,6 millions de dollars au lieu des centaines de millions habituels. Le lendemain, NVIDIA perd 589 milliards de capitalisation en une seule séance, le plus grand jour de pertes pour une entreprise unique de l'histoire de la finance. La thèse il faut des milliards et des GPU à 30 000 dollars pour faire de l'IA s'effondre."}}
+  ]
 }
 </script>
 
@@ -749,6 +771,63 @@
     <p>
       Si tu veux que je t'envoie d'autres tutos comme ça (sur l'IA, l'open source, les outils que je teste), <a href="../index.html#newsletters">inscris-toi à AI Playbook</a> — c'est ma veille hebdomadaire, je te partage la même chose qu'à moi-même. Et si tu as une question, une remarque, ou tu penses que je me trompe quelque part dans cet article, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je ne le prends pas mal.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">open source.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi vraiment l'open source ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">L'open source, c'est du code informatique que tu as le droit de lire, de modifier et de redistribuer. Pour mériter l'étiquette, un logiciel doit cocher dix critères précis posés par l'Open Source Initiative (OSI), une association de référence créée en 1998. Sans ces dix critères, ce n'est plus de l'open source, c'est autre chose.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Open source veut dire gratuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Open source ne veut pas dire gratuit. Red Hat, racheté 34 milliards de dollars par IBM en 2019, vend du Linux. Le code est libre, mais le support, l'hébergement, les fonctions entreprise et la garantie juridique se paient.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels outils open source essayer en premier ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Mon top 5 pour démarrer : <strong>Bitwarden</strong> (gestionnaire de mots de passe, sécurité immédiate), <strong>Firefox</strong> (navigateur indépendant de Google), <strong>LibreOffice</strong> (95% des besoins bureautiques perso), <strong>Joplin</strong> (notes Markdown chiffrées) et <strong>Audacity</strong> (édition audio). Zéro carte bancaire, installation en deux clics.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment les boîtes vivent en faisant du gratuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Cinq modèles économiques principaux : services et support payants (Red Hat), hosted SaaS clé en main (MongoDB Atlas génère 73% du revenu), open core avec fonctions entreprise payantes (GitLab), dual license commerciale (MySQL historique, Qt) et sponsoring via GitHub Sponsors. Le code est gratuit, mais tout ce qui l'entoure ne l'est pas.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi la différence entre open source et open weights ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Open source au sens strict, c'est code source plus données plus droit de modifier et redistribuer. Open weights, c'est spécifique à l'IA : tu peux télécharger les paramètres du modèle, mais pas les données qui ont servi à l'entraîner. Ce n'est pas vraiment open source au sens OSI. Llama et Mistral sont open weights, OLMo 3 de l'Allen Institute est vraiment open source.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Les modèles d'IA Mistral et Llama sont-ils vraiment libres ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Mistral Small 4 est sous licence Apache 2.0, vraiment libre commercialement. Llama 4 ne l'est pas : sa Llama Community License contient une clause anti-concurrence à 700 millions d'utilisateurs et l'OSI a tranché en 2024 que ce n'est pas open source. Lis la licence avant d'engager du temps de dev sur un modèle.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels sont les pièges à éviter avec l'open source ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Cinq pièges majeurs : la contamination GPL qui force à publier ton code propriétaire, le projet abandonné ou saboté par son mainteneur (cas colors.js en 2022), le changement unilatéral de licence (Elastic, Redis, HashiCorp), le piège du gratuit non-open-source (Discord, Notion, Zoom) et la fausse open source dans l'IA (open weights présentée comme libre).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment auditer un outil open source avant de l'installer ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Six critères à vérifier : licence reconnue par l'OSI (MIT, Apache 2.0, BSD, MPL), repo officiel actif avec commits récents, mainteneurs identifiables avec historique, sponsors visibles (GitHub Sponsors, fondation reconnue), au moins 100 stars et forks, et zéro CVE non patché sur <code>cve.mitre.org</code>. Active aussi <strong>GitHub Dependabot</strong> sur tes repos.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi le drame Elasticsearch, Redis et HashiCorp ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Entre 2021 et 2024, ces trois éditeurs ont changé la licence de leur produit phare du jour au lendemain pour bloquer Amazon Web Services. Elastic est passée d'Apache 2.0 à SSPL en 2021, HashiCorp Terraform de MPL à BSL en 2023, Redis de BSD à SSPL en 2024. La communauté a réagi en créant des forks sous l'ancienne licence : <strong>OpenSearch, OpenTofu, Valkey</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi DeepSeek a fait s'effondrer NVIDIA ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le 27 janvier 2025, la boîte chinoise DeepSeek publie R1, un modèle de raisonnement open source comparable à GPT-o1 d'OpenAI, entraîné pour 5,6 millions de dollars au lieu des centaines de millions habituels. Le lendemain, <strong>NVIDIA perd 589 milliards de capitalisation</strong> en une seule séance, le plus grand jour de pertes pour une entreprise unique de l'histoire de la finance. La thèse « il faut des milliards et des GPU à 30 000 dollars pour faire de l'IA » s'effondre.</p>
+    </details>
   </div>
 </section>
 

@@ -11,7 +11,10 @@
 <meta property="og:url" content="https://jerwis.fr/articles/booking-eurofiscalis-making-of">
 <meta property="og:title" content="On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine.">
 <meta property="og:description" content="Le making-of de booking.eurofiscalis.app · 2 SaaS remplacés (réservation + signature email), 1 semaine, 20 utilisateurs aujourd'hui, ~ 345 €/mois économisés.">
-<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image" content="https://jerwis.fr/photos/og/booking-eurofiscalis-making-of.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/booking-eurofiscalis-making-of.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
 
@@ -25,8 +28,97 @@
   "datePublished": "2026-04-24",
   "dateModified": "2026-04-24",
   "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
-  "image": "https://jerwis.fr/photos/og-jerwis.jpg",
+  "image": "https://jerwis.fr/photos/og/booking-eurofiscalis-making-of.jpg",
   "mainEntityOfPage": "https://jerwis.fr/articles/booking-eurofiscalis-making-of"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Pourquoi avoir quitté Calendly et Letsignit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le vrai déclencheur n'était pas le prix mais l'impossibilité de personnaliser correctement les pages de réservation et les signatures email à notre charte Eurofiscalis. Calendly ne laissait changer qu'une couleur d'accent, et les 20 conseillers avaient des pages dépareillées. Tant qu'à refaire, on a tué Letsignit dans la foulée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûtaient Calendly et Letsignit avant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calendly Teams à 16 dollars par utilisateur et par mois, soit environ 295 euros pour 20 personnes. Letsignit autour de 80 euros par mois sur le plan standard. Total cumulé d'environ 375 euros par mois, soit à peu près 4 500 euros par an."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps a pris la construction de l'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cinq jours pour la base, du dimanche soir (le déclic) au vendredi soir (mise en ligne). Puis deux semaines supplémentaires pour construire le back-office complet (onboarding autonome, signatures, fonds visio) que je n'avais pas anticipé au départ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle stack technique a été utilisée ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Next.js pour le moteur du site, Supabase pour la base de données, Microsoft Graph pour la synchronisation Outlook, Resend pour les emails de confirmation, Vercel pour l'hébergement et Sentry pour le monitoring. Rien d'exotique, c'est un assemblage standard d'outils qu'utilise n'importe quelle startup web en 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment fonctionne la fonction RDV à 2 conseillers ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un conseiller génère un lien spécial qui réserve un créneau pour lui ET un collègue choisi. L'outil calcule automatiquement les créneaux où les deux sont libres dans Outlook. Très utile pour les passages de relais entre commercial et conseiller technique : un seul créneau, deux personnes en face, le client n'a plus à répéter son histoire deux fois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de personnes utilisent l'outil aujourd'hui ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 conseillers chez Eurofiscalis l'utilisent tous les jours. Plus de 500 rendez-vous ont été passés depuis la mise en ligne en avril 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte l'outil maison par mois maintenant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Environ 30 euros par mois cumulés pour Vercel, Supabase et Resend. Soit autour de 360 euros par an, contre 4 500 euros avant. Économie d'environ 4 140 euros par an. Ce coût ne compte pas le temps de construction (5 jours + 2 semaines) ni la maintenance (1 à 2 jours par mois)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi avoir basculé de Microsoft Graph à Resend pour les emails ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les envois via Microsoft Graph plantaient en silence environ une fois sur dix, sans erreur ni retour, et les clients ne recevaient pas leur confirmation. Resend, un service spécialisé email, marche du premier coup et n'a pas eu un seul raté en quatre semaines de production. La spécialisation a primé sur l'intégration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour construire ce genre d'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je ne suis pas développeur, je suis entrepreneur, et tout a été construit avec Claude Code en pair-programming (l'IA tape, je guide). Max, notre développeur, est seulement intervenu sur la fin pour l'audit sécurité avant la mise en ligne. Le seuil pour construire son propre outil interne est devenu accessible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels pièges techniques avons-nous rencontrés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre pièges principaux : la gestion des fuseaux horaires (résolue avec date-fns-tz), les doubles réservations sur le même créneau (réglées par un index unique en base), les emails Microsoft Graph qui plantaient en silence (basculement sur Resend) et les jetons Outlook qui expirent toutes les heures (système de rafraîchissement automatique)."
+      }
+    }
+  ]
 }
 </script>
 
@@ -715,6 +807,53 @@
     <p>
       Si tu veux que je te raconte d'autres projets internes qu'on construit comme ça (en ce moment je travaille sur un agent qui qualifie nos leads sur WhatsApp), <a href="../index.html#newsletters">inscris-toi à AI Playbook</a> · ma veille hebdomadaire. Et si tu lances un projet similaire, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, j'adore lire les retours d'autres entrepreneurs qui essaient. Je réponds à tout.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">booking Eurofiscalis.</em></h2>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi avoir quitté Calendly et Letsignit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le vrai déclencheur n'était pas le prix mais l'impossibilité de personnaliser correctement les pages de réservation et les signatures email à notre charte Eurofiscalis. Calendly ne laissait changer qu'une couleur d'accent, et les 20 conseillers avaient des pages dépareillées. Tant qu'à refaire, on a tué Letsignit dans la foulée.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien coûtaient Calendly et Letsignit avant ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Calendly Teams à 16 dollars par utilisateur et par mois, soit environ 295 € pour 20 personnes. Letsignit autour de 80 € par mois sur le plan standard. Total cumulé d'environ <strong>375 € par mois</strong>, soit à peu près 4 500 € par an.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps a pris la construction de l'outil ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Cinq jours pour la base, du dimanche soir (le déclic) au vendredi soir (mise en ligne). Puis deux semaines supplémentaires pour construire le back-office complet (onboarding autonome, signatures, fonds visio) que je n'avais pas anticipé au départ.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle stack technique a été utilisée ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Next.js</strong> pour le moteur du site, <strong>Supabase</strong> pour la base de données, <strong>Microsoft Graph</strong> pour la synchronisation Outlook, <strong>Resend</strong> pour les emails, <strong>Vercel</strong> pour l'hébergement et <strong>Sentry</strong> pour le monitoring. Rien d'exotique, c'est un assemblage standard d'outils qu'utilise n'importe quelle startup web en 2026.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment fonctionne la fonction RDV à 2 conseillers ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Un conseiller génère un lien spécial qui réserve un créneau pour lui ET un collègue choisi. L'outil calcule automatiquement les créneaux où les deux sont libres dans Outlook. Très utile pour les passages de relais entre commercial et conseiller technique : un seul créneau, deux personnes en face, le client n'a plus à répéter son histoire deux fois.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de personnes utilisent l'outil aujourd'hui ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>20 conseillers</strong> chez Eurofiscalis l'utilisent tous les jours. Plus de 500 rendez-vous ont été passés depuis la mise en ligne en avril 2026.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien coûte l'outil maison par mois maintenant ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Environ <strong>30 € par mois</strong> cumulés pour Vercel, Supabase et Resend. Soit autour de 360 € par an, contre 4 500 € avant. Économie d'environ 4 140 € par an. Ce coût ne compte pas le temps de construction (5 jours + 2 semaines) ni la maintenance (1 à 2 jours par mois).</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi avoir basculé de Microsoft Graph à Resend pour les emails ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les envois via Microsoft Graph plantaient en silence environ une fois sur dix, sans erreur ni retour, et les clients ne recevaient pas leur confirmation. Resend, un service spécialisé email, marche du premier coup et n'a pas eu un seul raté en quatre semaines de production. La spécialisation a primé sur l'intégration.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur pour construire ce genre d'outil ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Je ne suis pas développeur, je suis entrepreneur, et tout a été construit avec <strong>Claude Code</strong> en pair-programming (l'IA tape, je guide). Max, notre développeur, est seulement intervenu sur la fin pour l'audit sécurité avant la mise en ligne. Le seuil pour construire son propre outil interne est devenu accessible.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels pièges techniques avons-nous rencontrés ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre pièges principaux : la gestion des fuseaux horaires (résolue avec <strong>date-fns-tz</strong>), les doubles réservations sur le même créneau (réglées par un index unique en base), les emails Microsoft Graph qui plantaient en silence (basculement sur Resend) et les jetons Outlook qui expirent toutes les heures (système de rafraîchissement automatique).</p>
+    </details>
   </div>
 </section>
 

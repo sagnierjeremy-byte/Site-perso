@@ -11,7 +11,10 @@
 <meta property="og:url" content="https://jerwis.fr/articles/autoresearch-karpathy">
 <meta property="og:title" content="J'ai laissé une IA s'améliorer toute seule pendant la nuit">
 <meta property="og:description" content="L'idée folle de Karpathy : un agent qui modifie son propre travail, teste, garde si meilleur, recommence. J'ai essayé sur mon tri d'emails. Récit.">
-<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image" content="https://jerwis.fr/photos/og/autoresearch-karpathy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/autoresearch-karpathy.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
 
@@ -25,8 +28,97 @@
   "datePublished": "2026-04-24",
   "dateModified": "2026-04-24",
   "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
-  "image": "https://jerwis.fr/photos/og-jerwis.jpg",
+  "image": "https://jerwis.fr/photos/og/autoresearch-karpathy.jpg",
   "mainEntityOfPage": "https://jerwis.fr/articles/autoresearch-karpathy"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi l'auto-recherche selon Karpathy ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'idée centrale du projet autoresearch d'Andrej Karpathy : tu fais bosser une IA sur un problème, tu lui demandes de modifier son propre travail, elle teste si la nouvelle version est meilleure, garde si oui, jette si non, et recommence en boucle. C'est l'idée la plus simple du monde habillée d'un nom savant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment laisser une IA améliorer son propre code pendant la nuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu prépares une liste de référence (200 exemples notés à la main), tu donnes le programme actuel à Claude Code avec un brief en français, tu fixes un plafond de coût en jetons IA, et tu lances le soir. Au matin, l'IA te montre la meilleure version trouvée et la liste de tout ce qu'elle a essayé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien ça coûte de tester 14 versions d'un agent pendant une nuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mon expérience nocturne sur le tri d'emails m'a coûté 8,40 € en jetons IA pour 9 heures de travail et 14 versions testées, sur un plafond fixé à 15 €. Compte 10 à 15 € pour un premier essai, c'est largement suffisant pour comprendre si ça marche."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels cas d'usage non-dev pour l'auto-recherche ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre cas concrets testés : trouver les meilleurs objets de newsletter (gain 8 à 18 % d'ouvertures), tester 50 variantes de cold email, améliorer la clarté d'articles de blog en s'inspirant des meilleurs passés, et optimiser des fiches produit e-commerce. Le point commun : tu dois pouvoir mesurer objectivement si une version est meilleure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels pièges éviter avant de lancer une boucle d'auto-amélioration ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre pièges principaux : lancer sans plafond de coût (5 € prévu peut devenir 80 €), ne pas garder de liste secrète de contrôle (l'IA apprend par cœur ta référence), laisser tourner sur du critique (jamais sur ton CRM ou ta facturation), et croire que plus de versions testées donne forcément un meilleur résultat (le gain plafonne vite après 20-30 modifications)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels outils permettent de faire de l'auto-recherche concrètement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code (l'application qui permet de discuter avec Claude dans un terminal et de lui faire modifier des fichiers) ou Codex CLI d'OpenAI sont les deux outils principaux aujourd'hui. Compte 30 minutes d'installation la première fois. D'ici 18 mois, ce sera probablement un bouton intégré dans Notion, Zapier ou Make."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour faire de l'auto-recherche IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je ne suis pas dev et je n'ai jamais étudié l'informatique. Toute l'expérience a été faite en demandant à Claude d'expliquer chaque étape comme à un débutant et en lui faisant écrire le code. La règle d'or : tant que tu n'as pas compris ce que l'IA a changé, ne mets pas en production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels résultats réalistes attendre d'une boucle d'auto-amélioration ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 à 30 % d'amélioration par boucle dans mes essais, avec un plafonnement rapide (la deuxième boucle gagne moins que la première). Sur le tri d'emails, j'ai obtenu 23 % d'emails importants en moins ratés. Les promesses marketing de 200 ou 300 % sont du bruit : Karpathy lui-même calme le jeu et parle de micro-améliorations sur des sujets précis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "C'est quoi la différence entre l'auto-recherche et un fine-tuning classique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un fine-tuning modifie les poids du modèle IA lui-même avec un dataset, ça demande de l'infrastructure et de la donnée. L'auto-recherche modifie le code, le prompt ou la configuration autour du modèle, sans toucher au modèle. C'est plus accessible, moins cher, et applicable à n'importe quoi qui se mesure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il pour avoir un premier résultat exploitable ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compte deux à trois heures la première fois, principalement pour préparer la liste de référence (l'étape la plus longue mais la plus importante). La boucle elle-même tourne pendant la nuit pendant que tu dors. Au matin, tu as ta meilleure version. Compte ensuite deux à cinq essais avant de gagner vraiment du temps : le premier est toujours pour apprendre."
+      }
+    }
+  ]
 }
 </script>
 
@@ -695,6 +787,63 @@
     <p>
       Si tu veux que je t'envoie d'autres récits comme celui-ci (ce que je teste, ce qui marche, ce qui rate), inscris-toi à <a href="../index.html#newsletters">AI Playbook</a> — c'est ma veille hebdomadaire, je te partage la même chose qu'à moi-même. Et si tu lances ton premier essai et que tu galères, ou que tu trouves que je raconte n'importe quoi quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je ne le prends pas mal, et j'apprends souvent plus de tes retours que de mes propres essais.
     </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>FAQ <em class="fuchsia">auto-recherche.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi l'auto-recherche selon Karpathy ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">L'idée centrale du projet <em>autoresearch</em> d'Andrej Karpathy : tu fais bosser une IA sur un problème, tu lui demandes de modifier son propre travail, elle teste si la nouvelle version est meilleure, garde si oui, jette si non, et recommence en boucle. C'est l'idée la plus simple du monde habillée d'un nom savant.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment laisser une IA améliorer son propre code pendant la nuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Tu prépares une liste de référence (200 exemples notés à la main), tu donnes le programme actuel à Claude Code avec un brief en français, tu fixes un plafond de coût en jetons IA, et tu lances le soir. Au matin, l'IA te montre la meilleure version trouvée et la liste de tout ce qu'elle a essayé.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte de tester 14 versions d'un agent pendant une nuit ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Mon expérience nocturne sur le tri d'emails m'a coûté <strong>8,40 € en jetons IA</strong> pour 9 heures de travail et 14 versions testées, sur un plafond fixé à 15 €. Compte 10 à 15 € pour un premier essai, c'est largement suffisant pour comprendre si ça marche.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels cas d'usage non-dev pour l'auto-recherche ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre cas concrets testés : trouver les meilleurs objets de newsletter (gain 8 à 18 % d'ouvertures), tester 50 variantes de cold email, améliorer la clarté d'articles de blog en s'inspirant des meilleurs passés, et optimiser des fiches produit e-commerce. Le point commun : tu dois pouvoir <strong>mesurer objectivement</strong> si une version est meilleure.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels pièges éviter avant de lancer une boucle d'auto-amélioration ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Quatre pièges principaux : lancer sans plafond de coût (5 € prévu peut devenir 80 €), ne pas garder de liste secrète de contrôle (l'IA apprend par cœur ta référence), laisser tourner sur du critique (jamais sur ton CRM ou ta facturation), et croire que plus de versions testées donne forcément un meilleur résultat (le gain plafonne vite après 20-30 modifications).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels outils permettent de faire de l'auto-recherche concrètement ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Claude Code</strong> (l'application qui permet de discuter avec Claude dans un terminal et de lui faire modifier des fichiers) ou <strong>Codex CLI</strong> d'OpenAI sont les deux outils principaux aujourd'hui. Compte 30 minutes d'installation la première fois. D'ici 18 mois, ce sera probablement un bouton intégré dans Notion, Zapier ou Make.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Faut-il être développeur pour faire de l'auto-recherche IA ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Je ne suis pas dev et je n'ai jamais étudié l'informatique. Toute l'expérience a été faite en demandant à Claude d'expliquer chaque étape comme à un débutant et en lui faisant écrire le code. La règle d'or : <strong>tant que tu n'as pas compris ce que l'IA a changé, ne mets pas en production</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quels résultats réalistes attendre d'une boucle d'auto-amélioration ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">10 à 30 % d'amélioration par boucle dans mes essais, avec un plafonnement rapide (la deuxième boucle gagne moins que la première). Sur le tri d'emails, j'ai obtenu 23 % d'emails importants en moins ratés. Les promesses marketing de 200 ou 300 % sont du bruit : Karpathy lui-même calme le jeu et parle de micro-améliorations sur des sujets précis.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">C'est quoi la différence entre l'auto-recherche et un fine-tuning classique ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Un <strong>fine-tuning</strong> modifie les poids du modèle IA lui-même avec un dataset, ça demande de l'infrastructure et de la donnée. L'<strong>auto-recherche</strong> modifie le code, le prompt ou la configuration autour du modèle, sans toucher au modèle. C'est plus accessible, moins cher, et applicable à n'importe quoi qui se mesure.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien de temps faut-il pour avoir un premier résultat exploitable ?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>deux à trois heures</strong> la première fois, principalement pour préparer la liste de référence (l'étape la plus longue mais la plus importante). La boucle elle-même tourne pendant la nuit pendant que tu dors. Au matin, tu as ta meilleure version. Compte ensuite deux à cinq essais avant de gagner vraiment du temps : le premier est toujours pour apprendre.</p>
+    </details>
   </div>
 </section>
 

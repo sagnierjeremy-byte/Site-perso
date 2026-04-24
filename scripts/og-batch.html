@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>OG Batch Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: #FBF7F0;
+    color: #0A0A0A;
+    position: relative;
+  }
+  .stripe {
+    position: absolute; top: 0; left: 0; right: 0; height: 14px;
+    background: linear-gradient(90deg, #00B2A9 0%, #00B2A9 33.33%, #EF426F 33.33%, #EF426F 66.66%, #FF8200 66.66%, #FF8200 100%);
+  }
+  .bottom-stripe {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 14px;
+    background: linear-gradient(90deg, #00B2A9 0%, #00B2A9 33.33%, #EF426F 33.33%, #EF426F 66.66%, #FF8200 66.66%, #FF8200 100%);
+  }
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 60px 60px;
+    align-items: center;
+    gap: 50px;
+  }
+  .photo-wrap {
+    width: 320px;
+    height: 440px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #0A0A0A;
+    position: relative;
+  }
+  .photo-wrap.shadow-fuchsia { box-shadow: 8px 8px 0 #EF426F; }
+  .photo-wrap.shadow-teal    { box-shadow: 8px 8px 0 #00B2A9; }
+  .photo-wrap.shadow-orange  { box-shadow: 8px 8px 0 #FF8200; }
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.1);
+  }
+  .text-block { flex: 1; min-width: 0; }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #6E6E6E;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .kicker.dot-fuchsia::before { background: #EF426F; }
+  .kicker.dot-teal::before    { background: #00B2A9; }
+  .kicker.dot-orange::before  { background: #FF8200; }
+  .kicker::before {
+    content: "";
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #EF426F;
+  }
+  h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 64px;
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1.size-md { font-size: 56px; }
+  h1.size-sm { font-size: 50px; }
+  h1 .accent-fuchsia { color: #EF426F; }
+  h1 .accent-teal    { color: #00B2A9; }
+  h1 .accent-orange  { color: #FF8200; }
+  .tagline {
+    font-family: 'Archivo', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3A3A3A;
+    line-height: 1.35;
+    max-width: 620px;
+  }
+  .url {
+    position: absolute;
+    bottom: 38px; right: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .url::before {
+    content: "→";
+    color: #EF426F;
+  }
+</style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div class="container">
+    <div class="photo-wrap" id="photo-wrap">
+      <img src="../photos/A7100670.jpg" alt="Jérémy Sagnier" id="photo-img">
+    </div>
+    <div class="text-block">
+      <div class="kicker" id="kicker">Article · jerwis.fr</div>
+      <h1 id="title">Titre</h1>
+      <p class="tagline" id="tagline">Sous-titre</p>
+    </div>
+  </div>
+  <div class="url">jerwis.fr</div>
+  <div class="bottom-stripe"></div>
+
+<script>
+const COVERS = {
+  "agents-ia-guide": {
+    kicker: "Guide · Agents IA",
+    h1: "Agents IA, <span class=\"accent-teal\">à quoi ça sert</span><br>et combien <span class=\"accent-fuchsia\">ça coûte.</span>",
+    tagline: "Tout pour comprendre les agents IA. Sans jargon, avec les vrais chiffres.",
+    accent: "teal",
+    size: "md"
+  },
+  "autoresearch-karpathy": {
+    kicker: "Récit · Karpathy",
+    h1: "J'ai laissé une IA<br>s'améliorer<br><span class=\"accent-fuchsia\">toute seule.</span>",
+    tagline: "Une nuit, un agent qui modifie son propre code et garde ce qui marche.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "better-call-vs-associe": {
+    kicker: "Opinion · Mentor IA",
+    h1: "Oussama Ammar<br>comme associé,<br><span class=\"accent-orange\">à 7 000 € / an.</span>",
+    tagline: "Pourquoi un mentor IA peut remplacer un associé fondateur. Test sur 3 mois.",
+    accent: "orange"
+  },
+  "booking-eurofiscalis-making-of": {
+    kicker: "Making-of · Eurofiscalis",
+    h1: "On a viré <span class=\"accent-fuchsia\">Calendly</span><br>et <span class=\"accent-teal\">Letsignit.</span><br>Voilà comment.",
+    tagline: "Notre booking interne construit en 6 semaines. Stack, coûts, pièges.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "claude-code-workflow-tips-after-6-months-of-daily-": {
+    kicker: "Retex · Claude Code",
+    h1: "6 mois de<br>Claude Code,<br><span class=\"accent-teal\">vu par un non-dev.</span>",
+    tagline: "Workflow, raccourcis, bonnes habitudes. Ce que j'ai appris en utilisation quotidienne.",
+    accent: "teal"
+  },
+  "dev-browser": {
+    kicker: "Outil · Dev-browser",
+    h1: "Un navigateur<br>piloté<br><span class=\"accent-fuchsia\">par ton IA.</span>",
+    tagline: "Scraper, tester, screenshoter en 1 ligne. L'outil que j'utilise tous les jours.",
+    accent: "fuchsia"
+  },
+  "guerres-d-ia-podcast": {
+    kicker: "Making-of · Podcast IA",
+    h1: "Un podcast<br>en <span class=\"accent-fuchsia\">24 heures</span><br>pour <span class=\"accent-orange\">33 dollars.</span>",
+    tagline: "3 épisodes narratifs sur la guerre des IA. Stack, voix clonées, post-prod.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "hermes-agent": {
+    kicker: "Tutoriel · Agent Gmail",
+    h1: "L'agent qui lit<br>mes <span class=\"accent-teal\">200 mails</span><br>chaque matin.",
+    tagline: "Construire un Hermes Agent pas à pas. 45 min de setup, 5 € par mois.",
+    accent: "teal",
+    size: "md"
+  },
+  "karpathy": {
+    kicker: "Vulgarisation · Karpathy",
+    h1: "Les travaux<br>de <span class=\"accent-orange\">Karpathy,</span><br>vulgarisés.",
+    tagline: "Comprendre les LLM, le RL, les agents. Sans être chercheur en IA.",
+    accent: "orange"
+  },
+  "limova-vs-claude-code": {
+    kicker: "Opinion · Outils IA",
+    h1: "Avant de payer<br>Limova <span class=\"accent-fuchsia\">840 €/an,</span><br>lis ça.",
+    tagline: "Comparatif honnête entre Limova et Claude Code. Cas d'usage, pièges, alternatives.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "llm-local-pour-non-dev": {
+    kicker: "Tutoriel · IA locale",
+    h1: "Faire tourner<br>une vraie IA<br><span class=\"accent-fuchsia\">chez toi.</span>",
+    tagline: "Installer un LLM local sans ligne de code. Setup 20 min, zéro abonnement.",
+    accent: "fuchsia"
+  },
+  "llm-wiki-karpathy": {
+    kicker: "Outil · Karpathy",
+    h1: "Le LLM Wiki,<br>ton <span class=\"accent-fuchsia\">deuxième<br>cerveau.</span>",
+    tagline: "Le wiki vivant de Karpathy pour comprendre l'IA. Comment l'utiliser au quotidien.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "loops-claude": {
+    kicker: "Tutoriel · Claude Code",
+    h1: "Les loops<br>Claude Code,<br><span class=\"accent-teal\">expliqués.</span>",
+    tagline: "Automatiser tes tâches récurrentes. 4 exemples concrets, coûts chiffrés.",
+    accent: "teal"
+  },
+  "monde-ia-5-10-20-ans": {
+    kicker: "Opinion · Futur IA",
+    h1: "J'ai un fils<br>de 4 ans.<br><span class=\"accent-orange\">Voici son monde.</span>",
+    tagline: "Le monde dans 5, 10 et 20 ans avec l'IA. Sans techno-béatitude ni catastrophisme.",
+    accent: "orange",
+    size: "md"
+  },
+  "open-source-pour-non-dev": {
+    kicker: "Pédagogie · Open source",
+    h1: "L'open source,<br>expliqué <span class=\"accent-fuchsia\">pour ceux<br>qui ne sont pas dev.</span>",
+    tagline: "Ce que c'est, pourquoi c'est partout, comment t'en servir. Sans jargon.",
+    accent: "fuchsia",
+    size: "sm"
+  },
+  "outil-vente-claude-code": {
+    kicker: "Récit · Claude Code",
+    h1: "L'outil de vente<br>de ma femme,<br><span class=\"accent-teal\">codé en 2 nuits.</span>",
+    tagline: "Construit avec Claude Code par un non-dev. 11 produits, calculs, alertes.",
+    accent: "teal",
+    size: "md"
+  },
+  "plan-chine-2026-2030": {
+    kicker: "Opinion · Géopolitique IA",
+    h1: "Le plan chinois<br>2026-2030,<br><span class=\"accent-fuchsia\">décrypté.</span>",
+    tagline: "Ce que Pékin prépare pour l'IA et la tech. Les 5 chantiers à surveiller.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "superpowers": {
+    kicker: "Outil · Claude Code",
+    h1: "Superpowers.<br>Le plugin qui force<br><span class=\"accent-orange\">Claude à réfléchir.</span>",
+    tagline: "Le plugin Claude Code que j'utilise sur tous mes projets. Setup, exemples, coûts.",
+    accent: "orange",
+    size: "sm"
+  },
+  "tuto-agent-contrats": {
+    kicker: "Tutoriel · Agent IA",
+    h1: "Un agent qui lit<br><span class=\"accent-fuchsia\">tes contrats PDF</span><br>et alerte.",
+    tagline: "Repérer les clauses à risque dans tes contrats. Setup 30 min, 8 € par mois.",
+    accent: "fuchsia",
+    size: "md"
+  },
+  "tuto-agent-gmail": {
+    kicker: "Tutoriel · Agent Gmail",
+    h1: "Un agent qui trie<br><span class=\"accent-teal\">ta boîte Gmail</span><br>tous les matins.",
+    tagline: "80 mails par jour triés, 3 urgents repérés, résumé matinal. 45 min de setup.",
+    accent: "teal",
+    size: "md"
+  },
+  "veille-pour-demain": {
+    kicker: "Making-of · Newsletter",
+    h1: "Je voulais une<br>newsletter.<br><span class=\"accent-orange\">J'ai fait un outil.</span>",
+    tagline: "L'outil de veille IA que je me suis construit. Sources, scoring, livraison.",
+    accent: "orange",
+    size: "md"
+  }
+};
+
+const params = new URLSearchParams(location.search);
+const slug = params.get("slug");
+const data = COVERS[slug];
+
+if (data) {
+  document.getElementById("kicker").innerHTML = data.kicker;
+  document.getElementById("kicker").classList.add("dot-" + data.accent);
+  const h1 = document.getElementById("title");
+  h1.innerHTML = data.h1;
+  if (data.size) h1.classList.add("size-" + data.size);
+  document.getElementById("tagline").textContent = data.tagline;
+  document.getElementById("photo-wrap").classList.add("shadow-" + data.accent);
+} else {
+  document.getElementById("title").textContent = "Slug inconnu : " + slug;
+}
+</script>
+</body>
+</html>

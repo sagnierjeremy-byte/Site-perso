@@ -1041,6 +1041,159 @@
   }
   .podcast-card { position: relative; }
 
+  /* === Opinions · Magazine split ink (override main.css) === */
+  #opinions .opinions-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (min-width: 720px) {
+    #opinions .opinions-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  @media (min-width: 1100px) {
+    #opinions .opinions-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 22px !important; }
+  }
+  #opinions .op-card {
+    display: grid !important;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: auto !important;
+    aspect-ratio: auto !important;
+    background: #0A0A0A !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    text-decoration: none;
+    color: #F4EFE6 !important;
+    min-height: 380px !important;
+    padding: 0 !important;
+    box-shadow: 0 20px 40px -24px rgba(0,0,0,.32) !important;
+    transition: transform .25s !important;
+    position: relative;
+  }
+  #opinions .op-card:hover { transform: translateY(-4px) !important; }
+  #opinions .op-card-bg {
+    position: static !important;
+    grid-column: 1;
+    background-size: cover !important;
+    background-position: center !important;
+    filter: none !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+    min-height: 380px;
+  }
+  #opinions .op-card-bg::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 45%;
+    background: linear-gradient(135deg, rgba(10,10,10,.1), rgba(10,10,10,.45));
+    pointer-events: none;
+  }
+  #opinions .op-card-overlay { display: none !important; }
+  #opinions .op-stripes { display: none !important; }
+  #opinions .op-block {
+    grid-column: 2;
+    padding: 22px 22px;
+    display: flex;
+    flex-direction: column;
+    color: #F4EFE6;
+    position: relative;
+  }
+  #opinions .op-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  #opinions .op-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -.03em;
+  }
+  #opinions .op-card.c-red .op-num    { color: #EF5E6E; }
+  #opinions .op-card.c-blue .op-num   { color: var(--teal); }
+  #opinions .op-card.c-orange .op-num { color: var(--orange); }
+  #opinions .op-card.c-pink .op-num   { color: var(--fuchsia); }
+  #opinions .op-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: .7;
+  }
+  #opinions .op-bar {
+    height: 3px;
+    width: 40px;
+    margin-bottom: 14px;
+    background: #F4EFE6;
+  }
+  #opinions .op-card.c-red .op-bar    { background: #EF5E6E; }
+  #opinions .op-card.c-blue .op-bar   { background: var(--teal); }
+  #opinions .op-card.c-orange .op-bar { background: var(--orange); }
+  #opinions .op-card.c-pink .op-bar   { background: var(--fuchsia); }
+  #opinions .op-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    margin: 0 0 auto 0;
+    flex: 1;
+  }
+  #opinions .op-foot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: rgba(244,239,230,.55);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(244,239,230,.15);
+    margin-top: 14px;
+  }
+  #opinions .op-foot .op-cta {
+    color: #F4EFE6;
+    font-weight: 700;
+    letter-spacing: .15em;
+  }
+  #opinions .op-card:hover .op-cta { color: var(--fuchsia); }
+  /* Bouton share repositionné sur le block ink */
+  #opinions .op-share {
+    top: 14px !important;
+    right: 14px !important;
+    background: rgba(244,239,230,.08) !important;
+    border: 1px solid rgba(244,239,230,.18) !important;
+    color: #F4EFE6 !important;
+  }
+  #opinions .op-share:hover {
+    background: rgba(244,239,230,.15) !important;
+  }
+  @media (max-width: 640px) {
+    #opinions .op-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: 180px auto;
+    }
+    #opinions .op-card-bg {
+      grid-column: 1; grid-row: 1;
+      min-height: 180px;
+    }
+    #opinions .op-card-bg::after {
+      top: 0; left: 0; right: 0; width: 100%; height: 180px;
+    }
+    #opinions .op-block {
+      grid-column: 1; grid-row: 2;
+    }
+  }
+
   /* === Projets · split photo portrait 9:16 (override main.css) === */
   #projects .projects-grid {
     display: grid;
@@ -2101,91 +2254,83 @@
 
     <div class="opinions-grid">
 
-      <a class="op-card c-red" id="opinion-01" href="articles/better-call-vs-associe.html" style="text-decoration:none; color:inherit;" data-published="2026-04-20">
-        <div class="op-card-bg" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%; background-size: cover;"></div>
-        <div class="op-card-overlay"></div>
-        <button class="op-share" type="button" data-share-anchor="opinion-01" data-share-title="Oussama Ammar comme associé, à 7 000 €/an." aria-label="Partager cette opinion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span class="op-share-toast">Lien copié</span>
-        </button>
-        <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 01</span>
-          <span class="op-pill">10 min</span>
-        </div>
-        <div class="op-middle">
-          <h3 class="op-title">Oussama Ammar<br>comme associé,<br>à 7 000 €/an.</h3>
-          <div class="op-sub">— Business · 20 avril 2026</div>
-        </div>
-        <div class="op-stripes">
-          <div class="s-teal"></div>
-          <div class="s-fuchsia"></div>
-          <div class="s-orange"></div>
+      <a class="op-card c-red" id="opinion-01" href="articles/better-call-vs-associe.html" data-published="2026-04-20">
+        <div class="op-card-bg" style="background-image:url('photos/oussama-ammar-clean.jpg'); background-position: center 30%;"></div>
+        <div class="op-block">
+          <button class="op-share" type="button" data-share-anchor="opinion-01" data-share-title="Oussama Ammar comme associé, à 7 000 €/an." aria-label="Partager cette opinion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span class="op-share-toast">Lien copié</span>
+          </button>
+          <div class="op-head">
+            <span class="op-num">01</span>
+            <span class="op-category">Business</span>
+          </div>
+          <div class="op-bar"></div>
+          <h3 class="op-title">Oussama Ammar comme associé, à 7 000 €/an.</h3>
+          <div class="op-foot">
+            <span>20 avril 2026</span>
+            <span class="op-cta">10 min → Lire</span>
+          </div>
         </div>
       </a>
 
-      <a class="op-card c-blue" id="opinion-02" href="articles/limova-vs-claude-code.html" style="text-decoration:none; color:inherit;" data-published="2026-04-20">
-        <div class="op-card-bg" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%; background-size: cover;"></div>
-        <div class="op-card-overlay"></div>
-        <button class="op-share" type="button" data-share-anchor="opinion-02" data-share-title="Avant de payer Limova 840 € par an, lis ça." aria-label="Partager cette opinion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span class="op-share-toast">Lien copié</span>
-        </button>
-        <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 02</span>
-          <span class="op-pill">11 min</span>
-        </div>
-        <div class="op-middle">
-          <h3 class="op-title">Avant de payer<br>Limova 840 € par an,<br>lis ça.</h3>
-          <div class="op-sub">— Business · 20 avril 2026</div>
-        </div>
-        <div class="op-stripes">
-          <div class="s-teal"></div>
-          <div class="s-fuchsia"></div>
-          <div class="s-orange"></div>
+      <a class="op-card c-blue" id="opinion-02" href="articles/limova-vs-claude-code.html" data-published="2026-04-20">
+        <div class="op-card-bg" style="background-image:url('photos/yoan-drahy.jpg'); background-position: center 35%;"></div>
+        <div class="op-block">
+          <button class="op-share" type="button" data-share-anchor="opinion-02" data-share-title="Avant de payer Limova 840 € par an, lis ça." aria-label="Partager cette opinion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span class="op-share-toast">Lien copié</span>
+          </button>
+          <div class="op-head">
+            <span class="op-num">02</span>
+            <span class="op-category">Business</span>
+          </div>
+          <div class="op-bar"></div>
+          <h3 class="op-title">Avant de payer Limova 840 €/an, lis ça.</h3>
+          <div class="op-foot">
+            <span>20 avril 2026</span>
+            <span class="op-cta">11 min → Lire</span>
+          </div>
         </div>
       </a>
 
-      <a class="op-card c-orange" id="opinion-03" href="articles/plan-chine-2026-2030.html" style="text-decoration:none; color:inherit;" data-published="2026-04-23">
+      <a class="op-card c-orange" id="opinion-03" href="articles/plan-chine-2026-2030.html" data-published="2026-04-23">
         <div class="op-card-bg" style="background: linear-gradient(135deg, #0A0A0A 0%, #2a1600 60%, #FF8200 140%);"></div>
-        <div class="op-card-overlay"></div>
-        <button class="op-share" type="button" data-share-anchor="opinion-03" data-share-title="Le plan chinois 2026-2030, décrypté." aria-label="Partager cette opinion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span class="op-share-toast">Lien copié</span>
-        </button>
-        <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 03</span>
-          <span class="op-pill">13 min</span>
-        </div>
-        <div class="op-middle">
-          <h3 class="op-title">Le plan chinois<br>2026-2030,<br>décrypté.</h3>
-          <div class="op-sub">— Géopolitique · 23 avril 2026</div>
-        </div>
-        <div class="op-stripes">
-          <div class="s-teal"></div>
-          <div class="s-fuchsia"></div>
-          <div class="s-orange"></div>
+        <div class="op-block">
+          <button class="op-share" type="button" data-share-anchor="opinion-03" data-share-title="Le plan chinois 2026-2030, décrypté." aria-label="Partager cette opinion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span class="op-share-toast">Lien copié</span>
+          </button>
+          <div class="op-head">
+            <span class="op-num">03</span>
+            <span class="op-category">Géopolitique</span>
+          </div>
+          <div class="op-bar"></div>
+          <h3 class="op-title">Le plan chinois 2026-2030, décrypté.</h3>
+          <div class="op-foot">
+            <span>23 avril 2026</span>
+            <span class="op-cta">13 min → Lire</span>
+          </div>
         </div>
       </a>
 
-      <a class="op-card c-pink" id="opinion-04" href="articles/monde-ia-5-10-20-ans.html" style="text-decoration:none; color:inherit;" data-published="2026-04-24">
+      <a class="op-card c-pink" id="opinion-04" href="articles/monde-ia-5-10-20-ans.html" data-published="2026-04-24">
         <div class="op-card-bg" style="background: linear-gradient(135deg, #0A0A0A 0%, #2a0b1a 60%, #EF426F 140%);"></div>
-        <div class="op-card-overlay"></div>
-        <button class="op-share" type="button" data-share-anchor="opinion-04" data-share-title="À quoi ressemblera le monde dans 5, 10, 20 ans avec l'IA." aria-label="Partager cette opinion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span class="op-share-toast">Lien copié</span>
-        </button>
-        <div class="op-top">
-          <span class="op-badge"><span class="pulse"></span>Opinion · 04</span>
-          <span class="op-pill">12 min</span>
-        </div>
-        <div class="op-middle">
-          <h3 class="op-title">J'ai un fils<br>de quatre ans.<br>Voici son monde.</h3>
-          <div class="op-sub">— Prospective · 24 avril 2026</div>
-        </div>
-        <div class="op-stripes">
-          <div class="s-teal"></div>
-          <div class="s-fuchsia"></div>
-          <div class="s-orange"></div>
+        <div class="op-block">
+          <button class="op-share" type="button" data-share-anchor="opinion-04" data-share-title="À quoi ressemblera le monde dans 5, 10, 20 ans avec l'IA." aria-label="Partager cette opinion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span class="op-share-toast">Lien copié</span>
+          </button>
+          <div class="op-head">
+            <span class="op-num">04</span>
+            <span class="op-category">Prospective</span>
+          </div>
+          <div class="op-bar"></div>
+          <h3 class="op-title">J'ai un fils de quatre ans. Voici son monde.</h3>
+          <div class="op-foot">
+            <span>24 avril 2026</span>
+            <span class="op-cta">12 min → Lire</span>
+          </div>
         </div>
       </a>
 

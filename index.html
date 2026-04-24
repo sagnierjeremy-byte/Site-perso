@@ -1041,6 +1041,170 @@
   }
   .podcast-card { position: relative; }
 
+  /* === Projets · split photo portrait 9:16 (override main.css) === */
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) {
+    #projects .projects-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  #projects .project-card {
+    display: grid !important;
+    grid-template-columns: 180px 1fr;
+    grid-template-rows: 1fr !important;
+    aspect-ratio: auto !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px !important;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit !important;
+    box-shadow: 0 8px 20px -10px rgba(0,0,0,.15);
+    transition: transform .25s, box-shadow .25s;
+    min-height: 300px !important;
+    padding: 0 !important;
+    position: relative;
+  }
+  #projects .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 44px -22px rgba(0,0,0,.22);
+  }
+  #projects .project-card-bg {
+    position: static !important;
+    grid-column: 1;
+    background-size: cover !important;
+    background-position: center !important;
+    filter: none !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+  }
+  #projects .project-card-bg::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 0; width: 180px;
+    background: linear-gradient(135deg, rgba(10,10,10,.05), rgba(10,10,10,.22));
+    pointer-events: none;
+  }
+  #projects .project-card-overlay { display: none !important; }
+  #projects .project-top,
+  #projects .project-middle,
+  #projects .project-desc {
+    position: static !important;
+    grid-column: 2;
+    padding: 0 !important;
+  }
+  #projects .project-body {
+    grid-column: 2;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--ink);
+  }
+  #projects .project-body .project-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  #projects .project-card.c-orange .project-type { background: rgba(255,130,0,.12); color: var(--orange); }
+  #projects .project-card.c-fuchsia .project-type { background: rgba(239,66,111,.12); color: var(--fuchsia); }
+  #projects .project-card.c-teal .project-type { background: rgba(0,178,169,.12); color: var(--teal); }
+  #projects .project-type .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  #projects .project-body h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0;
+  }
+  #projects .project-body .project-desc-text {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+  #projects .project-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  #projects .project-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  #projects .project-stat strong {
+    color: var(--ink);
+    font-weight: 900;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    display: block;
+    margin-bottom: 1px;
+  }
+  #projects .project-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-strong);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #projects .project-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  #projects .project-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: color .2s;
+  }
+  #projects .project-card:hover .project-cta { color: var(--fuchsia); }
+  @media (max-width: 720px) {
+    #projects .project-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: 180px 1fr;
+    }
+    #projects .project-card-bg {
+      grid-column: 1; grid-row: 1;
+      min-height: 180px;
+    }
+    #projects .project-body {
+      grid-column: 1; grid-row: 2;
+    }
+    #projects .project-card-bg::after {
+      top: 0; left: 0; right: 0; bottom: auto;
+      width: 100%; height: 180px;
+    }
+  }
+
   /* === Sources · bloc "voir ma liste complète" === */
   .sources-more {
     margin-top: 40px;
@@ -1859,65 +2023,56 @@
     <div class="projects-grid">
 
       <!-- Projet 01 · Outil de vente (LIVE) -->
-      <a href="articles/outil-vente-claude-code.html" class="project-card variant-live" data-published="2026-04-15">
-        <div class="project-card-bg" style="background-image:url('photos/A7109195.jpg')"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-top">
-          <span class="project-badge"><span class="pulse"></span>Live · Cas réel · 01</span>
-          <span class="project-pill">Lire l'article →</span>
-        </div>
-        <div class="project-middle">
-          <h3 class="project-title">L'outil de vente<br>de ma femme,<br>en <em>3 soirs</em>.</h3>
-          <div class="project-meta">
-            <span><strong>3 soirées</strong> · Netflix en fond</span>
-            <span>Claude Code · HTML standalone</span>
-            <span>Avril 2026</span>
+      <a href="articles/outil-vente-claude-code.html" class="project-card c-orange" data-published="2026-04-15">
+        <div class="project-card-bg" style="background-image:url('photos/projects/sales-c.jpg')"></div>
+        <div class="project-body">
+          <span class="project-type"><span class="dot"></span>Cas réel · 01</span>
+          <h3>L'outil de vente de ma femme.</h3>
+          <p class="project-desc-text">Shirley est chargée de clientèle en assurance. On a construit ensemble un outil qui l'accompagne en rendez-vous — <strong>sans écrire une ligne de code à la main</strong>.</p>
+          <div class="project-stats">
+            <div class="project-stat"><strong>3 soirs</strong>Netflix en fond</div>
+            <div class="project-stat"><strong>0 €</strong>Claude Code</div>
           </div>
-        </div>
-        <div class="project-desc">
-          Shirley est chargée de clientèle en assurance. Elle m'a demandé un coup de main. On a construit ensemble un outil qui l'accompagne en rendez-vous client — <strong>sans écrire une ligne de code à la main</strong>.
+          <div class="project-foot">
+            <span class="project-date">Avril 2026</span>
+            <span class="project-cta">Lire →</span>
+          </div>
         </div>
       </a>
 
       <!-- Projet 02 · Podcast Guerres d'IA (LIVE) -->
-      <a href="articles/guerres-d-ia-podcast.html" class="project-card variant-live" data-published="2026-04-23">
-        <div class="project-card-bg" style="background-image:url('photos/A7100670.jpg')"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-top">
-          <span class="project-badge"><span class="pulse"></span>Live · Podcast · 02</span>
-          <span class="project-pill">Écouter + lire →</span>
-        </div>
-        <div class="project-middle">
-          <h3 class="project-title">Un podcast<br>Wondery FR<br>en <em>24 heures</em>.</h3>
-          <div class="project-meta">
-            <span><strong>24 heures</strong> · 33 dollars</span>
-            <span>Voix IA · Scripts par sous-agents</span>
-            <span>Avril 2026</span>
+      <a href="articles/guerres-d-ia-podcast.html" class="project-card c-fuchsia" data-published="2026-04-23">
+        <div class="project-card-bg" style="background-image:url('photos/projects/podcast-b.jpg')"></div>
+        <div class="project-body">
+          <span class="project-type"><span class="dot"></span>Podcast · 02</span>
+          <h3>Un podcast Wondery FR en 24 heures.</h3>
+          <p class="project-desc-text">Trois épisodes narratifs sur la guerre IA — Altman, Amodei, Musk. Voix synthétiques, sous-agents Claude, mixage automatisé. <strong>Tout assumé. Rien caché.</strong></p>
+          <div class="project-stats">
+            <div class="project-stat"><strong>24 h</strong>Production</div>
+            <div class="project-stat"><strong>33 $</strong>Coût total</div>
           </div>
-        </div>
-        <div class="project-desc">
-          Trois épisodes narratifs sur la guerre IA — Sam Altman contre Dario Amodei, le coup d'État OpenAI, le procès Musk. Voix synthétiques, scénarios écrits par sous-agents Claude, mixage automatisé. <strong>Tout assumé. Rien caché.</strong>
+          <div class="project-foot">
+            <span class="project-date">Avril 2026</span>
+            <span class="project-cta">Écouter →</span>
+          </div>
         </div>
       </a>
 
       <!-- Projet 03 · Booking Eurofiscalis (LIVE) -->
-      <a href="articles/booking-eurofiscalis-making-of.html" class="project-card variant-live" data-published="2026-04-24">
-        <div class="project-card-bg" style="background-image:url('photos/booking/booking-full.png')"></div>
-        <div class="project-card-overlay"></div>
-        <div class="project-top">
-          <span class="project-badge"><span class="pulse"></span>Live · Outil interne · 03</span>
-          <span class="project-pill">Le making-of →</span>
-        </div>
-        <div class="project-middle">
-          <h3 class="project-title">On a viré<br>Calendly et<br><em>Letsignit</em>.</h3>
-          <div class="project-meta">
-            <span><strong>5 jours</strong> · 4 100 €/an économisés</span>
-            <span>Next.js · Supabase · Outlook · Resend</span>
-            <span>Avril 2026</span>
+      <a href="articles/booking-eurofiscalis-making-of.html" class="project-card c-teal" data-published="2026-04-24">
+        <div class="project-card-bg" style="background-image:url('photos/projects/calendar-a.jpg')"></div>
+        <div class="project-body">
+          <span class="project-type"><span class="dot"></span>Outil interne · 03</span>
+          <h3>On a viré Calendly et Letsignit.</h3>
+          <p class="project-desc-text">On payait 400 €/mois pour des pages dépareillées et des signatures cassées. Outil maison qui fait les deux. <strong>20 conseillers l'utilisent au quotidien.</strong></p>
+          <div class="project-stats">
+            <div class="project-stat"><strong>5 jours</strong>Construction</div>
+            <div class="project-stat"><strong>4 100 €</strong>Économisés/an</div>
           </div>
-        </div>
-        <div class="project-desc">
-          On payait Calendly 320 $/mois pour des pages dépareillées et Letsignit 80 €/mois pour des signatures qui se cassaient. J'ai construit notre propre outil maison qui fait les deux. <strong>20 conseillers l'utilisent au quotidien.</strong>
+          <div class="project-foot">
+            <span class="project-date">Avril 2026</span>
+            <span class="project-cta">Making-of →</span>
+          </div>
         </div>
       </a>
 

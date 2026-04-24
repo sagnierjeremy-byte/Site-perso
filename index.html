@@ -851,7 +851,7 @@
     .hero-grid.hero-grid-solo { grid-template-columns: 1fr !important }
   }
 
-  /* === À la une · 4 dernières sorties === */
+  /* === À la une · 4 dernières sorties (style ticket heritage) === */
   #alaune { padding: 90px 0 70px; border-top: 1px solid var(--line); }
   .alaune-intro {
     max-width: 900px;
@@ -883,12 +883,12 @@
   .alaune-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 20px;
     max-width: 1400px;
     margin: 0 auto;
   }
   @media (min-width: 720px) {
-    .alaune-grid { grid-template-columns: repeat(2, 1fr); gap: 20px }
+    .alaune-grid { grid-template-columns: repeat(2, 1fr); gap: 22px }
   }
   @media (min-width: 1100px) {
     .alaune-grid { grid-template-columns: repeat(4, 1fr); gap: 22px }
@@ -896,79 +896,109 @@
   .alaune-card {
     position: relative;
     background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 20px;
-    padding: 24px 22px 22px;
+    border-radius: 14px;
+    overflow: hidden;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    min-height: 260px;
-    transition: transform .2s, border-color .2s, box-shadow .2s;
+    min-height: 320px;
+    box-shadow: 0 6px 18px -8px rgba(0,0,0,.15), inset 0 0 0 1px var(--line-strong);
+    transition: transform .25s, box-shadow .25s;
   }
   .alaune-card:hover {
     transform: translateY(-3px);
-    border-color: var(--fuchsia);
-    box-shadow: 0 20px 40px -20px rgba(0,0,0,.18);
+    box-shadow: 0 20px 42px -20px rgba(0,0,0,.22), inset 0 0 0 1px var(--line-strong);
   }
-  .alaune-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 22px;
-    width: 60px; height: 4px;
-    border-radius: 0 0 4px 4px;
+  .alaune-stub {
+    padding: 18px 20px 14px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .alaune-card.type-opinion::before { background: var(--fuchsia); }
-  .alaune-card.type-podcast::before { background: var(--orange); }
-  .alaune-card.type-article::before { background: var(--teal); }
-  .alaune-type {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .22em;
-    font-weight: 700;
+  .alaune-card.type-opinion .alaune-stub { background: var(--fuchsia); }
+  .alaune-card.type-podcast .alaune-stub { background: var(--orange); }
+  .alaune-card.type-article .alaune-stub { background: var(--teal); }
+  .alaune-stub-type {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    letter-spacing: -.01em;
     text-transform: uppercase;
-    margin-top: 12px;
-    margin-bottom: 14px;
   }
-  .alaune-card.type-opinion .alaune-type { color: var(--fuchsia); }
-  .alaune-card.type-podcast .alaune-type { color: var(--orange); }
-  .alaune-card.type-article .alaune-type { color: var(--teal); }
+  .alaune-stub-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    padding: 4px 11px;
+    border: 1.5px solid rgba(255,255,255,.65);
+    border-radius: 999px;
+  }
+  .alaune-bar {
+    height: 5px;
+    background: linear-gradient(
+      to right,
+      var(--teal) 0%,
+      var(--teal) 33.33%,
+      var(--fuchsia) 33.33%,
+      var(--fuchsia) 66.66%,
+      var(--orange) 66.66%,
+      var(--orange) 100%
+    );
+  }
+  .alaune-body {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+  }
   .alaune-title {
     font-family: 'Archivo Black', sans-serif;
     font-size: 20px;
     line-height: 1.05;
-    letter-spacing: -.015em;
+    letter-spacing: -.02em;
     text-transform: uppercase;
     color: var(--ink);
-    margin: 0 0 12px;
-    flex: 1;
+    margin: 0;
   }
-  .alaune-meta {
+  .alaune-punch {
+    flex: 1;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .alaune-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .alaune-date {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: .12em;
+    font-size: 11px;
+    letter-spacing: .1em;
     color: var(--ink-muted);
     text-transform: uppercase;
-    margin-bottom: 4px;
   }
-  .alaune-arrow {
-    align-self: flex-end;
-    margin-top: auto;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: var(--bg-2);
-    display: flex;
+  .alaune-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    transition: background .2s, transform .2s;
+    gap: 6px;
+    transition: color .2s;
   }
-  .alaune-card:hover .alaune-arrow {
-    background: var(--fuchsia);
-    color: #fff;
-    transform: translateX(2px);
-  }
+  .alaune-card:hover .alaune-cta { color: var(--fuchsia); }
   .alaune-footer {
-    margin-top: 28px;
+    margin-top: 32px;
     text-align: center;
   }
   .alaune-footer a {
@@ -1156,38 +1186,66 @@
     <div class="alaune-grid">
 
       <a class="alaune-card type-opinion" href="articles/monde-ia-5-10-20-ans.html" data-published="2026-04-24">
-        <div class="alaune-type">Opinion · 04</div>
-        <h3 class="alaune-title">J'ai un fils<br>de quatre ans.<br>Voici son monde.</h3>
-        <div class="alaune-meta">24 avril · 12 min de lecture</div>
-        <div class="alaune-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <div class="alaune-stub">
+          <span class="alaune-stub-type">Opinion</span>
+          <span class="alaune-stub-num">Nº 04</span>
+        </div>
+        <div class="alaune-bar"></div>
+        <div class="alaune-body">
+          <h3 class="alaune-title">J'ai un fils de quatre ans. Voici son monde.</h3>
+          <p class="alaune-punch">« Je ne suis même pas sûr qu'il passe un jour son permis. Pas parce qu'on lui imposera — parce qu'il préférera l'IA. »</p>
+          <div class="alaune-foot">
+            <span class="alaune-date">24 avril · 12 min</span>
+            <span class="alaune-cta">Lire →</span>
+          </div>
         </div>
       </a>
 
       <a class="alaune-card type-podcast" href="articles/guerres-d-ia-podcast.html#episode-03" data-published="2026-04-24">
-        <div class="alaune-type">Podcast · Ép. 03</div>
-        <h3 class="alaune-title">Frères<br>Ennemis.</h3>
-        <div class="alaune-meta">24 avril · 15 min d'écoute</div>
-        <div class="alaune-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <div class="alaune-stub">
+          <span class="alaune-stub-type">Podcast</span>
+          <span class="alaune-stub-num">Ép 03</span>
+        </div>
+        <div class="alaune-bar"></div>
+        <div class="alaune-body">
+          <h3 class="alaune-title">Frères Ennemis.</h3>
+          <p class="alaune-punch">Musk contre Altman. Cent trente-quatre milliards sur la table. Deux pères pour une seule création.</p>
+          <div class="alaune-foot">
+            <span class="alaune-date">24 avril · 15 min</span>
+            <span class="alaune-cta">Écouter →</span>
+          </div>
         </div>
       </a>
 
       <a class="alaune-card type-opinion" href="articles/plan-chine-2026-2030.html" data-published="2026-04-23">
-        <div class="alaune-type">Opinion · 03</div>
-        <h3 class="alaune-title">Le plan chinois<br>2026-2030,<br>décrypté.</h3>
-        <div class="alaune-meta">23 avril · 13 min de lecture</div>
-        <div class="alaune-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <div class="alaune-stub">
+          <span class="alaune-stub-type">Opinion</span>
+          <span class="alaune-stub-num">Nº 03</span>
+        </div>
+        <div class="alaune-bar"></div>
+        <div class="alaune-body">
+          <h3 class="alaune-title">Le plan chinois 2026-2030, décrypté.</h3>
+          <p class="alaune-punch">« Pékin joue à 15 ans pendant que Washington joue à 4. C'est un plan de forteresse, pas de conquête. »</p>
+          <div class="alaune-foot">
+            <span class="alaune-date">23 avril · 13 min</span>
+            <span class="alaune-cta">Lire →</span>
+          </div>
         </div>
       </a>
 
       <a class="alaune-card type-podcast" href="articles/guerres-d-ia-podcast.html#episode-02" data-published="2026-04-23">
-        <div class="alaune-type">Podcast · Ép. 02</div>
-        <h3 class="alaune-title">Les Quatre<br>Jours.</h3>
-        <div class="alaune-meta">23 avril · 17 min d'écoute</div>
-        <div class="alaune-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <div class="alaune-stub">
+          <span class="alaune-stub-type">Podcast</span>
+          <span class="alaune-stub-num">Ép 02</span>
+        </div>
+        <div class="alaune-bar"></div>
+        <div class="alaune-body">
+          <h3 class="alaune-title">Les Quatre Jours.</h3>
+          <p class="alaune-punch">Le coup d'État OpenAI de novembre 2023, minute par minute. Sutskever vote, Brockman part, Satya ramasse.</p>
+          <div class="alaune-foot">
+            <span class="alaune-date">23 avril · 17 min</span>
+            <span class="alaune-cta">Écouter →</span>
+          </div>
         </div>
       </a>
 

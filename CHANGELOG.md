@@ -1,5 +1,27 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · article « On a viré Calendly » + project card #3 sur la home
+
+### Pourquoi
+Making-of de booking.eurofiscalis.app : raconter comment on a remplacé Calendly chez Eurofiscalis (320 $/mois, 20 utilisateurs) par notre propre outil construit en 5 jours avec Claude Code. Format narratif similaire à `articles/guerres-d-ia-podcast.html` (le making-of podcast). Public débutant, ton Leo, gloses systématiques (Next.js, Supabase, Microsoft Graph, Resend, Vercel, etc.).
+
+### Livré
+- **`articles/booking-eurofiscalis-making-of.html`** · 647 lignes, ~4500 mots — 9 sections : Le déclencheur (Calendly et ses limites de personnalisation) · Showcase de la page live avec screenshot intégré · La semaine de construction (timeline 7 jours, dimanche soir → vendredi soir, Max sur la fin pour la sécu) · 3 features qui ont fait la différence (RDV à 2 / signatures email / widget intégrable) · Stack technique expliquée simplement (tableau 6 outils glossés) · Coût (~ 320 $/mois → ~ 30 €/mois, ~ 290 € d'économie/mois, 3 bignum cards) · 4 pièges (timezones / double booking / emails Microsoft Graph qui plantent / OAuth tokens) · Bilan « ce que je referais et ne referais pas » + matrice « pour qui c'est pertinent » · CTA newsletter
+- **`photos/booking/booking-full.png`** + **`booking-hero.png`** · screenshots prod capturés via dev-browser sur https://booking.eurofiscalis.app/jeremy-sagnier
+- **`index.html`** : 3ème project card ajoutée dans la section #projects (« On a viré Calendly en une semaine »), badge « Live · Outil interne · 03 », background = screenshot booking, après les cards Outil de vente Shirley + Podcast Wondery
+
+### Fichiers touchés
+- `articles/booking-eurofiscalis-making-of.html` (nouveau)
+- `photos/booking/booking-hero.png` + `booking-full.png` (nouveaux)
+- `index.html` (3e project card)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Possible : intégrer dans `apprendre.html` étape 04 si le making-of vaut comme exemple pédagogique
+- Si l'article performe : faire le making-of d'un autre projet interne (CRM Tiger, agent qualif WhatsApp en cours)
+
+---
+
 ## 2026-04-24 · article « Faire tourner une vraie IA chez toi » + intégration apprendre.html
 
 ### Pourquoi

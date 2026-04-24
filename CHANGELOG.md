@@ -1,5 +1,54 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · audit SEO + Phase 1 fix · 21 articles refondus
+
+### Pourquoi
+Audit SEO complet du site demandé par Jérémy : 21 articles audités par 6 sous-agents Phase A (format MD scoring /100 sur 4 blocs : Meta + Structure + Linking + Content), puis 5 stratégiques en CORE-EEAT Phase B (8 dimensions, 3 vetos), puis Phase 1 fix par 4 sous-agents en parallèle.
+
+### Audits livrés (26 fichiers MD)
+- `audits/<slug>/202604241000.md` × 21 — audit SEO actionnable Phase A (score /100 + 15 checks ✅/❌ + 3-5 recos)
+- `audits/<slug>/202604241200.md` × 5 — audit CORE-EEAT Phase B sur booking + llm-local + open-source + monde-ia + autoresearch-karpathy
+
+### Phase A — État avant fix
+- Note moyenne : **68/100**
+- Distribution : 3 articles >80 · 7 entre 70-79 · 5 entre 60-69 · 5 entre 50-59
+- Plus bas : claude-code-workflow-tips (50), monde-ia (52), dev-browser (53), superpowers (56), veille (58)
+
+### Phase B — Veto déclenchés
+- 🔴 booking-eurofiscalis-making-of : veto R10 (chiffres incohérents 400/375/345 + 4400/4140/4100 après 3 itérations Letsignit) → score plafonné à 60 (brut 81)
+- 🟠 monde-ia + autoresearch-karpathy : veto T04 partial (transparence IA absente)
+
+### Phase 1 fix livrée (4 sous-agents en parallèle, partition disjointe)
+- **S1** · 8 coquilles SEO vides : backport bloc Meta complet (canonical + OG + Twitter + JSON-LD TechArticle/OpinionPiece) + raccourci titles + 4 liens internes cassés fixés sur dev-browser/superpowers
+- **S2** · booking R10 + 4 transparence IA : 7 chiffres harmonisés (375 €/mois cumulé · 345 €/mois économisé · 4 140 €/an) + ajout puce TLDR « Écrit avec Claude, relu par moi » sur llm-local/open-source/hermes/autoresearch
+- **S3** · 5 articles bien notés à raccourcir : titles supprimés du suffixe « — par Jérémy Sagnier » + 2 JSON-LD doublons fusionnés (karpathy + outil-vente)
+- **S4** · 3 opinions/podcast : OG/Twitter ajoutés sur limova/better-call + 18 liens externes ajoutés au total + Schema PodcastSeries+3 PodcastEpisode sur guerres-d-ia-podcast
+
+### Phase 1 — État après fix (estimations)
+- Moyenne site : **68 → ~85/100** (+17 pts moyens)
+- Top 5 articles passés à 90+ : superpowers (92), agents-ia-guide (92), loops-claude (92), karpathy (90+), plan-chine (90)
+- Booking : R10 débloqué, devrait passer 60 → 81+
+- Tous les 21 articles ont maintenant : Meta complet · titles ≤ 60 chars · meta desc ≤ 155 chars · transparence IA explicite · liens externes vers sources
+
+### Patterns transverses corrigés
+1. Suffixe « — par Jérémy Sagnier » supprimé sur 18+ titles (faisait dépasser 60 chars)
+2. Bloc Meta complet backporté sur 8 articles (étaient des coquilles SEO vides)
+3. 4 liens internes cassés (`href="claude-code.html"` → `../claude-code.html`) corrigés
+4. Mention transparence IA harmonisée sur 4 articles non-dev récents
+5. 18 liens externes vers sources/marques cités (Wondery, ElevenLabs, OpenAI, Limova, etc.)
+6. 2 JSON-LD doublons fusionnés (karpathy + outil-vente)
+
+### Fichiers touchés
+- 21 articles `articles/*.html` modifiés
+- 26 nouveaux audits `audits/<slug>/*.md`
+- `CHANGELOG.md` (cette entrée)
+
+### À venir (Phase 2 + Phase 3 non faites)
+- Phase 2 : générer 21 og:image 1200×630 dédiées (auto via skill cover-generator) + ajouter FAQ + FAQPage JSON-LD sur les 5 stratégiques + MAJ `_TEMPLATE.html` pour bloquer la régression
+- Phase 3 : refonte des 5 articles < 60/100 sur le contenu + renommer slug `claude-code-workflow-tips-after-6-months-of-daily-` → `claude-code-workflow-tips`
+
+---
+
 ## 2026-04-24 · article booking V3 — ajout Letsignit (2e SaaS remplacé)
 
 ### Pourquoi

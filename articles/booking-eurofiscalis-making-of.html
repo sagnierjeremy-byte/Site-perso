@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine. — par Jérémy Sagnier</title>
-<meta name="description" content="Récit du remplacement de Calendly et de Letsignit chez Eurofiscalis par un outil maison construit en une semaine avec Claude Code : pourquoi on est partis, comment on a fait, ce que ça nous coûte. Le making-of.">
+<title>On a viré Calendly et Letsignit · Le making-of</title>
+<meta name="description" content="On a remplacé Calendly et Letsignit par un outil maison construit en une semaine avec Claude Code. ~ 345 €/mois économisés. Le making-of, sans filtre.">
 <link rel="canonical" href="https://jerwis.fr/articles/booking-eurofiscalis-making-of">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://jerwis.fr/articles/booking-eurofiscalis-making-of">
 <meta property="og:title" content="On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine.">
-<meta property="og:description" content="Le making-of de booking.eurofiscalis.app · 2 SaaS remplacés (réservation + signature email), 1 semaine, 20 utilisateurs aujourd'hui, 380 €/mois économisés.">
+<meta property="og:description" content="Le making-of de booking.eurofiscalis.app · 2 SaaS remplacés (réservation + signature email), 1 semaine, 20 utilisateurs aujourd'hui, ~ 345 €/mois économisés.">
 <meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
@@ -238,7 +238,8 @@
       <li><strong>L'équipe</strong> : moi tout seul du dimanche au vendredi soir, avec Claude Code comme co-pilote. Max, notre dev, est arrivé sur la fin pour la sécurité et la mise en ligne.</li>
       <li><strong>Le résultat</strong> : un outil qu'on contrôle à 100 %, branché sur les agendas Outlook de l'équipe, avec rappels automatiques, signatures email harmonisées et un back-office où chacun pilote sa page seul.</li>
       <li><strong>Aujourd'hui</strong> : <strong>20 personnes</strong> chez Eurofiscalis l'utilisent tous les jours. Plus de 500 rendez-vous passés depuis la mise en ligne.</li>
-      <li><strong>Le coût</strong> : on est passés de <strong>~ 400 € par mois</strong> (Calendly + Letsignit cumulés) à <strong>environ 30 € par mois</strong> de serveurs. <strong>~ 4 400 € d'économie par an</strong>, et on n'est plus dépendants de deux outils tiers.</li>
+      <li><strong>Le coût</strong> : on est passés de <strong>~ 375 € par mois</strong> (Calendly + Letsignit cumulés) à <strong>environ 30 € par mois</strong> de serveurs. <strong>~ 4 140 € d'économie par an</strong>, et on n'est plus dépendants de deux outils tiers.</li>
+      <li><strong>Transparence</strong> : article rédigé avec Claude (relu et validé par moi), construction du booking faite avec Claude Code en pair-programming. Si tu repères une erreur, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -254,7 +255,7 @@
       Pendant longtemps, on a fait ça avec <strong>Calendly</strong>. Outil parfait sur le papier : tu donnes ton lien, le client choisit son créneau, l'événement apparaît dans ton agenda. C'est devenu un standard du marché. Plan d'équipe à <strong>16 dollars par utilisateur et par mois</strong>. Multiplié par 20 commerciaux et conseillers, ça nous coûtait <strong>autour de 320 dollars chaque mois</strong>. Pas la mort.
     </p>
     <p>
-      En parallèle, on payait aussi <strong>Letsignit</strong>, un autre logiciel français spécialisé dans la signature email. L'idée · que tous les conseillers aient une signature uniforme dans Outlook (photo, titre, téléphone, lien de réservation, logo Eurofiscalis), maintenue depuis une console centrale. Compte autour de <strong>80 € par mois</strong> pour 20 utilisateurs sur le plan standard. Là encore, pas la mort, mais ça finissait par faire 400 € chaque mois entre les deux outils, juste pour gérer des rendez-vous et des signatures.
+      En parallèle, on payait aussi <strong>Letsignit</strong>, un autre logiciel français spécialisé dans la signature email. L'idée · que tous les conseillers aient une signature uniforme dans Outlook (photo, titre, téléphone, lien de réservation, logo Eurofiscalis), maintenue depuis une console centrale. Compte autour de <strong>80 € par mois</strong> pour 20 utilisateurs sur le plan standard. Là encore, pas la mort, mais ça finissait par faire <strong>~ 375 € chaque mois</strong> entre les deux outils, juste pour gérer des rendez-vous et des signatures.
     </p>
     <p>
       Mais un dimanche soir de mars, en regardant la page de booking d'une conseillère qui venait d'arriver, j'ai bloqué. La photo n'était pas au bon format. Le titre était mal centré. Les couleurs n'étaient pas les nôtres. Aucun avis client en bas. Rien qui dise « tu es sur le point de rencontrer quelqu'un d'Eurofiscalis ». C'était une page Calendly de plus, comme il en existe des millions. Et la signature email de la même conseillère ne s'affichait pas correctement chez la moitié de ses destinataires (souci classique de Letsignit avec Outlook Windows ancienne génération).
@@ -286,8 +287,8 @@
 
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
-    <span>1 dimanche soir de marre</span><span>20 pages dépareillées</span><span>2 SaaS qui coûtent 400 €/mois</span><span>Charte impossible</span><span>Calendly et Letsignit dégagent</span>
-    <span>1 dimanche soir de marre</span><span>20 pages dépareillées</span><span>2 SaaS qui coûtent 400 €/mois</span><span>Charte impossible</span><span>Calendly et Letsignit dégagent</span>
+    <span>1 dimanche soir de marre</span><span>20 pages dépareillées</span><span>2 SaaS à 375 €/mois</span><span>Charte impossible</span><span>Calendly et Letsignit dégagent</span>
+    <span>1 dimanche soir de marre</span><span>20 pages dépareillées</span><span>2 SaaS à 375 €/mois</span><span>Charte impossible</span><span>Calendly et Letsignit dégagent</span>
   </div>
 </div>
 
@@ -687,8 +688,8 @@
 
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
-    <span>375 €/mois → 30 €/mois</span><span>2 SaaS résiliés</span><span>20 conseillers harmonisés</span><span>Charte respectée à 100 %</span><span>4 100 € économisés par an</span>
-    <span>375 €/mois → 30 €/mois</span><span>2 SaaS résiliés</span><span>20 conseillers harmonisés</span><span>Charte respectée à 100 %</span><span>4 100 € économisés par an</span>
+    <span>375 €/mois → 30 €/mois</span><span>2 SaaS résiliés</span><span>20 conseillers harmonisés</span><span>Charte respectée à 100 %</span><span>4 140 € économisés par an</span>
+    <span>375 €/mois → 30 €/mois</span><span>2 SaaS résiliés</span><span>20 conseillers harmonisés</span><span>Charte respectée à 100 %</span><span>4 140 € économisés par an</span>
   </div>
 </div>
 

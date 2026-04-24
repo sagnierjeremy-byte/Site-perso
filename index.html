@@ -641,6 +641,37 @@
     margin: 0 auto;
     text-align: left;
   }
+  .story-photo-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 0 32px;
+    display: inline-block;
+  }
+  .story-photo-inline {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+    border: 3px solid var(--ink);
+    filter: contrast(1.05) saturate(.95);
+  }
+  .story-photo-tag {
+    position: absolute;
+    bottom: -8px;
+    right: -10px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    transform: rotate(3deg);
+    white-space: nowrap;
+  }
   .story-compact .kicker { margin-bottom: 20px }
   .story-compact h2 {
     font-family: 'Archivo Black', sans-serif;
@@ -812,6 +843,29 @@
   .podcast-cta-link:hover { transform: translateY(-2px); color: var(--bg); }
   [data-theme="dark"] .podcast-cta-link { background: var(--fuchsia); color: #fff }
   [data-theme="dark"] .podcast-cta-link:hover { color: #fff }
+
+  /* === Sources · bloc "voir ma liste complète" === */
+  .sources-more {
+    margin-top: 40px;
+    padding: 22px 26px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    border-left: 4px solid var(--teal);
+  }
+  .sources-more p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .sources-more a {
+    color: var(--fuchsia);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .sources-more a:hover { color: var(--orange) }
 </style>
 </head>
 <body>
@@ -865,12 +919,10 @@
       </a>
       <nav class="nav">
         <a href="apprendre.html">Apprendre</a>
-        <a href="#newsletters">Newsletters</a>
-        <a href="podcast.html">Podcast</a>
-        <a href="#freebies">Télécharger</a>
-        <a href="#projects">Projets</a>
+        <a href="#newsletters">Newsletter</a>
         <a href="#opinions">Opinions</a>
-        <a href="#content">Sources</a>
+        <a href="#podcast">Podcast</a>
+        <a href="#freebies">Outils</a>
         <a href="#story">L'histoire</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
@@ -1107,14 +1159,6 @@
   </div>
 </section>
 
-<!-- Mini-marquee 02 : Apprendre → Newsletters -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Le chemin posé</span><span>Maintenant la veille</span><span>Chaque vendredi matin</span><span>Pour rester à jour sans effort</span>
-    <span>Le chemin posé</span><span>Maintenant la veille</span><span>Chaque vendredi matin</span><span>Pour rester à jour sans effort</span>
-  </div>
-</div>
-
 <!-- ============================================================ -->
 <!-- NEWSLETTERS — La veille continue                              -->
 <!-- ============================================================ -->
@@ -1325,8 +1369,8 @@
 <!-- Mini-marquee 03 : Newsletters → Freebies -->
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
-    <span>Pas envie de t'abonner ?</span><span>Normal</span><span>Prends déjà ces 3 outils</span><span>À copier · À adapter</span><span>C'est cadeau</span>
-    <span>Pas envie de t'abonner ?</span><span>Normal</span><span>Prends déjà ces 3 outils</span><span>À copier · À adapter</span><span>C'est cadeau</span>
+    <span>Pas envie de t'abonner ?</span><span>Normal</span><span>Prends déjà ces outils</span><span>À copier · À adapter</span><span>C'est cadeau</span>
+    <span>Pas envie de t'abonner ?</span><span>Normal</span><span>Prends déjà ces outils</span><span>À copier · À adapter</span><span>C'est cadeau</span>
   </div>
 </div>
 
@@ -1339,7 +1383,7 @@
       <div class="kicker"><span class="pulse"></span>— 04 · Les outils gratuits</div>
       <h2>Les outils,<br><em>tout de suite.</em></h2>
       <p>
-        Pas envie de t'abonner avant d'avoir vu ce que vaut la maison ? Je te comprends — moi aussi je déteste laisser mon email en aveugle. <strong>Prends déjà ces 10 ressources</strong> — c'est exactement ce que j'utilise moi-même tous les jours. Tu télécharges, tu testes, tu adaptes. C'est à toi.
+        Pas envie de t'abonner avant d'avoir vu ce que vaut la maison ? Je te comprends — moi aussi je déteste laisser mon email en aveugle. <strong>Voici les six outils que j'utilise moi-même tous les jours</strong>. Tu télécharges, tu testes, tu adaptes. C'est à toi.
       </p>
     </div>
 
@@ -1433,73 +1477,10 @@
         </div>
       </article>
 
-      <!-- 04 — Plugins officiels (sans email) -->
-      <article class="freebie-card fb-ink">
-        <div class="freebie-head">
-          <div class="freebie-num">04</div>
-          <h3>Mes 6 plugins<br>officiels Anthropic</h3>
-        </div>
-        <div class="freebie-body">
-          <p>
-            Les plugins, c'est des packs prêts à l'emploi publiés par Anthropic · tu en installes un, Claude gagne un super-pouvoir. <strong>Voici les 6 que j'utilise</strong> tous les jours : méthodologie de dev, docs à jour, audit CLAUDE.md, design UI, review code, simplification.
-          </p>
-          <ul>
-            <li><code>superpowers</code> · méthodologie complète + 3 commandes slash</li>
-            <li><code>context7</code> · docs à jour de n'importe quel framework</li>
-            <li><code>claude-md-management</code> + <code>frontend-design</code></li>
-            <li><code>code-review</code> + <code>code-simplifier</code></li>
-          </ul>
-          <div class="freebie-meta">↪ Script bash 2.6 Ko · install en 30 secondes</div>
-        </div>
-        <div class="freebie-actions">
-          <a href="downloads/install-plugins.sh" download class="btn btn-primary" style="justify-content:center; padding:12px 18px; font-size:12px">
-            Télécharger le script
-          </a>
-          <button type="button" class="btn btn-ghost" id="copyPluginCommands" style="justify-content:center; padding:12px 18px; font-size:12px; margin-top:8px">
-            ⎘ Copier les 6 commandes
-          </button>
-          <div class="freebie-status" id="pluginCopyStatus" aria-live="polite"></div>
-          <p class="freebie-hint">
-            <strong>100% gratuit, aucun email demandé.</strong> Lance le script ou copie-colle les commandes.
-          </p>
-        </div>
-      </article>
-
-      <!-- 05 — Stack complète -->
-      <article class="freebie-card fb-teal">
-        <div class="freebie-head">
-          <div class="freebie-num">05</div>
-          <h3>Ma stack<br>complète en 1 fichier</h3>
-        </div>
-        <div class="freebie-body">
-          <p>
-            Tu ne veux pas installer mes outils un par un ? <strong>Prends le fichier récap</strong> · 11 outils que j'utilise vraiment (7 essentiels + 4 avancés), avec le prix, la commande d'install, et pourquoi je l'ai choisi. Markdown simple, tu le lis une fois, tu te lances.
-          </p>
-          <ul>
-            <li><strong>Essentiels</strong> · Claude Code · dev-browser · Vercel · Resend · n8n · Ghostty · Supabase</li>
-            <li><strong>Avancés</strong> · Sanity · Zernio · fal.ai · Remotion</li>
-            <li>Les 6 plugins Claude en bonus</li>
-            <li>Les alternatives que j'ai écartées</li>
-          </ul>
-          <div class="freebie-meta">↪ Fichier .md · ~4 Ko · aucun email requis</div>
-        </div>
-        <div class="freebie-actions">
-          <a href="downloads/stack-jeremy.md" download class="btn btn-primary" style="justify-content:center; padding:12px 18px; font-size:12px">
-            Télécharger le récap
-          </a>
-          <a href="outils.html" class="btn btn-ghost" style="justify-content:center; padding:12px 18px; font-size:12px; margin-top:8px">
-            Voir la page complète →
-          </a>
-          <p class="freebie-hint">
-            <strong>100% gratuit, aucun email demandé.</strong> Le détail est sur la page outils.
-          </p>
-        </div>
-      </article>
-
-      <!-- 06 — OPML veille IA -->
+      <!-- 04 — OPML veille IA (ex 06) -->
       <article class="freebie-card fb-orange">
         <div class="freebie-head">
-          <div class="freebie-num">06</div>
+          <div class="freebie-num">04</div>
           <h3>Ma veille IA<br>en 1 fichier OPML</h3>
         </div>
         <div class="freebie-body">
@@ -1524,38 +1505,10 @@
         </div>
       </article>
 
-      <!-- 07 — Prompt pack -->
-      <article class="freebie-card fb-fuchsia">
-        <div class="freebie-head">
-          <div class="freebie-num">07</div>
-          <h3>3 prompts<br>que j'utilise vraiment</h3>
-        </div>
-        <div class="freebie-body">
-          <p>
-            Pas un pack de 500 prompts copiés-collés. <strong>Les 3 prompts que je lance chaque semaine</strong> dans mon workflow éditorial · explainer d'idées d'articles, décliner un article en posts sociaux, règles de ton pour écrire dans ma voix.
-          </p>
-          <ul>
-            <li>Prompt 1 · Explainer d'idées (verdict prendre/hésiter/passer)</li>
-            <li>Prompt 2 · Décliner article → LinkedIn + X drafts</li>
-            <li>Prompt 3 · Ton Leo ruleset (à coller dans CLAUDE.md)</li>
-            <li>Mode d'emploi + exemples réels</li>
-          </ul>
-          <div class="freebie-meta">↪ Fichier .md · aucun email requis</div>
-        </div>
-        <div class="freebie-actions">
-          <a href="downloads/jeremy-prompts-pack.md" download class="btn btn-primary" style="justify-content:center; padding:12px 18px; font-size:12px">
-            Télécharger les 3 prompts
-          </a>
-          <p class="freebie-hint">
-            <strong>100% gratuit, aucun email demandé.</strong> Copie-colle dans Claude Code.
-          </p>
-        </div>
-      </article>
-
-      <!-- 08 — Cheat-sheet A4 imprimable -->
+      <!-- 05 — Cheat-sheet A4 imprimable (ex 08) -->
       <article class="freebie-card fb-teal">
         <div class="freebie-head">
-          <div class="freebie-num">08</div>
+          <div class="freebie-num">05</div>
           <h3>Cheat-sheet A4<br>à imprimer</h3>
         </div>
         <div class="freebie-body">
@@ -1583,7 +1536,7 @@
       <!-- 09 — Quiz interactif -->
       <article class="freebie-card fb-fuchsia">
         <div class="freebie-head">
-          <div class="freebie-num">09</div>
+          <div class="freebie-num">06</div>
           <h3>Quiz · Quel workflow<br>IA pour toi ?</h3>
         </div>
         <div class="freebie-body">
@@ -1608,54 +1561,15 @@
         </div>
       </article>
 
-      <!-- 10 — Mini-cours 5 jours -->
-      <article class="freebie-card fb-orange">
-        <div class="freebie-head">
-          <div class="freebie-num">10</div>
-          <h3>Mini-cours email<br>« Ta semaine 1 avec Claude »</h3>
-        </div>
-        <div class="freebie-body">
-          <p>
-            5 emails, 1 par jour, pour passer de <strong>zéro à premier projet Claude Code livré</strong> en 5 jours. Pas de fluff, pas de théorie · chaque email = une action précise.
-          </p>
-          <ul>
-            <li>J1 · Installer Claude Code (10 min)</li>
-            <li>J2 · Ton premier CLAUDE.md</li>
-            <li>J3 · Lancer un skill sur une vraie tâche</li>
-            <li>J4 · Automatiser un workflow simple</li>
-            <li>J5 · Récap + ta roadmap mois 1</li>
-          </ul>
-          <div class="freebie-meta">↪ Séquence email 5 jours · email requis</div>
-        </div>
-        <div class="freebie-actions">
-          <form class="freebie-download-form" data-download="cours" data-newsletter="cours-semaine-1">
-            <input type="email" name="email" placeholder="ton@email.com" required>
-            <button type="submit">Je commence</button>
-          </form>
-          <div class="freebie-status" aria-live="polite"></div>
-          <p class="freebie-hint">
-            Jour 1 dans ta boîte <strong>dans 5 minutes</strong>. Désinscription 1 clic à tout moment.
-          </p>
-        </div>
-      </article>
-
     </div>
 
     <div class="freebies-honesty">
       <p>
-        <strong>Soyons transparents :</strong> sur les 8 ressources, 2 demandent ton email (le CLAUDE.md et le pack skills). C'est pour t'inscrire à <strong>AI Playbook</strong>, ma newsletter du vendredi — pas pour te spammer, pas pour te revendre à qui que ce soit. Les 6 autres sont en téléchargement direct, sans rien demander. Si ma newsletter ne te sert pas : 1 clic, tu te désinscris, et je ne t'en veux pas.
+        <strong>Soyons transparents :</strong> sur les six ressources, deux demandent ton email (le CLAUDE.md et le pack skills). C'est pour t'inscrire à <strong>AI Playbook</strong>, ma newsletter du vendredi — pas pour te spammer, pas pour te revendre à qui que ce soit. Les quatre autres sont en téléchargement direct, sans rien demander. Si ma newsletter ne te sert pas : 1 clic, tu te désinscris, et je ne t'en veux pas.
       </p>
     </div>
   </div>
 </section>
-
-<!-- Mini-marquee 04 : Freebies → Projets -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Tu as la méthode</span><span>Les outils</span><span>Voilà les preuves</span><span>3 projets · 3 étapes</span>
-    <span>Tu as la méthode</span><span>Les outils</span><span>Voilà les preuves</span><span>3 projets · 3 étapes</span>
-  </div>
-</div>
 
 <!-- ============================================================ -->
 <!-- PROJETS — Preuves concrètes                                   -->
@@ -1923,7 +1837,7 @@
     <div class="sources-tabs" role="tablist">
       <button class="sources-tab active" role="tab" data-src-tab="youtube">
         ▶ YouTube
-        <span class="sources-tab-count">34</span>
+        <span class="sources-tab-count">12</span>
       </button>
       <button class="sources-tab" role="tab" data-src-tab="twitter">
         X · Twitter
@@ -1942,15 +1856,12 @@
         <div class="sources-category-head">
           <span class="dot" style="background:var(--teal)"></span>
           <h3>IA &amp; Tech</h3>
-          <span class="count">7 chaînes · Cœur de cible</span>
+          <span class="count">Cœur de cible</span>
         </div>
         <div class="channels-grid">
           <a class="channel-card c-ia" href="https://www.youtube.com/@siliconcarnepod" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c01.jpg" alt="Silicon Carne" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Silicon Carne 🌶️</div><div class="channel-tag">Tech · Startups</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-ia" href="https://www.youtube.com/@SamouraiDansant" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c02.jpg" alt="IA et Stratégie" loading="lazy"></div><div class="channel-meta"><div class="channel-name">IA et Stratégie</div><div class="channel-tag">IA · Business</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-ia" href="https://www.youtube.com/@VisionIA-FR" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c03.jpg" alt="Vision IA" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Vision IA</div><div class="channel-tag">IA · Vulgarisation</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-ia" href="https://www.youtube.com/@Underscore_" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c04.jpg" alt="Underscore_" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Underscore_</div><div class="channel-tag">Tech · Interviews</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-ia" href="https://www.youtube.com/@melvynxdev" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c05.jpg" alt="Melvynx" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Melvynx</div><div class="channel-tag">Dev · SaaS</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-ia" href="https://www.youtube.com/@GrandAnglePodcast" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c06.jpg" alt="Grand Angle" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Grand Angle</div><div class="channel-tag">Podcast · Tech</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-ia" href="https://www.youtube.com/@grandanglenova" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c07.jpg" alt="Grand Angle Nova" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Grand Angle Nova</div><div class="channel-tag">Podcast · IA</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
@@ -1959,21 +1870,12 @@
         <div class="sources-category-head">
           <span class="dot" style="background:var(--fuchsia)"></span>
           <h3>Business &amp; Entrepreneuriat</h3>
-          <span class="count">12 chaînes · Le gros morceau</span>
+          <span class="count">Les essentiels</span>
         </div>
         <div class="channels-grid">
           <a class="channel-card c-biz" href="https://www.youtube.com/@AlexHormozi" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c30.jpg" alt="Alex Hormozi" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Alex Hormozi</div><div class="channel-tag">Scaling · Sales</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@leilahormozi" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c31.jpg" alt="Leila Hormozi" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Leila Hormozi</div><div class="channel-tag">Ops · Leadership</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@garyvee" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c32.jpg" alt="GaryVee" loading="lazy"></div><div class="channel-meta"><div class="channel-name">GaryVee</div><div class="channel-tag">Marketing · Mindset</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@ImanGadzhi" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c33.jpg" alt="Iman Gadzhi" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Iman Gadzhi</div><div class="channel-tag">Agency · SMMA</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@GrantCardone" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c34.jpg" alt="Grant Cardone" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Grant Cardone</div><div class="channel-tag">Sales · Real Estate</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@legendmedia" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c08.jpg" alt="LEGEND" loading="lazy"></div><div class="channel-meta"><div class="channel-name">LEGEND</div><div class="channel-tag">Interviews · Long format</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-biz" href="https://www.youtube.com/@oussamaammaroff" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c09.jpg" alt="Oussama Ammar" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Oussama Ammar</div><div class="channel-tag">Startup · Mindset</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@Hasheur" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c10.jpg" alt="Hasheur" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Hasheur</div><div class="channel-tag">Crypto · Business</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@PodcastLeD%C3%A9clic" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c11.jpg" alt="Le Déclic par Alec Henry" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Le Déclic par Alec Henry</div><div class="channel-tag">Podcast · Business</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@antoineblanco99" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c12.jpg" alt="Antoine Blanco" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Antoine Blanco</div><div class="channel-tag">Entrepreneur · Growth</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@YomiDenzel" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c13.jpg" alt="Yomi Denzel" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Yomi Denzel Vlogs</div><div class="channel-tag">E-com · Vlog</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-biz" href="https://www.youtube.com/@TheiCollection" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c14.jpg" alt="TheiCollection" loading="lazy"></div><div class="channel-meta"><div class="channel-name">TheiCollection</div><div class="channel-tag">Lifestyle · Luxe</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a class="channel-card c-biz" href="https://www.youtube.com/@garyvee" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c32.jpg" alt="GaryVee" loading="lazy"></div><div class="channel-meta"><div class="channel-name">GaryVee</div><div class="channel-tag">Marketing · Mindset</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
 
@@ -1981,12 +1883,10 @@
         <div class="sources-category-head">
           <span class="dot" style="background:var(--orange)"></span>
           <h3>Finance &amp; Marchés</h3>
-          <span class="count">3 chaînes</span>
+          <span class="count">Patrimoine</span>
         </div>
         <div class="channels-grid">
           <a class="channel-card c-finance" href="https://www.youtube.com/@Finary" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c15.jpg" alt="Finary" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Finary</div><div class="channel-tag">Patrimoine · Invest</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-finance" href="https://www.youtube.com/@InteractivTrading" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c16.jpg" alt="Interactiv Trading" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Interactiv Trading</div><div class="channel-tag">Trading · Marchés</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-finance" href="https://www.youtube.com/@thamikabbaj1" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c17.jpg" alt="Thami Kabbaj" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Thami Kabbaj</div><div class="channel-tag">Trading · Mindset</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
 
@@ -1994,15 +1894,11 @@
         <div class="sources-category-head">
           <span class="dot" style="background:var(--ink)"></span>
           <h3>Actu &amp; Géopolitique</h3>
-          <span class="count">6 chaînes</span>
+          <span class="count">Comprendre le monde</span>
         </div>
         <div class="channels-grid">
-          <a class="channel-card c-actu" href="https://www.youtube.com/@7jourssurTerre" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c18.jpg" alt="7 jours sur Terre" loading="lazy"></div><div class="channel-meta"><div class="channel-name">7 jours sur Terre</div><div class="channel-tag">Géopolitique</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-actu" href="https://www.youtube.com/@Cdanslairofficiel" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c19.jpg" alt="C dans l'air" loading="lazy"></div><div class="channel-meta"><div class="channel-name">C dans l'air</div><div class="channel-tag">Débat · France TV</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-actu" href="https://www.youtube.com/@Geopolitis" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c20.jpg" alt="Géopolitis" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Géopolitis</div><div class="channel-tag">Géopolitique · RTS</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-actu" href="https://www.youtube.com/@hugodecrypteactus" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c21.jpg" alt="HugoDécrypte" loading="lazy"></div><div class="channel-meta"><div class="channel-name">HugoDécrypte</div><div class="channel-tag">Actu · Vulgarisation</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-actu" href="https://www.youtube.com/@BrutFR" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c22.jpg" alt="Brut" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Brut.</div><div class="channel-tag">Vidéos · Société</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-actu" href="https://www.youtube.com/@CHAQUEJOURSURTERRE" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c23.jpg" alt="Chaque Jour sur Terre" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Chaque Jour sur Terre</div><div class="channel-tag">Actu · Terrain</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a class="channel-card c-actu" href="https://www.youtube.com/@Cdanslairofficiel" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c19.jpg" alt="C dans l'air" loading="lazy"></div><div class="channel-meta"><div class="channel-name">C dans l'air</div><div class="channel-tag">Débat · France TV</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
 
@@ -2010,16 +1906,16 @@
         <div class="sources-category-head">
           <span class="dot" style="background:#5ECD8C"></span>
           <h3>Lifestyle &amp; Inspiration</h3>
-          <span class="count">6 chaînes</span>
+          <span class="count">Respirer</span>
         </div>
         <div class="channels-grid">
-          <a class="channel-card c-life" href="https://www.youtube.com/@Najbfit" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c24.jpg" alt="Naj B Fit" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Naj B Fit</div><div class="channel-tag">Fitness · Lifestyle</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-life" href="https://www.youtube.com/@taylorchiche" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c25.jpg" alt="Taylor Chiche" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Taylor Chiche</div><div class="channel-tag">Vlog · Business</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-life" href="https://www.youtube.com/@margo_cunego" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c26.jpg" alt="Margo Cunego" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Margo Cunego</div><div class="channel-tag">Lifestyle · Vlog</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-life" href="https://www.youtube.com/@MrBeast" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c27.jpg" alt="MrBeast" loading="lazy"></div><div class="channel-meta"><div class="channel-name">MrBeast</div><div class="channel-tag">Divertissement</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a class="channel-card c-life" href="https://www.youtube.com/@soustensionpodcast" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c28.jpg" alt="Sous Tension" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Sous Tension</div><div class="channel-tag">Podcast · Interviews</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a class="channel-card c-life" href="https://www.youtube.com/@RomainLan%C3%A9ry" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c29.jpg" alt="Romain Lanéry" loading="lazy"></div><div class="channel-meta"><div class="channel-name">Romain Lanéry</div><div class="channel-tag">Vlog · Business</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a class="channel-card c-life" href="https://www.youtube.com/@MrBeast" target="_blank" rel="noopener"><div class="channel-avatar"><img src="photos/channels/c27.jpg" alt="MrBeast" loading="lazy"></div><div class="channel-meta"><div class="channel-name">MrBeast</div><div class="channel-tag">Divertissement</div></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
+      </div>
+
+      <div class="sources-more">
+        <p>Ma liste complète fait <strong>34 chaînes</strong> — toutes catégories. Je partage le fichier OPML dans <a href="#freebies">les outils à télécharger</a>, tu importes dans ton lecteur RSS et tu récupères la veille complète en un clic.</p>
       </div>
 
     </div>
@@ -2069,53 +1965,20 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- MINI-BIO — Qui te parle                                       -->
-<!-- ============================================================ -->
-<section class="minibio">
-  <div class="container">
-    <div class="minibio-grid">
-      <div class="minibio-photo-wrap">
-        <div class="minibio-photo">
-          <img src="photos/A7100670.jpg" alt="Jérémy Sagnier" style="object-position: center 25%">
-        </div>
-        <div class="minibio-photo-tag">Moi · Sans filtre</div>
-      </div>
-      <div class="minibio-body">
-        <div class="kicker"><span class="pulse"></span>— 08 · Qui te parle ?</div>
-        <h2>Entrepreneur.<br>Pas dev.<br><em>Pas dépassé.</em></h2>
-        <p>
-          Re-salut. Je m'appelle <strong>Jérémy</strong>, je vis en France, je suis <strong>entrepreneur</strong>, père d'un fils, <strong>frère jumeau de Kevin</strong> (fondateur d'Eurofiscalis). J'ai passé quinze ans à lancer des projets — pro, perso — sans jamais écrire une ligne de code. Ça ne m'a pas empêché d'avancer. Peut-être même que ça m'a aidé.
-        </p>
-        <p>
-          Puis l'IA est arrivée. Et je me suis posé une seule question : <strong>comment je fais pour ne pas me faire larguer ?</strong> La réponse, c'est ce site. Un système que j'ai monté pour moi — et que je te laisse regarder en fonctionnement. Si tu veux, je te tiens la main sur le premier pas.
-        </p>
-        <div class="minibio-tags">
-          <span class="minibio-tag t-fuchsia">Entrepreneur</span>
-          <span class="minibio-tag t-teal">Curieux de l'IA</span>
-          <span class="minibio-tag t-orange">Père &amp; frère jumeau</span>
-          <span class="minibio-tag">Jamais dépassé</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Mini-marquee 06 : Mini-bio → Story -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Une dernière chose</span><span>Pour qu'on se comprenne</span><span>Ma vraie garantie</span><span>Sans filtre</span>
-    <span>Une dernière chose</span><span>Pour qu'on se comprenne</span><span>Ma vraie garantie</span><span>Sans filtre</span>
-  </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- STORY — La garantie · "Je fais ça d'abord pour moi"           -->
+<!-- STORY — Qui parle + La garantie (fusion minibio + story)     -->
 <!-- ============================================================ -->
 <section id="story">
   <div class="container">
     <div class="story-compact">
-      <div class="kicker"><span class="pulse"></span>— 09 · Ma garantie (sans filtre)</div>
+      <div class="story-photo-wrap">
+        <img src="photos/A7100670.jpg" alt="Jérémy Sagnier" class="story-photo-inline" style="object-position: center 25%">
+        <span class="story-photo-tag">Moi · Sans filtre</span>
+      </div>
+      <div class="kicker"><span class="pulse"></span>— 08 · Qui parle, pourquoi</div>
       <h2>Je fais tout ça<br>d'abord <em>pour moi.</em></h2>
+      <p>
+        Salut. Je m'appelle <strong>Jérémy</strong>, je vis en France, je suis <strong>entrepreneur</strong>, père d'un fils, <strong>frère jumeau de Kevin</strong> (fondateur d'Eurofiscalis). J'ai passé quinze ans à lancer des projets — pro, perso — sans jamais écrire une ligne de code. Ça ne m'a pas empêché d'avancer.
+      </p>
       <p>
         Tu te demandes peut-être pourquoi je partage tout ça gratuitement. Je vais être complètement transparent : <strong>ce site existe d'abord pour moi</strong>. Les newsletters, je les écris pour m'obliger à faire la veille chaque semaine — parce que sans cette contrainte, je lâcherais. Les outils IA, je les construis parce que j'en ai besoin dans mon quotidien d'entrepreneur. Le parcours, je l'ai structuré parce que j'en aurais eu besoin moi-même, il y a deux ans. Personne n'a voulu me le donner — alors je le pose ici, pour toi.
       </p>
@@ -2268,11 +2131,6 @@
         </ul>
       </div>
 
-    </div>
-
-    <div class="footer-pulse-cta">
-      <span class="footer-pulse-cta-dot"></span>
-      <span>Reviens <strong id="footer-pulse-next">bientôt</strong> pour le prochain tuto — ou laisse-moi ton <em>email</em> pour le savoir avant tout le monde.</span>
     </div>
 
     <div class="footer-bottom">

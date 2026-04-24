@@ -248,6 +248,7 @@ async function publishOne(slug) {
   log.info(`Ouvre : file://${outPath}`);
   log.info(`URL prod : ${SITE_URL}/articles/${data.slug}.html`);
   log.info(`Next step : git add . && git commit -m "Add article: ${data.slug}" && git push`);
+  log.info(`Puis ping IndexNow : npm run indexnow ${SITE_URL}/articles/${data.slug}.html`);
 }
 
 async function publishAll() {

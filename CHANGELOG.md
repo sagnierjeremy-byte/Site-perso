@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · article booking V3 — ajout Letsignit (2e SaaS remplacé)
+
+### Pourquoi
+Sur demande Jérémy : préciser qu'on a aussi remplacé **Letsignit** (l'outil de signature email payé ~ 80 €/mois pour 20 utilisateurs). Renforce massivement l'angle « on a tué 2 SaaS d'un coup avec un seul outil maison ». Recalcule des économies (~ 4 100 €/an au lieu de 3 200 €/an).
+
+### Livré V3
+- **Titre + meta** : « On a viré Calendly **ET Letsignit** »
+- **Hero H1** : « ON A VIRÉ CALENDLY ET LETSIGNIT » (2 marques colorées, fuchsia + teal)
+- **Hero-lead** : précise les 2 abonnements et zéro contrôle charte
+- **TL;DR** : retouche puces 1 et 5 (mention Letsignit + nouveau coût ~ 400 € avant / ~ 30 € après)
+- **Section déclencheur** : nouveau paragraphe sur Letsignit (~ 80 €/mois plan standard, signatures qui se cassent dans Outlook Windows legacy)
+- **Section back-office signature** : nouveau callout `tip` « Bye bye Letsignit » qui résume l'éviction
+- **Section coût** : tableau enrichi avec ligne Letsignit (~ 80 €/mois, ~ 960 €/an), total des 2 SaaS (~ 375 €/mois), économie annuelle recalculée à ~ 4 140 €
+- **Bignum « Économie mensuelle »** : ~ 290 € → ~ 345 €
+- **Mini-marquees** : 2 mises à jour (« 2 SaaS qui coûtent 400 €/mois », « 2 SaaS résiliés », « 4 100 € économisés par an »)
+- **`index.html`** project card : titre « On a viré Calendly et Letsignit », meta « 4 100 €/an économisés », desc actualisée
+
+### Fichiers touchés
+- `articles/booking-eurofiscalis-making-of.html` (752 lignes, +10 par rapport à V2)
+- `index.html` (project card #03)
+- `CHANGELOG.md` (cette entrée)
+
+---
+
 ## 2026-04-24 · article « On a viré Calendly » V2 — ajout section back-office
 
 ### Pourquoi (suite)

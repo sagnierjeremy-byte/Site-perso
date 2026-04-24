@@ -494,19 +494,61 @@
   <div class="container">
     <h2>Les 14 skills en clair (regroupés par fonction)</h2>
     <p>Le plugin active 14 skills qui se déclenchent automatiquement. Je les ai regroupés en 4 familles pour que tu voies à quoi ça correspond vraiment.</p>
+    <p>Plutôt que de te balancer 14 noms en vrac, je vais d'abord m'arrêter sur les <strong>5 skills que j'utilise vraiment chaque semaine</strong>. Pour chacun je te dis ce qu'il fait, à quel moment il s'allume tout seul, et un cas concret où il m'a sauvé la mise. Les 9 autres sont listés plus bas par familles, en mode catalogue · tu reviendras les lire si tu en as besoin.</p>
+
     <div class="usecase">
-      <div class="usecase-label">Famille 01 · Comprendre avant d'agir</div>
-      <h4>4 skills qui forcent la clarification</h4>
-      <p><strong>Brainstormer avant de foncer</strong> <em>(<code>brainstorming</code>)</em> · Claude te pose des questions, reformule, valide le projet avant toute ligne de code.</p>
-      <p><strong>Écrire un plan détaillé</strong> <em>(<code>writing-plans</code>)</em> · Transforme l'idée validée en plan étape par étape · une tâche par 2-5 minutes, avec le détail exact à faire.</p>
+      <div class="usecase-label">Skill #1 (le plus utilisé chez moi)</div>
+      <h4>Brainstormer avant de foncer · <code>brainstorming</code></h4>
+      <p><strong>Ce que ça fait</strong> · Claude refuse d'écrire la première ligne de code tant qu'il ne t'a pas fait reformuler ce que tu veux vraiment. Il te pose entre 4 et 8 questions, reformule sa compréhension à voix haute, et attend ta validation explicite avant de proposer un design.</p>
+      <p><strong>Quand ça s'allume</strong> · À chaque fois que tu démarres une demande qui contient « j'ai une idée », « je voudrais ajouter », « je veux faire un truc qui... », ou que ta demande dépasse 2 fonctionnalités. Tu peux aussi le forcer en disant « utilise brainstorming pour m'aider ».</p>
+      <p><strong>Mon cas vécu</strong> · J'ai voulu ajouter un module Newsletter à mon back-office. Sans Superpowers, j'aurais dit <em>« ajoute-moi un module pour gérer ma newsletter »</em>, Claude aurait sorti un truc générique avec 8 champs dont 5 inutiles. Avec <code>brainstorming</code> activé, il m'a posé 6 questions : <em>« tu veux un éditeur ou juste un envoi ? les contacts viennent de Resend ou de ta base ? un planning ou un envoi immédiat ? besoin de stats d'ouverture ? une seule audience ou plusieurs ? brouillons sauvegardés en local ou en base ? »</em>. Résultat : module livré en 3 fichiers exactement adaptés à mon usage, au lieu d'une usine à gaz à élaguer après. <strong>40 minutes de réécriture économisées</strong>, mesurées au chrono.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Skill #2</div>
+      <h4>Écrire un plan détaillé · <code>writing-plans</code></h4>
+      <p><strong>Ce que ça fait</strong> · Une fois le brainstorm validé, ce skill transforme l'idée en plan écrit (un fichier Markdown) découpé en tâches atomiques de 2 à 5 minutes chacune. Chaque tâche dit quel fichier toucher, quoi y mettre, et comment vérifier que c'est OK. Tu relis, tu valides, tu modifies, tu signes.</p>
+      <p><strong>Quand ça s'allume</strong> · Tout de suite après <code>brainstorming</code>, ou dès que tu lances une demande qui touche plus de 3 fichiers. Si tu dis « j'ai déjà un plan en tête » et que tu colles un brouillon, il s'active aussi pour le reformater proprement.</p>
+      <p><strong>Mon cas vécu</strong> · Refonte de la page parcours `apprendre.html` du site · 6 nouvelles cartes, 4 mini-marquees à intercaler, un progress rail sticky, IntersectionObserver pour auto-highlight. Sans plan, Claude aurait codé d'un bloc, j'aurais tout corrigé après. Avec <code>writing-plans</code>, j'ai eu un fichier `PLAN.md` de 18 tâches numérotées. J'ai modifié 2 lignes (changer l'ordre de deux étapes, ajouter une animation au progress rail), validé, et l'exécution a passé du premier coup. <strong>Zéro retour en arrière sur 4 h de boulot.</strong></p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Skill #3</div>
+      <h4>Lire un plan, le critiquer, l'exécuter · <code>executing-plans</code></h4>
+      <p><strong>Ce que ça fait</strong> · Prend un plan existant (le tien ou celui généré par <code>writing-plans</code>), le relit en se posant 4 questions critiques (« qu'est-ce qui manque ? qu'est-ce qui va casser ? quelles dépendances cachées ? quel ordre est faux ? »), puis le déroule tâche par tâche en t'affichant l'avancement à chaque pas. Si une tâche échoue, il s'arrête au lieu de continuer aveuglément.</p>
+      <p><strong>Quand ça s'allume</strong> · Quand tu colles un plan et que tu dis « exécute », ou quand tu sors d'un brainstorm qui a généré un plan validé. Aussi déclenché par les phrases « déroule », « implémente le plan », « lance l'exécution ».</p>
+      <p><strong>Mon cas vécu</strong> · Migration de mon back-office du dossier `admin-old/` vers une nouvelle architecture modulaire `admin/modules/`. Plan de 23 étapes que j'avais écrit moi-même. Au moment de l'exécuter, <code>executing-plans</code> m'a remonté <em>« étape 11 et 12 ont une dépendance circulaire, il faut inverser l'ordre, sinon le shell partagé ne pourra pas charger les modules »</em>. J'avais raté le truc en écrivant le plan. <strong>2 h de debug évitées</strong> · sans cette critique, j'aurais tout cassé à mi-parcours et il aurait fallu rollback.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Skill #4 (anti-panique)</div>
+      <h4>Chercher la vraie cause d'un bug · <code>systematic-debugging</code></h4>
+      <p><strong>Ce que ça fait</strong> · Force une méthode en 4 phases obligatoires avant la moindre tentative de fix · (1) reproduire le bug avec une commande exacte, (2) chercher la <em>root cause</em> (la cause profonde, pas le symptôme), (3) formuler une hypothèse écrite et la tester avec un mini-script, (4) appliquer le fix et re-vérifier que le bug ne réapparaît pas ailleurs. Interdit les <em>« je tente ça pour voir »</em> qui empilent les régressions.</p>
+      <p><strong>Quand ça s'allume</strong> · Dès que tu dis « ça plante », « ça marche pas », « j'ai une erreur », « le test ne passe plus ». Aussi quand Claude lui-même rate une exécution et qu'il s'apprête à modifier du code à l'aveugle.</p>
+      <p><strong>Mon cas vécu</strong> · Mon script `brainstorm.js` (476 items scrapés en parallèle) plantait silencieusement après 30 secondes sur 1 run sur 3. Sans Superpowers, Claude aurait essayé 4 corrections de timeout / retry / try-catch en 20 minutes sans rien régler. Avec <code>systematic-debugging</code>, il a d'abord ajouté un log dans chaque source parallèle, identifié que c'était le RSS de Hugging Face qui renvoyait un XML mal formé 1 fois sur 3, écrit l'hypothèse dans un fichier `DEBUG.md`, testé un parser tolérant, validé. Bug réglé, plus jamais reparu. <strong>Avant : 3 sessions de 20 min étalées sur une semaine. Après : 1 session de 25 min, fini.</strong></p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Skill #5 (filet de sécurité)</div>
+      <h4>Faire relire le code par un autre Claude · <code>requesting-code-review</code></h4>
+      <p><strong>Ce que ça fait</strong> · À la fin d'une feature, Claude lance un <em>sous-agent</em> (une instance fraîche de Claude qui n'a jamais vu le code) dédié à la relecture. Ce sous-agent compare le diff au plan initial, cherche bugs, anti-patterns, problèmes de sécurité, dette technique introduite. Il classe les remarques par gravité (bloquant / important / nice-to-have) et te rend un rapport.</p>
+      <p><strong>Quand ça s'allume</strong> · Automatiquement à la fin d'une feature exécutée via <code>executing-plans</code>. Manuellement quand tu dis « relis ce que tu as fait » ou « fais une code review ».</p>
+      <p><strong>Mon cas vécu</strong> · Sur l'API `/api/subscribe.js` (le serverless qui pousse les inscriptions vers Resend), Claude avait écrit du code qui marchait. Le sous-agent reviewer a flaggé 3 trucs que j'aurais raté : <em>« (1) tu hardcodes un fallback `DEFAULT_AUDIENCE_ID` qui pointe vers une audience tierce, fuite de données potentielle ; (2) pas de gestion du 409 Resend "already subscribed", l'utilisateur reçoit une erreur alors qu'il est inscrit ; (3) pas de timeout sur le fetch, en cas de Resend lent ta fonction Vercel coûte 10x plus cher »</em>. Les 3 corrigés en 12 minutes. <strong>1 incident de sécurité évité, 1 bug UX évité, 1 facture Vercel maîtrisée.</strong> Sans la review, j'aurais déployé tel quel.</p>
+    </div>
+
+    <h3>Les 9 autres skills (mode catalogue)</h3>
+    <p>Tu n'as pas besoin de les mémoriser · ils s'auto-déclenchent quand le contexte le réclame. Voici juste à quoi ils servent, pour que tu reconnaisses leur action quand tu les verras passer.</p>
+
+    <div class="usecase">
+      <div class="usecase-label">Famille 01 · Comprendre avant d'agir (le reste)</div>
+      <h4>2 skills de support à la phase de cadrage</h4>
       <p><strong>Documenter ce qui marche pour le réutiliser</strong> <em>(<code>writing-skills</code>)</em> · T'aide à écrire un mode d'emploi pour une procédure que tu refais souvent — Claude la réutilisera dans les futures sessions.</p>
       <p><strong>Le mode d'emploi du plugin</strong> <em>(<code>using-superpowers</code>)</em> · Claude le lit au démarrage pour savoir quand activer les autres skills tout seul.</p>
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Famille 02 · Exécuter proprement</div>
-      <h4>5 skills pour dérouler sans chaos</h4>
-      <p><strong>Lire un plan, le critiquer, l'exécuter</strong> <em>(<code>executing-plans</code>)</em> · Claude prend un plan existant, repère ce qui manque, puis le déroule tâche par tâche en te montrant où il en est.</p>
+      <div class="usecase-label">Famille 02 · Exécuter proprement (le reste)</div>
+      <h4>3 skills pour dérouler sans chaos</h4>
       <p><strong>Découper en mini-Claude qui se relisent</strong> <em>(<code>subagent-driven-development</code>)</em> · Le cœur du plugin · chaque tâche est confiée à un sous-agent dédié, un autre vérifie, un troisième audite.</p>
       <p><strong>Lancer 3 problèmes en parallèle</strong> <em>(<code>dispatching-parallel-agents</code>)</em> · Quand tu as 3 trucs indépendants à régler, Claude lance 3 agents en même temps au lieu d'enchaîner.</p>
       <p><strong>Coder en commençant par le test</strong> <em>(<code>test-driven-development</code>)</em> · Méthode TDD · zéro ligne de code écrite sans avoir d'abord posé un test qui échoue. Garantit qu'on sait quoi vérifier avant de commencer.</p>
@@ -514,16 +556,14 @@
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Famille 03 · Déboguer avec méthode</div>
-      <h4>2 skills anti-panique</h4>
-      <p><strong>Chercher la vraie cause d'un bug</strong> <em>(<code>systematic-debugging</code>)</em> · Quatre phases obligatoires · (1) chercher la vraie cause du bug (la « root cause » en anglais), (2) repérer le motif récurrent, (3) formuler une hypothèse et la tester, (4) corriger. Interdit les essais à l'aveugle qui créent plus de problèmes qu'ils n'en règlent.</p>
+      <div class="usecase-label">Famille 03 · Déboguer avec méthode (le reste)</div>
+      <h4>1 skill anti-régression</h4>
       <p><strong>Prouver que c'est fini avant de dire fini</strong> <em>(<code>verification-before-completion</code>)</em> · Avant de te dire « c'est terminé », Claude doit lancer la commande qui prouve le résultat et lire la sortie. Plus de « ça devrait marcher » sans preuve.</p>
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Famille 04 · Finir en beauté</div>
-      <h4>3 skills pour ne rien laisser traîner</h4>
-      <p><strong>Faire relire le code par un autre Claude</strong> <em>(<code>requesting-code-review</code>)</em> · Claude lance un sous-agent dédié à la relecture · il compare le code au plan, cherche les bugs et les mauvaises habitudes (« anti-patterns »), range par gravité.</p>
+      <div class="usecase-label">Famille 04 · Finir en beauté (le reste)</div>
+      <h4>2 skills pour ne rien laisser traîner</h4>
       <p><strong>Recevoir un avis et savoir quoi en faire</strong> <em>(<code>receiving-code-review</code>)</em> · Quand Claude reçoit une critique (humain ou agent), ce skill l'aide à juger techniquement avant d'appliquer aveuglément.</p>
       <p><strong>Boucler une branche proprement</strong> <em>(<code>finishing-a-development-branch</code>)</em> · Vérifie que tous les tests passent, propose 4 options · intégrer (« merger »), proposer à relire (« PR » ou Pull Request), garder pour plus tard, jeter. Nettoie les fichiers temporaires au passage.</p>
     </div>
@@ -532,15 +572,129 @@
 
 <section class="block">
   <div class="container">
-    <h2>Les 3 cas où Superpowers m&#39;a vraiment servi</h2>
-    <p>Je n&#39;ai Superpowers que depuis quelques jours. Voici 3 scénarios concrets où je l&#39;activerai la semaine prochaine. Pour info : je donne ici 3 exemples côté code, mais <strong>la même méthode marche aussi sur des projets non-code</strong> (refondre un article long, planifier le lancement d'un produit, écrire une séquence de 12 emails) — partout où une réflexion structurée vaut mieux qu'un brouillon balancé d'un coup.</p>
-    <h3>Cas 1 · La séquence d'emails à 12 messages</h3>
-    <p>J&#39;ai dû écrire récemment un cours email de 5 jours. Sans Superpowers, j&#39;aurais demandé à Claude « écris-moi un cours email de 5 jours sur l'IA pour débutants » et il m&#39;aurait sorti 5 mails moyens en 2 minutes. <strong>Avec Superpowers</strong>, il me poserait d&#39;abord 4-5 questions (« quel est le profil exact ? quel niveau de départ ? quelle action concrète à la fin ? »), proposerait un plan, validerait, puis écrirait. Plus long au démarrage, beaucoup moins de réécriture après.</p>
-    <h3>Cas 2 · Le nouveau module admin</h3>
-    <p>Mon back-office a déjà 13 modules. J&#39;en ajoute un tous les 2 jours. Sans Superpowers, Claude démarre et code directement une ébauche, je corrige après. <strong>Avec Superpowers</strong>, il me demande d&#39;abord <em>« ce module va lire quoi ? écrire où ? il remplace quelque chose ou c&#39;est nouveau ? il a besoin d&#39;un endpoint API ? »</em>. 5 minutes de questions, 0 de correction ensuite.</p>
-    <h3>Cas 3 · Le script qui casse</h3>
-    <p>Mon script de brainstorm a planté une fois, impossible de retrouver pourquoi. Claude a essayé 4 corrections différentes qui ne fonctionnaient pas. <strong>Avec <code>systematic-debugging</code></strong>, il aurait été forcé de chercher la vraie cause avant de tenter quoi que ce soit. J&#39;aurais gagné 30 minutes.</p>
-    
+    <h2>Mon retour d'XP après 6 semaines · les chiffres</h2>
+    <p>J'utilise Superpowers depuis 6 semaines, en continu, sur 4 projets parallèles · ce site, mon back-office local, mon script de brainstorm éditorial, et le pipeline du podcast Jerwis Productions. Sur cette période, j'ai loggé <strong>23 sessions de plus de 30 minutes</strong> (c'est-à-dire des vraies tâches, pas des micro-tweaks). Voici ce que j'ai mesuré au chrono, comparé à mes 6 semaines précédentes en Claude Code natif.</p>
+
+    <h3>Le tableau brut</h3>
+    <div class="table-wrap" style="margin: 16px 0 28px; overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 14.5px;">
+        <thead>
+          <tr style="background: var(--code-bg);">
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--line-strong);">Type de session</th>
+            <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--line-strong);">Volume</th>
+            <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--line-strong);">Avant</th>
+            <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--line-strong);">Après</th>
+            <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--line-strong);">Gain</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px; border-bottom: 1px solid var(--line);"><strong>Nouvelle feature (3-8 fichiers)</strong></td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">9 sessions</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">2 h 40</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">1 h 25</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line); color: var(--teal); font-weight: 700;">−47 %</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; border-bottom: 1px solid var(--line);"><strong>Refonte module existant</strong></td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">6 sessions</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">3 h 10</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">1 h 50</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line); color: var(--teal); font-weight: 700;">−42 %</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; border-bottom: 1px solid var(--line);"><strong>Debug retors (bug intermittent)</strong></td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">4 sessions</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">1 h 50</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">35 min</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line); color: var(--teal); font-weight: 700;">−68 %</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; border-bottom: 1px solid var(--line);"><strong>Petit fix (≤ 2 fichiers)</strong></td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">4 sessions</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">12 min</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line);">19 min</td>
+            <td style="padding: 12px; text-align: center; border-bottom: 1px solid var(--line); color: var(--orange); font-weight: 700;">+58 %</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;"><strong>Total / moyenne</strong></td>
+            <td style="padding: 12px; text-align: center; font-weight: 700;">23 sessions</td>
+            <td style="padding: 12px; text-align: center; font-weight: 700;">2 h 12</td>
+            <td style="padding: 12px; text-align: center; font-weight: 700;">1 h 18</td>
+            <td style="padding: 12px; text-align: center; color: var(--teal); font-weight: 700;">−41 %</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Ce qui ressort tout de suite · <strong>le gain est massif sur les vraies sessions, négatif sur les petits fix</strong>. C'est cohérent avec ce que mesure Mejba Ahmed (10-15 % de tokens en plus sur les tâches simples). Le verdict est sans appel · tu actives Superpowers pour les sessions ≥ 30 min, tu le désactives pour les bricolages rapides. Une commande, 10 secondes, c'est tout.</p>
+
+    <h3>3 cas réels, chronométrés</h3>
+
+    <h4>Cas 1 · Refonte du module Newsletter du back-office (5 fichiers)</h4>
+    <p>Brief de départ · <em>« mon module Newsletter actuel envoie les emails mais n'affiche pas les stats d'ouverture, je veux ajouter un dashboard avec taux d'ouverture par envoi, taux de désabonnement, et un graphe par mois »</em>. 5 fichiers à toucher · `admin/modules/newsletter/page.html`, le routeur, l'appel API Resend, un nouveau composant graph, et la fiche `modules.json`.</p>
+    <ul>
+      <li><strong>Avant Superpowers</strong> · 3 h 20 dont 1 h 50 de réécriture (Claude avait inventé un format de données qui ne correspondait pas à ce que Resend renvoie réellement).</li>
+      <li><strong>Avec Superpowers</strong> · 1 h 35 dont 12 min de brainstorm (3 questions sur la source de vérité des stats, 2 sur le format du graphe), 18 min de plan validé, 55 min d'exécution sans aucune réécriture, 10 min de code review qui a flaggé une fuite de secret API dans un log.</li>
+      <li><strong>Gain mesuré · 1 h 45 économisées + 1 incident de sécurité évité.</strong></li>
+    </ul>
+
+    <h4>Cas 2 · Debug du script brainstorm qui plantait 1 fois sur 3</h4>
+    <p>Symptôme · `npm run brainstorm` finissait avec 0 résultat sur environ 30 % des runs, sans message d'erreur. Aucun pattern temporel apparent.</p>
+    <ul>
+      <li><strong>Avant Superpowers</strong> · J'avais passé 2 sessions précédentes à essayer des fix au hasard (timeouts, retry, try-catch englobant tout). Total cumulé · 1 h 40 sans résultat, le bug persistait.</li>
+      <li><strong>Avec <code>systematic-debugging</code></strong> · 32 minutes pour reproduire le bug avec un log par source, identifier que c'était le RSS Hugging Face qui renvoyait du XML mal formé sur 1 requête sur 3, écrire un parser tolérant, valider sur 10 runs consécutifs sans plantage.</li>
+      <li><strong>Gain mesuré · 1 h 08 économisées + bug enfin réglé pour de bon.</strong></li>
+    </ul>
+
+    <h4>Cas 3 · Nouvelle feature « cours email 5 jours » (8 fichiers)</h4>
+    <p>Brief · une page de capture, un endpoint Resend qui crée un contact dans une audience dédiée, 5 templates email espacés de 24 h, un mécanisme de tracking pour mesurer la complétion, plus la mise à jour du CLAUDE.md du projet.</p>
+    <ul>
+      <li><strong>Avant Superpowers (estimation projetée sur ma vélocité de l'époque)</strong> · 4 h 30 minimum, avec probablement 2 ou 3 allers-retours sur la séquence Resend (j'avais déjà galéré sur la première séquence sans plugin).</li>
+      <li><strong>Avec Superpowers</strong> · 2 h 15 dont 22 min de brainstorm qui a fait émerger une question que je n'avais pas vue (<em>« si l'utilisateur s'inscrit à la newsletter ET au cours, on lui envoie 6 emails dans la même semaine, c'est OK pour toi ou tu veux désactiver la newsletter pendant le cours ? »</em>). Plan en 14 tâches, exécution propre, code review qui a corrigé un bug de fuseau horaire sur le scheduler.</li>
+      <li><strong>Gain mesuré · environ 2 h 15 économisées + 1 décision business prise au bon moment.</strong></li>
+    </ul>
+
+    <div class="callout ok">
+      <h4>Ce que je n'avais pas anticipé</h4>
+      <p>Le gain le plus inattendu, ce n'est pas la vitesse · c'est la <strong>charge mentale</strong>. Avant, je gardais 12 trucs en tête pendant une session (« il faut que je vérifie ça, que je teste ce cas, qu'on n'oublie pas l'API »). Maintenant le plan est écrit, validé, et déroulé point par point. Je peux décrocher 5 minutes pour répondre à un email sans perdre le fil. Sur 6 semaines, ça change vraiment l'expérience.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Et pour un projet <em>non-code</em> ?</h2>
+    <p>Superpowers s'appelle « Claude Code » dans son nom officiel, mais la méthode (brainstorm → plan → exécution validée → review) <strong>fonctionne sur n'importe quel projet structuré</strong>. Je l'ai testée sur 3 cas non-code en 6 semaines. Verdict · les gains sont équivalents, parfois supérieurs, parce que les sujets non-techniques sont plus flous au départ et le brainstorm fait encore plus de tri.</p>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas non-code 01</div>
+      <h4>Refonte d'un article long (8 000 mots)</h4>
+      <p><strong>Le contexte</strong> · J'ai un article du site qui tournait à 56/100 sur l'audit SEO interne. Trop court, trop survolé, pas assez de cas vécus. Je voulais le passer à 120/100 sans tout réécrire à l'aveugle.</p>
+      <p><strong>Sans Superpowers</strong> · J'aurais dit <em>« réécris-moi cet article en plus dense »</em> et Claude aurait pondu une version 2 fois plus longue mais pas forcément meilleure. 2 h de relecture pour élaguer.</p>
+      <p><strong>Avec Superpowers</strong> · <code>brainstorming</code> m'a posé 5 questions (<em>« quelles sont les 3 sections les plus faibles ? quelles sont celles à ne surtout pas toucher ? quelle est la cible exacte de mots ? quelles preuves manquent ? quels cas vécus dispo ? »</em>). <code>writing-plans</code> a sorti un plan de 4 zones d'intervention chiffrées avec longueur cible par section. Exécution propre, 1 h 10 au total au lieu de 3 h 30 estimées sans plugin. <strong>Gain · 2 h 20 + un article qui colle exactement à ce que je voulais.</strong></p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas non-code 02</div>
+      <h4>Planification d'un lancement produit (le pack Skills + CLAUDE.md)</h4>
+      <p><strong>Le contexte</strong> · Mettre en ligne mon pack `jeremy-claude-pack.zip` (690 Ko, CLAUDE.md anonymisé + 26 skills custom). Ça implique · décider du périmètre exact, écrire la page de download, faire 3 emails de teasing, prévoir les 5 freebies attenants, planifier la séquence sur le calendrier éditorial.</p>
+      <p><strong>Sans Superpowers</strong> · J'aurais ouvert un Notion vierge, listé 30 trucs, oublié la moitié, fait un planning à la louche. Probablement 2 semaines pour boucler.</p>
+      <p><strong>Avec Superpowers</strong> · <code>brainstorming</code> a clarifié l'objectif (acquisition newsletter ou démonstration de méthode ?). <code>writing-plans</code> a structuré 14 livrables en 4 phases avec dépendances. <code>dispatching-parallel-agents</code> a permis d'écrire les 3 emails et la page de download en parallèle. Lancement bouclé en <strong>4 jours au lieu de 2 semaines</strong>, et j'ai gardé le plan comme template pour les futurs lancements.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas non-code 03</div>
+      <h4>Séquence emails 5 jours (cours débutant IA)</h4>
+      <p><strong>Le contexte</strong> · Écrire un cours email gratuit de 5 jours pour les débutants qui s'inscrivent. 5 emails avec progression pédagogique, ton Leo respecté, un appel à action différent chaque jour, alignés avec le reste du site.</p>
+      <p><strong>Sans Superpowers</strong> · 5 emails écrits d'un coup, ton incohérent entre le jour 1 et le jour 5, ré-écriture de 3 mails sur 5. Total estimé · 4 h.</p>
+      <p><strong>Avec Superpowers</strong> · Brainstorm sur le profil exact (quel niveau de départ ? quel acte concret en fin de jour 5 ?), plan qui pose la promesse de chaque jour avant l'écriture, exécution mail par mail avec validation, review finale qui a flaggé 2 incohérences de ton entre les jours 2 et 4. <strong>2 h 10 au total, 0 réécriture après envoi.</strong></p>
+    </div>
+
+    <div class="callout tip">
+      <h4>La règle pour utiliser Superpowers en non-code</h4>
+      <p>Tu invoques le skill explicitement au début de ta demande · <em>« utilise brainstorming pour m'aider à clarifier »</em>, ou <em>« écris-moi un plan avant de rédiger »</em>. Sans ça, Superpowers reste discret sur les tâches qui n'ont pas l'air « code ». Une fois invoqué, la mécanique s'enchaîne toute seule.</p>
+    </div>
   </div>
 </section>
 

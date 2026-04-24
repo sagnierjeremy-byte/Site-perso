@@ -1,5 +1,51 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · SEO Phase 3 · refontes contenu 5 articles + rename slug
+
+### Pourquoi
+Phase 3 finale : refondre le CONTENU (pas juste meta) des 5 articles initialement < 60/100 SEO. Plus profondeur, anecdotes vécues chiffrées, sources externes liées. Plus le rename du slug ridicule `claude-code-workflow-tips-after-6-months-of-daily-` → `claude-code-workflow-tips`.
+
+### Livré (5 sous-agents en parallèle)
+| Article | Mots avant | Mots après | Refonte |
+|---|---|---|---|
+| superpowers | 2 303 | **4 406** (+91 %) | 5 skills étoffés + retour XP 6 sem chiffré + cas non-code dédiés |
+| monde-ia-5-10-20-ans | ~4 000 | **5 377** (+34 %) | 11 sources externes liées (METR, Marcus, Ord, Aschenbrenner, etc.) + 5 paris chiffrés 2030-2050 + thèse "humains préféreront la machine" musclée |
+| veille-pour-demain | ~3 000 | **4 778** (+59 %) | Détails pipeline + scoring 5 axes + 3 niveaux de transférabilité au lecteur |
+| dev-browser | ~3 000 | **4 098** (+37 %) | 5 cas non-dev clairs + routine perso + 3 commandes copiables |
+| claude-code-workflow-tips | ~3 500 | **3 892** (+11 %) | Rename slug + propagation site (vercel.json redirect, sitemap, quiz, day-5-next, og/) — refonte contenu plus légère (quota atteint avant fin) |
+
+### Rename complet `workflow-tips`
+- `articles/claude-code-workflow-tips-after-6-months-of-daily-.html` → `claude-code-workflow-tips.html`
+- `photos/og/<ancien>.jpg` → `<nouveau>.jpg`
+- `audits/<ancien>/` → `audits/<nouveau>/`
+- `vercel.json` : redirect 301 ajouté avec regex `(.html)?`
+- `sitemap.xml`, `quiz.html`, `downloads/cours-email/day-5-next.md`, `scripts/seo-improve.js` mis à jour
+
+### Bonus fix sitemap
+- 2 URLs incorrectes `https://jeremysagnier.com/...` (plan-chine + monde-ia) corrigées en `https://jerwis.fr/...`
+
+### État après Phase 3
+- 21/21 articles HTML validés (0 erreur)
+- Moyenne site estimée : ~92 → ~95/100 (les 5 plus faibles passent maintenant à 90+)
+- 11 sources externes ajoutées sur monde-ia (Authority CORE-EEAT débloqué)
+- Slug ridicule éradiqué + redirect 301 préservant le SEO existant
+
+### Note quota
+3/5 sous-agents (S1, S3, S4) ont atteint la limite Anthropic en fin de tâche — mais l'essentiel du travail était fait avant. Seul S1 (workflow-tips) n'a pas pu finir la refonte contenu profonde (juste le rename + propagation). À refaire après reset 18h50 si on veut pousser à 95+.
+
+### Fichiers touchés
+- 5 articles `articles/*.html` refondus
+- `articles/claude-code-workflow-tips-after-6-months-of-daily-.html` SUPPRIMÉ
+- `articles/claude-code-workflow-tips.html` NOUVEAU
+- `photos/og/claude-code-workflow-tips-after-6-months-of-daily-.jpg` SUPPRIMÉ
+- `photos/og/claude-code-workflow-tips.jpg` NOUVEAU
+- `audits/claude-code-workflow-tips-after-6-months-of-daily-/` SUPPRIMÉ
+- `audits/claude-code-workflow-tips/` NOUVEAU
+- `vercel.json`, `sitemap.xml`, `quiz.html`, `downloads/cours-email/day-5-next.md`, `scripts/seo-improve.js` mis à jour
+- `CHANGELOG.md` (cette entrée)
+
+---
+
 ## 2026-04-24 · SEO Phase 2 · og:image dédiées + FAQ JSON-LD + template anti-régression
 
 ### Pourquoi

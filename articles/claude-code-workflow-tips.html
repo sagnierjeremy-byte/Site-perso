@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code après 6 mois · vu par un non-dev</title>
+<meta name="description" content="Un dev senior partage ses tips Claude Code après 6 mois. Non-dev, je l'utilise chaque jour aussi. Voici ce qui change sans son background technique.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Claude Code après 6 mois · vu par un non-dev">
+<meta property="og:description" content="Un dev senior partage ses tips Claude Code. Non-dev, je l'utilise chaque jour. Ce qui change sans son background.">
+<meta property="og:url" content="https://jerwis.fr/articles/claude-code-workflow-tips.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/claude-code-workflow-tips.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/claude-code-workflow-tips.jpg">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-04-20">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Claude Code après 6 mois · vu par un non-dev">
+<meta name="twitter:description" content="Un dev senior partage ses tips Claude Code. Non-dev, je l'utilise chaque jour. Ce qui change sans son background.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/claude-code-workflow-tips.html">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Claude Code après 6 mois · vu par un non-dev",
+  "description": "Un dev senior partage ses tips Claude Code après 6 mois. Non-dev, je l'utilise chaque jour aussi. Voici ce qui change sans son background technique.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/claude-code-workflow-tips.html",
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-24",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index.html#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+
+    <div class="kicker"><span class="dot"></span>Retour d'XP · 06 mois · 24 avril 2026</div>
+    <h1>6 mois de Claude Code<br>au quotidien.<br><em>Vu par un non-dev.</em></h1>
+    <p class="hero-lead">
+      Un dev senior a posté ses tips Claude Code après six mois d'usage quotidien. J'ai lu, j'ai souri, et j'ai réalisé : moi aussi je l'utilise tous les jours depuis six mois. Sauf que je n'avais jamais ouvert un terminal avant lui. Je suis entrepreneur, pas codeur. Voici le bilan chiffré, les sept leçons que je retiens, le projet que j'ai bouclé ce week-end, mes trois plus belles boulettes, et à quoi ressemble ma journée type.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>14 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Claude Code Max</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li><strong>Le bilan chiffré</strong> · 6 mois, 11 projets livrés, ~1 850 commits, environ 12 h/semaine économisées sur ma production éditoriale.</li>
+      <li><strong>7 leçons brutes</strong> tirées de l'usage réel, chacune avec un cas vécu et un chiffre. Pas de théorie de dev senior recopiée.</li>
+      <li><strong>Un cas de bout en bout</strong> : la trilogie podcast « Guerres d'IA » écrite, sonorisée et publiée en 36 h. Heures comptées, étapes décrites.</li>
+      <li><strong>3 erreurs vraiment chères</strong> que j'ai faites. Une m'a coûté un week-end. Tu vas savoir comment les éviter.</li>
+      <li><strong>Ma routine quotidienne</strong> matin / après-midi / soir avec Claude Code. Ce qui tourne en parallèle pendant que je vis ma vie.</li>
+    </ul>
+    <p style="margin-top:14px; font-size:14px; color:var(--ink-muted)"><em>Article écrit avec Claude, relu et signé par moi. Si tu vois une coquille ou un raccourci, réponds à la newsletter, je corrige.</em></p>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Le bilan chiffré</span>
+    <h2>Six mois plus tard, voilà <em class="teal">ce que ça a donné</em></h2>
+    <p>Avant de te servir des leçons, je te pose les chiffres. Tout est mesurable, tout est dans mon dossier <code>~/Projets/</code> ou sur GitHub. Aucune extrapolation.</p>
+
+    <h3>Les chiffres bruts à six mois</h3>
+    <ul>
+      <li><strong>11 projets livrés</strong> · jerwis.fr (ce site), un back-office admin local, deux newsletters automatiques (AI Playbook + Business Radar), un agent de brainstorm d'idées, un agent de déclinaison sociale, un outil de vente HTML pour ma sœur commerciale, deux séries podcast narratives, un agent ATVAI Sanity pour Eurofiscalis, un pipeline transcréation 7 langues.</li>
+      <li><strong>~1 850 commits Git</strong> sur l'ensemble des dépôts perso (j'ai compté avec <code>git log --since="6 months ago" --oneline | wc -l</code> sur chaque repo). Avant Claude Code, je n'avais jamais commit de ma vie.</li>
+      <li><strong>~12 heures économisées par semaine</strong> sur la production éditoriale. Avant : 3 h pour rédiger un article + 1 h pour le mettre en ligne + 1 h pour décliner en posts sociaux × 2 publications/semaine = 10 h. Aujourd'hui : 45 min de rédaction + 5 min de publication + 5 min de social × 2 = 1 h 50.</li>
+      <li><strong>~340 € / mois</strong> · Claude Code Max plan 200 $ + Vercel Hobby (gratuit) + Resend (gratuit jusqu'à 3 000 emails) + ElevenLabs Creator 22 $ + R2 Cloudflare (~0 €). Avant, je n'avais aucun de ces outils — donc 100% d'investissement nouveau, mais aussi 0 € d'agence.</li>
+      <li><strong>14 articles publiés</strong> sur jerwis.fr, dont 5 en avril 2026 sur les 4 premières semaines de mise en ligne du site.</li>
+      <li><strong>10 freebies</strong> téléchargeables (CLAUDE.md anonymisé, pack de 26 skills, guide cours email, etc.) — tout généré et structuré avec Claude Code.</li>
+      <li><strong>Zéro framework appris</strong> sur ces 6 mois. Pas de React, pas de Next.js, pas de Vue. Juste HTML / CSS / JS vanilla quand c'était pertinent, et Claude qui m'expliquait au fur et à mesure ce que je touchais.</li>
+    </ul>
+
+    <div class="callout tip">
+      <h4>L'angle que personne ne dit</h4>
+      <p>Les devs seniors mesurent leur productivité en « lignes de code par jour » ou en « pull requests mergées ». Moi je la mesure en projets vivants qui tournent. Le critère n'est pas le même, donc le ressenti d'efficacité non plus. C'est ce qui rend Claude Code radicalement différent selon d'où tu pars.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Deux profils</span>
+    <h2>Pourquoi un non-dev a <em class="fuchsia">l'avantage</em></h2>
+    <p>Avant les leçons, un détour rapide. Il y a deux chemins pour arriver à Claude Code, et selon ton chemin, tu n'utilises pas du tout le même outil.</p>
+    <h3>Le dev senior</h3>
+    <p>Il vient de son éditeur de code habituel · VS Code, Cursor, Zed (les logiciels où les devs écrivent leur code). Il a déjà un workflow qui fonctionne (sa façon d'enchaîner les étapes du travail). Il a quinze ans d'habitudes installées. Il cherche à automatiser ce qu'il fait déjà, gagner en vitesse, industrialiser. Il parle naturellement de <em>tests</em>, <em>linting</em>, <em>refactoring</em>. Il juge la qualité du code que Claude produit.</p>
+    <p>Claude Code arrive dans sa vie comme un collègue ingénieur. Il l'utilise en pair programming (à deux sur le même clavier, l'un code, l'autre relit). Il corrige ses suggestions, il désactive ce qui ne marche pas chez lui, il cherche à optimiser chaque seconde.</p>
+    <h3>L'entrepreneur non-dev</h3>
+    <p>Moi, j'arrive d'ailleurs. Je veux publier un site, envoyer une newsletter, avoir un tableau de bord pour suivre mes idées d'articles. Je ne pars pas d'un éditeur. Je pars d'un besoin.</p>
+    <p>Je n'ai pas d'avis sur la qualité du code. Je valide le résultat · est-ce que le site est en ligne, est-ce que le formulaire marche, est-ce que l'email arrive. Le reste, je fais confiance à Claude.</p>
+    <p>Claude Code arrive dans ma vie comme un stagiaire qui sait déjà tout, qui ne demande pas de pause déjeuner et qui ne se plaint jamais.</p>
+    <h3>Trois différences qui changent tout</h3>
+    <ol>
+      <li><strong>Le dev senior sait ce qui est « normal ».</strong> Moi non. Donc je demande tout. Je ne fais pas de raccourci mental du type « ah, c'est sûrement une erreur de permissions ». Je copie-colle l'erreur telle quelle à Claude, je laisse l'outil expliquer. Résultat : je n'ai jamais d'angle mort.</li>
+      <li><strong>Le dev senior a un ego technique.</strong> Il juge le code. Il veut que ce soit fait « bien ». Moi, je juge le résultat. Si le site marche et que le code est moche, je m'en fiche.</li>
+      <li><strong>Le dev senior veut maîtriser.</strong> Moi, je veux livrer. Deux buts différents, deux façons de parler à Claude.</li>
+    </ol>
+    <div class="callout warn">
+      <h4>Ce n'est pas une attaque aux devs</h4>
+      <p>Les devs seniors produisent du code robuste parce qu'ils savent ce qui casse en production. Moi non. Je livre des projets personnels et des outils pour mon business. Si tu construis un SaaS qui sert mille clients, les tips d'un dev senior sont indispensables. Ce que je dis ici vaut pour l'entrepreneur qui veut livrer pour lui-même.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— 7 leçons concrètes</span>
+    <h2>Les 7 leçons que je retiens <em class="orange">après 6 mois</em></h2>
+    <p>Pas de théorie. Chaque leçon a un titre, un cas vécu, un chiffre. Tu peux toutes les piquer demain matin.</p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Écris ton CLAUDE.md avant ta première ligne</h3>
+        <p><strong>Le cas vécu</strong> · sur mes deux premiers projets, je passais 30 min en début de chaque session à re-expliquer à Claude qui j'étais, ce que je voulais, comment j'aimais qu'on s'adresse à moi. Au bout de la quatrième session, j'ai compris : je perdais 2 h par semaine en remise en contexte.</p>
+        <p><strong>Ce que je fais maintenant</strong> · un fichier <code>CLAUDE.md</code> à la racine de chaque projet, deux pages max. Il dit qui je suis, ce que fait le projet, mes règles de style, mes interdits, le ton de voix attendu. Claude le lit à chaque démarrage. Mon CLAUDE.md global vit dans <code>~/.claude/CLAUDE.md</code> et porte tout ce qui ne change pas d'un projet à l'autre.</p>
+        <p><strong>Le chiffre</strong> · temps de mise en contexte passé de 30 min à 0 par session. Sur 5 sessions/semaine × 6 mois = environ 60 h récupérées.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Découpe en plus petits morceaux que ton instinct te dit</h3>
+        <p><strong>Le cas vécu</strong> · première fois que j'ai monté mon back-office admin, j'ai dit « construis-moi un dashboard avec 9 modules, sidebar dynamique, base de données, authentification ». Claude a livré quelque chose. Ça ne marchait pas. Trois jours pour trouver pourquoi.</p>
+        <p><strong>Ce que je fais maintenant</strong> · je découpe en livrables d'une heure. « Construis-moi le squelette HTML du dashboard sans aucun module. » Je vérifie. « Ajoute-moi un module idées d'articles qui lit un fichier markdown. » Je vérifie. « Ajoute-moi le rendu en cards. » Je vérifie. C'est lent en apparence, c'est trois fois plus rapide en réalité.</p>
+        <p><strong>Le chiffre</strong> · sur mon back-office, j'ai livré 11 modules en 14 jours, à raison d'un module toutes les 1-2 sessions. Si j'avais essayé en bloc, je serais encore en train de débugger.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Apprends à dire « stop, présente-moi un plan d'abord »</h3>
+        <p><strong>Le cas vécu</strong> · sur mon premier agent de brainstorm, j'ai laissé Claude partir bille en tête. Il a écrit 800 lignes de code Node.js avec une architecture multi-fichiers complexe. J'ai relu 30 secondes, j'ai dit « OK ». Trois jours plus tard, je voulais ajouter une source · impossible de m'y retrouver.</p>
+        <p><strong>Ce que je fais maintenant</strong> · pour tout truc qui touche plus de 3 fichiers, je dis explicitement « présente-moi un plan d'abord, on validera étape par étape ». Claude propose une architecture, je challenge en posant des questions bêtes (« pourquoi tu sépares en 5 fichiers et pas 2 ? »), on tranche ensemble, on code après.</p>
+        <p><strong>Le chiffre</strong> · le temps passé à comprendre un projet 1 mois après l'avoir livré · 5 min si j'ai validé un plan, 1 h si j'ai laissé filer.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Garde Claude Code en local, jamais en mode auto-déployé</h3>
+        <p><strong>Le cas vécu</strong> · au début je voulais que Claude pousse en production tout seul. Vercel, GitHub, push direct. Sauf qu'une fois j'ai laissé partir un changement de CSS qui a cassé l'affichage en dark mode sur 4 pages. Personne pour le voir avant que ça soit live.</p>
+        <p><strong>Ce que je fais maintenant</strong> · Claude écrit, je relis dans mon navigateur local en dark + light, je commit moi-même, et seulement après je <code>git push</code>. Vercel redéploie tout seul ensuite. La barrière humaine entre « ça compile » et « ça part en prod », c'est moi.</p>
+        <p><strong>Le chiffre</strong> · zéro régression visuelle en prod depuis que j'ai instauré cette règle, mi-février. Avant : ~2 par mois.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>Demande systématiquement un CHANGELOG</h3>
+        <p><strong>Le cas vécu</strong> · au bout de deux mois, je revenais sur des projets et je n'avais aucune idée de ce que j'avais fait la session d'avant. Pourquoi cette fonction ? Pourquoi ce nom de fichier ? Aucune trace, juste du code.</p>
+        <p><strong>Ce que je fais maintenant</strong> · à la fin de chaque session non-triviale, je demande à Claude de mettre à jour <code>CHANGELOG.md</code> à la racine du projet. Format : date, ce qui a été fait, pourquoi, fichiers touchés, ce qui reste à faire. Mon CLAUDE.md global le rend obligatoire.</p>
+        <p><strong>Le chiffre</strong> · CHANGELOG.md de jerwis.fr · 1 050+ lignes en 4 semaines de vie. C'est ma mémoire, pas du flicage.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h3>Lance plusieurs sous-agents en parallèle quand tu cherches</h3>
+        <p><strong>Le cas vécu</strong> · pour préparer la trilogie podcast « Guerres d'IA », je devais creuser trois angles d'OpenAI vs Anthropic en même temps · timeline business, biographies des fondateurs, analyse technique. À l'ancienne j'aurais ouvert 30 onglets.</p>
+        <p><strong>Ce que je fais maintenant</strong> · j'ouvre Claude Code, je lance trois sous-agents (« Lance trois recherches en parallèle sur ces sujets »). 8 minutes plus tard, j'ai trois rapports synthétiques, sources comprises. Pareil pour scraper plusieurs sites concurrents.</p>
+        <p><strong>Le chiffre</strong> · sur la prep du pilote « Guerres d'IA », documentation ramassée en 12 min vs ~3 h en surfing manuel.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <h3>Construis un skill quand tu fais 3 fois la même tâche</h3>
+        <p><strong>Le cas vécu</strong> · à chaque audit SEO d'un nouvel article, je redonnais à Claude les mêmes 12 critères, le même format de sortie, le même barème. Par jour ça allait. Par mois c'était lourd.</p>
+        <p><strong>Ce que je fais maintenant</strong> · je transforme la tâche répétée en <em>skill</em> custom (un mode d'emploi permanent que Claude lit comme un jeu d'instructions). J'en ai 26 actifs aujourd'hui · audit SEO, transcréation Eurofiscalis, brainstorm d'idées, etc. Je les ai même packagés en téléchargement gratuit sur le site.</p>
+        <p><strong>Le chiffre</strong> · temps moyen pour un audit SEO complet d'un article passé de 25 min (à la main avec Claude) à 4 min (skill activé).</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Ma règle d'or après 6 mois</h4>
+      <p>Une leçon n'a de valeur que si elle vient d'un truc que tu as cassé toi-même. Lis les conseils des autres, mais teste-les sur ton terrain avant de les graver. Ce qui marche pour un dev senior peut t'embrouiller, et ce qui te débloque peut faire sourire un dev senior. Les deux sont vrais en même temps.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Cas de bout en bout</span>
+    <h2>36 heures pour livrer une trilogie podcast <em class="teal">narrative</em></h2>
+    <p>Pour t'en montrer un en grand · le projet le plus dingue des 6 mois. Une série podcast narrative façon Wondery sur la guerre IA OpenAI vs Anthropic. Trois épisodes, écriture + voix + montage + mise en ligne. Claude Code de bout en bout. Du jamais fait avant.</p>
+
+    <h3>Le brief que j'ai donné</h3>
+    <p>« Je veux trois épisodes de 18-22 min chacun. Style Wondery français · narrateur omniscient, scènes dialoguées, ambiances sonores. Sujet · la guerre IA OpenAI vs Anthropic, vue depuis 2026. Pas de bullshit, sources solides. »</p>
+
+    <h3>Le déroulé heure par heure</h3>
+    <ul>
+      <li><strong>H+0 à H+4</strong> · 4 sous-agents Claude Code lancés en parallèle pour ramasser les sources (timeline business OpenAI, fondation Anthropic, analyse technique des modèles, faits saillants 2024-2026). Sortie · 4 rapports synthétiques, ~80 pages cumulées.</li>
+      <li><strong>H+4 à H+10</strong> · génération du script du pilote « OpenAI vs Anthropic » avec un skill « narrative-podcast-fr » écrit pour l'occasion. Trois aller-retours de relecture où je tranchais (« coupe la scène 3, garde celle-ci », « le narrateur dit "tu" pas "vous" »). Sortie · 14 200 caractères de script propre.</li>
+      <li><strong>H+10 à H+18</strong> · pause sommeil + un peu de famille.</li>
+      <li><strong>H+18 à H+22</strong> · pipeline Python (écrit par Claude Code) qui découpe le script en blocs, envoie chaque bloc à ElevenLabs v3 avec des voix pré-faites, télécharge les MP3, les nettoie, les mix avec ambiances et lits sonores. Sortie · pilote brut de 19 min.</li>
+      <li><strong>H+22 à H+28</strong> · post-prod (toujours via Claude qui pilote ffmpeg) · cross-fades, EBU R128 -16 LUFS pour la diffusion, intégration musique de fond, mastering. Réglages chiffrés sauvegardés en mémoire pour réutilisation sur les épisodes 2 et 3.</li>
+      <li><strong>H+28 à H+32</strong> · épisodes 2 et 3 générés en série, en réutilisant les mêmes scripts/voix/réglages. Génération automatique des covers (style duotone glitch JetBrains Mono).</li>
+      <li><strong>H+32 à H+36</strong> · upload sur Cloudflare R2 (10 Go gratuits, 0 € d'egress), génération du flux RSS conforme Apple Podcasts + Spotify, soumission, mise en ligne sur jerwis.fr/podcast.</li>
+    </ul>
+
+    <h3>Le bilan chiffré du projet</h3>
+    <ul>
+      <li><strong>3 épisodes</strong> de 18-22 min chacun, 60 min de contenu narratif total</li>
+      <li><strong>0 € d'agence</strong>, ~14 € d'API ElevenLabs pour la totalité (les voix coûtent en caractères)</li>
+      <li><strong>~36 h calendaires</strong>, dont 22 h de travail actif de ma part. Le reste, ça tournait pendant que je dormais ou que je vivais.</li>
+      <li><strong>Coût d'estimation agence</strong> · 8 000 à 15 000 € pour un livrable équivalent</li>
+    </ul>
+
+    <p>Tout est documenté dans le « Making-of Guerres d'IA » à la racine du repo podcast (10 actes, anecdotes, méta-leçons). Si tu veux le récit narratif complet, il est lisible.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— 3 erreurs vraiment chères</span>
+    <h2>Les 3 boulettes que j'ai faites <em class="fuchsia">en 6 mois</em></h2>
+    <p>Pas de monde rose. Voilà les trois erreurs qui m'ont vraiment coûté quelque chose. Tu vas pouvoir les éviter.</p>
+
+    <h3>Erreur 1 · Pousser en prod sans relire le diff</h3>
+    <p><strong>Ce qui s'est passé</strong> · samedi 12 avril, je travaillais sur la home en dark mode. J'ai dit à Claude « optimise les couleurs ». Il a remplacé <code>background: var(--ink)</code> par <code>background: #0A0A0A</code> sur 6 sections. Sauf que <code>--ink</code> en dark mode = cream, donc certains blocs censés être TOUJOURS noirs sont devenus cream sur cream = illisibles. J'ai poussé sans relire, je suis parti déjeuner.</p>
+    <p><strong>Ce que ça m'a coûté</strong> · la home jerwis.fr a été cassée 4 heures en dark mode. J'ai eu deux DM « il y a un truc bizarre sur ton site ». J'ai passé mon dimanche après-midi à tout reprendre.</p>
+    <p><strong>Ma règle depuis</strong> · obligation absolue de tester en local en light + dark avant tout <code>git push</code>. Et la règle « variables sémantiques vs couleurs fixes » est gravée dans le CLAUDE.md du projet.</p>
+
+    <h3>Erreur 2 · Faire confiance à Claude sur un secret</h3>
+    <p><strong>Ce qui s'est passé</strong> · sur le projet « Importateur de Buzz » (NANAKIA, pour un proche), j'avais une clé API Cloudinary qui traînait dans un fichier de config. J'ai demandé à Claude de « nettoyer le projet ». Il a déplacé la clé dans <code>.env.local</code>, super. Sauf qu'avant le déplacement, le fichier de config avec la clé en clair avait été commit deux fois. La clé a vécu 5 jours dans l'historique Git public.</p>
+    <p><strong>Ce que ça m'a coûté</strong> · une rotation de clé en urgence, et un audit secu de tout le repo. Plus une session d'environ 3 h à comprendre comment retirer un secret de l'historique Git proprement (réponse · <code>git filter-repo</code>).</p>
+    <p><strong>Ma règle depuis</strong> · tout secret va dans <code>.env.local</code> AVANT le premier commit. Un check pre-commit cherche les patterns d'API keys (Resend, Stripe, OpenAI, etc.) dans tout fichier ajouté. Et je relis chaque diff avant push, en cherchant explicitement <code>sk_</code>, <code>re_</code>, <code>pk_</code>.</p>
+
+    <h3>Erreur 3 · Demander à Claude de gérer une migration de prod sans backup</h3>
+    <p><strong>Ce qui s'est passé</strong> · sur le CRM Eurofiscalis (un autre projet), je voulais réorganiser la table <code>bookings</code>. J'ai dit à Claude « tu peux migrer la table pour qu'elle ait la nouvelle structure ? ». Il a fait. Sans me prévenir qu'il fallait un backup. La migration a foiré sur 3 lignes (des données mal formatées). Plus moyen de revenir en arrière.</p>
+    <p><strong>Ce que ça m'a coûté</strong> · un week-end entier à reconstruire les 3 lignes manuellement à partir d'emails Brevo. Et un coup de stress monumental.</p>
+    <p><strong>Ma règle depuis</strong> · toute action destructive (migration, delete, update massif) doit être précédée d'un backup explicite + d'une commande de rollback documentée dans le plan. Cette règle est dans mon CLAUDE.md global, et Claude la rappelle quand je passe à côté.</p>
+
+    <div class="callout warn">
+      <h4>Le motif commun</h4>
+      <p>Mes 3 erreurs ont la même origine · j'ai laissé Claude faire sans contrôle humain. Pas parce que Claude est mauvais, parce que MOI je n'ai pas mis le contrôle. La leçon n'est pas « il faut moins faire confiance à l'IA », c'est « il faut mettre tes propres garde-fous, et les écrire noir sur blanc ».</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Ma routine</span>
+    <h2>À quoi ressemble une <em class="orange">journée type</em></h2>
+    <p>On me demande souvent comment ça s'organise concrètement quand on bosse avec Claude Code tous les jours. Voilà ma routine actuelle, telle que je l'ai stabilisée fin avril 2026.</p>
+
+    <h3>Matin · 6 h 30 — 9 h</h3>
+    <ul>
+      <li><strong>6 h 30 — 7 h</strong> · café + lecture de 2 newsletters (Hormozi + une selon humeur), survol HackerNews et Reddit r/ClaudeAI. Aucune ouverture de Claude Code. Juste de la matière brute.</li>
+      <li><strong>7 h — 8 h</strong> · ouverture de mon back-office local (<code>localhost:3001</code>), je clique « Cherche-moi des idées ». Le brainstorm parcourt 470+ items, scrore, classe en 6 clusters, me sort 15 idées. Je garde 2-3.</li>
+      <li><strong>8 h — 9 h</strong> · lancement d'une session Claude Code sur l'idée du jour. Je lui donne le brief, je lui dis « propose un plan ». On valide, on code, je commit chaque étape.</li>
+    </ul>
+
+    <h3>Après-midi · 14 h — 17 h</h3>
+    <ul>
+      <li><strong>14 h — 15 h</strong> · session Claude Code de fond. Souvent un projet plus lourd · Eurofiscalis, podcast, refonte d'un module admin. C'est là que je découpe en sous-agents si je dois faire plusieurs choses en parallèle.</li>
+      <li><strong>15 h — 16 h</strong> · pause de l'écran, je marche, je laisse Claude faire tourner ses tâches longues (transcréation 7 langues, génération audio, scrape multi-sources). Je reviens quand le terminal a fini.</li>
+      <li><strong>16 h — 17 h</strong> · revue + commit + push. Je teste en local en light + dark, je relis le diff, je publie. Si une newsletter doit partir, c'est ici que je clique « envoyer » dans mon admin.</li>
+    </ul>
+
+    <h3>Soir · 21 h — 22 h 30</h3>
+    <ul>
+      <li><strong>21 h — 22 h</strong> · session « ranger ». Je mets à jour les CLAUDE.md des projets que j'ai touchés, je remplis les CHANGELOG.md, je tague les idées du backlog que je veux traiter la semaine prochaine.</li>
+      <li><strong>22 h — 22 h 30</strong> · planification du lendemain. Je liste 3 priorités max, je laisse Claude Code fermé pour la nuit (en vrai · jamais d'auto-deploy nocturne).</li>
+    </ul>
+
+    <p>Cette routine n'a rien d'optimisé · elle s'est posée toute seule au fil des 6 mois. Elle me permet de produire 2-3 livrables sérieux par semaine sans m'épuiser.</p>
+
+    <div class="callout tip">
+      <h4>Ce qui tourne pendant que je vis</h4>
+      <p>Mes deux newsletters auto · AI Playbook scanne 100+ sources le jeudi soir, drafte le brief, je relis vendredi matin avant envoi à 9 h. Business Radar pareil mais bi-mensuel. Mon brainstorm tourne aussi quand je clique. Le reste · podcasts, pipelines transcréation, scripts d'audit, c'est à la demande.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— L'essentiel pour un non-dev</span>
+    <h2>Trois règles qui valent <em class="fuchsia">tous les tips</em></h2>
+    <p>Un dev senior te parlera d'optimisation, de couverture de tests, d'architecture propre. Pour un entrepreneur qui veut livrer, trois choses comptent vraiment.</p>
+    <ol>
+      <li><strong>Est-ce que ça marche pour toi, aujourd'hui.</strong> Pas « est-ce que ça passera l'échelle à 10 000 utilisateurs ». Tu n'en es pas là.</li>
+      <li><strong>Est-ce que tu comprends ce que tu mets en production.</strong> Pas « chaque ligne », mais « ce que fait le script globalement ». Si Claude te livre quelque chose que tu n'oses pas relire, tu t'arrêtes.</li>
+      <li><strong>Est-ce que tu peux réparer si ça casse.</strong> Demain, un script ne tourne plus. Tu dois pouvoir ouvrir Claude Code, copier l'erreur, récupérer un diagnostic. Si tu dépends d'une complexité que tu n'as jamais comprise, tu es coincé.</li>
+    </ol>
+    <p>Ces trois règles valent tous les tips de dev senior du monde. Elles ne t'empêchent pas de lire les tips, bien sûr. Elles te disent juste · <strong>applique-les à ton rythme, et pas parce que quelqu'un d'autre le fait</strong>.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pour aller plus loin</h2>
+    <p>Si tu veux continuer sur cette lancée :</p>
+    <ol>
+      <li><strong><a href="../claude-code.html">Bien démarrer avec Claude Code</a></strong> — le point de départ si tu n'as jamais ouvert un terminal</li>
+      <li><strong><a href="loops-claude.html">Les loops Claude Code expliqués</a></strong> — la boucle de décision qui fait la puissance de l'outil</li>
+      <li><strong><a href="tuto-agent-gmail.html">Construire ton premier agent Gmail</a></strong> — un projet concret pour passer à la pratique</li>
+      <li><strong><a href="superpowers.html">Superpowers · le plugin qui force Claude à réfléchir</a></strong> — le plugin que j'utilise pour structurer chaque session non-triviale</li>
+    </ol>
+    <p>Si tu veux suivre mes retours d'XP concrets au fil des mois, ma veille du vendredi te les envoie directement. Pas de pub, désinscription en un clic.</p>
+    <p><strong>Si tu as une question ou un retour sur cet article, réponds à la newsletter.</strong> Ça arrive dans ma boîte et je lis tout, je peux me tromper sur certains points et tes retours m'aident à corriger le tir.</p>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
+    <p>
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
+    </p>
+    <a href="../index.html#newsletters" class="back-btn">
+      Voir les newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-bottom">
+      © 2026 · Jérémy Sagnier · <a href="../index.html" style="color:var(--ink-muted); text-decoration:none">Retour au site</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>

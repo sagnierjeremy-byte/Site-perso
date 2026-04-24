@@ -280,10 +280,12 @@ function buildSocialPrompt(slug) {
   const now = new Date().toISOString();
   return `Décline l'article \`articles/${slug}.html\` en 2 posts sociaux (LinkedIn + X).
 
+**Objectif capital** : ces posts ne doivent JAMAIS ressembler à de l'IA. 50-61 % des posts LinkedIn FR sont détectés comme IA en 2025, l'algo les pénalise (-36 % de vues). Jérémy écrit comme un ami qui raconte, pas comme un consultant LinkedIn. Pas comme un copain au bar non plus. Entre les deux : chaleureux, simple, narratif, spécifique, imparfait.
+
 **Exécute sans demander confirmation :**
 
 1. Lis le fichier \`articles/${slug}.html\` (contenu complet de l'article).
-2. Lis le fichier \`AGENT_BRIEF.md\` pour t'imprégner du ton Leo (1ère personne, chaleureux, pas familier, assumer l'IA, appels à réponse).
+2. Lis le fichier \`AGENT_BRIEF.md\` pour t'imprégner du ton Leo.
 3. Crée le dossier \`social-drafts/${slug}/\` s'il n'existe pas.
 4. Génère **2 fichiers markdown** — un par canal — dans ce dossier, avec pour chacun :
    - Un **frontmatter YAML** (obligatoire, pour parse machine)
@@ -302,18 +304,24 @@ generated_at: ${now}
 ---
 \`\`\`
 
-Format LinkedIn (1500-2500 caractères) :
-- **Ligne 1** = un hook fort qui arrête le scroll (pas de "aujourd'hui je voulais partager", pas de question rhétorique bidon · idéal : stat surprenante, affirmation tranchée, mini-histoire)
-- Ligne vide
-- **Contexte** en 2-3 lignes courtes (pourquoi c'est important, pour qui)
-- Ligne vide
-- **3 à 5 points-clés** avec emojis en bullet (→ ou •, pas d'étoiles)
-- Ligne vide
-- **Takeaway** ou opinion tranchée ("moi je pense que..." / "la leçon...")
-- Ligne vide
-- **CTA** + lien vers l'article : \`https://jeremysagnier.com/articles/${slug}.html\`
-- Ligne vide
-- **Hashtags** (3 max, nichés · pas de #motivation #business génériques)
+Format LinkedIn (**800-1 500 caractères** — sweet spot 2026 mesuré, plus long = signal IA + engagement décroche · compter strict avant le frontmatter) :
+
+**Pas de structure "hook + 3 bullets + leçon + CTA + hashtags"** — c'est LA signature IA la plus reconnaissable. À la place, choisis UNE des 6 structures narratives validées :
+
+1. **Scène d'ouverture** (in medias res) · démarrer dans l'action, un lieu, une heure, un dialogue. Remonter ensuite. Exemple : *"Un dimanche soir d'avril. Je regarde la facture d'Eurofiscalis."*
+2. **Confession chiffrée** · "Ça fait [temps] que je [action publique]. La vérité, c'est que je me suis planté(e)." + détails + pivot.
+3. **Casseur de mythe** · "[Pratique courante] est une erreur. Source : [autorité]. Voici pourquoi."
+4. **Dialogue reconstitué** · ouvrir sur une citation brute entre guillemets français (« »), puis contexte. Dialogue = or pur.
+5. **Contre-pied assumé** · "Je préfère [choix illogique en apparence] plutôt que [choix évident]." + raisonnement perso.
+6. **Avant/Après avec pivot** · situation A chiffrée → déclencheur unique → situation B chiffrée → leçon contre-intuitive.
+
+Structure libre mais respecter :
+- **1-2 lignes d'ouverture** (≤ 210 caractères — le "fold mobile") qui donnent envie de cliquer "Voir plus". Pas de question rhétorique.
+- **Paragraphes de 1-2 lignes max**, aérés.
+- **Une phrase isolée < 6 mots** quelque part pour marteler ("Erreur.", "Intenable.", "Silence.")
+- **Lien** vers l'article : \`https://jeremysagnier.com/articles/${slug}.html\`
+- **Appel à réponse spécifique** en fin (pas "qu'en pensez-vous ?") — une question qui ouvre un vrai dialogue.
+- **Hashtags** : 0 ou 1 seul niche. Jamais 3 alignés à la fin (signature IA).
 
 ### \`social-drafts/${slug}/twitter.md\` · X / Twitter
 
@@ -328,77 +336,142 @@ generated_at: ${now}
 ---
 \`\`\`
 
-Format thread 6-10 tweets, **séparés par \`---\`** (exactement 3 tirets sur leur propre ligne). **Chaque tweet doit faire ≤ 270 caractères** (marge par rapport à la limite 280).
+Format thread 6-10 tweets, **séparés par \`---\`** (exactement 3 tirets sur leur propre ligne). **Chaque tweet ≤ 270 caractères** (marge vs limite 280 · compter strict, espaces et sauts de ligne inclus).
 
 Structure :
-- **Tweet 1** = hook maximal (chiffre précis, question provocante, affirmation contre-intuitive) + thread ouvrant avec "🧵" ou "Thread · "
-- **Tweets 2-7** = 1 idée par tweet, avec transitions fluides
-- **Dernier tweet** = résumé + lien article + invitation à partager
+- **Tweet 1** = hook concret + "Je te raconte." (ou "Voilà comment.") + émoji 🧵 sur sa propre ligne
+- **Tweets 2-N** = 1 idée par tweet, transitions fluides, rythme qui varie (courts / moyens)
+- **Dernier tweet** = leçon + lien article + "écris-moi, je lis tout" (ou "réponds-moi, je lis tout")
 
-Pas de hashtags dans les tweets (sauf 1 très ciblé en dernier si vraiment utile).
+Pas de hashtags dans les tweets.
 
 ---
 
-### Règles absolues · lisibilité MAXIMALE (vérifier avant sauvegarde)
+### RÈGLE CARDINALE N°1 · tu dois sonner HUMAIN, pas IA
 
-**Test ultime** : un élève de 5ème doit pouvoir lire le post et le comprendre **du premier coup**, sans relire.
+**Check anti-détection à faire AVANT de sauvegarder** (17 points, si tu rates 3+ → tu récris) :
 
-**Longueur des phrases** :
-- Phrases courtes : **12 mots maximum** en moyenne · jamais plus de 20
-- Une idée = une phrase · si tu as deux idées, fais deux phrases
-- Zéro subordonnée imbriquée ("qui que quoi dont où")
-- Pas de virgules en enfilade — coupe en deux phrases
+1. Zéro em dash (—). Remplacer par virgule, point, ou parenthèse.
+2. Zéro "Mais attends, ça ne s'arrête pas là" / "Spoiler :" / "Et si je te disais que…"
+3. Zéro "Voici [3/5/7] raisons/leçons/piliers" — la rule of three est morte.
+4. Zéro "Pas juste X, mais aussi Y" / "Not just A, but B".
+5. Zéro virgule avant "et" (anglicisme IA).
+6. Zéro emoji en début de bullet (🚀 ✨ 💡 🎯).
+7. Zéro bullet parfaitement parallèle (casser : 3 mots / 15 mots / 8 mots).
+8. Zéro transition explicite ("D'abord…", "Ensuite…", "Enfin…").
+9. Zéro conclusion pompeuse ("Souviens-toi…", "En définitive…", "Au final…").
+10. Zéro leçon universelle. Rester dans le particulier.
+11. Au moins **1 nom propre** (personne réelle, entreprise, lieu précis).
+12. Au moins **1 chiffre concret non-rond** (47 €, 3 742, 23h47 — pas "environ 50 €").
+13. Au moins **1 date précise** (dimanche, avril 2026, hier à 7h30).
+14. Au moins **1 phrase < 6 mots** isolée ("Erreur.", "Intenable.", "Silence.").
+15. Au moins **1 phrase > 25 mots** (alterner court / long = rythme humain).
+16. Au moins **1 imperfection assumée** ("j'avais tort", "je ne sais pas encore si…", contradiction interne).
+17. Au moins **1 détail inutile mais vrai** (une digression courte, un aparté en parenthèses).
 
-**Rythme** :
-- Varier court / moyen : phrase de 5 mots, puis 12, puis 8
-- Phrases très courtes pour marteler les points clés (3-6 mots)
-- Exemple Leo validé : "J'ai payé 7 000 €. Pour ne pas m'associer. Et j'économise 1 million."
+### RÈGLE CARDINALE N°2 · test à voix haute
 
-**Vocabulaire** :
-- Mots du quotidien, pas de jargon
-- **INTERDIT** : "prospect", "KPI", "ROI", "scaler", "pipeline", "stack", "CA" (écrire "chiffre d'affaires"), "VC", "MRR"
-- **AUTORISÉ si expliqué** : "Better Call" (dire c'est quoi la 1ère fois · coaching payant)
-- Termes techniques IA : OK s'ils sont dans l'article source (agent, LLM) · mais toujours explique si c'est la 1ère mention
+Lis le post à voix haute. Trois questions :
+- Est-ce que je bute sur un mot savant ? → récris plus simple.
+- Est-ce que ça sonne comme une plaquette commerciale ? → récris plus concret.
+- Est-ce que je peux imaginer Jérémy dire ça à un pote autour d'un café ? → si non, récris.
 
-**Mise en page** :
-- Paragraphes très courts : 2-3 phrases max
-- Une ligne blanche entre chaque paragraphe (et sur Instagram : 3 lignes blanches)
-- Bullets : une ligne = une idée, **20 mots max par bullet**
-- Chiffres en début de bullet quand possible ("750 000 € partent chez lui" mieux que "Il part avec 750 000 €")
+**Chaque terme technique ou métier doit être remplacé, ou expliqué dans la foulée.**
 
-**Structure narrative** :
-- Commencer par le "quoi" concret · jamais par le "pourquoi" abstrait
-- "J'ai payé 7 000 €" > "Aujourd'hui je voulais partager une réflexion sur l'association"
-- Histoires > généralités ("J'ai testé deux fois" > "Les gens qui testent...")
-- Chiffres avant qualifications ("300 € la demi-heure" > "Ça coûte cher, environ 300 €")
+Exemples de remplacements OBLIGATOIRES (apprends par l'exemple) :
 
-### Règles absolues · ton Leo OBLIGATOIRE (vérifier avant sauvegarde)
+| ❌ Jargon / mot tech | ✅ Version Leo |
+|---|---|
+| charte graphique | nos couleurs et notre logo |
+| back-office | un espace où l'équipe modifie sa page elle-même |
+| RDV / rdv | rendez-vous |
+| stack / notre stack | les outils que j'ai utilisés (ou supprimer) |
+| pipeline | enchaînement / workflow |
+| prospect | client potentiel |
+| KPI / indicateur | ce qu'on mesure |
+| ROI | ce que ça nous rapporte |
+| CA / chiffre d'affaires | revenus / ventes |
+| MRR | revenus récurrents mensuels |
+| scaler | faire grandir |
+| workflow | l'enchaînement des étapes |
+| onboarding | mise en route / accueil |
+| dashboard | tableau de bord |
+| Next.js, Supabase, Microsoft Graph, Resend, Vercel, Sentry | **À ne pas citer dans le post.** Si vraiment nécessaire · "des outils standards que toute la tech utilise en 2026, rien d'exotique." |
+| pair-programming | à deux sur le même projet |
+| déploiement / deployer | mettre en ligne |
+| sous-agents (IA) | des agents IA qui travaillent pour moi en parallèle |
+| LLM | l'IA (ou "Claude/ChatGPT/Gemini" si pertinent) |
 
-Le ton Leo se teste à voix haute. **Si ça sonne comme un copain au bar → trop familier. Si ça sonne comme un ami qui écrit un mail un dimanche soir → bon niveau.** Jamais d'argot, jamais de langage "de pote" sur du contenu public.
+**Seules exceptions tolérées** : "Claude Code" (c'est le héros récurrent, tout le monde comprend son rôle dans le contexte), "IA" (terme grand public), noms de produits cités dans l'article ET compris par le grand public (Calendly, Outlook, ChatGPT).
 
-**À BANNIR sans exception** :
-- Anglicismes familiers : "bullshit", "no bullshit", "game-changer", "mindset", "ownership", "flex", "legit", "no brainer"
-- Argot / élisions : "kif", "taf", "mec", "ouais", "perso", "y'a", "ça sert pas", "truc", "daube"
-- Verbes familiers : "je te file", "tu piques", "prêt à piquer", "balance ça", "claque"
-- Hype creuse : "ça va changer ta vie", "révolution", "gurus", "5x plus", "ça explose"
-- Phrases copywriting bidon : "l'ingrédient secret", "le hack", "ce que personne ne te dit"
+### RÈGLE CARDINALE · phrases courtes, rythme varié
 
-**À UTILISER à la place** :
-- "je t'envoie" / "je partage" / "voici le calcul complet"
-- "sans blabla, sans pub" au lieu de "sans bullshit"
-- "honnêtement" / "sans filtre" au lieu de "no BS"
-- "des ressources" / "des erreurs" au lieu de "des trucs"
-- "qui fonctionnent" au lieu de "qui marchent"
-- "désinscription en 1 clic" au lieu de "1 clic pour sortir"
+- **12 mots max en moyenne** · jamais plus de 20
+- Une idée = une phrase. Si deux idées → deux phrases.
+- Zéro subordonnée imbriquée ("qui que quoi dont où" en cascade)
+- Rythme marteau : phrase courte (3-6 mots) puis moyenne, puis courte. Varier.
+- Chiffres en début de phrase : "400 € par mois, c'est ce qu'on payait." > "On payait environ 400 € par mois."
 
-**Obligations positives** :
-- **1ère personne directe** : "je", "tu" (jamais "on" vague), tutoiement systématique
-- **Chaleureux + assumer l'IA** : "j'ai testé avec Claude Code", "l'agent IA a écrit ça, je l'ai relu"
-- **Assumer les limites** : "je peux me tromper" · "si tu as un contre-exemple, dis-le moi"
-- **Appel à réponse EN FIN DE POST** systématique : "**réponds-moi, je lis tout**" ou "**écris-moi, je réponds**" (sauf Instagram où c'est "DM je lis tout" ou "lien en bio")
-- **Chiffres concrets > abstractions** — si l'article cite des données, les reprendre telles quelles
-- **1-3 emojis max par post**, ciblés, jamais feu d'artifice
-- **Transparence** : si l'article dit "je me suis trompé", le dire aussi dans le post
+### RÈGLE CARDINALE · bienveillance + transparence
+
+- **1ère personne directe** · "je", "tu" (tutoiement), jamais "on" vague
+- **Assume l'IA** · "J'ai guidé, Claude Code a tapé le code", "l'agent IA a écrit ce brouillon, je l'ai relu"
+- **Assume les limites** · "je peux me tromper", "si tu as un contre-exemple, dis-le moi"
+- **Ne vends pas** · pas de "ça va changer ta vie", pas de "le hack que personne ne te dit"
+- **Raconte, ne pitche pas** · "je te raconte" / "voilà ce qui s'est passé" > "dans cet article je vais vous expliquer"
+- **Appel à réponse EN FIN** · "écris-moi, je lis tout" ou "réponds-moi, je lis tout"
+- **Chiffres de l'article** · reprends-les tels quels, en français (400 €, pas €400 ou 400$ si l'original est en euros)
+- **1-3 emojis max**, ciblés. Pas de feu d'artifice.
+
+### À BANNIR sans exception
+
+**Mots fétiches IA** : crucial, essentiel, fondamental, captivant, fascinant, notamment, par ailleurs, en outre, de plus, cependant, néanmoins, en somme, en définitive, en conclusion, il est important de noter, il convient de noter, dans une certaine mesure, dans ce contexte, dans ce cadre, dans le monde actuel, à l'ère de, à l'heure de, au cœur de, mettre en place, mettre en œuvre, permettre de, adresser un problème (au lieu de régler), faire du sens (au lieu d'avoir du sens), game-changer, disruptif, révolutionnaire, transformateur, souviens-toi, c'est là que la magie opère.
+
+**Hooks morts 2026** : "Aujourd'hui je voulais partager…", "Je suis ravi(e) d'annoncer…", "Après X ans en…, voici ce que j'ai appris", "3 leçons que j'aurais aimé savoir…", "La plus grosse erreur que font les entrepreneurs…", "5 conseils pour…", "Dans un monde en constante évolution…", "Laissez-moi être très clair", "Cela a tout changé pour moi", "J'aurais aimé qu'on me dise ça plus tôt".
+
+**Anglicismes familiers** : bullshit, no bullshit, game-changer, mindset, ownership, flex, legit, no brainer, delve, synergie, pivotal, landscape, écosystème, agile, opportunité passionnante, voyage extraordinaire.
+
+**Argot / élisions** : kif, taf, mec, ouais, perso, bosse, bossé, y'a, ça sert pas, truc, daude.
+
+**Abréviations** : RDV, CA, CV, KPI, ROI, MRR.
+
+**Formulations consultantes** : "les apprentissages", "le learning", "la value prop", "synergies".
+
+**Closers morts** : "Qu'en pensez-vous ?", "Partagez votre avis en commentaire ⬇️", "Drop a comment", "N'hésitez pas à…".
+
+### À UTILISER à la place
+
+- "je partage" / "je t'envoie" / "je te raconte"
+- "honnêtement" / "franchement" / "sans filtre"
+- "qui fonctionnent" (jamais "qui marchent" à l'écrit)
+- "désinscription en 1 clic"
+- "ce que je retiens" / "la leçon"
+
+### EXEMPLES avant/après (inspirés de retravaux réels validés)
+
+**Liste d'outils trop tech** :
+- ❌ "Les outils que j'ai utilisés : Next.js, Supabase, Microsoft Graph, Resend, Vercel, Sentry."
+- ✅ "J'ai utilisé des outils standards que toute la tech utilise en 2026. Rien d'exotique. Ce qui change tout, c'est Claude Code."
+
+**Terme métier opaque** :
+- ❌ "On ne pouvait pas mettre notre charte graphique dans Calendly."
+- ✅ "On ne pouvait pas mettre nos couleurs et notre logo dans Calendly."
+
+**Back-office abstrait** :
+- ❌ "On a construit un back-office autonome pour l'équipe."
+- ✅ "On a construit un espace où chaque personne modifie sa page elle-même, sans m'appeler."
+
+**Anonyme → personnel** :
+- ❌ "Mon frère a monté une entreprise."
+- ✅ "Mon frère Kevin dirige Eurofiscalis."
+
+**Trop sec / corporate** :
+- ❌ "Résultat : 4 400 € d'économie annuelle."
+- ✅ "Aujourd'hui, 20 personnes l'utilisent tous les jours. On économise 4 400 € par an."
+
+**Hook chaleureux pour thread Twitter** :
+- ❌ "Thread sur comment j'ai remplacé Calendly 🧵"
+- ✅ "On payait 400 € par mois pour Calendly. On vient de le remplacer par notre propre outil. En une semaine. Je te raconte. 🧵"
 
 ### Livraison finale
 

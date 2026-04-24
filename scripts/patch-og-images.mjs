@@ -12,7 +12,7 @@ const SLUGS = [
   "autoresearch-karpathy",
   "better-call-vs-associe",
   "booking-eurofiscalis-making-of",
-  "claude-code-workflow-tips-after-6-months-of-daily-",
+  "claude-code-workflow-tips",
   "dev-browser",
   "guerres-d-ia-podcast",
   "hermes-agent",

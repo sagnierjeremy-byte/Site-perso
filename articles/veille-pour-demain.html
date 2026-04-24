@@ -673,7 +673,7 @@
   <header class="sidebar-head">
     <div class="sidebar-head-top">
       <span class="sidebar-head-label">Roster</span>
-      <span class="sidebar-head-count">09 / 09</span>
+      <span class="sidebar-head-count">13 / 13</span>
     </div>
     <div class="sidebar-head-title">Sommaire</div>
   </header>
@@ -705,24 +705,44 @@
         <span class="ss-num"><span class="hash">№</span>05</span>
         <a class="ss-title" href="#construction">Construit en une journée</a>
       </li>
-      <li data-section="avant-apres">
+      <li data-section="pipeline">
         <svg class="ss-rowel"><use href="#rowel"/></svg>
         <span class="ss-num"><span class="hash">№</span>06</span>
-        <a class="ss-title" href="#avant-apres">Ma veille avant, maintenant</a>
+        <a class="ss-title" href="#pipeline">Comment ça marche</a>
+      </li>
+      <li data-section="sources">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#sources">Les vraies sources</a>
+      </li>
+      <li data-section="scoring">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#scoring">Le scoring 5 axes</a>
+      </li>
+      <li data-section="faire-pareil">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#faire-pareil">Tu veux faire pareil&nbsp;?</a>
+      </li>
+      <li data-section="avant-apres">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>10</span>
+        <a class="ss-title" href="#avant-apres">Avant, maintenant</a>
       </li>
       <li data-section="prix">
         <svg class="ss-rowel"><use href="#rowel"/></svg>
-        <span class="ss-num"><span class="hash">№</span>07</span>
+        <span class="ss-num"><span class="hash">№</span>11</span>
         <a class="ss-title" href="#prix">Ce que ça me coûte</a>
       </li>
       <li data-section="lecon">
         <svg class="ss-rowel"><use href="#rowel"/></svg>
-        <span class="ss-num"><span class="hash">№</span>08</span>
+        <span class="ss-num"><span class="hash">№</span>12</span>
         <a class="ss-title" href="#lecon">Ce que je retiens</a>
       </li>
       <li data-section="et-toi">
         <svg class="ss-rowel"><use href="#rowel"/></svg>
-        <span class="ss-num"><span class="hash">№</span>09</span>
+        <span class="ss-num"><span class="hash">№</span>13</span>
         <a class="ss-title" href="#et-toi">Et toi&nbsp;?</a>
       </li>
     </ul>
@@ -963,6 +983,304 @@
     <span>96 sources</span><span>Digérées pendant que je dors</span><span>30 sujets français</span><span>Analyses long-form</span><span>Sur mon Mac</span><span>Zéro cloud</span>
   </div>
 </div>
+
+<section class="block" id="pipeline">
+  <div class="container">
+    <span class="section-kicker k-teal">— Sous le capot</span>
+    <h2>Comment ça marche, <em class="teal">étape par étape.</em></h2>
+    <p>
+      Quand je dis « l'outil ingère 96 sources et me sort 30 sujets », ça reste vague. Voici ce qui se passe vraiment, en cinq étapes, chaque matin pendant que je dors. À la fin de la dernière étape, j'ai dans mon dashboard les sujets sur lesquels je vais passer ma journée.
+    </p>
+
+    <p>
+      Le schéma global, en une ligne :
+    </p>
+    <pre><code>Reddit + HN + GitHub + RSS + YouTube  →  Bot  →  Score 5 axes  →  Top 60  →  Mes mains  →  10 retenus</code></pre>
+
+    <p>
+      Et le détail des cinq étapes, avec les chiffres réels d'un run typique du <strong>vendredi matin</strong> :
+    </p>
+
+    <h3>1. Collecte parallèle des sources <span style="color:var(--ink-muted); font-weight:400">— ~476 items récupérés</span></h3>
+    <p>
+      Le worker lance en parallèle une trentaine de requêtes : 11 subreddits Reddit, 5 recherches Hacker News, 2 recherches GitHub, 8 flux RSS officiels (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best), une dizaine de flux Google News dynamiques sur des mots-clés que je veux suivre, et 16 chaînes YouTube via leur flux Atom (gratuit, sans clé API).
+    </p>
+    <p>
+      Tout ça en parallèle pour ne pas attendre. En 30 à 60 secondes, j'ai <strong>environ 476 items bruts</strong> dans un tableau en mémoire. Beaucoup sont des doublons, beaucoup sont du bruit. Mais c'est le filet large qu'il faut commencer par lancer.
+    </p>
+
+    <h3>2. Déduplication par similarité de titre <span style="color:var(--ink-muted); font-weight:400">— ~310 clusters restants</span></h3>
+    <p>
+      Quand OpenAI annonce un nouveau modèle, j'ai la news 5 fois : sur OpenAI Blog, sur HN, sur Reddit r/OpenAI, sur Google News, et sur une vidéo YouTube qui en parle. C'est de l'information utile <strong>une seule fois</strong>.
+    </p>
+    <p>
+      L'outil mesure la similarité entre titres (un calcul tout simple qui compare les mots en commun, ce qu'on appelle un « Jaccard ») et regroupe tout ce qui dépasse 50 % de ressemblance. Les 476 items deviennent <strong>environ 310 clusters</strong>. L'engagement total se cumule au sein du cluster, donc une news vue partout monte mécaniquement.
+    </p>
+
+    <h3>3. Scoring sur 5 axes <span style="color:var(--ink-muted); font-weight:400">— note de 0 à 10 par item</span></h3>
+    <p>
+      Chaque cluster passe un examen sur cinq critères : combien de gens en parlent, est-ce dans mes sujets, est-ce que ça vieillit bien, est-ce que je l'ai testé moi-même, est-ce qu'il manque déjà un article clair là-dessus. Détail dans la section juste après — j'y consacre un bloc entier parce que c'est le cœur du système.
+    </p>
+    <p>
+      Le score final est une moyenne pondérée multipliée par un coefficient lié au cluster éditorial (Claude Code = ×1.25, frontier = ×1.0, hors cluster = ×0.5) et par un boost de chaîne YouTube quand l'item vient d'une chaîne pile dans mon univers (1.0 à 1.15).
+    </p>
+
+    <h3>4. Filtrage anti-bruit + seuil minimum <span style="color:var(--ink-muted); font-weight:400">— ~60 items retenus</span></h3>
+    <p>
+      Le filtrage est ce qui change tout. J'ai construit deux listes de mots-clés au fil des semaines :
+    </p>
+    <ul>
+      <li><strong>Liste de bruit</strong> (KEYWORDS_NOISE) : memes, drama, doomerisme « we're cooked », jailbreaks, NSFW, questions low-value type « am I the only one ». Tout titre qui contient un de ces mots prend une décote massive.</li>
+      <li><strong>Liste signal YouTube</strong> (YT_SIGNAL_KEYWORDS) : pour les chaînes business comme Silicon Carne ou Underscore_, je n'accepte que les vidéos dont le titre ou la description contient un mot-clé IA / entrepreneuriat / workflow. Sinon Silicon Carne me remonterait des épisodes sur le rap français, ce qui est top mais pas le sujet du jour.</li>
+    </ul>
+    <p>
+      Après le filtre + un seuil minimum de score (5 si l'item est dans un cluster, 7 sinon), il reste <strong>environ 60 items qualifiés</strong>.
+    </p>
+
+    <h3>5. Tri final + arbitrage humain <span style="color:var(--ink-muted); font-weight:400">— top 15 dans le backlog, 10 retenus à la main</span></h3>
+    <p>
+      Le top 15 est écrit dans <code>BACKLOG.md</code> avec, pour chaque idée, le score, le cluster, les sources cliquables et un emplacement pour mon angle perso. Les idées vieilles de plus de 60 jours sans être choisies passent automatiquement en « rejetées ». Le backlog actif ne dépasse jamais 40 entrées, ce qui m'évite la paralysie du choix.
+    </p>
+    <p>
+      Le matin, je regarde le top 15. Je passe environ 10 minutes à arbitrer. Je garde une dizaine de sujets que j'ai vraiment envie de creuser, je passe 5 en « chosen », j'en demande à Claude Opus la version long-form. C'est la seule étape <strong>vraiment manuelle</strong> du pipeline. Et c'est volontaire : c'est là que ma voix et mon angle entrent dans la chaîne.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="sources">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le détail</span>
+    <h2>Les vraies sources <em class="fuchsia">scannées chaque jour.</em></h2>
+    <p>
+      Quand je dis « 96 sources », je veux que tu puisses vérifier. Voici le détail précis de ce que le worker fouille chaque matin, regroupé par famille. Tous les liens marchent.
+    </p>
+
+    <h3>Reddit — 11 subreddits</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Subreddit</th><th>Cluster ciblé</th><th>Items / jour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td><a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener">r/ClaudeAI</a></td><td>Claude Code</td><td>~25</td></tr>
+        <tr><td>02</td><td><a href="https://www.reddit.com/r/ChatGPTCoding/" target="_blank" rel="noopener">r/ChatGPTCoding</a></td><td>Claude Code + agents</td><td>~25</td></tr>
+        <tr><td>03</td><td><a href="https://www.reddit.com/r/Cursor/" target="_blank" rel="noopener">r/Cursor</a></td><td>Outils IA</td><td>~25</td></tr>
+        <tr><td>04</td><td><a href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">r/LocalLLaMA</a></td><td>Frontier</td><td>~25</td></tr>
+        <tr><td>05</td><td><a href="https://www.reddit.com/r/MachineLearning/" target="_blank" rel="noopener">r/MachineLearning</a></td><td>Frontier</td><td>~25</td></tr>
+        <tr><td>06</td><td><a href="https://www.reddit.com/r/artificial/" target="_blank" rel="noopener">r/artificial</a></td><td>Frontier généraliste</td><td>~25</td></tr>
+        <tr><td>07</td><td><a href="https://www.reddit.com/r/Entrepreneur/" target="_blank" rel="noopener">r/Entrepreneur</a></td><td>Entrepreneuriat</td><td>~25</td></tr>
+        <tr><td>08</td><td><a href="https://www.reddit.com/r/SaaS/" target="_blank" rel="noopener">r/SaaS</a></td><td>Entrepreneuriat IA</td><td>~25</td></tr>
+        <tr><td>09</td><td><a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener">r/ChatGPT</a></td><td>Outils IA</td><td>~25</td></tr>
+        <tr><td>10</td><td><a href="https://www.reddit.com/r/OpenAI/" target="_blank" rel="noopener">r/OpenAI</a></td><td>Outils IA</td><td>~25</td></tr>
+        <tr><td>11</td><td><a href="https://www.reddit.com/r/singularity/" target="_blank" rel="noopener">r/singularity</a></td><td>Frontier (filtre renforcé)</td><td>~25</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Hacker News + GitHub — recherches ciblées</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Source</th><th>Requête</th><th>Items / jour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>12</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« claude code »</td><td>~30</td></tr>
+        <tr><td>13</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« anthropic »</td><td>~30</td></tr>
+        <tr><td>14</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« ai agent »</td><td>~30</td></tr>
+        <tr><td>15</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« mcp »</td><td>~30</td></tr>
+        <tr><td>16</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« llm tutorial »</td><td>~30</td></tr>
+        <tr><td>17</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>« claude code »</td><td>~15</td></tr>
+        <tr><td>18</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>« mcp server »</td><td>~15</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Flux RSS officiels — 8 sources</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Source</th><th>Type</th><th>Items / jour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>19</td><td><a href="https://openai.com/blog/" target="_blank" rel="noopener">OpenAI Blog</a></td><td>Annonces officielles</td><td>~3</td></tr>
+        <tr><td>20</td><td><a href="https://blog.google/technology/ai/" target="_blank" rel="noopener">Google AI Blog</a></td><td>Annonces officielles</td><td>~3</td></tr>
+        <tr><td>21</td><td><a href="https://huggingface.co/blog" target="_blank" rel="noopener">Hugging Face Blog</a></td><td>Modèles open source</td><td>~5</td></tr>
+        <tr><td>22</td><td><a href="https://simonwillison.net" target="_blank" rel="noopener">Simon Willison</a></td><td>Blog perso de référence</td><td>~10</td></tr>
+        <tr><td>23</td><td><a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">TechCrunch AI</a></td><td>Médias tech</td><td>~15</td></tr>
+        <tr><td>24</td><td><a href="https://www.theverge.com/ai-artificial-intelligence" target="_blank" rel="noopener">The Verge AI</a></td><td>Médias tech</td><td>~10</td></tr>
+        <tr><td>25</td><td><a href="https://www.technologyreview.com" target="_blank" rel="noopener">MIT Tech Review</a></td><td>Médias tech</td><td>~5</td></tr>
+        <tr><td>26</td><td><a href="https://news.ycombinator.com/best" target="_blank" rel="noopener">HN Best</a></td><td>Curation HN</td><td>~30</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      S'ajoutent à ça <strong>10 flux Google News dynamiques</strong> générés sur les mots-clés que je veux suivre (Claude Code, Anthropic, agents IA, AI skills, plugin Superpowers), en français et en anglais. C'est ce qui me ramène les annonces des médias business avant qu'elles n'arrivent sur les blogs.
+    </p>
+
+    <h3>YouTube — 16 chaînes scannées via flux Atom</h3>
+    <p>
+      Pour chaque chaîne, le worker récupère le flux Atom (gratuit, pas de clé API), filtre les vidéos de moins de 45 jours, applique le filtre signal IA / business et garde au max 10 vidéos par chaîne. Les chaînes-phares (Underscore_, Silicon Carne, Vision IA, Grand Angle, IA et Stratégie) ont un boost de score de ×1.15 parce que c'est le cœur de mon univers.
+    </p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Chaîne</th><th>Catégorie</th><th>Boost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>27</td><td><a href="https://www.youtube.com/@siliconcarnepod" target="_blank" rel="noopener">Silicon Carne</a></td><td>IA & Tech</td><td>×1.15</td></tr>
+        <tr><td>28</td><td><a href="https://www.youtube.com/@SamouraiDansant" target="_blank" rel="noopener">IA et Stratégie</a></td><td>IA & Tech</td><td>×1.15</td></tr>
+        <tr><td>29</td><td><a href="https://www.youtube.com/@VisionIA-FR" target="_blank" rel="noopener">Vision IA</a></td><td>IA & Tech</td><td>×1.15</td></tr>
+        <tr><td>30</td><td><a href="https://www.youtube.com/@Underscore_" target="_blank" rel="noopener">Underscore_</a></td><td>IA & Tech</td><td>×1.15</td></tr>
+        <tr><td>31</td><td><a href="https://www.youtube.com/@melvynxdev" target="_blank" rel="noopener">Melvynx</a></td><td>IA & Tech</td><td>×1.10</td></tr>
+        <tr><td>32</td><td><a href="https://www.youtube.com/@GrandAnglePodcast" target="_blank" rel="noopener">Grand Angle</a></td><td>IA & Tech</td><td>×1.10</td></tr>
+        <tr><td>33</td><td><a href="https://www.youtube.com/@grandanglenova" target="_blank" rel="noopener">Grand Angle Nova</a></td><td>IA & Tech</td><td>×1.10</td></tr>
+        <tr><td>34</td><td><a href="https://www.youtube.com/@AlexHormozi" target="_blank" rel="noopener">Alex Hormozi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>35</td><td><a href="https://www.youtube.com/@leilahormozi" target="_blank" rel="noopener">Leila Hormozi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>36</td><td><a href="https://www.youtube.com/@garyvee" target="_blank" rel="noopener">GaryVee</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>37</td><td><a href="https://www.youtube.com/@ImanGadzhi" target="_blank" rel="noopener">Iman Gadzhi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>38</td><td><a href="https://www.youtube.com/@GrantCardone" target="_blank" rel="noopener">Grant Cardone</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>39</td><td><a href="https://www.youtube.com/@legendmedia" target="_blank" rel="noopener">LEGEND</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>40</td><td><a href="https://www.youtube.com/@oussamaammaroff" target="_blank" rel="noopener">Oussama Ammar</a></td><td>Business</td><td>×1.05</td></tr>
+        <tr><td>41</td><td><a href="https://www.youtube.com/@PodcastLeD%C3%A9clic" target="_blank" rel="noopener">Le Déclic</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>42</td><td><a href="https://www.youtube.com/@antoineblanco99" target="_blank" rel="noopener">Antoine Blanco</a></td><td>Business</td><td>×1.0</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Le total tourne entre <strong>96 et 110 sources actives</strong> selon les semaines (les flux Google News varient selon les mots-clés que je modifie). C'est volontairement borné : au-delà, je m'enterre sous le bruit. En dessous, je rate des choses.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="scoring">
+  <div class="container">
+    <span class="section-kicker k-orange">— Le cœur du système</span>
+    <h2>Le scoring 5 axes, <em class="orange">démystifié.</em></h2>
+    <p>
+      Tout l'intérêt du pipeline tient ici. Sans scoring, je remonterais 60 items au hasard. Avec scoring, je remonte les 60 items qui matchent <strong>mon angle éditorial à moi</strong>. C'est ce qui transforme un agrégateur en outil personnel.
+    </p>
+    <p>
+      J'ai volontairement renoncé à un LLM pour scorer. Trop cher (×476 items × 4 runs / jour = beaucoup trop), trop opaque (impossible de débugger pourquoi un item est en haut), trop lent. À la place, des règles simples sur le titre. Cinq axes, notés sur 10. Voici ce que chacun mesure.
+    </p>
+
+    <h3>1. Demande — combien de gens en parlent</h3>
+    <p>
+      C'est l'engagement brut : upvotes Reddit + commentaires × 2, points HN + commentaires × 2, vues YouTube / 100 + likes × 10, stars GitHub + forks × 3. Le tout normalisé sur une échelle de 0 à 10.
+    </p>
+    <p>
+      <strong>Exemple concret.</strong> Un post r/ClaudeAI à 2 000 upvotes et 300 commentaires fait un engagement brut de 2 600. Score demande : 10. Un release officiel d'OpenAI sur leur blog démarre à 5 (baseline officielle) et monte si HN le reprend.
+    </p>
+
+    <h3>2. Pertinence — est-ce dans mon domaine</h3>
+    <p>
+      Le titre passe au tamis d'une liste de mots-clés positifs (claude, agent, mcp, skill, automatisation, prompt, llm, solopreneur…) et d'une liste anti-bruit (memes, drama, doomerisme, jailbreaks). Chaque match positif ajoute 1.5 point, chaque anti-bruit retire 4 points.
+    </p>
+    <p>
+      <strong>Exemple concret.</strong> « How I built an agent with Claude Code MCP » → +1.5 (built) +1.5 (agent) +1.5 (claude code) +1.5 (mcp) = 9 sur 10. « Anyone else feel AGI is coming? » → -4 (anyone else) -4 (agi coming) = 0 sur 10, éliminé.
+    </p>
+
+    <h3>3. Evergreen — ça vaut encore dans 6 mois ?</h3>
+    <p>
+      Même logique sur le titre : les mots de tutoriel boostent (« how to », « tutorial », « guide », « pattern », « lessons learned », « ma config »), les mots d'annonce décotent (« released », « announce », « new version », « coming soon »).
+    </p>
+    <p>
+      <strong>Exemple concret.</strong> « Lessons learned building 10 Claude Code agents » → +1.5 = 6.5/10, durera dans le temps. « Anthropic announces Claude 5 » → -1.5 = 3.5/10, sera périmé dans 3 semaines (mais peut quand même passer le seuil grâce aux autres axes).
+    </p>
+
+    <h3>4. Vécu — est-ce que je l'ai testé moi-même ?</h3>
+    <p>
+      Cet axe est neutre par défaut (5/10). Je l'ajuste à la main quand je rentre l'idée dans le backlog. Si j'ai déjà passé une journée sur le sujet, je le monte à 9. Si c'est un truc dont j'ai juste entendu parler, je le laisse à 5. Si c'est un sujet où je n'ai aucune expérience à apporter, je le baisse à 2.
+    </p>
+    <p>
+      <strong>Pourquoi cet axe existe.</strong> Mes meilleurs articles sont ceux où j'ai du vécu réel. Ce filtre m'empêche de me laisser embarquer par des sujets vendeurs sur lesquels je n'ai rien à dire de spécifique.
+    </p>
+
+    <h3>5. Gap — manque-t-il un article clair sur le sujet ?</h3>
+    <p>
+      L'outil compare le titre proposé à tous les articles déjà publiés sur le site (mesure de Jaccard sur les mots du titre). Plus la similarité est faible, plus le gap est élevé. Si j'ai déjà publié « Les loops Claude Code expliqués », un nouvel item « Understanding Claude Code loops » fait 0.6 de similarité et tombe à 1/10. Si rien ne matche, score 10.
+    </p>
+    <p>
+      <strong>Pourquoi cet axe est crucial.</strong> Sans lui, je ré-écrirais 5 fois le même article sur les sous-agents. Le gap me force à explorer des sujets vraiment nouveaux pour ma collection.
+    </p>
+
+    <h3>La formule finale</h3>
+    <p>
+      La note du titre est une moyenne pondérée :
+    </p>
+    <pre><code>note_base = (demande × 0.25) + (pertinence × 0.30) + (evergreen × 0.15) + (vécu × 0.10) + (gap × 0.20)
+
+note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code></pre>
+
+    <p>
+      Les <strong>6 clusters éditoriaux</strong> avec leur multiplicateur :
+    </p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Cluster</th><th>Multiplicateur</th><th>Mots-clés type</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td>Claude Code tutos</td><td><strong>×1.25</strong></td><td>claude code, mcp, skill, hook, sous-agent</td></tr>
+        <tr><td>02</td><td>Agents IA concrets</td><td><strong>×1.25</strong></td><td>built an agent, gmail agent, n8n, langgraph</td></tr>
+        <tr><td>03</td><td>Opinions tranchées</td><td>×1.10</td><td>vs, overrated, i tried, lessons learned</td></tr>
+        <tr><td>04</td><td>Outils IA du moment</td><td>×1.10</td><td>chatgpt, gemini, cursor, perplexity, comparatif</td></tr>
+        <tr><td>05</td><td>Entrepreneuriat + IA</td><td>×1.0</td><td>solopreneur, mrr, my saas, indiehacker</td></tr>
+        <tr><td>06</td><td>Frontier vulgarisé</td><td>×1.0</td><td>karpathy, paper, transformer, scaling laws</td></tr>
+        <tr><td>—</td><td>Hors cluster</td><td>×0.5</td><td>(décote massive si rien ne matche)</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Et pour les items qui viennent de YouTube, un boost supplémentaire de chaîne (1.0 à 1.15) selon ma proximité avec la voix de la chaîne. Underscore_ qui sort une vidéo Claude Code à ×1.15 + cluster Claude Code à ×1.25 = score gonflé de +44 % vs la valeur brute. Volontaire.
+    </p>
+    <p>
+      Cette formule a évolué. Au début, j'avais juste l'engagement brut. Le résultat : du drama Reddit en haut, des trucs intéressants en bas. J'ai ajouté la pertinence. Mieux, mais trop de news fraîches sans intérêt pour moi. J'ai ajouté l'evergreen et le cluster. Là j'ai commencé à avoir des idées vraiment pertinentes. Le gap est arrivé en dernier, parce que j'ai écrit deux fois le même article.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>5 minutes</span><span>1 weekend</span><span>1 mois</span><span>Trois niveaux pour faire pareil</span><span>Choisis le tien</span>
+    <span>5 minutes</span><span>1 weekend</span><span>1 mois</span><span>Trois niveaux pour faire pareil</span><span>Choisis le tien</span>
+  </div>
+</div>
+
+<section class="block" id="faire-pareil">
+  <div class="container">
+    <span class="section-kicker k-teal">— À toi de jouer</span>
+    <h2>Tu veux faire pareil ? <em class="teal">Trois niveaux.</em></h2>
+    <p>
+      L'outil que je décris ici n'est pas magique et il n'est surtout pas le seul chemin. Selon le temps que tu peux y investir, voici les trois niveaux de mise en place. Chaque niveau te ramène 70 à 80 % de la valeur du suivant. Pas besoin d'aller au niveau 3 pour avoir une vraie veille qui change ta journée.
+    </p>
+
+    <h3>Niveau 1 — Feedly + 5 RSS officiels + checklist papier <span style="color:var(--ink-muted); font-weight:400">(5 minutes)</span></h3>
+    <p>
+      Le minimum vital. Tu crées un compte gratuit sur <a href="https://feedly.com" target="_blank" rel="noopener">Feedly</a>, tu y ajoutes 5 flux RSS officiels (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI). Tu installes l'appli sur ton téléphone. Tu te poses 10 minutes le matin avec un café et tu lis ce qui est remonté.
+    </p>
+    <p>
+      <strong>Ce que tu gagnes.</strong> Tu ne rates plus les annonces officielles. Tu arrêtes de scroller X pour découvrir une release que tu pouvais avoir en première main 3 jours avant. <strong>Coût : 0 €</strong>. <strong>Temps de mise en place : 5 minutes</strong>. <strong>Temps quotidien : 10 à 15 minutes</strong>.
+    </p>
+    <p>
+      <strong>La checklist papier en bonus.</strong> 3 questions sur un post-it à côté du clavier : (1) « Est-ce que ça touche mon travail ? » (2) « Est-ce que je vais m'en souvenir dans 3 mois ? » (3) « Est-ce que j'ai une raison de partager ça ? ». Si la réponse est non aux trois, tu fermes l'onglet. Ça paraît bête mais ça change tout : tu arrêtes de stocker du bruit.
+    </p>
+
+    <h3>Niveau 2 — n8n ou Make + scraping Reddit/HN + scoring manuel <span style="color:var(--ink-muted); font-weight:400">(1 weekend)</span></h3>
+    <p>
+      Tu passes au niveau au-dessus quand Feedly ne suffit plus. Tu installes <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> en mode auto-hébergé (gratuit) ou tu prends un compte <a href="https://make.com" target="_blank" rel="noopener">Make</a> (payant léger). Tu configures un workflow qui fetch Reddit (API gratuite), Hacker News (Algolia API gratuite), tes RSS, et qui te dépose tout ça dans un Google Sheet ou une base Notion chaque matin.
+    </p>
+    <p>
+      Le scoring se fait à la main : tu mets une colonne « note de 1 à 5 » et tu trie. C'est moins automatique que mon outil mais c'est <strong>10 fois plus puissant que Feedly</strong> parce que tu choisis exactement quelles sources rentrent et que tu peux filtrer par mots-clés.
+    </p>
+    <p>
+      <strong>Ce que tu gagnes.</strong> Tu vois passer Reddit et HN sans devoir y aller. Tu construis ta propre vue. <strong>Coût : 0 à 20 € / mois</strong>. <strong>Temps de mise en place : un weekend</strong>. <strong>Temps quotidien : 15 à 20 minutes</strong>.
+    </p>
+
+    <h3>Niveau 3 — Ton propre pipeline Claude Code <span style="color:var(--ink-muted); font-weight:400">(1 mois)</span></h3>
+    <p>
+      C'est ce que j'ai fait. Tu construis le tien avec Claude Code, en repartant de zéro ou en t'inspirant du mien (le code de <code>brainstorm.js</code> est public sur le repo de mon site). Tu obtiens : sources sur mesure, scoring sur mesure, filtres sur mesure, dashboard intégré à ton outil de travail, contrôle total sur tes données.
+    </p>
+    <p>
+      <strong>Ce que tu gagnes.</strong> Un outil qui devient une extension de ta tête. <strong>Coût : 5 à 10 € / mois en API</strong>. <strong>Temps de mise en place : 1 mois en fil rouge le soir</strong>, ou une journée pleine si tu arrives à libérer un samedi entier comme moi. <strong>Temps quotidien : 5 minutes pour arbitrer le top 15</strong>.
+    </p>
+    <p>
+      Honnêtement : commence au niveau 1. Si dans 3 semaines tu te dis « il me manque Reddit et HN », passe au niveau 2. Si dans 3 mois tu te dis « je veux un scoring qui matche pile mes obsessions », passe au niveau 3. La pire erreur, c'est de viser le niveau 3 dès le départ et de ne jamais commencer parce que c'est trop gros à attaquer.
+    </p>
+  </div>
+</section>
 
 <section class="block" id="avant-apres">
   <div class="container">

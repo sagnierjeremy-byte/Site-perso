@@ -461,12 +461,13 @@
 <section class="block">
   <div class="container">
     <h2>Avant de commencer</h2>
-    <p>Tu as déjà essayé de demander à ChatGPT ou Claude d&#39;aller lire une page web ? Tu connais la frustration. Parfois il y arrive, parfois il te dit « Désolé, je ne peux pas accéder à cette URL ». Ou pire : il hallucine un contenu qu&#39;il n&#39;a jamais vu.</p>
-    <p>Dev-browser règle ce problème. C&#39;est un <strong>navigateur sans fenêtre</strong> que ton IA pilote en écrivant un petit script. Tu n&#39;ouvres jamais Chrome toi-même. Tu dis ce que tu veux, Claude écrit le script, il s&#39;exécute, tu récupères ce qui t&#39;intéresse.</p>
-    <p>Je l&#39;ai installé sur mon Mac il y a deux mois. Aujourd&#39;hui, je l&#39;utilise presque tous les jours : vérifier qu&#39;une page est bien déployée, scraper un site que Claude ne connaît pas, prendre un screenshot pour valider un design, tester le formulaire d&#39;inscription de mon site sans ouvrir Chrome à la main.</p>
+    <p>Tu as déjà essayé de demander à ChatGPT ou Claude d&#39;aller lire une page web ? Tu connais la frustration. Parfois il y arrive, parfois il te dit « Désolé, je ne peux pas accéder à cette URL ». Ou pire : il hallucine un contenu qu&#39;il n&#39;a jamais vu, te raconte des choses qui n'existent pas, te cite des chiffres inventés. Tu cliques le lien pour vérifier, et tu te rends compte que la page parle d'un sujet complètement différent.</p>
+    <p>Dev-browser règle ce problème. C&#39;est un <strong>navigateur sans fenêtre</strong> que ton IA pilote en écrivant un petit script. Tu n&#39;ouvres jamais Chrome toi-même. Tu dis ce que tu veux, Claude écrit le script, il s&#39;exécute dans un Chrome invisible, tu récupères ce qui t&#39;intéresse · le texte d'un article, un chiffre précis dans un tableau, un screenshot d'une page, le rendu d'une page que tu viens de modifier.</p>
+    <p>Je l&#39;ai installé sur mon Mac il y a deux mois. Aujourd&#39;hui, je l&#39;utilise presque tous les jours : vérifier qu&#39;une page est bien déployée, scraper un site que Claude ne connaît pas, prendre un screenshot pour valider un design, tester le formulaire d&#39;inscription de mon site sans ouvrir Chrome à la main, capturer un article concurrent avant qu'il change.</p>
+    <p><strong>Le déclic, pour moi, ça a été le moment où j'ai compris que dev-browser n'est pas un outil de dev.</strong> C'est un outil d'entrepreneur curieux qui veut que son IA puisse <em>vraiment</em> faire ce qu'il lui demande. Tu ne te bats plus avec des « je ne peux pas accéder », tu ne copies-colles plus du contenu à la main, tu n'ouvres plus dix onglets Chrome pour vérifier dix pages. Tu délègues, et ton IA exécute pour de vrai.</p>
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
-      <p>Si tu utilises Claude Code tous les jours et que tu touches à du web (un site, des sources à vérifier, un scraping ponctuel), dev-browser doit être installé chez toi. Il rend ton IA vraiment utile pour les tâches qui touchent à Internet. Trois minutes d'install, retour sur investissement en dix minutes.</p>
+      <p>Si tu utilises Claude Code tous les jours et que tu touches à du web (un site, des sources à vérifier, un scraping ponctuel), dev-browser doit être installé chez toi. Il rend ton IA vraiment utile pour les tâches qui touchent à Internet. Trois minutes d'install, retour sur investissement en dix minutes. Je ne connais pas un seul outil dans la galaxie Claude Code qui ait un meilleur ratio effort/valeur.</p>
     </div>
   </div>
 </section>
@@ -481,8 +482,20 @@
     <li>Il ne peut <strong>pas interagir</strong> avec une page : cliquer, remplir, attendre qu&#39;un script JS se lance, faire défiler.</li>
     </ol>
     <p>Dev-browser corrige les deux. Il ouvre vraiment un navigateur (Chromium en coulisse, comme Chrome sans les pubs) sans fenêtre graphique. Claude y envoie des ordres en JavaScript : « va sur cette page, attends 3 secondes, récupère le texte du h1, clique sur ce bouton ».</p>
-    <h3>Comment ça marche concrètement</h3>
-    <p>Tu tapes dans ton terminal quelque chose comme ceci :</p>
+
+    <h3>Comment ça marche, sans jargon</h3>
+    <p>Imagine un robot qui ouvre Chrome à ta place et fait exactement ce que tu lui dis. C'est ça, dev-browser. Sauf que le robot, c'est ton ordi, et que la fenêtre Chrome, tu ne la vois jamais. Tout se passe en coulisse.</p>
+    <p>Concrètement, voilà ce qui se passe quand tu demandes à Claude « va voir si ma page est en ligne » :</p>
+    <ol>
+      <li><strong>Claude écrit un petit script</strong> (un mini-programme de 5-10 lignes, en JavaScript, le langage des pages web).</li>
+      <li><strong>Le terminal lance Chrome en arrière-plan</strong> · ce qu'on appelle « headless » (sans tête, sans fenêtre visible). Il s'ouvre, mais sur un écran que personne ne voit.</li>
+      <li><strong>Dev-browser intercepte le script</strong> et l'exécute dans ce Chrome invisible : aller sur l'URL, attendre que la page charge, lire le contenu, cliquer un bouton, ce que tu veux.</li>
+      <li><strong>Le résultat revient dans ton terminal</strong> · le texte récupéré, l'image du screenshot, les données extraites. Claude lit le résultat et te répond en français dans la conversation.</li>
+    </ol>
+    <p>Tu n'as jamais vu Chrome s'ouvrir. Tu n'as jamais cliqué. Tu n'as jamais écrit une ligne de code. Tu as juste demandé en français, et tu as reçu la réponse en français. C'est tout.</p>
+
+    <h3>Le script, à quoi ça ressemble (pour ta culture)</h3>
+    <p>Tu n'écriras jamais ça toi-même, mais voilà ce que Claude tape dans ton terminal quand tu lui demandes de récupérer le titre de jerwis.fr :</p>
     <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
       const page = await browser.getPage(&quot;main&quot;);
       await page.goto(&quot;https://jerwis.fr&quot;);
@@ -490,8 +503,7 @@
       console.log(titre);
     EOF
     </code></pre>
-    <p>Un navigateur s&#39;ouvre en arrière-plan, charge ma page, récupère le titre, l&#39;affiche dans ton terminal. Fin. Pas de fenêtre qui apparaît sur ton écran.</p>
-    <p><strong>Ce que tu ne fais pas toi-même</strong> : écrire ce script. Tu dis à Claude « va sur jerwis.fr et dis-moi le titre ». Claude comprend, écrit le script dev-browser, l&#39;exécute, te renvoie le résultat dans la conversation.</p>
+    <p>Lecture en français : « ouvre un navigateur, va sur jerwis.fr, récupère le texte du gros titre (le h1), affiche-le dans le terminal ». Fin. Le navigateur se ferme tout seul, le titre s'affiche, Claude te le renvoie. Cinq secondes chrono.</p>
     <div class="callout ok">
       <h4>La règle d'or que j'applique</h4>
       <p>Tu ne tapes jamais un script dev-browser toi-même. Tu demandes ce que tu veux en français à Claude. Claude fait le script. Tu restes à 100 % dans ton rôle d'entrepreneur qui demande, jamais de développeur qui code.</p>
@@ -501,33 +513,183 @@
 
 <section class="block">
   <div class="container">
-    <h2>4 cas où dev-browser change ma journée</h2>
+    <h2>5 cas concrets · même si tu n'es pas dev</h2>
+    <p>Sur le papier, dev-browser sonne « outil de dev pour scraper et tester ». Dans la vraie vie, c'est un assistant qui te débloque des trucs que tu ferais à la main, mal, en perdant du temps. Voilà 5 cas où je m'en sers, qui n'ont rien à voir avec du code.</p>
+
     <div class="usecase">
-      <div class="usecase-label">Cas 01 · Vérifier qu'un déploiement a marché</div>
-      <h4>Sans ouvrir Chrome, sans copier-coller</h4>
-      <p>Je commit une modification de mon site, je push, Vercel déploie. Avant dev-browser, je devais ouvrir Chrome, aller sur jerwis.fr, chercher l'élément qui a changé. <strong>Maintenant, je dis à Claude</strong> : « vérifie que la page /lexique.html affiche bien 8 entrées et pas 7 ». Il lance dev-browser, compte, me répond en 5 secondes.</p>
-      <p><strong>Gain mesuré :</strong> je gagne 30 secondes par déploiement. Sur une journée où je push 10 fois, 5 minutes. Pas révolutionnaire à l'unité, énorme au cumul.</p>
+      <div class="usecase-label">Cas 01 · Vérifier que ton site est bien en ligne</div>
+      <h4>Tu push une modif, dev-browser confirme que c'est rendu correctement</h4>
+      <p>Tu modifies une page de ton site (un texte, un prix, une image), tu push sur ton hébergeur. Avant, tu ouvrais Chrome, tu allais sur la page, tu vérifiais à l'œil. <strong>Maintenant tu demandes à Claude</strong> : « vérifie que la page tarifs de mon site affiche bien 49 € et pas 39 € ». Il lance dev-browser, charge la page, lit le prix, te confirme.</p>
+      <p>Je l'utilise <strong>à chaque déploiement</strong>. Ça m'évite les « j'ai oublié de vider le cache navigateur, je vois la vieille version ». Dev-browser charge la page propre, me dit ce qui est vraiment en ligne pour les visiteurs.</p>
+      <p>La commande que Claude lance pour toi :</p>
+      <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://tonsite.fr/tarifs&quot;);
+      const texte = await page.evaluate(() =&gt; document.body.innerText);
+      console.log(texte.includes(&quot;49 €&quot;) ? &quot;OK 49€ visible&quot; : &quot;MANQUANT&quot;);
+    EOF
+    </code></pre>
     </div>
-    
+
     <div class="usecase">
-      <div class="usecase-label">Cas 02 · Scraper une source pour un article</div>
-      <h4>Récupérer un tableau, une date, une citation</h4>
-      <p>J'écris un article, j'ai besoin d'un chiffre précis qui figure sur le site d'une étude. Claude n'a pas ce chiffre dans son entraînement. <strong>Je lui dis</strong> : « va sur cette URL, trouve le chiffre de latence moyenne de GPT-5, cite-le-moi ». Il lance dev-browser, extrait, me renvoie le chiffre + la source.</p>
-      <p>Pareil pour les citations. Dernière fois, j'avais besoin d'une phrase exacte de Simon Willison dans un billet. Claude a scrapé son site, trouvé le paragraphe, copié au mot près. <strong>10 secondes.</strong></p>
+      <div class="usecase-label">Cas 02 · Scraper un site que ChatGPT n'arrive pas à lire</div>
+      <h4>Cookie wall, login, page bloquée · dev-browser passe quand même</h4>
+      <p>Tu demandes à ChatGPT ou Claude « lis cet article et résume-le ». Réponse : « désolé, je ne peux pas accéder à cette URL ». Pourquoi ? Le site bloque les bots, demande d'accepter les cookies, redirige vers une page login. <strong>Dev-browser, lui, simule un vrai utilisateur</strong> : il accepte les cookies, attend le chargement, lit la page comme toi tu le ferais.</p>
+      <p>Dernière fois, j'avais besoin d'un chiffre précis dans une étude McKinsey planquée derrière un cookie wall. ChatGPT bloqué. Claude + dev-browser : 10 secondes pour récupérer le chiffre + la source. <strong>Pareil pour les articles paywall partiels</strong> (Le Monde, Les Échos quand le début est lisible) : dev-browser lit ce qui est visible, Claude résume.</p>
+      <p>La commande type :</p>
+      <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://site-bloqué.com/article&quot;);
+      await new Promise(r =&gt; setTimeout(r, 3000));
+      const article = await page.evaluate(() =&gt; document.querySelector(&quot;article&quot;).innerText);
+      console.log(article);
+    EOF
+    </code></pre>
     </div>
-    
+
     <div class="usecase">
-      <div class="usecase-label">Cas 03 · Tester un formulaire en local</div>
-      <h4>Avant de déployer, je valide que le flux marche</h4>
-      <p>Mon site a un formulaire d'inscription newsletter. Je le modifie, je lance mon serveur local sur <code>localhost:8088</code>. <strong>Je dis à Claude</strong> : « remplis le formulaire avec <code>test@example.com</code>, clique submit, dis-moi si le message de succès s'affiche bien ». Il lance dev-browser, fait le test, rapporte.</p>
-      <p><strong>Pourquoi c'est génial :</strong> avant, je testais à la main, j'oubliais parfois des cas, je créais des emails de test dans ma base par accident. Maintenant Claude teste méthodiquement, capture les bugs, ne pollue rien.</p>
+      <div class="usecase-label">Cas 03 · Capturer un design pour t'en inspirer</div>
+      <h4>Tu vois un beau site, tu veux le partager à ton designer · screenshot en 5 secondes</h4>
+      <p>Tu tombes sur un site qui te plaît (un concurrent, une landing page bien foutue, le portfolio d'un freelance). Tu veux l'envoyer à ton designer ou le coller dans une réunion. <strong>Tu dis à Claude</strong> : « prends un screenshot de stripe.com en taille desktop ». Il lance dev-browser, capture l'image en 1920×1080, te la montre dans la conversation, tu la sauvegardes.</p>
+      <p>Pratique aussi pour <strong>archiver une page avant qu'elle change</strong>. Une promo, une mention légale, une version d'une page concurrent que tu veux garder. Dev-browser fige l'instant, tu as la preuve.</p>
+      <p>La commande :</p>
+      <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.goto(&quot;https://stripe.com&quot;);
+      await page.screenshot({ path: &quot;stripe-home.png&quot;, fullPage: true });
+      console.log(&quot;Screenshot enregistré : stripe-home.png&quot;);
+    EOF
+    </code></pre>
     </div>
-    
+
     <div class="usecase">
-      <div class="usecase-label">Cas 04 · Prendre un screenshot pour valider un design</div>
-      <h4>Claude voit ma page comme je la verrais</h4>
-      <p>Je retouche une section. <strong>Je demande</strong> : « prends un screenshot de la section Freebies de ma home, regarde si les 4 cartes sont alignées ». Claude lance dev-browser, capture l'image, me la montre dans la conversation. Je vois immédiatement si un élément déborde ou si un espacement est raté.</p>
-      <p>J'utilise ça <strong>à chaque grosse refonte UI</strong>. Claude voit la page, me décrit ce qu'il voit, je valide ou je corrige sans ouvrir de navigateur.</p>
+      <div class="usecase-label">Cas 04 · Tester ton formulaire d'inscription</div>
+      <h4>Remplir le form, soumettre, vérifier l'email · sans cliquer 10 fois</h4>
+      <p>Tu modifies le formulaire d'inscription de ta newsletter. Tu veux vérifier que le flux complet marche : remplir, soumettre, recevoir le message de confirmation, voir l'email arriver. <strong>Avant</strong> : tu testais à la main, tu créais des emails bidons (qui polluaient ta base), tu oubliais des cas. <strong>Maintenant</strong>, tu dis à Claude : « va sur ma home, remplis le formulaire newsletter avec test@example.com, clique submit, dis-moi si le message de succès s'affiche ». Il fait, il rapporte.</p>
+      <p>Bonus : tu peux lui demander de tester avec une <strong>fausse adresse</strong> pour voir si la validation marche, avec un <strong>email déjà inscrit</strong> pour voir le message d'erreur. Trois scénarios en 30 secondes, là où ça t'aurait pris 10 minutes à la main.</p>
+      <p>La commande :</p>
+      <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://tonsite.fr&quot;);
+      await page.fill(&quot;input[type=email]&quot;, &quot;test@example.com&quot;);
+      await page.click(&quot;button[type=submit]&quot;);
+      await new Promise(r =&gt; setTimeout(r, 2000));
+      const message = await page.evaluate(() =&gt; document.querySelector(&quot;.success-msg&quot;)?.innerText);
+      console.log(message || &quot;Aucun message de succès trouvé&quot;);
+    EOF
+    </code></pre>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Cas 05 · Vérifier qu'une page est bien responsive</div>
+      <h4>Capture mobile + desktop pour voir si rien ne casse</h4>
+      <p>Tu déploies une nouvelle page. Sur ton ordi, elle est belle. Mais sur mobile ? Tu pourrais ouvrir Chrome, faire F12, passer en mode mobile, scroller. Ou tu peux <strong>demander à Claude</strong> : « capture ma page tarifs en mobile (iPhone 14) et en desktop, compare ». Il lance dev-browser deux fois (une taille mobile, une taille desktop), te montre les deux images, te dit ce qui déborde.</p>
+      <p>J'utilise ça <strong>à chaque grosse refonte UI</strong>. Surtout pour les hero sections où le H1 peut casser sur petit écran. Dev-browser te montre la vérité, sans que tu aies besoin de sortir ton téléphone.</p>
+      <p>La commande :</p>
+      <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(&quot;https://tonsite.fr/tarifs&quot;);
+      await page.screenshot({ path: &quot;tarifs-mobile.png&quot;, fullPage: true });
+      console.log(&quot;Mobile capturé&quot;);
+    EOF
+    </code></pre>
+    </div>
+
+    <div class="callout tip">
+      <h4>Comment je l'utilise tous les jours</h4>
+      <p><strong>Depuis 2 mois, dev-browser tourne 10 à 15 fois par jour</strong> sur mon Mac. Voilà ma routine type :</p>
+      <p><strong>Le matin (5 min)</strong> · « Claude, vérifie que jerwis.fr et mes 3 autres sites répondent bien et que la home charge en moins de 3 secondes ». Il lance dev-browser sur chacun, me dit si tout est nominal. Je commence ma journée tranquille, sans avoir ouvert un seul navigateur.</p>
+      <p><strong>Avant chaque push</strong> · « capture la page que je viens de modifier en avant/après, dis-moi ce qui change visuellement ». Évite que je casse un design sans m'en rendre compte.</p>
+      <p><strong>Quand Claude bloque sur un site</strong> · si Claude me dit « je ne peux pas accéder à cette URL », je relance avec « utilise dev-browser ». Dans 9 cas sur 10, ça passe. Le dernier 1/10, c'est un site avec captcha (Cloudflare niveau max) · là je laisse tomber.</p>
+      <p><strong>En soirée</strong> · « capture les 5 nouvelles pages de mon site et liste les coquilles ». Dev-browser parcourt, Claude relit, je corrige. Mon proofreader gratuit, qui ne dort jamais.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Mes 3 commandes préférées · prêtes à copier</h2>
+    <p>Tu n'as pas besoin de retenir ces commandes. Tu peux les copier, les coller dans ton terminal en remplaçant l'URL, et c'est parti. Ou mieux : tu les montres à Claude une fois en disant « voilà mon style de commande, garde-le », et il les réutilisera tout seul ensuite.</p>
+
+    <h3>Commande 01 · Screenshot d'une page entière</h3>
+    <p>Le pain quotidien. Capturer un site complet, du haut en bas, en taille desktop par défaut.</p>
+    <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://jerwis.fr&quot;);
+      await new Promise(r =&gt; setTimeout(r, 2000));
+      await page.screenshot({ path: &quot;capture.png&quot;, fullPage: true });
+      console.log(&quot;Screenshot enregistré : capture.png&quot;);
+    EOF
+    </code></pre>
+    <p>Le fichier <code>capture.png</code> apparaît dans le dossier où tu as lancé la commande. Tu changes l'URL, tu relances, tu as une nouvelle capture.</p>
+
+    <h3>Commande 02 · Vérifier qu'une page contient un mot ou un chiffre</h3>
+    <p>Génial pour valider qu'une modification est bien en ligne sans ouvrir de navigateur. Réponse en 1 ligne dans ton terminal.</p>
+    <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://jerwis.fr/articles&quot;);
+      const texte = await page.evaluate(() =&gt; document.body.innerText);
+      console.log(texte.includes(&quot;dev-browser&quot;) ? &quot;OK trouvé&quot; : &quot;ABSENT&quot;);
+    EOF
+    </code></pre>
+    <p>Tu remplaces <code>&quot;dev-browser&quot;</code> par n'importe quel mot, prix, nom. Pratique pour vérifier qu'un changement de prix est bien rendu, qu'un nouvel article apparaît dans la liste, qu'une promo est bien visible.</p>
+
+    <h3>Commande 03 · Soumettre un formulaire et capturer le résultat</h3>
+    <p>Le test d'inscription newsletter, de contact, de commande. Remplir, soumettre, vérifier le message de confirmation.</p>
+    <pre><code class="language-bash">dev-browser --headless &lt;&lt;&#39;EOF&#39;
+      const page = await browser.getPage(&quot;main&quot;);
+      await page.goto(&quot;https://jerwis.fr&quot;);
+      await page.fill(&quot;input[type=email]&quot;, &quot;test@example.com&quot;);
+      await page.click(&quot;button[type=submit]&quot;);
+      await new Promise(r =&gt; setTimeout(r, 3000));
+      await page.screenshot({ path: &quot;form-result.png&quot;, fullPage: true });
+      console.log(&quot;Formulaire soumis, capture enregistrée&quot;);
+    EOF
+    </code></pre>
+    <p>Tu adaptes le sélecteur du champ (<code>input[type=email]</code>) et du bouton (<code>button[type=submit]</code>) selon ta page. Si tu ne sais pas, tu demandes à Claude : « regarde le HTML de cette page et dis-moi quels sélecteurs utiliser pour le formulaire newsletter ». Il les trouve, il adapte la commande.</p>
+
+    <div class="callout ok">
+      <h4>Le réflexe à prendre</h4>
+      <p>Tu ne mémorises rien. Tu sauvegardes ces 3 commandes dans un fichier <code>commandes-dev-browser.md</code> sur ton bureau. Quand tu en as besoin, tu copies, tu adaptes l'URL, tu colles. Tu les montres une fois à Claude pour qu'il connaisse ton format préféré, et après tu lui demandes en français · il les réutilisera comme template.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>5 usages bonus · que je teste actuellement</h2>
+    <p>Au-delà des 5 cas vraiment quotidiens, voilà ce que j'expérimente depuis quelques semaines. Pas tous au point, mais déjà utilisables si tu veux pousser.</p>
+
+    <div class="usecase">
+      <div class="usecase-label">Bonus 01 · Surveiller un prix concurrent</div>
+      <h4>Dev-browser passe une fois par jour, te prévient si le prix bouge</h4>
+      <p>Tu vends un produit ou un service, tu veux savoir si ton concurrent a bougé son prix. <strong>Tu lances dev-browser en cron</strong> (programmé pour s'exécuter automatiquement, par exemple chaque matin à 8h). Il va sur la page, lit le prix, le compare au prix du jour précédent. Si ça a changé, tu reçois un email ou un message Slack. <strong>Coût</strong> : 5 minutes de setup avec Claude, et tu as ton radar concurrent qui tourne tout seul.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Bonus 02 · Vérifier que ton tunnel de vente fonctionne</div>
+      <h4>Du clic « acheter » jusqu'à la confirmation Stripe · simulé en 30 secondes</h4>
+      <p>Tu modifies ta page de vente, tu veux vérifier que tout le tunnel marche encore. <strong>Dev-browser peut simuler un acheteur</strong> : aller sur la home, cliquer « acheter », remplir le formulaire CB de test Stripe (numéro <code>4242 4242 4242 4242</code>), valider, vérifier la page de confirmation. En 30 secondes, tu sais si quelque chose est cassé. Pratique avant chaque mise en prod sur un site e-commerce.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Bonus 03 · Capturer un thread X / LinkedIn pour archiver</div>
+      <h4>Un post viral, une thread inspirante · screenshot avant qu'elle disparaisse</h4>
+      <p>Tu vois une thread X qui te plaît, un post LinkedIn que tu veux garder. Le compte peut être supprimé, le post effacé, la plateforme peut bloquer l'accès. <strong>Tu demandes à Claude</strong> : « capture cette URL X en plein écran, garde toute la thread visible ». Dev-browser scroll automatiquement, capture la thread complète, te sort un PNG. Ton archive perso de pépites est en sécurité.</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Bonus 04 · Comparer 2 sites côte à côte</div>
+      <h4>Pour décider entre 2 designs, 2 concurrents, 2 versions de ta page</h4>
+      <p>Tu hésites entre 2 designs. Ou tu veux comparer 2 concurrents. <strong>Dev-browser capture les 2 sites</strong> dans la même résolution, Claude te génère une image avec les 2 captures côte à côte, tu vois la différence d'un coup d'œil. Génial pour les réunions où tu veux montrer « voilà ce qu'ils font, voilà ce qu'on fait, voilà la différence ».</p>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-label">Bonus 05 · Extraire toutes les images d'une page</div>
+      <h4>Pour analyser un design ou récupérer des inspirations</h4>
+      <p>Tu veux extraire toutes les images d'une page (un portfolio, une galerie produit). <strong>Tu demandes à Claude</strong> : « va sur cette URL, télécharge toutes les images en haute résolution, range-les dans un dossier ». Dev-browser parcourt la page, identifie chaque image, télécharge. Tu as ta moodboard prête en 1 minute, là où à la main il aurait fallu 30 clics droits.</p>
     </div>
   </div>
 </section>
@@ -570,10 +732,35 @@
     <p>Certaines pages mettent 5-10 secondes à se charger complètement. Par défaut, dev-browser attend 2 secondes. Si Claude ne trouve pas un élément, c&#39;est souvent un souci de timing. La solution : demande à Claude d&#39;ajouter <code>await new Promise(r => setTimeout(r, 5000))</code>. Il saura.</p>
     <h3>Limite 3 · Pas une solution si tu veux scraper à grande échelle</h3>
     <p>Dev-browser est fait pour les tâches ponctuelles · vérifier une page, tester un flux, récupérer une donnée précise. Si tu veux scraper 10 000 pages pour un projet massif, il faut d&#39;autres outils (Apify, Bright Data, ou du code custom — fait sur mesure). Pour tout le reste, dev-browser suffit.</p>
+    <p>Ma règle perso : <strong>tant que je reste sous 50 pages d'un coup</strong>, dev-browser fait le boulot sans broncher. Au-delà, je passe sur un outil dédié ou je découpe en plusieurs lots. 95 % de mes usages tiennent largement dans cette limite.</p>
     <div class="callout ok">
       <h4>Ma check-list avant chaque usage</h4>
       <p>(1) Le flag <code>--headless</code> est bien là. (2) Je demande à Claude en français, pas en code. (3) Je valide le résultat qu'il me renvoie avant de le croire sur parole. → Ces 3 réflexes couvrent 95 % de mon usage.</p>
     </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>FAQ · ce qu'on me demande le plus</h2>
+
+    <h3>Dev-browser, c'est gratuit ?</h3>
+    <p>Oui, totalement. C'est un package open source qu'on installe en 1 ligne. Pas d'abonnement, pas de quota, pas de carte bleue à filer. Le seul coût, c'est ton abonnement Claude Code (qui tourne autour de 20 $/mois pour le plan Pro, ou gratuit avec des limites).</p>
+
+    <h3>Ça marche sur Windows ?</h3>
+    <p>Oui, mais il faut passer par WSL (Windows Subsystem for Linux), qui est un Linux intégré à Windows. Trois minutes à activer dans les paramètres Windows, après ça marche pareil que sur Mac. Si tu n'as jamais touché à WSL, demande à Claude de te guider · il fait ça les yeux fermés.</p>
+
+    <h3>Faut-il savoir coder pour utiliser dev-browser ?</h3>
+    <p>Non, pas du tout. C'est même <strong>tout le contraire</strong> de ce que l'outil veut. Tu demandes en français à Claude « va sur cette page et fais ça », il écrit le script, il l'exécute, te renvoie le résultat. Tu n'écris jamais une ligne de code. Le seul moment où tu touches au terminal, c'est pour copier-coller la commande d'installation, une fois.</p>
+
+    <h3>Est-ce que dev-browser remplace un outil comme Apify ou Bright Data ?</h3>
+    <p>Non. Apify et Bright Data sont faits pour le scraping <strong>industriel</strong> (10 000+ pages, rotation d'IP, contournement de captchas). Dev-browser est fait pour les usages <strong>perso et ponctuels</strong> (vérifier 1 page, capturer 5 sites, tester 1 formulaire). Ils ne jouent pas dans la même cour. Pour 99 % des entrepreneurs solo, dev-browser suffit largement.</p>
+
+    <h3>Est-ce qu'il y a un risque légal à scraper avec dev-browser ?</h3>
+    <p>Question importante. Le scraping de pages publiques est généralement toléré, à condition de respecter le <code>robots.txt</code> du site (un fichier qui dit ce que les bots ont le droit de lire). En revanche, scraper du contenu derrière un login, contourner un paywall, ou aspirer massivement des données perso → là tu rentres dans une zone grise voire interdite. Ma règle : <strong>j'utilise dev-browser pour ce que je consulterais déjà à la main</strong>. Si je n'ouvrirais pas le site avec mon navigateur perso pour cette tâche, je ne demande pas non plus à dev-browser de le faire.</p>
+
+    <h3>Combien de temps avant que je le maîtrise ?</h3>
+    <p>10 minutes pour le premier usage qui marche. Une semaine pour avoir 5 commandes prêtes que tu réutilises. Un mois pour que ce soit un réflexe, comme allumer ton mac le matin. Aucune courbe d'apprentissage abrupte parce que c'est Claude qui fait le code · toi tu fais juste évoluer ce que tu lui demandes.</p>
   </div>
 </section>
 

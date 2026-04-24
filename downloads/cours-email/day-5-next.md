@@ -37,7 +37,7 @@ Voici par où je te suggère de continuer les 30 prochains jours, dans l'ordre.
 ### Semaine 4 · Industrialiser
 
 - **Créer ton propre skill** · un mode d'emploi permanent pour les tâches que tu fais le plus souvent. [Mon article](https://jerwis.fr/articles/tuto-cours-skills-tout-comprendre-sur-les-skills-a.html) te guide.
-- **Structurer ton workflow éditorial** · article → LinkedIn → X avec un pipeline automatique. Mon retour d'expérience sur l'industrialisation de Claude Code est dans [cet article](https://jerwis.fr/articles/claude-code-workflow-tips-after-6-months-of-daily-.html).
+- **Structurer ton workflow éditorial** · article → LinkedIn → X avec un pipeline automatique. Mon retour d'expérience sur l'industrialisation de Claude Code est dans [cet article](https://jerwis.fr/articles/claude-code-workflow-tips.html).
 
 ### Au-delà du mois 1
 

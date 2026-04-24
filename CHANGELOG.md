@@ -25,6 +25,41 @@ Les 33 HTML publiques : `index.html`, `apprendre.html`, `articles.html`, `claude
 
 ---
 
+## 2026-04-24 · SEO bonus — IndexNow + OG/Twitter + dimensions images
+
+### Pourquoi
+Après le setup SEO initial (GSC + sitemap + Plausible + DNS primary), s'attaquer aux bonus à haut ratio impact/effort identifiés par l'audit :
+1. **IndexNow** : notifier Bing/Yandex instantanément à chaque publi au lieu d'attendre leur crawl passif (plusieurs jours).
+2. **Open Graph/Twitter Card** : partages LinkedIn/X avec previews correctes + image sur les 12 hubs qui n'étaient pas complets.
+3. **Dimensions images** : éviter le layout shift au chargement (impacte Core Web Vitals + signal ranking Google).
+
+### Livré
+- **IndexNow setup complet** :
+  - Clé générée : `76175249428d4264cf750e4158fdb5c9` (fichier `.txt` live à la racine)
+  - Script réutilisable `scripts/indexnow-ping.js` avec 3 modes : sitemap entier / URLs directes / depuis fichier
+  - Raccourci `npm run indexnow`
+  - Hook post-publi : `scripts/publish.js` affiche maintenant la commande IndexNow après génération d'un article
+  - Premier ping effectué sur les 32 URLs du sitemap (HTTP 202 accepté, Bing + Yandex notifiés)
+- **Open Graph + Twitter Card complétés sur 12 pages** (via sous-agent en parallèle) :
+  - index, apprendre, articles, claude-code, debutant, github, lexique, outils, podcast, preferences, quiz, workflows
+  - Fallback image `/photos/og-jerwis.jpg` (1200×630) utilisé pour 11 pages, podcast conserve sa cover dédiée
+  - preferences.html passe de 0 à 12 tags (noindex préservé)
+- **27 dimensions images ajoutées** (8 articles) :
+  - agents-ia-guide (3), booking-eurofiscalis-making-of (3), dev-browser (3), limova-vs-claude-code (3), outil-vente-claude-code (4), tuto-agent-contrats (5), tuto-agent-gmail (4), veille-pour-demain (2)
+  - Dimensions lues via PIL sur les fichiers source, insérées entre `src` et `alt`
+- **Audit BlogPosting schema** : les 21 articles ont déjà un schema d'article (13 TechArticle, 5 Article, 3 OpinionPiece) + FAQPage. L'audit initial s'était trompé — rien à ajouter.
+
+### Fichiers touchés
+`76175249428d4264cf750e4158fdb5c9.txt` (nouveau), `scripts/indexnow-ping.js` (nouveau), `scripts/publish.js`, `package.json`, 12 pages HTML à la racine, 8 articles dans `articles/*.html`, `CHANGELOG.md`.
+
+### À venir
+- [ ] Générer 11 covers OG dédiées par hub (remplacer le fallback `og-jerwis.jpg`)
+- [ ] Ajouter `loading="lazy"` aux 12 images below-the-fold
+- [ ] Conversion batch WebP (-40% poids, +5 pts Lighthouse)
+- [ ] Créer Service Account Google Cloud pour Indexing API (auto-ping Google à chaque publi)
+
+---
+
 ## 2026-04-24 · SEO — canonicals standardisés + sitemap complété (32 URLs)
 
 ### Pourquoi

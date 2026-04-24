@@ -25,6 +25,32 @@ Les 33 HTML publiques : `index.html`, `apprendre.html`, `articles.html`, `claude
 
 ---
 
+## 2026-04-24 · SEO — canonicals standardisés + sitemap complété (32 URLs)
+
+### Pourquoi
+Audit SEO post-GSC a révélé 2 problèmes d'indexation :
+1. **Canonicals inconsistants** sur 9 articles : 6 sans `.html` + 3 sans canonical du tout. Risque de duplicate content pour Google (/articles/X vs /articles/X.html traités comme 2 pages).
+2. **Sitemap incomplet** : 8 pages publiques manquaient (articles.html, outils.html, github.html, quiz.html + 4 articles récents). Google n'indexait que 24/33 pages.
+
+### Livré
+- **9 articles canonicals standardisés** avec `.html` final :
+  - Ajout `.html` sur : autoresearch-karpathy, booking-eurofiscalis-making-of, guerres-d-ia-podcast, hermes-agent, llm-local-pour-non-dev, open-source-pour-non-dev (6 articles)
+  - Ajout canonical complet + og:url sur : better-call-vs-associe, limova-vs-claude-code, tuto-agent-gmail (3 articles qui n'en avaient aucun)
+- **Sitemap passé de 24 à 32 URLs** :
+  - Ajout hubs : articles.html (priority 0.9), outils.html (0.85), github.html (0.8), quiz.html (0.7)
+  - Ajout articles : booking-eurofiscalis-making-of, guerres-d-ia-podcast, llm-local-pour-non-dev, open-source-pour-non-dev
+  - `preferences.html` volontairement exclue (déjà en `noindex,nofollow`, page privée)
+- Sitemap validé XML (xmllint) — prêt pour re-soumission GSC
+
+### Fichiers touchés
+`sitemap.xml`, 9 articles dans `articles/*.html`, `CHANGELOG.md`.
+
+### À venir
+- [ ] Re-soumettre le sitemap dans GSC pour que Google détecte les 8 nouvelles URLs
+- [ ] Forcer indexation des 5 pages clés via "Inspection URL"
+
+---
+
 ## 2026-04-24 · Fix grille articles + avatar pré-croppé Jeremy
 
 ### Pourquoi

@@ -349,6 +349,79 @@
   }
   .usecase h4 { margin-top: 0 }
 
+  /* Bignum grid */
+  .bignum-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+    margin: 24px 0 8px;
+  }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: repeat(4, 1fr) } }
+  .bignum {
+    padding: 22px 20px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    text-align: left;
+  }
+  .bignum-value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 38px); line-height: 1;
+    letter-spacing: -.03em; margin-bottom: 8px;
+  }
+  .bignum:nth-child(4n+1) .bignum-value { color: var(--teal) }
+  .bignum:nth-child(4n+2) .bignum-value { color: var(--fuchsia) }
+  .bignum:nth-child(4n+3) .bignum-value { color: var(--orange) }
+  .bignum:nth-child(4n+4) .bignum-value { color: var(--ink) }
+  .bignum-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Compare table */
+  .compare {
+    width: 100%; border-collapse: collapse; margin: 18px 0 24px;
+    font-size: 14.5px; background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 14px;
+    overflow: hidden;
+  }
+  .compare th, .compare td {
+    padding: 12px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .compare thead th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ink); font-weight: 700;
+  }
+  .compare tbody tr:last-child td { border-bottom: none }
+  .compare td:first-child { font-weight: 600; color: var(--ink) }
+
+  /* Mini-marquee */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
   /* Final CTA */
   .final-cta {
     padding: 72px 0 96px;
@@ -454,24 +527,67 @@
   </div>
 </div>
 
-
+<!-- Mini-marquee 01 -->
+<div class="mini-marquee" aria-hidden="true" style="margin-top:48px">
+  <div class="mini-marquee-track">
+    <span>Six mois</span><span>Onze projets livrés</span><span>1 850 commits</span><span>0 ligne écrite à la main</span><span>200 dollars par mois</span><span>Pas dev, pas codeur</span>
+    <span>Six mois</span><span>Onze projets livrés</span><span>1 850 commits</span><span>0 ligne écrite à la main</span><span>200 dollars par mois</span><span>Pas dev, pas codeur</span>
+  </div>
+</div>
 
 <section class="block">
   <div class="container">
     <span class="section-kicker k-teal">— Le bilan chiffré</span>
     <h2>Six mois plus tard, voilà <em class="teal">ce que ça a donné</em></h2>
-    <p>Avant de te servir des leçons, je te pose les chiffres. Tout est mesurable, tout est dans mon dossier <code>~/Projets/</code> ou sur GitHub. Aucune extrapolation.</p>
+    <p>Avant de te servir des leçons, je te pose les chiffres. Tout est mesurable, tout est dans mon dossier <code>~/Projets/</code> ou sur GitHub. Aucune extrapolation, aucune projection. Juste ce qui est sorti des claviers et qui tourne aujourd'hui.</p>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="bignum-value">11</div>
+        <div class="bignum-label">Projets en prod ou en usage quotidien</div>
+      </div>
+      <div class="bignum">
+        <div class="bignum-value">1 850</div>
+        <div class="bignum-label">Commits Git en 6 mois</div>
+      </div>
+      <div class="bignum">
+        <div class="bignum-value">12 h</div>
+        <div class="bignum-label">Économisées par semaine sur l'éditorial</div>
+      </div>
+      <div class="bignum">
+        <div class="bignum-value">200 $</div>
+        <div class="bignum-label">Plan Claude Code Max / mois</div>
+      </div>
+    </div>
 
     <h3>Les chiffres bruts à six mois</h3>
     <ul>
-      <li><strong>11 projets livrés</strong> · jerwis.fr (ce site), un back-office admin local, deux newsletters automatiques (AI Playbook + Business Radar), un agent de brainstorm d'idées, un agent de déclinaison sociale, un outil de vente HTML pour ma sœur commerciale, deux séries podcast narratives, un agent ATVAI Sanity pour Eurofiscalis, un pipeline transcréation 7 langues.</li>
-      <li><strong>~1 850 commits Git</strong> sur l'ensemble des dépôts perso (j'ai compté avec <code>git log --since="6 months ago" --oneline | wc -l</code> sur chaque repo). Avant Claude Code, je n'avais jamais commit de ma vie.</li>
-      <li><strong>~12 heures économisées par semaine</strong> sur la production éditoriale. Avant : 3 h pour rédiger un article + 1 h pour le mettre en ligne + 1 h pour décliner en posts sociaux × 2 publications/semaine = 10 h. Aujourd'hui : 45 min de rédaction + 5 min de publication + 5 min de social × 2 = 1 h 50.</li>
-      <li><strong>~340 € / mois</strong> · Claude Code Max plan 200 $ + Vercel Hobby (gratuit) + Resend (gratuit jusqu'à 3 000 emails) + ElevenLabs Creator 22 $ + R2 Cloudflare (~0 €). Avant, je n'avais aucun de ces outils — donc 100% d'investissement nouveau, mais aussi 0 € d'agence.</li>
+      <li><strong>11 projets livrés</strong> · jerwis.fr (ce site), un back-office admin local de 11 modules, deux newsletters automatiques (AI Playbook + Business Radar), un agent de brainstorm d'idées (476 items / run, scoring 5 axes), un agent de déclinaison sociale, un outil de vente HTML pour ma sœur commerciale, deux séries podcast narratives façon Wondery, un agent ATVAI Sanity pour Eurofiscalis, un pipeline de transcréation d'articles en 7 langues.</li>
+      <li><strong>~1 850 commits Git</strong> sur l'ensemble des dépôts perso. J'ai compté en faisant <code>git log --since="6 months ago" --oneline | wc -l</code> sur chaque repo, puis additionné. Avant Claude Code, je n'avais jamais commit de ma vie. Aujourd'hui c'est devenu un réflexe à chaque session.</li>
+      <li><strong>0 ligne de code écrite à la main</strong>. 100 % via Claude Code, en langage naturel. Je relis, je valide, je commit. Mais j'ai zéro touche clavier sur du JS, du CSS ou du Python. Ce qui ne veut pas dire « zéro effort » — la part humaine s'est juste déplacée vers le prompt, le plan, la relecture critique.</li>
+      <li><strong>~12 heures économisées par semaine</strong> sur la production éditoriale. Avant : 3 h pour rédiger un article + 1 h pour le mettre en ligne + 1 h pour décliner en posts sociaux × 2 publications/semaine = 10 h. Aujourd'hui : 45 min de rédaction assistée + 5 min de publication + 5 min de déclinaison sociale × 2 = 1 h 50. Compté heure par heure sur 4 semaines de mars 2026.</li>
+      <li><strong>~340 € / mois de stack</strong> · Claude Code Max plan 200 $ + Vercel Hobby (gratuit) + Resend (gratuit jusqu'à 3 000 emails) + ElevenLabs Creator 22 $ + R2 Cloudflare (~0 €) + nom de domaine 1,20 €/mois. Avant, je n'avais aucun de ces outils — donc 100 % d'investissement nouveau, mais aussi 0 € d'agence ou de freelance.</li>
+      <li><strong>~3 000 € / mois de dev freelance évités</strong> · à 600 €/jour le TJM pour 5 jours/mois d'équivalent (chiffrage très conservateur d'un dev mid sur HTML + Vercel + scripts Node). Le delta net : ~2 660 €/mois récupérés, soit ~16 000 € sur 6 mois.</li>
       <li><strong>14 articles publiés</strong> sur jerwis.fr, dont 5 en avril 2026 sur les 4 premières semaines de mise en ligne du site.</li>
-      <li><strong>10 freebies</strong> téléchargeables (CLAUDE.md anonymisé, pack de 26 skills, guide cours email, etc.) — tout généré et structuré avec Claude Code.</li>
+      <li><strong>10 freebies téléchargeables</strong> (CLAUDE.md anonymisé, pack de 26 skills, guide cours email, etc.) — tout généré et structuré avec Claude Code.</li>
       <li><strong>Zéro framework appris</strong> sur ces 6 mois. Pas de React, pas de Next.js, pas de Vue. Juste HTML / CSS / JS vanilla quand c'était pertinent, et Claude qui m'expliquait au fur et à mesure ce que je touchais.</li>
     </ul>
+
+    <h3>Le delta concret · avant / après</h3>
+    <p>Pour rendre le truc moins abstrait, voilà le même quotidien chiffré dans les deux configurations.</p>
+    <table class="compare">
+      <thead>
+        <tr><th>Tâche</th><th>Avant Claude Code</th><th>Aujourd'hui</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Publier un article complet</td><td>3 h écriture + 1 h mise en ligne</td><td>45 min + 5 min</td></tr>
+        <tr><td>Déclinaison LinkedIn / X</td><td>1 h par publication</td><td>5 min (skill dédié)</td></tr>
+        <tr><td>Audit SEO d'une page</td><td>25 min à la main avec Claude.ai</td><td>4 min (skill activé)</td></tr>
+        <tr><td>Sortir un pilote podcast 18 min</td><td>Inenvisageable seul</td><td>~22 h de travail actif</td></tr>
+        <tr><td>Coût mensuel total</td><td>0 € (rien ne sortait)</td><td>~340 € outils, 0 € agence</td></tr>
+        <tr><td>Projets vivants en parallèle</td><td>0</td><td>11</td></tr>
+      </tbody>
+    </table>
 
     <div class="callout tip">
       <h4>L'angle que personne ne dit</h4>
@@ -505,19 +621,27 @@
   </div>
 </section>
 
+<!-- Mini-marquee 02 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Le bilan posé</span><span>Maintenant les leçons</span><span>Sept fois que je me suis planté</span><span>Sept fois que j'ai trouvé mieux</span><span>À toi de tester</span>
+    <span>Le bilan posé</span><span>Maintenant les leçons</span><span>Sept fois que je me suis planté</span><span>Sept fois que j'ai trouvé mieux</span><span>À toi de tester</span>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
     <span class="section-kicker k-orange">— 7 leçons concrètes</span>
     <h2>Les 7 leçons que je retiens <em class="orange">après 6 mois</em></h2>
-    <p>Pas de théorie. Chaque leçon a un titre, un cas vécu, un chiffre. Tu peux toutes les piquer demain matin.</p>
+    <p>Pas de théorie, pas de bullet points recopiés du blog d'un dev senior. Chaque leçon a un titre, le piège dans lequel je suis tombé, ce qui marche maintenant, et un chiffre mesuré. Tu peux toutes les utiliser demain matin.</p>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
         <h3>Écris ton CLAUDE.md avant ta première ligne</h3>
-        <p><strong>Le cas vécu</strong> · sur mes deux premiers projets, je passais 30 min en début de chaque session à re-expliquer à Claude qui j'étais, ce que je voulais, comment j'aimais qu'on s'adresse à moi. Au bout de la quatrième session, j'ai compris : je perdais 2 h par semaine en remise en contexte.</p>
-        <p><strong>Ce que je fais maintenant</strong> · un fichier <code>CLAUDE.md</code> à la racine de chaque projet, deux pages max. Il dit qui je suis, ce que fait le projet, mes règles de style, mes interdits, le ton de voix attendu. Claude le lit à chaque démarrage. Mon CLAUDE.md global vit dans <code>~/.claude/CLAUDE.md</code> et porte tout ce qui ne change pas d'un projet à l'autre.</p>
-        <p><strong>Le chiffre</strong> · temps de mise en contexte passé de 30 min à 0 par session. Sur 5 sessions/semaine × 6 mois = environ 60 h récupérées.</p>
+        <p><strong>Le piège</strong> · sur mes deux premiers projets, je passais 30 min en début de chaque session à re-expliquer à Claude qui j'étais, ce que je voulais, comment j'aimais qu'on s'adresse à moi. Au bout de la quatrième session, j'ai compris : je perdais 2 h par semaine en remise en contexte. Pire, comme je redonnais le contexte un peu différemment à chaque fois, Claude prenait des décisions incohérentes d'une session à l'autre.</p>
+        <p><strong>Ce qui marche</strong> · un fichier <code>CLAUDE.md</code> à la racine de chaque projet, deux pages max. Il dit qui je suis, ce que fait le projet, mes règles de style, mes interdits, le ton de voix attendu, les conventions de nommage, et la stack technique. Claude le lit à chaque démarrage automatiquement. Mon CLAUDE.md global vit dans <code>~/.claude/CLAUDE.md</code> et porte tout ce qui ne change pas d'un projet à l'autre (ton Leo, langue française, discipline de dev, sécurité). J'ai même publié le mien anonymisé en téléchargement libre sur le site.</p>
+        <p><strong>Le gain mesuré</strong> · temps de mise en contexte passé de 30 min à 0 par session. Sur 5 sessions/semaine × 6 mois = environ 60 h récupérées. Et zéro décision incohérente entre deux sessions.</p>
       </div>
     </div>
 
@@ -525,9 +649,9 @@
       <div class="step-num">02</div>
       <div class="step-body">
         <h3>Découpe en plus petits morceaux que ton instinct te dit</h3>
-        <p><strong>Le cas vécu</strong> · première fois que j'ai monté mon back-office admin, j'ai dit « construis-moi un dashboard avec 9 modules, sidebar dynamique, base de données, authentification ». Claude a livré quelque chose. Ça ne marchait pas. Trois jours pour trouver pourquoi.</p>
-        <p><strong>Ce que je fais maintenant</strong> · je découpe en livrables d'une heure. « Construis-moi le squelette HTML du dashboard sans aucun module. » Je vérifie. « Ajoute-moi un module idées d'articles qui lit un fichier markdown. » Je vérifie. « Ajoute-moi le rendu en cards. » Je vérifie. C'est lent en apparence, c'est trois fois plus rapide en réalité.</p>
-        <p><strong>Le chiffre</strong> · sur mon back-office, j'ai livré 11 modules en 14 jours, à raison d'un module toutes les 1-2 sessions. Si j'avais essayé en bloc, je serais encore en train de débugger.</p>
+        <p><strong>Le piège</strong> · première fois que j'ai monté mon back-office admin, j'ai dit « construis-moi un dashboard avec 9 modules, sidebar dynamique, base de données, authentification ». Claude a livré 1 200 lignes de code en 20 min. Ça ne marchait pas. Trois jours pour trouver pourquoi (un nom de fonction conflictuel entre deux modules, et une auth qui ne lisait pas le bon cookie). Le pire : j'avais perdu le fil de ce que Claude avait fait, donc je ne savais même pas par où commencer pour débugger.</p>
+        <p><strong>Ce qui marche</strong> · je découpe en livrables d'une heure. « Construis-moi le squelette HTML du dashboard sans aucun module. » Je vérifie. « Ajoute-moi un module idées d'articles qui lit un fichier markdown. » Je vérifie. « Ajoute-moi le rendu en cards. » Je vérifie. C'est lent en apparence, c'est trois fois plus rapide en réalité — parce qu'à chaque palier, si quelque chose casse, je sais exactement où chercher.</p>
+        <p><strong>Le gain mesuré</strong> · sur mon back-office, j'ai livré 11 modules en 14 jours, à raison d'un module toutes les 1-2 sessions. Si j'avais essayé en bloc, je serais encore en train de débugger. Règle pratique : si une étape demande plus de 60 min, c'est qu'elle doit être coupée en deux.</p>
       </div>
     </div>
 
@@ -535,9 +659,10 @@
       <div class="step-num">03</div>
       <div class="step-body">
         <h3>Apprends à dire « stop, présente-moi un plan d'abord »</h3>
-        <p><strong>Le cas vécu</strong> · sur mon premier agent de brainstorm, j'ai laissé Claude partir bille en tête. Il a écrit 800 lignes de code Node.js avec une architecture multi-fichiers complexe. J'ai relu 30 secondes, j'ai dit « OK ». Trois jours plus tard, je voulais ajouter une source · impossible de m'y retrouver.</p>
-        <p><strong>Ce que je fais maintenant</strong> · pour tout truc qui touche plus de 3 fichiers, je dis explicitement « présente-moi un plan d'abord, on validera étape par étape ». Claude propose une architecture, je challenge en posant des questions bêtes (« pourquoi tu sépares en 5 fichiers et pas 2 ? »), on tranche ensemble, on code après.</p>
-        <p><strong>Le chiffre</strong> · le temps passé à comprendre un projet 1 mois après l'avoir livré · 5 min si j'ai validé un plan, 1 h si j'ai laissé filer.</p>
+        <p><strong>Le piège</strong> · sur mon premier agent de brainstorm, j'ai laissé Claude partir bille en tête. Il a écrit 800 lignes de code Node.js avec une architecture multi-fichiers complexe. J'ai relu 30 secondes, j'ai dit « OK ». Trois jours plus tard, je voulais ajouter une source · impossible de m'y retrouver, parce que je n'avais aucun modèle mental de la façon dont les fichiers s'enchaînaient.</p>
+        <p><strong>Ce qui marche</strong> · pour tout ce qui touche plus de 3 fichiers, je dis explicitement « présente-moi un plan d'abord, on validera étape par étape ». Claude propose une architecture, je challenge en posant des questions volontairement bêtes (« pourquoi tu sépares en 5 fichiers et pas 2 ? », « où est-ce que la config vit ? »), on tranche ensemble, on code après. Bonus : ce dialogue produit naturellement des notes que je copie-colle dans le CHANGELOG.md du projet.</p>
+        <p>Le plugin <strong>superpowers</strong> formalise ce réflexe : il force Claude à passer par une phase « brainstorming → plan → exécution » avant la moindre ligne. Je l'utilise sur tout projet non-trivial.</p>
+        <p><strong>Le gain mesuré</strong> · temps passé à comprendre un projet 1 mois après l'avoir livré · 5 min si j'ai validé un plan, 1 h si j'ai laissé filer. Et environ 50 % de réécritures en moins sur la première semaine d'un projet.</p>
       </div>
     </div>
 
@@ -545,9 +670,10 @@
       <div class="step-num">04</div>
       <div class="step-body">
         <h3>Garde Claude Code en local, jamais en mode auto-déployé</h3>
-        <p><strong>Le cas vécu</strong> · au début je voulais que Claude pousse en production tout seul. Vercel, GitHub, push direct. Sauf qu'une fois j'ai laissé partir un changement de CSS qui a cassé l'affichage en dark mode sur 4 pages. Personne pour le voir avant que ça soit live.</p>
-        <p><strong>Ce que je fais maintenant</strong> · Claude écrit, je relis dans mon navigateur local en dark + light, je commit moi-même, et seulement après je <code>git push</code>. Vercel redéploie tout seul ensuite. La barrière humaine entre « ça compile » et « ça part en prod », c'est moi.</p>
-        <p><strong>Le chiffre</strong> · zéro régression visuelle en prod depuis que j'ai instauré cette règle, mi-février. Avant : ~2 par mois.</p>
+        <p><strong>Le piège</strong> · au début je voulais que Claude pousse en production tout seul. Vercel, GitHub, push direct. Sauf qu'une fois j'ai laissé partir un changement de CSS qui a cassé l'affichage en dark mode sur 4 pages. Personne pour le voir avant que ça soit live. La home est restée illisible en dark mode pendant 4 h, j'ai eu deux DM pour me prévenir.</p>
+        <p><strong>Ce qui marche</strong> · Claude écrit, je relis dans mon navigateur local en dark + light, je commit moi-même, et seulement après je <code>git push</code>. Vercel redéploie tout seul ensuite. La barrière humaine entre « ça compile » et « ça part en prod », c'est moi. C'est ennuyeux, c'est lent, c'est exactement pour ça que ça marche.</p>
+        <p>Corollaire : je désactive systématiquement les hooks Claude Code qui voudraient pousser ou déployer sans confirmation. La règle, c'est « Claude écrit, Jérémy publie ».</p>
+        <p><strong>Le gain mesuré</strong> · zéro régression visuelle en prod depuis que j'ai instauré cette règle, mi-février. Avant : ~2 par mois.</p>
       </div>
     </div>
 
@@ -555,9 +681,10 @@
       <div class="step-num">05</div>
       <div class="step-body">
         <h3>Demande systématiquement un CHANGELOG</h3>
-        <p><strong>Le cas vécu</strong> · au bout de deux mois, je revenais sur des projets et je n'avais aucune idée de ce que j'avais fait la session d'avant. Pourquoi cette fonction ? Pourquoi ce nom de fichier ? Aucune trace, juste du code.</p>
-        <p><strong>Ce que je fais maintenant</strong> · à la fin de chaque session non-triviale, je demande à Claude de mettre à jour <code>CHANGELOG.md</code> à la racine du projet. Format : date, ce qui a été fait, pourquoi, fichiers touchés, ce qui reste à faire. Mon CLAUDE.md global le rend obligatoire.</p>
-        <p><strong>Le chiffre</strong> · CHANGELOG.md de jerwis.fr · 1 050+ lignes en 4 semaines de vie. C'est ma mémoire, pas du flicage.</p>
+        <p><strong>Le piège</strong> · au bout de deux mois, je revenais sur des projets et je n'avais aucune idée de ce que j'avais fait la session d'avant. Pourquoi cette fonction ? Pourquoi ce nom de fichier ? Aucune trace, juste du code. Et Claude, à chaque démarrage, repartait à zéro lui aussi — donc on tournait en rond ensemble.</p>
+        <p><strong>Ce qui marche</strong> · à la fin de chaque session non-triviale, je demande à Claude de mettre à jour <code>CHANGELOG.md</code> à la racine du projet. Format : date, ce qui a été fait, pourquoi (le problème résolu), fichiers touchés, ce qui reste à faire. Mon CLAUDE.md global le rend obligatoire — Claude refuse maintenant de fermer une session sans cette mise à jour.</p>
+        <p>Le bonus inattendu : à la session suivante, Claude lit le CHANGELOG en plus du CLAUDE.md et s'auto-contextualise. Plus besoin de raconter « la dernière fois on avait fait X et Y ».</p>
+        <p><strong>Le gain mesuré</strong> · CHANGELOG.md de jerwis.fr · 1 050+ lignes en 4 semaines de vie. C'est ma mémoire, pas du flicage. Et environ 15 min gagnées au démarrage de chaque session de reprise.</p>
       </div>
     </div>
 
@@ -565,9 +692,10 @@
       <div class="step-num">06</div>
       <div class="step-body">
         <h3>Lance plusieurs sous-agents en parallèle quand tu cherches</h3>
-        <p><strong>Le cas vécu</strong> · pour préparer la trilogie podcast « Guerres d'IA », je devais creuser trois angles d'OpenAI vs Anthropic en même temps · timeline business, biographies des fondateurs, analyse technique. À l'ancienne j'aurais ouvert 30 onglets.</p>
-        <p><strong>Ce que je fais maintenant</strong> · j'ouvre Claude Code, je lance trois sous-agents (« Lance trois recherches en parallèle sur ces sujets »). 8 minutes plus tard, j'ai trois rapports synthétiques, sources comprises. Pareil pour scraper plusieurs sites concurrents.</p>
-        <p><strong>Le chiffre</strong> · sur la prep du pilote « Guerres d'IA », documentation ramassée en 12 min vs ~3 h en surfing manuel.</p>
+        <p><strong>Le piège</strong> · pour préparer la trilogie podcast « Guerres d'IA », je devais creuser trois angles d'OpenAI vs Anthropic en même temps · timeline business, biographies des fondateurs, analyse technique des modèles. À l'ancienne j'aurais ouvert 30 onglets, perdu deux heures à zapper d'un sujet à l'autre, et fini par ne creuser correctement aucun des trois.</p>
+        <p><strong>Ce qui marche</strong> · j'ouvre Claude Code, je lance trois sous-agents en parallèle (« Lance trois recherches indépendantes sur ces sujets, chacune dans un sous-agent dédié »). 8 minutes plus tard, j'ai trois rapports synthétiques, sources comprises. Même chose pour scraper plusieurs sites concurrents, comparer plusieurs APIs, ou auditer plusieurs pages SEO d'un coup.</p>
+        <p>La règle d'or que je me suis posée : 2+ tâches indépendantes (pas de dépendance entre elles, pas de données partagées) = 2+ sous-agents simultanément. Si elles se nourrissent l'une l'autre, en revanche, mieux vaut séquentiel.</p>
+        <p><strong>Le gain mesuré</strong> · sur la prep du pilote « Guerres d'IA », documentation ramassée en 12 min vs ~3 h en surfing manuel. Soit un facteur ×15 sur les phases de recherche pure.</p>
       </div>
     </div>
 
@@ -575,9 +703,10 @@
       <div class="step-num">07</div>
       <div class="step-body">
         <h3>Construis un skill quand tu fais 3 fois la même tâche</h3>
-        <p><strong>Le cas vécu</strong> · à chaque audit SEO d'un nouvel article, je redonnais à Claude les mêmes 12 critères, le même format de sortie, le même barème. Par jour ça allait. Par mois c'était lourd.</p>
-        <p><strong>Ce que je fais maintenant</strong> · je transforme la tâche répétée en <em>skill</em> custom (un mode d'emploi permanent que Claude lit comme un jeu d'instructions). J'en ai 26 actifs aujourd'hui · audit SEO, transcréation Eurofiscalis, brainstorm d'idées, etc. Je les ai même packagés en téléchargement gratuit sur le site.</p>
-        <p><strong>Le chiffre</strong> · temps moyen pour un audit SEO complet d'un article passé de 25 min (à la main avec Claude) à 4 min (skill activé).</p>
+        <p><strong>Le piège</strong> · à chaque audit SEO d'un nouvel article, je redonnais à Claude les mêmes 12 critères, le même format de sortie, le même barème. Par jour ça allait. Par mois c'était lourd, et je perdais en cohérence : la 5e fois je formulais légèrement différemment, donc le résultat variait.</p>
+        <p><strong>Ce qui marche</strong> · je transforme la tâche répétée en <em>skill</em> custom (un mode d'emploi permanent que Claude lit et applique comme un jeu d'instructions à invoquer en une commande). J'en ai 26 actifs aujourd'hui · audit SEO, transcréation Eurofiscalis 7 langues, brainstorm d'idées, écriture style JIM, narrative-podcast-fr, et bien d'autres. Je les ai même packagés en téléchargement gratuit sur le site (pack <code>jeremy-claude-pack.zip</code>).</p>
+        <p>La règle qui déclenche : si je m'apprête à donner les mêmes consignes à Claude pour la 3<sup>e</sup> fois, je m'arrête, je lui demande de transformer ces consignes en skill, et je gagne du temps pour la 4<sup>e</sup>, la 5<sup>e</sup> et toutes les suivantes.</p>
+        <p><strong>Le gain mesuré</strong> · temps moyen pour un audit SEO complet d'un article passé de 25 min (à la main avec Claude) à 4 min (skill activé). Soit ×6, sur une tâche que je fais 2-3 fois par semaine.</p>
       </div>
     </div>
 
@@ -588,11 +717,33 @@
   </div>
 </section>
 
+<!-- Mini-marquee 03 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Cas réel</span><span>36 heures chrono</span><span>Trois épisodes narratifs</span><span>Zéro studio loué</span><span>Quatorze euros d'API</span><span>Claude Code de bout en bout</span>
+    <span>Cas réel</span><span>36 heures chrono</span><span>Trois épisodes narratifs</span><span>Zéro studio loué</span><span>Quatorze euros d'API</span><span>Claude Code de bout en bout</span>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
     <span class="section-kicker k-teal">— Cas de bout en bout</span>
     <h2>36 heures pour livrer une trilogie podcast <em class="teal">narrative</em></h2>
     <p>Pour t'en montrer un en grand · le projet le plus dingue des 6 mois. Une série podcast narrative façon Wondery sur la guerre IA OpenAI vs Anthropic. Trois épisodes, écriture + voix + montage + mise en ligne. Claude Code de bout en bout. Du jamais fait avant.</p>
+
+    <h3>Vue d'ensemble · qui fait quoi</h3>
+    <table class="compare">
+      <thead>
+        <tr><th>Étape</th><th>Ce que je fais</th><th>Ce que Claude fait</th><th>Temps réel</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Brief initial</td><td>2 paragraphes de cadrage</td><td>Reformule + pose 3 questions</td><td>15 min</td></tr>
+        <tr><td>Recherche sources</td><td>Lance 4 sous-agents</td><td>Scrape, classe, synthétise</td><td>4 h (machine)</td></tr>
+        <tr><td>Écriture script</td><td>Tranche + relit + reformule</td><td>Génère + applique le skill</td><td>6 h (actif)</td></tr>
+        <tr><td>Voix + audio</td><td>Choisit voix + ambiances</td><td>Pilote ElevenLabs + ffmpeg</td><td>4 h (machine)</td></tr>
+        <tr><td>Mise en ligne</td><td>Valide + commit + push</td><td>Génère cover + RSS + page</td><td>4 h</td></tr>
+      </tbody>
+    </table>
 
     <h3>Le brief que j'ai donné</h3>
     <p>« Je veux trois épisodes de 18-22 min chacun. Style Wondery français · narrateur omniscient, scènes dialoguées, ambiances sonores. Sujet · la guerre IA OpenAI vs Anthropic, vue depuis 2026. Pas de bullshit, sources solides. »</p>
@@ -620,11 +771,19 @@
   </div>
 </section>
 
+<!-- Mini-marquee 04 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Tout n'a pas marché</span><span>Trois fois je me suis vraiment planté</span><span>Une fois ça a coûté un week-end</span><span>Voilà comment éviter</span>
+    <span>Tout n'a pas marché</span><span>Trois fois je me suis vraiment planté</span><span>Une fois ça a coûté un week-end</span><span>Voilà comment éviter</span>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
     <span class="section-kicker k-fuchsia">— 3 erreurs vraiment chères</span>
     <h2>Les 3 boulettes que j'ai faites <em class="fuchsia">en 6 mois</em></h2>
-    <p>Pas de monde rose. Voilà les trois erreurs qui m'ont vraiment coûté quelque chose. Tu vas pouvoir les éviter.</p>
+    <p>Pas de monde rose. Voilà les trois erreurs qui m'ont vraiment coûté quelque chose · un week-end de prod, une rotation de clé en urgence, et un coup de stress mémorable. Tu vas pouvoir les éviter.</p>
 
     <h3>Erreur 1 · Pousser en prod sans relire le diff</h3>
     <p><strong>Ce qui s'est passé</strong> · samedi 12 avril, je travaillais sur la home en dark mode. J'ai dit à Claude « optimise les couleurs ». Il a remplacé <code>background: var(--ink)</code> par <code>background: #0A0A0A</code> sur 6 sections. Sauf que <code>--ink</code> en dark mode = cream, donc certains blocs censés être TOUJOURS noirs sont devenus cream sur cream = illisibles. J'ai poussé sans relire, je suis parti déjeuner.</p>
@@ -648,11 +807,19 @@
   </div>
 </section>
 
+<!-- Mini-marquee 05 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Une journée type</span><span>Trois sessions de 60-90 minutes</span><span>Le reste tourne pour moi</span><span>Posée fin avril 2026</span>
+    <span>Une journée type</span><span>Trois sessions de 60-90 minutes</span><span>Le reste tourne pour moi</span><span>Posée fin avril 2026</span>
+  </div>
+</div>
+
 <section class="block">
   <div class="container">
     <span class="section-kicker k-orange">— Ma routine</span>
     <h2>À quoi ressemble une <em class="orange">journée type</em></h2>
-    <p>On me demande souvent comment ça s'organise concrètement quand on bosse avec Claude Code tous les jours. Voilà ma routine actuelle, telle que je l'ai stabilisée fin avril 2026.</p>
+    <p>On me demande souvent comment ça s'organise concrètement quand on bosse avec Claude Code tous les jours. Voilà ma routine actuelle, telle que je l'ai stabilisée fin avril 2026. Trois sessions par jour, jamais plus de 90 min chacune, le reste de la machine qui tourne en arrière-plan pendant que je vis.</p>
 
     <h3>Matin · 6 h 30 — 9 h</h3>
     <ul>
@@ -680,6 +847,61 @@
       <h4>Ce qui tourne pendant que je vis</h4>
       <p>Mes deux newsletters auto · AI Playbook scanne 100+ sources le jeudi soir, drafte le brief, je relis vendredi matin avant envoi à 9 h. Business Radar pareil mais bi-mensuel. Mon brainstorm tourne aussi quand je clique. Le reste · podcasts, pipelines transcréation, scripts d'audit, c'est à la demande.</p>
     </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 06 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Et ce qui ne marche toujours pas</span><span>Ce que Claude rate encore</span><span>Mes garde-fous personnels</span><span>L'honnêteté avant tout</span>
+    <span>Et ce qui ne marche toujours pas</span><span>Ce que Claude rate encore</span><span>Mes garde-fous personnels</span><span>L'honnêteté avant tout</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Ce qui reste difficile</span>
+    <h2>Ce que Claude Code <em class="teal">rate encore</em></h2>
+    <p>Je passerais pour un vendeur de tapis si je m'arrêtais aux belles histoires. Voilà ce qui ne marche toujours pas, après 6 mois.</p>
+
+    <h3>Les hallucinations sur les versions de librairies</h3>
+    <p>Claude propose régulièrement des syntaxes qui ont disparu il y a un an, ou des packages npm qui n'existent pas. Sur du Next.js récent (App Router, Server Actions), il faut systématiquement croiser avec la doc à jour. Le plugin <code>context7</code> aide énormément · il va chercher la doc officielle au moment de répondre, plutôt que de se reposer sur sa mémoire d'entraînement. Sans ça, je reproduis le bug.</p>
+
+    <h3>Les sessions trop longues</h3>
+    <p>Au-delà de ~90 min, Claude commence à perdre le fil. Il oublie une décision prise au début, ou il « invente » une fonction qu'il pense avoir écrite. La parade : redémarrer une session avec un prompt récap de 5 lignes (« voilà où on en est, voilà ce qu'on doit faire, voilà les contraintes »), et fermer la précédente.</p>
+
+    <h3>Les estimations de temps et de coût</h3>
+    <p>Claude est très mauvais pour estimer combien de temps une tâche va prendre. Il dit « 5 minutes » et ça en prend 45. Il dit « ça va coûter 2 € en API » et tu finis à 18 €. Je ne lui demande plus d'estimer · je mesure moi-même après coup, et je note dans le CHANGELOG.</p>
+
+    <h3>Les sujets très récents (post-novembre 2025)</h3>
+    <p>Les modèles Claude ont une coupure de connaissances. Sur tout ce qui s'est passé après leur date d'entraînement, ils sont à côté ou inventent. Pour une recherche d'actualité réelle, je passe par un sous-agent qui a accès au web (dev-browser, ou un MCP web). Jamais Claude tout seul.</p>
+
+    <div class="callout warn">
+      <h4>La règle qui m'a sauvé plusieurs fois</h4>
+      <p>Si Claude affirme quelque chose de précis (un chiffre, une syntaxe, une fonction d'API), je vérifie avant de l'utiliser. Pas par méfiance, par expérience. Le coût d'une vérification de 30 secondes est dérisoire face au coût d'un bug en prod.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ rapide</span>
+    <h2>Les questions qu'on me pose <em class="fuchsia">souvent</em></h2>
+
+    <h3>« Tu as vraiment besoin du plan Max à 200 $ ? »</h3>
+    <p>Pour mon usage (sessions quotidiennes, sous-agents, projets en parallèle), oui. J'avais commencé sur le plan Pro à 20 $, je touchais le plafond de tokens en 2 jours. Au-dessus de 1 session sérieuse par jour, le plan Max devient le bon ratio. En-dessous, le Pro suffit largement.</p>
+
+    <h3>« Cursor, Continue, Zed AI, Claude Code · lequel ? »</h3>
+    <p>Pour un non-dev, Claude Code direct dans le terminal est plus simple. Pas d'IDE à apprendre, pas de plug-in à configurer. Pour un dev senior qui vit déjà dans VS Code ou Zed, l'inverse peut être vrai. La vraie différence n'est pas l'outil mais la discipline (CLAUDE.md, plan, CHANGELOG) — et celle-ci marche partout.</p>
+
+    <h3>« Tu vas pas finir par savoir coder à force ? »</h3>
+    <p>Sans doute un peu. Je comprends mieux qu'avant ce qu'est une variable, un import, une fonction asynchrone. Mais je ne deviendrai pas dev. Ce n'est pas mon objectif. Mon objectif est de livrer des outils qui me servent, sans dépendre d'un freelance pour chaque petite modif.</p>
+
+    <h3>« Et la sécurité dans tout ça ? »</h3>
+    <p>C'est ma plus grosse crainte. Je m'appuie sur le sous-agent <code>security-review</code> de Claude après chaque feature sensible (API, paiement, auth), je vérifie systématiquement mes <code>.env</code>, et je rotate les clés à la moindre alerte. Sur les projets vraiment critiques (SaaS clients, données tierces), je ferais quand même relire par un dev humain. Mais pour mes outils perso, ce niveau me suffit.</p>
+
+    <h3>« Combien de temps avant d'être autonome ? »</h3>
+    <p>Pour un non-dev qui s'y met sérieusement, 3-4 semaines pour livrer ton premier projet utile (un site simple, un script automatisé). 3 mois pour avoir le réflexe de découper en plans, d'écrire un CLAUDE.md, de demander un CHANGELOG. 6 mois pour vraiment sentir que tu pilotes l'outil et plus l'inverse.</p>
   </div>
 </section>
 

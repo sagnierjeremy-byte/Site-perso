@@ -1,5 +1,19 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-25 · Making-of refonte « Le Journal » (draft narratif)
+
+### Pourquoi
+Toute la session de refonte `/articles` du 24 avril (port React→vanilla, byline, avatar pré-croppé, grille fix, sessions parallèles) consignée comme matière éditoriale pour un futur article de blog.
+
+### Livré
+- `drafts/making-of-le-journal.md` (~470 lignes) — récit narratif complet de la session : 6 étapes (port, TL;DR fix, byline, photo en 5 essais, grid masonry-mauvaise-idée, collision sessions parallèles) + 5 méta-leçons.
+- Frontmatter prêt pour `npm run publish making-of-le-journal` quand Jeremy voudra mettre en ligne.
+
+### Fichiers touchés
+`drafts/making-of-le-journal.md` (nouveau).
+
+---
+
 ## 2026-04-24 · Setup SEO complet (GSC + sitemap + Plausible + DNS primary)
 
 ### Pourquoi

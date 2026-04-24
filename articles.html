@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tous les articles — Jérémy Sagnier</title>
-<meta name="description" content="Tous les articles du site : tutos Claude Code, vulgarisation IA, making-of projets, opinions. 21 articles, triés par date.">
+<title>Le Journal — Jérémy Sagnier</title>
+<meta name="description" content="Articles, notes, podcasts, cas réels. Rien n'est lissé : je publie quand c'est prêt. 21 articles.">
 
-<meta property="og:title" content="Tous les articles — Jérémy Sagnier">
-<meta property="og:description" content="Tutos, making-of, vulgarisation, opinions. Tout ce que j'ai publié, au même endroit.">
+<meta property="og:title" content="Le Journal — Jérémy Sagnier">
+<meta property="og:description" content="Articles, notes, podcasts, cas réels. Tout au même endroit.">
 <meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jerwis.fr/articles.html">
@@ -16,8 +16,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
 <meta name="twitter:creator" content="@JeremySagnier">
-<meta name="twitter:title" content="Tous les articles — Jérémy Sagnier">
-<meta name="twitter:description" content="Tutos, making-of, vulgarisation, opinions. Tout au même endroit.">
+<meta name="twitter:title" content="Le Journal — Jérémy Sagnier">
+<meta name="twitter:description" content="Articles, notes, podcasts, cas réels. Tout au même endroit.">
 
 <link rel="canonical" href="https://jerwis.fr/articles.html">
 
@@ -29,296 +29,833 @@
 <link rel="stylesheet" href="assets/nav-v2.css">
 
 <style>
-  /* === Page /articles — liste complète === */
+  /* === Blog/Journal — design FIESTA + scènes CSS === */
 
-  /* Hero compact */
-  .arts-hero {
-    padding: 56px 0 72px;
-    background:
-      radial-gradient(ellipse at 85% 15%, rgba(255,130,0,.18), transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.18), transparent 55%),
-      radial-gradient(ellipse at 55% 55%, rgba(239,66,111,.15), transparent 60%),
-      #0A0A0A;
-    color: #F4EFE6;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
-  .arts-hero-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0 24px;
-  }
-  .arts-hero-kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
-    color: rgba(244,239,230,.7);
-    padding: 8px 14px;
-    border: 1px solid rgba(244,239,230,.18);
-    border-radius: 999px;
-    background: rgba(244,239,230,.04);
-    margin-bottom: 22px;
-  }
-  .arts-hero-kicker .dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--fuchsia);
-    box-shadow: 0 0 0 4px rgba(239,66,111,.2);
-  }
-  .arts-hero h1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(44px, 7vw, 88px);
-    line-height: .92;
-    letter-spacing: -.04em;
-    text-transform: uppercase;
-    color: #F4EFE6;
-    margin: 0 0 18px;
-  }
-  .arts-hero h1 em {
-    font-style: normal;
-    background: linear-gradient(90deg, var(--teal), var(--fuchsia) 55%, var(--orange));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .arts-hero-lead {
-    font-size: 18px; line-height: 1.55;
-    color: rgba(244,239,230,.78);
-    max-width: 640px;
-    margin: 0;
+  :root {
+    --font-display: 'Archivo Black', sans-serif;
+    --font-body: 'Archivo', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
-  /* Barre de filtres */
-  .arts-filters-wrap {
-    position: sticky; top: 0; z-index: 10;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
-    padding: 18px 0;
-  }
-  .arts-filters {
-    max-width: 1200px; margin: 0 auto; padding: 0 24px;
-    display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
-  }
-  .arts-filters-list { display: flex; flex-wrap: wrap; gap: 8px; }
-  .arts-filter-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink-soft);
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all .2s cubic-bezier(.2,.7,.2,1);
-  }
-  .arts-filter-btn:hover {
-    color: var(--ink); border-color: var(--ink); transform: translateY(-1px);
-  }
-  .arts-filter-btn.active {
-    color: #FBF7F0; background: #0A0A0A; border-color: #0A0A0A;
-  }
-  .arts-filter-btn .count {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 20px; height: 18px; padding: 0 6px;
-    font-size: 10px;
-    background: var(--bg-2);
-    border-radius: 999px;
-    color: var(--ink-muted);
-  }
-  .arts-filter-btn.active .count {
-    background: rgba(251,247,240,.15); color: #FBF7F0;
-  }
-  .arts-count {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--ink-muted);
-  }
-  .arts-count strong { color: var(--ink); font-weight: 700; }
+  body { overflow-x: hidden; }
 
-  /* Grid + cards */
-  .arts-grid-wrap {
-    padding: 40px 0 80px;
-  }
-  .arts-grid {
-    max-width: 1200px; margin: 0 auto; padding: 0 24px;
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-  }
-  .art-card {
-    position: relative;
-    display: flex; flex-direction: column;
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 18px;
-    padding: 28px 26px 26px;
-    text-decoration: none; color: inherit;
-    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, border-color .3s;
-    overflow: hidden;
-  }
-  .art-card::before {
-    content: "";
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--card-accent, var(--teal));
-    opacity: .85;
-  }
-  .art-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 50px -24px rgba(0,0,0,.22), 0 4px 14px -6px rgba(0,0,0,.12);
-    border-color: var(--ink);
-  }
-  .art-card[data-accent="teal"]     { --card-accent: #00B2A9; }
-  .art-card[data-accent="fuchsia"]  { --card-accent: #EF426F; }
-  .art-card[data-accent="orange"]   { --card-accent: #FF8200; }
-  .art-card[data-accent="ink"]      { --card-accent: #0A0A0A; }
-
-  .art-card-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    align-self: flex-start;
-    padding: 6px 11px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: .18em; text-transform: uppercase;
-    border-radius: 6px;
-    margin-bottom: 18px;
-  }
-  .art-card-badge .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-  }
-  .art-card-badge[data-type="tuto"] {
-    background: rgba(0,178,169,.12); color: #007A74;
-  }
-  .art-card-badge[data-type="tuto"] .dot { background: #00B2A9; }
-  .art-card-badge[data-type="opinion"] {
-    background: rgba(239,66,111,.12); color: #C4375D;
-  }
-  .art-card-badge[data-type="opinion"] .dot { background: #EF426F; }
-  .art-card-badge[data-type="makingof"] {
-    background: rgba(255,130,0,.14); color: #BF5F00;
-  }
-  .art-card-badge[data-type="makingof"] .dot { background: #FF8200; }
-  .art-card-badge[data-type="vulgarisation"] {
-    background: rgba(10,10,10,.08); color: #0A0A0A;
-  }
-  .art-card-badge[data-type="vulgarisation"] .dot { background: #0A0A0A; }
-  .art-card-badge[data-type="podcast"] {
-    background: linear-gradient(90deg, rgba(0,178,169,.12), rgba(239,66,111,.12), rgba(255,130,0,.12));
-    color: var(--ink);
-  }
-  .art-card-badge[data-type="podcast"] .dot { background: var(--fuchsia); }
-
-  [data-theme="dark"] .art-card-badge[data-type="tuto"] { color: #5FE3DA; }
-  [data-theme="dark"] .art-card-badge[data-type="opinion"] { color: #F97FA0; }
-  [data-theme="dark"] .art-card-badge[data-type="makingof"] { color: #FFAE5C; }
-  [data-theme="dark"] .art-card-badge[data-type="vulgarisation"] { color: #F4EFE6; background: rgba(244,239,230,.08); }
-  [data-theme="dark"] .art-card-badge[data-type="vulgarisation"] .dot { background: #F4EFE6; }
-
-  .art-card h3 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 22px; line-height: 1.1;
-    letter-spacing: -.02em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin: 0 0 14px;
-  }
-  .art-card-desc {
-    font-family: 'Archivo', sans-serif;
-    font-size: 14.5px; line-height: 1.55;
-    color: var(--ink-soft);
-    margin: 0 0 18px;
-    flex: 1;
-    text-wrap: pretty;
-  }
-  .art-card-meta {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px; font-weight: 700;
-    letter-spacing: .15em; text-transform: uppercase;
-    color: var(--ink-muted);
-  }
-  .art-card-meta .date-time { display: flex; align-items: center; gap: 10px; }
-  .art-card-meta .date-time .sep {
-    width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong);
-  }
-  .art-card-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--ink);
-    font-weight: 700;
-  }
-  .art-card:hover .art-card-link { color: var(--fuchsia); }
-  .art-card:hover .art-card-link .arrow { transform: translateX(4px); }
-  .art-card-link .arrow {
-    display: inline-block;
-    transition: transform .3s cubic-bezier(.2,.7,.2,1);
-  }
-
-  /* Empty state (quand filtre ne matche rien) */
-  .arts-empty {
-    max-width: 1200px; margin: 0 auto; padding: 80px 24px;
-    text-align: center;
-    display: none;
-  }
-  .arts-empty.show { display: block; }
-  .arts-empty h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 32px; line-height: 1; letter-spacing: -.03em;
-    text-transform: uppercase;
-    margin: 0 0 12px;
-    color: var(--ink);
-  }
-  .arts-empty p {
-    color: var(--ink-soft); font-size: 16px;
-  }
-
-  /* Mini-marquee signature (repris de CLAUDE.md) */
-  .mini-marquee {
-    overflow: hidden; padding: 14px 0;
-    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
-    color: #fff; position: relative;
-    border-top: 1px solid rgba(255,255,255,.1);
-    border-bottom: 1px solid rgba(0,0,0,.15);
-  }
-  .mini-marquee::before {
-    content: ""; position: absolute; inset: 0;
-    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
-  }
-  .mini-marquee-track {
-    display: flex; gap: 40px; white-space: nowrap;
-    animation: mini-marquee-scroll 50s linear infinite;
-    font-family: 'Archivo Black', sans-serif; font-size: 17px;
-    text-transform: uppercase; letter-spacing: -.01em;
-    position: relative; z-index: 1;
-  }
-  .mini-marquee-track span {
-    display: inline-flex; align-items: center; gap: 40px;
-  }
-  .mini-marquee-track span::after {
-    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
-  }
-  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
-
-  /* Responsive */
-  @media (max-width: 960px) {
-    .arts-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .arts-hero { padding: 44px 0 56px; }
-    .arts-hero h1 { font-size: clamp(38px, 9vw, 64px); }
-    .arts-hero-lead { font-size: 16px; }
-    .arts-filters { flex-direction: column; align-items: flex-start; gap: 14px; }
-    .arts-filters-wrap { position: static; }
-  }
-  @media (max-width: 640px) {
-    .arts-grid { grid-template-columns: 1fr; }
-    .art-card { padding: 24px 22px; }
-    .art-card h3 { font-size: 20px; }
-  }
-
-  /* Grain overlay */
-  body::before {
-    content: "";
+  /* Grain overlay (déjà dans main.css mais on renforce) */
+  .b-grain {
     position: fixed; inset: 0; pointer-events: none; z-index: 100;
-    opacity: .35; mix-blend-mode: multiply;
+    opacity: .25; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
-  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08; }
+  [data-theme="dark"] .b-grain { mix-blend-mode: screen; opacity: .08; }
+
+  /* ═════ WRAP ═════ */
+  .b-wrap {
+    position: relative;
+    padding: clamp(40px, 5vw, 72px) clamp(24px, 5vw, 72px) 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    isolation: isolate;
+  }
+  .b-blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .b-blobs .bb {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: .15;
+    animation: bbdrift 26s ease-in-out infinite;
+  }
+  .bb1 { width: 560px; height: 560px; background: var(--fuchsia); top: -180px; left: -160px; }
+  .bb2 { width: 460px; height: 460px; background: var(--orange);  top: 520px; right: -160px; animation-delay: -9s; }
+  .bb3 { width: 420px; height: 420px; background: var(--teal);    top: 1200px; left: 40%; animation-delay: -18s; opacity: .12; }
+  @keyframes bbdrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(30px, -24px) scale(1.1); }
+    66%      { transform: translate(-24px, 30px) scale(.92); }
+  }
+
+  /* ═════ HERO ═════ */
+  .b-hero {
+    position: relative; z-index: 2;
+    padding: 28px 0 48px;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 48px;
+    overflow: hidden;
+  }
+  .b-hero-marquee {
+    position: absolute; left: -5%; right: -5%; top: 42%;
+    transform: rotate(-3deg); z-index: 0; pointer-events: none;
+    opacity: .04;
+    overflow: hidden;
+  }
+  .b-marquee-row {
+    display: inline-flex; gap: 40px; white-space: nowrap;
+    font-family: var(--font-display); font-size: clamp(90px, 14vw, 200px);
+    letter-spacing: -.04em; color: var(--ink);
+    animation: marq 48s linear infinite;
+  }
+  @keyframes marq { to { transform: translateX(-50%); } }
+
+  .b-hero-top {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .b-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-weight: 800;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 8px 14px; border-radius: 999px;
+    background: color-mix(in srgb, var(--fuchsia) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--fuchsia) 25%, transparent);
+    opacity: 0; transform: translateY(10px);
+    transition: .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .b-kicker .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--fuchsia);
+    animation: dotpulse 2s ease-in-out infinite;
+  }
+  @keyframes dotpulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fuchsia) 60%, transparent); }
+    50%      { box-shadow: 0 0 0 7px transparent; }
+  }
+  .b-hero.in .b-kicker { opacity: 1; transform: none; }
+
+  .b-hero-stats {
+    display: flex; gap: 14px; align-items: center;
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0; transform: translateY(10px);
+    transition: .7s .2s cubic-bezier(.2,.8,.2,1);
+  }
+  .b-hero-stats b { font-family: var(--font-display); font-size: 20px; letter-spacing: -.02em; color: var(--ink); margin-right: 4px; }
+  .b-hero-stats .sep { width: 1px; height: 16px; background: var(--line-strong); }
+  .b-hero.in .b-hero-stats { opacity: 1; transform: none; }
+
+  .b-title {
+    position: relative; z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 136px);
+    line-height: .86;
+    letter-spacing: -.045em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 24px;
+  }
+  .b-title .b-line { display: block; }
+  .b-title .ch {
+    display: inline-block;
+    transform: translateY(1.1em) rotate(8deg); opacity: 0;
+    transition: transform .85s cubic-bezier(.2,.8,.2,1), opacity .6s;
+    transition-delay: calc(var(--i, 0) * 25ms);
+  }
+  .b-title .ch.sp { width: .3em; }
+  .b-hero.in .b-title .ch { transform: none; opacity: 1; }
+  .b-title .l2 .ch {
+    background: linear-gradient(95deg, var(--teal), var(--fuchsia) 50%, var(--orange));
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .b-hero.in .b-title .l2 .ch {
+    animation: sweep 6s ease-in-out .8s infinite alternate;
+    animation-delay: calc(.8s + var(--i, 0) * 25ms);
+  }
+  @keyframes sweep {
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
+  }
+
+  .b-lead {
+    position: relative; z-index: 1;
+    font-family: var(--font-body);
+    font-size: clamp(15px, 1.1vw, 17px);
+    line-height: 1.6; color: var(--ink-soft);
+    max-width: 62ch; text-wrap: pretty; margin: 0;
+    opacity: 0; transform: translateY(12px);
+    transition: .8s .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .b-lead b { color: var(--ink); font-weight: 700; }
+  .b-hero.in .b-lead { opacity: 1; transform: none; }
+
+  /* ═════ FEATURED ═════ */
+  .feat {
+    position: relative; z-index: 2;
+    margin-bottom: 72px;
+    background: #0A0A0A; color: #FBF7F0;
+    border-radius: 24px; overflow: hidden;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity .9s, transform .9s cubic-bezier(.2,.8,.2,1);
+    text-decoration: none;
+    display: block;
+  }
+  .feat.in { opacity: 1; transform: none; }
+  .feat-label-outer {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 36px; overflow: hidden;
+    background: var(--fuchsia); z-index: 5;
+  }
+  .feat-ribbon { display: block; height: 100%; overflow: hidden; }
+  .rib-inner {
+    display: inline-flex; align-items: center; height: 100%;
+    gap: 20px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: #fff;
+    animation: ribroll 14s linear infinite;
+    padding-left: 20px; white-space: nowrap;
+  }
+  @keyframes ribroll { to { transform: translateX(-50%); } }
+  .feat-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--fuchsia) 28%, transparent), transparent 45%);
+    pointer-events: none; opacity: 0; transition: opacity .4s;
+    mix-blend-mode: screen;
+  }
+  .feat:hover .feat-glow { opacity: 1; }
+  .feat-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    gap: 0; min-height: 460px; padding-top: 36px;
+  }
+  @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr; } }
+  .feat-scene { position: relative; min-height: 280px; overflow: hidden; }
+  .feat-num {
+    position: absolute; left: 20px; top: 20px; z-index: 3;
+    font-family: var(--font-display); font-size: 14px; letter-spacing: -.02em;
+    padding: 6px 12px;
+    background: #FBF7F0; color: #0A0A0A;
+    border-radius: 4px;
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0 var(--fuchsia);
+  }
+  .feat-body {
+    padding: 40px clamp(28px, 4vw, 56px) 40px clamp(32px, 3vw, 48px);
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .feat-tag {
+    align-self: start;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-weight: 800;
+    font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    color: var(--fuchsia);
+    background: color-mix(in srgb, var(--fuchsia) 18%, transparent);
+    margin-bottom: 24px;
+  }
+  .feat-tag b { opacity: .7; font-weight: 800; }
+  .feat-tag .dotpulse {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--fuchsia);
+    animation: dotpulse2 1.6s ease-in-out infinite;
+  }
+  @keyframes dotpulse2 { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .55; } }
+  .feat-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 52px);
+    line-height: .95; letter-spacing: -.035em; text-transform: uppercase;
+    color: #FBF7F0; margin: 0 0 20px;
+  }
+  .feat-title .ch {
+    display: inline-block;
+    transform: translateY(.8em); opacity: 0;
+    transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s;
+    transition-delay: calc(.3s + var(--i, 0) * 18ms);
+  }
+  .feat-title .ch.sp { width: .3em; }
+  .feat.in .feat-title .ch { transform: none; opacity: 1; }
+  .feat-excerpt {
+    font-family: var(--font-body); font-size: 15.5px; line-height: 1.6;
+    color: rgba(251,247,240,.8);
+    max-width: 52ch; text-wrap: pretty; margin: 0 0 28px;
+    opacity: 0; transform: translateY(10px);
+    transition: .7s .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .feat.in .feat-excerpt { opacity: 1; transform: none; }
+  .feat-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+    opacity: 0; transform: translateY(10px);
+    transition: .7s .9s cubic-bezier(.2,.8,.2,1);
+  }
+  .feat.in .feat-foot { opacity: 1; transform: none; }
+  .feat-date {
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(251,247,240,.55);
+  }
+  .feat-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    letter-spacing: .22em; text-transform: uppercase;
+    padding: 12px 18px 12px 20px;
+    background: var(--fuchsia); color: #fff;
+    border-radius: 999px; text-decoration: none;
+    position: relative; overflow: hidden;
+    transition: padding .35s cubic-bezier(.2,.8,.2,1), transform .35s;
+  }
+  .feat-cta::before {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform .9s cubic-bezier(.3,.7,.2,1);
+  }
+  .feat:hover .feat-cta { padding-right: 24px; transform: translateY(-1px); }
+  .feat:hover .feat-cta::before { transform: translateX(120%); }
+  .feat-arrow { display: inline-block; width: 28px; height: 12px; }
+  .feat-arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* ═════ FILTERS ═════ */
+  .b-filters-wrap { position: relative; z-index: 2; margin-bottom: 36px; }
+  .b-filters-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 20px;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 16px;
+  }
+  .b-filters-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1; letter-spacing: -.035em; text-transform: uppercase;
+    color: var(--ink); margin: 0;
+  }
+  .b-filters-title .ch {
+    display: inline-block;
+    transform: translateY(.4em); opacity: 0;
+    animation: chin .8s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: calc(var(--i, 0) * 20ms);
+  }
+  .b-filters-title .ch.sp { width: .3em; }
+  @keyframes chin { to { transform: none; opacity: 1; } }
+  .b-filters-count {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .b-filter {
+    position: relative;
+    display: inline-flex; flex-wrap: wrap; gap: 4px;
+    padding: 5px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+  }
+  .b-filter-ind {
+    position: absolute;
+    top: 5px; bottom: 5px; left: 0; width: 0;
+    border-radius: 999px;
+    background: var(--ink);
+    transition: left .45s cubic-bezier(.4,1.3,.4,1), width .45s cubic-bezier(.4,1.3,.4,1), background .4s;
+    z-index: 0;
+    box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--fuchsia) 40%, transparent);
+  }
+  .b-filter-btn {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-weight: 800;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    padding: 10px 16px;
+    border: none; background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer; border-radius: 999px;
+    transition: color .3s;
+  }
+  .b-filter-btn.is-on { color: #fff; }
+  [data-theme="dark"] .b-filter-btn.is-on { color: #0A0A0A; }
+  .b-filter-count {
+    font-family: var(--font-mono); font-size: 9.5px; font-weight: 800;
+    padding: 2px 7px; border-radius: 999px;
+    background: color-mix(in srgb, var(--ink) 10%, transparent);
+    color: var(--ink-muted);
+    transition: background .3s, color .3s;
+  }
+  .b-filter-btn.is-on .b-filter-count {
+    background: rgba(255,255,255,.22); color: #fff;
+  }
+  [data-theme="dark"] .b-filter-btn.is-on .b-filter-count {
+    background: rgba(10,10,10,.22); color: #0A0A0A;
+  }
+
+  /* ═════ GRID ═════ */
+  .b-grid {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(18px, 2vw, 28px);
+    margin-bottom: 72px;
+    grid-auto-flow: dense;
+  }
+  .b-grid .art.size-m { grid-row: span 2; }
+  @media (max-width: 1020px) {
+    .b-grid { grid-template-columns: repeat(2, 1fr); }
+    .b-grid .art.size-m { grid-row: span 1; }
+  }
+  @media (max-width: 680px) {
+    .b-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═════ ARTICLE CARD ═════ */
+  .art {
+    --rx:0deg; --ry:0deg; --mx:50%; --my:50%;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform .85s cubic-bezier(.2,.8,.2,1), opacity .6s, box-shadow .4s;
+    transition-delay: var(--d, 0s);
+    box-shadow: 0 6px 20px -12px rgba(0,0,0,.15);
+    transform-style: preserve-3d;
+    text-decoration: none;
+    color: inherit;
+  }
+  .art.in { transform: translateY(0); opacity: 1; }
+  .art:hover { box-shadow: 0 24px 50px -20px rgba(0,0,0,.22); }
+  .art.in:hover {
+    transform: translateY(-4px) perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry));
+    transition-duration: .4s;
+  }
+
+  .art-scene {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .art.size-m .art-scene { aspect-ratio: 4 / 3; }
+  .art-scene::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.3));
+    pointer-events:none;
+  }
+
+  .art-body {
+    padding: 16px 16px 18px;
+    display: flex; flex-direction: column; gap: 10px;
+    flex: 1;
+  }
+  .art-tagrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .art-tag {
+    font-family: var(--font-mono); font-weight: 800;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+  .art-opinion .art-tag       { color: var(--fuchsia); background: color-mix(in srgb, var(--fuchsia) 14%, transparent); }
+  .art-podcast .art-tag       { color: var(--orange);  background: color-mix(in srgb, var(--orange)  14%, transparent); }
+  .art-makingof .art-tag      { color: var(--teal);    background: color-mix(in srgb, var(--teal)    14%, transparent); }
+  .art-tuto .art-tag          { color: var(--teal);    background: color-mix(in srgb, var(--teal)    14%, transparent); }
+  .art-vulgarisation .art-tag { color: var(--orange);  background: color-mix(in srgb, var(--orange)  14%, transparent); }
+
+  .art-num {
+    font-family: var(--font-display); font-size: 12px; letter-spacing: -.02em;
+    color: var(--ink-muted);
+  }
+  .art-title {
+    font-family: var(--font-display);
+    font-size: clamp(17px, 1.3vw, 22px);
+    line-height: 1; letter-spacing: -.025em; text-transform: uppercase;
+    color: var(--ink); margin: 4px 0 0;
+  }
+  .art-excerpt {
+    font-family: var(--font-body); font-size: 13.5px; line-height: 1.55;
+    color: var(--ink-soft); text-wrap: pretty; margin: 0;
+  }
+  .art-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .art-meta {
+    font-family: var(--font-mono); font-size: 9.5px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .art-arrow {
+    display: inline-block; width: 22px; height: 10px;
+    color: var(--ink);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .art-arrow svg { width: 100%; height: 100%; overflow: visible; }
+  .art:hover .art-arrow { transform: translateX(4px); }
+
+  .art-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--glow, var(--fuchsia)) 14%, transparent), transparent 50%);
+    pointer-events: none; opacity: 0; transition: opacity .4s;
+    mix-blend-mode: multiply;
+    border-radius: 18px;
+  }
+  .art-opinion       { --glow: var(--fuchsia); }
+  .art-podcast       { --glow: var(--orange); }
+  .art-makingof      { --glow: var(--teal); }
+  .art-tuto          { --glow: var(--teal); }
+  .art-vulgarisation { --glow: var(--orange); }
+  .art:hover .art-glow { opacity: 1; }
+
+  .art-corner {
+    position: absolute; top: 0; right: 0;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--glow) 18%, transparent) 50%);
+    pointer-events: none; opacity: .7;
+    transition: transform .4s;
+  }
+  .art:hover .art-corner { transform: scale(1.3); }
+
+  .b-empty {
+    grid-column: 1 / -1;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding: 72px 20px; text-align: center;
+    color: var(--ink-muted);
+  }
+  .b-empty-ic {
+    font-family: var(--font-display); font-size: 80px; color: var(--line-strong);
+    animation: bpulse 3s ease-in-out infinite;
+  }
+  @keyframes bpulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+
+  /* ═════ NEWSLETTER ═════ */
+  .b-news {
+    position: relative; z-index: 2;
+    margin-bottom: 56px;
+    background: var(--fuchsia); color: #fff;
+    border-radius: 24px; overflow: hidden;
+    padding: clamp(36px, 5vw, 64px);
+    opacity: 0; transform: translateY(30px);
+    transition: .9s cubic-bezier(.2,.8,.2,1);
+  }
+  .b-news.in { opacity: 1; transform: none; }
+  .b-news-bg {
+    position: absolute; inset: 0; display: flex; align-items: center; gap: 28px;
+    font-family: var(--font-display);
+    font-size: clamp(70px, 12vw, 180px);
+    letter-spacing: -.04em; text-transform: uppercase;
+    color: rgba(255,255,255,.06);
+    white-space: nowrap; pointer-events: none;
+    animation: marq 30s linear infinite;
+  }
+  .b-news-inner { position: relative; z-index: 1; }
+  .b-news-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.4vw, 64px);
+    line-height: .95; letter-spacing: -.03em; text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .b-news-title .ch {
+    display: inline-block;
+    transform: translateY(.6em); opacity: 0;
+    transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s;
+    transition-delay: calc(var(--i, 0) * 16ms);
+  }
+  .b-news.in .b-news-title .ch { transform: none; opacity: 1; }
+  .b-news-title .ch.sp { width: .3em; }
+  .b-news-title .grad .ch { color: #0A0A0A; -webkit-text-fill-color: #0A0A0A; }
+  .b-news-lead {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+    color: rgba(255,255,255,.85);
+    max-width: 50ch; margin: 0 0 24px;
+  }
+  .b-news-form {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    background: rgba(255,255,255,.14);
+    padding: 6px; border-radius: 999px;
+    max-width: 480px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.3);
+  }
+  .b-news-form input {
+    flex: 1; min-width: 200px;
+    background: transparent; border: none; outline: none;
+    padding: 12px 18px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+    color: #fff;
+  }
+  .b-news-form input::placeholder { color: rgba(255,255,255,.55); }
+  .b-news-form button {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    letter-spacing: .22em; text-transform: uppercase;
+    padding: 12px 18px;
+    background: #0A0A0A; color: #fff;
+    border: none; border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: padding .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .b-news-form button:hover { padding-right: 22px; }
+  .b-news-form .ar { display: inline-block; transition: transform .3s; }
+  .b-news-form button:hover .ar { transform: translateX(3px); }
+  .b-news-status {
+    margin-top: 12px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+    min-height: 14px;
+  }
+
+  /* ═════ FOOT-MINI (avant le footer global) ═════ */
+  .b-foot-mini { position: relative; z-index: 2; padding: 24px 0 32px; }
+  .b-foot-mini .triple-stripe { margin-bottom: 20px; border-radius: 3px; overflow: hidden; height: 6px; display: flex; }
+  .b-foot-mini .triple-stripe span { flex: 1; }
+  .b-foot-mini .triple-stripe span:nth-child(1) { background: var(--teal); }
+  .b-foot-mini .triple-stripe span:nth-child(2) { background: var(--fuchsia); }
+  .b-foot-mini .triple-stripe span:nth-child(3) { background: var(--orange); }
+  .b-foot-row {
+    display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .b-foot-row a { color: var(--ink-muted); text-decoration: none; transition: color .25s; }
+  .b-foot-row a:hover { color: var(--fuchsia); }
+
+  /* ═════ SCENES (illustrations CSS) ═════ */
+  .sc { position: absolute; inset: 0; overflow: hidden; }
+  .sc-bg { position: absolute; inset: 0; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+  .art:hover .sc-bg, .feat:hover .sc-bg { transform: scale(1.07); }
+
+  /* night */
+  .sc-night .sc-bg {
+    background:
+      radial-gradient(circle at 20% 20%, #2a1f3a, #0a0716 60%),
+      linear-gradient(180deg, #1a1230, #050310);
+  }
+  .sc-night .sc-moon {
+    position: absolute; top: 14%; right: 18%;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: radial-gradient(circle, #f5e6c8, #c99a5a 70%);
+    box-shadow: 0 0 40px rgba(245,230,200,.3);
+    animation: nfloat 8s ease-in-out infinite;
+  }
+  @keyframes nfloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  .sc-night .sc-stars { position: absolute; inset: 0; }
+  .sc-night .sc-stars span {
+    position: absolute; left: var(--x); top: var(--y);
+    width: 2px; height: 2px; border-radius: 50%;
+    background: #fff; opacity: .8;
+    animation: twinkle 2.5s ease-in-out infinite;
+    animation-delay: var(--d);
+  }
+  @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+  .sc-night .sc-horizon {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(180deg, transparent, rgba(239,66,111,.1) 40%, rgba(10,10,10,.9));
+  }
+  .sc-night .sc-room {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(180deg, transparent, #1a0f1e 60%);
+  }
+  .sc-night .sc-window {
+    position: absolute; top: 10%; right: 20%;
+    width: 80px; height: 60px;
+    background: linear-gradient(135deg, rgba(245,200,130,.3), rgba(239,66,111,.15));
+    border: 2px solid rgba(245,200,130,.4);
+    box-shadow: 0 0 30px rgba(245,200,130,.2);
+  }
+  .sc-night .sc-kid { position: absolute; bottom: 8%; left: 30%; }
+  .sc-night .sc-head { width: 28px; height: 28px; border-radius: 50%; background: #0a0a0a; margin: 0 auto 2px; }
+  .sc-night .sc-body { width: 44px; height: 70px; background: #0a0a0a; border-radius: 20px 20px 4px 4px; }
+  .sc-night .sc-device {
+    position: absolute; bottom: 12%; left: 38%;
+    width: 34px; height: 22px;
+    background: var(--teal); border-radius: 3px;
+    box-shadow: 0 0 24px var(--teal);
+    animation: flicker 2.5s ease-in-out infinite;
+  }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
+
+  /* china */
+  .sc-china .sc-bg {
+    background: radial-gradient(circle at 50% 55%, #f0d9c2, #c9765a 60%, #6e2d2d 100%);
+  }
+  .sc-china .sc-red-sun {
+    position: absolute; top: 20%; right: 30%;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: radial-gradient(circle, #ffd9a8, #c4375d 70%);
+    box-shadow: 0 0 40px rgba(239,66,111,.4);
+    animation: nfloat 7s ease-in-out infinite;
+  }
+  .sc-china .sc-mountain { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sc-china .sc-mountain path:first-child { fill: #3a1f2a; }
+  .sc-china .sc-mountain path:last-child  { fill: #1a0f14; }
+  .sc-china .sc-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(0deg,  rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask: linear-gradient(180deg, transparent, #000 50%);
+            mask: linear-gradient(180deg, transparent, #000 50%);
+    opacity: .6;
+  }
+
+  /* studio */
+  .sc-studio .sc-bg { background: radial-gradient(circle at 50% 45%, #3a2842, #17111f 60%, #050310); }
+  .sc-studio .sc-mic { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); width: 30%; height: 70%; }
+  .sc-studio .sc-mhead {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 72%; height: 44%;
+    background:
+      repeating-linear-gradient(0deg, #222 0 2px, #0a0a0a 2px 4px),
+      linear-gradient(135deg, #2a2a2a, #141414);
+    border-radius: 22% 22% 28% 28%;
+    box-shadow: inset 0 -6px 12px rgba(0,0,0,.7);
+  }
+  .sc-studio .sc-mstem {
+    position: absolute; top: 42%; left: 50%; transform: translateX(-50%);
+    width: 6%; height: 40%; background: #1a1a1a;
+  }
+  .sc-studio .sc-wave {
+    position: absolute; bottom: 10%; left: 8%; right: 8%; height: 20%;
+    display: flex; align-items: flex-end; gap: 3px;
+  }
+  .sc-studio .sc-wave span {
+    flex: 1; background: var(--orange);
+    height: calc(18% + var(--r) * 80%);
+    border-radius: 2px;
+    animation: bounce 1.2s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -60ms);
+    opacity: .85;
+  }
+  @keyframes bounce { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+
+  /* office */
+  .sc-office .sc-bg {
+    background:
+      radial-gradient(circle at 70% 20%, #f5e4c9, #d9b483 70%),
+      linear-gradient(180deg, #e8c89b, #b28554);
+  }
+  .sc-office .sc-desk { position: absolute; bottom: 0; left: 0; right: 0; height: 30%; background: linear-gradient(180deg, #8a5a2a, #5a3616); }
+  .sc-office .sc-paper {
+    position: absolute; bottom: 20%; left: 30%;
+    width: 38%; height: 12%;
+    background: #fbf7f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transform: rotate(-4deg);
+    animation: pfloat 5s ease-in-out infinite;
+  }
+  .sc-office .sc-p2 { left: 14%; width: 26%; transform: rotate(3deg); animation-delay: -1.5s; opacity: .9; }
+  @keyframes pfloat { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-3px); } }
+  .sc-office .sc-fig { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sc-office .sc-fig path, .sc-office .sc-fig circle { fill: #0a0a0a; }
+
+  /* corp */
+  .sc-corp .sc-bg { background: radial-gradient(circle at 50% 30%, #2a1a2e, #0a0510 70%); }
+  .sc-corp .sc-bldg {
+    position: absolute; bottom: 0;
+    background: linear-gradient(180deg, #1a1a2a, #050510);
+    border-top: 2px solid var(--fuchsia);
+  }
+  .sc-corp .sc-bldg:not(.b2):not(.b3) { left: 12%; width: 22%; height: 60%; }
+  .sc-corp .sc-bldg.b2 { left: 40%; width: 22%; height: 75%; border-top-color: var(--orange); }
+  .sc-corp .sc-bldg.b3 { left: 68%; width: 22%; height: 50%; border-top-color: var(--teal); }
+  .sc-corp .sc-flash {
+    position: absolute; top: 10%; left: 45%;
+    width: 18px; height: 120%;
+    background: var(--fuchsia);
+    transform: rotate(22deg);
+    filter: blur(2px); opacity: .55;
+    animation: flash 3s ease-in-out infinite;
+  }
+  @keyframes flash { 0%, 100% { opacity: .2; transform: rotate(22deg) scaleY(.8); } 50% { opacity: .7; transform: rotate(22deg) scaleY(1); } }
+
+  /* desk (laptop) */
+  .sc-desk2 .sc-bg { background: radial-gradient(circle at 30% 25%, #3a2a22, #1a1310 60%, #0a0706); }
+  .sc-desk2 .sc-laptop { position: absolute; top: 22%; left: 50%; transform: translateX(-50%); width: 62%; height: 58%; }
+  .sc-desk2 .sc-screen {
+    position: relative;
+    width: 100%; height: 78%;
+    background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+    border: 2px solid #2a2a2a;
+    border-radius: 6px 6px 2px 2px;
+    padding: 8%; overflow: hidden;
+  }
+  .sc-desk2 .sc-srow { height: 10%; margin-bottom: 5%; background: linear-gradient(90deg, #2a2a2a, transparent 70%); border-radius: 2px; }
+  .sc-desk2 .sc-srow.s { width: 60%; }
+  .sc-desk2 .sc-sbtn {
+    display: inline-block; margin-top: 6%; padding: 5% 9%;
+    font-family: var(--font-mono); font-size: 8.5px; font-weight: 800; letter-spacing: .2em;
+    background: var(--teal); color: #0a0a0a; border-radius: 3px;
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 60%, transparent); } 50% { box-shadow: 0 0 0 7px transparent; } }
+
+  /* paper */
+  .sc-paper .sc-bg { background: linear-gradient(135deg, #f5ede0, #d8c8a8); }
+  .sc-paper .sc-sheet {
+    position: absolute; inset: 12% 15% 12% 15%;
+    background: #fbf7f0;
+    box-shadow: 0 12px 28px rgba(0,0,0,.15);
+    padding: 12%;
+    display: flex; flex-direction: column; gap: 10%;
+    justify-content: center;
+    transform: rotate(-2deg);
+    transition: transform .6s;
+  }
+  .art:hover .sc-paper .sc-sheet { transform: rotate(0); }
+  .sc-paper .sc-slash { height: 8px; background: var(--ink); border-radius: 2px; transform-origin: left; animation: draw 1.4s cubic-bezier(.2,.8,.2,1) infinite alternate; }
+  .sc-paper .sc-slash:nth-child(2) { width: 70%; animation-delay: .3s; background: var(--fuchsia); }
+  .sc-paper .sc-slash:nth-child(3) { width: 45%; animation-delay: .6s; background: var(--orange); }
+  @keyframes draw { from { transform: scaleX(.2); } to { transform: scaleX(1); } }
+
+  /* abstract */
+  .sc-abstract .sc-bg { background: radial-gradient(circle at 30% 30%, #f5c9a8, #c97650 70%); }
+  .sc-abstract .sc-circle {
+    position: absolute; border-radius: 50%;
+    mix-blend-mode: multiply;
+    animation: adrift 8s ease-in-out infinite;
+  }
+  .sc-abstract .c1 { width: 50%; height: 80%; top: -10%; left: -10%; background: var(--fuchsia); }
+  .sc-abstract .c2 { width: 60%; height: 60%; top: 20%; right: -10%; background: var(--orange); animation-delay: -3s; }
+  .sc-abstract .c3 { width: 35%; height: 50%; bottom: -5%; left: 30%; background: var(--teal); animation-delay: -6s; mix-blend-mode: screen; }
+  @keyframes adrift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(8px, -8px); } }
+
+  /* matrix */
+  .sc-matrix .sc-bg { background: radial-gradient(circle at 50% 50%, #0a2a1a, #050a05); }
+  .sc-matrix .sc-cols { position: absolute; inset: 0; display: flex; }
+  .sc-matrix .sc-col {
+    flex: 1; display: flex; flex-direction: column;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    color: var(--teal);
+    animation: matrixfall var(--s, 1.2s) linear infinite;
+    animation-delay: var(--d, 0s);
+    opacity: .8;
+  }
+  .sc-matrix .sc-col span:first-child { color: #fff; opacity: 1; }
+  @keyframes matrixfall { from { transform: translateY(-30%); } to { transform: translateY(110%); } }
+
+  /* minimal */
+  .sc-minimal .sc-bg { background: linear-gradient(180deg, #f5ede0, #e0d4c0); }
+  .sc-minimal .sc-x {
+    position: absolute; top: 50%; left: 50%; width: 80px; height: 80px;
+    transform: translate(-50%, -50%);
+    background:
+      linear-gradient(45deg,  transparent 47%, var(--ink) 47% 53%, transparent 53%),
+      linear-gradient(-45deg, transparent 47%, var(--ink) 47% 53%, transparent 53%);
+    animation: rot 12s linear infinite;
+  }
+  @keyframes rot { to { transform: translate(-50%, -50%) rotate(360deg); } }
+  .sc-minimal .sc-dot {
+    position: absolute; top: 50%; left: 50%;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--fuchsia);
+    transform: translate(-50%, -50%);
+    animation: pulsedot 2s ease-in-out infinite;
+  }
+  @keyframes pulsedot { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fuchsia) 60%, transparent); } 50% { box-shadow: 0 0 0 16px transparent; } }
+
+  /* responsive — hero plus compact */
+  @media (max-width: 960px) {
+    .b-hero { padding: 16px 0 36px; margin-bottom: 32px; }
+    .b-hero-stats { gap: 10px; }
+    .b-hero-stats .sep { display: none; }
+    .feat { margin-bottom: 48px; }
+  }
 </style>
 </head>
 <body>
+
+<div class="b-grain" aria-hidden="true"></div>
 
 <!-- Triple-stripe signature -->
 <div class="top-stripe" aria-hidden="true" style="display:flex; height:5px; width:100%;">
@@ -327,7 +864,7 @@
   <span style="flex:1; background:#FF8200"></span>
 </div>
 
-<!-- Mini-nav Jerwis v2 -->
+<!-- Mini-nav v2 (cohérence sitewide) -->
 <nav class="mini-nav">
   <a class="brand brand-stamp" href="index.html" aria-label="Jerwis">
     <span class="stamp">
@@ -353,72 +890,137 @@
   </button>
 </nav>
 
-<!-- HERO -->
-<section class="arts-hero">
-  <div class="arts-hero-inner">
-    <span class="arts-hero-kicker">
-      <span class="dot"></span>
-      La bibliothèque · 21 articles
-    </span>
-    <h1>Tous les articles.<br><em>Triés par date.</em></h1>
-    <p class="arts-hero-lead">
-      Tout ce que j'ai publié au même endroit. Tutos Claude Code, vulgarisation IA, making-of projets, opinions. Filtre par type, lis dans l'ordre qui te parle.
-    </p>
+<main class="b-wrap">
+  <!-- Background blobs -->
+  <div class="b-blobs" aria-hidden="true">
+    <div class="bb bb1"></div>
+    <div class="bb bb2"></div>
+    <div class="bb bb3"></div>
   </div>
-</section>
 
-<!-- Mini-marquee -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Tutos</span><span>Vulgarisation</span><span>Making-of</span><span>Opinions</span><span>Podcast</span><span>Tout au même endroit</span>
-    <span>Tutos</span><span>Vulgarisation</span><span>Making-of</span><span>Opinions</span><span>Podcast</span><span>Tout au même endroit</span>
-  </div>
-</div>
-
-<!-- FILTRES -->
-<div class="arts-filters-wrap">
-  <div class="arts-filters">
-    <div class="arts-filters-list" id="artsFilters">
-      <button class="arts-filter-btn active" data-filter="all">Tous <span class="count" id="count-all">21</span></button>
-      <button class="arts-filter-btn" data-filter="tuto">Tutos <span class="count" id="count-tuto">0</span></button>
-      <button class="arts-filter-btn" data-filter="opinion">Opinions <span class="count" id="count-opinion">0</span></button>
-      <button class="arts-filter-btn" data-filter="vulgarisation">Vulgarisation <span class="count" id="count-vulgarisation">0</span></button>
-      <button class="arts-filter-btn" data-filter="makingof">Making-of <span class="count" id="count-makingof">0</span></button>
-      <button class="arts-filter-btn" data-filter="podcast">Podcast <span class="count" id="count-podcast">0</span></button>
+  <!-- HERO -->
+  <header class="b-hero" id="bHero">
+    <div class="b-hero-marquee" aria-hidden="true">
+      <div class="b-marquee-row" id="heroMarquee"></div>
     </div>
-    <span class="arts-count"><strong id="artsVisibleCount">21</strong> articles visibles</span>
-  </div>
-</div>
+    <div class="b-hero-top">
+      <span class="b-kicker">
+        <span class="dot"></span>
+        LE JOURNAL · <b>MIS À JOUR CHAQUE SEMAINE</b>
+      </span>
+      <div class="b-hero-stats">
+        <span><b id="statArticles">0</b> articles</span>
+        <span class="sep"></span>
+        <span><b id="statCats">0</b> catégories</span>
+        <span class="sep"></span>
+        <span><b id="statYear">0</b> · année live</span>
+      </div>
+    </div>
+    <h1 class="b-title">
+      <span class="b-line l1" data-split="CE QUE J&rsquo;ÉCRIS"></span>
+      <span class="b-line l2" data-split="QUAND JE PENSE."></span>
+    </h1>
+    <p class="b-lead">
+      Articles, notes, podcasts, cas réels. Rien n&rsquo;est lissé : je publie quand c&rsquo;est prêt, pas quand c&rsquo;est parfait. Si tu cherches un fil conducteur, <b>c&rsquo;est celui d&rsquo;un humain qui construit avec l&rsquo;IA en 2026 et qui raconte ce qu&rsquo;il voit.</b>
+    </p>
+  </header>
 
-<!-- GRID -->
-<section class="arts-grid-wrap">
-  <div class="arts-grid" id="artsGrid"></div>
-  <div class="arts-empty" id="artsEmpty">
-    <h2>Rien dans ce filtre pour le moment</h2>
-    <p>Reviens plus tard, ou change de filtre.</p>
-  </div>
-</section>
+  <!-- FEATURED -->
+  <a id="featured" class="feat" href="#">
+    <div class="feat-label-outer">
+      <span class="feat-ribbon">
+        <span class="rib-inner" id="featRibbon"></span>
+      </span>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-scene" id="featScene">
+        <span class="feat-num" id="featNum">N° 01</span>
+      </div>
+      <div class="feat-body">
+        <span class="feat-tag">
+          <span class="dotpulse"></span>
+          <span id="featTag">OPINION</span> · <b>LECTURE <span id="featRead">12 MIN</span></b>
+        </span>
+        <h2 class="feat-title" id="featTitle"></h2>
+        <p class="feat-excerpt" id="featExcerpt"></p>
+        <div class="feat-foot">
+          <span class="feat-date" id="featDate"></span>
+          <span class="feat-cta">
+            <span>LIRE L&rsquo;ARTICLE</span>
+            <span class="feat-arrow">
+              <svg viewBox="0 0 24 10"><path d="M0 5 L20 5 M15 1 L20 5 L15 9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <span class="feat-glow" aria-hidden="true"></span>
+  </a>
 
-<!-- Mini-marquee 2 -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Je teste</span><span>Je trie</span><span>Je partage</span><span>Tu reçois</span><span>Tu utilises</span><span>Tu gagnes du temps</span>
-    <span>Je teste</span><span>Je trie</span><span>Je partage</span><span>Tu reçois</span><span>Tu utilises</span><span>Tu gagnes du temps</span>
-  </div>
-</div>
+  <!-- FILTERS -->
+  <section class="b-filters-wrap">
+    <div class="b-filters-head">
+      <h2 class="b-filters-title" data-split="TOUT LE JOURNAL."></h2>
+      <span class="b-filters-count"><strong id="filtersCount">0</strong> articles visibles</span>
+    </div>
+    <div class="b-filter" id="filters">
+      <span class="b-filter-ind" id="filterInd"></span>
+      <!-- buttons injected -->
+    </div>
+  </section>
 
-<!-- FOOTER -->
+  <!-- GRID -->
+  <section class="b-grid" id="grid"></section>
+  <div class="b-empty" id="empty" hidden>
+    <span class="b-empty-ic">∅</span>
+    <p>Rien dans cette catégorie pour l&rsquo;instant. Je travaille dessus.</p>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <aside class="b-news" id="bNews">
+    <div class="b-news-bg" aria-hidden="true">
+      <span>NEWSLETTER</span><span>·</span><span>UNE FOIS PAR SEMAINE</span><span>·</span>
+      <span>NEWSLETTER</span><span>·</span><span>UNE FOIS PAR SEMAINE</span><span>·</span>
+      <span>NEWSLETTER</span><span>·</span><span>UNE FOIS PAR SEMAINE</span><span>·</span>
+    </div>
+    <div class="b-news-inner">
+      <h3 class="b-news-title">
+        <span data-split="UNE FOIS PAR SEMAINE,"></span>
+        <span class="grad" data-split="DANS TA BOÎTE."></span>
+      </h3>
+      <p class="b-news-lead">Ma veille IA en français, automatique, écrémée. Je la lis en premier, je te partage la même.</p>
+      <form class="b-news-form newsletter-form" data-newsletter="articles-page">
+        <input type="email" name="email" placeholder="ton@email.com" required>
+        <button type="submit">
+          <span class="b-news-btn-label">S&rsquo;INSCRIRE</span>
+          <span class="ar">→</span>
+        </button>
+      </form>
+      <p class="b-news-status" id="bNewsStatus"></p>
+    </div>
+  </aside>
+
+  <!-- Foot mini (avant le footer global) -->
+  <div class="b-foot-mini">
+    <div class="triple-stripe"><span></span><span></span><span></span></div>
+    <div class="b-foot-row">
+      <span>JERWIS · 2026</span>
+      <span>JOURNAL PERSONNEL · TOUT EST VRAI OU MARQUÉ COMME AVIS</span>
+      <a href="#bHero">↑ HAUT DE PAGE</a>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER global (cohérence sitewide) -->
 <footer class="footer" id="contact">
   <div class="container">
     <div class="footer-grid">
-
       <div class="footer-brand">
         <h3>Jérémy Sagnier</h3>
         <p>
-          Salut — moi c'est Jérémy. Je teste l'IA tous les jours pour ne jamais être dépassé, et je partage ce que je trouve en chemin. Une question sur un article ? Écris-moi — je lis tout.
+          Salut — moi c&rsquo;est Jérémy. Je teste l&rsquo;IA tous les jours pour ne jamais être dépassé, et je partage ce que je trouve en chemin. Une question sur un article ? Écris-moi — je lis tout.
         </p>
       </div>
-
       <div class="footer-col">
         <h5>Suivre</h5>
         <ul>
@@ -448,7 +1050,6 @@
           </li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h5>Direct</h5>
         <ul>
@@ -466,9 +1067,7 @@
           </li>
         </ul>
       </div>
-
     </div>
-
     <div class="footer-bottom">
       <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
       <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
@@ -484,7 +1083,7 @@
 </footer>
 
 <script>
-  // Theme toggle v2
+  // ═════ Theme toggle v2 ═════
   (function initThemeV2() {
     const toggle = document.getElementById('themeToggleV2');
     if (!toggle) return;
@@ -500,41 +1099,59 @@
     });
   })();
 
-  // Données articles (tri: date desc, nulls last)
-  const ARTICLES = [
-    {"slug":"monde-ia-5-10-20-ans","title":"Le monde de mon fils de 4 ans","description":"J'ai un fils de 4 ans. À quoi ressemblera le monde quand il aura 14, 24, 34 ans ? Trois horizons, un pari personnel sur l'IA.","type":"opinion","duration":"12 min","date":"2026-04-24","accent":"teal"},
-    {"slug":"plan-chine-2026-2030","title":"Le plan chinois 2026-2030, décrypté","description":"Plan quinquennal chinois 2026-2030 : trois crises, cinq leviers, un objectif caché. Ce qui va peser sur notre quotidien.","type":"opinion","duration":"13 min","date":"2026-04-23","accent":"teal"},
-    {"slug":"llm-wiki-karpathy","title":"Le LLM Wiki, ton deuxième cerveau","description":"Le pattern de Karpathy pour bâtir une base de connaissances perso avec un LLM. Pas un RAG, un vrai deuxième cerveau.","type":"vulgarisation","duration":"12 min","date":"2026-04-20","accent":"fuchsia"},
-    {"slug":"dev-browser","title":"Un navigateur piloté par ton IA","description":"Dev-browser : un navigateur que l'IA pilote via un script. Cliquer, lire, screenshoter, tester. Ce que j'en fais chaque jour.","type":"tuto","duration":"11 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"loops-claude","title":"Les loops Claude Code, expliqués","description":"Automatise tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets, coûts chiffrés.","type":"tuto","duration":"7 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"superpowers","title":"Superpowers : le plugin qui force Claude à réfléchir","description":"Superpowers force Claude à brainstormer, planifier, TDD et reviewer avant de coder. À quoi ça sert et quand l'éviter.","type":"tuto","duration":"13 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"karpathy","title":"Les travaux de Karpathy, vulgarisés","description":"Andrej Karpathy, ex-OpenAI et ex-Tesla, le meilleur prof d'IA du monde. Je te résume ce qu'il enseigne, même si tu n'es pas dev.","type":"vulgarisation","duration":"15 min","date":"2026-04-20","accent":"orange"},
-    {"slug":"claude-code-workflow-tips","title":"6 mois de Claude Code, vu par un non-dev","description":"Un dev senior partage ses tips Claude Code après 6 mois. Non-dev, je l'utilise aussi chaque jour. Ce qui change sans background tech.","type":"tuto","duration":"14 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"outil-vente-claude-code","title":"Pourquoi tu restes sur Claude Code jusqu'à 2h","description":"Shirley est chargée de clientèle en assurance. En 3 soirées, on a construit avec Claude Code un outil qui l'aide en RDV client.","type":"makingof","duration":"8 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"booking-eurofiscalis-making-of","title":"On a viré Calendly et Letsignit","description":"On a remplacé Calendly et Letsignit par un outil maison en une semaine avec Claude Code. ~345 €/mois économisés. Sans filtre.","type":"makingof","duration":"15 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"autoresearch-karpathy","title":"J'ai laissé une IA s'améliorer toute seule","description":"Karpathy l'a montré : laisser une IA modifier son propre travail, tester, garder ce qui marche. J'ai tenté sur mon tri d'emails.","type":"vulgarisation","duration":"14 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"guerres-d-ia-podcast","title":"Un podcast avec voix IA en 24h","description":"3 épisodes de podcast narratif style Wondery sur la guerre IA en 24h, pour 33 $. Voix IA, sous-agents, mixage auto. Comment.","type":"podcast","duration":"10 min","date":"2026-04-20","accent":"teal"},
-    {"slug":"tuto-agent-contrats","title":"Un agent qui lit tes contrats PDF","description":"Tutoriel étape par étape : un agent Claude Code qui lit tes contrats PDF et liste les 12 clauses à négocier. 60 min, 20 €/mois.","type":"tuto","duration":"14 min","date":"2026-04-17","accent":"teal"},
-    {"slug":"agents-ia-guide","title":"Agents IA : à quoi ça sert, comment ça marche","description":"Guide complet agents IA pour débutants : ce que c'est, comment ça marche, comment en créer un, combien ça coûte.","type":"tuto","duration":"14 min","date":"2026-04-15","accent":"teal"},
-    {"slug":"veille-pour-demain","title":"Je voulais lancer une newsletter. J'ai fait autre chose","description":"Je voulais lancer une newsletter, les sous-agents m'ont dit non. Pivoté 4 fois. J'ai fini par construire un outil de veille à 5 €/mois.","type":"opinion","duration":"9 min","date":"2026-04-14","accent":"teal"},
-    {"slug":"tuto-agent-gmail","title":"Un agent qui trie ta boîte Gmail","description":"Tutoriel pas à pas pour créer un agent Claude Code qui trie 80 mails/jour, repère les 3 urgents, résumé matinal. 45 min, 5 €/mois.","type":"tuto","duration":"12 min","date":null,"accent":"teal"},
-    {"slug":"hermes-agent","title":"L'agent qui lit mes 200 mails chaque matin","description":"J'ai construit Hermes, un assistant IA qui ouvre ma boîte mail à 7h, repère les vrais urgents et range le reste. 4h gagnées/semaine.","type":"tuto","duration":"18 min","date":null,"accent":"fuchsia"},
-    {"slug":"llm-local-pour-non-dev","title":"Faire tourner une vraie IA chez toi","description":"Installer une IA chez toi, sans abonnement, sans cloud. Le tuto pas à pas pour quelqu'un qui n'a jamais codé. Sans jargon.","type":"tuto","duration":"20 min","date":null,"accent":"teal"},
-    {"slug":"open-source-pour-non-dev","title":"L'open source, expliqué pour les non-dev","description":"L'open source, c'est quoi ? À quoi ça sert ? Quels outils essayer ? Comment ça change avec l'IA en 2026 ? Le tuto sans jargon.","type":"tuto","duration":"15 min","date":null,"accent":"teal"},
-    {"slug":"better-call-vs-associe","title":"Oussama Ammar comme associé, à 7 000 €/an","description":"J'ai eu un associé. Testé Better Call deux fois. Pourquoi je préfère Oussama Ammar à 7 000 €/an plutôt que céder 50 %.","type":"opinion","duration":"10 min","date":null,"accent":"teal"},
-    {"slug":"limova-vs-claude-code","title":"Avant de payer Limova 840 €/an, lis ça","description":"Limova : 9 agents IA à 70-120 €/mois. Ce qui m'a attiré, ce qui m'a fait tiquer, ce que tu peux construire avec Claude Code pour 5× moins.","type":"opinion","duration":"11 min","date":null,"accent":"teal"}
-  ];
-
+  // ═════ DATA ═════
   const TYPE_LABELS = {
-    tuto: 'Tuto',
-    opinion: 'Opinion',
-    vulgarisation: 'Vulgarisation',
-    makingof: 'Making-of',
-    podcast: 'Podcast'
+    tuto:           { label: 'TUTO',          color: 'teal' },
+    opinion:        { label: 'OPINION',       color: 'fuchsia' },
+    vulgarisation:  { label: 'VULGARISATION', color: 'orange' },
+    makingof:       { label: 'CAS RÉEL',      color: 'teal' },
+    podcast:        { label: 'PODCAST',       color: 'orange' },
   };
 
-  const DATE_MONTHS_FR = ['jan','fév','mar','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+  const CATEGORIES = [
+    { id: 'all',           label: 'TOUT',          color: 'ink' },
+    { id: 'opinion',       label: 'OPINIONS',      color: 'fuchsia' },
+    { id: 'tuto',          label: 'TUTOS',         color: 'teal' },
+    { id: 'makingof',      label: 'CAS RÉELS',     color: 'teal' },
+    { id: 'vulgarisation', label: 'VULGARISATION', color: 'orange' },
+    { id: 'podcast',       label: 'PODCAST',       color: 'orange' },
+  ];
 
+  // 21 articles + le featured (le plus récent)
+  const ALL_ARTICLES = [
+    { slug:'monde-ia-5-10-20-ans',           type:'opinion',       title:"J'AI UN FILS DE QUATRE ANS. VOICI SON MONDE.", excerpt:"Il ne lit pas encore. Il parle déjà à Claude tous les soirs. Trois horizons, un pari personnel sur l'IA.", date:'2026-04-24', read:'12 MIN', scene:'night', size:'m' },
+    { slug:'plan-chine-2026-2030',           type:'opinion',       title:"LE PLAN CHINOIS 2026-2030, DÉCRYPTÉ.", excerpt:"Pékin joue à 15 ans pendant que Washington joue à 4. Trois crises, cinq leviers, un objectif caché.", date:'2026-04-23', read:'13 MIN', scene:'china', size:'m' },
+    { slug:'guerres-d-ia-podcast',           type:'podcast',       title:"UN PODCAST AVEC VOIX IA EN 24H.", excerpt:"3 épisodes narratifs style Wondery sur la guerre IA en 24h, pour 33 $. Voix IA, sous-agents, mixage auto.", date:'2026-04-22', read:'10 MIN', scene:'studio', size:'m' },
+    { slug:'llm-wiki-karpathy',              type:'vulgarisation', title:"LE LLM WIKI, TON DEUXIÈME CERVEAU.", excerpt:"Le pattern de Karpathy pour bâtir une base de connaissances perso avec un LLM. Pas un RAG, un vrai second cerveau.", date:'2026-04-20', read:'12 MIN', scene:'matrix', size:'s' },
+    { slug:'dev-browser',                    type:'tuto',          title:"UN NAVIGATEUR PILOTÉ PAR TON IA.", excerpt:"Dev-browser : un navigateur que l'IA pilote via un script. Cliquer, lire, screenshoter, tester.", date:'2026-04-20', read:'11 MIN', scene:'desk', size:'s' },
+    { slug:'loops-claude',                   type:'tuto',          title:"LES LOOPS CLAUDE CODE, EXPLIQUÉS.", excerpt:"Automatise tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets.", date:'2026-04-20', read:'7 MIN',  scene:'desk', size:'s' },
+    { slug:'superpowers',                    type:'tuto',          title:"SUPERPOWERS : LE PLUGIN QUI FORCE CLAUDE À RÉFLÉCHIR.", excerpt:"Superpowers force Claude à brainstormer, planifier, TDD et reviewer avant de coder. Quand l'utiliser.", date:'2026-04-20', read:'13 MIN', scene:'minimal', size:'m' },
+    { slug:'karpathy',                       type:'vulgarisation', title:"LES TRAVAUX DE KARPATHY, VULGARISÉS.", excerpt:"Andrej Karpathy, ex-OpenAI et ex-Tesla, le meilleur prof d'IA du monde. Je résume, même si tu n'es pas dev.", date:'2026-04-20', read:'15 MIN', scene:'abstract', size:'s' },
+    { slug:'claude-code-workflow-tips',      type:'tuto',          title:"6 MOIS DE CLAUDE CODE, VU PAR UN NON-DEV.", excerpt:"Un dev senior partage ses tips Claude Code après 6 mois. Non-dev, je l'utilise aussi chaque jour.", date:'2026-04-20', read:'14 MIN', scene:'desk', size:'s' },
+    { slug:'outil-vente-claude-code',        type:'makingof',      title:"L'OUTIL DE VENTE DE MA FEMME.", excerpt:"Shirley, chargée de clientèle en assurance. En 3 soirées, on a construit un outil qui l'aide en RDV client.", date:'2026-04-20', read:'8 MIN',  scene:'office', size:'m' },
+    { slug:'booking-eurofiscalis-making-of', type:'makingof',      title:"ON A VIRÉ CALENDLY ET LETSIGNIT.", excerpt:"On a remplacé Calendly et Letsignit par un outil maison en une semaine avec Claude Code. ~345 €/mois économisés.", date:'2026-04-20', read:'15 MIN', scene:'office', size:'s' },
+    { slug:'autoresearch-karpathy',          type:'vulgarisation', title:"J'AI LAISSÉ UNE IA S'AMÉLIORER TOUTE SEULE.", excerpt:"Karpathy l'a montré : laisser une IA modifier son propre travail, tester, garder ce qui marche.", date:'2026-04-20', read:'14 MIN', scene:'matrix', size:'s' },
+    { slug:'tuto-agent-contrats',            type:'tuto',          title:"UN AGENT QUI LIT TES CONTRATS PDF.", excerpt:"Tutoriel étape par étape : un agent Claude Code qui lit tes contrats PDF et liste les 12 clauses à négocier.", date:'2026-04-17', read:'14 MIN', scene:'paper', size:'m' },
+    { slug:'agents-ia-guide',                type:'tuto',          title:"AGENTS IA : À QUOI ÇA SERT, COMMENT ÇA MARCHE.", excerpt:"Guide complet agents IA pour débutants : ce que c'est, comment ça marche, comment en créer un, combien ça coûte.", date:'2026-04-15', read:'14 MIN', scene:'matrix', size:'s' },
+    { slug:'veille-pour-demain',             type:'opinion',       title:"JE VOULAIS LANCER UNE NEWSLETTER. J'AI FAIT AUTRE CHOSE.", excerpt:"Les sous-agents m'ont dit non. Pivoté 4 fois. J'ai fini par construire un outil de veille à 5 €/mois.", date:'2026-04-14', read:'9 MIN',  scene:'minimal', size:'s' },
+    { slug:'tuto-agent-gmail',               type:'tuto',          title:"UN AGENT QUI TRIE TA BOÎTE GMAIL.", excerpt:"Tutoriel pas à pas pour créer un agent Claude Code qui trie 80 mails/jour, repère les 3 urgents.", date:'2026-04-10', read:'12 MIN', scene:'paper', size:'s' },
+    { slug:'hermes-agent',                   type:'tuto',          title:"L'AGENT QUI LIT MES 200 MAILS CHAQUE MATIN.", excerpt:"J'ai construit Hermes, un assistant IA qui ouvre ma boîte mail à 7h, repère les vrais urgents et range le reste.", date:'2026-04-08', read:'18 MIN', scene:'matrix', size:'m' },
+    { slug:'llm-local-pour-non-dev',         type:'tuto',          title:"FAIRE TOURNER UNE VRAIE IA CHEZ TOI.", excerpt:"Installer une IA chez toi, sans abonnement, sans cloud. Le tuto pas à pas pour quelqu'un qui n'a jamais codé.", date:'2026-04-05', read:'20 MIN', scene:'desk', size:'s' },
+    { slug:'open-source-pour-non-dev',       type:'tuto',          title:"L'OPEN SOURCE, EXPLIQUÉ POUR LES NON-DEV.", excerpt:"L'open source, c'est quoi ? À quoi ça sert ? Quels outils essayer ? Comment ça change avec l'IA en 2026 ?", date:'2026-04-02', read:'15 MIN', scene:'minimal', size:'s' },
+    { slug:'better-call-vs-associe',         type:'opinion',       title:"OUSSAMA AMMAR COMME ASSOCIÉ, À 7 000 €/AN.", excerpt:"J'ai eu un associé. Testé Better Call deux fois. Pourquoi je préfère Oussama Ammar à 7 000 €/an plutôt que céder 50 %.", date:'2026-03-28', read:'10 MIN', scene:'corp', size:'m' },
+    { slug:'limova-vs-claude-code',          type:'opinion',       title:"AVANT DE PAYER LIMOVA 840 €/AN, LIS ÇA.", excerpt:"Limova : 9 agents IA à 70-120 €/mois. Ce qui m'a attiré, ce qui m'a fait tiquer, ce que tu peux construire avec Claude Code pour 5× moins.", date:'2026-03-25', read:'11 MIN', scene:'corp', size:'s' },
+  ];
+
+  // Tri par date desc (le plus récent en premier)
+  ALL_ARTICLES.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  // FEATURED = premier (le plus récent)
+  const FEATURED = ALL_ARTICLES[0];
+  // Le reste va dans la grille
+  const REST = ALL_ARTICLES.slice(1);
+
+  // ═════ HELPERS ═════
+  const DATE_MONTHS_FR = ['JAN','FÉV','MAR','AVR','MAI','JUIN','JUIL','AOÛT','SEP','OCT','NOV','DÉC'];
   function formatDate(iso) {
     if (!iso) return '—';
     const d = new Date(iso);
@@ -542,57 +1159,360 @@
     return `${d.getDate()} ${DATE_MONTHS_FR[d.getMonth()]} ${d.getFullYear()}`;
   }
 
-  function renderCard(a) {
-    return `
-      <a class="art-card" href="articles/${a.slug}.html" data-type="${a.type}" data-accent="${a.accent}">
-        <span class="art-card-badge" data-type="${a.type}"><span class="dot"></span>${TYPE_LABELS[a.type]}</span>
-        <h3>${a.title}</h3>
-        <p class="art-card-desc">${a.description}</p>
-        <div class="art-card-meta">
-          <span class="date-time">
-            <span>${formatDate(a.date)}</span>
-            <span class="sep"></span>
-            <span>${a.duration}</span>
-          </span>
-          <span class="art-card-link">Lire <span class="arrow">→</span></span>
+  function splitChars(str) {
+    return [...str].map((c, i) => {
+      if (c === ' ') return `<span class="ch sp">&nbsp;</span>`;
+      return `<span class="ch" style="--i:${i}">${c}</span>`;
+    }).join('');
+  }
+
+  // Apply data-split attributes
+  document.querySelectorAll('[data-split]').forEach(el => {
+    el.innerHTML = splitChars(el.getAttribute('data-split'));
+  });
+
+  // Hero marquee content (dupe pour scroll infini)
+  const HERO_WORDS = ['JOURNAL', '·', 'CARNET', '·', 'CAS RÉELS', '·'];
+  const heroMarq = document.getElementById('heroMarquee');
+  if (heroMarq) {
+    let html = '';
+    for (let i = 0; i < 8; i++) html += HERO_WORDS.map(w => `<span>${w}</span>`).join('');
+    heroMarq.innerHTML = html;
+  }
+
+  // Featured ribbon
+  const ribbon = document.getElementById('featRibbon');
+  if (ribbon) {
+    let r = '';
+    for (let i = 0; i < 6; i++) r += '<span>À LA UNE</span><span>·</span>';
+    ribbon.innerHTML = r;
+  }
+
+  // ═════ SCENES ═════
+  function buildScene(kind) {
+    if (kind === 'night') {
+      let stars = '';
+      for (let i = 0; i < 28; i++) {
+        stars += `<span style="--x:${Math.random()*100}%;--y:${Math.random()*60}%;--d:${Math.random()*3}s"></span>`;
+      }
+      return `<div class="sc sc-night">
+        <div class="sc-bg"></div>
+        <div class="sc-moon"></div>
+        <div class="sc-stars">${stars}</div>
+        <div class="sc-horizon"></div>
+        <div class="sc-room">
+          <div class="sc-window"></div>
+          <div class="sc-kid"><div class="sc-head"></div><div class="sc-body"></div></div>
+          <div class="sc-device"></div>
         </div>
+      </div>`;
+    }
+    if (kind === 'china') {
+      return `<div class="sc sc-china">
+        <div class="sc-bg"></div>
+        <div class="sc-red-sun"></div>
+        <svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" class="sc-mountain">
+          <path d="M0,120 L30,70 L55,95 L80,50 L110,85 L140,40 L170,78 L200,55 L200,120 Z"/>
+          <path d="M0,120 L40,95 L70,105 L100,88 L130,108 L160,92 L200,102 L200,120 Z" opacity=".6"/>
+        </svg>
+        <span class="sc-grid"></span>
+      </div>`;
+    }
+    if (kind === 'studio') {
+      let waves = '';
+      for (let i = 0; i < 16; i++) waves += `<span style="--i:${i};--r:${Math.random()}"></span>`;
+      return `<div class="sc sc-studio">
+        <div class="sc-bg"></div>
+        <div class="sc-mic"><div class="sc-mhead"></div><div class="sc-mstem"></div></div>
+        <div class="sc-wave">${waves}</div>
+      </div>`;
+    }
+    if (kind === 'office') {
+      return `<div class="sc sc-office">
+        <div class="sc-bg"></div>
+        <div class="sc-desk"></div>
+        <div class="sc-paper"></div>
+        <div class="sc-paper sc-p2"></div>
+        <svg viewBox="0 0 200 140" class="sc-fig">
+          <circle cx="70" cy="50" r="14"/>
+          <path d="M48 120 Q48 80 70 80 Q92 80 92 120 Z"/>
+        </svg>
+      </div>`;
+    }
+    if (kind === 'corp') {
+      return `<div class="sc sc-corp">
+        <div class="sc-bg"></div>
+        <div class="sc-bldg"></div>
+        <div class="sc-bldg b2"></div>
+        <div class="sc-bldg b3"></div>
+        <div class="sc-flash"></div>
+      </div>`;
+    }
+    if (kind === 'desk') {
+      return `<div class="sc sc-desk2">
+        <div class="sc-bg"></div>
+        <div class="sc-laptop">
+          <div class="sc-screen">
+            <div class="sc-srow"></div>
+            <div class="sc-srow s"></div>
+            <div class="sc-srow"></div>
+            <div class="sc-sbtn">GO →</div>
+          </div>
+        </div>
+      </div>`;
+    }
+    if (kind === 'paper') {
+      return `<div class="sc sc-paper">
+        <div class="sc-bg"></div>
+        <div class="sc-sheet">
+          <div class="sc-slash"></div>
+          <div class="sc-slash"></div>
+          <div class="sc-slash short"></div>
+        </div>
+      </div>`;
+    }
+    if (kind === 'abstract') {
+      return `<div class="sc sc-abstract">
+        <div class="sc-bg"></div>
+        <div class="sc-circle c1"></div>
+        <div class="sc-circle c2"></div>
+        <div class="sc-circle c3"></div>
+      </div>`;
+    }
+    if (kind === 'matrix') {
+      let cols = '';
+      for (let i = 0; i < 8; i++) {
+        let bits = '';
+        for (let j = 0; j < 10; j++) bits += `<span>${Math.random() > .5 ? '1' : '0'}</span>`;
+        cols += `<span class="sc-col" style="--d:${Math.random()*2}s;--s:${1+Math.random()}s">${bits}</span>`;
+      }
+      return `<div class="sc sc-matrix">
+        <div class="sc-bg"></div>
+        <div class="sc-cols">${cols}</div>
+      </div>`;
+    }
+    // minimal (default)
+    return `<div class="sc sc-minimal">
+      <div class="sc-bg"></div>
+      <div class="sc-x"></div>
+      <div class="sc-dot"></div>
+    </div>`;
+  }
+
+  // ═════ FEATURED render ═════
+  (function renderFeatured() {
+    const f = FEATURED;
+    const a = document.getElementById('featured');
+    a.href = `articles/${f.slug}.html`;
+    document.getElementById('featTitle').innerHTML = splitChars(f.title);
+    document.getElementById('featExcerpt').textContent = f.excerpt;
+    document.getElementById('featDate').textContent = formatDate(f.date);
+    document.getElementById('featTag').textContent = TYPE_LABELS[f.type].label;
+    document.getElementById('featRead').textContent = f.read;
+    document.getElementById('featNum').textContent = `N° ${String(ALL_ARTICLES.length).padStart(2, '0')}`;
+    const scene = document.getElementById('featScene');
+    scene.insertAdjacentHTML('afterbegin', buildScene(f.scene));
+
+    // Glow tracking
+    a.addEventListener('mousemove', e => {
+      const r = a.getBoundingClientRect();
+      a.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+      a.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+    });
+  })();
+
+  // ═════ FILTERS ═════
+  const filtersEl = document.getElementById('filters');
+  const indEl = document.getElementById('filterInd');
+  let activeCat = 'all';
+
+  // Counts (including featured)
+  const counts = { all: ALL_ARTICLES.length };
+  ALL_ARTICLES.forEach(a => { counts[a.type] = (counts[a.type] || 0) + 1; });
+
+  CATEGORIES.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'b-filter-btn' + (c.id === 'all' ? ' is-on' : '');
+    btn.dataset.cat = c.id;
+    btn.innerHTML = `<span class="b-filter-label">${c.label}</span><span class="b-filter-count">${counts[c.id] || 0}</span>`;
+    btn.addEventListener('click', () => setCategory(c.id));
+    filtersEl.appendChild(btn);
+  });
+
+  function moveIndicator() {
+    const btn = filtersEl.querySelector(`[data-cat="${activeCat}"]`);
+    if (!btn) return;
+    const wrapRect = filtersEl.getBoundingClientRect();
+    const r = btn.getBoundingClientRect();
+    const cat = CATEGORIES.find(c => c.id === activeCat);
+    const colorMap = { ink: 'var(--ink)', fuchsia: 'var(--fuchsia)', orange: 'var(--orange)', teal: 'var(--teal)' };
+    indEl.style.left = (r.left - wrapRect.left) + 'px';
+    indEl.style.width = r.width + 'px';
+    indEl.style.background = colorMap[cat.color] || 'var(--ink)';
+  }
+
+  function setCategory(cat) {
+    activeCat = cat;
+    filtersEl.querySelectorAll('.b-filter-btn').forEach(b => {
+      b.classList.toggle('is-on', b.dataset.cat === cat);
+    });
+    moveIndicator();
+    renderGrid();
+  }
+
+  // ═════ GRID ═════
+  const gridEl = document.getElementById('grid');
+  const emptyEl = document.getElementById('empty');
+  const filtersCountEl = document.getElementById('filtersCount');
+
+  function buildCard(a, index) {
+    const meta = TYPE_LABELS[a.type];
+    const num = String(ALL_ARTICLES.length - 1 - index).padStart(2, '0');
+    return `
+      <a class="art art-${a.type} size-${a.size}" href="articles/${a.slug}.html"
+         style="--d:${0.08 + (index % 6) * 0.08}s">
+        <div class="art-scene">${buildScene(a.scene)}</div>
+        <div class="art-body">
+          <div class="art-tagrow">
+            <span class="art-tag">${meta.label}</span>
+            <span class="art-num">N° ${num}</span>
+          </div>
+          <h3 class="art-title">${a.title}</h3>
+          <p class="art-excerpt">${a.excerpt}</p>
+          <div class="art-foot">
+            <span class="art-meta">${formatDate(a.date)} · ${a.read}</span>
+            <span class="art-arrow">
+              <svg viewBox="0 0 18 10"><path d="M0 5 L14 5 M10 1 L14 5 L10 9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+          </div>
+        </div>
+        <span class="art-glow" aria-hidden="true"></span>
+        <span class="art-corner" aria-hidden="true"></span>
       </a>
     `;
   }
 
-  function renderGrid(filter) {
-    const grid = document.getElementById('artsGrid');
-    const empty = document.getElementById('artsEmpty');
-    const items = filter === 'all' ? ARTICLES : ARTICLES.filter(a => a.type === filter);
-    grid.innerHTML = items.map(renderCard).join('');
-    document.getElementById('artsVisibleCount').textContent = items.length;
-    empty.classList.toggle('show', items.length === 0);
-    grid.style.display = items.length === 0 ? 'none' : 'grid';
-  }
+  function renderGrid() {
+    const list = activeCat === 'all' ? REST : REST.filter(a => a.type === activeCat);
+    gridEl.innerHTML = list.map(buildCard).join('');
+    const total = activeCat === 'all'
+      ? ALL_ARTICLES.length
+      : (FEATURED.type === activeCat ? list.length + 1 : list.length);
+    filtersCountEl.textContent = total;
+    const isEmpty = list.length === 0;
+    emptyEl.hidden = !isEmpty;
+    gridEl.style.display = isEmpty ? 'none' : '';
 
-  function updateCounts() {
-    const counts = ARTICLES.reduce((acc, a) => {
-      acc[a.type] = (acc[a.type] || 0) + 1;
-      return acc;
-    }, {});
-    document.getElementById('count-all').textContent = ARTICLES.length;
-    Object.keys(TYPE_LABELS).forEach(t => {
-      const el = document.getElementById(`count-${t}`);
-      if (el) el.textContent = counts[t] || 0;
+    // Re-arm IntersectionObserver pour les cartes
+    armReveal(gridEl.querySelectorAll('.art'));
+
+    // Card mouse tracking (tilt + glow)
+    gridEl.querySelectorAll('.art').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${((e.clientX - r.left)/r.width)*100}%`);
+        el.style.setProperty('--my', `${((e.clientY - r.top)/r.height)*100}%`);
+        el.style.setProperty('--rx', `${((e.clientY - r.top)/r.height - .5) * -4}deg`);
+        el.style.setProperty('--ry', `${((e.clientX - r.left)/r.width - .5) * 5}deg`);
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+      });
     });
   }
 
-  // Init
-  updateCounts();
-  renderGrid('all');
+  // ═════ REVEAL on scroll ═════
+  function armReveal(nodes) {
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(n => n.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    nodes.forEach(n => {
+      // immediate check
+      const r = n.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        n.classList.add('in');
+      } else {
+        io.observe(n);
+      }
+    });
+  }
 
-  // Filter clicks
-  document.getElementById('artsFilters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.arts-filter-btn');
-    if (!btn) return;
-    document.querySelectorAll('.arts-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderGrid(btn.dataset.filter);
+  // ═════ COUNT-UP stats ═════
+  function countUp(el, target, duration = 1400) {
+    const ease = x => 1 - Math.pow(1 - x, 3);
+    let t0;
+    function tick(t) {
+      if (!t0) t0 = t;
+      const p = Math.min(1, (t - t0) / duration);
+      el.textContent = Math.round(target * ease(p));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ═════ INIT ═════
+  function init() {
+    // Hero animations
+    const hero = document.getElementById('bHero');
+    armReveal([hero]);
+    setTimeout(() => {
+      countUp(document.getElementById('statArticles'), ALL_ARTICLES.length);
+      countUp(document.getElementById('statCats'), CATEGORIES.length - 1);
+      countUp(document.getElementById('statYear'), 2026, 1800);
+    }, 200);
+
+    // Featured + News reveal
+    armReveal([document.getElementById('featured'), document.getElementById('bNews')]);
+
+    // Filters indicator
+    requestAnimationFrame(() => moveIndicator());
+    window.addEventListener('resize', moveIndicator);
+
+    // Grid
+    renderGrid();
+  }
+
+  init();
+
+  // ═════ NEWSLETTER form (Resend via /api/subscribe) ═════
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = document.getElementById('bNewsStatus');
+      const btnLabel = form.querySelector('.b-news-btn-label');
+      const input = form.querySelector('input[type="email"]');
+      const email = input.value.trim();
+      if (!email) return;
+      btnLabel.textContent = 'ENVOI…';
+      status.textContent = '';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: form.dataset.newsletter || 'articles-page' })
+        });
+        if (res.ok || res.status === 409) {
+          btnLabel.textContent = 'INSCRIT.';
+          status.textContent = res.status === 409 ? 'Tu es déjà dedans, merci.' : 'Inscrit. Premier envoi vendredi 9h.';
+          input.value = '';
+        } else {
+          throw new Error('subscribe failed');
+        }
+      } catch (err) {
+        btnLabel.textContent = "S'INSCRIRE";
+        status.textContent = 'Oups, réessaie dans une minute.';
+      }
+    });
   });
 </script>
 

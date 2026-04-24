@@ -1,5 +1,39 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · Refonte design `/articles` — « Le Journal »
+
+### Pourquoi
+Le catalogue `/articles` créé plus tôt dans la journée fonctionnait mais restait basique (hero compact + grille de cards plates). Jeremy a livré un design Blog (zip JSX/CSS canvas) beaucoup plus identitaire — gros titre split-char animé, featured dark avec ribbon « À LA UNE », filtres pills à indicateur glissant, grille masonry avec scènes CSS illustrées par article (nuit, matrix, china, studio, office, paper, abstract, corp, desk, minimal), CTA newsletter fuchsia. Objectif : faire de la page un vrai « journal » plutôt qu'une liste.
+
+### Livré
+- **`articles.html`** entièrement réécrit (~1100 lignes) en intégrant le design Blog adapté React → vanilla JS (la stack du site est sans framework).
+  - Hero animé : kicker pulse, count-up stats (21 articles · 5 catégories · 2026), titre `CE QUE J'ÉCRIS / QUAND JE PENSE.` (ligne 2 en gradient teal→fuchsia→orange sweep), marquee de fond rotaté `JOURNAL · CARNET · CAS RÉELS`.
+  - **Featured** = article le plus récent (monde-ia-5-10-20-ans) — ribbon `À LA UNE` animé + scène nuit (lune, étoiles, fenêtre, enfant, device IA), tag OPINION + lecture, CTA fuchsia avec shimmer.
+  - **Filtres pills** avec indicateur glissant teinté par catégorie (TOUT · OPINIONS · TUTOS · CAS RÉELS · VULGARISATION · PODCAST). Compteurs auto.
+  - **Grille masonry** 3 colonnes (size:m span 2 rows, size:s span 1) + grid-auto-flow:dense pour combler les vides. Hover 3D (perspective+rotateX/Y) + glow radial trackant la souris.
+  - **10 scènes CSS** illustrées (nuit/china/studio/office/corp/desk/paper/abstract/matrix/minimal) appliquées par slug d'article. Aucune image bitmap, full CSS animations.
+  - **Newsletter CTA fuchsia** wired à `/api/subscribe` (Resend) — état envoi, succès, déjà inscrit (409), erreur.
+  - Conservé : nav-v2 sitewide, footer global avec liens YouTube/IG/LinkedIn, theme toggle, triple-stripe canonique.
+  - Reveal animations via IntersectionObserver (hero, featured, news, cards) — pas de bibliothèque.
+
+### Validation
+Test dev-browser headless 1440×900 :
+- Light + dark mode OK (background blobs visibles, dark mode bascule via `data-theme`).
+- 20 cards rendues (21 - 1 featured), 6 boutons filtres, statistiques count-up animées.
+- Filter `opinion` = 4 cartes (5 opinions − 1 featured monde-ia) ✓
+- Featured rend correctement la scène nuit + ribbon + CTA.
+- Pas d'erreur console, pas de 404.
+
+### Fichiers touchés
+`articles.html` (réécriture complète), `CHANGELOG.md`.
+
+### À venir
+- Si besoin, exposer un toggle layout (masonry / uniform) — actuellement masonry forcé.
+- Préload des fonts pour éviter le FOUC sur le titre split-char.
+- Étendre le design « Journal » à `/podcast` (cohérence) si Jeremy valide le rendu.
+
+---
+
 ## 2026-04-24 · Nav Jerwis v2 propagée + page `/articles`
 
 ### Pourquoi

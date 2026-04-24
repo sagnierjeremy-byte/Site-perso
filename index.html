@@ -2646,7 +2646,8 @@
         // Pas de badge sur certaines cards (problème de positionnement ou
         // redondant visuellement). On les compte quand même dans la dédup.
         const skipBadge = el.classList.contains('alaune-card') ||
-                          el.classList.contains('project-card');
+                          el.classList.contains('project-card') ||
+                          el.classList.contains('op-card');
         if (!skipBadge) {
           const cs = getComputedStyle(el);
           if (cs.position === 'static') el.style.position = 'relative';

@@ -1,5 +1,21 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · Byline SEO uniformisée + photo de profil sur 15 articles
+
+### Pourquoi
+La tagline `Entrepreneur · pas dev · décrypte la géopolitique avec Claude` (et variantes) était maintenue à la main par article — lourd à gérer. Pas de photo de profil → signal EEAT plus faible et byline « anonyme » visuellement.
+
+### Livré
+- **Photo ronde 42px** (`A7100670.jpg`, le portrait validé déjà utilisé sur la home, object-position: center 25%) ajoutée à gauche du nom.
+- **Tagline universelle** `Je teste l'IA tous les jours · Je partage ce qui m'a servi` — alignée avec le pitch central de la home, durable, ton Leo.
+- Propagée sur les 15 articles via script Python qui préserve la date `Publié X · MAJ Y` par article.
+- Dates conservées par article (15 dates différentes maintenues).
+
+### Fichiers touchés
+15 articles dans `articles/*.html`, `CHANGELOG.md`.
+
+---
+
 ## 2026-04-24 · Fix chevauchement TL;DR / byline SEO sur 15 articles
 
 ### Pourquoi

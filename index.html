@@ -2488,12 +2488,16 @@
       const pub = new Date(parts[0], parts[1] - 1, parts[2]);
       const diffDays = (now - pub.getTime()) / (1000 * 60 * 60 * 24);
       if (diffDays >= 0 && diffDays <= NEW_THRESHOLD_DAYS) {
-        const cs = getComputedStyle(el);
-        if (cs.position === 'static') el.style.position = 'relative';
-        const badge = document.createElement('span');
-        badge.className = 'new-badge';
-        badge.textContent = 'Nouveau';
-        el.appendChild(badge);
+        // Pas de badge sur les cards "À la une" (tout y est nouveau par définition)
+        // mais on les compte quand même dans la dédup pour le compteur pulse bar
+        if (!el.classList.contains('alaune-card')) {
+          const cs = getComputedStyle(el);
+          if (cs.position === 'static') el.style.position = 'relative';
+          const badge = document.createElement('span');
+          badge.className = 'new-badge';
+          badge.textContent = 'Nouveau';
+          el.appendChild(badge);
+        }
 
         // Dédupe par href pour ne compter qu'une fois chaque item
         const href = el.getAttribute('href') || el.querySelector('a[href]')?.getAttribute('href') || el.id;

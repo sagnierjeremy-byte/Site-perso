@@ -219,7 +219,7 @@
     <div class="kicker"><span class="dot"></span>Making-of · Projet interne · Eurofiscalis</div>
     <h1>On a viré <em class="fuchsia">Calendly.</em><br>Voici comment on<br>a construit le <em>nôtre.</em></h1>
     <p class="hero-lead">
-      Un dimanche soir de mars, j'en ai eu marre de payer un abonnement par mois et par personne pour 20 pages de rendez-vous toutes différentes les unes des autres. Une semaine plus tard, on avait notre propre outil de réservation, à notre charte, hébergé chez nous. Aujourd'hui 20 personnes l'utilisent au quotidien. Le récit honnête, sans filtre, de comment on a fait.
+      Un dimanche soir de mars, j'en ai eu marre de payer un abonnement par mois et par personne pour 20 pages de rendez-vous toutes différentes les unes des autres. Une semaine plus tard, on avait notre propre outil de réservation, à notre charte, hébergé chez nous. Et derrière, un back-office complet où chaque conseiller pilote sa page, ses créneaux, sa signature email. Aujourd'hui 20 personnes l'utilisent au quotidien. Le récit honnête, sans filtre, de comment on a fait.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>15 min</strong> de lecture</span>
@@ -236,7 +236,7 @@
     <ul>
       <li><strong>Le déclencheur</strong> : pas le prix de Calendly. Le vrai problème, c'était l'incapacité à mettre notre charte graphique et nos avis clients.</li>
       <li><strong>L'équipe</strong> : moi tout seul du dimanche au vendredi soir, avec Claude Code comme co-pilote. Max, notre dev, est arrivé sur la fin pour la sécurité et la mise en ligne.</li>
-      <li><strong>Le résultat</strong> : un outil qu'on contrôle à 100 %, branchée sur les agendas Outlook de l'équipe, avec rappels automatiques et signatures email cohérentes.</li>
+      <li><strong>Le résultat</strong> : un outil qu'on contrôle à 100 %, branché sur les agendas Outlook de l'équipe, avec rappels automatiques, signatures email cohérentes et un back-office où chacun pilote sa page seul.</li>
       <li><strong>Aujourd'hui</strong> : <strong>20 personnes</strong> chez Eurofiscalis l'utilisent tous les jours. Plus de 500 rendez-vous passés depuis la mise en ligne.</li>
       <li><strong>Le coût</strong> : on est passés de <strong>320 dollars par mois</strong> chez Calendly à <strong>environ 30 € par mois</strong> de serveurs. 80 % d'économie, et on n'est plus dépendants d'un outil tiers.</li>
     </ul>
@@ -364,6 +364,16 @@
         <h4>Mise en ligne</h4>
         <p>On déploie sur Vercel (l'hébergeur qui fait tourner les sites Next.js en quelques clics). On pointe un nom de domaine · <code>booking.eurofiscalis.app</code>. Les 20 premiers conseillers sont créés, photo + pitch chargés. À 19h, le premier rendez-vous est pris par un client réel.</p>
       </div>
+      <div class="tl-item">
+        <div class="tl-year">Semaines 2-3</div>
+        <h4>Le back-office (la vraie galère pas anticipée)</h4>
+        <p>J'avais cru qu'on aurait juste 20 pages publiques + Outlook synchronisé. Erreur. Sans interface admin, je devais aller dans la base de données à la main pour ajouter un conseiller, changer son pitch, mettre à jour sa photo. Ingérable. On a construit en deux semaines un vrai back-office complet · onboarding autonome, configuration page perso, gestion des dispos, générateur de signature email, fonds virtuels visio téléchargeables.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Avril · 4 semaines après</div>
+        <h4>Polish + RDV à 2 + audit sécurité</h4>
+        <p>On itère en continu sur les retours de l'équipe. Max repasse dessus pour un audit complet (5 phases · failles XSS, permissions base, monitoring, accessibilité). On ajoute la fonction <strong>RDV à 2</strong> (deux conseillers présents en même temps), un mode debug, des rappels 15 minutes avant. C'est devenu l'outil quotidien de toute la boîte.</p>
+      </div>
     </div>
 
     <div class="callout ok">
@@ -402,6 +412,91 @@
     <p>
       Le rendez-vous à deux, en particulier, a complètement débloqué une tension qu'on avait depuis longtemps · les passages de relais entre commerciaux et conseillers techniques. Avant, on enchaînait deux rendez-vous distincts, le client avait l'impression de répéter son histoire deux fois. Maintenant, c'est un seul créneau, deux personnes en face, un vrai sentiment de continuité.
     </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Le back-office</span><span>Que l'équipe pilote</span><span>Onboarding autonome</span><span>Signatures harmonisées</span><span>Fonds virtuels visio</span>
+    <span>Le back-office</span><span>Que l'équipe pilote</span><span>Onboarding autonome</span><span>Signatures harmonisées</span><span>Fonds virtuels visio</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Derrière le rideau</span>
+    <h2>Le back-office <em class="orange">que l'équipe pilote.</em></h2>
+    <p>
+      Ce que je n'avais pas anticipé en démarrant : <strong>l'outil public, ce n'est que la moitié du travail</strong>. L'autre moitié, c'est tout ce que l'équipe doit pouvoir piloter elle-même · configurer sa page, ouvrir et fermer ses créneaux, modifier son pitch, mettre à jour sa photo, gérer ses absences, générer sa signature email. Au début, je faisais tout ça à la main dans la base de données. Au bout de 5 conseillers, c'était ingérable. On a construit un vrai back-office en deux semaines de plus.
+    </p>
+
+    <h3>Configurer sa page de réservation</h3>
+    <p>
+      C'est la page que voit chaque conseiller pour piloter son propre profil. Une seule URL (<code>/ma-page-rdv</code>), tout est dedans · le lien public à partager, les types de RDV (Consultation 30 min, Consultation TVA, ce que tu veux), les disponibilités semaine par semaine avec pause déjeuner, les paramètres de réservation (combien de jours à l'avance, combien d'heures avant minimum). Et la fameuse fonction <strong>RDV à 2</strong> · tu cliques, tu choisis un collègue, l'outil te génère un lien spécial qui ne propose que les créneaux où vous êtes tous les deux libres.
+    </p>
+
+    <div class="showcase">
+      <img src="../photos/booking/ma-page-rdv.png" alt="Back-office Booking Eurofiscalis · Page Ma page de RDV avec configuration types et disponibilités" loading="lazy">
+      <div class="caption">↗ Page <code>/ma-page-rdv</code> · chaque conseiller pilote la sienne en autonomie</div>
+    </div>
+
+    <p>
+      Ce qui a fait la différence côté équipe, c'est l'<strong>autonomie totale</strong>. Avant le back-office, une conseillère qui voulait changer son pitch m'envoyait un mail, j'ouvrais Supabase, je modifiais à la main, c'était en ligne le soir. Maintenant elle va dans <code>/ma-page-rdv</code>, elle modifie le champ, c'est en ligne dans 10 secondes. Pour elle, sentiment de contrôle. Pour moi, fin des 50 demandes par semaine.
+    </p>
+
+    <h3>La signature email harmonisée (le truc qui m'a le plus surpris)</h3>
+    <p>
+      Sur la page <code>/mes-outils</code>, tu trouves un générateur qui construit la signature email officielle de chaque conseiller à partir des mêmes données (photo, titre, téléphone, lien de réservation, sites Eurofiscalis). Tu cliques sur « Copier », tu colles dans Outlook, c'est fini. Toute l'équipe a la même signature impeccable. Avec le code VML pour qu'elle s'affiche correctement même dans Outlook Windows ancienne génération · ça m'a coûté 4 itérations à comprendre.
+    </p>
+
+    <div class="showcase">
+      <img src="../photos/booking/mes-outils.png" alt="Back-office Booking Eurofiscalis · Page Mes outils avec signature email, gestion absences et fonds virtuels visio" loading="lazy">
+      <div class="caption">↗ Page <code>/mes-outils</code> · signature email · absences · fonds virtuels Eurofiscalis</div>
+    </div>
+
+    <p>
+      Sur cette même page, deux outils que je n'avais pas prévus mais qui sont vite devenus indispensables :
+    </p>
+
+    <ul>
+      <li><strong>La gestion d'absence / vacances</strong> · tu poses une période, l'outil bloque automatiquement tes créneaux de réservation et redirige vers un collègue de ton choix. Plus jamais de RDV pris pendant qu'un commercial est en vacances.</li>
+      <li><strong>Les fonds virtuels visio</strong> · 4 décors Eurofiscalis téléchargeables (bureau jour, bureau nuit, bureau roof, fond tech). À mettre derrière soi en visio Teams ou Zoom. Tout le monde a la même image de marque sans effort.</li>
+    </ul>
+
+    <h3>Les autres pages du back-office</h3>
+    <p>
+      Pour faire le tour, voici les 5 pages que tout conseiller voit dans la barre latérale gauche :
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>Pour qui</th><th>À quoi ça sert</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>/mon-compte</code></td><td>Tout le monde</td><td>Email, mot de passe, fuseau horaire, photo de profil avec recadrage en cercle.</td></tr>
+          <tr><td><code>/ma-page-rdv</code></td><td>Tout le monde</td><td>Page publique : titre, pitch, types de RDV, disponibilités, paramètres, RDV à 2.</td></tr>
+          <tr><td><code>/mes-outils</code></td><td>Tout le monde</td><td>Signature email, gestion d'absence, fonds virtuels visio, instructions Teams.</td></tr>
+          <tr><td><code>/equipe</code></td><td>Admins seulement</td><td>Vue d'ensemble des 20 conseillers, qui a connecté Outlook, qui non. Création / désactivation de comptes.</td></tr>
+          <tr><td><code>/templates</code></td><td>Admins seulement</td><td>Édition des templates email (confirmation, rappel J-1, rappel 15 min). Aperçu en direct.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>L'onboarding autonome (la fonction qui a tout changé)</h4>
+      <p>Quand un nouveau conseiller arrive chez Eurofiscalis, il reçoit un lien d'invitation. Il clique, crée son compte, configure sa page perso (titre, pitch, photo, types de RDV, dispos) en 10 minutes, et c'est en ligne. <strong>Zéro intervention de ma part</strong>. Cette fonction toute simple a fait que les 20 conseillers ont été déployés en moins d'une journée, alors que l'inscription manuelle un par un m'aurait pris une semaine.</p>
+    </div>
+
+    <h3>Ce que j'ai appris en construisant le back-office</h3>
+    <p>
+      Trois leçons qui valent pour n'importe quel outil interne, pas que pour un Calendly maison :
+    </p>
+    <ol>
+      <li><strong>Le public, c'est 50 % du boulot. Le back-office, c'est l'autre 50 %.</strong> Ne pas le sous-estimer dans le planning. Si tu veux 20 utilisateurs autonomes, prévois autant de temps sur l'admin que sur la partie visible.</li>
+      <li><strong>L'autonomie utilisateur change tout.</strong> Si l'équipe peut modifier elle-même, elle adopte. Si elle doit te demander pour chaque modif, elle abandonne.</li>
+      <li><strong>Les petits trucs annexes (signature email, fonds visio) rapportent gros.</strong> Ce ne sont pas des fonctions « cœur », mais c'est ce qui fait que les commerciaux te disent « franchement, tu as bien fait, ça nous fait gagner du temps tous les jours ».</li>
+    </ol>
   </div>
 </section>
 

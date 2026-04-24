@@ -1,5 +1,32 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · article « On a viré Calendly » V2 — ajout section back-office
+
+### Pourquoi (suite)
+Sur demande de Jérémy, ajout d'une section dédiée au back-office (la galère imprévue qu'on n'avait pas anticipée). Article passé de 647 → 742 lignes (+95). Timeline étendue avec 2 items (semaines 2-3 back-office + 4 semaines après pour polish + RDV à 2 + audit Max).
+
+### Livré V2
+- **Nouvelle section** « Le back-office que l'équipe pilote tous les jours » (entre « 3 features » et « Stack technique »)
+  · Sous-section « Configurer sa page de réservation » avec showcase image `ma-page-rdv.png`
+  · Sous-section « La signature email harmonisée » avec showcase image `mes-outils.png`
+  · Listing des 5 pages du back-office (tableau : /mon-compte, /ma-page-rdv, /mes-outils, /equipe, /templates)
+  · Callout « L'onboarding autonome » (la fonction qui a tout changé)
+  · 3 leçons apprises sur les outils internes
+- **Timeline étendue** de 7 à 9 items : ajout J5 « back-office (galère pas anticipée) » et « Avril · 4 semaines après · polish + RDV à 2 + audit »
+- **Hero-lead enrichi** : mention « back-office complet où chaque conseiller pilote sa page »
+- **TL;DR** : 3e puce reformulée pour mentionner back-office
+- **Mini-marquee** ajoutée avant la section back-office (« Onboarding autonome · Signatures harmonisées · Fonds virtuels visio »)
+- **2 nouveaux screenshots** dans `photos/booking/` :
+  - `ma-page-rdv.png` (343 KB) — page de configuration de la page RDV avec mes liens, types, dispos, RDV à 2
+  - `mes-outils.png` (628 KB optimisé depuis 1.4 MB) — signature email avec preview, gestion absence, fonds virtuels visio Eurofiscalis
+
+### Fichiers touchés
+- `articles/booking-eurofiscalis-making-of.html` (+95 lignes, 742 total)
+- `photos/booking/ma-page-rdv.png` + `mes-outils.png` (nouveaux)
+- `CHANGELOG.md` (cette entrée)
+
+---
+
 ## 2026-04-24 · article « On a viré Calendly » + project card #3 sur la home
 
 ### Pourquoi

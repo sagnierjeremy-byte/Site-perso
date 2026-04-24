@@ -1,5 +1,30 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · Setup SEO complet (GSC + sitemap + Plausible + DNS primary)
+
+### Pourquoi
+Premier setup SEO du site après le go-live du 2026-04-22. Objectif : se rendre visible de Google, suivre le trafic, corriger les incohérences techniques qui diluent le SEO (www vs non-www, redirect temporaire).
+
+### Livré
+- **Google Search Console** configuré avec propriété `jerwis.fr` (mode Domaine). Vérification DNS automatisée via API Hostinger (TXT `google-site-verification=82DMITs...` ajouté en préservant le SPF email existant).
+- **Sitemap soumis** dans GSC : 24 URLs découvertes, "Opération effectuée".
+- **Redirect primary basculé** `www.jerwis.fr` → `jerwis.fr` (308 permanent) via Vercel Domains. Le site servait en `www` avec redirect 307 temporaire, incohérent avec les canonicals et sitemap en `jerwis.fr` — tout est maintenant aligné.
+- **Plausible Analytics** installé sur les 33 pages HTML publiques (snippet juste avant `</head>`). Choix vs GA4 motivé par zéro bannière cookies + dashboard lisible. Remplace le TODO historique "Ajouter Vercel Analytics ou Plausible".
+- **Backup DNS** Hostinger sauvegardé dans `/tmp/jerwis-dns-backup-20260424-214119.json` avant modif.
+
+### Fichiers touchés
+Les 33 HTML publiques : `index.html`, `apprendre.html`, `articles.html`, `claude-code.html`, `debutant.html`, `github.html`, `lexique.html`, `outils.html`, `podcast.html`, `preferences.html`, `quiz.html`, `workflows.html` + 23 articles dans `articles/*.html`. `CHANGELOG.md`.
+
+### À venir
+- [ ] Corriger l'avertissement "DNS Change Recommended" Vercel (record A jerwis.fr à migrer via API Hostinger)
+- [ ] Soumettre les 5 pages clés via "Inspection URL" dans GSC (quota 10/jour)
+- [ ] Créer Service Account Google Cloud pour auto-indexation via Indexing API (auto-ping à chaque publi)
+- [ ] Activer IndexNow (Bing/Yandex) — 5 min de setup
+- [ ] Setup Bing Webmaster Tools (import depuis GSC en 1 clic)
+- [ ] Supprimer le TODO "Kill ancien projet Vercel" (safe maintenant que domaine en primary)
+
+---
+
 ## 2026-04-24 · Byline SEO uniformisée + photo de profil sur 15 articles
 
 ### Pourquoi

@@ -1,5 +1,20 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-24 · Fix chevauchement TL;DR / byline SEO sur 15 articles
+
+### Pourquoi
+Sur les 15 articles avec `seo-byline` (pill auteur + date insérée pour le SEO), le TL;DR juste en dessous remontait de 40px (`margin-top: -40px`, effet « remontée sur hero » prévu à l'origine) et écrasait la byline. Visuellement : la pill blanche dépassait derrière le TL;DR avec un coin arrondi cassé.
+
+### Livré
+- `assets/nav-v2.css` : ajout d'un sélecteur sibling `.seo-byline + .container > .tldr, .seo-byline + .tldr { margin-top: 16px !important; }` qui annule le négatif uniquement quand une byline précède le TL;DR.
+- Les 7 articles sans byline gardent leur effet remontée (-40px sur hero dark).
+- Validé dev-browser : loops-claude (avec byline) = gap +16px, superpowers (sans) = margin-top -40px conservé.
+
+### Fichiers touchés
+`assets/nav-v2.css`, `CHANGELOG.md`.
+
+---
+
 ## 2026-04-24 · Refonte design `/articles` — « Le Journal »
 
 ### Pourquoi

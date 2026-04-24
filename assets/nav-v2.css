@@ -100,3 +100,14 @@ body > header.article-header { display: none !important; }
 @media (max-width: 560px) {
   .mini-nav .brand-stamp { transform: rotate(-2deg); }
 }
+
+/* ============================================================
+ * Article fix · TL;DR ne doit pas chevaucher la byline SEO
+ * Le .tldr a un margin-top:-40px (effet remontée sur hero dark).
+ * Quand une .seo-byline est insérée entre les deux, elle se fait
+ * écraser. Override : si la byline précède, on annule le négatif.
+ * ============================================================ */
+.seo-byline + .container > .tldr,
+.seo-byline + .tldr {
+  margin-top: 16px !important;
+}

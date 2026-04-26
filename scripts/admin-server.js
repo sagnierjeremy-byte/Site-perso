@@ -249,13 +249,17 @@ async function fetchResendContacts() {
   });
   if (!r.ok) throw new Error(`Resend API HTTP ${r.status}`);
   const data = await r.json();
-  const contacts = (data?.data || []).map(c => ({
-    email: c.email,
-    firstName: c.first_name || '',
-    source: 'resend-audience',
-    createdAt: c.created_at,
-    unsubscribed: c.unsubscribed || false,
-  }));
+  const contacts = (data?.data || []).map(c => {
+    const ln = c.last_name || '';
+    const source = ln.startsWith('src:') ? ln.slice(4) : 'direct';
+    return {
+      email: c.email,
+      firstName: c.first_name || '',
+      source,
+      createdAt: c.created_at,
+      unsubscribed: c.unsubscribed || false,
+    };
+  });
   return { provider: 'Resend', contacts };
 }
 

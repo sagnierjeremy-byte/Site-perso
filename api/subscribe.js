@@ -46,6 +46,9 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           email: email.toLowerCase().trim(),
           first_name: firstName || undefined,
+          // Resend ne supporte pas les attributs custom · on stocke la source
+          // dans last_name avec préfixe `src:` pour la retrouver côté admin
+          last_name: source ? `src:${String(source).slice(0, 60)}` : undefined,
           unsubscribed: false,
         }),
       }

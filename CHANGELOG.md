@@ -1,5 +1,26 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-26 · Tracking source d'inscription newsletter
+
+### Pourquoi
+Plausible mesure les conversions globales (10 form submissions sur la semaine), mais pas par page de provenance. Avec une attribution par source, on saura quelle page de la home/du parcours convertit le mieux (newsletter inline, CTA bottom, freebie download, etc.) — données nécessaires pour optimiser les placements.
+
+### Solution retenue
+Resend audiences ne supporte pas les attributs custom (`properties: {}` toujours vide après POST avec champ ad hoc, vérifié à l'API). Stockage de la source dans `last_name` avec préfixe `src:` (champ inutilisé chez Jérémy). Migration future vers Brevo gérera la vraie segmentation native.
+
+### Livré
+- **`api/subscribe.js`** : POST Resend inclut maintenant `last_name: "src:<source>"` quand une source est fournie (les forms du frontend l'envoient déjà).
+- **`scripts/admin-server.js`** · `fetchResendContacts()` : parse `last_name` pour extraire la source ; fallback "direct" si absent. La page admin "D'où viennent tes inscrits" se peuple automatiquement à partir des prochaines inscriptions.
+
+### Limites assumées
+- Les **23 inscrits existants** apparaîtront tous en "direct" (impossible de reconstituer la source rétroactivement).
+- Source tronquée à 60 caractères pour respecter les limites raisonnables d'un `last_name`.
+
+### Fichiers touchés
+`api/subscribe.js` · `scripts/admin-server.js` · `CHANGELOG.md`.
+
+---
+
 ## 2026-04-26 · Compteur "dernier inscrit" newsletter dans le back-office
 
 ### Pourquoi

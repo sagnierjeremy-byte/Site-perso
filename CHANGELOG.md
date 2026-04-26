@@ -1,5 +1,36 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-26 · Vérif freebies + admin enrichi par newsletter
+
+### Pourquoi
+Doute sur le fait que les forms freebie (CLAUDE.md + pack ZIP) délivrent bien le fichier après inscription (0 inscription `freebie-*` dans l'historique). Et besoin de voir dans l'admin sur quelle newsletter chaque personne est abonnée, pas juste la source brute.
+
+### Vérification freebies (e2e sur prod)
+Test dev-browser sur `https://jerwis.fr/` avec emails mailinator :
+- Form **claude-md** → API 200 `source: freebie-claude-md` + download `https://jerwis.fr/downloads/CLAUDE.md` déclenché ✓
+- Form **pack** → API 200 `source: freebie-pack` + download `https://jerwis.fr/downloads/jeremy-claude-pack.zip` déclenché ✓
+- Status visible sur la page : "✓ Inscrit + téléchargement lancé"
+
+**Conclusion** : les forms fonctionnent parfaitement. Le 0 historique = personne ne les a utilisés (probablement pas scrollés jusque-là). Les contacts test ont été supprimés de Resend (3 mailinators au total, dont 2 traînaient depuis avril).
+
+### Admin enrichi
+- **`scripts/admin-server.js`** :
+  - Nouvelle fonction `parseNewsletters(source)` qui déduit AI Playbook / Business Radar à partir de la source. Règles : `ai-playbook+business-radar` → les 2 ; `ai-playbook` / `multi` / `early-access` / `freebie-*` / `cours-*` / `direct` → AI Playbook ; `business-radar` → BR.
+  - `fetchResendContacts` ajoute `aiPlaybook` et `businessRadar` (booleans) sur chaque contact.
+  - `computeNewsletterStats` retourne `aiPlaybook`, `businessRadar`, `both`, `aiPlaybookOnly`, `businessRadarOnly`.
+- **`admin/modules/newsletter/page.html`** :
+  - Nouvelle section "Répartition par newsletter" avec 3 stat-cards (AIP / BR / Aux deux) + % de l'audience sur chaque.
+  - Colonne "Newsletters" dans la liste des contacts : 2 mini-pills AIP (teal) + BR (fuchsia), colorées si abonné, pointillés si pas.
+  - CSV export enrichi avec colonnes `aiPlaybook` / `businessRadar`.
+
+### État audience
+21 inscrits actifs · 21 sur AI Playbook (100%) · 12 sur Business Radar (57%) · 12 aux deux (57%) · 9 sur AIP seul · 0 sur BR seul.
+
+### Fichiers touchés
+`scripts/admin-server.js` · `admin/modules/newsletter/page.html` · `CHANGELOG.md`. Trois contacts test mailinator supprimés directement sur Resend (audience clean).
+
+---
+
 ## 2026-04-26 · Triple ship · Clarity + honeypot + reconstruction sources
 
 ### Pourquoi

@@ -242,6 +242,22 @@ async function fetchNewsletterContacts() {
   throw new Error('Aucune clé API newsletter configurée (RESEND_API_KEY ou BREVO_API_KEY)');
 }
 
+// Déduit l'inscription par newsletter à partir de la source.
+// AI Playbook est la newsletter principale → tous les freebies, le cours,
+// le CTA early-access et les sources "direct" (avant tracking) y sont rattachés.
+function parseNewsletters(source) {
+  const s = String(source || '').toLowerCase();
+  const aiPlaybook =
+    s.includes('ai-playbook') ||
+    s === 'early-access' ||
+    s.startsWith('freebie-') ||
+    s.startsWith('cours-') ||
+    s === 'direct' ||
+    s === 'multi';
+  const businessRadar = s.includes('business-radar');
+  return { aiPlaybook, businessRadar };
+}
+
 async function fetchResendContacts() {
   const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '58ebf8b3-6200-451d-ad82-998c8fd6e483';
   const r = await fetch(`https://api.resend.com/audiences/${AUDIENCE_ID}/contacts`, {
@@ -252,10 +268,13 @@ async function fetchResendContacts() {
   const contacts = (data?.data || []).map(c => {
     const ln = c.last_name || '';
     const source = ln.startsWith('src:') ? ln.slice(4) : 'direct';
+    const { aiPlaybook, businessRadar } = parseNewsletters(source);
     return {
       email: c.email,
       firstName: c.first_name || '',
       source,
+      aiPlaybook,
+      businessRadar,
       createdAt: c.created_at,
       unsubscribed: c.unsubscribed || false,
     };
@@ -565,19 +584,30 @@ function computeNewsletterStats(contacts) {
   const thirtyD = now - 30 * 86400e3;
   const oneD = now - 86400e3;
   let active = 0, unsub = 0, new7 = 0, new30 = 0, new24h = 0;
+  let aiPlaybook = 0, businessRadar = 0, both = 0, aiPlaybookOnly = 0, businessRadarOnly = 0;
   let lastSubscribedAt = null, lastEmail = null;
   for (const c of contacts) {
     const t = new Date(c.createdAt).getTime();
-    if (c.unsubscribed) unsub++; else active++;
+    if (c.unsubscribed) { unsub++; continue; }
+    active++;
     if (t >= sevenD) new7++;
     if (t >= thirtyD) new30++;
     if (t >= oneD) new24h++;
-    if (!c.unsubscribed && (!lastSubscribedAt || t > new Date(lastSubscribedAt).getTime())) {
+    if (c.aiPlaybook) aiPlaybook++;
+    if (c.businessRadar) businessRadar++;
+    if (c.aiPlaybook && c.businessRadar) both++;
+    if (c.aiPlaybook && !c.businessRadar) aiPlaybookOnly++;
+    if (c.businessRadar && !c.aiPlaybook) businessRadarOnly++;
+    if (!lastSubscribedAt || t > new Date(lastSubscribedAt).getTime()) {
       lastSubscribedAt = c.createdAt;
       lastEmail = c.email;
     }
   }
-  return { total: active, unsub, new7d: new7, new30d: new30, new24h, lastSubscribedAt, lastEmail };
+  return {
+    total: active, unsub, new7d: new7, new30d: new30, new24h,
+    aiPlaybook, businessRadar, both, aiPlaybookOnly, businessRadarOnly,
+    lastSubscribedAt, lastEmail,
+  };
 }
 
 // ---- API ----

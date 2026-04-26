@@ -76,6 +76,30 @@
 
       <div class="pageNote" id="providerNote" style="display:none"></div>
 
+      <!-- Répartition par newsletter -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Répartition par newsletter</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card s-teal">
+            <div class="stat-label">AI Playbook</div>
+            <div class="stat-value" id="statAip">—</div>
+            <div class="stat-hint" id="statAipHint">Vendredi 9h · IA pure</div>
+          </div>
+          <div class="stat-card s-fuchsia">
+            <div class="stat-label">Business Radar</div>
+            <div class="stat-value" id="statBr">—</div>
+            <div class="stat-hint" id="statBrHint">1er & 3e mardi · Business / éco</div>
+          </div>
+          <div class="stat-card s-orange">
+            <div class="stat-label">Inscrits aux deux</div>
+            <div class="stat-value" id="statBoth">—</div>
+            <div class="stat-hint" id="statBothHint">Tes super-fans</div>
+          </div>
+        </div>
+      </section>
+
       <!-- Segments par source -->
       <section class="section">
         <div class="section-head">
@@ -124,11 +148,20 @@
       }
 
       currentProvider = stats.provider || 'resend';
-      document.getElementById('statTotal').textContent = stats.total || 0;
+      const total = stats.total || 0;
+      document.getElementById('statTotal').textContent = total;
       document.getElementById('stat7j').textContent = stats.new7d || 0;
       document.getElementById('stat30j').textContent = stats.new30d || 0;
       document.getElementById('statUnsub').textContent = stats.unsub || 0;
       document.getElementById('statProvider').textContent = `Via ${stats.provider || 'Resend'}`;
+
+      const pct = (n) => total ? Math.round(n / total * 100) : 0;
+      document.getElementById('statAip').textContent = stats.aiPlaybook || 0;
+      document.getElementById('statAipHint').textContent = `${pct(stats.aiPlaybook || 0)}% · vendredi 9h · IA pure`;
+      document.getElementById('statBr').textContent = stats.businessRadar || 0;
+      document.getElementById('statBrHint').textContent = `${pct(stats.businessRadar || 0)}% · 1er & 3e mardi · business`;
+      document.getElementById('statBoth').textContent = stats.both || 0;
+      document.getElementById('statBothHint').textContent = `${pct(stats.both || 0)}% · tes super-fans`;
 
       if (stats.lastSubscribedAt) {
         const card = document.getElementById('lastSubCard');
@@ -183,11 +216,18 @@
       el.innerHTML = `<div class="empty-state"><strong>Aucun inscrit pour l'instant</strong>Tes premiers inscrits apparaîtront ici dès que quelqu'un laisse son email sur le site.</div>`;
       return;
     }
+    const pillStyle = (active, color) =>
+      active
+        ? `background:var(--${color}); color:#fff; padding:3px 9px; border-radius:999px; font-size:10px; font-weight:700; letter-spacing:.04em; text-transform:uppercase`
+        : `background:transparent; color:var(--ink-muted); padding:3px 9px; border-radius:999px; font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; border:1px dashed var(--line-strong)`;
     const rows = contacts.map(c => `
       <tr>
         <td><strong>${escapeHtml(c.email)}</strong></td>
-        <td>${c.firstName ? escapeHtml(c.firstName) : '<span style="color:var(--ink-muted)">—</span>'}</td>
-        <td><span class="tag t-fuchsia">${escapeHtml(c.source || 'direct')}</span></td>
+        <td style="white-space:nowrap">
+          <span style="${pillStyle(c.aiPlaybook, 'teal')}" title="AI Playbook">AIP</span>
+          <span style="${pillStyle(c.businessRadar, 'fuchsia')}; margin-left:4px" title="Business Radar">BR</span>
+        </td>
+        <td><span class="tag t-fuchsia" style="font-size:10px">${escapeHtml(c.source || 'direct')}</span></td>
         <td>${fmtDate(c.createdAt)}</td>
         <td>${c.unsubscribed ? '<span class="tag t-orange">Désinscrit</span>' : '<span class="tag t-teal">Actif</span>'}</td>
       </tr>
@@ -195,7 +235,7 @@
     el.innerHTML = `
       <table class="contact-list">
         <thead>
-          <tr><th>Email</th><th>Prénom</th><th>Source</th><th>Inscrit le</th><th>Statut</th></tr>
+          <tr><th>Email</th><th>Newsletters</th><th>Source</th><th>Inscrit le</th><th>Statut</th></tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>
@@ -220,9 +260,9 @@
       toast('Rien à exporter · la liste est vide', 'info');
       return;
     }
-    const header = 'email,firstName,source,createdAt,unsubscribed\n';
+    const header = 'email,firstName,source,aiPlaybook,businessRadar,createdAt,unsubscribed\n';
     const body = allContacts.map(c =>
-      [c.email, c.firstName || '', c.source || '', c.createdAt || '', c.unsubscribed ? '1' : '0']
+      [c.email, c.firstName || '', c.source || '', c.aiPlaybook ? '1' : '0', c.businessRadar ? '1' : '0', c.createdAt || '', c.unsubscribed ? '1' : '0']
         .map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')
     ).join('\n');
     const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8' });

@@ -243,7 +243,7 @@ async function fetchNewsletterContacts() {
 }
 
 async function fetchResendContacts() {
-  const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '304eb520-82fc-4e4c-be09-cbdaf1a3127f';
+  const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '58ebf8b3-6200-451d-ad82-998c8fd6e483';
   const r = await fetch(`https://api.resend.com/audiences/${AUDIENCE_ID}/contacts`, {
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
   });
@@ -559,14 +559,21 @@ function computeNewsletterStats(contacts) {
   const now = Date.now();
   const sevenD = now - 7 * 86400e3;
   const thirtyD = now - 30 * 86400e3;
-  let active = 0, unsub = 0, new7 = 0, new30 = 0;
+  const oneD = now - 86400e3;
+  let active = 0, unsub = 0, new7 = 0, new30 = 0, new24h = 0;
+  let lastSubscribedAt = null, lastEmail = null;
   for (const c of contacts) {
     const t = new Date(c.createdAt).getTime();
     if (c.unsubscribed) unsub++; else active++;
     if (t >= sevenD) new7++;
     if (t >= thirtyD) new30++;
+    if (t >= oneD) new24h++;
+    if (!c.unsubscribed && (!lastSubscribedAt || t > new Date(lastSubscribedAt).getTime())) {
+      lastSubscribedAt = c.createdAt;
+      lastEmail = c.email;
+    }
   }
-  return { total: active, unsub, new7d: new7, new30d: new30 };
+  return { total: active, unsub, new7d: new7, new30d: new30, new24h, lastSubscribedAt, lastEmail };
 }
 
 // ---- API ----

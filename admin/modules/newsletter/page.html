@@ -33,6 +33,24 @@
         </div>
       </div>
 
+      <div class="stat-card s-fuchsia" id="lastSubCard" style="margin-bottom:18px; display:none">
+        <div class="stat-label">Dernier inscrit</div>
+        <div style="display:flex; flex-wrap:wrap; gap:18px 28px; align-items:baseline">
+          <div>
+            <div class="stat-value" id="lastSubRelative" style="font-size:30px">—</div>
+            <div class="stat-hint" id="lastSubDate" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase">—</div>
+          </div>
+          <div style="flex:1; min-width:240px">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; font-weight:700; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px">Email</div>
+            <div id="lastSubEmail" style="font-family:'Archivo',sans-serif; font-size:16px; font-weight:600; word-break:break-all">—</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; font-weight:700; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px">24h</div>
+            <div style="font-family:'Archivo Black',sans-serif; font-size:24px; line-height:1"><span id="lastSub24h">—</span> <span style="font-size:13px; color:var(--ink-soft); font-family:'Archivo',sans-serif; font-weight:500">nouveaux</span></div>
+          </div>
+        </div>
+      </div>
+
       <div class="stat-grid">
         <div class="stat-card s-teal">
           <div class="stat-label">Inscrits actifs</div>
@@ -111,6 +129,18 @@
       document.getElementById('stat30j').textContent = stats.new30d || 0;
       document.getElementById('statUnsub').textContent = stats.unsub || 0;
       document.getElementById('statProvider').textContent = `Via ${stats.provider || 'Resend'}`;
+
+      if (stats.lastSubscribedAt) {
+        const card = document.getElementById('lastSubCard');
+        card.style.display = '';
+        document.getElementById('lastSubRelative').textContent = fmtRelative(stats.lastSubscribedAt);
+        const d = new Date(stats.lastSubscribedAt);
+        const dateStr = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        const timeStr = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('lastSubDate').textContent = `${dateStr} · ${timeStr}`;
+        document.getElementById('lastSubEmail').textContent = stats.lastEmail || '—';
+        document.getElementById('lastSub24h').textContent = stats.new24h || 0;
+      }
 
       allContacts = contacts.contacts || [];
       renderSources(allContacts);

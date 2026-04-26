@@ -1,5 +1,27 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-26 · Compteur "dernier inscrit" newsletter dans le back-office
+
+### Pourquoi
+Jérémy voulait voir d'un coup d'œil combien de personnes sont inscrites à la newsletter et quand a eu lieu la dernière inscription (date + heure). Décision : admin-only — à 21 inscrits réels, un compteur public dessert. On affiche le total + momentum 24h pour Jérémy uniquement.
+
+### Livré
+- **Carte "Dernier inscrit"** en haut du module `admin/modules/newsletter` (fuchsia, full-width) : "il y a X" + date longue FR + heure (Paris) + email + compteur 24h.
+- **Stats backend enrichies** : `computeNewsletterStats()` renvoie désormais `lastSubscribedAt`, `lastEmail` et `new24h` en plus du total/7d/30d/unsub.
+- **`.env.local` réparé** : `RESEND_API_KEY` et `RESEND_AUDIENCE_ID` décommentés. L'audience ID hardcodé en fallback (`304eb...`, obsolète) remplacé par le vrai ID AI Playbook (`58ebf8b3-6200-451d-ad82-998c8fd6e483`) — l'ancien n'existait plus côté Resend, l'API renvoyait `data: []` au lieu des 23 contacts réels.
+
+### État actuel (2026-04-26 17:30 Paris)
+23 contacts dans l'audience AI Playbook · 21 inscrits réels (2 tests mailinator) · 11 nouveaux dans les dernières 24h · dernier inscrit `e.trebossen@soizeconseil.fr` à 15:37.
+
+### Fichiers touchés
+`.env.local` · `scripts/admin-server.js` (computeNewsletterStats + fallback audience ID) · `admin/modules/newsletter/page.html` (carte + populate dans `load()`) · `CHANGELOG.md`.
+
+### À venir
+- Côté Vercel : vérifier que `RESEND_AUDIENCE_ID` y est bien sur le bon ID (sinon l'inscription en prod écrirait dans une audience fantôme — bug silencieux).
+- Si le compteur public devient pertinent (>300 abonnés), reprendre l'option "momentum 24h" plutôt que total brut.
+
+---
+
 ## 2026-04-25 · Making-of refonte « Le Journal » (draft narratif)
 
 ### Pourquoi

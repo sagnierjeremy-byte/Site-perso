@@ -1996,6 +1996,8 @@
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
     plausible.init()
   </script>
+  <!-- Microsoft Clarity (heatmaps + session replay) -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
 </head>
 <body>
 
@@ -2553,6 +2555,7 @@
         <p>Un seul email à laisser, deux cases à cocher. Prends les deux, ou juste celle qui te parle — c'est toi qui vois. Et si tu veux me répondre à la première édition pour me dire ce que tu en penses, réponds directement au mail. <strong>Je lis tout, je réponds à tout.</strong></p>
       </div>
       <form class="newsletter-unified-form" data-newsletter="multi">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
         <div class="newsletter-choice-row">
           <label class="newsletter-choice">
             <input type="checkbox" name="ai-playbook" value="ai-playbook" checked>
@@ -2656,6 +2659,7 @@
         </div>
         <div class="freebie-actions">
           <form class="freebie-download-form" data-download="claude-md" data-newsletter="ai-playbook">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
             <input type="email" name="email" placeholder="ton@email.com" required>
             <button type="submit">Recevoir</button>
           </form>
@@ -2686,6 +2690,7 @@
         </div>
         <div class="freebie-actions">
           <form class="freebie-download-form" data-download="pack" data-newsletter="ai-playbook">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
             <input type="email" name="email" placeholder="ton@email.com" required>
             <button type="submit">Télécharger</button>
           </form>
@@ -3259,6 +3264,7 @@
         Vendredi matin, 9h. J'envoie le brief que j'ai lu avec mon café — <strong>tu le reçois la seconde d'après</strong>. Si ça ne te sert pas, désinscription en 1 clic, et je ne le prends pas mal.
       </p>
       <form class="cta-form newsletter-form" data-newsletter="early-access">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
         <input type="email" name="email" placeholder="ton@email.com" required>
         <button type="submit">
           Rejoindre
@@ -3565,6 +3571,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = form.querySelector('input[name="email"]').value.trim();
+      const website = form.querySelector('input[name="website"]')?.value || '';
       const newsletter = form.dataset.newsletter;
       const status = form.parentElement.querySelector('.form-status');
       const button = form.querySelector('button');
@@ -3580,7 +3587,7 @@
         const res = await fetch(NEWSLETTER_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email, source: newsletter }),
+          body: JSON.stringify({ email, source: newsletter, website }),
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
@@ -3601,6 +3608,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = form.querySelector('input[name="email"]').value.trim();
+      const website = form.querySelector('input[name="website"]')?.value || '';
       const aiPlaybook = form.querySelector('input[name="ai-playbook"]').checked;
       const businessRadar = form.querySelector('input[name="business-radar"]').checked;
       const status = form.querySelector('.form-status');
@@ -3625,7 +3633,7 @@
         const res = await fetch(NEWSLETTER_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email, source: sources.join('+') }),
+          body: JSON.stringify({ email, source: sources.join('+'), website }),
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
@@ -3650,6 +3658,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = form.querySelector('input[name="email"]').value.trim();
+      const website = form.querySelector('input[name="website"]')?.value || '';
       const downloadKey = form.dataset.download;
       const status = form.parentElement.querySelector('.freebie-status');
       const button = form.querySelector('button');
@@ -3668,7 +3677,7 @@
         const res = await fetch(NEWSLETTER_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email, source: newsletterId === 'cours-semaine-1' ? 'cours-semaine-1' : `freebie-${downloadKey}` }),
+          body: JSON.stringify({ email, source: newsletterId === 'cours-semaine-1' ? 'cours-semaine-1' : `freebie-${downloadKey}`, website }),
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
 

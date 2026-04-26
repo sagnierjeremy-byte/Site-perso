@@ -1,5 +1,40 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-26 · Triple ship · Clarity + honeypot + reconstruction sources
+
+### Pourquoi
+Trois quick wins après l'analyse Plausible des données 2j post-launch (101 visiteurs, 9.9% CR newsletter, 67% mobile) : voir comment les gens scrollent (Clarity), bloquer les bots avant l'arrivée du SEO (honeypot), récupérer la source des inscriptions passées (reconstruction Resend).
+
+### Livré
+**1. Microsoft Clarity** (heatmaps + session replay, gratuit illimité)
+- Project ID `whves74mv1` injecté juste après le bloc Plausible sur les **33 pages publiques** (12 root + 21 articles).
+- Async, zéro impact perfo, pas de banner cookies (Clarity n'est pas du tracking publicitaire).
+
+**2. Honeypot anti-spam + rate limit + email regex stricte** côté `/api/subscribe.js`
+- Champ `website` invisible dans les 4 forms d'`index.html` (CSS off-screen `left:-9999px`). Si rempli → 200 fake-success silencieux + log.
+- Rate limit in-memory : 3 inscriptions max / 10 min / IP, même comportement fake-success.
+- Email regex stricte (au lieu de `email.includes("@")`).
+- Tests directs validés : honeypot, regex, rate limit (3 OK puis blocage 4e).
+
+**3. Reconstruction des sources des 17 inscrits passés**
+- Récupération via API Resend `/emails` des 250 notifs admin `+1 newsletter ·` (le body contient `Source · xxx`).
+- Patch rétroactif `last_name = src:<source>` sur 17 contacts (les 6 restants : 4 sans notif + 2 tests mailinator restent en "direct").
+- Distribution mise à jour : `ai-playbook+business-radar` 52% (12) · `direct` 26% (6) · `ai-playbook` 17% (4) · `early-access` 4% (1).
+- **Insight** : 0 inscription via freebies (`freebie-claude-md` / `freebie-pack` / `cours-semaine-1`). Les freebies ne tractent pas vers la newsletter.
+
+### Fichiers touchés
+- `api/subscribe.js` — honeypot + rate limit + regex
+- `index.html` — 4 forms × hidden input + handlers JS
+- 33 pages HTML — script Clarity (root + 21 articles)
+- `CHANGELOG.md`
+
+### À surveiller dans 7 jours
+- Clarity dashboard : top scroll-depth, rage-clicks, dead-clicks sur la home
+- Distribution sources des PROCHAINES inscriptions (tracking automatique maintenant)
+- Logs Vercel : nombre de honeypots déclenchés / rate limit hits (signe d'attaque ou bots)
+
+---
+
 ## 2026-04-26 · Tracking source d'inscription newsletter
 
 ### Pourquoi

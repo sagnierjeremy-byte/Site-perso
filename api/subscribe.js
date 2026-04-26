@@ -8,15 +8,52 @@ import path from "node:path";
 
 const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
 const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@eurofiscalis.com";
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const rateLimitStore = new Map();
+
+function getClientIp(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  if (fwd) return String(fwd).split(",")[0].trim();
+  return req.headers["x-real-ip"] || req.socket?.remoteAddress || "unknown";
+}
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const list = (rateLimitStore.get(ip) || []).filter((t) => t > cutoff);
+  if (list.length >= RATE_LIMIT_MAX) {
+    rateLimitStore.set(ip, list);
+    return true;
+  }
+  list.push(now);
+  rateLimitStore.set(ip, list);
+  return false;
+}
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email, source, firstName } = req.body || {};
+  const { email, source, firstName, website } = req.body || {};
 
-  if (!email || typeof email !== "string" || !email.includes("@")) {
+  // Honeypot · les bots remplissent tous les champs · les humains ne voient pas celui-ci
+  // On répond 200 fake-success pour ne pas leur signaler que c'est filtré
+  if (website && String(website).trim().length > 0) {
+    console.warn("[subscribe] honeypot triggered", { ip: getClientIp(req), email });
+    return res.status(200).json({ ok: true, alreadySubscribed: false });
+  }
+
+  // Rate limit par IP · 3 inscriptions max / 10 min · même comportement fake-success
+  const ip = getClientIp(req);
+  if (isRateLimited(ip)) {
+    console.warn("[subscribe] rate limit hit", { ip, email });
+    return res.status(200).json({ ok: true, alreadySubscribed: false });
+  }
+
+  if (!email || typeof email !== "string" || !EMAIL_REGEX.test(email.trim())) {
     return res.status(400).json({ error: "Email invalide" });
   }
 

@@ -1,5 +1,40 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-04-29 · Article opinion 5 · Musk vs OpenAI, le procès expliqué
+
+### Pourquoi
+Le procès Musk vs OpenAI a démarré lundi 27 avril à Oakland · timing parfait pour publier une opinion grand public qui explique l'affaire à des non-spécialistes. Sujet chaud, fort potentiel SEO et social, format Leo (storytelling, scènes concrètes, pas de jargon).
+
+### Démarche
+4 sous-agents `general-purpose` lancés en parallèle pour produire 4 dossiers de recherche dans `drafts/research-musk-openai/` :
+- **RESEARCH-1-TIMELINE.md** · 24 entrées chronologiques judiciaires (mars 2024 → 28 avril 2026)
+- **RESEARCH-2-ENJEUX.md** · 7 sections sur structure légale, deal Microsoft 13B$, charte AGI, valuations, scénarios verdict
+- **RESEARCH-3-TWEETS.md** · 17 tweets/citations vérifiés via articles presse + court filings + Wayback Machine
+- **RESEARCH-4-CONTEXTE.md** · 8 sections + 10 anecdotes narratives (dîner Rosewood, emails Sutskever, journal Brockman, etc.)
+
+### Article livré
+- **`articles/musk-vs-openai-le-proces.html`** · ~5 000 mots · 18 min de lecture · niveau découverte
+- 12 sections h2 : avant de commencer · histoire en 2 minutes · cofondation 2015 · rupture 2018 · pivot 2019-2025 (5 step cards + tableau chrono) · best-of des piques (5 tweets en VO+FR) · procès en cours · 5 enjeux · sources · FAQ 10 questions · CTA verdict
+- Modèle copié sur `plan-chine-2026-2030.html` (même CSS, même structure narrative, callouts, kickers rotants)
+- Schema.org OpinionPiece + FAQPage (10 Q&R)
+- Couleur dominante : fuchsia (drama, conflit)
+- Tweets cités intégralement en anglais avec traduction française naturelle (Musk + Altman + blog OpenAI), encadrés par couleur (fuchsia/orange/teal selon protagoniste)
+
+### Intégrations
+- **`index.html`** · nouvelle carte alaune (Nº 05) ajoutée en tête de "Les dernières sorties" → href `articles/musk-vs-openai-le-proces.html`
+- **`sitemap.xml`** · URL ajoutée avec priority 0.9, changefreq weekly (sujet brûlant)
+- Plausible + Clarity hérités du template (déjà inclus)
+
+### Fichiers touchés
+`articles/musk-vs-openai-le-proces.html` (nouveau) · `index.html` · `sitemap.xml` · `.gitignore` (`.vercel` ajouté par link Vercel CLI) · `drafts/research-musk-openai/` (4 RESEARCH .md) · `CHANGELOG.md`.
+
+### À surveiller
+- Verdict du procès attendu fin mai 2026 → préparer article suivi à chaud
+- Tracker dans Plausible : taux de clic carte Alaune `/articles/musk-vs-openai-le-proces.html` vs autres opinions
+- Surveiller Clarity : scroll-depth sur les 5 step cards (tableau chrono + step 5 offre 97,4 Md$ = points de bascule)
+
+---
+
 ## 2026-04-26 · Vérif freebies + admin enrichi par newsletter
 
 ### Pourquoi

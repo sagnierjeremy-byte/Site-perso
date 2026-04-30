@@ -3435,8 +3435,9 @@
 
 <script>
   // ===== Pulse de vie du site (bandeau + badges NOUVEAU) =====
-  // À mettre à jour manuellement à chaque session de modification :
-  const SITE_LAST_UPDATE = '2026-04-24';
+  // 100% auto : la "dernière MAJ" et le compteur "nouveautés" sont
+  // calculés à partir des attributs data-published des cartes/articles.
+  // Ajouter data-published="YYYY-MM-DD" à chaque nouvelle carte suffit.
   const NEW_THRESHOLD_DAYS = 7;
 
   (function pulseLife() {
@@ -3453,11 +3454,19 @@
       return n;
     };
 
-    // Dernière MAJ
+    // Calcule la date max parmi tous les data-published (= dernière MAJ auto)
+    let maxPubMs = 0;
+    document.querySelectorAll('[data-published]').forEach(el => {
+      const parts = el.dataset.published.split('-').map(Number);
+      if (parts.length !== 3 || parts.some(isNaN)) return;
+      const t = new Date(parts[0], parts[1] - 1, parts[2]).getTime();
+      if (t > maxPubMs) maxPubMs = t;
+    });
+
+    // Dernière MAJ (auto via max des data-published, fallback aujourd'hui)
     const majEl = document.getElementById('pulse-maj');
-    if (majEl && SITE_LAST_UPDATE) {
-      const [y, m, d] = SITE_LAST_UPDATE.split('-').map(Number);
-      majEl.textContent = fmt(new Date(y, m - 1, d));
+    if (majEl) {
+      majEl.textContent = fmt(new Date(maxPubMs || Date.now()));
     }
 
     // Prochain mardi

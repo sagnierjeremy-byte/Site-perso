@@ -1,5 +1,44 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-05 · Refonte admin → jerwis-admin (repo séparé)
+
+### Pourquoi
+L'admin local sur `~/Projets/jeremy-sagnier-site/admin/` ne servait plus. Le sourcing automatique (`scripts/brainstorm.js`) remontait des sujets non pertinents pour Jérémy. Décision de tout supprimer et de partir sur un admin dédié, forké de `~/Projets/newsletter-dashboard/`, déployé sur sous-domaine `admin.jerwis.fr`.
+
+### Livré côté nouveau repo `~/Projets/jerwis-admin/`
+- Repo GitHub `sagnierjeremy-byte/jerwis-admin` créé (Next.js 16 + Supabase + Resend + Anthropic + Zernio + Tailwind 4)
+- Pipeline complet : Sources (31 seedées : 16 YT + 7 presse + 8 GNews) → Veille cron 6h (RSS Atom + scoring Haiku 0-100) → Curation manuelle (top 30 ≥ 40) → Newsletter "Vendredi 9h" ton Leo Jérémy 1ère personne (Sonnet) → Envoi via Resend audience AI Playbook réutilisée → 10 posts X+LinkedIn (Sonnet) → Programmation Zernio en 1 clic
+- Auth middleware mot de passe custom (sha256 password::secret · cookie httpOnly 7j)
+- 8 pages MVP : `/` `/sources` `/inspiration` `/generate` `/newsletters` `/audience` `/social` `/settings`
+- 6 tables Supabase dédiées projet `jerwis-newsletter` (npxvttwhrlrmwafpfudy) : sources · items · source_runs · newsletters · social_posts · settings
+- 15 tests Vitest passants (auth · url-canonical · feeds)
+
+### Suppression côté site jerwis.fr
+- `admin/` (14 modules, shell vanilla)
+- `scripts/admin-server.js`, `scripts/brainstorm.js`, `scripts/editorial-clusters.js`, `scripts/youtube-channels.js`
+- `data/youtube-cache.json`
+- `BACKLOG.md`
+- `social-drafts/`
+- 5 fichiers `_preview-*.html` (mockups morts de redesign passé)
+- Scripts npm `admin` et `brainstorm` retirés de package.json
+
+### Audience Resend
+Réutilisation de l'audience AI Playbook existante (`RESEND_AUDIENCE_ID=58ebf8b3-6200-451d-ad82-998c8fd6e483`). Zéro perte d'inscrits.
+
+### Documentation
+- Spec : `docs/superpowers/specs/2026-05-05-jerwis-admin-design.md` (15 sections)
+- Plan d'implémentation : `docs/superpowers/plans/2026-05-05-jerwis-admin-plan.md` (37 tasks · 12 phases)
+
+### Reste à faire (Phase 11 du plan, action humaine)
+- Créer projet Vercel `jerwis-admin` (importer le repo GitHub)
+- Ajouter toutes les env vars depuis `.env.local`
+- Lier sous-domaine `admin.jerwis.fr` (CNAME chez Hostinger)
+- Tester le flow complet en prod (login → cron veille → curation → génération → envoi test)
+
+### Fichiers touchés
+Côté site : `package.json` · `CHANGELOG.md` · suppression `admin/`, scripts, BACKLOG, drafts.
+Côté nouveau repo : voir `~/Projets/jerwis-admin/` (3 commits, repo neuf).
+
 ## 2026-04-29 · Article opinion 5 · Musk vs OpenAI, le procès expliqué
 
 ### Pourquoi

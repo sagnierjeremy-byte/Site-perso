@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Cover Style Test · Pop Mart × Fiesta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #00B2A9;
+    --fuchsia: #EF426F;
+    --orange: #FF8200;
+    --ink: #0A0A0A;
+    --cream: #FBF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: #1a1a1a;
+    color: var(--cream);
+    padding: 40px 24px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .intro { color: #999; margin-bottom: 32px; font-size: 14px; }
+  .ref-row {
+    display: flex; gap: 24px; align-items: flex-start; margin-bottom: 48px;
+    background: #222; padding: 24px; border-radius: 8px;
+  }
+  .ref-row img { max-width: 200px; border-radius: 4px; }
+  .ref-row .meta { flex: 1; font-size: 14px; color: #ccc; }
+  .ref-row .meta strong { color: var(--cream); }
+  .grid {
+    display: grid; gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  }
+  .cover-wrap {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cover-wrap .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #999;
+  }
+  .cover-wrap .label strong { color: var(--cream); }
+
+  /* ============ COVER BASE ============ */
+  .cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.4);
+    isolation: isolate;
+  }
+  /* Rayures verticales (effet boîte Pop Mart) */
+  .cover::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 36px,
+      rgba(0,0,0,.18) 36px,
+      rgba(0,0,0,.18) 38px
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* Grain noise overlay */
+  .cover::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  /* Photo wrapper */
+  .photo-frame {
+    position: absolute;
+    inset: 18% 8% 18% 8%;
+    z-index: 3;
+    overflow: hidden;
+    border-radius: 4px;
+    /* Bordure cream "vinyl face" */
+    box-shadow:
+      0 0 0 8px var(--cream),
+      0 0 0 10px rgba(0,0,0,.5),
+      0 16px 32px rgba(0,0,0,.4);
+  }
+  .photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* Effet poster sérigraphie : contraste + saturation + mix */
+    filter: contrast(1.15) saturate(1.3) brightness(1.05);
+  }
+  /* Teinte couleur sur la photo (blend) */
+  .photo-frame::after {
+    content: "";
+    position: absolute; inset: 0;
+    mix-blend-mode: multiply;
+    opacity: .15;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* ============ TYPO TOP : "JERWIS" graffiti style ============ */
+  .top-mark {
+    position: absolute;
+    top: 4%; left: 5%; right: 5%;
+    z-index: 5;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .top-mark .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-shadow:
+      2px 2px 0 rgba(0,0,0,.5),
+      -1px -1px 0 rgba(255,255,255,.2);
+    transform: rotate(-2deg);
+  }
+  .top-mark .corner {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--cream);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--cream);
+    padding: 4px 8px;
+    border-radius: 999px;
+    transform: rotate(2deg);
+  }
+
+  /* ============ TYPO LEFT : "JOURNAL" vertical comic ============ */
+  .side-title {
+    position: absolute;
+    left: 2%; top: 18%; bottom: 18%;
+    z-index: 5;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(48px, 12vw, 96px);
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    color: var(--cream);
+    text-transform: uppercase;
+    text-shadow:
+      4px -4px 0 rgba(0,0,0,.6),
+      6px -6px 0 rgba(0,0,0,.3);
+    -webkit-text-stroke: 2px rgba(0,0,0,.7);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ============ CARTOUCHE catégorie (en haut à droite, façon "VINYL FACE BLIND BOX") ============ */
+  .category-pill {
+    position: absolute;
+    top: 8%; right: 6%;
+    z-index: 5;
+    transform: rotate(8deg);
+    background: var(--cream);
+    color: var(--ink);
+    padding: 8px 14px 6px;
+    border-radius: 4px;
+    border: 2px solid var(--ink);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.6);
+    line-height: 1;
+  }
+  .category-pill em {
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    display: block;
+    margin-top: 4px;
+    color: var(--fuchsia);
+  }
+
+  /* ============ TITRE article (bas) ============ */
+  .article-title {
+    position: absolute;
+    bottom: 6%; left: 8%; right: 8%;
+    z-index: 5;
+    text-align: center;
+    color: var(--cream);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 rgba(0,0,0,.7);
+  }
+  .article-title small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    margin-top: 6px;
+    color: rgba(251,247,240,.7);
+    font-weight: normal;
+  }
+
+  /* ============ LOGO bas droite (POP MART → JERWIS PROD) ============ */
+  .signature {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: rotate(-90deg) translateY(-50%);
+    transform-origin: right center;
+    z-index: 5;
+    background: var(--cream);
+    color: var(--ink);
+    padding: 4px 8px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+  }
+
+  /* ============ VARIANTES COULEURS ============ */
+  .cover.v-teal      { background: var(--teal); }
+  .cover.v-fuchsia   { background: var(--fuchsia); }
+  .cover.v-orange    { background: var(--orange); }
+  .cover.v-ink       { background: var(--ink); }
+
+  .cover.v-teal    .photo-frame::after { background: var(--teal); }
+  .cover.v-fuchsia .photo-frame::after { background: var(--fuchsia); }
+  .cover.v-orange  .photo-frame::after { background: var(--orange); }
+
+  /* ============ NOTES BAS DE PAGE ============ */
+  .notes {
+    margin-top: 64px;
+    background: #222;
+    padding: 24px;
+    border-radius: 8px;
+    border-left: 4px solid var(--fuchsia);
+    font-size: 14px;
+    color: #ccc;
+    max-width: 800px;
+  }
+  .notes h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--cream);
+  }
+  .notes ul { padding-left: 20px; }
+  .notes li { margin-bottom: 8px; }
+  .notes code { background: #111; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Cover style test · Pop Mart × Fiesta</h1>
+<p class="intro">3 variations transposant le coffret « The Monsters » (Pop Mart × Coca-Cola) sur la palette FIESTA. Photos réelles de Jérémy / Kev / Jean.</p>
+
+<div class="ref-row">
+  <img src="img/ref-popmart.jpg" alt="Réf Pop Mart × Coca-Cola">
+  <div class="meta">
+    <strong>Référence visuelle</strong> · The Monsters × Coca-Cola Vinyl Face Blind Box.<br>
+    Éléments empruntés ↓
+    <ul style="margin-top:8px; padding-left:20px;">
+      <li>Fond uni saturé + rayures verticales plus foncées</li>
+      <li>Cadre cream autour du sujet central (vinyl face)</li>
+      <li>Typo Bebas/Archivo Black graffiti, légèrement inclinée</li>
+      <li>Cartouche catégorie en sticker rotation 8° (« VINYL FACE BLIND BOX »)</li>
+      <li>Mention marque verticale à droite (« POP MART » → « JERWIS PROD »)</li>
+      <li>Grain noise overlay pour texture sérigraphie</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- ===== COVER 1 : TEAL · Jeremy seul · Article tuto ===== -->
+  <div class="cover-wrap">
+    <span class="label"><strong>V1 · Teal</strong> — Tuto / parcours · Jérémy seul</span>
+    <div class="cover v-teal">
+      <div class="top-mark">
+        <span class="brand">Jerwis</span>
+        <span class="corner">N°·05</span>
+      </div>
+      <span class="side-title">Le Journal</span>
+      <span class="category-pill">Tuto<em>Claude Code</em></span>
+      <div class="photo-frame"><img src="img/jeremy-1.jpg" alt=""></div>
+      <span class="signature">Jerwis Prod</span>
+      <h2 class="article-title">
+        Construire un agent<br>en 1 heure
+        <small>Jerwis.fr · 12 min de lecture</small>
+      </h2>
+    </div>
+  </div>
+
+  <!-- ===== COVER 2 : FUCHSIA · Jeremy + Kevin · Opinion ===== -->
+  <div class="cover-wrap">
+    <span class="label"><strong>V2 · Fuchsia</strong> — Opinion · Jérémy + Kevin</span>
+    <div class="cover v-fuchsia">
+      <div class="top-mark">
+        <span class="brand">Jerwis</span>
+        <span class="corner">N°·06</span>
+      </div>
+      <span class="side-title">Opinions</span>
+      <span class="category-pill">Opinion<em>Tranchée</em></span>
+      <div class="photo-frame"><img src="img/kev-jer.jpg" alt=""></div>
+      <span class="signature">Jerwis Prod</span>
+      <h2 class="article-title">
+        Mon fils ne conduira<br>jamais une voiture
+        <small>Jerwis.fr · 8 min de lecture</small>
+      </h2>
+    </div>
+  </div>
+
+  <!-- ===== COVER 3 : ORANGE · Jeremy + Jean · Récit ===== -->
+  <div class="cover-wrap">
+    <span class="label"><strong>V3 · Orange</strong> — Récit · Jérémy + son fils</span>
+    <div class="cover v-orange">
+      <div class="top-mark">
+        <span class="brand">Jerwis</span>
+        <span class="corner">N°·07</span>
+      </div>
+      <span class="side-title">L'histoire</span>
+      <span class="category-pill">Récit<em>True Story</em></span>
+      <div class="photo-frame"><img src="img/jer-jean.jpg" alt=""></div>
+      <span class="signature">Jerwis Prod</span>
+      <h2 class="article-title">
+        Le procès Musk<br>contre OpenAI
+        <small>Jerwis.fr · 20 min de lecture</small>
+      </h2>
+    </div>
+  </div>
+
+  <!-- ===== COVER 4 : INK · Jeremy 2 · Heritage ===== -->
+  <div class="cover-wrap">
+    <span class="label"><strong>V4 · Ink</strong> — Heritage · variante noire</span>
+    <div class="cover v-ink">
+      <div class="top-mark">
+        <span class="brand">Jerwis</span>
+        <span class="corner">N°·08</span>
+      </div>
+      <span class="side-title">Le Journal</span>
+      <span class="category-pill" style="background:var(--orange); color:var(--ink); border-color:var(--cream);">Veille<em>AI Playbook</em></span>
+      <div class="photo-frame"><img src="img/jeremy-2.jpg" alt=""></div>
+      <span class="signature" style="background:var(--orange);">Jerwis Prod</span>
+      <h2 class="article-title">
+        L'IA, sans être dev<br>sans y passer ses soirs
+        <small>Jerwis.fr · 10 min de lecture</small>
+      </h2>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h2>Ce qu'on emprunte / ce qu'on détourne</h2>
+  <ul>
+    <li><strong>Emprunté</strong> · format vertical 3:4 type packaging, fond mono saturé, rayures, cartouche oblique, typo verticale latérale, grain noise.</li>
+    <li><strong>Détourné</strong> · au lieu d'une mascotte, photo réelle dans cadre cream (« vinyl face » → « vinyl portrait »).</li>
+    <li><strong>Limites</strong> · l'effet sérigraphie pur (posterize/halftone) demande ImageMagick. Là on simule avec <code>filter: contrast() saturate()</code> + <code>mix-blend-mode</code>. Si tu valides la direction, je peux installer IM via <code>brew install imagemagick</code> pour pousser plus loin (vrai posterize 4-tons + grain print).</li>
+    <li><strong>Format final</strong> · pour un blog, je recommande aussi une déclinaison paysage 1200×630 (OG image partage social) — facile à dériver.</li>
+  </ul>
+</div>
+
+</body>
+</html>

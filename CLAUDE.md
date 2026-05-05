@@ -349,29 +349,22 @@ Filtre anti-bruit : `KEYWORDS_NOISE` + `YT_SIGNAL_KEYWORDS` strict pour éviter 
 
 ---
 
-## Back-office local (port 3001)
+## Back-office
 
-Lancer : `node scripts/admin-server.js` (ou `npm run admin`). Navigateur : `http://localhost:3001/`.
+L'admin local a été remplacé par **jerwis-admin** (`~/Projets/jerwis-admin/`), déployé sur `https://admin.jerwis.fr` (mot de passe via env `ADMIN_PASSWORD`).
 
-### Architecture modules
-- Chaque module est `admin/modules/<id>/page.html` autonome, enregistré dans `admin/modules.json`.
-- Shell partagé : `admin/shared/admin.css` + `admin/shared/admin.js` (render sidebar dynamique via `/api/modules`).
-- Ajouter un module = créer un dossier + entrée JSON. Aucun refactor nécessaire.
+### Stack et pipeline
+- Next.js 16 + Supabase (`jerwis-newsletter`, eu-west-1) + Resend + Anthropic + Zernio
+- Pipeline : Sources (toi pilotes) → Veille cron 6h (RSS Atom + scoring Haiku) → Curation manuelle (top 30) → Newsletter "Vendredi 9h" ton Leo Jérémy (Sonnet) → Envoi Resend audience AI Playbook → 10 posts X+LinkedIn (Sonnet) → Programmation Zernio 1 clic
+- 8 pages : `/` `/sources` `/inspiration` `/generate` `/newsletters` `/audience` `/social` `/settings`
 
-### 11 modules en place
-| Module | Rôle |
-|---|---|
-| `dashboard` · `backlog` · `pipeline` · `drafts` · `articles` · `calendar` | Production éditoriale |
-| `newsletter` · `social` · `seo-audit` · `alerts` | Audience + qualité |
-| `analytics` · `agents` · `settings` | Stubs (pas encore actifs) |
+### Documentation jerwis-admin
+- Spec : `docs/superpowers/specs/2026-05-05-jerwis-admin-design.md`
+- Plan : `docs/superpowers/plans/2026-05-05-jerwis-admin-plan.md`
+- Repo : `https://github.com/sagnierjeremy-byte/jerwis-admin` (privé)
 
-### Flux éditorial
-Idée (`backlog`) → Explainer Claude (bouton "✨ Explique-moi le top 10") → Verdict `prendre/hésiter/passer` → `chosen` → Draft (`drafts/<id>.md`) → Publish (`articles/<slug>.html`) → Audit SEO (`audits/<slug>/`) → Social drafts (`social-drafts/<slug>/`) → Calendrier.
-
-### Fichiers data persistants
-- `BACKLOG.md` · source de vérité idées (parsing markdown, champs `Résumé`/`Pour toi`/`Verdict`)
-- `data/calendar.json` · slots planifiés
-- `data/youtube-cache.json` · channelId résolus (TTL 90j)
+### Côté site public jerwis.fr (ce projet)
+L'inscription continue via `/api/subscribe.js` (Resend, audience AI Playbook). Le site lui-même reste vanilla HTML/CSS/JS. L'admin pilote l'envoi de la newsletter et des posts sociaux.
 
 ### Plugins Claude Code installés (scope user)
 `superpowers` · `claude-md-management` · `frontend-design` · `context7` · `code-review` · `code-simplifier` · `telegram`. Gestion via `claude plugin <install|list|disable>`. Commandes slash dispo après restart.

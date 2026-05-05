@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mood board · 8 styles cartoon sur ta photo</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: #0d0d0d;
+    color: #FBF7F0;
+    padding: 32px 24px 80px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .intro {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 32px;
+    max-width: 780px;
+    line-height: 1.5;
+  }
+  .source {
+    background: #1c1c1c;
+    padding: 12px;
+    border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 32px;
+    border-left: 3px solid #00B2A9;
+  }
+  .source img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  .source div {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #ccc;
+  }
+  .source div strong { color: #fff; display: block; font-size: 14px; margin-bottom: 4px; font-family: 'Archivo Black', sans-serif; }
+
+  .grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1700px;
+  }
+  .card {
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform .2s;
+    border: 2px solid transparent;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: #EF426F;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: #000;
+  }
+  .card .meta {
+    padding: 14px 16px;
+  }
+  .card .meta .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 0.15em;
+    margin-bottom: 4px;
+  }
+  .card .meta h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    color: #FBF7F0;
+  }
+  .card .meta p {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .footer-note {
+    margin-top: 48px;
+    background: #1c1c1c;
+    padding: 22px;
+    border-radius: 8px;
+    border-left: 4px solid #FF8200;
+    font-size: 14px;
+    color: #ccc;
+    max-width: 900px;
+    line-height: 1.6;
+  }
+  .footer-note h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: #FBF7F0;
+  }
+  .footer-note ol { padding-left: 20px; }
+  .footer-note li { margin-bottom: 6px; }
+  .footer-note code {
+    background: #000;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Mood board · 8 styles sur ta photo</h1>
+<p class="intro">
+  Photo source originale ↓ · Tous les rendus sont générés en image-to-image (flux/dev, strength 0.65) avec un prompt précis pour chaque style. Tu cliques sur celui qui te plaît, je te le confirme et on l'applique sur les 3 photos finales.
+</p>
+
+<div class="source">
+  <img src="img/jeremy-1.jpg" alt="Source">
+  <div><strong>Photo source</strong>jeremy-1.jpg · toi + Kev assis sur les marches</div>
+</div>
+
+<div class="grid">
+
+  <div class="card">
+    <img src="img/moodboard/01-memoji.jpg" alt="Memoji 3D">
+    <div class="meta">
+      <span class="num">01 · Memoji 3D Apple</span>
+      <h3>Memoji</h3>
+      <p>3D plastique lisse, formes simplifiées, gros yeux, vibe iMessage. Très propre, très neutre, très grand public.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/02-flat-vector.jpg" alt="Flat vector">
+    <div class="meta">
+      <span class="num">02 · Flat vector éditorial</span>
+      <h3>Flat vector</h3>
+      <p>Style Notion / Stripe / Slack. Formes pleines, 2 tons, zéro shading. Ultra moderne tech, ne vieillit pas.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/03-comic-us.jpg" alt="Comic US">
+    <div class="meta">
+      <span class="num">03 · Comic book US</span>
+      <h3>Comic US</h3>
+      <p>Couleurs primaires saturées, contours noirs épais, points Ben-Day. Vibe Invincible / Boys.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/04-new-yorker.jpg" alt="New Yorker">
+    <div class="meta">
+      <span class="num">04 · Editorial New Yorker</span>
+      <h3>Éditorial NYT</h3>
+      <p>Gouache numérique, palette sourde, traits libres, intello chic. Vibe couverture magazine.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/05-risograph.jpg" alt="Risograph">
+    <div class="meta">
+      <span class="num">05 · Risograph print</span>
+      <h3>Risograph</h3>
+      <p>Sérigraphie 2 layers décalés, fluo rose + bleu, grain visible. Vibe zine indé arty.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/06-ghibli.jpg" alt="Ghibli">
+    <div class="meta">
+      <span class="num">06 · Studio Ghibli</span>
+      <h3>Ghibli anime</h3>
+      <p>Aquarelle douce, palette pastel chaude, traits dessinés main. Vibe Mononoke / Spirited Away.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/07-vinyl-toy-2d.jpg" alt="Pop Mart 2D">
+    <div class="meta">
+      <span class="num">07 · Pop Mart 2D</span>
+      <h3>Vinyl toy 2D</h3>
+      <p>Notre cible initiale. Tête énorme, contours noirs, 4 tons à plat. Sauf que strength haut perd l'identité.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/moodboard/08-watercolor-loose.jpg" alt="Aquarelle">
+    <div class="meta">
+      <span class="num">08 · Aquarelle libre</span>
+      <h3>Aquarelle</h3>
+      <p>Lavis transparents, traits encrés libres, palette terreuse. Vibe magazine littéraire moderne.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  <h2>Comment on procède une fois que tu as choisi</h2>
+  <ol>
+    <li>Tu me dis le numéro qui te plaît (ex : « le 04 »)</li>
+    <li>Je règle <code>strength</code> au bon niveau (0.5 pour préserver identité, 0.7 pour pousser le style)</li>
+    <li>Je relance sur les 3 photos clés (jeremy seul, jeremy+kev, jeremy+jean) — coût ~$0.02 total</li>
+    <li>Si la ressemblance n'est pas assez forte, je bascule sur <code>fal-ai/flux-pulid</code> (modèle qui préserve les visages avec score d'identité élevé) ou <code>fal-ai/instant-id</code></li>
+    <li>Détourage rembg + intégration cover Pop Mart Fiesta finale</li>
+  </ol>
+  <p style="margin-top:14px;"><strong style="color:#fff;">Tu peux aussi me ramener tes propres refs</strong> · une image trouvée sur Pinterest/Behance/Lexica → je la mate et je trouve le bon prompt + modèle pour reproduire sur tes photos.</p>
+</div>
+
+</body>
+</html>

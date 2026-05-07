@@ -189,7 +189,7 @@ Si t'es développeur ou que t'as Claude Code installé, tu peux complètement fa
 - **Next.js** + **Tailwind** pour l'interface (3 pages, c'est tout · upload, choix scène, résultats)
 - **Zustand** pour stocker les sessions dans le navigateur (pas besoin de base de données)
 - **fal.ai** comme passerelle vers les modèles d'image (Seedream, FLUX, etc.) · facture à l'usage, pas d'abonnement
-- **OpenRouter** pour appeler **Gemini 2.5 Pro** qui décompose la scène en 5 plans · environ $1 pour 50 sessions
+- **OpenRouter** pour appeler **Gemini 2.5 Pro** qui décompose la scène en 5 plans · environ 1 € pour 50 sessions
 
 3 conseils non négociables si tu te lances :
 

@@ -8,15 +8,15 @@ categorie: "Récit"
 hero_ligne_1: "Mon générateur"
 hero_ligne_2: "de photos perso."
 hero_ligne_3: "30 € au lieu de 500."
-lead: "J'avais besoin de photos de moi pour LinkedIn, le site et la newsletter. Pas envie de payer 500 € une séance, ni 200 €/mois Klayn. J'ai construit mon propre outil en deux semaines, en empilant trois IA d'image. Voici comment je l'ai fait, ce qui a vraiment marché, les photos honteusement ratées que je te montre quand même, et ce que ça t'a coûté si tu veux reproduire la même chose chez toi."
+lead: "Florian, notre vidéaste au bureau, a sorti un outil qui génère des photos de produits pour les sites e-commerce · quelques centimes par photo au lieu d'un shooting photographe. Quand j'ai vu ça, je me suis dit · si ça marche pour les produits, pourquoi pas pour les visages ? J'ai construit l'équivalent pour le personal branding. Deux semaines de chantier plus tard, j'utilise mes photos sur LinkedIn et on a même fait un set complet pour un de nos collaborateurs à 0,80 €. Voici le récit · ce qui marche, ce qui foire honteusement, et le code source que je vends en précommande pour ceux qui veulent juste l'utiliser pour eux et leur équipe."
 duree: "10 min"
 niveau: "Débutant"
 outils: "Next.js · fal.ai · Gemini"
 published: "2026-05-07"
 tldr:
-  - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi en différentes scènes. La plus réussie, je l'utilise déjà sur LinkedIn."
+  - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi · et un set complet pour un collaborateur à <strong>0,80 €</strong>. La plus réussie de moi, je l'utilise déjà sur LinkedIn."
   - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…), et tu peux brûler 30 € en 1 h sans t'en rendre compte."
-  - "Le code source est en <strong>précommande à 99 €</strong> · tu apportes ta clé fal.ai (~20 €), tu déploies en 15 min, garantie remboursement si ça marche pas chez toi."
+  - "Le code source est en <strong>précommande à 99 €</strong> · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Tu apportes ta clé fal.ai (~20 € pour 100 photos)."
 ---
 
 <!-- section k-fuchsia -->
@@ -40,19 +40,19 @@ J'ai construit mon outil. Voilà la photo dont je suis le plus content (génér�
 
 <!-- section k-teal -->
 
-## Pourquoi je me suis lancé
+## Comment c'est parti (et l'idée vient pas de moi)
 
-Trois raisons concrètes :
+Pour être honnête, l'idée vient pas de moi. C'est **Florian**, notre vidéaste-photographe au bureau, qui a tout démarré.
 
-**1. Les générateurs SaaS sont chers et abonnés.** Klayn c'est 200 €/mois (soit 2400 €/an) pour un truc dont j'ai besoin 4 fois dans l'année. Mathématiquement absurde.
+Il y a quelques mois, Florian a construit un outil qui génère des **photos de produits** pour les sites e-commerce. Le principe est tout simple · au lieu d'organiser un shooting (matos, studio, photographe, post-prod · facilement 1000 € pour quelques produits), tu uploades une photo de ton produit, tu décris la scène que tu veux (*"notre crème en gros plan sur un comptoir en marbre noir, lumière dorée"*), et l'IA te sort 5-10 photos pro de ton produit dans cette scène. Pour quelques centimes l'unité.
 
-**2. Une séance photo pro, c'est cher et figé.** 500 € pour 1 set de 10 photos. Si dans 6 mois je veux des photos en t-shirt blanc dans un café au lieu de costume sur un toit · je repaye 500 €.
+Quand j'ai vu ses premiers résultats sur des produits, j'ai eu un déclic · *si ça marche pour les produits, pourquoi pas pour les visages ?*
 
-**3. Les photos générées par IA m'inquiétaient.** Tu as vu les photos LinkedIn IA qui circulent · peau lissée, regard vide, arrière-plan flou de magazine. Ça se voit à 10 mètres que c'est faux. Je voulais des photos qui ressemblent à des **photos iPhone normales**, pas à de la pub Vogue.
+Parce qu'on a tous le même problème · une photo de profil LinkedIn qui date de 2022, pas de portrait pour la page "à propos" du site, rien d'utilisable en hero de newsletter, pas de visuel pour les pages de vente. Et entre la séance photo à 500 € et l'abonnement Klayn à 200 €/mois, il y a un trou que personne ne remplit. Surtout pour les **équipes** · si t'as 5 collaborateurs qui ont chacun besoin de 10 photos, ça te coûte un bras avec la voie classique (logistique d'un photographe au bureau, 1 journée bloquée, 2000-3000 € la facture finale).
 
-L'idée s'est réduite à une seule question · *est-ce que je peux empiler trois modèles IA, mettre une interface dessus, et obtenir un set de photos qui ressemble à moi pour 30 € au lieu de 500 ?*
+Donc j'ai pris la même architecture que Florian, je l'ai forkée, et j'ai tout repensé pour les visages · gestion des références d'identité, prompts spécifiques pour qu'on reconnaisse vraiment la personne, mode "iPhone naturel" par défaut pour éviter le faux-magazine.
 
-La réponse courte est **oui**. La réponse longue tient dans le reste de l'article.
+Deux semaines plus tard, j'avais mes photos. Et puis on s'est dit "tiens, on devrait essayer pour les autres dans la boîte" · t'en as un aperçu un peu plus bas dans l'article.
 
 <!-- section k-orange -->
 
@@ -105,6 +105,20 @@ Je te montre deux résultats · ça donne une idée de ce qu'on obtient quand to
   <h4>Le coût exact des deux photos ci-dessus</h4>
   <p>Chaque tirage Seedream 4.5 me coûte <strong>$0.04</strong>. Pour ces 2 photos j'en ai en réalité tiré une quinzaine (je garde celles qui me plaisent et je jette les autres). <strong>Total : ~$0.60</strong>. Une séance complète "tous les sets de l'année" me coûte 30 €.</p>
 </div>
+
+<!-- section k-orange -->
+
+## Et ça marche aussi pour les collaborateurs
+
+C'est là que l'outil devient vraiment intéressant. Une fois calé pour ma tête, on a pu le réutiliser tel quel pour les têtes des autres dans la boîte.
+
+Voici un portrait généré pour **un de nos collaborateurs** · 4 selfies envoyés en input, brief "studio neutre noir et blanc, regard direct caméra, costume sobre", quelques tirages plus tard on avait son set complet de photos pro :
+
+<img src="screenshots/photos-perso-ia/win-3-collaborateur.jpeg" alt="Portrait noir et blanc d'un collaborateur · regard direct, fond gris clair, veste et chemise blanche" style="width:100%; max-width:560px; border-radius:12px; margin:24px auto; display:block;">
+
+**Ce que ça change concrètement** · si tu pilotes une équipe, tu n'as plus besoin de faire venir un photographe au bureau pour tout le monde (logistique infernale, prix qui grimpe vite · entre 1500 € et 3000 € pour 5-10 personnes selon la ville). Chaque personne envoie ses 4 selfies depuis chez elle, tu fais tourner l'outil 5 minutes, et tout le monde a son set. **Une fois l'outil installé, le coût marginal d'un collaborateur supplémentaire tourne autour de 0,80-1 €.**
+
+C'est aussi le moment où l'argument *"j'achète le code une fois plutôt que de m'abonner"* prend tout son sens · sur 5-10 personnes à équiper, le ROI du logiciel est immédiat.
 
 <!-- section k-fuchsia -->
 
@@ -187,15 +201,16 @@ J'ai écrit le récit technique complet (17 sections, tous les bugs résolus, to
 
 <!-- section k-fuchsia -->
 
-## Tu veux juste l'utiliser ? Précommande à 99 €
+## Tu veux juste l'utiliser (pour toi et ton équipe) ? Précommande à 99 €
 
-Si t'as pas envie de te taper deux semaines de bricolage, je vends le code source · à acheter une seule fois, pas d'abonnement, pas de SaaS qui peut disparaître demain.
+Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équipe à équiper et que les abonnements SaaS additionnés te font mal au crâne · je vends le code source. À acheter une seule fois, pas d'abonnement, pas de SaaS qui peut disparaître demain.
 
 <div class="callout ok">
   <h4>Ce que tu reçois pour 99 €</h4>
   <p><strong>Le code source complet</strong>, livré en deux formats au choix · invitation au repo GitHub privé (tu reçois les futures mises à jour si tu veux), ou ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
   <p>Sont inclus · le code Next.js prêt à déployer (15 min sur Vercel gratuit), le récit technique <strong>STORYTELLING.md</strong> qui documente toutes les décisions et les bugs déjà résolus pour toi, et le fichier <strong>CLAUDE.md</strong> qui permet à Claude Code d'apporter des modifications proprement.</p>
-  <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (~20 € pour 100 photos) et ta clé OpenRouter (~1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement.</p>
+  <p><strong>Pas de limite par utilisateur</strong> · une fois installé, tu génères pour toi, tes collaborateurs, ton équipe, ton pote qui t'a demandé un service. Tu paies juste les coûts variables (les clés API ci-dessous).</p>
+  <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (~20 € pour 100 photos) et ta clé OpenRouter (~1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
   <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
 </div>
 

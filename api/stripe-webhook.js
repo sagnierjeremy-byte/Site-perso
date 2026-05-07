@@ -148,7 +148,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: "Service indisponible" });
   }
 
-  const stripe = new Stripe(stripeKey);
+  const stripe = new Stripe(stripeKey, { httpClient: Stripe.createFetchHttpClient() });
   const signature = req.headers["stripe-signature"];
   const rawBody = await readRawBody(req);
 

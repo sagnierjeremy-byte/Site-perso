@@ -91,7 +91,7 @@ export default async function handler(req, res) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     return res.status(503).send("<h1>Service indisponible</h1>");
   }
-  const stripe = new Stripe(stripeKey);
+  const stripe = new Stripe(stripeKey, { httpClient: Stripe.createFetchHttpClient() });
 
   const sessionId = req.query?.session || req.body?.session;
   if (!sessionId || !String(sessionId).startsWith("cs_")) {

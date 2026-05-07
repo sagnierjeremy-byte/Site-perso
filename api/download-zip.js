@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     return res.status(503).send("Service indisponible");
   }
 
-  const stripe = new Stripe(stripeKey);
+  const stripe = new Stripe(stripeKey, { httpClient: Stripe.createFetchHttpClient() });
 
   // Vérification que le paiement est bien `paid`
   let session;

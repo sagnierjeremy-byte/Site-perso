@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: "Service indisponible" });
   }
 
-  const stripe = new Stripe(stripeKey);
+  const stripe = new Stripe(stripeKey, { httpClient: Stripe.createFetchHttpClient() });
   const requestedOrigin = req.headers.origin;
   const origin = ALLOWED_ORIGINS.has(requestedOrigin) ? requestedOrigin : DEFAULT_ORIGIN;
 
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
           key: "github_username",
           label: {
             type: "custom",
-            custom: "GitHub username (optionnel — pour invitation au repo privé)",
+            custom: "GitHub username (optionnel)",
           },
           optional: true,
           type: "text",

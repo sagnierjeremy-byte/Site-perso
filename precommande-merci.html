@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Merci · Précommande générateur photos personal branding — Jérémy Sagnier</title>
+<meta name="description" content="Page de confirmation après paiement de la précommande du générateur de photos personal branding.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  .merci-section {
+    padding: 100px 0;
+    text-align: center;
+    background: var(--bg-2);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+  .merci-section .container { max-width: 640px; }
+  .merci-section h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: .95;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 24px 0;
+  }
+  .merci-section h1 em {
+    font-style: normal;
+    color: var(--fuchsia);
+  }
+  .merci-section p.lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .merci-section .session-id {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin: 8px 0 24px;
+  }
+  .merci-section .callout {
+    text-align: left;
+    margin: 28px 0;
+    padding: 18px 22px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .merci-section .callout.warn {
+    border-color: var(--orange);
+    background: rgba(255, 130, 0, .06);
+  }
+  .merci-section .callout h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .merci-section .callout p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .merci-section .home-link {
+    display: inline-block;
+    color: var(--fuchsia);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Mini-nav -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <div class="links">
+    <a href="apprendre.html">Apprendre</a>
+    <a href="articles.html">Articles</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+
+<section class="merci-section">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>— Paiement reçu</div>
+    <h1>Merci !<br>Tu vas recevoir<br>ton accès<br><em>par email.</em></h1>
+
+    <p class="lead">
+      Le paiement a bien été reçu. Tu vas recevoir un email dans les <strong>2 prochaines minutes</strong> avec le lien de téléchargement du ZIP et l'invitation au repo GitHub privé (si tu as donné ton username au paiement).
+    </p>
+
+    <div id="session-display"></div>
+
+    <div class="callout warn">
+      <h4>Tu n'as rien reçu après 5 minutes ?</h4>
+      <p>Vérifie tes spams. Si toujours rien, écris-moi à <a href="mailto:jeremy.sagnier@eurofiscalis.com" style="color:var(--fuchsia)">jeremy.sagnier@eurofiscalis.com</a> avec ton numéro de session Stripe (visible dans l'URL ci-dessous ou dans le reçu Stripe). Je t'envoie tout en moins d'1h.</p>
+    </div>
+
+    <a href="index.html" class="home-link">← Retour à l'accueil</a>
+  </div>
+</section>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (systemDark ? 'dark' : 'light'));
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // Display session ID from URL if present
+  (function showSessionId() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session');
+    if (!sessionId) return;
+    const el = document.getElementById('session-display');
+    if (!el) return;
+    el.innerHTML = '<div class="session-id">Commande · ' + sessionId.replace(/[^a-zA-Z0-9_-]/g, '') + '</div>';
+  })();
+</script>
+
+</body>
+</html>

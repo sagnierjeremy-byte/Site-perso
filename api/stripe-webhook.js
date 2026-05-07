@@ -13,7 +13,6 @@ export const config = {
 };
 
 const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
-const ZIP_BLOB_KEY = "releases/workflow-genpics-team-v1.0.zip";
 
 async function readRawBody(req) {
   const chunks = [];
@@ -45,11 +44,12 @@ async function inviteGithubCollaborator(username) {
   return { ok: false, status: r.status, detail };
 }
 
-async function generateZipUrl() {
-  // Le store est en mode `private` · `head()` retourne une `downloadUrl` signée
-  // que l'on peut donner directement au client dans l'email.
-  const meta = await head(ZIP_BLOB_KEY, { token: process.env.BLOB_READ_WRITE_TOKEN });
-  return meta.downloadUrl || meta.url;
+function buildZipDownloadUrl(sessionId, origin) {
+  // Le store Blob est en mode `private` → on ne peut pas exposer une URL Blob
+  // signée publiquement. À la place, on donne une URL vers notre route
+  // `/api/download-zip?session=cs_xxx` qui vérifie le paiement Stripe puis
+  // streame le ZIP server-side. URL stable, valide tant que le paiement reste.
+  return `${origin}/api/download-zip?session=${encodeURIComponent(sessionId)}`;
 }
 
 async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, githubInviteOk, lateInviteUrl }) {
@@ -197,19 +197,15 @@ export default async function handler(req, res) {
   const origin = process.env.SITE_ORIGIN || "https://jerwis.fr";
   const lateInviteUrl = `${origin}/api/github-invite-late?session=${sessionId}`;
 
-  const [zipResult, githubResult] = await Promise.allSettled([
-    generateZipUrl(),
-    inviteGithubCollaborator(githubUsername),
-  ]);
+  // URL stable vers notre route auth (pas d'erreur possible · construction string)
+  const zipUrl = buildZipDownloadUrl(sessionId, origin);
 
-  const zipUrl = zipResult.status === "fulfilled" ? zipResult.value : null;
-  const githubInviteOk = githubResult.status === "fulfilled" && githubResult.value.ok;
-
-  if (!zipUrl) {
-    console.error(`[stripe-webhook] session ${sessionId} : ZIP URL gen failed`, zipResult);
-    await sendAlertEmail(`URL ZIP introuvable pour session ${sessionId}`, JSON.stringify(zipResult, null, 2));
-    return res.status(500).json({ received: true, error: "zip_url_failed" });
-  }
+  // Invite GitHub en parallèle (ne bloque pas l'envoi email)
+  const githubResult = await inviteGithubCollaborator(githubUsername).catch((err) => ({
+    ok: false,
+    detail: String(err?.message || err),
+  }));
+  const githubInviteOk = githubResult.ok === true;
 
   // Envoi email de livraison
   const emailResult = await sendDeliveryEmail({
@@ -229,7 +225,7 @@ export default async function handler(req, res) {
     );
   }
 
-  if (!githubInviteOk && githubUsername) {
+  if (!githubInviteOk && githubUsername && !githubResult.skipped) {
     await sendAlertEmail(
       `GitHub invite échoué pour ${githubUsername} (session ${sessionId})`,
       JSON.stringify(githubResult, null, 2)
@@ -249,7 +245,7 @@ export default async function handler(req, res) {
         githubInviteOk,
         emailSentOk: emailResult.ok,
         errors: {
-          github: githubResult.status === "rejected" ? String(githubResult.reason) : null,
+          github: githubInviteOk ? null : githubResult.detail || null,
           email: emailResult.ok ? null : emailResult.detail,
         },
       }),

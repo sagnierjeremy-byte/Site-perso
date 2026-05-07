@@ -5,11 +5,52 @@
 import Stripe from "stripe";
 import { put, head } from "@vercel/blob";
 
+// Échappe une string pour l'inclusion sûre dans du HTML (anti-XSS)
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Valide qu'un username GitHub respecte le format officiel
+// (1-39 chars, alphanum + tirets, pas de tiret en début/fin)
+const GITHUB_USERNAME_RE = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
+
+// Rate limit in-memory · 5 essais d'invite max par IP / 10 min
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const rateLimitStore = new Map();
+
+function getClientIp(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  if (fwd) return String(fwd).split(",")[0].trim();
+  return req.headers["x-real-ip"] || req.socket?.remoteAddress || "unknown";
+}
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const list = (rateLimitStore.get(ip) || []).filter((t) => t > cutoff);
+  if (list.length >= RATE_LIMIT_MAX) {
+    rateLimitStore.set(ip, list);
+    return true;
+  }
+  list.push(now);
+  rateLimitStore.set(ip, list);
+  return false;
+}
+
 async function inviteGithubCollaborator(username) {
   const owner = process.env.GITHUB_REPO_OWNER;
   const repo = process.env.GITHUB_REPO_NAME;
   const token = process.env.GITHUB_TOKEN;
   const cleanUsername = String(username).trim().replace(/^@/, "");
+  if (!GITHUB_USERNAME_RE.test(cleanUsername)) {
+    return { ok: false, status: 400, detail: "Username GitHub invalide (format)" };
+  }
   const url = `https://api.github.com/repos/${owner}/${repo}/collaborators/${encodeURIComponent(cleanUsername)}`;
   const r = await fetch(url, {
     method: "PUT",
@@ -107,7 +148,7 @@ export default async function handler(req, res) {
     const page = renderPage({
       title: "Déjà invité",
       body: `<div class="kicker">— Déjà fait</div><h1>Déjà invité</h1>
-        <p>Tu as déjà été invité au repo en tant que <code>${existing.githubUsername}</code>. Vérifie tes emails GitHub ou va sur <a href="https://github.com/${process.env.GITHUB_REPO_OWNER}/${process.env.GITHUB_REPO_NAME}/invitations">tes invitations GitHub</a>.</p>`,
+        <p>Tu as déjà été invité au repo en tant que <code>${esc(existing.githubUsername)}</code>. Vérifie tes emails GitHub ou va sur <a href="https://github.com/${esc(process.env.GITHUB_REPO_OWNER)}/${esc(process.env.GITHUB_REPO_NAME)}/invitations">tes invitations GitHub</a>.</p>`,
     });
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     return res.status(200).send(page.body);
@@ -118,9 +159,9 @@ export default async function handler(req, res) {
     const page = renderPage({
       title: "Donne ton username GitHub",
       body: `<div class="kicker">— Précommande livraison</div><h1>Donne ton username GitHub</h1>
-        <p>Pour qu'on t'invite au repo privé <code>${process.env.GITHUB_REPO_NAME}</code>, donne-nous ton username GitHub (le nom dans <code>github.com/TON_USERNAME</code>).</p>
+        <p>Pour qu'on t'invite au repo privé <code>${esc(process.env.GITHUB_REPO_NAME)}</code>, donne-nous ton username GitHub (le nom dans <code>github.com/TON_USERNAME</code>).</p>
         <form method="POST" action="/api/github-invite-late?session=${encodeURIComponent(sessionId)}">
-          <input type="text" name="username" placeholder="ton-username-github" required autofocus>
+          <input type="text" name="username" placeholder="ton-username-github" required autofocus pattern="[a-zA-Z0-9]([a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}" maxlength="39">
           <button type="submit">M'inviter</button>
         </form>
         <p style="font-size:13px;color:#999">Le ZIP du code reste téléchargeable depuis le mail que tu as reçu. Cette étape est juste pour le repo GitHub.</p>`,
@@ -129,13 +170,23 @@ export default async function handler(req, res) {
     return res.status(200).send(page.body);
   }
 
-  // POST = traiter le form
+  // POST = traiter le form (rate limit + invite)
   if (req.method === "POST") {
-    const username = req.body?.username;
-    if (!username || typeof username !== "string" || username.trim().length < 1) {
+    if (isRateLimited(getClientIp(req))) {
       const page = renderPage({
-        title: "Username manquant",
-        body: `<div class="error">Username manquant ou invalide.</div>
+        title: "Trop d'essais",
+        body: `<div class="error">Trop d'essais d'invitation. Réessaie dans 10 minutes ou contacte <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>.</div>`,
+        status: 429,
+      });
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.status(page.status).send(page.body);
+    }
+
+    const username = req.body?.username;
+    if (!username || typeof username !== "string" || !GITHUB_USERNAME_RE.test(username.trim().replace(/^@/, ""))) {
+      const page = renderPage({
+        title: "Username invalide",
+        body: `<div class="error">Username GitHub invalide. Format attendu : 1-39 caractères, lettres/chiffres/tirets uniquement.</div>
           <p><a href="/api/github-invite-late?session=${encodeURIComponent(sessionId)}">← Retour</a></p>`,
         status: 400,
       });
@@ -143,30 +194,36 @@ export default async function handler(req, res) {
       return res.status(page.status).send(page.body);
     }
 
-    const result = await inviteGithubCollaborator(username);
+    const cleanUsername = username.trim().replace(/^@/, "");
+    const result = await inviteGithubCollaborator(cleanUsername);
 
-    // Update delivery log si possible
-    if (existing) {
-      try {
-        await put(
-          deliveryKey,
-          JSON.stringify({
-            ...existing,
-            githubUsername: username.trim(),
-            githubInviteOk: result.ok,
-            githubInviteLateAt: new Date().toISOString(),
-          }),
-          { access: "public", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN }
-        );
-      } catch (err) {
-        console.error("[github-invite-late] delivery log update failed:", err.message);
-      }
+    // Update / création delivery log (toujours, même si existing était null)
+    try {
+      const baseLog = existing || {
+        sessionId,
+        email: session.customer_details?.email || null,
+        ts: new Date().toISOString(),
+        zipUrl: null,
+        emailSentOk: null,
+      };
+      await put(
+        deliveryKey,
+        JSON.stringify({
+          ...baseLog,
+          githubUsername: cleanUsername,
+          githubInviteOk: result.ok,
+          githubInviteLateAt: new Date().toISOString(),
+        }),
+        { access: "public", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true }
+      );
+    } catch (err) {
+      console.error("[github-invite-late] delivery log update failed:", err.message);
     }
 
     if (!result.ok) {
       const page = renderPage({
         title: "Échec invitation",
-        body: `<div class="error">L'invitation a échoué (${result.status}). Détail : <code>${(result.detail || "?").slice(0, 200)}</code>.</div>
+        body: `<div class="error">L'invitation a échoué (${result.status || "?"}). Détail : <code>${esc((result.detail || "?").slice(0, 200))}</code>.</div>
           <p>Vérifie que ton username GitHub est correct, ou écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>.</p>
           <p><a href="/api/github-invite-late?session=${encodeURIComponent(sessionId)}">← Réessayer</a></p>`,
       });
@@ -176,8 +233,8 @@ export default async function handler(req, res) {
 
     const page = renderPage({
       title: "Invitation envoyée",
-      body: `<div class="ok">Invitation envoyée à <code>${username}</code> !</div>
-        <p>Vérifie tes <a href="https://github.com/${process.env.GITHUB_REPO_OWNER}/${process.env.GITHUB_REPO_NAME}/invitations">invitations GitHub</a> dans une minute.</p>
+      body: `<div class="ok">Invitation envoyée à <code>${esc(cleanUsername)}</code> !</div>
+        <p>Vérifie tes <a href="https://github.com/${esc(process.env.GITHUB_REPO_OWNER)}/${esc(process.env.GITHUB_REPO_NAME)}/invitations">invitations GitHub</a> dans une minute.</p>
         <p>Si tu as une question, réponds au mail de livraison.</p>`,
     });
     res.setHeader("Content-Type", "text/html; charset=utf-8");

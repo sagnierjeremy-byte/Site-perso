@@ -10,6 +10,16 @@ const PRODUCT_NAME = "workflow-genpics-team — code source";
 const PRODUCT_DESCRIPTION =
   "Générateur de photos personal branding · code source complet, repo GitHub privé + ZIP. Précommande, livraison sous quelques semaines.";
 
+// Whitelist d'origines autorisées pour les redirects Stripe
+// Empêche un attaquant de forger un Origin pour rediriger vers un domaine arbitraire
+const ALLOWED_ORIGINS = new Set([
+  "https://jerwis.fr",
+  "https://www.jerwis.fr",
+  "http://localhost:3000",
+  "http://localhost:3001",
+]);
+const DEFAULT_ORIGIN = "https://jerwis.fr";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -22,7 +32,8 @@ export default async function handler(req, res) {
   }
 
   const stripe = new Stripe(stripeKey);
-  const origin = req.headers.origin || "https://jerwis.fr";
+  const requestedOrigin = req.headers.origin;
+  const origin = ALLOWED_ORIGINS.has(requestedOrigin) ? requestedOrigin : DEFAULT_ORIGIN;
 
   try {
     const session = await stripe.checkout.sessions.create({

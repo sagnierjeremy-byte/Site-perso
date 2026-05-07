@@ -16,7 +16,7 @@ published: "2026-05-07"
 tldr:
   - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi · et un set complet pour un collaborateur à <strong>0,80 €</strong>. La plus réussie de moi, je l'utilise déjà sur LinkedIn."
   - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…), et tu peux brûler 30 € en 1 h sans t'en rendre compte."
-  - "Le code source est en <strong>précommande à 99 €</strong> · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Tu apportes ta clé fal.ai (~20 € pour 100 photos)."
+  - "Le code source est en <strong>précommande à 99 €</strong> · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Tu apportes ta clé fal.ai (environ 20 € pour 100 photos)."
 ---
 
 <!-- section k-fuchsia -->
@@ -25,7 +25,7 @@ tldr:
 
 J'avais besoin de photos. Pas mille, juste **5 ou 6 belles photos de moi**, utilisables sur LinkedIn, le site, en hero de newsletter, sur une page de vente. Tu connais le problème : la dernière vraie séance photo que tu as faite remonte à des années, tes selfies datent de 2022, et tout ce que tu publies sort un peu pâle.
 
-Deux options classiques · payer un photographe (~500 € la séance à Lyon ou Paris pour un set correct), ou prendre un abonnement à un générateur tout-fait comme **Klayn.ai** (à peu près 200 €/mois). J'ai trouvé les deux trop chers pour un truc dont j'ai besoin une fois par trimestre.
+Deux options classiques · payer un photographe (environ 500 € la séance à Lyon ou Paris pour un set correct), ou prendre un abonnement à un générateur tout-fait comme **Klayn.ai** (à peu près 200 €/mois). J'ai trouvé les deux trop chers pour un truc dont j'ai besoin une fois par trimestre.
 
 Donc j'ai fait ce que je fais à chaque fois que je trouve un produit cher · j'ai regardé sous le capot. Klayn empile en réalité trois ou quatre **modèles d'image IA** disponibles sur des plateformes comme **fal.ai**. À l'unité, chaque photo coûte entre $0.04 et $0.20 · pas 200 € par mois. Le reste, c'est juste de l'interface, du marketing et de la marge.
 
@@ -103,7 +103,7 @@ Je te montre deux résultats · ça donne une idée de ce qu'on obtient quand to
 
 <div class="callout ok">
   <h4>Le coût exact des deux photos ci-dessus</h4>
-  <p>Chaque tirage Seedream 4.5 me coûte <strong>$0.04</strong>. Pour ces 2 photos j'en ai en réalité tiré une quinzaine (je garde celles qui me plaisent et je jette les autres). <strong>Total : ~$0.60</strong>. Une séance complète "tous les sets de l'année" me coûte 30 €.</p>
+  <p>Chaque tirage Seedream 4.5 me coûte <strong>$0.04</strong>. Pour ces 2 photos j'en ai en réalité tiré une quinzaine (je garde celles qui me plaisent et je jette les autres). <strong>Total : environ $0.60</strong>. Une séance complète "tous les sets de l'année" me coûte 30 €.</p>
 </div>
 
 <!-- section k-orange -->
@@ -189,7 +189,7 @@ Si t'es développeur ou que t'as Claude Code installé, tu peux complètement fa
 - **Next.js** + **Tailwind** pour l'interface (3 pages, c'est tout · upload, choix scène, résultats)
 - **Zustand** pour stocker les sessions dans le navigateur (pas besoin de base de données)
 - **fal.ai** comme passerelle vers les modèles d'image (Seedream, FLUX, etc.) · facture à l'usage, pas d'abonnement
-- **OpenRouter** pour appeler **Gemini 2.5 Pro** qui décompose la scène en 5 plans · ~$1 pour 50 sessions
+- **OpenRouter** pour appeler **Gemini 2.5 Pro** qui décompose la scène en 5 plans · environ $1 pour 50 sessions
 
 3 conseils non négociables si tu te lances :
 
@@ -210,7 +210,7 @@ Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équi
   <p><strong>Le code source complet</strong>, livré en deux formats au choix · invitation au repo GitHub privé (tu reçois les futures mises à jour si tu veux), ou ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
   <p>Sont inclus · le code Next.js prêt à déployer (15 min sur Vercel gratuit), le récit technique <strong>STORYTELLING.md</strong> qui documente toutes les décisions et les bugs déjà résolus pour toi, et le fichier <strong>CLAUDE.md</strong> qui permet à Claude Code d'apporter des modifications proprement.</p>
   <p><strong>Pas de limite par utilisateur</strong> · une fois installé, tu génères pour toi, tes collaborateurs, ton équipe, ton pote qui t'a demandé un service. Tu paies juste les coûts variables (les clés API ci-dessous).</p>
-  <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (~20 € pour 100 photos) et ta clé OpenRouter (~1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
+  <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (environ 20 € pour 100 photos) et ta clé OpenRouter (environ 1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
   <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
 </div>
 

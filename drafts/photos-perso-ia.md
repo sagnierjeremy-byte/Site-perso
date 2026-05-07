@@ -2,7 +2,7 @@
 slug: photos-perso-ia
 titre: "J'ai construit mon générateur de photos personal branding à 30€"
 titre_seo: "Générer ses photos de personal branding à l'IA · récit complet"
-description: "Klayn coûte 200€/mois. Une séance photo personal branding, 500€. J'ai voulu voir si je pouvais m'en sortir avec 30€ de crédit IA. Récit complet : ce qui a marché, ce qui a foiré, et le code que je vends en précommande."
+description: "Klayn coûte 200€/mois. Une séance photo personal branding, 500€. J'ai voulu voir si je pouvais m'en sortir avec 30€ de crédit IA. Récit complet : ce qui a marché, ce qui a foiré, et le code que je vends à 99€ TTC (offre de lancement jusqu'au 6 juin · 149€ ensuite)."
 numero: "12"
 categorie: "Récit"
 hero_ligne_1: "Mon générateur"
@@ -16,7 +16,7 @@ published: "2026-05-07"
 tldr:
   - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi · et un set complet pour un collaborateur à <strong>0,80 €</strong>. La plus réussie de moi, je l'utilise déjà sur LinkedIn."
   - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…), et tu peux brûler 30 € en 1 h sans t'en rendre compte."
-  - "Le code source est en <strong>précommande à 99 €</strong> · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Tu apportes ta clé fal.ai (environ 20 € pour 100 photos)."
+  - "Le code source est en vente à <strong>99 € TTC en offre de lancement</strong> (jusqu'au 6 juin, ensuite 149 €) · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Livraison auto par email en 2 minutes après paiement."
 ---
 
 <!-- section k-fuchsia -->
@@ -201,28 +201,29 @@ J'ai écrit le récit technique complet (17 sections, tous les bugs résolus, to
 
 <!-- section k-fuchsia -->
 
-## Tu veux juste l'utiliser (pour toi et ton équipe) ? Précommande à 99 €
+## Tu veux juste l'utiliser (pour toi et ton équipe) ? 99 € en offre de lancement
 
 Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équipe à équiper et que les abonnements SaaS additionnés te font mal au crâne · je vends le code source. À acheter une seule fois, pas d'abonnement, pas de SaaS qui peut disparaître demain.
 
 <div class="callout ok">
-  <h4>Ce que tu reçois pour 99 €</h4>
-  <p><strong>Le code source complet</strong>, livré en deux formats au choix · invitation au repo GitHub privé (tu reçois les futures mises à jour si tu veux), ou ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
+  <h4>Ce que tu reçois pour 99 € TTC</h4>
+  <p><strong>Le code source complet</strong>, livré en deux formats · invitation immédiate au repo GitHub privé (tu reçois les futures mises à jour) <strong>et</strong> ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
   <p>Sont inclus · le code Next.js prêt à déployer (15 min sur Vercel gratuit), le récit technique <strong>STORYTELLING.md</strong> qui documente toutes les décisions et les bugs déjà résolus pour toi, et le fichier <strong>CLAUDE.md</strong> qui permet à Claude Code d'apporter des modifications proprement.</p>
+  <p><strong>Livraison automatique en 2 minutes</strong> · tu paies sur Stripe, tu reçois immédiatement par email le lien ZIP + l'invitation GitHub. Aucune attente, aucune validation manuelle.</p>
   <p><strong>Pas de limite par utilisateur</strong> · une fois installé, tu génères pour toi, tes collaborateurs, ton équipe, ton pote qui t'a demandé un service. Tu paies juste les coûts variables (les clés API ci-dessous).</p>
   <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (environ 20 € pour 100 photos) et ta clé OpenRouter (environ 1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
   <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
 </div>
 
 <div class="callout warn">
-  <h4>Pourquoi "précommande" et pas "achat direct" ?</h4>
-  <p>Le code marche déjà chez moi (j'utilise l'outil tous les jours), mais je veux finir quelques petits trucs avant de le livrer · documenter le déploiement Vercel pas-à-pas, simplifier la première installation, ajouter 2-3 garde-fous supplémentaires sur le compteur de coût. <strong>Livraison prévue dans les semaines qui viennent</strong>, je préviens chaque acheteur dès que c'est prêt.</p>
-  <p>En contrepartie · le prix de précommande est <strong>99 €</strong> · le prix grimpera à 149 € à la sortie officielle.</p>
+  <h4>Offre de lancement · jusqu'au 6 juin 2026</h4>
+  <p>Le tarif <strong>99 € TTC</strong> est une offre de lancement <strong>limitée à 30 jours</strong>. À partir du 6 juin 2026, le prix passe à <strong>149 € TTC</strong> (le tarif normal pour ce genre de produit).</p>
+  <p>Si tu hésites, ne traîne pas trop · ça fait 50 € d'économie pour ceux qui décident maintenant.</p>
 </div>
 
-Pour pré-réserver, **va sur la page de précommande** :
+Pour acheter, **direction la page** :
 
-<p style="text-align:center; margin: 28px 0;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:16px 32px; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none;">Précommander à 99 € TTC →</a></p>
+<p style="text-align:center; margin: 28px 0;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:16px 32px; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none;">Acheter à 99 € TTC · offre limitée →</a></p>
 
 Tu peux aussi écrire directement à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> si tu préfères payer autrement (virement, etc.).
 

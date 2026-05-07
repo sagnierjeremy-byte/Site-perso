@@ -715,10 +715,11 @@
     <h2>99 €.<br>Une fois.<br><em style="color:var(--fuchsia)">À toi.</em></h2>
     <p>Tu reçois le code source par email dès que la v1 est prête. Garantie remboursement intégrale. Zéro abonnement, zéro mauvaise surprise.</p>
 
-    <a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=Pr%C3%A9commande%20g%C3%A9n%C3%A9rateur%20photos%20personal%20branding&body=Salut%20J%C3%A9r%C3%A9my%2C%0A%0AJe%20veux%20pr%C3%A9commander%20le%20g%C3%A9n%C3%A9rateur%20de%20photos%20personal%20branding%20%C3%A0%2099%20%E2%82%AC%20TTC.%0A%0AMa%20pr%C3%A9f%C3%A9rence%20de%20livraison%20%3A%20%5BGitHub%20priv%C3%A9%20%2F%20ZIP%20%2F%20les%20deux%5D%0AMon%20username%20GitHub%20%28si%20tu%20veux%20l%27invitation%29%20%3A%20%5B...%5D%0A%0AMerci%20%21" class="precom-cta-btn" style="font-size: 19px; padding: 22px 40px;">Précommander · 99 € TTC <span class="arrow">→</span></a>
+    <button id="precom-cta-final" class="precom-cta-btn" style="font-size: 19px; padding: 22px 40px;">Précommander · 99 € TTC <span class="arrow">→</span></button>
+    <p id="precom-cta-error" style="display:none; color: #fbbac8; font-size:14px; margin-top: 16px;"></p>
 
     <p style="margin-top: 28px; font-size: 13px; color: rgba(255,255,255,.55);">
-      Le paiement Stripe sécurisé arrive très bientôt. En attendant, écris-moi à <a href="mailto:jeremy.sagnier@eurofiscalis.com" style="color: rgba(255,255,255,.85); text-decoration: underline;">jeremy.sagnier@eurofiscalis.com</a> et je t'envoie un lien Stripe en retour.
+      Paiement sécurisé via Stripe. Tu préfères payer manuellement (virement, etc.) ? Écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com" style="color: rgba(255,255,255,.85); text-decoration: underline;">jeremy.sagnier@eurofiscalis.com</a>.
     </p>
   </div>
 </section>
@@ -802,6 +803,28 @@
       localStorage.setItem('theme', next);
     });
   })();
+
+  // CTA précommande -> Stripe Checkout
+  document.getElementById('precom-cta-final')?.addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const errorEl = document.getElementById('precom-cta-error');
+    btn.disabled = true;
+    btn.textContent = 'Redirection vers Stripe…';
+    try {
+      const r = await fetch('/api/checkout-create', { method: 'POST' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const { url } = await r.json();
+      if (!url) throw new Error('URL manquante');
+      window.location.href = url;
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = 'Précommander · 99 € TTC <span class="arrow">→</span>';
+      if (errorEl) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Erreur : ' + err.message + '. Réessaie ou écris à jeremy.sagnier@eurofiscalis.com';
+      }
+    }
+  });
 </script>
 
 </body>

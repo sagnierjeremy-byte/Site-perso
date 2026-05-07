@@ -136,8 +136,10 @@ export default async function handler(req, res) {
   let existing = null;
   try {
     const meta = await head(deliveryKey, { token: process.env.BLOB_READ_WRITE_TOKEN });
-    if (meta?.url) {
-      const r = await fetch(meta.url);
+    // Blob privé · utilise downloadUrl signée pour la lecture
+    const readUrl = meta?.downloadUrl || meta?.url;
+    if (readUrl) {
+      const r = await fetch(readUrl);
       if (r.ok) existing = await r.json();
     }
   } catch (err) {
@@ -214,7 +216,7 @@ export default async function handler(req, res) {
           githubInviteOk: result.ok,
           githubInviteLateAt: new Date().toISOString(),
         }),
-        { access: "public", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true }
+        { access: "private", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true }
       );
     } catch (err) {
       console.error("[github-invite-late] delivery log update failed:", err.message);

@@ -46,8 +46,10 @@ async function inviteGithubCollaborator(username) {
 }
 
 async function generateZipUrl() {
+  // Le store est en mode `private` · `head()` retourne une `downloadUrl` signée
+  // que l'on peut donner directement au client dans l'email.
   const meta = await head(ZIP_BLOB_KEY, { token: process.env.BLOB_READ_WRITE_TOKEN });
-  return meta.url;
+  return meta.downloadUrl || meta.url;
 }
 
 async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, githubInviteOk, lateInviteUrl }) {
@@ -251,7 +253,7 @@ export default async function handler(req, res) {
           email: emailResult.ok ? null : emailResult.detail,
         },
       }),
-      { access: "public", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN }
+      { access: "private", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true }
     );
   } catch (err) {
     console.error("[stripe-webhook] delivery log write failed:", err.message);

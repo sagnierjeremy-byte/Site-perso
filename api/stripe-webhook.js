@@ -157,6 +157,9 @@ export default async function handler(req, res) {
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
     console.error("[stripe-webhook] signature invalide:", err.message);
+    console.error("[stripe-webhook] DEBUG sig:", String(signature).slice(0, 100));
+    console.error("[stripe-webhook] DEBUG secret prefix:", webhookSecret.slice(0, 12), "len:", webhookSecret.length);
+    console.error("[stripe-webhook] DEBUG body type:", typeof rawBody, "isBuffer:", Buffer.isBuffer(rawBody), "len:", rawBody?.length);
     return res.status(400).json({ error: "Invalid signature" });
   }
 

@@ -1,12 +1,12 @@
 ---
 slug: photos-perso-ia
-titre: "J'ai construit mon générateur de photos perso à 30€"
+titre: "J'ai construit mon générateur de photos personal branding à 30€"
 titre_seo: "Générer ses photos de personal branding à l'IA · récit complet"
-description: "Klayn coûte 200€/mois. Une séance photo perso, 500€. J'ai voulu voir si je pouvais m'en sortir avec 30€ de crédit IA. Récit complet : ce qui a marché, ce qui a foiré, et le code que je vends en précommande."
+description: "Klayn coûte 200€/mois. Une séance photo personal branding, 500€. J'ai voulu voir si je pouvais m'en sortir avec 30€ de crédit IA. Récit complet : ce qui a marché, ce qui a foiré, et le code que je vends en précommande."
 numero: "12"
 categorie: "Récit"
 hero_ligne_1: "Mon générateur"
-hero_ligne_2: "de photos perso."
+hero_ligne_2: "de photos personal branding."
 hero_ligne_3: "30 € au lieu de 500."
 lead: "Florian, notre vidéaste au bureau, a sorti un outil qui génère des photos de produits pour les sites e-commerce · quelques centimes par photo au lieu d'un shooting photographe. Quand j'ai vu ça, je me suis dit · si ça marche pour les produits, pourquoi pas pour les visages ? J'ai construit l'équivalent pour le personal branding. Deux semaines de chantier plus tard, j'utilise mes photos sur LinkedIn et on a même fait un set complet pour un de nos collaborateurs à 0,80 €. Voici le récit · ce qui marche, ce qui foire honteusement, et le code source que je vends en précommande pour ceux qui veulent juste l'utiliser pour eux et leur équipe."
 duree: "10 min"
@@ -220,7 +220,7 @@ Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équi
   <p>En contrepartie · le prix de précommande est <strong>99 €</strong> · le prix grimpera à 149 € à la sortie officielle.</p>
 </div>
 
-Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=Pr%C3%A9commande%20g%C3%A9n%C3%A9rateur%20photos%20perso&body=Salut%20J%C3%A9r%C3%A9my%2C%0A%0AJe%20veux%20pr%C3%A9commander%20le%20code%20du%20g%C3%A9n%C3%A9rateur%20de%20photos%20perso%20%C3%A0%2099%20%E2%82%AC.%0A%0AMa%20pr%C3%A9f%C3%A9rence%20de%20livraison%20%3A%20%5BGitHub%20priv%C3%A9%20%2F%20ZIP%20%2F%20les%20deux%5D%0A%0AMerci%20%21">jeremy.sagnier@eurofiscalis.com</a> avec en objet *"Précommande générateur photos perso"*. Je t'envoie le lien Stripe en retour, et tu reçois le code dès la sortie officielle.
+Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=Pr%C3%A9commande%20g%C3%A9n%C3%A9rateur%20photos%20personal%20branding&body=Salut%20J%C3%A9r%C3%A9my%2C%0A%0AJe%20veux%20pr%C3%A9commander%20le%20code%20du%20g%C3%A9n%C3%A9rateur%20de%20photos%20personal%20branding%20%C3%A0%2099%20%E2%82%AC.%0A%0AMa%20pr%C3%A9f%C3%A9rence%20de%20livraison%20%3A%20%5BGitHub%20priv%C3%A9%20%2F%20ZIP%20%2F%20les%20deux%5D%0A%0AMerci%20%21">jeremy.sagnier@eurofiscalis.com</a> avec en objet *"Précommande générateur photos personal branding"*. Je t'envoie le lien Stripe en retour, et tu reçois le code dès la sortie officielle.
 
 <!-- section k-teal -->
 
@@ -233,4 +233,4 @@ Quelques liens si tu veux creuser le sujet :
 3. **[Le lexique IA](../lexique.html)** · pour comprendre les termes techniques (LoRA, polas, batch, queue) qui reviennent souvent dans le monde des modèles d'image.
 4. **[Mes outils](../outils.html)** · les 6 outils que j'utilise tous les jours dans mon stack IA-développeur.
 
-Si t'as fait ton propre générateur de photos perso ou que t'as testé Klayn, **réponds à la newsletter** et raconte-moi ce que t'as appris. C'est comme ça que mes prochains articles s'améliorent.
+Si t'as fait ton propre générateur de photos personal branding ou que t'as testé Klayn, **réponds à la newsletter** et raconte-moi ce que t'as appris. C'est comme ça que mes prochains articles s'améliorent.

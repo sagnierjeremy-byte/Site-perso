@@ -220,7 +220,7 @@ Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équi
   <p>En contrepartie · le prix de précommande est <strong>99 €</strong> · le prix grimpera à 149 € à la sortie officielle.</p>
 </div>
 
-Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:sagnier.jeremy@gmail.com?subject=Pr%C3%A9commande%20g%C3%A9n%C3%A9rateur%20photos%20perso&body=Salut%20J%C3%A9r%C3%A9my%2C%0A%0AJe%20veux%20pr%C3%A9commander%20le%20code%20du%20g%C3%A9n%C3%A9rateur%20de%20photos%20perso%20%C3%A0%2099%20%E2%82%AC.%0A%0AMa%20pr%C3%A9f%C3%A9rence%20de%20livraison%20%3A%20%5BGitHub%20priv%C3%A9%20%2F%20ZIP%20%2F%20les%20deux%5D%0A%0AMerci%20%21">sagnier.jeremy@gmail.com</a> avec en objet *"Précommande générateur photos perso"*. Je t'envoie le lien Stripe en retour, et tu reçois le code dès la sortie officielle.
+Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=Pr%C3%A9commande%20g%C3%A9n%C3%A9rateur%20photos%20perso&body=Salut%20J%C3%A9r%C3%A9my%2C%0A%0AJe%20veux%20pr%C3%A9commander%20le%20code%20du%20g%C3%A9n%C3%A9rateur%20de%20photos%20perso%20%C3%A0%2099%20%E2%82%AC.%0A%0AMa%20pr%C3%A9f%C3%A9rence%20de%20livraison%20%3A%20%5BGitHub%20priv%C3%A9%20%2F%20ZIP%20%2F%20les%20deux%5D%0A%0AMerci%20%21">jeremy.sagnier@eurofiscalis.com</a> avec en objet *"Précommande générateur photos perso"*. Je t'envoie le lien Stripe en retour, et tu reçois le code dès la sortie officielle.
 
 <!-- section k-teal -->
 

@@ -54,7 +54,7 @@ const buffer = readFileSync(zipPath);
 
 try {
   const blob = await put(ZIP_BLOB_KEY, buffer, {
-    access: "public",
+    access: "private",
     token,
     contentType: "application/zip",
     addRandomSuffix: false,

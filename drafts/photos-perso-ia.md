@@ -209,11 +209,22 @@ Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équi
   <h4>Ce que tu reçois pour 99 € TTC</h4>
   <p><strong>Le code source complet</strong>, livré en deux formats · invitation immédiate au repo GitHub privé (tu reçois les futures mises à jour) <strong>et</strong> ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
   <p>Sont inclus · le code Next.js prêt à déployer (15 min sur Vercel gratuit), le récit technique <strong>STORYTELLING.md</strong> qui documente toutes les décisions et les bugs déjà résolus pour toi, et le fichier <strong>CLAUDE.md</strong> qui permet à Claude Code d'apporter des modifications proprement.</p>
+  <p><strong>Une page Paramètres intégrée</strong> · accessible depuis n'importe où via la topbar. Elle affiche le statut de chaque clé API (✓ Configurée / ✗ Manquante avec valeur masquée <code>••••XXXX</code>), des boutons "Tester la connexion" pour fal.ai et OpenRouter (endpoints gratuits, zéro coût), un calculateur de coût interactif (tu rentres sessions/mois + photos/session, tu vois le total $ et €), un walkthrough pas-à-pas qui s'adapte selon que tu sois sur Vercel ou en local, des sections dépliables par clé (comment l'obtenir, à quoi ça sert, combien ça coûte, bonnes pratiques) et une FAQ avec les 7 questions qui reviennent tout le temps. <strong>Concrètement · tu ne touches plus jamais à un fichier <code>.env.local</code></strong>, tout se passe dans le dashboard Vercel + l'interface.</p>
   <p><strong>Livraison automatique en 2 minutes</strong> · tu paies sur Stripe, tu reçois immédiatement par email le lien ZIP + l'invitation GitHub. Aucune attente, aucune validation manuelle.</p>
   <p><strong>Pas de limite par utilisateur</strong> · une fois installé, tu génères pour toi, tes collaborateurs, ton équipe, ton pote qui t'a demandé un service. Tu paies juste les coûts variables (les clés API ci-dessous).</p>
   <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (environ 20 € pour 100 photos) et ta clé OpenRouter (environ 1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
   <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
 </div>
+
+### Setup en 3 minutes · pour ceux qui ne veulent surtout pas toucher au code
+
+Si t'es à l'aise avec un terminal, l'install prend 15 min. Si t'es allergique au code · genre tu sais à peine ce qu'est un `.env`, mais t'as déjà cliqué sur "Deploy" dans Vercel · t'es exactement la cible.
+
+Tu déploies le repo sur Vercel en 1 clic (template gratuit, aucune carte bancaire requise · juste un compte). Tu ouvres l'app sur ton URL Vercel, tu cliques sur **Paramètres** dans la topbar, et tu vois trois cases rouges · `FAL_KEY`, `OPENROUTER_API_KEY`, `ADMIN_TOKEN`. À côté de chaque case, un bouton **"Comment l'obtenir"** te déplie un guide pas-à-pas (où aller cliquer chez fal.ai, où aller chez OpenRouter, quoi copier-coller dans Vercel).
+
+Tu colles les 3 clés dans le dashboard Vercel (Settings → Environment Variables, copier-coller, save), tu redéploies (1 clic, 30 secondes), tu reviens sur la page Paramètres · les 3 cases passent au vert. Tu cliques **"Tester la connexion"** sur chaque clé · ça appelle l'endpoint de billing de fal.ai (gratuit, juste pour vérifier l'auth) et te répond *"connexion OK · ton solde est de X $"*. À ce moment-là, t'es prêt à générer ta première photo.
+
+C'est ce que je voulais éviter à tout prix · qu'un acheteur se retrouve à ouvrir VS Code, comprendre ce qu'est un `.env.local`, googler "comment ajouter une variable d'environnement Vercel", et abandonner à la 3e tentative. Là, tout se passe dans l'interface · l'app te tient la main jusqu'à ce qu'elle marche.
 
 <div class="callout warn">
   <h4>Offre de lancement · jusqu'au 6 juin 2026</h4>

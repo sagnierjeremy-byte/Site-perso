@@ -83,9 +83,10 @@ async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, github
   ${githubBlock}
   <h2 style="font-size:18px;margin:28px 0 12px 0">Pour démarrer en 15 minutes</h2>
   <ol style="font-size:14px;line-height:1.7">
-    <li>Décompresse le ZIP, ouvre le dossier dans ton terminal</li>
-    <li><code>npm install</code> · puis crée un fichier <code>.env.local</code> avec <code>FAL_KEY=...</code> + <code>OPENROUTER_API_KEY=...</code> + <code>ADMIN_TOKEN=...</code></li>
-    <li><code>npm run dev</code> · l'app est dispo sur <code>localhost:3000</code></li>
+    <li>Décompresse le ZIP</li>
+    <li><strong>Deploy</strong> : pousse le repo sur ton GitHub puis « Import Project » sur Vercel (1 click, gratuit). Ou en local : <code>npm install</code> + <code>npm run dev</code> sur <code>localhost:3000</code></li>
+    <li>Récupère tes clés sur <a href="https://fal.ai" style="color:#ef426f">fal.ai</a> + <a href="https://openrouter.ai" style="color:#ef426f">OpenRouter</a></li>
+    <li>Ouvre l'app sur <code>/settings</code> · l'interface te guide pour coller les 3 clés (<code>FAL_KEY</code>, <code>OPENROUTER_API_KEY</code>, <code>ADMIN_TOKEN</code>) et te confirme en vert que tout marche</li>
   </ol>
   <h2 style="font-size:18px;margin:28px 0 12px 0">Tes coûts variables</h2>
   <ul style="font-size:14px;line-height:1.7">

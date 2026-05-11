@@ -341,212 +341,54 @@ J'ai écrit le récit technique complet (17 sections, tous les bugs résolus, to
 
 <!-- section k-fuchsia -->
 
-## Tu veux juste l'utiliser (pour toi et ton équipe) ? 99 € en offre de lancement
+## Tu veux juste l'utiliser ? 99 € en offre de lancement
 
-Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équipe à équiper et que les abonnements SaaS additionnés te font mal au crâne · je vends le code source. À acheter une seule fois, pas d'abonnement, pas de SaaS qui peut disparaître demain.
+T'as une équipe à équiper, ou tu veux refaire tes photos pro tous les trois mois sans signer un abonnement à 200 €/mois. Je vends le code source · **achat unique**, pas de SaaS qui peut disparaître, pas de quota par utilisateur.
 
 <div class="callout ok">
   <h4>Ce que tu reçois pour 99 € TTC</h4>
-  <p><strong>Le code source complet</strong>, livré en deux formats · invitation immédiate au repo GitHub privé (tu reçois les futures mises à jour) <strong>et</strong> ZIP téléchargeable (autonome, tu fais ce que tu veux avec).</p>
-  <p>Sont inclus · le code Next.js prêt à déployer (15 min sur Vercel gratuit), le récit technique <strong>STORYTELLING.md</strong> qui documente toutes les décisions et les bugs déjà résolus pour toi, et le fichier <strong>CLAUDE.md</strong> qui permet à Claude Code d'apporter des modifications proprement.</p>
-  <p><strong>Une page Paramètres intégrée</strong> · accessible depuis n'importe où via la topbar. Elle affiche le statut de chaque clé API (✓ Configurée / ✗ Manquante avec valeur masquée <code>••••XXXX</code>), des boutons "Tester la connexion" pour fal.ai et OpenRouter (endpoints gratuits, zéro coût), un calculateur de coût interactif (tu rentres sessions/mois + photos/session, tu vois le total $ et €), un walkthrough pas-à-pas qui s'adapte selon que tu sois sur Vercel ou en local, des sections dépliables par clé (comment l'obtenir, à quoi ça sert, combien ça coûte, bonnes pratiques) et une FAQ avec les 7 questions qui reviennent tout le temps. <strong>Concrètement · tu ne touches plus jamais à un fichier <code>.env.local</code></strong>, tout se passe dans le dashboard Vercel + l'interface.</p>
-  <p><strong>Livraison automatique en 2 minutes</strong> · tu paies sur Stripe, tu reçois immédiatement par email le lien ZIP + l'invitation GitHub. Aucune attente, aucune validation manuelle.</p>
-  <p><strong>Pas de limite par utilisateur</strong> · une fois installé, tu génères pour toi, tes collaborateurs, ton équipe, ton pote qui t'a demandé un service. Tu paies juste les coûts variables (les clés API ci-dessous).</p>
-  <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (environ 20 € pour 100 photos) et ta clé OpenRouter (environ 1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
-  <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
+  <ul>
+    <li><strong>Code Next.js complet</strong> · invitation au repo GitHub privé (mises à jour à vie) + ZIP autonome. Déploiement 1 clic sur Vercel gratuit.</li>
+    <li><strong>Page Paramètres turnkey</strong> · tu colles tes 3 clés API via l'interface, le statut passe au vert et un bouton "Tester la connexion" confirme. Tu touches jamais un fichier <code>.env.local</code>, jamais un terminal.</li>
+    <li><strong>Docs livrées</strong> · <code>STORYTELLING.md</code> (toutes les décisions techniques + bugs déjà résolus) + <code>CLAUDE.md</code> (pour que Claude Code modifie ton fork proprement).</li>
+    <li><strong>Pas de limite d'usage</strong> · toi, ton équipe, ton pote — autant de personnes que tu veux.</li>
+    <li><strong>Livraison auto 2 minutes</strong> · Stripe → email avec lien ZIP + invite GitHub. Aucune validation manuelle.</li>
+    <li><strong>Garantie remboursement 1h</strong> · si ça marche pas en moins d'1h après réception, je rembourse intégral sans question.</li>
+  </ul>
+  <p style="margin-top:14px;"><strong>Tes coûts variables · clés API à toi</strong> · fal.ai (~ 4 € pour 100 photos) + OpenRouter (~ 1 € pour 50 sessions). Tu paies à l'usage, directement aux providers, à quelques centimes la photo. Pas d'abonnement caché.</p>
 </div>
 
-### Tu fais le calcul, et là...
+### Le calcul sur 2 ans, sans bullshit
 
-Le truc le plus simple pour comprendre l'intérêt, c'est de poser les 3 options côte à côte sur 12 mois :
+| | Klayn (abo SaaS) | Photographe (1/trim) | Mon outil |
+|---|---|---|---|
+| Année 1 | 2 400 € | 2 000 € | ~ 130 € |
+| Année 2 | 2 400 € | 2 000 € | ~ 30 € |
+| **Total 2 ans** | **4 800 €** | **4 000 €** | **~ 160 €** |
 
-| Option | Coût année 1 | Coût année 2 | Limite | À qui c'est rentable |
-|---|---|---|---|---|
-| **Klayn.ai** (abonnement SaaS) | 200 € × 12 = **2 400 €** | **2 400 €** (récurrent) | 1 personne / compte, modèles imposés, dépend de la survie du SaaS | À personne, sauf si tu génères 50 photos / semaine et que t'as zéro envie de toucher à un terminal |
-| **Séance photographe** (1 / trimestre) | 4 × 500 € = **2 000 €** | **2 000 €** | 1 personne, 1 esthétique figée par séance, photos vieillissent en 6 mois | Si tu valorises le rapport humain au photographe et que la qualité "vraie photo" est non-négociable pour ton marché (avocat de luxe, etc.) |
-| **Cet outil** (achat unique) | **99 € + ~30 € de crédits fal.ai** = ≈ 130 € | **0 € + crédits à l'usage** (≈ 30 €/an si tu refais 3 sets) | Aucune (illimité, équipe entière, autant de sets que tu veux) | À 95 % des gens qui veulent juste des photos pro régulièrement |
-
-**Lecture rapide** · sur 2 ans, tu compares **4 800 € (Klayn) ou 4 000 € (photographe) contre 160 €** avec mon outil. C'est pas une économie de 10 %, c'est un facteur 25-30.
-
-<div class="callout ok">
-  <h4>Cas 1 · Tu équipes 5 collaborateurs</h4>
-  <p>Faire venir un photographe au bureau pour 5 personnes · entre <strong>1 500 € et 3 000 €</strong> selon ville et niveau (Paris/Lyon haut de gamme, comptes large). En plus, faut bloquer une demi-journée d'agenda pour 5 collaborateurs, gérer la logistique des fonds/changes, et la retouche derrière.</p>
-  <p>Avec l'outil · <strong>99 € une fois + ≈ 5 € de crédits fal.ai</strong> pour les 5 sets initiaux (1 € par personne, 25 photos chacune). Chaque personne envoie ses 4 selfies depuis chez elle, ça tourne pendant qu'elle prend son café.</p>
-  <p><strong>ROI</strong> · économie de ~1 400 à 2 900 € dès la première utilisation. Et tu peux refaire un nouveau set quand quelqu'un change de look ou que tu veux décliner une autre esthétique. L'outil est amorti dès le premier collaborateur équipé.</p>
-</div>
-
-<div class="callout ok">
-  <h4>Cas 2 · Tu es indépendant ou solo</h4>
-  <p>Klayn.ai à 200 €/mois = <strong>2 400 € / an</strong>. À ce tarif, mon outil coûte l'équivalent de <strong>0,5 mois d'abonnement Klayn</strong>. Tu peux te payer mon outil 24 fois avant d'avoir dépensé l'équivalent d'une seule année de Klayn.</p>
-  <p>Sur 3 ans · Klayn te coûte <strong>7 200 €</strong>. Mon outil te coûte <strong>99 € + ~90 € de crédits</strong> (3 ans × 30 € de crédits si tu génères régulièrement) = <strong>189 €</strong>. Tu fais le calcul, et là... tu te demandes ce que les 7 011 € restants pourraient financer (un MacBook Pro M5, 14 séances chez un photographe pro, 2 ans de coworking).</p>
-</div>
+Facteur 25-30, pas une économie de 10 %. Et tu peux refaire 50 sets dans l'année sans surcoût supplémentaire — un nouveau collaborateur arrive ? 1 € de crédit fal.ai et c'est plié.
 
 <!-- section k-orange -->
 
 ## Pourquoi pas Klayn ? Pourquoi pas un photographe ?
 
-Le tableau comparatif te dit le "combien". Mais en vrai, le problème de Klayn (et de tout SaaS d'image) n'est pas qu'il est cher · c'est qu'il t'enferme dans 4 pièges qu'on voit pas tant qu'on y est pas. Et un photographe, dès que tu passes à l'échelle équipe, devient logistiquement infernal. Je détaille.
+Trois trucs qui m'auraient empêché de dormir si j'avais signé chez Klayn :
 
-### Le piège n°1 · l'abonnement qui ne s'arrête jamais
+- **Le vendor lock-in sur ton visage.** Klayn entraîne un modèle propriétaire sur tes selfies (4 h de training). Tu changes de coupe, tu te rases la barbe ? Tu repasses par la case training. Chez moi, 4 nouveaux selfies à chaque session, l'IA s'adapte en direct — 30 secondes, c'est tout.
+- **La dépendance au survivant du SaaS.** S'ils ferment, pivotent ou augmentent les prix, tes données partent avec eux. Avec le code source, tu as les fichiers à vie — même si je disparais demain (improbable, je signe avec mon nom).
+- **Le paywall sur les nouveaux modèles.** Tous les 3-4 mois un nouveau modèle d'image sort (Seedream 5, FLUX 3…). Chez Klayn = nouveau plan tarifaire à 299 €/mois pour y accéder. Chez moi = 1 commit gratuit qui l'ajoute au dropdown.
 
-Klayn coûte 200 €/mois. Ça paraît raisonnable jusqu'à ce que tu fasses la projection longue :
-
-| Durée | Coût Klayn | Coût mon outil | Multiplicateur |
-|---|---|---|---|
-| 1 mois | 200 € | 99 € | × 2 |
-| 1 an | 2 400 € | ~130 € | × 18 |
-| 3 ans | 7 200 € | ~190 € | × 38 |
-| 5 ans | 12 000 € | ~250 € | × 48 |
-
-Pendant ces 5 ans, t'as payé Klayn **121× le prix du code source**. Pour exactement la même chose · les modèles d'image hébergés derrière sont les mêmes qu'on appelle directement chez fal.ai.
-
-### Le piège n°2 · la dépendance au survivant du SaaS
-
-Klayn ferme dans 18 mois ? Pivot vers un autre marché ? Augmente brutalement les tarifs ? Tes données partent avec eux · tes "models entraînés sur ton visage", ton historique de génération, tes presets. Tu repars de zéro chez un concurrent.
-
-Avec le code source, **tu as les fichiers à vie**. Même si je disparais demain (improbable, mais admettons), tu continues à tourner sur Vercel ou sur ton VPS. Les modèles d'image sont chez fal.ai, qui est une boîte indépendante. Tu deviens dépendant de personne en particulier.
-
-### Le piège n°3 · le vendor lock-in sur ton visage
-
-Klayn entraîne un modèle propriétaire sur tes selfies (un LoRA, dans le jargon). C'est ce qui te lock-in · tu changes de coupe, tu te rases la barbe, tu te mets aux lunettes ? Tu re-passes par la phase d'entraînement, et tu attends 4 heures que ça tourne sur leurs serveurs.
-
-Avec notre outil, t'es pas entraîné · tu uploades 4 selfies à chaque session, l'IA s'adapte en direct. **Changement de look = 30 secondes pour 4 nouveaux selfies, c'est tout**. Pas de réentraînement, pas d'attente, pas de "credits LoRA" à racheter.
-
-### Le piège n°4 · le paywall sur les nouveaux modèles
-
-Tous les 3-4 mois, un nouveau modèle d'image sort · Seedream 5, FLUX 3, Imagen 4, etc. Chacun marque un saut qualitatif. Derrière Klayn, c'est systématiquement **un nouveau plan tarifaire** (le plan "Pro+" à 299 €/mois pour avoir accès au dernier modèle).
-
-Chez nous, c'est **un commit qui les ajoute** en quelques heures. Tu pull la mise à jour du repo GitHub, tu redéploies sur Vercel (1 clic), le nouveau modèle est sélectionnable dans le dropdown. Pas de surcoût, pas de nouveau plan · juste le tarif fal.ai à l'usage, qui reste autour de $0.04-$0.20 par tirage.
-
-<div class="callout warn">
-  <h4>Le vrai coût caché des SaaS d'image</h4>
-  <p>C'est pas le prix mensuel · c'est l'<strong>asymétrie d'évolution</strong>. Eux décident quand ajouter un modèle, quand augmenter les prix, quand changer les conditions, quand fermer. Toi tu subis. Avec le code source, les décisions reviennent chez toi.</p>
-</div>
-
-<!-- section k-fuchsia -->
-
-## Pour qui c'est fait · 3 personas concrets
-
-J'écris pas "ça marche pour tout le monde" parce que c'est faux. Voilà les 3 profils pour qui le ROI est mathématique, sans débat.
-
-### Persona 1 · L'indépendant qui en a marre de ses photos pâles
-
-Tu fais 30-50 photos personal branding par an (LinkedIn, hero d'une landing, header d'une newsletter, illustration d'un article, cover d'un podcast invité). T'as pas envie de payer un photographe à chaque fois, t'as pas envie de t'abonner à Klayn.
-
-| Poste | Coût |
-|---|---|
-| Achat unique du code | 99 € |
-| Crédit fal.ai/an (≈ 50 photos) | ~5-10 € |
-| **Total année 1** | **~109 €** |
-| **Total 3 ans** | **~129 €** |
-| Équivalent Klayn 3 ans | 7 200 € |
-| **Économie 3 ans** | **~7 071 €** |
-
-**Pour qui c'est non-négociable** · indépendants, freelances seniors, consultants solo, créateurs de contenu, coachs, formateurs.
-
-### Persona 2 · L'équipe de 5-10 qu'on doit toujours équiper
-
-T'as une boîte de 5-10 personnes. Tout le monde a sa photo LinkedIn datée. Tu veux un set cohérent · même esthétique, même fond, tout le monde habillé pareil ou presque. La voie classique · photographe au bureau, journée bloquée, 2000-3000 € de facture finale, et tu dois recommencer dans 18 mois quand quelqu'un change de poste ou de look.
-
-| Poste | Coût |
-|---|---|
-| Achat unique du code | 99 € |
-| Crédit fal.ai pour 10 sets initiaux | ~10 € |
-| **Total démarrage** | **~109 €** |
-| Équivalent photographe pro (10 personnes) | 2 500 € |
-| **Économie immédiate** | **~2 391 €** |
-
-Chaque personne envoie ses 4 selfies à distance (depuis chez elle, en 2 min). L'admin de l'outil (toi ou ton OPS) lance les 10 sets en série · **tout le monde a son portrait pro en 1 heure**, sans avoir bougé du bureau ou du télétravail. Et quand quelqu'un de neuf arrive, son set coûte ~1 €.
-
-**Pour qui c'est non-négociable** · startups en croissance, agences, cabinets de conseil 5-15, équipes commerciales B2B.
-
-### Persona 3 · L'agence qui vend du personal branding à ses clients
-
-T'as une agence (com', marketing, branding, social media). Tu vends de l'accompagnement à des dirigeants ou des fondateurs. Une partie du livrable, c'est les photos pro.
-
-Tu paies **99 € une fois**, et tu factures à tes clients exactement ce que tu veux · 500 € le set, 1500 € le pack complet, en marge brute c'est 100% (moins les ~5 € de crédits fal.ai par client). T'as un livrable visuel premium à intégrer dans tes offres sans devoir négocier avec un photographe externe à chaque mandat.
-
-| Métrique | Valeur |
-|---|---|
-| Investissement initial | 99 € |
-| Coût marginal par client | ~5 € |
-| Prix de vente conseillé | 300-1500 € le set |
-| **Marge brute** | **~99 %** |
-| ROI dès le premier client servi | × 3 à × 15 |
-
-**Pour qui c'est non-négociable** · agences de personal branding, agences social media, agences de communication B2B, freelances en stratégie de contenu.
-
-<!-- section k-teal -->
-
-## Les arguments qu'on entend (et ce que je réponds)
-
-Quand je présente l'outil, ces 4 objections reviennent à chaque fois. Voilà mes réponses honnêtes · pas du "je vais essayer de te convaincre", juste ce que je dirais à un pote.
-
-### *"Mais l'IA, ça se voit !"*
-
-Ça se voit **sur les photos qui sortent mal**. Et ça se voit beaucoup moins sur les photos qui sortent bien. Reviens regarder le **portrait B&W** et la **photo LinkedIn corporate** plus haut dans l'article · personne dans mon réseau ne m'a jamais demandé si c'était de l'IA. Personne.
-
-Les "tells" classiques (peau plastique, mains à 6 doigts, yeux vides) apparaissent quand · tu utilises un modèle vieux, tu prompt trop court ou trop générique, tu prends une photo full frontale en pleine lumière sans aucun grain. Quand tu cadres en B&W, en plan large, en mouvement, ou avec une lumière de fin de journée · l'IA devient indétectable. Le piège, c'est de pas s'en rendre compte et de prendre la première photo qui sort.
-
-### *"Y'a pas de support si ça plante chez moi."*
-
-Faux. Pour 3 raisons concrètes :
-
-1. **Repo GitHub privé** · t'es invité dessus, tu vois toutes les mises à jour que je pousse, tu peux ouvrir une issue si t'as un blocage.
-2. **Garantie remboursement 1h** · si tu déploies l'outil et que ça marche pas chez toi en moins d'1h après réception, je te rembourse intégralement, sans question.
-3. **Email direct** · tu m'écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>, je réponds en moins de 24h en jour ouvré. Pas un ticket à un support tiers · directement moi.
-
-Le risque pour toi · 99 € si je disparais demain (improbable, je signe l'article avec mon nom et mon adresse). Le risque pour Klayn · 200 €/mois × 12 si leur SaaS ferme dans 6 mois, tu perds tout et tu repars de zéro.
-
-### *"Je préfère payer un photographe une vraie séance."*
-
-Vas-y. Sincèrement. Une vraie séance, c'est une autre expérience · un humain qui te guide, une vraie esthétique cohérente, des photos qui ont quelque chose en plus dans l'œil du photographe.
-
-**Mais** · si tu fais une séance / 6 mois (très peu de gens en font plus), ton truc devient pâle au bout du 4e mois. Avec mon outil, tu refais **10 sets dans l'année** si tu veux · changement de saison, nouvelle ambiance, nouveau costume, un événement business spécifique. **C'est complémentaire, pas concurrent**. Tu peux très bien faire 1 vraie séance / an pour les photos "principales" et utiliser l'outil pour tout le reste (carrousels, posts, hero d'articles, mailings). C'est même ce que je fais.
-
-### *"Je suis pas dev."*
-
-C'est pour ça que la **page Paramètres** existe (relis la section "Setup en 3 minutes" plus haut). Concrètement, tu cliques sur "Deploy on Vercel" depuis le repo, tu te connectes avec ton compte GitHub (gratuit), tu colles 3 clés dans Vercel via leur interface graphique, et tu reviens sur l'app · les 3 cases passent au vert.
-
-Tu ne touches **jamais** un fichier `.env.local`, jamais un terminal, jamais une ligne de code. Si tu sais utiliser Notion, tu sais utiliser l'outil. Et si t'es vraiment bloqué, le support garantie 1h ci-dessus existe.
-
-<!-- section k-fuchsia -->
-
-### Setup en 3 minutes · pour ceux qui ne veulent surtout pas toucher au code
-
-Si t'es à l'aise avec un terminal, l'install prend 15 min. Si t'es allergique au code · genre tu sais à peine ce qu'est un `.env`, mais t'as déjà cliqué sur "Deploy" dans Vercel · t'es exactement la cible.
-
-Tu déploies le repo sur Vercel en 1 clic (template gratuit, aucune carte bancaire requise · juste un compte). Tu ouvres l'app sur ton URL Vercel, tu cliques sur **Paramètres** dans la topbar, et tu vois trois cases rouges · `FAL_KEY`, `OPENROUTER_API_KEY`, `ADMIN_TOKEN`. À côté de chaque case, un bouton **"Comment l'obtenir"** te déplie un guide pas-à-pas (où aller cliquer chez fal.ai, où aller chez OpenRouter, quoi copier-coller dans Vercel).
-
-Tu colles les 3 clés dans le dashboard Vercel (Settings → Environment Variables, copier-coller, save), tu redéploies (1 clic, 30 secondes), tu reviens sur la page Paramètres · les 3 cases passent au vert. Tu cliques **"Tester la connexion"** sur chaque clé · ça appelle l'endpoint de billing de fal.ai (gratuit, juste pour vérifier l'auth) et te répond *"connexion OK · ton solde est de X $"*. À ce moment-là, t'es prêt à générer ta première photo.
-
-C'est ce que je voulais éviter à tout prix · qu'un acheteur se retrouve à ouvrir VS Code, comprendre ce qu'est un `.env.local`, googler "comment ajouter une variable d'environnement Vercel", et abandonner à la 3e tentative. Là, tout se passe dans l'interface · l'app te tient la main jusqu'à ce qu'elle marche.
-
-<!-- section k-orange -->
-
-### Ce que t'as pas chez les SaaS (et que t'as ici)
-
-Au-delà du calcul de coût · y'a 5 trucs que tu peux faire avec le code source que tu pourras **jamais** faire avec un Klayn, un Aragon, un quelconque SaaS du marché. Et c'est précisément ce qui justifie l'achat unique :
-
-- **Tu peux ouvrir le code** · tu lis les prompts, tu comprends comment l'IA décompose les scènes, tu vois exactement ce qui se passe sous le capot. Zéro magie noire. Si t'as un doute sur "ça use mes selfies pour entraîner un modèle perso ?" · la réponse est dans le code, sous tes yeux.
-- **Tu changes le ton des prompts si tu veux du plus naturel ou du plus éditorial** · les prompts par défaut visent l'iPhone naturel. Si tu veux pousser vers le "Vogue éditorial" ou le "street brut", c'est 2 fichiers à éditer dans `lib/prompts/`. Tu personnalises ton outil pour ton style à toi.
-- **Tu vires les modèles que t'aimes pas** · si Seedream te rend pas bien (ça arrive selon les morphologies), tu le commentes, tu mets Nano Banana Pro par défaut. Tu peux aussi en ajouter de nouveaux dès qu'ils sortent chez fal.ai.
-- **Tu héberges où tu veux** · Vercel gratuit (le plus simple), Coolify sur ton VPS, Railway, Fly.io, ton serveur sous le bureau. Tu choisis. Tes données n'envahissent jamais une infra d'un tiers que tu ne contrôles pas.
-- **Tu changes l'icône, le nom, les couleurs** · si tu revends le service à tes clients (Persona 3), tu peux complètement white-labeller. Logo à toi, nom à toi, palette à toi. Personne ne saura jamais que c'est dérivé de mon code source.
-
-C'est ce que veut dire **acheter** un outil au sens propre du terme · le posséder. Pas le louer.
+Et le photographe alors ? **C'est complémentaire, pas concurrent.** Une bonne séance par an reste précieuse. Mais entre deux séances, ton truc devient pâle au bout de 4 mois — et pour une équipe de 5-10, faire venir un photographe au bureau (1 500-3 000 € + une journée bloquée) devient irrationnel quand chacun peut envoyer 4 selfies depuis son canapé en 2 min.
 
 <div class="callout warn">
   <h4>Offre de lancement · jusqu'au 6 juin 2026</h4>
-  <p>Le tarif <strong>99 € TTC</strong> est une offre de lancement <strong>limitée à 30 jours</strong>. À partir du 6 juin 2026, le prix passe à <strong>149 € TTC</strong> (le tarif normal pour ce genre de produit).</p>
-  <p>Si tu hésites, ne traîne pas trop · ça fait 50 € d'économie pour ceux qui décident maintenant.</p>
+  <p><strong>99 € TTC</strong> pendant 30 jours. Ensuite <strong>149 €</strong>. Si tu hésites, ça fait 50 € d'écart sur une décision qu'on prend en 3 min.</p>
 </div>
 
-Pour acheter, **direction la page** :
+<p style="text-align:center; margin: 36px 0 20px;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:18px 36px; border-radius:8px; font-weight:600; font-size:18px; text-decoration:none;">Acheter à 99 € TTC · offre limitée →</a></p>
 
-<p style="text-align:center; margin: 28px 0;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:16px 32px; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none;">Acheter à 99 € TTC · offre limitée →</a></p>
+<p style="text-align:center; font-size:14px; opacity:0.7;">Pas développeur ? La page Paramètres te guide pas-à-pas, tu ne touches jamais un terminal. <a href="mailto:jeremy.sagnier@eurofiscalis.com">Écris-moi directement</a> si tu préfères payer autrement (virement, etc.).</p>
 
-Tu peux aussi écrire directement à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> si tu préfères payer autrement (virement, etc.).
 
 <!-- section k-teal -->
 

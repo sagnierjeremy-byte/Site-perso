@@ -15,7 +15,7 @@ outils: "Next.js · fal.ai · Gemini"
 published: "2026-05-07"
 tldr:
   - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi · et un set complet pour un collaborateur à <strong>0,80 €</strong>. La plus réussie de moi, je l'utilise déjà sur LinkedIn."
-  - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…), et tu peux brûler 30 € en 1 h sans t'en rendre compte."
+  - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…) et les compositions trop léchées sentent le shooting Vogue à plein nez."
   - "Le code source est en vente à <strong>99 € TTC en offre de lancement</strong> (jusqu'au 6 juin, ensuite 149 €) · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Livraison auto par email en 2 minutes après paiement."
 ---
 
@@ -154,18 +154,21 @@ Pour pas que tu restes sur 2 photos · voilà ce que l'outil sort sur **8 cas d'
 
 ### Wall of results · le volume brut, sans commentaire
 
-Avant d'attaquer les cas un par un, regarde juste la planche-contact. Voilà 6 résultats côte à côte, façon studio photo qui te tend une feuille de 36 vignettes après la séance. **C'est ça, une heure de génération à $0.04 le tirage** :
+Avant d'attaquer les cas un par un, regarde juste la planche-contact. **9 résultats côte à côte**, façon studio photo qui te tend la feuille de vignettes après la séance. C'est ça, une heure de génération à $0.04 le tirage :
 
 <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:28px 0;">
   <img src="screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Vignette · portrait B&W col roulé" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
   <img src="screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Vignette · rooftop sunset" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
   <img src="screenshots/photos-perso-ia/gpt-high.png" alt="Vignette · LinkedIn corporate" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
   <img src="screenshots/photos-perso-ia/laptop-cafe.png" alt="Vignette · café lifestyle" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
-  <img src="screenshots/photos-perso-ia/podcast-studio.png" alt="Vignette · setup podcast" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
-  <img src="screenshots/photos-perso-ia/street-phone.png" alt="Vignette · street éditorial Paris" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/gpt-medium.png" alt="Vignette · café bibliothèque" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/speaker-stage.jpg" alt="Vignette · scène conférence présentation" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/coffee-bookshelf.jpg" alt="Vignette · matin home office bomber café" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/office-tower.jpg" alt="Vignette · bureau premium tour étage haut" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/win-3-collaborateur.jpeg" alt="Vignette · portrait B&W collaborateur" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
 </div>
 
-Maintenant on déroule les 8 cas en détail.
+Maintenant on déroule les cas en détail.
 
 <img src="screenshots/photos-perso-ia/gpt-high.png" alt="Portrait LinkedIn corporate · costume sombre, ambiance bureau premium, laptop ouvert" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
@@ -174,12 +177,12 @@ Maintenant on déroule les 8 cas en détail.
 - **Coût** · $0.04 le tirage, j'en ai pris 6 avant d'avoir celle-là (≈ $0.25).
 - **Ce qui marche** · ambiance "open space premium" mais flou de profondeur naturel (pas de bokeh stock), expression contrôlée mais pas figée, regard légèrement décadré (pas plein cadre = ça respire). Tu peux la mettre sur LinkedIn demain matin, personne ne pose de question.
 
-<img src="screenshots/photos-perso-ia/podcast-studio.png" alt="Setup podcast studio · micro suspendu, sourire engagé, ambiance feutrée" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+<img src="screenshots/photos-perso-ia/speaker-stage.jpg" alt="Présentation sur scène · polo marine, lumière vidéoprojecteur, attitude posée près du pupitre" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
-**2 · Post "j'étais sur un podcast" (sans avoir été sur un podcast)**
-- **Pour quoi** · annoncer un passage podcast (le tien ou un invité), promo d'un épisode, photo de cover de série de posts "behind the scenes".
+**2 · Speaker / scène (annonce talk, post conférence, slide bio)**
+- **Pour quoi** · annoncer un talk à venir (meetup, conférence sectorielle, podcast vidéo), illustrer un post "retour d'expérience après la confs", slide bio dans une présentation client.
 - **Coût** · $0.04. Une seule génération, c'était bon du premier coup.
-- **Ce qui marche** · le micro à condensateur de pro, le sourire authentique (pas commercial), la lumière chaude orangée typique des studios podcast. C'est la photo qui pose le plus de questions à mon réseau · "tu fais un podcast maintenant ?". Spoiler · pas encore.
+- **Ce qui marche** · la posture statique près du pupitre, la lumière froide du vidéoprojecteur derrière (signature des salles de conf), le polo marine bien ajusté = le code visuel "expert qui prend la parole". Tu peux la mettre en hero de page "Je donne des conférences" et personne n'ira vérifier.
 
 <img src="screenshots/photos-perso-ia/laptop-cafe.png" alt="Gros plan lifestyle · mains sur clavier laptop, bibliothèque en arrière-plan, ambiance café cosy" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
@@ -188,12 +191,12 @@ Maintenant on déroule les 8 cas en détail.
 - **Coût** · $0.04, premier tirage.
 - **Ce qui marche** · c'est un gros plan **sans visage** · l'IA n'a pas à se battre pour reproduire ma tête, du coup le rendu est ultra-clean (la peau parfaite de l'IA pose problème seulement sur les portraits frontaux). Cadrage cinématographique, lumière dorée, bibliothèque qui suggère "je lis donc je pense". Tu peux décliner cette esthétique sur 50 visuels d'un coup.
 
-<img src="screenshots/photos-perso-ia/street-phone.png" alt="Photo éditoriale · marche dans la rue parisienne, téléphone à l'oreille, manteau beige, taxi jaune en arrière-plan" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+<img src="screenshots/photos-perso-ia/office-tower.jpg" alt="Portrait bureau premium · bomber beige, plantes vertes, fenêtres tour à étage haut sur skyline" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
-**4 · Street éditorial (couv d'article, hero de page de vente)**
-- **Pour quoi** · cover d'un article long format ("comment j'ai monté ma boîte"), hero d'une page de vente, image d'ouverture d'une présentation pitch.
-- **Coût** · $0.04, j'en ai tiré 4 pour avoir l'angle parfait (≈ $0.16).
-- **Ce qui marche** · mouvement (marche, regard hors-champ, téléphone à l'oreille) au lieu d'une pose figée · ça raconte une histoire. Le taxi jaune en arrière-plan ancre la scène (Paris, business, mouvement). Le manteau beige ressort sur le fond gris-bleu de la rue. C'est le genre de photo que tu paierais 300 € à un photographe pour aller la chercher en vrai dans la rue.
+**4 · Bureau premium tour (hero "à propos", page équipe, photo pro)**
+- **Pour quoi** · hero de la page "À propos" du site, photo officielle pour un communiqué de presse, slide d'ouverture d'un pitch d'investisseur, header de page équipe d'une start-up.
+- **Coût** · $0.04, j'en ai tiré 3 pour avoir l'angle propre (≈ $0.12).
+- **Ce qui marche** · l'étage haut avec skyline floue derrière qui suggère "boîte qui scale" (bureau premium = signal de réussite), la posture mains-dans-poches qui équilibre la sobriété du bomber beige sans tomber dans le costard 3 pièces, la lumière naturelle latérale qui maquille la peau. Photo qu'on garde 2 ans en hero "à propos" sans la remplacer.
 
 <img src="screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Rooftop coucher de soleil · portrait hero, lumière dorée chaude" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
@@ -214,9 +217,16 @@ Maintenant on déroule les 8 cas en détail.
 **7 · Variante café bibliothèque (cover de podcast, header "à propos")**
 - **Pour quoi** · cover d'un podcast personnel, header de page "à propos" en mode chaleureux, photo d'auteur sur un blog perso, illustration d'un essai ou d'un livre.
 - **Coût** · $0.04, 2 tirages pour avoir le bon angle (≈ $0.08).
-- **Ce qui marche** · ambiance plus chaude que la corporate (#1), plus posée que le street (#4). Bois, lumière tungstène, fond légèrement flou de bibliothèque · c'est le portrait "intellectuel accessible". Idéal quand tu vends de la formation, du conseil, du contenu écrit. Très différent du LinkedIn corporate · même tête, deux univers visuels distincts.
+- **Ce qui marche** · ambiance plus chaude que la corporate (#1), plus posée que le bureau tour (#4). Bois, lumière tungstène, fond légèrement flou de bibliothèque · c'est le portrait "intellectuel accessible". Idéal quand tu vends de la formation, du conseil, du contenu écrit. Très différent du LinkedIn corporate · même tête, deux univers visuels distincts.
 
-### 8 · Avant / après · le selfie iPhone vs ce que l'IA en sort
+<img src="screenshots/photos-perso-ia/coffee-bookshelf.jpg" alt="Matin home office · bomber camel, mug café fumant, bibliothèque, lumière du jour par la fenêtre" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**8 · Matin home office (post LinkedIn casual, photo de blog perso, hero formation)**
+- **Pour quoi** · post LinkedIn type "voilà à quoi ressemble ma matinée", photo d'illustration sur un blog perso (productivité, routine, vie d'entrepreneur), hero d'une page de vente de formation en ligne, header de cover d'un essai.
+- **Coût** · $0.04. 2 tirages pour avoir le mug à la bonne hauteur (≈ $0.08).
+- **Ce qui marche** · le bomber camel + tee blanc = signal "casual qui assume" sans tomber dans le hoodie, le mug en main à la fenêtre = ancre temporelle "c'est le matin, calme", la bibliothèque + cadres derrière qui chuchotent sans hurler "j'ai un univers à moi". C'est la photo qui dit "je suis cher mais j'ai du temps" sans avoir à le dire.
+
+### 9 · Avant / après · le selfie iPhone vs ce que l'IA en sort
 
 Pour que tu mesures le delta brut, voilà côte à côte **un selfie iPhone d'entrée** et **un résultat IA** générés à partir de lui :
 
@@ -235,7 +245,7 @@ C'est exactement le saut · à gauche ce que t'as déjà dans la pellicule de to
 
 <div class="callout tip">
   <h4>Le truc à retenir de cette galerie</h4>
-  <p>Les 8 photos ci-dessus représentent ensemble <strong>moins de $2 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
+  <p>Les 9 photos ci-dessus représentent ensemble <strong>moins de $2 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
 </div>
 
 <!-- section k-orange -->
@@ -256,7 +266,7 @@ C'est aussi le moment où l'argument *"j'achète le code une fois plutôt que de
 
 ## Les photos honteusement ratées (parce que faut être honnête)
 
-Je vais pas te vendre du rêve. Pour 1 photo qui marche, j'en jette 4. Voici 2 ratés caractéristiques · ça te donne une idée du genre de pièges à éviter.
+Je vais pas te vendre du rêve. Pour 1 photo qui marche, j'en jette 4. Voici 3 ratés caractéristiques · ça te donne une idée du genre de pièges à éviter.
 
 ### Raté 1 · L'IA a inventé un personnage qui n'est pas moi
 
@@ -276,11 +286,21 @@ Là c'est un peu plus subtil · ça me ressemble vaguement (forme du crâne OK),
 
 **Le fix qui a marché** · j'ai créé un mode "iPhone naturel" par défaut. Le prompt force des choses comme *"objectif 24mm, lumière mixte ambiante, légèrement décadré, pas de grain de pellicule, pas de composition éditoriale"*. Bilan · les photos ressemblent enfin à ce qu'on prendrait avec un iPhone moderne, pas à une couverture de magazine.
 
+### Raté 3 · Le street éditorial qui sent le shooting Vogue
+
+<img src="screenshots/photos-perso-ia/street-phone.png" alt="Photo générée · marche dans la rue parisienne en manteau beige, téléphone à l'oreille, taxi jaune en arrière-plan · trop éditorial" style="width:100%; max-width:560px; border-radius:12px; margin:24px auto; display:block;">
+
+À première vue, elle est belle. Lumière dorée, manteau crème, taxi jaune au second plan, geste cinématographique du téléphone à l'oreille · tu pourrais la croire payée 300 € à un photographe.
+
+**Pourquoi je la jette quand même** · c'est exactement le piège du raté 2, version premium. Trop éditorial pour un usage perso. Si tu mets ça sur LinkedIn, ton réseau sent immédiatement le "shooting magazine" et la photo perd toute crédibilité d'authenticité. C'est joli mais ça ne te ressemble plus · ça ressemble à une publicité Hermès saison 2023. Le mouvement scripté (marche + téléphone) ajoute une couche de mise en scène qui pue le décor.
+
+**La leçon** · les modèles d'image adorent les compositions de magazine. Plus c'est "joli", plus tu dois te méfier. Une photo qui te ressemble vraiment a souvent l'air *moins remarquable* qu'une photo de Vogue · et c'est précisément pour ça qu'elle marche.
+
 <!-- section k-orange -->
 
-## Les 5 trucs que j'aurais aimé savoir au début
+## Les 3 trucs que j'aurais aimé savoir au début
 
-Si tu envisages de faire ton propre outil (ou même juste d'utiliser un Klayn et compagnie), ces 5 leçons te feront gagner deux semaines.
+Si tu envisages de faire ton propre outil (ou même juste d'utiliser un Klayn et compagnie), ces 3 leçons te feront gagner deux semaines.
 
 ### 1 · Les modèles d'image ont une "voix par défaut" très magazine
 
@@ -299,18 +319,6 @@ Les modèles d'image ont un nombre de mots optimal entre 30 et 100. Au-dessus, i
 Il existe une dizaine de modèles d'image accessibles via fal.ai. J'en utilise principalement 4 · **Seedream 4.5** (le meilleur pour faire 5 photos cohérentes d'un coup), **Nano Banana Pro** (le meilleur pour une seule photo très ressemblante), **FLUX 2** (bon pour les scènes d'extérieur très précises), **GPT Image 2** (bon pour la fidélité d'identité quand t'as une seule photo de référence).
 
 Aucun n'est meilleur que les autres dans l'absolu · ça dépend de **ta tête** et de **ce que tu cherches**. Le seul moyen de savoir, c'est de générer la même scène avec les 4 modèles sur tes selfies, et regarder. Compte $0.50 pour ce test, c'est rentable.
-
-### 4 · Tu peux brûler 30 € en 1 h sans t'en rendre compte
-
-Ça m'est arrivé en deux jours, sans déconner. Au début j'avais branché un modèle qui prenait 5-10 minutes à tourner. L'interface me disait *"failed"* à chaque essai (parce que mon serveur avait un timeout à 60 secondes). Sauf que le modèle, lui, **continuait son travail en arrière-plan** · et **me facturait quand même**. Je re-cliquais, il facturait à nouveau. Bilan en 1h · $30 brûlés en silence.
-
-**Le fix qui a sauvé mon compte fal** · à chaque fois qu'un modèle prend plus de 60 secondes, je passe en mode *queue + poll* (en français · l'interface envoie le job, reçoit un ticket, et vient demander toutes les 8 secondes "c'est fini ?"). Plus jamais de double facturation. Et j'ai mis un compteur de coût en haut de l'écran qui passe au rouge si je dépasse $30 par jour.
-
-### 5 · Le pouce vert/rouge sous chaque photo bat 200 ajustements de prompts
-
-Au début j'ai voulu trop tuner mes prompts. À chaque mauvais résultat j'allais modifier 3 mots dans le prompt système. Au bout de 2 jours, j'avais touché à tout, et j'arrivais plus à savoir quel changement avait amélioré quoi.
-
-Le truc qui marche, à la place · un simple **système de feedback humain**. Sous chaque photo générée, 3 boutons (👍 j'aime · 👎 j'aime pas · 🛑 raté). Plus 8 tags fixes pour préciser ("ne me ressemble pas", "peau plastique", "pose figée", etc.). En 1 semaine de votes, j'ai compris que mon problème principal c'était la pose, pas la lumière. Sans le feedback j'aurais passé 2 semaines à tuner la lumière.
 
 <!-- section k-teal -->
 

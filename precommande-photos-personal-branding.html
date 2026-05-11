@@ -727,6 +727,249 @@
     line-height: 1.55;
     color: var(--ink-soft);
   }
+
+  /* === Screenshots produit (proof visuelle) === */
+  .proof-screenshots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .proof-screenshot {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg);
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .proof-screenshot:hover {
+    transform: translateY(-3px);
+    border-color: var(--teal);
+    box-shadow: 0 14px 36px rgba(0,0,0,.08);
+  }
+  .proof-screenshot img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    object-position: top center;
+    border-bottom: 1px solid var(--line);
+  }
+  .proof-screenshot figcaption {
+    padding: 16px 20px 20px;
+  }
+  .proof-screenshot .proof-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .proof-screenshot h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .proof-screenshot p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .proof-tagline {
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 28px auto 0;
+    line-height: 1.55;
+  }
+  .proof-tagline strong { color: var(--ink); }
+  @media (max-width: 760px) {
+    .proof-screenshots { grid-template-columns: 1fr; }
+  }
+
+  /* === Mosaïque résultats === */
+  .mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 1100px;
+  }
+  .mosaic-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .mosaic-grid img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 28px rgba(0,0,0,.18);
+  }
+  .mosaic-grid .mosaic-source {
+    filter: saturate(.85) contrast(.95);
+    outline: 2px dashed var(--ink-muted);
+    outline-offset: -6px;
+  }
+  .mosaic-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .mosaic-legend .swatch {
+    display: inline-block;
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .mosaic-legend .swatch.source {
+    background: transparent;
+    border: 2px dashed var(--ink-muted);
+  }
+  .mosaic-legend .swatch.output {
+    background: var(--fuchsia);
+  }
+  @media (max-width: 720px) {
+    .mosaic-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .mosaic-grid img { height: 180px; }
+  }
+
+  /* === Pièges Klayn (anti-abonnement) === */
+  .klayn-traps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    max-width: 1000px;
+  }
+  .klayn-trap {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 28px;
+    background: var(--bg);
+    position: relative;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .klayn-trap:hover {
+    transform: translateY(-2px);
+    border-color: var(--fuchsia);
+  }
+  .klayn-trap .trap-icon {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .klayn-trap h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+  }
+  .klayn-trap p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .klayn-trap p strong { color: var(--fuchsia); }
+  .klayn-trap .trap-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    background: rgba(239, 66, 111, .1);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  @media (max-width: 720px) {
+    .klayn-traps { grid-template-columns: 1fr; }
+  }
+
+  /* === Personas (pour qui c'est fait) === */
+  .persona-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1100px;
+  }
+  .persona-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 26px;
+    background: var(--bg);
+    transition: transform .15s ease, border-color .15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .persona-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--teal);
+  }
+  .persona-card .persona-emoji {
+    font-size: 38px;
+    line-height: 1;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .persona-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+  }
+  .persona-card p.persona-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .persona-roi {
+    border-top: 1px dashed var(--line);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .persona-roi .roi-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .persona-roi .roi-amount {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: var(--teal);
+    line-height: 1;
+  }
+  @media (max-width: 880px) {
+    .persona-cards { grid-template-columns: 1fr; }
+  }
 </style>
 
 <!-- Plausible -->
@@ -820,6 +1063,36 @@
         <img src="articles/screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Exemple de photo personal branding générée — portrait noir et blanc col roulé">
       </div>
     </div>
+  </div>
+</section>
+
+<!-- À quoi ressemble l'outil que tu reçois -->
+<section class="precom-section">
+  <div class="container">
+    <div class="kicker">— À quoi ressemble l'outil que tu reçois</div>
+    <h2>Pas un script en CLI.<br>Une <em>vraie app, design pro, prête à l'emploi.</em></h2>
+    <p class="section-intro">L'interface, les couleurs, le wording — tout est fini. Tu peux ouvrir le repo et tester en 5 minutes. Voilà à quoi ressemblent les 2 pages clés de l'outil.</p>
+
+    <div class="proof-screenshots">
+      <figure class="proof-screenshot">
+        <img src="articles/screenshots/photos-perso-ia/hero-pb.png" alt="Capture d'écran de la page d'accueil du wizard de génération — palette Fiesta, showcase de photos et 3 étapes guidées">
+        <figcaption>
+          <span class="proof-label">Page d'accueil · Wizard</span>
+          <h4>Tu démarres une session en 3 clics</h4>
+          <p>Hero Fiesta, showcase des résultats, 3 étapes guidées (Identité → Scène → Plans). Pas besoin de mode d'emploi, l'app te tient la main.</p>
+        </figcaption>
+      </figure>
+      <figure class="proof-screenshot">
+        <img src="articles/screenshots/photos-perso-ia/settings-overview.png" alt="Capture d'écran de la page Paramètres — hero, diagramme des 3 clés API et cartes de statut">
+        <figcaption>
+          <span class="proof-label">Page Paramètres · Turnkey</span>
+          <h4>Tes 3 clés API, validées en vert</h4>
+          <p>Diagramme « 3 clés », cartes par service avec bouton « Tester la connexion », walkthrough Vercel/local. Zéro édition de <code>.env</code> en ligne de commande.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="proof-tagline"><strong>Tout est déjà branché.</strong> Stripe pour vendre, Vercel pour héberger, fal.ai pour générer, OpenRouter pour briefer. Tu colles 3 clés, l'app te dit en vert que c'est bon, tu génères.</p>
   </div>
 </section>
 
@@ -921,6 +1194,35 @@
           <p>La photo qui reste 5 ans sur ton profil. Noir et blanc, regard franc, zéro effet de mode.</p>
         </figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Mosaïque résultats -->
+<section class="precom-section">
+  <div class="container">
+    <div class="kicker">— Mosaïque · échantillon de productions</div>
+    <h2>Une centaine de photos<br>en <em>2 semaines.</em></h2>
+    <p class="section-intro">Voici un échantillon brut de ce qui sort de l'outil — résultats IA mélangés aux 4 selfies sources qui ont servi à entraîner la session. La même tête, déclinée pour LinkedIn, podcast, lifestyle, éditorial, équipe.</p>
+
+    <div class="mosaic-grid">
+      <img src="articles/screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Résultat IA · portrait noir et blanc col roulé">
+      <img src="articles/screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Résultat IA · rooftop coucher de soleil avec smartphone">
+      <img src="articles/screenshots/photos-perso-ia/gpt-high.png" alt="Résultat IA · LinkedIn corporate avec laptop">
+      <img src="articles/screenshots/photos-perso-ia/podcast-studio.png" alt="Résultat IA · setup podcast studio avec micro">
+      <img src="articles/screenshots/photos-perso-ia/street-phone.png" alt="Résultat IA · street éditorial Paris en manteau beige">
+      <img src="articles/screenshots/photos-perso-ia/laptop-cafe.png" alt="Résultat IA · lifestyle café avec laptop">
+      <img src="articles/screenshots/photos-perso-ia/win-3-collaborateur.jpeg" alt="Résultat IA · portrait noir et blanc d'un collaborateur, même session">
+      <img src="articles/screenshots/photos-perso-ia/gpt-medium.png" alt="Résultat IA · café bibliothèque, ambiance studieuse">
+      <img class="mosaic-source" src="articles/screenshots/photos-perso-ia/jeremy-1.jpg" alt="Source iPhone · selfie face caméra">
+      <img class="mosaic-source" src="articles/screenshots/photos-perso-ia/jeremy-2.jpg" alt="Source iPhone · profil léger">
+      <img class="mosaic-source" src="articles/screenshots/photos-perso-ia/jeremy-3.jpg" alt="Source iPhone · 3/4 face">
+      <img class="mosaic-source" src="articles/screenshots/photos-perso-ia/jeremy-4.jpg" alt="Source iPhone · sourire">
+    </div>
+
+    <div class="mosaic-legend">
+      <span><span class="swatch output"></span>Résultats IA (8 photos)</span>
+      <span><span class="swatch source"></span>Selfies sources iPhone (4 photos)</span>
     </div>
   </div>
 </section>
@@ -1093,8 +1395,44 @@
   </div>
 </section>
 
-<!-- Calculateur ROI -->
+<!-- Pourquoi pas Klayn · les 4 pièges -->
 <section class="precom-section alt">
+  <div class="container">
+    <div class="kicker">— Pourquoi pas Klayn ?</div>
+    <h2>Les 4 pièges<br>d'un <em>SaaS d'image à l'abonnement.</em></h2>
+    <p class="section-intro">Klayn est très bon techniquement. Mais le modèle économique est conçu pour te garder captif. Voilà ce que tu paies vraiment quand tu signes un abonnement à 200 €/mois.</p>
+
+    <div class="klayn-traps">
+      <div class="klayn-trap">
+        <span class="trap-icon" aria-hidden="true">💸</span>
+        <span class="trap-tag">Piège n°1</span>
+        <h4>L'abonnement à vie</h4>
+        <p>200 €/mois pendant 3 ans = <strong>7 200 €</strong>. Soit <strong>72× le prix de cet outil</strong>. Et l'addition continue tant que tu paies. Pas de version "achat unique", pas de tarif dégressif équipe.</p>
+      </div>
+      <div class="klayn-trap">
+        <span class="trap-icon" aria-hidden="true">🔒</span>
+        <span class="trap-tag">Piège n°2</span>
+        <h4>La dépendance</h4>
+        <p>Klayn ferme, pivot, ou se fait racheter ? <strong>Tes données partent avec.</strong> Tes modèles entraînés sur ton visage, tes photos générées, ton historique — tout. Avec le code source chez toi, c'est <strong>à vie</strong>, indépendamment de moi.</p>
+      </div>
+      <div class="klayn-trap">
+        <span class="trap-icon" aria-hidden="true">⛓️</span>
+        <span class="trap-tag">Piège n°3</span>
+        <h4>Le vendor lock-in</h4>
+        <p>Tu changes de look (barbe, lunettes, coupe) ? Klayn = <strong>nouveau training payant</strong>, parfois nouveau plan. Chez nous = 4 nouveaux selfies à uploader, c'est tout. Tu n'es jamais bloqué dans un état figé.</p>
+      </div>
+      <div class="klayn-trap">
+        <span class="trap-icon" aria-hidden="true">🚧</span>
+        <span class="trap-tag">Piège n°4</span>
+        <h4>Le paywall sur les nouveaux modèles</h4>
+        <p>Seedream 5, FLUX 3, Nano Banana 3 sortent ? Klayn = <strong>nouveau plan, nouveau prix</strong>. Chez nous = 1 commit dans le repo, gratuit, je le pousse pour toi (ou tu le branche en 5 min). L'innovation t'arrive, sans repayer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calculateur ROI -->
+<section class="precom-section">
   <div class="container">
     <div class="kicker">— Calcul rapide · combien tu économises</div>
     <h2>1, 5 ou 10 personnes.<br>Le calcul fait <em>toujours mal aux abonnements.</em></h2>
@@ -1288,6 +1626,47 @@
   </div>
 </section>
 
+<!-- Pour qui c'est fait · 3 personas -->
+<section class="precom-section">
+  <div class="container">
+    <div class="kicker">— Pour qui c'est fait</div>
+    <h2>Trois profils,<br>un même <em>retour sur investissement.</em></h2>
+    <p class="section-intro">Pas pour tout le monde. Voilà les trois cas où le calcul est ridicule, et où mon outil change vraiment les unit-economics de ton personal branding ou de celui de ton équipe.</p>
+
+    <div class="persona-cards">
+      <div class="persona-card">
+        <span class="persona-emoji" aria-hidden="true">🧑‍💻</span>
+        <h4>L'indé qui en a marre<br>de ses photos pâles</h4>
+        <p class="persona-desc">Freelance, consultant solo, créateur de contenu. Tu refais ton header LinkedIn tous les 6 mois, tu veux pas payer 200 €/mois à Klayn jusqu'à la retraite. Avec l'outil : 4 selfies, 30 minutes, photo neuve. Et tu recommences quand tu veux, gratuit.</p>
+        <div class="persona-roi">
+          <span class="roi-label">Économies vs Klayn / 3 ans</span>
+          <span class="roi-amount">7 100 €</span>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <span class="persona-emoji" aria-hidden="true">👥</span>
+        <h4>L'équipe 5-10 personnes<br>à équiper</h4>
+        <p class="persona-desc">Tu diriges une boîte, tu veux un branding visuel cohérent sur LinkedIn pour tes 5-10 collaborateurs. Plus de logistique photographe (planning impossible, photographe absent le jour, retouches qui traînent). 99 € pour toute l'équipe, à vie.</p>
+        <div class="persona-roi">
+          <span class="roi-label">Économies vs shooting éq. / an</span>
+          <span class="roi-amount">2 400 €</span>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <span class="persona-emoji" aria-hidden="true">🎯</span>
+        <h4>L'agence qui revend<br>du Personal Branding</h4>
+        <p class="persona-desc">Agence comm', studio social media, ghostwriter LinkedIn. Tu factures du PB à tes clients ? 99 € une fois, marge 100% sur chaque livraison client. Tu vends 500 € le set photo IA, tu rentabilises au 2e client. À partir du 3e, c'est cadeau.</p>
+        <div class="persona-roi">
+          <span class="roi-label">Marge dès le 3e client servi</span>
+          <span class="roi-amount">100 %</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Garantie remboursement -->
 <section class="precom-section">
   <div class="container">
@@ -1301,52 +1680,67 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="precom-section">
+<!-- FAQ détaillée -->
+<section class="precom-section alt">
   <div class="container">
     <div class="kicker">— Questions fréquentes</div>
-    <h2>Avant de précommander,<br><em>tu te demandes peut-être.</em></h2>
+    <h2>8 questions qu'on me pose<br><em>avant d'acheter.</em></h2>
+    <p class="section-intro">Réponses droites, sans langue de bois. Si une autre question te trotte dans la tête, écris-moi à <a href="mailto:jeremy.sagnier@eurofiscalis.com" style="color:var(--fuchsia);">jeremy.sagnier@eurofiscalis.com</a> avant d'acheter.</p>
 
     <div class="faq-list">
       <details class="faq-item">
-        <summary>Comment ça marche après l'achat ?</summary>
+        <summary>Combien de temps pour tout installer ?</summary>
         <div class="faq-body">
-          Tu paies sur Stripe (carte bancaire). <strong>2 minutes plus tard</strong>, tu reçois un email avec : (1) le bouton de téléchargement du ZIP, (2) l'invitation au repo GitHub privé (si tu as donné ton username au paiement, sinon un lien pour le donner après). Aucune validation manuelle, aucune attente. Tu peux décompresser et lancer <code>npm install && npm run dev</code> dans la foulée.
+          <strong>15 minutes sur Vercel gratuit, dont 3 minutes pour coller les clés API.</strong> Le tunnel : paiement Stripe (2 min) → bouton « Import » sur Vercel et tu pointes le repo (5 min) → tu colles FAL_KEY + OPENROUTER_API_KEY + ADMIN_TOKEN dans le dashboard Vercel (3 min) → tu ouvres <code>/settings</code>, tu cliques « Tester la connexion », vert → tu génères. Pas d'éditeur de code à ouvrir, pas de ligne de commande à taper.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary>Et si je suis pas développeur ?</summary>
+        <summary>Et si je suis pas dev ?</summary>
         <div class="faq-body">
-          Tu peux quand même t'en sortir avec Claude Code. L'outil est bien commenté, le STORYTELLING.md explique tout, et le CLAUDE.md permet à Claude de répondre à tes questions de modif. Mais sois honnête avec toi-même : si tu ne sais pas ce qu'est une variable d'environnement, prends-toi 1h pour lire mon <a href="claude-code.html" style="color:var(--fuchsia);">guide Claude Code</a> avant de précommander.
+          La <strong>page Paramètres dédiée</strong> a été pensée pour ça : tu vois une carte par clé API avec un statut (rouge → vert), un bouton « Tester la connexion », et un walkthrough qui s'adapte à ton hébergement (Vercel ou local). Aucun fichier <code>.env</code> à ouvrir. Vercel a un bouton « Deploy » en 1 clic depuis n'importe quel repo. Si tu sais utiliser GitHub et copier-coller, tu sais le faire. Et si tu te bloques moins d'1h, garantie remboursement.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary>Je peux modifier le code ?</summary>
+        <summary>Combien de personnes peuvent utiliser l'app après installation ?</summary>
         <div class="faq-body">
-          Oui, complètement. Tu peux fork le repo (l'invitation read-only te permet de fork dans ton compte), tu travailles dans ton coin, tu fais ce que tu veux. Pas de licence virale, pas de partage obligatoire de tes modifs.
+          <strong>Aucune limite logicielle.</strong> Tu paies 99 € pour ton équipe entière, à vie. Une seule instance déployée sur Vercel = un seul ADMIN_TOKEN partagé entre tous les utilisateurs autorisés. Que tu sois 1, 5 ou 50, c'est le même prix. Le seul coût qui scale avec l'usage, c'est tes crédits fal.ai (~4 €/100 photos), que tu payes à l'usage.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary>Combien ça coûte au total pour générer 50 photos de moi ?</summary>
+        <summary>Combien de photos je peux générer ?</summary>
         <div class="faq-body">
-          Pour 50 photos générées : environ 10 € de crédit fal.ai (à 0,04 € / photo Seedream) + 0,50 € de crédit OpenRouter pour les briefs Gemini. Soit <strong>environ 10,50 € au total</strong>, après l'achat unique de 99 €. Si tu ajoutes une équipe de 5 collaborateurs (10 photos chacun) : ~5 € supplémentaires.
+          <strong>Aucune limite côté app.</strong> Ton seul plafond = ton crédit fal.ai. À titre indicatif : ~4 € pour 100 photos sur Seedream 4.5, ~10 € pour 100 photos sur FLUX 2 Pro, ~25 € pour 100 photos sur GPT Image 2. Tu choisis le modèle dans le wizard, le prix s'affiche en temps réel. Et tu peux capper ton budget directement chez fal.ai.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary>Pourquoi je devrais te faire confiance ?</summary>
+        <summary>Ça marche aussi pour les femmes, autres morphologies, autres âges ?</summary>
         <div class="faq-body">
-          Trois raisons : (1) je publie tout sous mon vrai nom à mon vrai email <code>jeremy.sagnier@eurofiscalis.com</code> · pas un alias anonyme. (2) Garantie remboursement intégrale si ça ne marche pas chez toi · zéro risque pour toi. (3) Le code source est livré · si je disparais demain, tu as encore tout. Pas de SaaS qui peut t'abandonner.
+          <strong>Oui.</strong> Les 6 modèles d'image branchés (Seedream, FLUX, Nano Banana, GPT Image, Imagen, etc.) sont entraînés sur des millions de visages variés — femmes, hommes, toutes tranches d'âge, toutes carnations. L'outil n'a aucune logique « morphotype » spécifique : il prend 4 selfies, il apprend ta tête, il la replace dans la scène. Mes collaborateurs (hommes et femmes, 25-50 ans) sont passés dedans, ça marche pareil.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary>Est-ce que j'aurai droit aux mises à jour ?</summary>
+        <summary>Je veux personnaliser le wording ou le branding ?</summary>
         <div class="faq-body">
-          L'invitation au repo GitHub privé te donne accès à toutes les mises à jour que je pousserai dessus, sans frais supplémentaires. Pas de "v2 = repaye 99 €". Le ZIP est figé à la version au moment de ton achat, mais le repo continue de bouger.
+          <strong>Tu reçois le code source complet.</strong> Tu changes ce que tu veux : couleurs Tailwind, textes des wizards, logo, palette, langue, modèles d'image branchés, prompts Gemini. Tout est commenté en français. Pas de licence virale, pas d'obligation de remonter tes modifs. C'est <strong>ton code</strong> dès le paiement reçu.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Y'a des mises à jour incluses ?</summary>
+        <div class="faq-body">
+          <strong>Oui, à vie.</strong> Le repo GitHub privé reste accessible à ton compte. Quand je pousse un nouveau modèle (Seedream 5, FLUX 3…), un fix, ou une feature, tu fais <code>git pull</code> et c'est en place. Pas de « v2 = repaye 99 € ». Le ZIP est figé à la date de ton achat, le repo continue de vivre.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Garantie de remboursement ?</summary>
+        <div class="faq-body">
+          <strong>1h pour tester, sinon je rembourse intégralement.</strong> Si tu reçois le code, tu suis le walkthrough <code>/settings</code>, et après 1 heure tu n'as toujours pas réussi à générer ta première photo : tu m'écris à <code>jeremy.sagnier@eurofiscalis.com</code>, je rembourse les 99 € en 24h. Pas de formulaire, pas de question. Mon objectif c'est ta satisfaction, pas une métrique de rétention.
         </div>
       </details>
     </div>

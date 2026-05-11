@@ -9,7 +9,7 @@ hero_ligne_1: "Mon générateur"
 hero_ligne_2: "de photos personal branding."
 hero_ligne_3: "30 € au lieu de 500."
 lead: "Florian, notre vidéaste au bureau, a sorti un outil qui génère des photos de produits pour les sites e-commerce · quelques centimes par photo au lieu d'un shooting photographe. Quand j'ai vu ça, je me suis dit · si ça marche pour les produits, pourquoi pas pour les visages ? J'ai construit l'équivalent pour le personal branding. Deux semaines de chantier plus tard, j'utilise mes photos sur LinkedIn et on a même fait un set complet pour un de nos collaborateurs à 0,80 €. Voici le récit · ce qui marche, ce qui foire honteusement, et le code source que je vends en précommande pour ceux qui veulent juste l'utiliser pour eux et leur équipe."
-duree: "12 min"
+duree: "15 min"
 niveau: "Débutant"
 outils: "Next.js · fal.ai · Gemini"
 published: "2026-05-07"
@@ -100,6 +100,33 @@ Pour que tu mesures à quel point l'étape 01 est ridicule de simplicité · voi
 
 C'est tout. Pas de matos, pas de séance, pas de costume. **Ça** suffit à l'outil pour comprendre ma tête et la reproduire dans 50 décors différents. Le talent est dans le prompt, pas dans la photo d'entrée.
 
+<!-- section k-fuchsia -->
+
+## L'app, en vrai
+
+Voilà à quoi ça ressemble une fois déployé. Pas de terminal, pas de YAML, juste une UI. Tu cliques, tu colles tes 3 clés, tu génères tes photos.
+
+<img src="screenshots/photos-perso-ia/hero-pb.png" alt="Page d'accueil du wizard · titre 'Fiesta', showcase photo, 3 étapes pour générer ses photos personal branding" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**Le wizard que t'auras chez toi** · accueil, showcase d'exemples, le bouton "Démarrer" qui te lance les 4 étapes (selfies → scène → propositions → tirages). C'est la page que tu vois en premier en arrivant sur ton URL Vercel.
+
+<img src="screenshots/photos-perso-ia/settings-overview.png" alt="Page Paramètres · hero, diagramme 'Comment ça marche en 3 clés' et début des cartes de statut" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**La page Paramètres qui te dit en vert que tout marche** · tu arrives ici depuis n'importe où via la topbar. Diagramme "comment ça marche", 3 cartes pour les 3 clés (fal.ai, OpenRouter, Admin token), bouton "Tester la connexion" sous chaque case. Quand tout est vert, t'es prêt.
+
+<img src="screenshots/photos-perso-ia/settings-cards.png" alt="Zoom sur les cartes de statut des clés API · status, variable d'environnement, bouton tester" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**Zoom sur les cartes** · à gauche le statut (✓ Configurée avec la valeur masquée `••••XXXX`, ou ✗ Manquante), à droite le bouton "Tester la connexion" qui ping l'endpoint billing de fal.ai. Tu te déplies "Comment l'obtenir" si tu cherches la doc à suivre.
+
+<img src="screenshots/photos-perso-ia/settings-calc.png" alt="Section 'Installer tes clés en local' · instructions pas-à-pas pour le mode local" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**Et si tu veux tourner ça en local** · même page, plus bas. Instructions pas-à-pas pour cloner le repo, lancer `npm install`, créer ton `.env.local`. C'est le seul moment de l'outil où on te parle de fichier d'env · sinon tout passe par l'UI.
+
+<div class="callout tip">
+  <h4>Pourquoi je te montre ça</h4>
+  <p>Parce que 80% des "outils IA" vendus aujourd'hui sont des scripts Python bricolés livrés en ZIP avec un README de 200 lignes. Ici c'est un <strong>vrai produit Next.js</strong> avec sa topbar, ses pages, son design system, ses callouts. Tu le déploies sur Vercel, tu mets ton domaine custom, tu changes le nom · t'as une app à toi.</p>
+</div>
+
 <!-- section k-teal -->
 
 ## Les photos qui marchent vraiment
@@ -123,7 +150,22 @@ Je te montre deux résultats · ça donne une idée de ce qu'on obtient quand to
 
 ## Galerie · ce qu'on peut sortir concrètement
 
-Pour pas que tu restes sur 2 photos · voilà ce que l'outil sort sur **6 cas d'usage typiques** d'un personal branding solide. À chaque fois je te donne l'usage cible, le coût réel, et pourquoi ça marche (parce que comprendre pourquoi, c'est ce qui te permet de répliquer chez toi).
+Pour pas que tu restes sur 2 photos · voilà ce que l'outil sort sur **8 cas d'usage typiques** d'un personal branding solide. À chaque fois je te donne l'usage cible, le coût réel, et pourquoi ça marche (parce que comprendre pourquoi, c'est ce qui te permet de répliquer chez toi).
+
+### Wall of results · le volume brut, sans commentaire
+
+Avant d'attaquer les cas un par un, regarde juste la planche-contact. Voilà 6 résultats côte à côte, façon studio photo qui te tend une feuille de 36 vignettes après la séance. **C'est ça, une heure de génération à $0.04 le tirage** :
+
+<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:28px 0;">
+  <img src="screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Vignette · portrait B&W col roulé" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Vignette · rooftop sunset" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/gpt-high.png" alt="Vignette · LinkedIn corporate" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/laptop-cafe.png" alt="Vignette · café lifestyle" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/podcast-studio.png" alt="Vignette · setup podcast" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+  <img src="screenshots/photos-perso-ia/street-phone.png" alt="Vignette · street éditorial Paris" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;">
+</div>
+
+Maintenant on déroule les 8 cas en détail.
 
 <img src="screenshots/photos-perso-ia/gpt-high.png" alt="Portrait LinkedIn corporate · costume sombre, ambiance bureau premium, laptop ouvert" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
 
@@ -167,9 +209,33 @@ Pour pas que tu restes sur 2 photos · voilà ce que l'outil sort sur **6 cas d'
 - **Coût** · $0.04. C'est ma préférée, j'en ai tiré une dizaine pour la trouver (≈ $0.40).
 - **Ce qui marche** · le noir et blanc **cache la peau parfois trop lisse de l'IA** (c'est le principal tell que tu vois sur les photos IA mal calées · une peau trop nette). Col roulé = intemporel, regard direct caméra = autorité, lumière douce latérale = pas de coupe-net flash. C'est le portrait que tu peux laisser 3 ans sans le remplacer.
 
+<img src="screenshots/photos-perso-ia/gpt-medium.png" alt="Variante café bibliothèque · ambiance bois chaud, plan poitrine, regard pensif" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**7 · Variante café bibliothèque (cover de podcast, header "à propos")**
+- **Pour quoi** · cover d'un podcast personnel, header de page "à propos" en mode chaleureux, photo d'auteur sur un blog perso, illustration d'un essai ou d'un livre.
+- **Coût** · $0.04, 2 tirages pour avoir le bon angle (≈ $0.08).
+- **Ce qui marche** · ambiance plus chaude que la corporate (#1), plus posée que le street (#4). Bois, lumière tungstène, fond légèrement flou de bibliothèque · c'est le portrait "intellectuel accessible". Idéal quand tu vends de la formation, du conseil, du contenu écrit. Très différent du LinkedIn corporate · même tête, deux univers visuels distincts.
+
+### 8 · Avant / après · le selfie iPhone vs ce que l'IA en sort
+
+Pour que tu mesures le delta brut, voilà côte à côte **un selfie iPhone d'entrée** et **un résultat IA** générés à partir de lui :
+
+<div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin:28px 0; align-items:center;">
+  <div>
+    <img src="screenshots/photos-perso-ia/input-1-profil.jpg" alt="Avant · selfie iPhone brut, mur clair, lumière du jour, expression neutre" style="width:100%; border-radius:10px; display:block;">
+    <p style="text-align:center; font-size:13px; opacity:0.75; margin-top:8px;">Avant · selfie iPhone, 2 sec, mur clair</p>
+  </div>
+  <div>
+    <img src="screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Après · portrait noir et blanc col roulé généré par IA à partir du selfie" style="width:100%; border-radius:10px; display:block;">
+    <p style="text-align:center; font-size:13px; opacity:0.75; margin-top:8px;">Après · portrait B&W généré, $0.04</p>
+  </div>
+</div>
+
+C'est exactement le saut · à gauche ce que t'as déjà dans la pellicule de ton téléphone, à droite ce que tu peux mettre sur LinkedIn lundi matin. Sans changement de coupe, sans rasage, sans studio. **Just 4 cents et 30 secondes**.
+
 <div class="callout tip">
   <h4>Le truc à retenir de cette galerie</h4>
-  <p>Les 6 photos ci-dessus représentent ensemble <strong>moins de $1.50 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
+  <p>Les 8 photos ci-dessus représentent ensemble <strong>moins de $2 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
 </div>
 
 <!-- section k-orange -->
@@ -307,6 +373,101 @@ Le truc le plus simple pour comprendre l'intérêt, c'est de poser les 3 options
   <p>Sur 3 ans · Klayn te coûte <strong>7 200 €</strong>. Mon outil te coûte <strong>99 € + ~90 € de crédits</strong> (3 ans × 30 € de crédits si tu génères régulièrement) = <strong>189 €</strong>. Tu fais le calcul, et là... tu te demandes ce que les 7 011 € restants pourraient financer (un MacBook Pro M5, 14 séances chez un photographe pro, 2 ans de coworking).</p>
 </div>
 
+<!-- section k-orange -->
+
+## Pourquoi pas Klayn ? Pourquoi pas un photographe ?
+
+Le tableau comparatif te dit le "combien". Mais en vrai, le problème de Klayn (et de tout SaaS d'image) n'est pas qu'il est cher · c'est qu'il t'enferme dans 4 pièges qu'on voit pas tant qu'on y est pas. Et un photographe, dès que tu passes à l'échelle équipe, devient logistiquement infernal. Je détaille.
+
+### Le piège n°1 · l'abonnement qui ne s'arrête jamais
+
+Klayn coûte 200 €/mois. Ça paraît raisonnable jusqu'à ce que tu fasses la projection longue :
+
+| Durée | Coût Klayn | Coût mon outil | Multiplicateur |
+|---|---|---|---|
+| 1 mois | 200 € | 99 € | × 2 |
+| 1 an | 2 400 € | ~130 € | × 18 |
+| 3 ans | 7 200 € | ~190 € | × 38 |
+| 5 ans | 12 000 € | ~250 € | × 48 |
+
+Pendant ces 5 ans, t'as payé Klayn **121× le prix du code source**. Pour exactement la même chose · les modèles d'image hébergés derrière sont les mêmes qu'on appelle directement chez fal.ai.
+
+### Le piège n°2 · la dépendance au survivant du SaaS
+
+Klayn ferme dans 18 mois ? Pivot vers un autre marché ? Augmente brutalement les tarifs ? Tes données partent avec eux · tes "models entraînés sur ton visage", ton historique de génération, tes presets. Tu repars de zéro chez un concurrent.
+
+Avec le code source, **tu as les fichiers à vie**. Même si je disparais demain (improbable, mais admettons), tu continues à tourner sur Vercel ou sur ton VPS. Les modèles d'image sont chez fal.ai, qui est une boîte indépendante. Tu deviens dépendant de personne en particulier.
+
+### Le piège n°3 · le vendor lock-in sur ton visage
+
+Klayn entraîne un modèle propriétaire sur tes selfies (un LoRA, dans le jargon). C'est ce qui te lock-in · tu changes de coupe, tu te rases la barbe, tu te mets aux lunettes ? Tu re-passes par la phase d'entraînement, et tu attends 4 heures que ça tourne sur leurs serveurs.
+
+Avec notre outil, t'es pas entraîné · tu uploades 4 selfies à chaque session, l'IA s'adapte en direct. **Changement de look = 30 secondes pour 4 nouveaux selfies, c'est tout**. Pas de réentraînement, pas d'attente, pas de "credits LoRA" à racheter.
+
+### Le piège n°4 · le paywall sur les nouveaux modèles
+
+Tous les 3-4 mois, un nouveau modèle d'image sort · Seedream 5, FLUX 3, Imagen 4, etc. Chacun marque un saut qualitatif. Derrière Klayn, c'est systématiquement **un nouveau plan tarifaire** (le plan "Pro+" à 299 €/mois pour avoir accès au dernier modèle).
+
+Chez nous, c'est **un commit qui les ajoute** en quelques heures. Tu pull la mise à jour du repo GitHub, tu redéploies sur Vercel (1 clic), le nouveau modèle est sélectionnable dans le dropdown. Pas de surcoût, pas de nouveau plan · juste le tarif fal.ai à l'usage, qui reste autour de $0.04-$0.20 par tirage.
+
+<div class="callout warn">
+  <h4>Le vrai coût caché des SaaS d'image</h4>
+  <p>C'est pas le prix mensuel · c'est l'<strong>asymétrie d'évolution</strong>. Eux décident quand ajouter un modèle, quand augmenter les prix, quand changer les conditions, quand fermer. Toi tu subis. Avec le code source, les décisions reviennent chez toi.</p>
+</div>
+
+<!-- section k-fuchsia -->
+
+## Pour qui c'est fait · 3 personas concrets
+
+J'écris pas "ça marche pour tout le monde" parce que c'est faux. Voilà les 3 profils pour qui le ROI est mathématique, sans débat.
+
+### Persona 1 · L'indépendant qui en a marre de ses photos pâles
+
+Tu fais 30-50 photos personal branding par an (LinkedIn, hero d'une landing, header d'une newsletter, illustration d'un article, cover d'un podcast invité). T'as pas envie de payer un photographe à chaque fois, t'as pas envie de t'abonner à Klayn.
+
+| Poste | Coût |
+|---|---|
+| Achat unique du code | 99 € |
+| Crédit fal.ai/an (≈ 50 photos) | ~5-10 € |
+| **Total année 1** | **~109 €** |
+| **Total 3 ans** | **~129 €** |
+| Équivalent Klayn 3 ans | 7 200 € |
+| **Économie 3 ans** | **~7 071 €** |
+
+**Pour qui c'est non-négociable** · indépendants, freelances seniors, consultants solo, créateurs de contenu, coachs, formateurs.
+
+### Persona 2 · L'équipe de 5-10 qu'on doit toujours équiper
+
+T'as une boîte de 5-10 personnes. Tout le monde a sa photo LinkedIn datée. Tu veux un set cohérent · même esthétique, même fond, tout le monde habillé pareil ou presque. La voie classique · photographe au bureau, journée bloquée, 2000-3000 € de facture finale, et tu dois recommencer dans 18 mois quand quelqu'un change de poste ou de look.
+
+| Poste | Coût |
+|---|---|
+| Achat unique du code | 99 € |
+| Crédit fal.ai pour 10 sets initiaux | ~10 € |
+| **Total démarrage** | **~109 €** |
+| Équivalent photographe pro (10 personnes) | 2 500 € |
+| **Économie immédiate** | **~2 391 €** |
+
+Chaque personne envoie ses 4 selfies à distance (depuis chez elle, en 2 min). L'admin de l'outil (toi ou ton OPS) lance les 10 sets en série · **tout le monde a son portrait pro en 1 heure**, sans avoir bougé du bureau ou du télétravail. Et quand quelqu'un de neuf arrive, son set coûte ~1 €.
+
+**Pour qui c'est non-négociable** · startups en croissance, agences, cabinets de conseil 5-15, équipes commerciales B2B.
+
+### Persona 3 · L'agence qui vend du personal branding à ses clients
+
+T'as une agence (com', marketing, branding, social media). Tu vends de l'accompagnement à des dirigeants ou des fondateurs. Une partie du livrable, c'est les photos pro.
+
+Tu paies **99 € une fois**, et tu factures à tes clients exactement ce que tu veux · 500 € le set, 1500 € le pack complet, en marge brute c'est 100% (moins les ~5 € de crédits fal.ai par client). T'as un livrable visuel premium à intégrer dans tes offres sans devoir négocier avec un photographe externe à chaque mandat.
+
+| Métrique | Valeur |
+|---|---|
+| Investissement initial | 99 € |
+| Coût marginal par client | ~5 € |
+| Prix de vente conseillé | 300-1500 € le set |
+| **Marge brute** | **~99 %** |
+| ROI dès le premier client servi | × 3 à × 15 |
+
+**Pour qui c'est non-négociable** · agences de personal branding, agences social media, agences de communication B2B, freelances en stratégie de contenu.
+
 <!-- section k-teal -->
 
 ## Les arguments qu'on entend (et ce que je réponds)
@@ -352,6 +513,20 @@ Tu déploies le repo sur Vercel en 1 clic (template gratuit, aucune carte bancai
 Tu colles les 3 clés dans le dashboard Vercel (Settings → Environment Variables, copier-coller, save), tu redéploies (1 clic, 30 secondes), tu reviens sur la page Paramètres · les 3 cases passent au vert. Tu cliques **"Tester la connexion"** sur chaque clé · ça appelle l'endpoint de billing de fal.ai (gratuit, juste pour vérifier l'auth) et te répond *"connexion OK · ton solde est de X $"*. À ce moment-là, t'es prêt à générer ta première photo.
 
 C'est ce que je voulais éviter à tout prix · qu'un acheteur se retrouve à ouvrir VS Code, comprendre ce qu'est un `.env.local`, googler "comment ajouter une variable d'environnement Vercel", et abandonner à la 3e tentative. Là, tout se passe dans l'interface · l'app te tient la main jusqu'à ce qu'elle marche.
+
+<!-- section k-orange -->
+
+### Ce que t'as pas chez les SaaS (et que t'as ici)
+
+Au-delà du calcul de coût · y'a 5 trucs que tu peux faire avec le code source que tu pourras **jamais** faire avec un Klayn, un Aragon, un quelconque SaaS du marché. Et c'est précisément ce qui justifie l'achat unique :
+
+- **Tu peux ouvrir le code** · tu lis les prompts, tu comprends comment l'IA décompose les scènes, tu vois exactement ce qui se passe sous le capot. Zéro magie noire. Si t'as un doute sur "ça use mes selfies pour entraîner un modèle perso ?" · la réponse est dans le code, sous tes yeux.
+- **Tu changes le ton des prompts si tu veux du plus naturel ou du plus éditorial** · les prompts par défaut visent l'iPhone naturel. Si tu veux pousser vers le "Vogue éditorial" ou le "street brut", c'est 2 fichiers à éditer dans `lib/prompts/`. Tu personnalises ton outil pour ton style à toi.
+- **Tu vires les modèles que t'aimes pas** · si Seedream te rend pas bien (ça arrive selon les morphologies), tu le commentes, tu mets Nano Banana Pro par défaut. Tu peux aussi en ajouter de nouveaux dès qu'ils sortent chez fal.ai.
+- **Tu héberges où tu veux** · Vercel gratuit (le plus simple), Coolify sur ton VPS, Railway, Fly.io, ton serveur sous le bureau. Tu choisis. Tes données n'envahissent jamais une infra d'un tiers que tu ne contrôles pas.
+- **Tu changes l'icône, le nom, les couleurs** · si tu revends le service à tes clients (Persona 3), tu peux complètement white-labeller. Logo à toi, nom à toi, palette à toi. Personne ne saura jamais que c'est dérivé de mon code source.
+
+C'est ce que veut dire **acheter** un outil au sens propre du terme · le posséder. Pas le louer.
 
 <div class="callout warn">
   <h4>Offre de lancement · jusqu'au 6 juin 2026</h4>

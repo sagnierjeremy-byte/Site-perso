@@ -165,8 +165,11 @@ function fillTemplate(template, data, body) {
   // Stratégie : on capture toute la zone entre la fin du bloc TL;DR et "<!-- Final CTA -->",
   // puis on la remplace par notre bodyBlock.
   // La TL;DR est maintenant insérée (nouvelle), puis on remplace ce qui suit jusqu'à Final CTA.
-  const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--\s*[A-Za-zÀ-ÿ\d\s·.,\/]+?\s*-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->)/;
-  html = html.replace(bodyZoneRegex, `$1\n${bodyBlock}\n$3`);
+  const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--[\s\S]*?-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->)/;
+  // Replace via callback to avoid String.prototype.replace interpreting $&, $1, $`, $' etc.
+  // (le body markdown peut contenir "X $&quot;" → $& serait remplacé par le match capturé, ce qui
+  // ré-injecterait le contenu fantôme du template. Ticket bouclé : 2026-05-11.)
+  html = html.replace(bodyZoneRegex, (_match, p1, _p2, p3) => `${p1}\n${bodyBlock}\n${p3}`);
 
   // Final CTA — adapter le titre
   html = html.replace(/<h2>Tu reçois mes <em class="fuchsia">prochains tutos\.<\/em><\/h2>/,

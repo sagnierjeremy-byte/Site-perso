@@ -9,7 +9,7 @@ hero_ligne_1: "Mon générateur"
 hero_ligne_2: "de photos personal branding."
 hero_ligne_3: "30 € au lieu de 500."
 lead: "Florian, notre vidéaste au bureau, a sorti un outil qui génère des photos de produits pour les sites e-commerce · quelques centimes par photo au lieu d'un shooting photographe. Quand j'ai vu ça, je me suis dit · si ça marche pour les produits, pourquoi pas pour les visages ? J'ai construit l'équivalent pour le personal branding. Deux semaines de chantier plus tard, j'utilise mes photos sur LinkedIn et on a même fait un set complet pour un de nos collaborateurs à 0,80 €. Voici le récit · ce qui marche, ce qui foire honteusement, et le code source que je vends en précommande pour ceux qui veulent juste l'utiliser pour eux et leur équipe."
-duree: "10 min"
+duree: "12 min"
 niveau: "Débutant"
 outils: "Next.js · fal.ai · Gemini"
 published: "2026-05-07"
@@ -87,6 +87,19 @@ J'ai fait un site web tout simple. Quatre étapes, dans l'ordre :
 
 Dans le tableau de bord, t'as aussi un compteur de coût en haut à droite · *aujourd'hui $X.XX*, *ce mois-ci $Y.YY*. Histoire de pas brûler 30 € sans t'en rendre compte (j'y reviens plus bas, c'est exactement ce qui m'est arrivé au début).
 
+### Voilà mes 4 selfies de référence
+
+Pour que tu mesures à quel point l'étape 01 est ridicule de simplicité · voici **exactement** les 4 photos que j'ai uploadées dans l'outil pour générer toutes les photos que tu vois dans cet article. 4 selfies iPhone, mur clair, pris en 2 minutes :
+
+<div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin:28px 0;">
+  <img src="screenshots/photos-perso-ia/jeremy-1.jpg" alt="Selfie de référence n°1 · face caméra, lumière du jour, mur clair" style="width:100%; border-radius:10px; display:block;">
+  <img src="screenshots/photos-perso-ia/jeremy-2.jpg" alt="Selfie de référence n°2 · profil, expression neutre" style="width:100%; border-radius:10px; display:block;">
+  <img src="screenshots/photos-perso-ia/jeremy-3.jpg" alt="Selfie de référence n°3 · 3/4 face, sourire léger" style="width:100%; border-radius:10px; display:block;">
+  <img src="screenshots/photos-perso-ia/jeremy-4.jpg" alt="Selfie de référence n°4 · gros plan visage, lumière naturelle" style="width:100%; border-radius:10px; display:block;">
+</div>
+
+C'est tout. Pas de matos, pas de séance, pas de costume. **Ça** suffit à l'outil pour comprendre ma tête et la reproduire dans 50 décors différents. Le talent est dans le prompt, pas dans la photo d'entrée.
+
 <!-- section k-teal -->
 
 ## Les photos qui marchent vraiment
@@ -104,6 +117,59 @@ Je te montre deux résultats · ça donne une idée de ce qu'on obtient quand to
 <div class="callout ok">
   <h4>Le coût exact des deux photos ci-dessus</h4>
   <p>Chaque tirage Seedream 4.5 me coûte <strong>$0.04</strong>. Pour ces 2 photos j'en ai en réalité tiré une quinzaine (je garde celles qui me plaisent et je jette les autres). <strong>Total : environ $0.60</strong>. Une séance complète "tous les sets de l'année" me coûte 30 €.</p>
+</div>
+
+<!-- section k-fuchsia -->
+
+## Galerie · ce qu'on peut sortir concrètement
+
+Pour pas que tu restes sur 2 photos · voilà ce que l'outil sort sur **6 cas d'usage typiques** d'un personal branding solide. À chaque fois je te donne l'usage cible, le coût réel, et pourquoi ça marche (parce que comprendre pourquoi, c'est ce qui te permet de répliquer chez toi).
+
+<img src="screenshots/photos-perso-ia/gpt-high.png" alt="Portrait LinkedIn corporate · costume sombre, ambiance bureau premium, laptop ouvert" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**1 · LinkedIn corporate (photo de profil + page À propos)**
+- **Pour quoi** · photo de profil LinkedIn, page "à propos" du site, signature email, slide d'intro de pitch.
+- **Coût** · $0.04 le tirage, j'en ai pris 6 avant d'avoir celle-là (≈ $0.25).
+- **Ce qui marche** · ambiance "open space premium" mais flou de profondeur naturel (pas de bokeh stock), expression contrôlée mais pas figée, regard légèrement décadré (pas plein cadre = ça respire). Tu peux la mettre sur LinkedIn demain matin, personne ne pose de question.
+
+<img src="screenshots/photos-perso-ia/podcast-studio.png" alt="Setup podcast studio · micro suspendu, sourire engagé, ambiance feutrée" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**2 · Post "j'étais sur un podcast" (sans avoir été sur un podcast)**
+- **Pour quoi** · annoncer un passage podcast (le tien ou un invité), promo d'un épisode, photo de cover de série de posts "behind the scenes".
+- **Coût** · $0.04. Une seule génération, c'était bon du premier coup.
+- **Ce qui marche** · le micro à condensateur de pro, le sourire authentique (pas commercial), la lumière chaude orangée typique des studios podcast. C'est la photo qui pose le plus de questions à mon réseau · "tu fais un podcast maintenant ?". Spoiler · pas encore.
+
+<img src="screenshots/photos-perso-ia/laptop-cafe.png" alt="Gros plan lifestyle · mains sur clavier laptop, bibliothèque en arrière-plan, ambiance café cosy" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**3 · Café lifestyle (carrousel LinkedIn, fond de newsletter)**
+- **Pour quoi** · carrousel "ma routine matin", header de newsletter, visuel de page de vente d'une formation, illustration d'article blog sur la productivité.
+- **Coût** · $0.04, premier tirage.
+- **Ce qui marche** · c'est un gros plan **sans visage** · l'IA n'a pas à se battre pour reproduire ma tête, du coup le rendu est ultra-clean (la peau parfaite de l'IA pose problème seulement sur les portraits frontaux). Cadrage cinématographique, lumière dorée, bibliothèque qui suggère "je lis donc je pense". Tu peux décliner cette esthétique sur 50 visuels d'un coup.
+
+<img src="screenshots/photos-perso-ia/street-phone.png" alt="Photo éditoriale · marche dans la rue parisienne, téléphone à l'oreille, manteau beige, taxi jaune en arrière-plan" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**4 · Street éditorial (couv d'article, hero de page de vente)**
+- **Pour quoi** · cover d'un article long format ("comment j'ai monté ma boîte"), hero d'une page de vente, image d'ouverture d'une présentation pitch.
+- **Coût** · $0.04, j'en ai tiré 4 pour avoir l'angle parfait (≈ $0.16).
+- **Ce qui marche** · mouvement (marche, regard hors-champ, téléphone à l'oreille) au lieu d'une pose figée · ça raconte une histoire. Le taxi jaune en arrière-plan ancre la scène (Paris, business, mouvement). Le manteau beige ressort sur le fond gris-bleu de la rue. C'est le genre de photo que tu paierais 300 € à un photographe pour aller la chercher en vrai dans la rue.
+
+<img src="screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Rooftop coucher de soleil · portrait hero, lumière dorée chaude" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**5 · Rooftop hero (hero homepage, page de pré-commande, hero newsletter)**
+- **Pour quoi** · hero d'une homepage, header d'une page de pré-commande, photo d'ouverture d'un lancement produit.
+- **Coût** · $0.04. Compte 3-4 essais pour trouver l'angle propre (≈ $0.15).
+- **Ce qui marche** · la lumière dorée du coucher de soleil maquille naturellement les imperfections que l'IA met sur la peau · c'est le secret. Pose naturelle (téléphone en main, regard vers l'horizon), ambiance "fin de journée business mais cool". Tu mets cette photo en hero, t'as un site qui a l'air financé en seed round.
+
+<img src="screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Portrait noir et blanc col roulé · regard direct, intemporel" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;">
+
+**6 · Portrait B&W intemporel (photo de profil "principale", interview, presse)**
+- **Pour quoi** · ta photo de profil principale (LinkedIn, Twitter, site, podcast invité), photo presse à envoyer à un journaliste, cover d'interview.
+- **Coût** · $0.04. C'est ma préférée, j'en ai tiré une dizaine pour la trouver (≈ $0.40).
+- **Ce qui marche** · le noir et blanc **cache la peau parfois trop lisse de l'IA** (c'est le principal tell que tu vois sur les photos IA mal calées · une peau trop nette). Col roulé = intemporel, regard direct caméra = autorité, lumière douce latérale = pas de coupe-net flash. C'est le portrait que tu peux laisser 3 ans sans le remplacer.
+
+<div class="callout tip">
+  <h4>Le truc à retenir de cette galerie</h4>
+  <p>Les 6 photos ci-dessus représentent ensemble <strong>moins de $1.50 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
 </div>
 
 <!-- section k-orange -->
@@ -215,6 +281,67 @@ Si t'as pas envie de te taper deux semaines de bricolage · ou si t'as une équi
   <p><strong>Ce que tu apportes</strong> · ta propre clé fal.ai (environ 20 € pour 100 photos) et ta clé OpenRouter (environ 1 € pour 50 sessions). Pas d'abonnement caché · tu paies les modèles d'image à l'usage, directement, à quelques centimes la photo.</p>
   <p><strong>Garantie remboursement</strong> · si tu déploies l'outil et que ça ne marche pas chez toi en moins d'1h, je te rembourse intégralement, sans question.</p>
 </div>
+
+### Tu fais le calcul, et là...
+
+Le truc le plus simple pour comprendre l'intérêt, c'est de poser les 3 options côte à côte sur 12 mois :
+
+| Option | Coût année 1 | Coût année 2 | Limite | À qui c'est rentable |
+|---|---|---|---|---|
+| **Klayn.ai** (abonnement SaaS) | 200 € × 12 = **2 400 €** | **2 400 €** (récurrent) | 1 personne / compte, modèles imposés, dépend de la survie du SaaS | À personne, sauf si tu génères 50 photos / semaine et que t'as zéro envie de toucher à un terminal |
+| **Séance photographe** (1 / trimestre) | 4 × 500 € = **2 000 €** | **2 000 €** | 1 personne, 1 esthétique figée par séance, photos vieillissent en 6 mois | Si tu valorises le rapport humain au photographe et que la qualité "vraie photo" est non-négociable pour ton marché (avocat de luxe, etc.) |
+| **Cet outil** (achat unique) | **99 € + ~30 € de crédits fal.ai** = ≈ 130 € | **0 € + crédits à l'usage** (≈ 30 €/an si tu refais 3 sets) | Aucune (illimité, équipe entière, autant de sets que tu veux) | À 95 % des gens qui veulent juste des photos pro régulièrement |
+
+**Lecture rapide** · sur 2 ans, tu compares **4 800 € (Klayn) ou 4 000 € (photographe) contre 160 €** avec mon outil. C'est pas une économie de 10 %, c'est un facteur 25-30.
+
+<div class="callout ok">
+  <h4>Cas 1 · Tu équipes 5 collaborateurs</h4>
+  <p>Faire venir un photographe au bureau pour 5 personnes · entre <strong>1 500 € et 3 000 €</strong> selon ville et niveau (Paris/Lyon haut de gamme, comptes large). En plus, faut bloquer une demi-journée d'agenda pour 5 collaborateurs, gérer la logistique des fonds/changes, et la retouche derrière.</p>
+  <p>Avec l'outil · <strong>99 € une fois + ≈ 5 € de crédits fal.ai</strong> pour les 5 sets initiaux (1 € par personne, 25 photos chacune). Chaque personne envoie ses 4 selfies depuis chez elle, ça tourne pendant qu'elle prend son café.</p>
+  <p><strong>ROI</strong> · économie de ~1 400 à 2 900 € dès la première utilisation. Et tu peux refaire un nouveau set quand quelqu'un change de look ou que tu veux décliner une autre esthétique. L'outil est amorti dès le premier collaborateur équipé.</p>
+</div>
+
+<div class="callout ok">
+  <h4>Cas 2 · Tu es indépendant ou solo</h4>
+  <p>Klayn.ai à 200 €/mois = <strong>2 400 € / an</strong>. À ce tarif, mon outil coûte l'équivalent de <strong>0,5 mois d'abonnement Klayn</strong>. Tu peux te payer mon outil 24 fois avant d'avoir dépensé l'équivalent d'une seule année de Klayn.</p>
+  <p>Sur 3 ans · Klayn te coûte <strong>7 200 €</strong>. Mon outil te coûte <strong>99 € + ~90 € de crédits</strong> (3 ans × 30 € de crédits si tu génères régulièrement) = <strong>189 €</strong>. Tu fais le calcul, et là... tu te demandes ce que les 7 011 € restants pourraient financer (un MacBook Pro M5, 14 séances chez un photographe pro, 2 ans de coworking).</p>
+</div>
+
+<!-- section k-teal -->
+
+## Les arguments qu'on entend (et ce que je réponds)
+
+Quand je présente l'outil, ces 4 objections reviennent à chaque fois. Voilà mes réponses honnêtes · pas du "je vais essayer de te convaincre", juste ce que je dirais à un pote.
+
+### *"Mais l'IA, ça se voit !"*
+
+Ça se voit **sur les photos qui sortent mal**. Et ça se voit beaucoup moins sur les photos qui sortent bien. Reviens regarder le **portrait B&W** et la **photo LinkedIn corporate** plus haut dans l'article · personne dans mon réseau ne m'a jamais demandé si c'était de l'IA. Personne.
+
+Les "tells" classiques (peau plastique, mains à 6 doigts, yeux vides) apparaissent quand · tu utilises un modèle vieux, tu prompt trop court ou trop générique, tu prends une photo full frontale en pleine lumière sans aucun grain. Quand tu cadres en B&W, en plan large, en mouvement, ou avec une lumière de fin de journée · l'IA devient indétectable. Le piège, c'est de pas s'en rendre compte et de prendre la première photo qui sort.
+
+### *"Y'a pas de support si ça plante chez moi."*
+
+Faux. Pour 3 raisons concrètes :
+
+1. **Repo GitHub privé** · t'es invité dessus, tu vois toutes les mises à jour que je pousse, tu peux ouvrir une issue si t'as un blocage.
+2. **Garantie remboursement 1h** · si tu déploies l'outil et que ça marche pas chez toi en moins d'1h après réception, je te rembourse intégralement, sans question.
+3. **Email direct** · tu m'écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>, je réponds en moins de 24h en jour ouvré. Pas un ticket à un support tiers · directement moi.
+
+Le risque pour toi · 99 € si je disparais demain (improbable, je signe l'article avec mon nom et mon adresse). Le risque pour Klayn · 200 €/mois × 12 si leur SaaS ferme dans 6 mois, tu perds tout et tu repars de zéro.
+
+### *"Je préfère payer un photographe une vraie séance."*
+
+Vas-y. Sincèrement. Une vraie séance, c'est une autre expérience · un humain qui te guide, une vraie esthétique cohérente, des photos qui ont quelque chose en plus dans l'œil du photographe.
+
+**Mais** · si tu fais une séance / 6 mois (très peu de gens en font plus), ton truc devient pâle au bout du 4e mois. Avec mon outil, tu refais **10 sets dans l'année** si tu veux · changement de saison, nouvelle ambiance, nouveau costume, un événement business spécifique. **C'est complémentaire, pas concurrent**. Tu peux très bien faire 1 vraie séance / an pour les photos "principales" et utiliser l'outil pour tout le reste (carrousels, posts, hero d'articles, mailings). C'est même ce que je fais.
+
+### *"Je suis pas dev."*
+
+C'est pour ça que la **page Paramètres** existe (relis la section "Setup en 3 minutes" plus haut). Concrètement, tu cliques sur "Deploy on Vercel" depuis le repo, tu te connectes avec ton compte GitHub (gratuit), tu colles 3 clés dans Vercel via leur interface graphique, et tu reviens sur l'app · les 3 cases passent au vert.
+
+Tu ne touches **jamais** un fichier `.env.local`, jamais un terminal, jamais une ligne de code. Si tu sais utiliser Notion, tu sais utiliser l'outil. Et si t'es vraiment bloqué, le support garantie 1h ci-dessus existe.
+
+<!-- section k-fuchsia -->
 
 ### Setup en 3 minutes · pour ceux qui ne veulent surtout pas toucher au code
 

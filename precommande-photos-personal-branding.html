@@ -371,6 +371,329 @@
     margin-left: auto; margin-right: auto;
   }
 
+  /* === Before / After grid === */
+  .before-after-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .ba-col {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .ba-col.before { border-color: var(--ink-muted); }
+  .ba-col.after { border-color: var(--fuchsia); background: rgba(239, 66, 111, .04); }
+  .ba-col .ba-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ba-col.after .ba-label { color: var(--fuchsia); }
+  .ba-col h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .ba-images-before {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .ba-images-before img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+  .ba-images-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .ba-images-after img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+  .ba-arrow {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 38px;
+    color: var(--fuchsia);
+    line-height: 1;
+  }
+  .ba-caption {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+  .ba-caption strong { color: var(--ink); }
+  @media (max-width: 880px) {
+    .before-after-grid { grid-template-columns: 1fr; gap: 18px; }
+    .ba-arrow { transform: rotate(90deg); margin: 0 auto; }
+  }
+
+  /* === Galerie usages === */
+  .usage-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1080px;
+  }
+  .usage-card {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .usage-card:hover { transform: translateY(-3px); border-color: var(--fuchsia); }
+  .usage-card img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+  }
+  .usage-card figcaption {
+    padding: 16px 18px 18px;
+  }
+  .usage-card .usage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .usage-card h4 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .usage-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 880px) { .usage-gallery { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .usage-gallery { grid-template-columns: 1fr; } }
+
+  /* === Tableau comparatif === */
+  .compare-table-wrap {
+    max-width: 1000px;
+    overflow-x: auto;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .compare-table th, .compare-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .compare-table thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 2px solid var(--line);
+    background: var(--bg-2);
+  }
+  .compare-table thead th.ct-ours {
+    color: var(--fuchsia);
+    background: rgba(239, 66, 111, .08);
+  }
+  .compare-table td.ct-row-label {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--bg-2);
+    width: 28%;
+  }
+  .compare-table td.ct-ours {
+    background: rgba(239, 66, 111, .04);
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .compare-table td.ct-ours strong { color: var(--fuchsia); }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .ct-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(0, 178, 169, .12);
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .ct-tag.bad { background: rgba(239, 66, 111, .1); color: var(--fuchsia); }
+  @media (max-width: 720px) {
+    .compare-table th, .compare-table td { padding: 12px 10px; font-size: 13px; }
+  }
+
+  /* === Objections === */
+  .objection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    max-width: 1000px;
+  }
+  .objection-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 26px;
+    background: var(--bg);
+  }
+  .objection-card .obj-q {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .objection-card .obj-q::before {
+    content: '« ';
+    color: var(--fuchsia);
+  }
+  .objection-card .obj-q::after {
+    content: ' »';
+    color: var(--fuchsia);
+  }
+  .objection-card .obj-a {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .objection-card .obj-a strong { color: var(--ink); }
+  .objection-proof {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .objection-proof img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+  }
+  @media (max-width: 720px) { .objection-grid { grid-template-columns: 1fr; } }
+
+  /* === ROI cards === */
+  .roi-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1080px;
+  }
+  .roi-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 26px;
+    background: var(--bg);
+    position: relative;
+  }
+  .roi-card.featured {
+    border-color: var(--fuchsia);
+    background: rgba(239, 66, 111, .05);
+  }
+  .roi-card .roi-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .roi-card.featured .roi-tag { color: var(--fuchsia); }
+  .roi-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+  }
+  .roi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .roi-row:last-child { border-bottom: none; }
+  .roi-row .roi-k {
+    font-size: 13px;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .roi-row .roi-v {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+  }
+  .roi-row .roi-v.muted { color: var(--ink-muted); text-decoration: line-through; }
+  .roi-row .roi-v.win { color: var(--fuchsia); }
+  .roi-final {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 2px solid var(--ink);
+    text-align: center;
+  }
+  .roi-card.featured .roi-final { border-top-color: var(--fuchsia); }
+  .roi-final .roi-final-k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .roi-final .roi-final-v {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+    color: var(--fuchsia);
+    line-height: 1;
+  }
+  @media (max-width: 880px) { .roi-cards { grid-template-columns: 1fr; } }
+
   /* === Bandeau garantie === */
   .guarantee-box {
     border: 2px solid var(--teal);
@@ -500,6 +823,108 @@
   </div>
 </section>
 
+<!-- Before / After -->
+<section class="precom-section">
+  <div class="container">
+    <div class="kicker">— En une image · ce que ça fait</div>
+    <h2>De 4 selfies iPhone<br>à <em>10 photos pro.</em></h2>
+    <p class="section-intro">Une session, un visage, dix contextes. LinkedIn, podcast, lifestyle, éditorial — tu choisis le décor, l'IA fait le reste.</p>
+
+    <div class="before-after-grid">
+      <div class="ba-col before">
+        <span class="ba-label">Input · ce que tu envoies</span>
+        <h3>4 selfies à l'iPhone</h3>
+        <div class="ba-images-before">
+          <img src="articles/screenshots/photos-perso-ia/jeremy-1.jpg" alt="Selfie iPhone source 1 — visage face caméra">
+          <img src="articles/screenshots/photos-perso-ia/jeremy-2.jpg" alt="Selfie iPhone source 2 — profil léger">
+          <img src="articles/screenshots/photos-perso-ia/jeremy-3.jpg" alt="Selfie iPhone source 3 — 3/4 face">
+          <img src="articles/screenshots/photos-perso-ia/jeremy-4.jpg" alt="Selfie iPhone source 4 — sourire">
+        </div>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">→</div>
+      <div class="ba-col after">
+        <span class="ba-label">Output · ce que tu reçois</span>
+        <h3>10+ photos pro par session</h3>
+        <div class="ba-images-after">
+          <img src="articles/screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Résultat — portrait noir et blanc col roulé, usage LinkedIn intemporel">
+          <img src="articles/screenshots/photos-perso-ia/gpt-high.png" alt="Résultat — portrait LinkedIn corporate avec laptop en bureau premium">
+          <img src="articles/screenshots/photos-perso-ia/podcast-studio.png" alt="Résultat — setup podcast studio, sourire, micro à condensateur">
+          <img src="articles/screenshots/photos-perso-ia/street-phone.png" alt="Résultat — marche dans Paris, manteau beige, téléphone à la main">
+        </div>
+      </div>
+    </div>
+
+    <p class="ba-caption">
+      <strong>Même tête, plusieurs contextes.</strong> Tu choisis le décor, le ton, la lumière. L'IA reproduit ton visage à l'identique. <strong>0,80 € la photo en moyenne</strong>, contre 50 € chez un photographe corporate.
+    </p>
+  </div>
+</section>
+
+<!-- Galerie usages -->
+<section class="precom-section alt">
+  <div class="container">
+    <div class="kicker">— Galerie · pour chaque usage</div>
+    <h2>Un visage, six usages.<br>Tous générés <em>en 1 session.</em></h2>
+    <p class="section-intro">Tu n'as plus besoin de prévoir 4 sessions photo dans l'année pour LinkedIn, l'instagram, le podcast, l'éditorial. Une seule session = 6+ contextes différents, à refaire quand tu veux.</p>
+
+    <div class="usage-gallery">
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/gpt-high.png" alt="Photo LinkedIn corporate · costume sombre, laptop ouvert, bureau premium">
+        <figcaption>
+          <span class="usage-label">LinkedIn pro</span>
+          <h4>Bureau corporate</h4>
+          <p>Photo de profil, header, posts pro. Lumière chaude, cadrage net, ton crédible.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/podcast-studio.png" alt="Photo podcast studio · setup micro à condensateur, casque, sourire">
+        <figcaption>
+          <span class="usage-label">Podcast · post pro</span>
+          <h4>Studio podcast</h4>
+          <p>Vignette épisode, miniature YouTube, annonce d'interview. Setup pro sans louer un studio.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/win-2-rooftop.jpeg" alt="Photo lifestyle rooftop · coucher de soleil, smartphone à la main">
+        <figcaption>
+          <span class="usage-label">Story IG</span>
+          <h4>Rooftop sunset</h4>
+          <p>Stories, posts Instagram, contenu lifestyle. Lumière chaude golden hour, vibe entrepreneur.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/street-phone.png" alt="Photo éditoriale · marche dans Paris en manteau beige avec téléphone">
+        <figcaption>
+          <span class="usage-label">Magazine · éditorial</span>
+          <h4>Street Paris</h4>
+          <p>Couverture article, interview presse, portrait éditorial. Mouvement, story, élégance.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/laptop-cafe.png" alt="Photo lifestyle · gros plan laptop dans un café avec bibliothèque en arrière-plan">
+        <figcaption>
+          <span class="usage-label">Lifestyle café</span>
+          <h4>Café / bibliothèque</h4>
+          <p>Visuels blog, newsletter, posts "behind the scenes". Lumière douce, ton chaleureux.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="usage-card">
+        <img src="articles/screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Photo noir et blanc · portrait col roulé, regard caméra, ton intemporel">
+        <figcaption>
+          <span class="usage-label">B&W intemporel</span>
+          <h4>Portrait studio</h4>
+          <p>La photo qui reste 5 ans sur ton profil. Noir et blanc, regard franc, zéro effet de mode.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- Ce que tu reçois -->
 <section class="precom-section">
   <div class="container">
@@ -598,6 +1023,154 @@
   </div>
 </section>
 
+<!-- Comparatif Klayn vs Photographe vs Notre outil -->
+<section class="precom-section">
+  <div class="container">
+    <div class="kicker">— Comparatif honnête</div>
+    <h2>Klayn, photographe,<br>ou <em>notre outil ?</em></h2>
+    <p class="section-intro">Tu vas voir : tant que tu génères 1 fois en 5 ans pour 1 personne, paie un photographe. Dès que tu refais des shootings, ou que tu équipes 2 personnes ou plus, le calcul devient absurde.</p>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Klayn · SaaS IA</th>
+            <th>Photographe corporate</th>
+            <th class="ct-ours">Notre outil · 99 €</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ct-row-label">Prix initial</td>
+            <td>Gratuit (puis 200 €/mois)</td>
+            <td>500 € · 1 séance</td>
+            <td class="ct-ours"><strong>99 € une fois</strong></td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Récurrence</td>
+            <td><span class="ct-tag bad">200 €/mois à vie</span></td>
+            <td><span class="ct-tag bad">À refaire tous les 1-2 ans</span></td>
+            <td class="ct-ours"><span class="ct-tag">Zéro abonnement</span></td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Photos / mois illimitées</td>
+            <td>Selon plan</td>
+            <td>Non · forfait fixe</td>
+            <td class="ct-ours"><strong>Illimité</strong> (0,80 € la photo en variable)</td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Multi-utilisateurs (équipe)</td>
+            <td><span class="ct-tag bad">1 plan = 1 visage</span></td>
+            <td>Multiplie le prix par tête</td>
+            <td class="ct-ours"><strong>Illimité</strong> · 1 instance pour toute l'équipe</td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Personnalisation totale</td>
+            <td>Templates fermés</td>
+            <td>Dépend du photographe</td>
+            <td class="ct-ours"><strong>Code source à toi</strong> · tu modifies tout</td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Évolution dans le temps</td>
+            <td>Tu dépends de leur roadmap</td>
+            <td>Photo figée à la date</td>
+            <td class="ct-ours">Modèles fal.ai mis à jour · tu suis</td>
+          </tr>
+          <tr>
+            <td class="ct-row-label">Support</td>
+            <td>Email · file d'attente</td>
+            <td>WhatsApp du gars</td>
+            <td class="ct-ours">GitHub privé + mises à jour + garantie 1h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 14px; color: var(--ink-muted); max-width: 720px;">
+      Sources : <a href="https://klayn.ai" style="color: var(--fuchsia);">klayn.ai</a> · tarifs photographe corporate Paris moyenne 2026.
+    </p>
+  </div>
+</section>
+
+<!-- Calculateur ROI -->
+<section class="precom-section alt">
+  <div class="container">
+    <div class="kicker">— Calcul rapide · combien tu économises</div>
+    <h2>1, 5 ou 10 personnes.<br>Le calcul fait <em>toujours mal aux abonnements.</em></h2>
+    <p class="section-intro">Tarif moyen 2026 : Klayn 200 €/mois, séance photo corporate 500 €/personne, shooting équipe 2 000-3 000 €. Notre outil 99 € + ~10-25 € de crédits IA par an. Tu fais le calcul.</p>
+
+    <div class="roi-cards">
+      <div class="roi-card">
+        <span class="roi-tag">Scénario 1</span>
+        <h4>Tu équipes<br>1 personne</h4>
+        <div class="roi-row">
+          <span class="roi-k">Klayn (1 plan · 12 mois)</span>
+          <span class="roi-v muted">2 400 €/an</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Photographe (1 séance)</span>
+          <span class="roi-v muted">500 €</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Notre outil + ~10 € crédit IA</span>
+          <span class="roi-v win">109 €</span>
+        </div>
+        <div class="roi-final">
+          <div class="roi-final-k">Coût à vie</div>
+          <div class="roi-final-v">99 €</div>
+        </div>
+      </div>
+
+      <div class="roi-card featured">
+        <span class="roi-tag">Scénario 2 · le plus courant</span>
+        <h4>Tu équipes<br>5 personnes</h4>
+        <div class="roi-row">
+          <span class="roi-k">Klayn (5 plans · 12 mois)</span>
+          <span class="roi-v muted">12 000 €/an</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Photographe (5 séances)</span>
+          <span class="roi-v muted">2 500 €</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Notre outil + ~25 € crédit IA</span>
+          <span class="roi-v win">124 €</span>
+        </div>
+        <div class="roi-final">
+          <div class="roi-final-k">Coût à vie · 5 sets</div>
+          <div class="roi-final-v">99 €</div>
+        </div>
+      </div>
+
+      <div class="roi-card">
+        <span class="roi-tag">Scénario 3</span>
+        <h4>Tu équipes<br>10 personnes</h4>
+        <div class="roi-row">
+          <span class="roi-k">Klayn (10 plans · 12 mois)</span>
+          <span class="roi-v muted">24 000 €/an</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Shooting équipe corporate</span>
+          <span class="roi-v muted">4 000-6 000 €</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-k">Notre outil + ~50 € crédit IA</span>
+          <span class="roi-v win">149 €</span>
+        </div>
+        <div class="roi-final">
+          <div class="roi-final-k">Coût à vie · 10 sets</div>
+          <div class="roi-final-v">99 €</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 14px; color: var(--ink-muted); max-width: 720px;">
+      Hypothèse : 10 photos par personne et par an. Au-delà, le variable fal.ai reste à 0,80 €/photo, c'est linéaire et tu le contrôles.
+    </p>
+  </div>
+</section>
+
 <!-- Démo / résultats -->
 <section class="precom-section">
   <div class="container">
@@ -680,8 +1253,43 @@
   </div>
 </section>
 
-<!-- Garantie remboursement -->
+<!-- Objections -->
 <section class="precom-section alt">
+  <div class="container">
+    <div class="kicker">— On répond aux objections</div>
+    <h2>Ce que tu te dis<br><em>en lisant cette page.</em></h2>
+    <p class="section-intro">Quatre vraies objections que j'ai entendues. Pas de langue de bois, pas de "ça dépend". Réponses droites.</p>
+
+    <div class="objection-grid">
+      <div class="objection-card">
+        <p class="obj-q">L'IA, ça se voit toujours.</p>
+        <p class="obj-a">Plus en 2026. <strong>Le portrait noir et blanc ci-dessous est sur mon LinkedIn depuis 3 mois</strong>, personne ne l'a remarqué. Le 2e est un de mes collaborateurs, généré dans la même session. Le test : montre-les à 10 personnes et compte combien repèrent l'IA.</p>
+        <div class="objection-proof">
+          <img src="articles/screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Preuve · portrait noir et blanc utilisé sur LinkedIn">
+          <img src="articles/screenshots/photos-perso-ia/win-3-collaborateur.jpeg" alt="Preuve · portrait noir et blanc d'un collaborateur, même session">
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <p class="obj-q">Je suis pas dev, je vais galérer.</p>
+        <p class="obj-a">Le tunnel est : <strong>Stripe (paiement) → Vercel (1 clic Import) → page /settings où tu colles 3 clés API</strong>. Tu n'ouvres jamais un fichier. Si l'app affiche vert, ça marche. Et si t'es bloqué moins d'1h, je te rembourse (voir garantie en dessous).</p>
+      </div>
+
+      <div class="objection-card">
+        <p class="obj-q">Y'a pas de support, je serai seul.</p>
+        <p class="obj-a">Tu as : <strong>(1)</strong> l'invitation au repo GitHub privé donc tu vois mes commits et tu peux ouvrir une issue · <strong>(2)</strong> les mises à jour de l'app incluses à vie · <strong>(3)</strong> garantie remboursement 1h si ça plante au démarrage. Plus mon email direct en CC dans le bouquin de livraison.</p>
+      </div>
+
+      <div class="objection-card">
+        <p class="obj-q">Je veux un vrai photographe, c'est mieux.</p>
+        <p class="obj-a">C'est <strong>complémentaire, pas concurrent</strong>. Garde ton photographe pour la photo signature de l'année. Mais pour les <strong>10 sets différents</strong> (LinkedIn, podcast, story, éditorial, equipe…) que tu voudras refaire 3 fois dans l'année, tu prends ton iPhone à la place de payer 5 000 € par an.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Garantie remboursement -->
+<section class="precom-section">
   <div class="container">
     <div class="guarantee-box">
       <div class="icon">✓</div>

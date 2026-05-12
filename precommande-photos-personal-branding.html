@@ -50,6 +50,7 @@
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/nav-v2.css">
 <script src="assets/meta-tracking.js" defer></script>
+<script src="https://js.stripe.com/v3/" defer></script>
 
 <style>
   /* === Hero précommande === */
@@ -1029,6 +1030,71 @@
     .sticky-cta-mobile { display: block; }
     body { padding-bottom: 90px; }
   }
+
+  /* ===== Stripe Embedded Checkout · modal overlay ===== */
+  .stripe-modal {
+    position: fixed; inset: 0; z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    animation: stripe-modal-fade .15s ease-out;
+  }
+  @keyframes stripe-modal-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .stripe-modal[hidden] { display: none; }
+  .stripe-modal-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(10, 10, 10, .72);
+    backdrop-filter: blur(4px);
+  }
+  .stripe-modal-content {
+    position: relative;
+    width: 100%; max-width: 520px;
+    max-height: calc(100vh - 48px);
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .stripe-modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(10,10,10,.08);
+    flex-shrink: 0;
+  }
+  .stripe-modal-header strong {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+  }
+  .stripe-modal-close {
+    background: none; border: 0; cursor: pointer;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    font-size: 22px; line-height: 1;
+    color: #6E6E6E;
+    transition: background .12s;
+  }
+  .stripe-modal-close:hover { background: #F2EDE2; color: #0A0A0A; }
+  #stripe-checkout-mount {
+    flex: 1; min-height: 480px;
+    overflow-y: auto;
+  }
+  .stripe-modal-loading {
+    padding: 60px 24px; text-align: center;
+    color: #6E6E6E; font-size: 14px;
+  }
+  .stripe-modal-error {
+    padding: 24px;
+    color: #b91c1c;
+    background: #fef2f2;
+    border-top: 1px solid #fecaca;
+    font-size: 14px;
+  }
+  body.stripe-modal-open { overflow: hidden; }
 </style>
 
 <!-- Plausible -->
@@ -1927,32 +1993,80 @@
     return m ? decodeURIComponent(m[1]) : undefined;
   }
 
-  // CTA précommande → Stripe Checkout (hero + inline + final + sticky bar)
+  // CTA précommande → Stripe Embedded Checkout dans un modal (pas de redirection)
+  let stripeEmbeddedInstance = null;
+  let stripeJsPromise = null;
+
+  function ensureStripeJs() {
+    if (window.Stripe) return Promise.resolve(window.Stripe);
+    if (stripeJsPromise) return stripeJsPromise;
+    stripeJsPromise = new Promise((resolve, reject) => {
+      const id = setInterval(() => {
+        if (window.Stripe) { clearInterval(id); resolve(window.Stripe); }
+      }, 50);
+      setTimeout(() => { clearInterval(id); reject(new Error('Stripe.js timeout')); }, 8000);
+    });
+    return stripeJsPromise;
+  }
+
+  function openStripeModal() {
+    const modal = document.getElementById('stripe-modal');
+    modal.hidden = false;
+    document.body.classList.add('stripe-modal-open');
+  }
+  function closeStripeModal() {
+    const modal = document.getElementById('stripe-modal');
+    modal.hidden = true;
+    document.body.classList.remove('stripe-modal-open');
+    if (stripeEmbeddedInstance) {
+      try { stripeEmbeddedInstance.destroy(); } catch (e) {}
+      stripeEmbeddedInstance = null;
+    }
+    const mount = document.getElementById('stripe-checkout-mount');
+    mount.innerHTML = '<div class="stripe-modal-loading">Chargement du paiement…</div>';
+    const errEl = document.getElementById('stripe-modal-error');
+    if (errEl) errEl.style.display = 'none';
+  }
+
   async function triggerCheckout(btn, errorElId, originalLabel) {
     const errorEl = errorElId ? document.getElementById(errorElId) : null;
     btn.disabled = true;
     const initialHTML = btn.innerHTML;
-    btn.textContent = 'Redirection vers Stripe…';
+    btn.textContent = 'Chargement…';
     try {
       var fbp = getCookie('_fbp');
       var fbc = getCookie('_fbc');
       // Fire InitiateCheckout côté pixel · signal funnel pour l'algo Meta
-      // (3-5× plus de signal que Purchase tant qu'on est sous 50 conv/sem)
       if (typeof window.jerwisTrack === 'function') {
         window.jerwisTrack('InitiateCheckout', {
           value: 39, currency: 'EUR',
           content_ids: ['workflow-genpics-team-v1'], content_type: 'product',
         });
       }
-      var r = await fetch('/api/checkout-create', {
+      const r = await fetch('/api/checkout-create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fbp: fbp || null, fbc: fbc || null }),
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      const { url } = await r.json();
-      if (!url) throw new Error('URL manquante');
-      window.location.href = url;
+      const { clientSecret, publishableKey } = await r.json();
+      if (!clientSecret || !publishableKey) throw new Error('Réponse incomplète');
+
+      const Stripe = await ensureStripeJs();
+      openStripeModal();
+
+      if (stripeEmbeddedInstance) {
+        try { stripeEmbeddedInstance.destroy(); } catch (e) {}
+        stripeEmbeddedInstance = null;
+      }
+      const stripe = Stripe(publishableKey);
+      stripeEmbeddedInstance = await stripe.initEmbeddedCheckout({ clientSecret });
+      const mount = document.getElementById('stripe-checkout-mount');
+      mount.innerHTML = '';
+      stripeEmbeddedInstance.mount('#stripe-checkout-mount');
+
+      btn.disabled = false;
+      btn.innerHTML = originalLabel || initialHTML;
     } catch (err) {
       btn.disabled = false;
       btn.innerHTML = originalLabel || initialHTML;
@@ -1972,6 +2086,14 @@
     if (!btn) return;
     e.preventDefault();
     triggerCheckout(btn, btn.dataset.ctaError || null, btn.dataset.ctaLabel || null);
+  });
+
+  // Fermeture modal · backdrop + bouton × + touche Escape
+  document.addEventListener('click', (e) => {
+    if (e.target.matches('.stripe-modal-backdrop, .stripe-modal-close')) closeStripeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !document.getElementById('stripe-modal').hidden) closeStripeModal();
   });
 
   // ViewContent · signal qualité Meta sur arrivée sur la page produit.
@@ -2001,6 +2123,20 @@
       <small>Achat unique · à vie</small>
     </div>
     <button type="button" data-cta-stripe data-cta-label="Acheter · 39 € →">Acheter · 39 € →</button>
+  </div>
+</div>
+
+<!-- Stripe Embedded Checkout · modal overlay -->
+<div id="stripe-modal" class="stripe-modal" role="dialog" aria-modal="true" aria-label="Paiement sécurisé Stripe" hidden>
+  <div class="stripe-modal-backdrop"></div>
+  <div class="stripe-modal-content">
+    <div class="stripe-modal-header">
+      <strong>Paiement sécurisé · 39 €</strong>
+      <button type="button" class="stripe-modal-close" aria-label="Fermer">×</button>
+    </div>
+    <div id="stripe-checkout-mount">
+      <div class="stripe-modal-loading">Chargement du paiement…</div>
+    </div>
   </div>
 </div>
 

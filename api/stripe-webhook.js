@@ -223,7 +223,7 @@ async function sendAlertEmail(subject, body) {
     body: JSON.stringify({
       from: FROM_EMAIL,
       to: [alertEmail],
-      subject: `[précommande genpics] ${subject}`,
+      subject: `[Générateur photos IA] ${subject}`,
       html: `<pre style="font-family:monospace;font-size:13px">${body}</pre>`,
     }),
   }).catch((err) => console.error("[stripe-webhook] alert email failed:", err.message));
@@ -249,7 +249,7 @@ async function sendSaleNotificationEmail({ session, sessionId, email, githubUser
   const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FBF7F0;padding:24px;color:#0A0A0A;line-height:1.5">
 <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,.06)">
   <div style="display:inline-block;padding:6px 12px;background:#EF426F;color:#fff;font-weight:700;font-size:13px;border-radius:6px;margin-bottom:18px">💰 ${amountEur} ${currency}</div>
-  <h1 style="margin:0 0 18px;font-size:24px;letter-spacing:-.02em">Nouvelle vente genpics</h1>
+  <h1 style="margin:0 0 18px;font-size:24px;letter-spacing:-.02em">Nouvelle vente · Générateur photos IA</h1>
 
   <table style="width:100%;border-collapse:collapse;margin-bottom:22px">
     <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px;width:140px">Email</td><td style="padding:8px 0;font-weight:500"><a href="mailto:${email}" style="color:#EF426F">${email}</a></td></tr>
@@ -279,7 +279,7 @@ async function sendSaleNotificationEmail({ session, sessionId, email, githubUser
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: [notifyEmail],
-        subject: `💰 Vente genpics · ${amountEur} ${currency} · ${email}`,
+        subject: `💰 Vente Générateur photos IA · ${amountEur} ${currency} · ${email}`,
         html,
       }),
     });

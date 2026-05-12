@@ -1933,11 +1933,16 @@
     const initialHTML = btn.innerHTML;
     btn.textContent = 'Redirection vers Stripe…';
     try {
-      // Capte les cookies Meta Pixel (s'ils existent — le pixel les set automatiquement
-      // dès qu'il est chargé). Permet le matching server-side via Conversions API
-      // après paiement confirmé (event Purchase, dédup avec event_id = session.id).
       var fbp = getCookie('_fbp');
       var fbc = getCookie('_fbc');
+      // Fire InitiateCheckout côté pixel · signal funnel pour l'algo Meta
+      // (3-5× plus de signal que Purchase tant qu'on est sous 50 conv/sem)
+      if (typeof window.jerwisTrack === 'function') {
+        window.jerwisTrack('InitiateCheckout', {
+          value: 39, currency: 'EUR',
+          content_ids: ['workflow-genpics-team-v1'], content_type: 'product',
+        });
+      }
       var r = await fetch('/api/checkout-create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1965,6 +1970,24 @@
       triggerCheckout(t, t.dataset.ctaError || null, t.dataset.ctaLabel || null);
     });
   });
+
+  // ViewContent · signal qualité Meta sur arrivée sur la page produit.
+  // Retry court car meta-tracking.js est chargé en defer.
+  (function trackViewContent() {
+    let tries = 0;
+    const id = setInterval(() => {
+      if (typeof window.jerwisTrack === 'function') {
+        clearInterval(id);
+        window.jerwisTrack('ViewContent', {
+          value: 39, currency: 'EUR',
+          content_ids: ['workflow-genpics-team-v1'], content_type: 'product',
+          content_name: 'Personal Branding Studio — code source',
+        });
+      } else if (++tries > 30) {
+        clearInterval(id);
+      }
+    }, 100);
+  })();
 </script>
 
 <!-- Sticky CTA mobile -->

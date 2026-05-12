@@ -152,6 +152,17 @@ async function sendMetaCapiPurchase({ session, sessionId, email, clientIp, userA
   // Montant facturé (en EUR, déduit du total Stripe)
   const valueEur = (session.amount_total ?? 3900) / 100;
 
+  // EMQ enrichi · plus on push de user_data hashés, mieux Meta match (cible EMQ ≥ 8)
+  const cd = session.customer_details || {};
+  const addr = cd.address || {};
+  const [firstName, ...rest] = (cd.name || "").trim().split(/\s+/);
+  const lastName = rest.join(" ");
+  const phoneE164 = cd.phone ? cd.phone.replace(/[^\d+]/g, "") : undefined;
+  // external_id = Stripe customer.id si dispo, sinon fallback session.id (sha256 lowercase)
+  const externalIdRaw = typeof session.customer === "string"
+    ? session.customer
+    : session.customer?.id || sessionId;
+
   const payload = {
     data: [
       {
@@ -162,6 +173,14 @@ async function sendMetaCapiPurchase({ session, sessionId, email, clientIp, userA
         event_source_url: sourceUrl,
         user_data: {
           em: email ? [sha256Lower(email)] : undefined,
+          fn: firstName ? [sha256Lower(firstName)] : undefined,
+          ln: lastName ? [sha256Lower(lastName)] : undefined,
+          ph: phoneE164 ? [sha256Lower(phoneE164)] : undefined,
+          ct: addr.city ? [sha256Lower(addr.city)] : undefined,
+          zp: addr.postal_code ? [sha256Lower(addr.postal_code)] : undefined,
+          st: addr.state ? [sha256Lower(addr.state)] : undefined,
+          country: addr.country ? [sha256Lower(addr.country)] : undefined,
+          external_id: externalIdRaw ? [sha256Lower(externalIdRaw)] : undefined,
           fbp,
           fbc,
           client_ip_address: clientIp,

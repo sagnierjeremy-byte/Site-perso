@@ -1,10 +1,10 @@
 // Endpoint Vercel serverless · crée une Stripe Checkout Session pour la précommande
-// du générateur de photos personal branding (99 € TTC, paiement unique).
+// du générateur de photos personal branding (39 € TTC, paiement unique).
 // Retourne { url } pour redirection client-side.
 
 import Stripe from "stripe";
 
-const PRODUCT_AMOUNT_CENTS = 9900; // 99 € TTC fixe
+const PRODUCT_AMOUNT_CENTS = 3900; // 39 € TTC fixe
 const PRODUCT_CURRENCY = "eur";
 const PRODUCT_NAME = "workflow-genpics-team — code source";
 const PRODUCT_DESCRIPTION =

@@ -2,7 +2,7 @@
 slug: photos-perso-ia
 titre: "Un vrai shooting personal branding à 0,04 $ la photo"
 titre_seo: "Personal branding IA · un vrai shooting à 0,04 $ la photo"
-description: "Klayn coûte 200 €/mois. Une séance photo, 500 €. J'ai construit l'équivalent qui me sort une photo pro à 0,04 $. Récit complet · ce qui marche, ce qui foire, et le code source que je vends à 99 € TTC (offre de lancement jusqu'au 6 juin · 149 € ensuite)."
+description: "Klayn coûte 200 €/mois. Une séance photo, 500 €. J'ai construit l'équivalent qui me sort une photo pro à 0,04 $. Récit complet · ce qui marche, ce qui foire, et le code source que je vends à 39 € TTC."
 numero: "12"
 categorie: "Récit"
 hero_ligne_1: "Un vrai shooting"
@@ -16,7 +16,7 @@ published: "2026-05-07"
 tldr:
   - "Pour <strong>30 € de crédit IA</strong> j'ai obtenu une centaine de photos de moi · et un set complet pour un collaborateur à <strong>0,80 €</strong>. La plus réussie de moi, je l'utilise déjà sur LinkedIn."
   - "Trois trucs cassent tout au début · les modèles te font des photos <strong>de magazine</strong> par défaut, ils inventent des détails (cheveux, boucles d'oreilles…) et les compositions trop léchées sentent le shooting Vogue à plein nez."
-  - "Le code source est en vente à <strong>99 € TTC en offre de lancement</strong> (jusqu'au 6 juin, ensuite 149 €) · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Livraison auto par email en 2 minutes après paiement."
+  - "Le code source est en vente à <strong>39 € TTC</strong> · tu paies une fois, tu génères pour toi <strong>et toute ton équipe</strong>. Livraison auto par email en 2 minutes après paiement."
 ---
 
 <!-- section k-fuchsia -->
@@ -35,7 +35,7 @@ J'ai construit mon outil. Voilà la photo dont je suis le plus content (génér�
 
 <div class="callout tip">
   <h4>Mon avis en 5 secondes</h4>
-  <p>Tu peux très bien remplacer la séance photo par un outil maison. <strong>Mais pas en 1 soir</strong> · il faut deux semaines pour caler les bons réglages. Si t'as pas envie de te taper la courbe d'apprentissage, je vends mon code en précommande à 99 € · tu lis l'article et tu choisis si tu veux le faire toi-même ou récupérer le mien.</p>
+  <p>Tu peux très bien remplacer la séance photo par un outil maison. <strong>Mais pas en 1 soir</strong> · il faut deux semaines pour caler les bons réglages. Si t'as pas envie de te taper la courbe d'apprentissage, je vends mon code en précommande à 39 € · tu lis l'article et tu choisis si tu veux le faire toi-même ou récupérer le mien.</p>
 </div>
 
 <!-- section k-teal -->
@@ -341,12 +341,12 @@ J'ai écrit le récit technique complet (17 sections, tous les bugs résolus, to
 
 <!-- section k-fuchsia -->
 
-## Tu veux juste l'utiliser ? 99 € en offre de lancement
+## Tu veux juste l'utiliser ? 39 € · achat unique
 
 T'as une équipe à équiper, ou tu veux refaire tes photos pro tous les trois mois sans signer un abonnement à 200 €/mois. Je vends le code source · **achat unique**, pas de SaaS qui peut disparaître, pas de quota par utilisateur.
 
 <div class="callout ok">
-  <h4>Ce que tu reçois pour 99 € TTC</h4>
+  <h4>Ce que tu reçois pour 39 € TTC</h4>
   <ul>
     <li><strong>Code Next.js complet</strong> · invitation au repo GitHub privé (mises à jour à vie) + ZIP autonome. Déploiement 1 clic sur Vercel gratuit.</li>
     <li><strong>Page Paramètres turnkey</strong> · tu colles tes 3 clés API via l'interface, le statut passe au vert et un bouton "Tester la connexion" confirme. Tu touches jamais un fichier <code>.env.local</code>, jamais un terminal.</li>
@@ -380,12 +380,12 @@ Trois trucs qui m'auraient empêché de dormir si j'avais signé chez Klayn :
 
 Et le photographe alors ? **C'est complémentaire, pas concurrent.** Une bonne séance par an reste précieuse. Mais entre deux séances, ton truc devient pâle au bout de 4 mois — et pour une équipe de 5-10, faire venir un photographe au bureau (1 500-3 000 € + une journée bloquée) devient irrationnel quand chacun peut envoyer 4 selfies depuis son canapé en 2 min.
 
-<div class="callout warn">
-  <h4>Offre de lancement · jusqu'au 6 juin 2026</h4>
-  <p><strong>99 € TTC</strong> pendant 30 jours. Ensuite <strong>149 €</strong>. Si tu hésites, ça fait 50 € d'écart sur une décision qu'on prend en 3 min.</p>
+<div class="callout ok">
+  <h4>39 € TTC · achat unique, pas d'abonnement</h4>
+  <p>Tu paies une fois, le code est à toi <strong>à vie</strong>. Mises à jour gratuites, repo GitHub privé, ZIP autonome, livraison auto 2 minutes. Garantie remboursement 1 heure.</p>
 </div>
 
-<p style="text-align:center; margin: 36px 0 20px;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:18px 36px; border-radius:8px; font-weight:600; font-size:18px; text-decoration:none;">Acheter à 99 € TTC · offre limitée →</a></p>
+<p style="text-align:center; margin: 36px 0 20px;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:18px 36px; border-radius:8px; font-weight:600; font-size:18px; text-decoration:none;">Acheter à 39 € TTC →</a></p>
 
 <p style="text-align:center; font-size:14px; opacity:0.7;">Pas développeur ? La page Paramètres te guide pas-à-pas, tu ne touches jamais un terminal. <a href="mailto:jeremy.sagnier@eurofiscalis.com">Écris-moi directement</a> si tu préfères payer autrement (virement, etc.).</p>
 

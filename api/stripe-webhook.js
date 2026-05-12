@@ -73,7 +73,7 @@ async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, github
   const html = `<!doctype html>
 <html><body style="font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;max-width:600px;margin:auto;padding:24px">
   <h1 style="font-size:26px;margin:0 0 12px 0">Merci pour ta précommande !</h1>
-  <p style="color:#555">Commande <code>${sessionId}</code> · 99 € TTC · paiement unique</p>
+  <p style="color:#555">Commande <code>${sessionId}</code> · 39 € TTC · paiement unique</p>
   <h2 style="font-size:18px;margin:28px 0 12px 0">Ton accès</h2>
   <div style="background:#f3f3f3;padding:18px 22px;border-radius:8px;margin:12px 0">
     <p style="margin:0 0 8px 0"><strong>1. Télécharger le code source (ZIP)</strong></p>

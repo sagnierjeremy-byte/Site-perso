@@ -92,7 +92,10 @@ export default async function handler(req, res) {
       publishableKey,
     });
   } catch (err) {
-    console.error("[checkout-create] Stripe error:", err.type || err.message);
-    return res.status(500).json({ error: "Erreur lors de la création du paiement" });
+    console.error("[checkout-create] Stripe error:", err.type, err.message, err.raw?.message);
+    return res.status(500).json({
+      error: "Erreur lors de la création du paiement",
+      _debug: { type: err.type, message: err.message, code: err.code, param: err.param }
+    });
   }
 }

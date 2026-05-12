@@ -26,8 +26,9 @@ export default async function handler(req, res) {
   }
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) {
-    console.error("[checkout-create] STRIPE_SECRET_KEY manquante");
+  const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+  if (!stripeKey || !publishableKey) {
+    console.error("[checkout-create] STRIPE_SECRET_KEY ou STRIPE_PUBLISHABLE_KEY manquante");
     return res.status(503).json({ error: "Service indisponible" });
   }
 
@@ -55,6 +56,7 @@ export default async function handler(req, res) {
     if (fbc) metadata.fbc = fbc;
 
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "embedded_page",
       mode: "payment",
       payment_method_types: ["card"],
       line_items: [
@@ -81,14 +83,16 @@ export default async function handler(req, res) {
           type: "text",
         },
       ],
-      success_url: `${origin}/precommande-merci.html?session={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/precommande-photos-personal-branding.html`,
+      return_url: `${origin}/precommande-merci.html?session={CHECKOUT_SESSION_ID}`,
       metadata,
     });
 
-    return res.status(200).json({ url: session.url });
+    return res.status(200).json({
+      clientSecret: session.client_secret,
+      publishableKey,
+    });
   } catch (err) {
-    console.error("[checkout-create] Stripe error:", err.type || err.message);
+    console.error("[checkout-create] Stripe error:", err.type, err.message);
     return res.status(500).json({ error: "Erreur lors de la création du paiement" });
   }
 }

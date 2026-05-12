@@ -132,8 +132,8 @@ Vercel Dashboard → projet `jeremy-sagnier-site` → Settings → Environment V
 | `GITHUB_TOKEN` | `github_pat_...` (de Phase 0.1 step 3) | Production, Preview, Development |
 | `GITHUB_REPO_OWNER` | `sagnierjeremy-byte` | Production, Preview, Development |
 | `GITHUB_REPO_NAME` | `workflow-genpics-team` | Production, Preview, Development |
-| `RESEND_REPLYTO` | `jeremy.sagnier@eurofiscalis.com` | Production, Preview, Development |
-| `ALERT_EMAIL` | `jeremy.sagnier@eurofiscalis.com` | Production, Preview, Development |
+| `RESEND_REPLYTO` | `jeremy.sagnier@jerwis.fr` | Production, Preview, Development |
+| `ALERT_EMAIL` | `jeremy.sagnier@jerwis.fr` | Production, Preview, Development |
 
 `BLOB_READ_WRITE_TOKEN` est déjà auto-injecté par Phase 0.3. `RESEND_API_KEY` existe déjà.
 
@@ -201,7 +201,7 @@ Contenu de la `<section>` principale :
     </p>
     <div class="callout warn" style="text-align:left;margin-bottom:28px;">
       <h4>Tu n'as rien reçu après 5 minutes ?</h4>
-      <p>Vérifie tes spams. Si toujours rien, écris-moi à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> avec ton numéro de session Stripe (visible dans l'URL ou dans le reçu Stripe). Je t'envoie tout en moins d'1h.</p>
+      <p>Vérifie tes spams. Si toujours rien, écris-moi à <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a> avec ton numéro de session Stripe (visible dans l'URL ou dans le reçu Stripe). Je t'envoie tout en moins d'1h.</p>
     </div>
     <a href="index.html" style="display:inline-block;color:var(--fuchsia);font-weight:600;text-decoration:none;">← Retour à l'accueil</a>
   </div>
@@ -546,7 +546,7 @@ async function generateZipUrl() {
 
 async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, githubInviteOk, lateInviteUrl }) {
   const apiKey = process.env.RESEND_API_KEY;
-  const replyTo = process.env.RESEND_REPLYTO || "jeremy.sagnier@eurofiscalis.com";
+  const replyTo = process.env.RESEND_REPLYTO || "jeremy.sagnier@jerwis.fr";
 
   const githubBlock = githubUsername && githubInviteOk
     ? `<div style="background:#f3f3f3;padding:18px 22px;border-radius:8px;margin:12px 0">
@@ -832,7 +832,7 @@ export default async function handler(req, res) {
     const page = renderPage({
       title: "Lien invalide",
       body: `<div class="kicker">— Erreur</div><h1>Lien invalide</h1>
-        <p>Le lien que tu as utilisé est invalide ou expiré. Contacte <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> avec ton numéro de session Stripe.</p>`,
+        <p>Le lien que tu as utilisé est invalide ou expiré. Contacte <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a> avec ton numéro de session Stripe.</p>`,
       status: 400,
     });
     res.setHeader("Content-Type", page.contentType);
@@ -942,7 +942,7 @@ export default async function handler(req, res) {
       const page = renderPage({
         title: "Échec invitation",
         body: `<div class="error">L'invitation a échoué (${result.status}). Détail : <code>${result.detail || "?"}</code>.</div>
-          <p>Vérifie que ton username GitHub est correct, ou écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>.</p>
+          <p>Vérifie que ton username GitHub est correct, ou écris à <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a>.</p>
           <p><a href="/api/github-invite-late?session=${encodeURIComponent(sessionId)}">← Réessayer</a></p>`,
       });
       res.setHeader("Content-Type", page.contentType);
@@ -996,7 +996,7 @@ git commit -m "feat(api): github-invite-late · fallback pour acheteurs sans use
 Trouver dans le fichier la section `<!-- CTA finale -->` (ligne ~430), repérer le bouton :
 
 ```html
-<a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=Pr%C3%A9commande..." class="precom-cta-btn" style="font-size: 19px; padding: 22px 40px;">Précommander · 99 € TTC <span class="arrow">→</span></a>
+<a href="mailto:jeremy.sagnier@jerwis.fr?subject=Pr%C3%A9commande..." class="precom-cta-btn" style="font-size: 19px; padding: 22px 40px;">Précommander · 99 € TTC <span class="arrow">→</span></a>
 ```
 
 Remplacer par :
@@ -1025,7 +1025,7 @@ Et juste avant `</body>`, ajouter :
       btn.disabled = false;
       btn.innerHTML = 'Précommander · 99 € TTC <span class="arrow">→</span>';
       errorEl.style.display = 'block';
-      errorEl.textContent = 'Erreur : ' + err.message + '. Réessaie ou écris à jeremy.sagnier@eurofiscalis.com';
+      errorEl.textContent = 'Erreur : ' + err.message + '. Réessaie ou écris à jeremy.sagnier@jerwis.fr';
     }
   });
 </script>
@@ -1057,7 +1057,7 @@ Remplacer par :
 
 ```html
 <p style="margin-top: 28px; font-size: 13px; color: rgba(255,255,255,.55);">
-  Tu préfères payer manuellement ? Écris-moi à <a href="mailto:jeremy.sagnier@eurofiscalis.com" style="color: rgba(255,255,255,.85); text-decoration: underline;">jeremy.sagnier@eurofiscalis.com</a> et je t'envoie un lien Stripe alternatif.
+  Tu préfères payer manuellement ? Écris-moi à <a href="mailto:jeremy.sagnier@jerwis.fr" style="color: rgba(255,255,255,.85); text-decoration: underline;">jeremy.sagnier@jerwis.fr</a> et je t'envoie un lien Stripe alternatif.
 </p>
 ```
 
@@ -1087,7 +1087,7 @@ git commit -m "feat(ecommerce): bouton CTA -> POST /api/checkout-create -> Strip
 Trouver dans `drafts/photos-perso-ia.md` (ligne ~223) :
 
 ```
-Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:jeremy.sagnier@eurofiscalis.com?subject=...">...
+Pour pré-réserver, **envoie-moi un mail** à <a href="mailto:jeremy.sagnier@jerwis.fr?subject=...">...
 ```
 
 Remplacer par :
@@ -1097,7 +1097,7 @@ Pour pré-réserver, **va sur la page de précommande** :
 
 <p style="text-align:center; margin: 28px 0;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:var(--fuchsia); color:white; padding:16px 32px; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none;">Précommander à 99 € TTC →</a></p>
 
-Tu peux aussi écrire directement à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> si tu préfères payer autrement (virement, etc.).
+Tu peux aussi écrire directement à <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a> si tu préfères payer autrement (virement, etc.).
 ```
 
 - [ ] **Step 2: Republier**
@@ -1221,7 +1221,7 @@ Email : `test-bad-github@example.com`, GitHub username : `username-qui-existe-pa
 
 - L'email de livraison doit quand même partir (avec le ZIP)
 - Le `deliveries/{session.id}.json` doit avoir `githubInviteOk: false`
-- Un email d'alerte doit arriver à `jeremy.sagnier@eurofiscalis.com`
+- Un email d'alerte doit arriver à `jeremy.sagnier@jerwis.fr`
 
 ---
 

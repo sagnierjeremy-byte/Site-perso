@@ -4,7 +4,7 @@
 import { Resend } from 'resend';
 
 const FROM_EMAIL = 'Jérémy Sagnier <jeremy@jerwis.fr>';
-const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || 'jeremy.sagnier@eurofiscalis.com';
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || 'jeremy.sagnier@jerwis.fr';
 
 function escapeHtml(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({

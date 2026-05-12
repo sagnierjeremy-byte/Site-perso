@@ -57,7 +57,7 @@ function buildZipDownloadUrl(sessionId, origin) {
 
 async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, githubInviteOk, lateInviteUrl }) {
   const apiKey = process.env.RESEND_API_KEY;
-  const replyTo = process.env.RESEND_REPLYTO || "jeremy.sagnier@eurofiscalis.com";
+  const replyTo = process.env.RESEND_REPLYTO || "jeremy.sagnier@jerwis.fr";
   const owner = process.env.GITHUB_REPO_OWNER;
   const repo = process.env.GITHUB_REPO_NAME;
 

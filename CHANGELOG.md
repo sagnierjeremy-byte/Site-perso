@@ -891,7 +891,7 @@ Jérémy a demandé une synthèse pédagogique du 15e plan quinquennal chinois (
 Jérémy veut récolter l'avis des auditeurs des 3 épisodes Guerres d'IA pour décider la suite : quel épisode marche le mieux, faut-il un ép 4, sur quel sujet. Ton Leo « réponds, je lis tout » mais en widget intégré sous chaque audio + form suggestion globale en bas d'article.
 
 ### Livré
-- **`api/episode-feedback.js`** · nouveau endpoint serverless calqué sur `subscribe.js`. Gère 2 types : `kind: 'vote'` (avec `episode`, `vote: up|down`, `comment` optionnel) et `kind: 'suggestion'` (textarea ép 4). Envoie email Resend à `ADMIN_NOTIFY_EMAIL` (override env, fallback `jeremy.sagnier@eurofiscalis.com`). Pas de stockage DB — tout passe par email comme la notif `+1 newsletter`.
+- **`api/episode-feedback.js`** · nouveau endpoint serverless calqué sur `subscribe.js`. Gère 2 types : `kind: 'vote'` (avec `episode`, `vote: up|down`, `comment` optionnel) et `kind: 'suggestion'` (textarea ép 4). Envoie email Resend à `ADMIN_NOTIFY_EMAIL` (override env, fallback `jeremy.sagnier@jerwis.fr`). Pas de stockage DB — tout passe par email comme la notif `+1 newsletter`.
 - **`articles/guerres-d-ia-podcast.html`** · 3 widgets feedback (un sous chaque `<audio>`) avec boutons 👍/👎 + textarea facultatif `+ Pourquoi`. Form `Suggestion ép 4` en bas avant final-cta avec textarea + bouton envoi. Anti double-vote via `localStorage` (clé `pod_vote_<episode>`). États visuels : voted (border teal), thanks, error.
 - CSS cohérent charte Fiesta (boutons radius 12px, hover translate, error orange, thanks teal mono).
 - JS frontend : event listeners, restauration état localStorage au load, fetch POST, gestion silencieuse des échecs (le vote reste enregistré localement même si le réseau échoue).
@@ -903,7 +903,7 @@ Jérémy veut récolter l'avis des auditeurs des 3 épisodes Guerres d'IA pour d
 
 ### À venir
 - Tester le pipeline complet en prod après push (vote + comment + suggestion)
-- Vérifier que `ADMIN_NOTIFY_EMAIL` est bien défini sur Vercel (sinon fallback `jeremy.sagnier@eurofiscalis.com`)
+- Vérifier que `ADMIN_NOTIFY_EMAIL` est bien défini sur Vercel (sinon fallback `jeremy.sagnier@jerwis.fr`)
 - Potentiellement ajouter compteurs publics si Vercel KV configuré plus tard
 - Re-déployer après push R2 (URLs `<audio src>` à modifier en parallèle)
 
@@ -943,7 +943,7 @@ Jérémy veut être alerté en temps réel à chaque nouvel inscrit (et à chaqu
 ### Livré
 - **`api/subscribe.js`** · nouvelle fonction `sendAdminNotification()` appelée best-effort après inscription réussie (pas sur doublon). Envoie à l'admin un email avec subject `+1 newsletter · <email>` + corps (email, prénom si fourni, source du form, date, lien dashboard Resend).
 - **`api/unsubscribe.js`** · notif admin déjà existante, adresse destinataire alignée.
-- **Destinataire admin** · `jeremy.sagnier@eurofiscalis.com` (remplace l'ancien `sagnier.jeremy@gmail.com`), override possible via env var `ADMIN_NOTIFY_EMAIL` sur Vercel si besoin de changer sans redéployer.
+- **Destinataire admin** · `jeremy.sagnier@jerwis.fr` (remplace l'ancien `sagnier.jeremy@gmail.com`), override possible via env var `ADMIN_NOTIFY_EMAIL` sur Vercel si besoin de changer sans redéployer.
 - **Symétrie inscription / désabonnement** · `+1` vs `-1` dans les subjects, même structure de body.
 
 ### Fichiers touchés
@@ -954,7 +954,7 @@ Jérémy veut être alerté en temps réel à chaque nouvel inscrit (et à chaqu
 Les deux notifs admin sont encapsulées dans try/catch · si Resend rate, l'inscription/désabonnement réussit quand même. Log côté Vercel via `console.error`.
 
 ### À venir
-- [ ] Tester en prod après redéploiement · s'inscrire avec un email test et vérifier la réception sur jeremy.sagnier@eurofiscalis.com
+- [ ] Tester en prod après redéploiement · s'inscrire avec un email test et vérifier la réception sur jeremy.sagnier@jerwis.fr
 - [ ] Ajouter env var `ADMIN_NOTIFY_EMAIL` sur Vercel si tu veux override le fallback
 
 ---
@@ -1022,7 +1022,7 @@ Décision d'anonymiser le nom de l'employeur de Shirley sur tout le site (rempla
 ## 2026-04-22 (soir) · domaine jerwis.fr verifie cote Resend · FROM_EMAIL switch
 
 ### Pourquoi
-Après les premiers tests sandbox (welcome/goodbye OK sur sagnier.jeremy@gmail.com mais bloqués vers jeremy.sagnier@eurofiscalis.com), diagnostic · Resend mode sandbox avec `onboarding@resend.dev` ne peut envoyer qu'au propriétaire du compte. Il fallait vérifier jerwis.fr comme domaine d'envoi.
+Après les premiers tests sandbox (welcome/goodbye OK sur sagnier.jeremy@gmail.com mais bloqués vers jeremy.sagnier@jerwis.fr), diagnostic · Resend mode sandbox avec `onboarding@resend.dev` ne peut envoyer qu'au propriétaire du compte. Il fallait vérifier jerwis.fr comme domaine d'envoi.
 
 ### Livré
 - **Diagnostic DNS Hostinger** via API (lecture seule) · records DKIM/SPF/DMARC déjà présents dans la zone
@@ -1030,8 +1030,8 @@ Après les premiers tests sandbox (welcome/goodbye OK sur sagnier.jeremy@gmail.c
 - **Revert temporaire** (commit `cfa8c2c`) · FROM_EMAIL repassé sur `onboarding@resend.dev` pendant la fenêtre de vérif pour pas casser les inscriptions réelles
 - **Re-switch définitif** (commit `bfecef6`) · FROM_EMAIL = `Jérémy Sagnier <jeremy@jerwis.fr>` sur `api/subscribe.js` + `api/unsubscribe.js`
 - **Tests prod E2E validés** · 3 emails reçus via jeremy@jerwis.fr
-  - welcome AI Playbook → jeremy.sagnier@eurofiscalis.com ✅
-  - goodbye désabonnement → jeremy.sagnier@eurofiscalis.com ✅
+  - welcome AI Playbook → jeremy.sagnier@jerwis.fr ✅
+  - goodbye désabonnement → jeremy.sagnier@jerwis.fr ✅
   - notif feedback admin → sagnier.jeremy@gmail.com ✅
 
 ### Fichiers touchés

@@ -7,7 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const FROM_EMAIL = "Jérémy Sagnier <jeremy@jerwis.fr>";
-const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@eurofiscalis.com";
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@jerwis.fr";
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;

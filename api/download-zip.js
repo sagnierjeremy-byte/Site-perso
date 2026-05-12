@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const sessionId = req.query?.session;
   if (!sessionId || !String(sessionId).startsWith("cs_")) {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    return res.status(400).send("Lien invalide. Vérifie l'URL ou contacte jeremy.sagnier@eurofiscalis.com.");
+    return res.status(400).send("Lien invalide. Vérifie l'URL ou contacte jeremy.sagnier@jerwis.fr.");
   }
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   } catch (err) {
     console.warn("[download-zip] session retrieve failed:", err.message);
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    return res.status(404).send("Session introuvable. Contacte jeremy.sagnier@eurofiscalis.com avec ton numéro de session.");
+    return res.status(404).send("Session introuvable. Contacte jeremy.sagnier@jerwis.fr avec ton numéro de session.");
   }
 
   if (session.payment_status !== "paid") {

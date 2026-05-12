@@ -98,7 +98,7 @@ export default async function handler(req, res) {
     const page = renderPage({
       title: "Lien invalide",
       body: `<div class="kicker">— Erreur</div><h1>Lien invalide</h1>
-        <p>Le lien que tu as utilisé est invalide ou expiré. Contacte <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a> avec ton numéro de session Stripe.</p>`,
+        <p>Le lien que tu as utilisé est invalide ou expiré. Contacte <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a> avec ton numéro de session Stripe.</p>`,
       status: 400,
     });
     res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -177,7 +177,7 @@ export default async function handler(req, res) {
     if (isRateLimited(getClientIp(req))) {
       const page = renderPage({
         title: "Trop d'essais",
-        body: `<div class="error">Trop d'essais d'invitation. Réessaie dans 10 minutes ou contacte <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>.</div>`,
+        body: `<div class="error">Trop d'essais d'invitation. Réessaie dans 10 minutes ou contacte <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a>.</div>`,
         status: 429,
       });
       res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -226,7 +226,7 @@ export default async function handler(req, res) {
       const page = renderPage({
         title: "Échec invitation",
         body: `<div class="error">L'invitation a échoué (${result.status || "?"}). Détail : <code>${esc((result.detail || "?").slice(0, 200))}</code>.</div>
-          <p>Vérifie que ton username GitHub est correct, ou écris à <a href="mailto:jeremy.sagnier@eurofiscalis.com">jeremy.sagnier@eurofiscalis.com</a>.</p>
+          <p>Vérifie que ton username GitHub est correct, ou écris à <a href="mailto:jeremy.sagnier@jerwis.fr">jeremy.sagnier@jerwis.fr</a>.</p>
           <p><a href="/api/github-invite-late?session=${encodeURIComponent(sessionId)}">← Réessayer</a></p>`,
       });
       res.setHeader("Content-Type", "text/html; charset=utf-8");

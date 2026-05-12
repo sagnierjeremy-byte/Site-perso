@@ -63,7 +63,7 @@ Le projet vendu est `~/Projets/workflow-genpics-team` — un outil Next.js de g�
   - `releases/workflow-genpics-team-v1.0.zip` (uploadé manuellement, mis à jour à chaque release)
   - `deliveries/{session.id}.json` — audit log + idempotency, format `{ sessionId, email, githubUsername, ts, githubInviteOk, emailSentOk, errors }`
 - **GitHub** : `sagnierjeremy-byte/workflow-genpics-team` (repo privé, à créer)
-- **Resend** : envoi via API existante, sender `jerwis@jerwis.fr`, reply-to `jeremy.sagnier@eurofiscalis.com`
+- **Resend** : envoi via API existante, sender `jerwis@jerwis.fr`, reply-to `jeremy.sagnier@jerwis.fr`
 
 ## 4. Page de vente — wireframe & sections
 
@@ -85,7 +85,7 @@ Style : aligné avec le reste de jerwis.fr (CSS `assets/main.css`), sections col
 Page de remerciement `precommande-merci.html` :
 - Hero "Merci ! Ton paiement a bien été reçu"
 - "Tu vas recevoir un email dans les 2 prochaines minutes avec ton accès"
-- "Tu n'as rien reçu après 5 min ? Vérifie tes spams. Sinon écris-moi à jeremy.sagnier@eurofiscalis.com"
+- "Tu n'as rien reçu après 5 min ? Vérifie tes spams. Sinon écris-moi à jeremy.sagnier@jerwis.fr"
 
 ## 5. Détail des routes API
 
@@ -166,7 +166,7 @@ return Response.json({ url: session.url });
 **Subject** : `Ton accès au générateur de photos personal branding`
 
 **From** : `jerwis@jerwis.fr` (ou `Jeremy Sagnier <jerwis@jerwis.fr>`)
-**Reply-To** : `jeremy.sagnier@eurofiscalis.com`
+**Reply-To** : `jeremy.sagnier@jerwis.fr`
 
 **Body HTML** (responsive, palette jerwis.fr) :
 
@@ -196,8 +196,8 @@ return Response.json({ url: session.url });
 | `BLOB_READ_WRITE_TOKEN` | généré dans Vercel Dashboard → Storage → Blob |
 | `RESEND_API_KEY` | déjà existant |
 | `RESEND_FROM` | `jerwis@jerwis.fr` (déjà existant) |
-| `RESEND_REPLYTO` | `jeremy.sagnier@eurofiscalis.com` |
-| `ALERT_EMAIL` | `jeremy.sagnier@eurofiscalis.com` |
+| `RESEND_REPLYTO` | `jeremy.sagnier@jerwis.fr` |
+| `ALERT_EMAIL` | `jeremy.sagnier@jerwis.fr` |
 
 `.env.local` mis à jour avec les mêmes variables pour test local via `vercel env pull`.
 
@@ -263,7 +263,7 @@ Volontairement laissé pour plus tard :
 ## 13. Mise à jour de l'article existant
 
 Une fois la page de vente en ligne, mettre à jour `articles/photos-perso-ia.html` :
-- Remplacer le `mailto:jeremy.sagnier@eurofiscalis.com?...` actuel par un lien vers `/precommande-photos-personal-branding.html`
+- Remplacer le `mailto:jeremy.sagnier@jerwis.fr?...` actuel par un lien vers `/precommande-photos-personal-branding.html`
 - Garder le mailto en fallback (texte type "ou écris-moi à...")
 
 ## 14. Documents liés

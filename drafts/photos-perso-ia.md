@@ -387,7 +387,7 @@ Et le photographe alors ? **C'est complémentaire, pas concurrent.** Une bonne s
 
 <p style="text-align:center; margin: 36px 0 20px;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:18px 36px; border-radius:8px; font-weight:600; font-size:18px; text-decoration:none;">Acheter à 39 € TTC →</a></p>
 
-<p style="text-align:center; font-size:14px; opacity:0.7;">Pas développeur ? La page Paramètres te guide pas-à-pas, tu ne touches jamais un terminal. <a href="mailto:jeremy.sagnier@eurofiscalis.com">Écris-moi directement</a> si tu préfères payer autrement (virement, etc.).</p>
+<p style="text-align:center; font-size:14px; opacity:0.7;">Pas développeur ? La page Paramètres te guide pas-à-pas, tu ne touches jamais un terminal. <a href="mailto:jeremy.sagnier@jerwis.fr">Écris-moi directement</a> si tu préfères payer autrement (virement, etc.).</p>
 
 
 <!-- section k-teal -->

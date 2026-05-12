@@ -353,7 +353,7 @@ T'as une équipe à équiper, ou tu veux refaire tes photos pro tous les trois m
     <li><strong>Docs livrées</strong> · <code>STORYTELLING.md</code> (toutes les décisions techniques + bugs déjà résolus) + <code>CLAUDE.md</code> (pour que Claude Code modifie ton fork proprement).</li>
     <li><strong>Pas de limite d'usage</strong> · toi, ton équipe, ton pote — autant de personnes que tu veux.</li>
     <li><strong>Livraison auto 2 minutes</strong> · Stripe → email avec lien ZIP + invite GitHub. Aucune validation manuelle.</li>
-    <li><strong>Garantie remboursement 1h</strong> · si ça marche pas en moins d'1h après réception, je rembourse intégral sans question.</li>
+    <li><strong>Garantie remboursement 7 jours</strong> · si ça ne marche pas ou ne te convient pas, je rembourse intégralement sans question.</li>
   </ul>
   <p style="margin-top:14px;"><strong>Tes coûts variables · clés API à toi</strong> · fal.ai (~ 4 € pour 100 photos) + OpenRouter (~ 1 € pour 50 sessions). Tu paies à l'usage, directement aux providers, à quelques centimes la photo. Pas d'abonnement caché.</p>
 </div>
@@ -382,7 +382,7 @@ Et le photographe alors ? **C'est complémentaire, pas concurrent.** Une bonne s
 
 <div class="callout ok">
   <h4>39 € TTC · achat unique, pas d'abonnement</h4>
-  <p>Tu paies une fois, le code est à toi <strong>à vie</strong>. Mises à jour gratuites, repo GitHub privé, ZIP autonome, livraison auto 2 minutes. Garantie remboursement 1 heure.</p>
+  <p>Tu paies une fois, le code est à toi <strong>à vie</strong>. Mises à jour gratuites, repo GitHub privé, ZIP autonome, livraison auto 2 minutes. Garantie remboursement 7 jours, sans question.</p>
 </div>
 
 <p style="text-align:center; margin: 36px 0 20px;"><a href="../precommande-photos-personal-branding.html" style="display:inline-block; background:#ef426f; color:white; padding:18px 36px; border-radius:8px; font-weight:600; font-size:18px; text-decoration:none;">Acheter à 39 € TTC →</a></p>

@@ -93,11 +93,11 @@ async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, github
   </ol>
   <h2 style="font-size:18px;margin:28px 0 12px 0">Tes coûts variables</h2>
   <ul style="font-size:14px;line-height:1.7">
-    <li><strong>fal.ai</strong> : ~20 € pour 100 photos · <a href="https://fal.ai" style="color:#ef426f">créer un compte</a></li>
+    <li><strong>fal.ai</strong> : ~4 € pour 100 photos sur Seedream (par défaut), ~20 € sur FLUX Pro · <a href="https://fal.ai" style="color:#ef426f">créer un compte</a></li>
     <li><strong>OpenRouter</strong> : ~1 € pour 50 sessions · <a href="https://openrouter.ai" style="color:#ef426f">créer un compte</a></li>
   </ul>
   <p style="font-size:14px;color:#555;margin-top:32px;border-top:1px solid #ddd;padding-top:18px">
-    <strong>Garantie remboursement</strong> · si ça ne marche pas chez toi en 1h, réponds à cet email, je rembourse.<br>
+    <strong>Garantie remboursement 7 jours</strong> · si ça ne marche pas chez toi ou ne te convient pas, réponds à cet email, je rembourse les 39 € en 24h. Sans question.<br>
     Pour toute question, écris à <a href="mailto:${replyTo}" style="color:#ef426f">${replyTo}</a>.
   </p>
   <p style="font-size:12px;color:#999;margin-top:18px">— Jérémy Sagnier · jerwis.fr</p>

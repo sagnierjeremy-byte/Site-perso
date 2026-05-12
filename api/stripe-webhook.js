@@ -229,6 +229,67 @@ async function sendAlertEmail(subject, body) {
   }).catch((err) => console.error("[stripe-webhook] alert email failed:", err.message));
 }
 
+async function sendSaleNotificationEmail({ session, sessionId, email, githubUsername, emailDeliveryOk, githubInviteOk }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const notifyEmail = process.env.ADMIN_NOTIFY_EMAIL || "jeremy.sagnier@jerwis.fr";
+  if (!apiKey || !notifyEmail) return { ok: false, skipped: true };
+
+  const cd = session.customer_details || {};
+  const addr = cd.address || {};
+  const amountEur = ((session.amount_total ?? 3900) / 100).toFixed(2);
+  const currency = (session.currency || "eur").toUpperCase();
+  const name = cd.name || "(nom non fourni)";
+  const country = addr.country || "?";
+  const city = addr.city || "?";
+  const phone = cd.phone || "(non fourni)";
+  const stripeUrl = `https://dashboard.stripe.com/payments/${sessionId}`;
+
+  const statusLine = (label, ok) => `<li style="margin:4px 0">${ok ? "✅" : "❌"} ${label}</li>`;
+
+  const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FBF7F0;padding:24px;color:#0A0A0A;line-height:1.5">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,.06)">
+  <div style="display:inline-block;padding:6px 12px;background:#EF426F;color:#fff;font-weight:700;font-size:13px;border-radius:6px;margin-bottom:18px">💰 ${amountEur} ${currency}</div>
+  <h1 style="margin:0 0 18px;font-size:24px;letter-spacing:-.02em">Nouvelle vente genpics</h1>
+
+  <table style="width:100%;border-collapse:collapse;margin-bottom:22px">
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px;width:140px">Email</td><td style="padding:8px 0;font-weight:500"><a href="mailto:${email}" style="color:#EF426F">${email}</a></td></tr>
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px">Nom</td><td style="padding:8px 0;font-weight:500">${name}</td></tr>
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px">Pays / Ville</td><td style="padding:8px 0;font-weight:500">${country} · ${city}</td></tr>
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px">Téléphone</td><td style="padding:8px 0;font-weight:500">${phone}</td></tr>
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px">GitHub</td><td style="padding:8px 0;font-weight:500">${githubUsername || "(non fourni)"}</td></tr>
+    <tr><td style="padding:8px 0;color:#6E6E6E;font-size:13px">Session</td><td style="padding:8px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6E6E">${sessionId}</td></tr>
+  </table>
+
+  <div style="background:#F2EDE2;padding:14px 18px;border-radius:6px;margin-bottom:22px">
+    <strong style="font-size:13px;color:#3A3A3A">Livraison automatique</strong>
+    <ul style="list-style:none;padding:0;margin:8px 0 0;font-size:14px">
+      ${statusLine("Email Resend envoyé (ZIP + invite)", emailDeliveryOk)}
+      ${statusLine(`Invitation GitHub${githubUsername ? ` à ${githubUsername}` : ""}`, githubInviteOk)}
+    </ul>
+  </div>
+
+  <a href="${stripeUrl}" style="display:inline-block;background:#0A0A0A;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px">Voir dans Stripe →</a>
+</div>
+</body></html>`;
+
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: FROM_EMAIL,
+        to: [notifyEmail],
+        subject: `💰 Vente genpics · ${amountEur} ${currency} · ${email}`,
+        html,
+      }),
+    });
+    const j = await r.json();
+    return { ok: r.ok, id: j.id, detail: r.ok ? undefined : j };
+  } catch (err) {
+    return { ok: false, detail: err?.message || String(err) };
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -324,6 +385,22 @@ export default async function handler(req, res) {
       JSON.stringify(githubResult, null, 2)
     );
   }
+
+  // Notification admin · email à chaque vente réussie (best-effort, ne bloque pas)
+  sendSaleNotificationEmail({
+    session,
+    sessionId,
+    email,
+    githubUsername,
+    emailDeliveryOk: emailResult.ok,
+    githubInviteOk,
+  })
+    .then((r) => {
+      if (!r.ok && !r.skipped) {
+        console.warn("[stripe-webhook] sale notification failed:", JSON.stringify(r));
+      }
+    })
+    .catch((err) => console.warn("[stripe-webhook] sale notification error:", err.message));
 
   // Meta Conversions API · best-effort, ne bloque jamais la livraison.
   // Si les env vars META_PIXEL_ID + META_CAPI_TOKEN ne sont pas posées,

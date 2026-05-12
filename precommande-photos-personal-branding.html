@@ -1919,6 +1919,12 @@
     });
   })();
 
+  // Helper · récupère un cookie par nom (utilisé pour fbp/fbc du Meta Pixel)
+  function getCookie(name) {
+    var m = document.cookie.match('(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)');
+    return m ? decodeURIComponent(m[1]) : undefined;
+  }
+
   // CTA précommande → Stripe Checkout (hero + inline + final + sticky bar)
   async function triggerCheckout(btn, errorElId, originalLabel) {
     const errorEl = errorElId ? document.getElementById(errorElId) : null;
@@ -1926,7 +1932,16 @@
     const initialHTML = btn.innerHTML;
     btn.textContent = 'Redirection vers Stripe…';
     try {
-      const r = await fetch('/api/checkout-create', { method: 'POST' });
+      // Capte les cookies Meta Pixel (s'ils existent — le pixel les set automatiquement
+      // dès qu'il est chargé). Permet le matching server-side via Conversions API
+      // après paiement confirmé (event Purchase, dédup avec event_id = session.id).
+      var fbp = getCookie('_fbp');
+      var fbc = getCookie('_fbc');
+      var r = await fetch('/api/checkout-create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fbp: fbp || null, fbc: fbc || null }),
+      });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const { url } = await r.json();
       if (!url) throw new Error('URL manquante');

@@ -1,9 +1,12 @@
 // Endpoint Vercel serverless · reçoit les webhooks Stripe.
 // Traite uniquement `checkout.session.completed` pour livrer la précommande
-// (invitation GitHub + URL ZIP + email Resend).
+// (invitation GitHub + URL ZIP + email Resend) + envoie l'event Purchase
+// à Meta Conversions API (CAPI server-side, dédupliqué avec le pixel client
+// via `event_id = session.id`).
 // Idempotency via Vercel Blob `deliveries/{session.id}.json`.
 
 import Stripe from "stripe";
+import crypto from "node:crypto";
 import { put, head } from "@vercel/blob";
 
 // IMPORTANT : Vercel parse le body par défaut. Pour vérifier la signature
@@ -121,6 +124,76 @@ async function sendDeliveryEmail({ to, sessionId, zipUrl, githubUsername, github
   return { ok: true };
 }
 
+// ────────────────────────────────────────────────────────────────────
+// Meta Conversions API · event Purchase server-side
+// ────────────────────────────────────────────────────────────────────
+// Hash SHA-256 lowercase trimmed (norme CAPI pour PII).
+function sha256Lower(value) {
+  if (!value) return undefined;
+  return crypto
+    .createHash("sha256")
+    .update(String(value).trim().toLowerCase())
+    .digest("hex");
+}
+
+async function sendMetaCapiPurchase({ session, sessionId, email, clientIp, userAgent, sourceUrl }) {
+  const pixelId = process.env.META_PIXEL_ID;
+  // Token CAPI dédié OU System User token avec permission ads_management
+  const token = process.env.META_CAPI_TOKEN || process.env.META_ADS_ACCESS_TOKEN;
+
+  if (!pixelId || !token) {
+    return { ok: false, skipped: true, reason: "META_PIXEL_ID or META_CAPI_TOKEN missing" };
+  }
+
+  // Récupération des cookies fbp/fbc (passés via metadata depuis le client)
+  const fbp = session.metadata?.fbp || undefined;
+  const fbc = session.metadata?.fbc || undefined;
+
+  // Montant facturé (en EUR, déduit du total Stripe)
+  const valueEur = (session.amount_total ?? 3900) / 100;
+
+  const payload = {
+    data: [
+      {
+        event_name: "Purchase",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: sessionId, // dédup avec pixel client si jamais event aussi envoyé côté navigateur
+        action_source: "website",
+        event_source_url: sourceUrl,
+        user_data: {
+          em: email ? [sha256Lower(email)] : undefined,
+          fbp,
+          fbc,
+          client_ip_address: clientIp,
+          client_user_agent: userAgent,
+        },
+        custom_data: {
+          currency: (session.currency || "eur").toUpperCase(),
+          value: valueEur,
+          content_ids: ["workflow-genpics-team-v1"],
+          content_type: "product",
+          content_name: "Personal Branding Studio — code source",
+          num_items: 1,
+        },
+      },
+    ],
+  };
+
+  try {
+    const r = await fetch(`https://graph.facebook.com/v24.0/${pixelId}/events?access_token=${token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, status: r.status, detail: j };
+    // j contient typiquement { events_received: 1, messages: [], fbtrace_id: "..." }
+    return { ok: true, eventsReceived: j.events_received, fbtrace: j.fbtrace_id };
+  } catch (err) {
+    return { ok: false, detail: err?.message || String(err) };
+  }
+}
+
 async function sendAlertEmail(subject, body) {
   const apiKey = process.env.RESEND_API_KEY;
   const alertEmail = process.env.ALERT_EMAIL;
@@ -233,6 +306,31 @@ export default async function handler(req, res) {
     );
   }
 
+  // Meta Conversions API · best-effort, ne bloque jamais la livraison.
+  // Si les env vars META_PIXEL_ID + META_CAPI_TOKEN ne sont pas posées,
+  // sendMetaCapiPurchase retourne `skipped: true` sans erreur.
+  const clientIp = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || undefined;
+  const userAgent = req.headers["user-agent"] || undefined;
+  const capiResult = await sendMetaCapiPurchase({
+    session,
+    sessionId,
+    email,
+    clientIp,
+    userAgent,
+    sourceUrl: `${origin}/precommande-merci.html?session=${sessionId}`,
+  }).catch((err) => ({ ok: false, detail: err?.message || String(err) }));
+
+  if (!capiResult.ok && !capiResult.skipped) {
+    console.warn("[stripe-webhook] Meta CAPI failed:", JSON.stringify(capiResult));
+    // On alerte uniquement si l'event était attendu (env vars posées) mais a échoué
+    await sendAlertEmail(
+      `Meta CAPI Purchase échoué (session ${sessionId})`,
+      JSON.stringify(capiResult, null, 2)
+    );
+  } else if (capiResult.ok) {
+    console.log(`[stripe-webhook] Meta CAPI Purchase OK · session=${sessionId} fbtrace=${capiResult.fbtrace}`);
+  }
+
   // Audit + idempotency : écrit le delivery log
   try {
     await put(
@@ -245,9 +343,15 @@ export default async function handler(req, res) {
         zipUrl,
         githubInviteOk,
         emailSentOk: emailResult.ok,
+        capi: {
+          ok: capiResult.ok,
+          skipped: capiResult.skipped || false,
+          fbtrace: capiResult.fbtrace || null,
+        },
         errors: {
           github: githubInviteOk ? null : githubResult.detail || null,
           email: emailResult.ok ? null : emailResult.detail,
+          capi: capiResult.ok || capiResult.skipped ? null : capiResult.detail || capiResult.reason,
         },
       }),
       { access: "private", contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true }

@@ -35,7 +35,25 @@ export default async function handler(req, res) {
   const requestedOrigin = req.headers.origin;
   const origin = ALLOWED_ORIGINS.has(requestedOrigin) ? requestedOrigin : DEFAULT_ORIGIN;
 
+  // Récupère les cookies fbp/fbc passés par le client (capturés depuis le pixel Meta
+  // côté navigateur, transmis dans le body de la requête de checkout). Ils servent
+  // au matching server-side dans Meta Conversions API (event Purchase, déclenché
+  // depuis stripe-webhook après paiement confirmé). Optionnels · si absents, la
+  // conversion remontera quand même côté Meta mais avec un matching moins précis.
+  let fbp, fbc;
   try {
+    const body = req.body || {};
+    if (typeof body.fbp === "string" && body.fbp.length > 0 && body.fbp.length < 200) fbp = body.fbp;
+    if (typeof body.fbc === "string" && body.fbc.length > 0 && body.fbc.length < 500) fbc = body.fbc;
+  } catch {
+    // ignore · les cookies sont best-effort
+  }
+
+  try {
+    const metadata = { product: "workflow-genpics-team-v1" };
+    if (fbp) metadata.fbp = fbp;
+    if (fbc) metadata.fbc = fbc;
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
@@ -65,7 +83,7 @@ export default async function handler(req, res) {
       ],
       success_url: `${origin}/precommande-merci.html?session={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/precommande-photos-personal-branding.html`,
-      metadata: { product: "workflow-genpics-team-v1" },
+      metadata,
     });
 
     return res.status(200).json({ url: session.url });

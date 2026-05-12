@@ -8,7 +8,7 @@ const PRODUCT_AMOUNT_CENTS = 3900; // 39 € TTC fixe
 const PRODUCT_CURRENCY = "eur";
 const PRODUCT_NAME = "workflow-genpics-team — code source";
 const PRODUCT_DESCRIPTION =
-  "Générateur de photos personal branding · code source complet, repo GitHub privé + ZIP. Précommande, livraison sous quelques semaines.";
+  "Livraison auto en 2 min · repo GitHub privé + ZIP · garantie remboursement 7 jours · achat unique sans abonnement.";
 
 // Whitelist d'origines autorisées pour les redirects Stripe
 // Empêche un attaquant de forger un Origin pour rediriger vers un domaine arbitraire

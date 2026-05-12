@@ -2078,11 +2078,13 @@
     }
   }
 
-  document.querySelectorAll('[data-cta-stripe]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const t = e.currentTarget;
-      triggerCheckout(t, t.dataset.ctaError || null, t.dataset.ctaLabel || null);
-    });
+  // Event delegation pour capter TOUS les CTA, y compris ceux insérés
+  // dans le DOM après ce script (ex: sticky CTA mobile en fin de body).
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-cta-stripe]');
+    if (!btn) return;
+    e.preventDefault();
+    triggerCheckout(btn, btn.dataset.ctaError || null, btn.dataset.ctaLabel || null);
   });
 
   // Fermeture modal · backdrop + bouton × + touche Escape

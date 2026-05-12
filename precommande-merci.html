@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/main.css">
+<script src="assets/meta-tracking.js" defer></script>
 
 <style>
   .merci-section {
@@ -162,6 +163,25 @@
     const el = document.getElementById('session-display');
     if (!el) return;
     el.innerHTML = '<div class="session-id">Commande · ' + sessionId.replace(/[^a-zA-Z0-9_-]/g, '') + '</div>';
+  })();
+
+  // Meta Pixel · Purchase event côté client avec eventID = session.id pour dédup CAPI server-side
+  (function trackPurchase() {
+    const sessionId = new URLSearchParams(window.location.search).get('session');
+    if (!sessionId || !sessionId.startsWith('cs_')) return;
+    let tries = 0;
+    const id = setInterval(() => {
+      if (typeof window.jerwisTrack === 'function') {
+        clearInterval(id);
+        window.jerwisTrack(
+          'Purchase',
+          { value: 39, currency: 'EUR', content_ids: ['genpics-source-code'], content_type: 'product' },
+          { eventID: sessionId }
+        );
+      } else if (++tries > 30) {
+        clearInterval(id);
+      }
+    }, 100);
   })();
 </script>
 

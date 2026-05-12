@@ -6,7 +6,7 @@ import Stripe from "stripe";
 
 const PRODUCT_AMOUNT_CENTS = 3900; // 39 € TTC fixe
 const PRODUCT_CURRENCY = "eur";
-const PRODUCT_NAME = "workflow-genpics-team — code source";
+const PRODUCT_NAME = "Générateur photos IA";
 const PRODUCT_DESCRIPTION =
   "Livraison auto en 2 min · repo GitHub privé + ZIP · garantie remboursement 7 jours · achat unique sans abonnement.";
 

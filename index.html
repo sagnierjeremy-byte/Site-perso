@@ -59,12 +59,13 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Self-hosted fonts (sprint 4) — préload Archivo Black critique pour H1 LCP -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo.woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
 
-<!-- Preload LCP image (hero portrait) — gain LCP ~500-800ms sur mobile 4G -->
-<link rel="preload" as="image" href="photos/A7100670.webp" type="image/webp" fetchpriority="high">
+<!-- Preload LCP image (hero portrait) — sans fetchpriority pour laisser les fonts arriver d'abord -->
+<link rel="preload" as="image" href="photos/A7100670.webp" type="image/webp">
 
 <link rel="stylesheet" href="assets/main.css">
 <script src="assets/meta-tracking.js" defer></script>
@@ -2148,7 +2149,7 @@
       <span></span><span></span><span></span>
     </div>
     <div class="hero-media-v2-inner">
-      <picture><source srcset="photos/A7100670.webp" type="image/webp"><img width="1078" height="1600" src="photos/A7100670.jpg" alt="Jérémy Sagnier" loading="eager" fetchpriority="high" decoding="async"></picture>
+      <picture><source srcset="photos/A7100670.webp" type="image/webp"><img width="1078" height="1600" src="photos/A7100670.jpg" alt="Jérémy Sagnier" loading="eager" decoding="async"></picture>
       <div class="scan" aria-hidden="true"></div>
     </div>
     <span class="hero-chip-v2 c1"><span class="dot"></span>Newsletter FR</span>

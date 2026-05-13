@@ -1,0 +1,39 @@
+/* ============================================================
+ * Self-hosted fonts — sprint 4 perf
+ * Évite le round-trip Google Fonts CSS et permet de preload
+ * directement les .woff2 critiques (Archivo Black pour H1).
+ * Gain attendu : LCP -300 à -500ms, CLS stabilisé (le H1 reflow
+ * intervient avant le first paint au lieu d'après).
+ * ============================================================ */
+
+/* Archivo — variable font, supporte tous les poids 100-900 */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/archivo.woff2') format('woff2-variations'),
+       url('fonts/archivo.woff2') format('woff2');
+}
+
+/* Archivo Black — police d'affichage H1, critique pour LCP.
+   font-display: optional → si la font arrive dans ~100ms (grâce au preload),
+   elle est utilisée dès le first paint. Sinon le fallback reste pour la session
+   et il n'y a JAMAIS de swap → CLS = 0 garanti sur le H1. */
+@font-face {
+  font-family: 'Archivo Black';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: optional;
+  src: url('fonts/archivo-black.woff2') format('woff2');
+}
+
+/* JetBrains Mono — variable font, supporte 100-800 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono.woff2') format('woff2-variations'),
+       url('fonts/jetbrains-mono.woff2') format('woff2');
+}

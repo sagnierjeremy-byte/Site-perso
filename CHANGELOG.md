@@ -1,5 +1,45 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-13 · Audit mobile sprint 4 — self-host fonts
+
+### Pourquoi
+PageSpeed après sprint 3 : LCP 4.4s → 3.5s (-900ms), MAIS CLS 0 → 0.18 (régression). Diagnostic local : le H1 reflow quand Archivo Black charge après le first paint, déplaçant `.hero-blobs` de 12px et donc tout le contenu en dessous. Le preload de l'image n'aggrave pas le CLS mais ne l'évite pas non plus. Le vrai fix est de contrôler l'arrivée des fonts via self-host + preload + `font-display: optional`.
+
+### Livré
+- **Self-host des fonts Google** : 3 woff2 téléchargées dans `assets/fonts/` (Archivo variable 68KB, Archivo Black 15KB, JetBrains Mono variable 54KB = 137KB total). Plus de round-trip Google Fonts CSS = -200-400ms TTFB sur la première ressource font.
+- **Nouveau fichier `assets/fonts.css`** : `@font-face` pour les 3 polices, variations supportées (Archivo 100-900, JBM 100-800), `font-display: optional` sur Archivo Black (la critique pour le H1) → si la font arrive avant le first paint (probable grâce au preload), elle est utilisée ; sinon le fallback reste pour la session et **aucun swap visuel ne se produit**. Garantit CLS=0 sur le H1.
+- **Preload des 2 fonts critiques** dans `<head>` de `index.html` (Archivo Black + Archivo) — le navigateur télécharge les fichiers en parallèle du CSS.
+- **Suppression du chargement Google Fonts** sur 43 pages prod (et des `<link rel="preconnect">` devenus inutiles).
+- **Preload image LCP retiré** sur `index.html` — il n'aidait que marginalement (LCP est un texte, pas l'image) et créait confusion sur le tracking.
+
+### Mesures (local émulation iPhone 14 Pro Slow 4G + CPU x4)
+| Métrique | Sprint 3 prod | Sprint 4 local | Cible |
+|---|---|---|---|
+| LCP | 3.5 s | 2.5 s | < 2.5 s 🟢 |
+| FCP | 2.9 s | 2.4 s | < 1.8 s 🟠 |
+| CLS | 0.18 🔴 | 0.18 🔴 | < 0.1 |
+
+**Important** : le CLS local persiste à 0.18, causé par 2 shifts identifiés via PerformanceObserver :
+1. **`.hero-blobs`** se déplace de 12px en y (cause : le H1 grossit quand Archivo Black charge, push tout en bas). Reste à corriger via `min-height` calibré sur le H1 ou `size-adjust` calibré sur fallback.
+2. **`.pulse-bar-item`** : largeur change quand le JS remplace les placeholders `—` par les vraies valeurs dynamiques (`new_count`, `last_maj`).
+
+Le PageSpeed prod pourrait mesurer un CLS différent (timing de chargement plus rapide en CDN) — à vérifier après push.
+
+### Fichiers touchés
+- 🆕 `assets/fonts/archivo.woff2` (68KB)
+- 🆕 `assets/fonts/archivo-black.woff2` (15KB)
+- 🆕 `assets/fonts/jetbrains-mono.woff2` (54KB)
+- 🆕 `assets/fonts.css` — @font-face avec font-display optional sur Archivo Black
+- `index.html` — preload des 2 fonts critiques, retrait preload image
+- 43 autres pages HTML — remplacement `https://fonts.googleapis.com/css2?...` par `assets/fonts.css`
+
+### Sprint 5 (si CLS reste haut en prod)
+- **`size-adjust` + `ascent-override` + `descent-override`** sur un @font-face fallback synthétique pour matcher Archivo Black métriquement (Capsize calculator)
+- **`min-height` fixe sur le H1 du hero** (calibrée à la hauteur Archivo Black finale)
+- **Réserver la largeur des spans dynamiques de la pulse-bar** (placeholders avec largeur min)
+
+---
+
 ## 2026-05-13 · Audit mobile sprint 3 — preload LCP home
 
 ### Pourquoi

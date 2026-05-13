@@ -262,6 +262,7 @@
       el: it.el,
       idx: i,
       lis: [sidebarLis[i], drawerLis[i]].filter(Boolean),
+      passedAbove: false,
     }));
     const visible = new Set();
 
@@ -277,26 +278,28 @@
       currentIdx = idx;
     }
 
-    // L'IntersectionObserver mesure les entrées/sorties sans forcer de reflow.
-    // rootMargin négatif en bas pour activer l'item juste avant qu'il atteigne le milieu.
+    // IO mesure les entrées/sorties sans forcer de reflow. Les `entry` exposent déjà
+    // boundingClientRect → pas besoin d'appeler getBoundingClientRect (qui forcerait un reflow).
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         const idx = parseInt(e.target.dataset.tocIdx, 10);
-        if (e.isIntersecting) visible.add(idx);
-        else visible.delete(idx);
+        if (e.isIntersecting) {
+          visible.add(idx);
+          refs[idx].passedAbove = false;
+        } else {
+          visible.delete(idx);
+          // Si sorti vers le haut (top négatif), marqué comme "déjà passé"
+          refs[idx].passedAbove = e.boundingClientRect.top < 0;
+        }
       });
       // Item actif = celui le plus haut parmi les visibles
       let best = -1;
       visible.forEach(i => { if (best < 0 || i < best) best = i; });
-      // Si rien de visible mais on a scrollé, garder le dernier qui était au-dessus
+      // Si aucun visible : prendre le dernier "passé au-dessus"
       if (best < 0) {
-        // sentinel : un seul item passé, on garde celui-là
-        let above = -1;
-        refs.forEach(r => {
-          const rect = r.el.getBoundingClientRect();
-          if (rect.bottom < 140) above = r.idx;
-        });
-        best = above;
+        for (let i = refs.length - 1; i >= 0; i--) {
+          if (refs[i].passedAbove) { best = i; break; }
+        }
       }
       setActive(best);
     }, {

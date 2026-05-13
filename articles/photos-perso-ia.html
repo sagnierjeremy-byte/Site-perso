@@ -69,6 +69,64 @@
 }
 </script>
 
+<!-- Schema.org · FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte une photo IA personal branding en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Comptez environ 0,04 $ par photo générée via une API comme fal.ai avec un modèle Seedream 4.5 ou FLUX. Un set complet de 10 photos LinkedIn revient à 0,40 $ environ, hors temps de prompt. À comparer à 500 € pour une séance photo classique et 200 €/mois pour un service comme Klayn. Pour une équipe de 5 collaborateurs avec 10 photos chacun, on parle de 2 € contre 2000 à 3000 € en méthode traditionnelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel modèle d'image utiliser : Seedream, FLUX ou Nano Banana ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aucun modèle ne gagne universellement, il faut tester les 4 sur votre propre visage. En pratique, Seedream 4.5 (chinois) sort le meilleur rapport cohérence multi-photos / fidélité du visage pour le personal branding, c'est mon défaut. FLUX donne un rendu plus photo argentique magazine. Nano Banana (Google Gemini) excelle pour éditer une photo existante plutôt que générer ex nihilo. GPT Image et Imagen restent corrects mais souvent trop lissés. Testez les 4 avec 5 prompts identiques et choisissez celui qui ressemble le plus à vous."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de selfies de référence faut-il pour entraîner un personnage cohérent ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4 selfies suffisent pour obtenir un rendu cohérent avec les modèles actuels. C'est ce que j'utilise dans mon générateur : 4 photos prises au téléphone (face, profil léger gauche, profil léger droit, plan poitrine) avec une lumière neutre, sans lunettes ni accessoires qui changent. Au-delà de 6 photos, on observe rarement un gain de qualité. En dessous de 3, les modèles inventent un personnage qui ne ressemble plus à vous."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'IA peut-elle remplacer un photographe professionnel pour LinkedIn ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour 80 % des usages courants (photo de profil LinkedIn, hero de newsletter, page À propos, illustration de page de vente), oui. La qualité est suffisante pour ne pas trahir l'origine IA si l'on prend le temps de bien choisir le décor et la pose. Pour un portrait de couverture de livre, une campagne presse ou un usage où l'image sera scrutée en grand format, le photographe garde l'avantage. La vraie économie se voit sur les équipes : 5 collaborateurs avec 10 photos chacun coûtent environ 2 € en IA contre 2000 à 3000 € via un photographe sur site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle stack technique pour reproduire ce générateur soi-même ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ma stack : Next.js pour l'app (frontend + API routes), fal.ai comme passerelle vers les modèles d'image (Seedream, FLUX, Nano Banana), Vercel pour l'hébergement, et un design system maison avec topbar, callouts et galeries. Pas de Python, pas de Docker, pas de GPU à louer. Le code complet (17 sections de récit technique, tous les bugs résolus) tient en un produit Next.js classique déployable en 1 clic sur Vercel. Comptez deux semaines pour caler les réglages si vous partez de zéro, ou récupérez mon code en précommande à 39 €."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les photos générées par IA sont-elles autorisées sur LinkedIn et CV ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, LinkedIn n'interdit pas les photos IA tant qu'elles représentent une personne réelle existante (vous) et pas un avatar fictif. Idem pour un CV : c'est légal et de plus en plus accepté. La nuance éthique est la même que pour une photo de photographe retouchée : tant que la photo ressemble à ce que les gens verront en vrai en vous rencontrant, c'est du home staging visuel acceptable. Là où ça devient problématique : changer radicalement son âge apparent, sa morphologie ou ajouter une coupe de cheveux qu'on n'a pas — c'est tromper le futur interlocuteur."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="stylesheet" href="../assets/fonts.css">
 
 <style>
@@ -363,6 +421,29 @@
   }
   .usecase h4 { margin-top: 0 }
 
+  /* FAQ */
+  .faq-block {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 14px;
+  }
+  .faq-block h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: -.005em;
+    color: var(--ink);
+  }
+  .faq-block p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
   /* Final CTA */
   .final-cta {
     padding: 72px 0 96px;
@@ -480,7 +561,7 @@
     
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
-      <p>Tu peux très bien remplacer la séance photo par un outil maison. <strong>Mais pas en 1 soir</strong> · il faut deux semaines pour caler les bons réglages. Si t'as pas envie de te taper la courbe d'apprentissage, je vends mon code en précommande à 39 € · tu lis l'article et tu choisis si tu veux le faire toi-même ou récupérer le mien.</p>
+      <p>Tu peux très bien remplacer la séance photo par un outil maison. <strong>Mais pas en 1 soir</strong> · il faut deux semaines pour caler les bons réglages. Si tu n'as pas envie de te taper la courbe d'apprentissage, je vends mon code en précommande à 39 € · tu lis l'article et tu choisis si tu veux le faire toi-même ou récupérer le mien.</p>
     </div>
   </div>
 </section>
@@ -491,7 +572,7 @@
     <p>Pour être honnête, l&#39;idée vient pas de moi. C&#39;est <strong>Florian</strong>, notre vidéaste-photographe au bureau, qui a tout démarré.</p>
     <p>Il y a quelques mois, Florian a construit un outil qui génère des <strong>photos de produits</strong> pour les sites e-commerce. Le principe est tout simple · au lieu d&#39;organiser un shooting (matos, studio, photographe, post-prod · facilement 1000 € pour quelques produits), tu uploades une photo de ton produit, tu décris la scène que tu veux (<em>&quot;notre crème en gros plan sur un comptoir en marbre noir, lumière dorée&quot;</em>), et l&#39;IA te sort 5-10 photos pro de ton produit dans cette scène. Pour quelques centimes l&#39;unité.</p>
     <p>Quand j&#39;ai vu ses premiers résultats sur des produits, j&#39;ai eu un déclic · <em>si ça marche pour les produits, pourquoi pas pour les visages ?</em></p>
-    <p>Parce qu&#39;on a tous le même problème · une photo de profil LinkedIn qui date de 2022, pas de portrait pour la page &quot;à propos&quot; du site, rien d&#39;utilisable en hero de newsletter, pas de visuel pour les pages de vente. Et entre la séance photo à 500 € et l&#39;abonnement Klayn à 200 €/mois, il y a un trou que personne ne remplit. Surtout pour les <strong>équipes</strong> · si t&#39;as 5 collaborateurs qui ont chacun besoin de 10 photos, ça te coûte un bras avec la voie classique (logistique d&#39;un photographe au bureau, 1 journée bloquée, 2000-3000 € la facture finale).</p>
+    <p>Parce qu&#39;on a tous le même problème · une photo de profil LinkedIn qui date de 2022, pas de portrait pour la page &quot;à propos&quot; du site, rien d&#39;utilisable en hero de newsletter, pas de visuel pour les pages de vente. Et entre la séance photo à 500 € et l&#39;abonnement Klayn à 200 €/mois, il y a un trou que personne ne remplit. Surtout pour les <strong>équipes</strong> · si tu as 5 collaborateurs qui ont chacun besoin de 10 photos, ça te coûte un bras avec la voie classique (logistique d&#39;un photographe au bureau, 1 journée bloquée, 2000-3000 € la facture finale).</p>
     <p>Donc j&#39;ai pris la même architecture que Florian, je l&#39;ai forkée, et j&#39;ai tout repensé pour les visages · gestion des références d&#39;identité, prompts spécifiques pour qu&#39;on reconnaisse vraiment la personne, mode &quot;iPhone naturel&quot; par défaut pour éviter le faux-magazine.</p>
     <p>Deux semaines plus tard, j&#39;avais mes photos. Et puis on s&#39;est dit &quot;tiens, on devrait essayer pour les autres dans la boîte&quot; · t&#39;en as un aperçu un peu plus bas dans l&#39;article.</p>
     
@@ -512,7 +593,7 @@
     <div class="usecase">
       <div class="usecase-label">Étape 02 · Tu décris la scène</div>
       <h4>Un lieu, une ambiance, c'est tout</h4>
-      <p>Tu écris en français : <em>"je veux une photo de moi en café cosy avec un MacBook"</em> · ou <em>"sur un rooftop au coucher du soleil avec mon téléphone"</em>. Si t'as pas d'idée, un bouton "Inspire-moi" te propose 8 décors prêts à l'emploi.</p>
+      <p>Tu écris en français : <em>"je veux une photo de moi en café cosy avec un MacBook"</em> · ou <em>"sur un rooftop au coucher du soleil avec mon téléphone"</em>. Si tu n'as pas d'idée, un bouton "Inspire-moi" te propose 8 décors prêts à l'emploi.</p>
     </div>
     
     <div class="usecase">
@@ -522,12 +603,12 @@
     </div>
     
     <div class="usecase">
-      <div class="usecase-label">Étape 04 · Tu lances · 30 secondes plus tard t'as tes photos</div>
+      <div class="usecase-label">Étape 04 · Tu lances · 30 secondes plus tard tu as tes photos</div>
       <h4>5 photos, 30 secondes, $0.20 le tirage</h4>
-      <p>Le modèle d'image (par défaut <strong>Seedream 4.5</strong>, un modèle chinois ultra-bon pour faire plusieurs photos cohérentes d'un coup) fait son travail. 30-60 secondes plus tard, t'as tes 5 photos. Si y'en a une qui te plaît pas, tu cliques sur "regénérer ce plan" · ça en refait juste cette photo-là sans toucher aux autres.</p>
+      <p>Le modèle d'image (par défaut <strong>Seedream 4.5</strong>, un modèle chinois ultra-bon pour faire plusieurs photos cohérentes d'un coup) fait son travail. 30-60 secondes plus tard, tu as tes 5 photos. Si l'une d'elles ne te plaît pas, tu cliques sur "regénérer ce plan" · ça en refait juste cette photo-là sans toucher aux autres.</p>
     </div>
     
-    <p>Dans le tableau de bord, t&#39;as aussi un compteur de coût en haut à droite · <em>aujourd&#39;hui $X.XX</em>, <em>ce mois-ci $Y.YY</em>. Histoire de pas brûler 30 € sans t&#39;en rendre compte (j&#39;y reviens plus bas, c&#39;est exactement ce qui m&#39;est arrivé au début).</p>
+    <p>Dans le tableau de bord, tu as aussi un compteur de coût en haut à droite · <em>aujourd&#39;hui $X.XX</em>, <em>ce mois-ci $Y.YY</em>. Histoire de ne pas brûler 30 € sans t&#39;en rendre compte (j&#39;y reviens plus bas, c&#39;est exactement ce qui m&#39;est arrivé au début).</p>
     <h3>Voilà mes 4 selfies de référence</h3>
     <p>Pour que tu mesures à quel point l&#39;étape 01 est ridicule de simplicité · voici <strong>exactement</strong> les 4 photos que j&#39;ai uploadées dans l&#39;outil pour générer toutes les photos que tu vois dans cet article. 4 selfies iPhone, mur clair, pris en 2 minutes :</p>
     <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin:28px 0;">
@@ -551,7 +632,7 @@
     <p><strong>Le wizard que t&#39;auras chez toi</strong> · accueil, showcase d&#39;exemples, le bouton &quot;Démarrer&quot; qui te lance les 4 étapes (selfies → scène → propositions → tirages). C&#39;est la page que tu vois en premier en arrivant sur ton URL Vercel.</p>
     <picture><source srcset="screenshots/photos-perso-ia/settings-overview.webp" type="image/webp"><img width="1440" height="1800" src="screenshots/photos-perso-ia/settings-overview.png" alt="Page Paramètres · hero, diagramme 'Comment ça marche en 3 clés' et début des cartes de statut" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;" loading="lazy" decoding="async"></picture>
     
-    <p><strong>La page Paramètres qui te dit en vert que tout marche</strong> · tu arrives ici depuis n&#39;importe où via la topbar. Diagramme &quot;comment ça marche&quot;, 3 cartes pour les 3 clés (fal.ai, OpenRouter, Admin token), bouton &quot;Tester la connexion&quot; sous chaque case. Quand tout est vert, t&#39;es prêt.</p>
+    <p><strong>La page Paramètres qui te dit en vert que tout marche</strong> · tu arrives ici depuis n&#39;importe où via la topbar. Diagramme &quot;comment ça marche&quot;, 3 cartes pour les 3 clés (fal.ai, OpenRouter, Admin token), bouton &quot;Tester la connexion&quot; sous chaque case. Quand tout est vert, tu es prêt.</p>
     <picture><source srcset="screenshots/photos-perso-ia/settings-cards.webp" type="image/webp"><img width="1440" height="1800" src="screenshots/photos-perso-ia/settings-cards.png" alt="Zoom sur les cartes de statut des clés API · status, variable d'environnement, bouton tester" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;" loading="lazy" decoding="async"></picture>
     
     <p><strong>Zoom sur les cartes</strong> · à gauche le statut (✓ Configurée avec la valeur masquée <code>••••XXXX</code>, ou ✗ Manquante), à droite le bouton &quot;Tester la connexion&quot; qui ping l&#39;endpoint billing de fal.ai. Tu te déplies &quot;Comment l&#39;obtenir&quot; si tu cherches la doc à suivre.</p>
@@ -560,7 +641,7 @@
     <p><strong>Et si tu veux tourner ça en local</strong> · même page, plus bas. Instructions pas-à-pas pour cloner le repo, lancer <code>npm install</code>, créer ton <code>.env.local</code>. C&#39;est le seul moment de l&#39;outil où on te parle de fichier d&#39;env · sinon tout passe par l&#39;UI.</p>
     <div class="callout tip">
       <h4>Pourquoi je te montre ça</h4>
-      <p>Parce que 80% des "outils IA" vendus aujourd'hui sont des scripts Python bricolés livrés en ZIP avec un README de 200 lignes. Ici c'est un <strong>vrai produit Next.js</strong> avec sa topbar, ses pages, son design system, ses callouts. Tu le déploies sur Vercel, tu mets ton domaine custom, tu changes le nom · t'as une app à toi.</p>
+      <p>Parce que 80% des "outils IA" vendus aujourd'hui sont des scripts Python bricolés livrés en ZIP avec un README de 200 lignes. Ici c'est un <strong>vrai produit Next.js</strong> avec sa topbar, ses pages, son design system, ses callouts. Tu le déploies sur Vercel, tu mets ton domaine custom, tu changes le nom · tu as une app à toi.</p>
     </div>
   </div>
 </section>
@@ -639,7 +720,7 @@
     <ul>
     <li><strong>Pour quoi</strong> · hero d&#39;une homepage, header d&#39;une page de pré-commande, photo d&#39;ouverture d&#39;un lancement produit.</li>
     <li><strong>Coût</strong> · $0.04. Compte 3-4 essais pour trouver l&#39;angle propre (≈ $0.15).</li>
-    <li><strong>Ce qui marche</strong> · la lumière dorée du coucher de soleil maquille naturellement les imperfections que l&#39;IA met sur la peau · c&#39;est le secret. Pose naturelle (téléphone en main, regard vers l&#39;horizon), ambiance &quot;fin de journée business mais cool&quot;. Tu mets cette photo en hero, t&#39;as un site qui a l&#39;air financé en seed round.</li>
+    <li><strong>Ce qui marche</strong> · la lumière dorée du coucher de soleil maquille naturellement les imperfections que l&#39;IA met sur la peau · c&#39;est le secret. Pose naturelle (téléphone en main, regard vers l&#39;horizon), ambiance &quot;fin de journée business mais cool&quot;. Tu mets cette photo en hero, tu as un site qui a l&#39;air financé en seed round.</li>
     </ul>
     <img width="1194" height="1600" src="screenshots/photos-perso-ia/win-1-bw.jpeg" alt="Portrait noir et blanc col roulé · regard direct, intemporel" style="width:100%; max-width:720px; border-radius:12px; margin:24px auto; display:block;" loading="lazy" decoding="async">
     
@@ -678,7 +759,7 @@
       </div>
     </div>
     
-    <p>C&#39;est exactement le saut · à gauche ce que t&#39;as déjà dans la pellicule de ton téléphone, à droite ce que tu peux mettre sur LinkedIn lundi matin. Sans changement de coupe, sans rasage, sans studio. <strong>Just 4 cents et 30 secondes</strong>.</p>
+    <p>C&#39;est exactement le saut · à gauche ce que tu as déjà dans la pellicule de ton téléphone, à droite ce que tu peux mettre sur LinkedIn lundi matin. Sans changement de coupe, sans rasage, sans studio. <strong>Just 4 cents et 30 secondes</strong>.</p>
     <div class="callout tip">
       <h4>Ce qu'il faut retenir de cette galerie</h4>
       <p>Les 9 photos ci-dessus représentent ensemble <strong>moins de $2 de crédits IA</strong> (avec les ratés que j'ai jetés). En studio, le même set te coûterait entre <strong>500 € et 1500 €</strong> selon la ville et le niveau du photographe · sans compter la demi-journée à bloquer dans ton agenda et les 6 changements de costume.</p>
@@ -735,7 +816,7 @@
     <p>Mon réflexe au début · ajouter du contexte. Plus de mots = plus de précision, non ? <strong>Non, l&#39;inverse</strong>.</p>
     <p>Les modèles d&#39;image ont un nombre de mots optimal entre 30 et 100. Au-dessus, ils moyennent et oublient la moitié de tes consignes. J&#39;ai compressé mes prompts de 470 mots à 165 mots · les résultats ont été immédiatement meilleurs.</p>
     <h3>3 · Pas de modèle gagnant universel · tu testes les 4 sur ta tête</h3>
-    <p>Il existe une dizaine de modèles d&#39;image accessibles via fal.ai. J&#39;en utilise principalement 4 · <strong>Seedream 4.5</strong> (le meilleur pour faire 5 photos cohérentes d&#39;un coup), <strong>Nano Banana Pro</strong> (le meilleur pour une seule photo très ressemblante), <strong>FLUX 2</strong> (bon pour les scènes d&#39;extérieur très précises), <strong>GPT Image 2</strong> (bon pour la fidélité d&#39;identité quand t&#39;as une seule photo de référence).</p>
+    <p>Il existe une dizaine de modèles d&#39;image accessibles via fal.ai. J&#39;en utilise principalement 4 · <strong>Seedream 4.5</strong> (le meilleur pour faire 5 photos cohérentes d&#39;un coup), <strong>Nano Banana Pro</strong> (le meilleur pour une seule photo très ressemblante), <strong>FLUX 2</strong> (bon pour les scènes d&#39;extérieur très précises), <strong>GPT Image 2</strong> (bon pour la fidélité d&#39;identité quand tu as une seule photo de référence).</p>
     <p>Aucun n&#39;est meilleur que les autres dans l&#39;absolu · ça dépend de <strong>ta tête</strong> et de <strong>ce que tu cherches</strong>. Le seul moyen de savoir, c&#39;est de générer la même scène avec les 4 modèles sur tes selfies, et regarder. Compte $0.50 pour ce test, c&#39;est rentable.</p>
     
   </div>
@@ -744,7 +825,7 @@
 <section class="block">
   <div class="container">
     <h2>Tu veux le construire toi-même ?</h2>
-    <p>Si t&#39;es développeur ou que t&#39;as Claude Code installé, tu peux complètement faire ça toi-même. Voici la <strong>stack minimale</strong> :</p>
+    <p>Si tu es développeur ou que tu as Claude Code installé, tu peux complètement faire ça toi-même. Voici la <strong>stack minimale</strong> :</p>
     <ul>
     <li><strong>Next.js</strong> + <strong>Tailwind</strong> pour l&#39;interface (3 pages, c&#39;est tout · upload, choix scène, résultats)</li>
     <li><strong>Zustand</strong> pour stocker les sessions dans le navigateur (pas besoin de base de données)</li>
@@ -842,9 +923,9 @@
     <li><strong><a href="https://fal.ai">fal.ai</a></strong> · la plateforme qui permet de générer des images via une dizaine de modèles (Seedream, FLUX, Nano Banana, GPT Image, Imagen…). Tarification à l&#39;usage, créditer son compte de 20 € te donne déjà de quoi tester.</li>
     <li><strong><a href="../claude-code.html">Mon guide Claude Code</a></strong> · si tu veux te lancer dans le développement de ce genre d&#39;outil, c&#39;est par là que je commence en général.</li>
     <li><strong><a href="../lexique.html">Le lexique IA</a></strong> · pour comprendre les termes techniques (LoRA, polas, batch, queue) qui reviennent souvent dans le monde des modèles d&#39;image.</li>
-    <li><strong><a href="../outils.html">Mes outils</a></strong> · les 6 outils que j&#39;utilise tous les jours dans mon stack IA-développeur.</li>
+    <li><strong><a href="../outils.html">Mes outils</a></strong> · les 6 outils que j&#39;utilise tous les jours dans mon stack IA.</li>
     </ol>
-    <p>Si t&#39;as fait ton propre générateur de photos personal branding ou que t&#39;as testé Klayn, <strong>réponds à la newsletter</strong> et raconte-moi ce que t&#39;as appris. C&#39;est comme ça que mes prochains articles s&#39;améliorent.</p>
+    <p>Si tu as fait ton propre générateur de photos personal branding ou que tu as testé Klayn, <strong>réponds à la newsletter</strong> et raconte-moi ce que tu as appris. C&#39;est comme ça que mes prochains articles s&#39;améliorent.</p>
     
   </div>
 </section>
@@ -859,6 +940,44 @@
       <li><a href="outil-vente-claude-code.html"><strong>L'outil de vente fait avec Claude Code</strong></a> — un autre projet "monté seul sans être dev", utile pour voir la méthode appliquée à un cas différent.</li>
       <li><a href="claude-code-workflow-tips.html"><strong>Mon retour d'XP Claude Code après 6 mois</strong></a> — le workflow qui rend possible ce genre de petit générateur, sans coder à la main.</li>
     </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions qu'on me pose</span>
+    <h2>Questions <em class="fuchsia">fréquentes.</em></h2>
+
+    <div class="faq-block">
+      <h3>Combien coûte une photo IA personal branding en 2026 ?</h3>
+      <p>Comptez environ 0,04 $ par photo générée via une API comme fal.ai avec un modèle Seedream 4.5 ou FLUX. Un set complet de 10 photos LinkedIn revient à 0,40 $ environ, hors temps de prompt. À comparer à 500 € pour une séance photo classique et 200 €/mois pour un service comme Klayn. Pour une équipe de 5 collaborateurs avec 10 photos chacun, on parle de 2 € contre 2000 à 3000 € en méthode traditionnelle.</p>
+    </div>
+
+    <div class="faq-block">
+      <h3>Quel modèle d'image utiliser : Seedream, FLUX ou Nano Banana ?</h3>
+      <p>Aucun modèle ne gagne universellement, il faut tester les 4 sur ton propre visage. En pratique, Seedream 4.5 (chinois) sort le meilleur rapport cohérence multi-photos / fidélité du visage pour le personal branding, c'est mon défaut. FLUX donne un rendu plus photo argentique magazine. Nano Banana (Google Gemini) excelle pour éditer une photo existante plutôt que générer ex nihilo. GPT Image et Imagen restent corrects mais souvent trop lissés. Teste les 4 avec 5 prompts identiques et choisis celui qui te ressemble le plus.</p>
+    </div>
+
+    <div class="faq-block">
+      <h3>Combien de selfies de référence faut-il pour entraîner un personnage cohérent ?</h3>
+      <p>4 selfies suffisent pour obtenir un rendu cohérent avec les modèles actuels. C'est ce que j'utilise dans mon générateur : 4 photos prises au téléphone (face, profil léger gauche, profil léger droit, plan poitrine) avec une lumière neutre, sans lunettes ni accessoires qui changent. Au-delà de 6 photos, on observe rarement un gain de qualité. En dessous de 3, les modèles inventent un personnage qui ne te ressemble plus.</p>
+    </div>
+
+    <div class="faq-block">
+      <h3>L'IA peut-elle remplacer un photographe professionnel pour LinkedIn ?</h3>
+      <p>Pour 80 % des usages courants (photo de profil LinkedIn, hero de newsletter, page À propos, illustration de page de vente), oui. La qualité est suffisante pour ne pas trahir l'origine IA si tu prends le temps de bien choisir le décor et la pose. Pour un portrait de couverture de livre, une campagne presse ou un usage où l'image sera scrutée en grand format, le photographe garde l'avantage. La vraie économie se voit sur les équipes : 5 collaborateurs avec 10 photos chacun coûtent environ 2 € en IA contre 2000 à 3000 € via un photographe sur site.</p>
+    </div>
+
+    <div class="faq-block">
+      <h3>Quelle stack technique pour reproduire ce générateur soi-même ?</h3>
+      <p>Ma stack : Next.js pour l'app (frontend + API routes), fal.ai comme passerelle vers les modèles d'image (Seedream, FLUX, Nano Banana), Vercel pour l'hébergement, et un design system maison avec topbar, callouts et galeries. Pas de Python, pas de Docker, pas de GPU à louer. Le code complet (17 sections de récit technique, tous les bugs résolus) tient en un produit Next.js classique déployable en 1 clic sur Vercel. Compte deux semaines pour caler les réglages si tu pars de zéro, ou récupère mon code en précommande à 39 €.</p>
+    </div>
+
+    <div class="faq-block">
+      <h3>Les photos générées par IA sont-elles autorisées sur LinkedIn et CV ?</h3>
+      <p>Oui, LinkedIn n'interdit pas les photos IA tant qu'elles représentent une personne réelle existante (toi) et pas un avatar fictif. Idem pour un CV : c'est légal et de plus en plus accepté. La nuance éthique est la même que pour une photo de photographe retouchée · tant que la photo te ressemble à ce que les gens verront en vrai en te rencontrant, c'est du home staging visuel acceptable. Là où ça devient problématique · changer radicalement son âge apparent, sa morphologie ou ajouter une coupe de cheveux qu'on n'a pas · c'est tromper le futur interlocuteur.</p>
+    </div>
   </div>
 </section>
 

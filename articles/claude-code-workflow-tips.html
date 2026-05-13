@@ -559,8 +559,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <!-- Top stripe -->
 <div class="triple-stripe" aria-hidden="true">
@@ -578,7 +580,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -594,6 +599,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <!-- Header -->
 <header class="header">
@@ -698,7 +704,7 @@
     </ul>
 
     <h3>Le delta concret · avant / après</h3>
-    <p>Pour rendre le truc moins abstrait, voilà le même quotidien chiffré dans les deux configurations.</p>
+    <p>Pour rendre la comparaison moins abstraite, voilà le même quotidien chiffré dans les deux configurations.</p>
     <table class="compare">
       <thead>
         <tr><th>Tâche</th><th>Avant Claude Code</th><th>Aujourd'hui</th></tr>
@@ -836,7 +842,7 @@
 
     <div class="callout ok">
       <h4>Ma règle d'or après 6 mois</h4>
-      <p>Une leçon n'a de valeur que si elle vient d'un truc que tu as cassé toi-même. Lis les conseils des autres, mais teste-les sur ton terrain avant de les graver. Ce qui marche pour un dev senior peut t'embrouiller, et ce qui te débloque peut faire sourire un dev senior. Les deux sont vrais en même temps.</p>
+      <p>Une leçon n'a de valeur que si elle vient d'une erreur que tu as faite toi-même. Lis les conseils des autres, mais teste-les sur ton terrain avant de les graver. Ce qui marche pour un dev senior peut t'embrouiller, et ce qui te débloque peut faire sourire un dev senior. Les deux sont vrais en même temps.</p>
     </div>
   </div>
 </section>
@@ -911,7 +917,7 @@
 
     <h3>Erreur 1 · Pousser en prod sans relire le diff</h3>
     <p><strong>Ce qui s'est passé</strong> · samedi 12 avril, je travaillais sur la home en dark mode. J'ai dit à Claude « optimise les couleurs ». Il a remplacé <code>background: var(--ink)</code> par <code>background: #0A0A0A</code> sur 6 sections. Sauf que <code>--ink</code> en dark mode = cream, donc certains blocs censés être TOUJOURS noirs sont devenus cream sur cream = illisibles. J'ai poussé sans relire, je suis parti déjeuner.</p>
-    <p><strong>Ce que ça m'a coûté</strong> · la home jerwis.fr a été cassée 4 heures en dark mode. J'ai eu deux DM « il y a un truc bizarre sur ton site ». J'ai passé mon dimanche après-midi à tout reprendre.</p>
+    <p><strong>Ce que ça m'a coûté</strong> · la home jerwis.fr a été cassée 4 heures en dark mode. J'ai eu deux DM « il y a un bug bizarre sur ton site ». J'ai passé mon dimanche après-midi à tout reprendre.</p>
     <p><strong>Ma règle depuis</strong> · obligation absolue de tester en local en light + dark avant tout <code>git push</code>. Et la règle « variables sémantiques vs couleurs fixes » est gravée dans le CLAUDE.md du projet.</p>
 
     <h3>Erreur 2 · Faire confiance à Claude sur un secret</h3>
@@ -1102,7 +1108,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1234,5 +1240,6 @@
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

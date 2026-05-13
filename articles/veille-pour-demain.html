@@ -722,8 +722,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -740,7 +742,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -756,6 +761,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <header class="header">
   <div class="header-inner">
@@ -1307,7 +1313,7 @@
 
     <h3>4. Vécu — est-ce que je l'ai testé moi-même ?</h3>
     <p>
-      Cet axe est neutre par défaut (5/10). Je l'ajuste à la main quand je rentre l'idée dans le backlog. Si j'ai déjà passé une journée sur le sujet, je le monte à 9. Si c'est un truc dont j'ai juste entendu parler, je le laisse à 5. Si c'est un sujet où je n'ai aucune expérience à apporter, je le baisse à 2.
+      Cet axe est neutre par défaut (5/10). Je l'ajuste à la main quand je rentre l'idée dans le backlog. Si j'ai déjà passé une journée sur le sujet, je le monte à 9. Si c'est un sujet dont j'ai juste entendu parler, je le laisse à 5. Si c'est un sujet où je n'ai aucune expérience à apporter, je le baisse à 2.
     </p>
     <p>
       <strong>Pourquoi cet axe existe.</strong> Mes meilleurs articles sont ceux où j'ai du vécu réel. Ce filtre m'empêche de me laisser embarquer par des sujets vendeurs sur lesquels je n'ai rien à dire de spécifique.
@@ -1351,7 +1357,7 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
       Et pour les items qui viennent de YouTube, un boost supplémentaire de chaîne (1.0 à 1.15) selon ma proximité avec la voix de la chaîne. Underscore_ qui sort une vidéo Claude Code à ×1.15 + cluster Claude Code à ×1.25 = score gonflé de +44 % vs la valeur brute. Volontaire.
     </p>
     <p>
-      Cette formule a évolué. Au début, j'avais juste l'engagement brut. Le résultat : du drama Reddit en haut, des trucs intéressants en bas. J'ai ajouté la pertinence. Mieux, mais trop de news fraîches sans intérêt pour moi. J'ai ajouté l'evergreen et le cluster. Là j'ai commencé à avoir des idées vraiment pertinentes. Le gap est arrivé en dernier, parce que j'ai écrit deux fois le même article.
+      Cette formule a évolué. Au début, j'avais juste l'engagement brut. Le résultat : du drama Reddit en haut, des sujets intéressants en bas. J'ai ajouté la pertinence. Mieux, mais trop de news fraîches sans intérêt pour moi. J'ai ajouté l'evergreen et le cluster. Là j'ai commencé à avoir des idées vraiment pertinentes. Le gap est arrivé en dernier, parce que j'ai écrit deux fois le même article.
     </p>
   </div>
 </section>
@@ -1598,7 +1604,7 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
       Je partage ces études de cas dans ma veille du vendredi. Sans pub, désinscription en un clic.
     </p>
     <form class="newsletter-form" id="newsletterForm">
-      <input type="email" name="email" placeholder="ton@email.com" required>
+      <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
       <button type="submit" id="newsletterSubmit">Je m'inscris →</button>
     </form>
     <div class="newsletter-note">Un email par semaine · Zéro spam · Désinscription en un clic</div>
@@ -1617,7 +1623,7 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1777,5 +1783,6 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

@@ -871,8 +871,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="b-grain" aria-hidden="true"></div>
 
@@ -892,7 +894,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="apprendre.html">Apprendre</a>
     <a href="articles.html" aria-current="page">Articles</a>
     <a href="podcast.html">Podcast</a>
@@ -908,6 +913,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <main class="b-wrap">
   <!-- Background blobs -->
@@ -1009,7 +1015,7 @@
       </h3>
       <p class="b-news-lead">Ma veille IA en français, automatique, écrémée. Je la lis en premier, je te partage la même.</p>
       <form class="b-news-form newsletter-form" data-newsletter="articles-page">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <button type="submit">
           <span class="b-news-btn-label">S&rsquo;INSCRIRE</span>
           <span class="ar">→</span>
@@ -1042,7 +1048,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1583,5 +1589,6 @@
   });
 </script>
 
+<script src="assets/nav-v2.js" defer></script>
 </body>
 </html>

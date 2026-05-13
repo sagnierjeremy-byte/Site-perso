@@ -305,8 +305,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -323,7 +325,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -339,6 +344,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <header class="header">
   <div class="header-inner">
@@ -381,7 +387,7 @@
       <li><strong>Tes données restent chez toi</strong> — aucune ligne ne part sur internet. Pour un avocat, un médecin, un comptable, c'est non négociable.</li>
       <li><strong>Tu peux discuter avec tes propres documents</strong> (PDF, Word, notes) en glisser-déposer. C'est ce qu'on appelle le « RAG ».</li>
       <li><strong>Mon conseil tranché</strong> : essaie d'abord sur ton ordi actuel avec Mistral 7B. Si ça marche, n'achète rien. Si c'est trop lent et que ça te plaît, tu sauras ce qu'il te manque.</li>
-      <li><strong>Transparence</strong> : article écrit avec Claude (Anthropic), relu et validé par moi. Si tu repères une erreur ou un truc qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
+      <li><strong>Transparence</strong> : article écrit avec Claude (Anthropic), relu et validé par moi. Si tu repères une erreur ou un passage qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -391,7 +397,7 @@
     <span class="section-kicker k-fuchsia">— Pourquoi tu devrais t'y intéresser</span>
     <h2>Pourquoi <em class="fuchsia">c'est devenu sérieux.</em></h2>
     <p>
-      Il y a deux ans, faire tourner une IA chez soi, c'était un truc de geek barbu qui passait ses week-ends dans le terminal. Aujourd'hui, c'est devenu plus simple qu'installer Photoshop. Tu télécharges une app, tu cliques deux fois, tu choisis un modèle dans une liste, c'est joué.
+      Il y a deux ans, faire tourner une IA chez soi, c'était une affaire de geek barbu qui passait ses week-ends dans le terminal. Aujourd'hui, c'est devenu plus simple qu'installer Photoshop. Tu télécharges une app, tu cliques deux fois, tu choisis un modèle dans une liste, c'est joué.
     </p>
     <p>
       Ce qui a changé en 2025-2026 : <strong>les modèles ouverts ont rattrapé les modèles fermés</strong>. <a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a>, Llama, <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a>, Qwen — tu peux télécharger des IA gratuitement qui rivalisent avec ChatGPT pour la plupart des usages quotidiens. Et le 27 janvier 2025, <strong>une boîte chinoise inconnue (DeepSeek) a publié un modèle qui a fait perdre <a href="https://www.reuters.com/technology/chinas-deepseek-sets-off-ai-market-rout-2025-01-27/" target="_blank" rel="noopener">589 milliards de dollars à NVIDIA</a> en une seule journée</strong>. Toute la thèse « il faut des milliards et des serveurs à 100 000 € pour faire de l'IA » s'est effondrée.
@@ -1080,7 +1086,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1210,5 +1216,6 @@
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

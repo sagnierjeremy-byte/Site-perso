@@ -290,8 +290,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -308,7 +310,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -324,6 +329,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <header class="header">
   <div class="header-inner">
@@ -502,7 +508,7 @@
       <div class="tl-item">
         <div class="tl-year">Vendredi matin · J5</div>
         <h4>Max arrive en renfort</h4>
-        <p>Je passe le projet à <strong>Max</strong>, notre développeur. Mission · audit sécurité avant la mise en ligne (vérifier les protections, les permissions de la base, les attaques classiques). Il trouve 3 trucs à corriger en 2 heures, on les fixe ensemble.</p>
+        <p>Je passe le projet à <strong>Max</strong>, notre développeur. Mission · audit sécurité avant la mise en ligne (vérifier les protections, les permissions de la base, les attaques classiques). Il trouve 3 points à corriger en 2 heures, on les fixe ensemble.</p>
       </div>
       <div class="tl-item">
         <div class="tl-year">Vendredi soir · J5</div>
@@ -523,7 +529,7 @@
 
     <div class="callout ok">
       <h4>Ce que m'a appris cette semaine</h4>
-      <p>L'outil intéressant, ce n'est plus celui qui sait tout faire (Calendly fait 100 trucs dont j'utilise 5). C'est celui qui fait <strong>exactement ce dont tu as besoin, à TON image</strong>. Et avec Claude Code, le seuil pour construire le sien est devenu ridiculement bas. Tu n'as plus besoin d'une équipe dev, tu as besoin de savoir ce que tu veux et de guider.</p>
+      <p>L'outil intéressant, ce n'est plus celui qui sait tout faire (Calendly fait 100 choses dont j'utilise 5). C'est celui qui fait <strong>exactement ce dont tu as besoin, à TON image</strong>. Et avec Claude Code, le seuil pour construire le sien est devenu ridiculement bas. Tu n'as plus besoin d'une équipe dev, tu as besoin de savoir ce que tu veux et de guider.</p>
     </div>
   </div>
 </section>
@@ -645,7 +651,7 @@
     <ol>
       <li><strong>Le public, c'est 50 % du boulot. Le back-office, c'est l'autre 50 %.</strong> Ne pas le sous-estimer dans le planning. Si tu veux 20 utilisateurs autonomes, prévois autant de temps sur l'admin que sur la partie visible.</li>
       <li><strong>L'autonomie utilisateur change tout.</strong> Si l'équipe peut modifier elle-même, elle adopte. Si elle doit te demander pour chaque modif, elle abandonne.</li>
-      <li><strong>Les petits trucs annexes (signature email, fonds visio) rapportent gros.</strong> Ce ne sont pas des fonctions « cœur », mais c'est ce qui fait que les commerciaux te disent « franchement, tu as bien fait, ça nous fait gagner du temps tous les jours ».</li>
+      <li><strong>Les petits détails annexes (signature email, fonds visio) rapportent gros.</strong> Ce ne sont pas des fonctions « cœur », mais c'est ce qui fait que les commerciaux te disent « franchement, tu as bien fait, ça nous fait gagner du temps tous les jours ».</li>
     </ol>
   </div>
 </section>
@@ -798,7 +804,7 @@
       <li><strong>Démarrer avec Claude Code dès J1</strong>, sans essayer de faire « à la main ». L'IA accélère tellement la pose des bases qu'attendre serait une erreur.</li>
       <li><strong>Brancher la sync Outlook très tôt</strong> (J3 pour nous). C'est la fonction qui fait que les 20 conseillers ont adopté l'outil sans rouspéter · ils n'ont rien à faire, leur agenda est la source unique de vérité.</li>
       <li><strong>Utiliser Resend pour les emails</strong>, pas Microsoft Graph. Spécialisation = fiabilité.</li>
-      <li><strong>Demander à un dev de faire l'audit sécurité avant la mise en ligne</strong>. Max a trouvé en 2 heures 3 trucs que j'aurais ratés. Indispensable.</li>
+      <li><strong>Demander à un dev de faire l'audit sécurité avant la mise en ligne</strong>. Max a trouvé en 2 heures 3 failles que j'aurais ratées. Indispensable.</li>
     </ul>
 
     <h3>Ce que je ne referais pas</h3>
@@ -944,7 +950,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1074,5 +1080,6 @@
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

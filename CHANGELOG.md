@@ -1,5 +1,64 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-13 · Audit mobile complet + sprint 1 de fixes critiques
+
+### Pourquoi
+80 % du trafic jerwis.fr est mobile. Audit consolidé par 5 sous-agents parallèles (visuel multi-viewport, perf Core Web Vitals, code CSS/responsive, nav+formulaires, a11y+lecture) sur 8 pages × 4 viewports. 6 défauts critiques identifiés bloquaient l'usage mobile. Sprint 1 livre les fixes en un commit propre.
+
+### Livré — fixes critiques (Sprint 1)
+- **Nav mobile** : burger 44×44 + drawer overlay full-width sur les 36 pages avec `mini-nav` (toggle aria-expanded, focus trap escape, fermeture sur clic lien ou resize ≥ 961px). Avant : aucun lien de nav visible ≤ 960px (les 4 entrées Apprendre/Articles/Podcast/Newsletter étaient `display: none` sans fallback).
+- **Zoom iOS bloqué** : `font-size: 16px !important` sur tous les `<input type="email|text|search|tel|url|password">` + `min-height: 48px`. 53 inputs patchés avec `inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email"`. Avant : 14-15px → zoom auto au focus + clavier mobile générique.
+- **Overflow horizontal éliminé** : `html, body { overflow-x: clip }` + `overflow-wrap: break-word`. Avant : scroll horizontal 108-141px sur la home (hero blobs + marquee 2909px non contenue), 110+px sur les articles avec tables.
+- **Tables articles scrollables** : wrapper `display: block; overflow-x: auto` automatique sur tous les `<table>` + font-size 13px + padding réduit ≤ 640px.
+- **Focus clavier visible** : `:focus-visible { outline: 3px solid var(--fuchsia) }` (WCAG 2.2 AA). Avant : `outline: none` partout sans remplacement.
+- **Skip-link** : `<a href="#main-content" class="skip-link">Aller au contenu</a>` injecté sur les 36 pages mini-nav, ancre `#main-content` placée après la nav.
+- **Tap targets** : theme-toggle 38→44px, `.article-pill / .learn-filter / .story-tag` passent à `min-height: 44px`.
+- **iPhone / dvh** : `min-height: 100dvh` au lieu de `100vh` (toolbar Safari), safe-area `env(safe-area-inset-*)` sur mini-nav et footer.
+- **Sélection + tap highlight Fiesta** : `::selection { background: var(--fuchsia) }`, `-webkit-tap-highlight-color`.
+- **Lecture article mobile** : `font-size: 17.5px / line-height: 1.7` ≤ 640px, padding container 28→18px (gain +7 caractères par ligne, passe de ~40ch à ~47ch).
+
+### Fichiers touchés
+- **CSS** :
+  - `assets/main.css` — bloc « MOBILE UX FIXES » en fin de fichier (+155 lignes)
+  - `assets/nav-v2.css` — burger + drawer + theme-toggle 44×44 (+70 lignes)
+  - `assets/mobile-fixes.css` — **nouveau**, fichier partagé chargé en dernier sur toutes les pages mini-nav (override le CSS inline des articles qui n'incluent pas main.css)
+- **JS** :
+  - `assets/nav-v2.js` — **nouveau**, toggle burger + Escape + close on resize ≥ 961px
+- **HTML** : 36 pages avec mini-nav patchées en bulk (perl) :
+  - Burger HTML inséré avant `<div class="links">`
+  - `id="mini-nav-links"` sur le drawer
+  - Ancre `<a id="main-content" tabindex="-1">` après `</nav>`
+  - `<a href="#main-content" class="skip-link">` après `<body>`
+  - `<link rel="stylesheet" href="…/mobile-fixes.css">` avant `</head>`
+  - `<script src="…/nav-v2.js" defer>` avant `</body>`
+  - 53 inputs email enrichis (`inputmode`, `autocomplete`, `autocapitalize`, `spellcheck`, `aria-label`)
+- `index.html` + `precommande-merci.html` : ajout `<link href="assets/nav-v2.css">` (elles ne l'incluaient pas — nav inlinée)
+
+### Vérifié sur device émulé iPhone 14 Pro (390×844, DPR 3, isMobile, hasTouch)
+| Page | Overflow | Burger | Input email | Skip-link | Drawer |
+|---|---|---|---|---|---|
+| `/index.html` | 0px | 44×44 | 16px / 48h | ✓ | ouvre full-width ✓ |
+| `/articles/agents-ia-guide.html` | 0px | 44×44 | 16px / 48h | ✓ | ✓ |
+| `/preferences.html` | 0px | 44×44 | 16px / 48h | ✓ | ✓ |
+| `/podcast.html` | 0px | 44×44 | 16px / 48h | ✓ | ✓ |
+
+### À venir (Sprint 2 — backlog audit)
+- **Perf images** : conversion WebP + `srcset` (162 images, 0 WebP actuellement, ~28 MB de photos JPG, image LCP home 330 KB)
+- **Fonts** : réduire 10 poids → 3 (Archivo 400/700/900 + JetBrains Mono 400)
+- **Cache headers** : `Cache-Control: public, max-age=31536000, immutable` sur `/assets/*` et `/photos/*` dans `vercel.json`
+- **CLS** : `width`/`height` sur tous les `<img>` (actuellement 0)
+- **Hover gating** : encapsuler les 47 `:hover` dans `@media (hover: hover)` pour éviter le sticky state mobile
+- **TOC mobile** : la sidebar TOC des articles est `display: none` < 1240px → ajouter un TOC repliable inline
+- **Headings articles** : corriger 8 skips h2→h4 sur `autoresearch-karpathy.html` + 2 sur `agents-ia-guide.html`
+- **Pages légales** : 4 pages (`cgv`, `mentions-legales`, `politique-confidentialite`, `suppression-donnees`) n'ont pas la mini-nav → migration à faire (elles ont la `mobile-fixes.css` injectée si déjà mini-nav, à vérifier)
+- **Contrastes accents** : teal/fuchsia/orange en texte ratent WCAG AA, prévoir variantes assombries (`#007A75 / #C8194B / #CC6800`)
+- **Doublons nav** dans `preferences.html` et `quiz.html` (header legacy + mini-nav)
+
+### Méthode
+Audit dispatché en 5 sous-agents parallèles. Rapport consolidé livré avec sévérités (Critique/Majeur/Mineur), localisation `fichier:ligne`, snippets prêts à coller. Sprint 1 implémenté en bulk via perl sur 36 pages (atomique, réversible). Tous les fixes validés via `dev-browser` headless en émulation iPhone 14 Pro avec cache désactivé (CDP).
+
+---
+
 ## 2026-05-13 · Nouvel article — Podcast IA pour enfants (3 Petites Lanternes)
 
 ### Pourquoi

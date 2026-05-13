@@ -305,8 +305,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -323,7 +325,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -339,6 +344,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <header class="header">
   <div class="header-inner">
@@ -380,7 +386,7 @@
       <li><strong>Mon expérience vécue</strong> : j'ai laissé Claude bosser sur mon script de tri d'emails de 22h à 7h du matin. Au réveil, il avait essayé 14 versions et trouvé une recette qui me ratait moins de mails importants.</li>
       <li><strong>Le résultat chiffré</strong> : 23 % d'emails importants en moins ratés, 8 € de coût en jetons IA, zéro intervention de ma part la nuit.</li>
       <li><strong>Pourquoi c'est valable même si tu n'es pas dev</strong> : ça marche aussi sur des objets de newsletter, des fiches produit, des prompts, n'importe quoi qu'on peut tester et noter.</li>
-      <li><strong>Mon conseil tranché</strong> : commence par un truc qui n'est pas critique, qui se mesure facilement, et fixe-toi un budget en euros avant de lancer. Pas de magie, juste de la patience automatisée.</li>
+      <li><strong>Mon conseil tranché</strong> : commence par un cas qui n'est pas critique, qui se mesure facilement, et fixe-toi un budget en euros avant de lancer. Pas de magie, juste de la patience automatisée.</li>
       <li><strong>Transparence</strong> : article écrit avec Claude (Anthropic), relu et validé par moi. L'expérience nocturne elle-même tournait avec Claude. Si tu repères une erreur, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
@@ -397,7 +403,7 @@
       L'idée tient en une phrase : <strong>tu fais bosser une IA sur un problème, tu lui demandes de modifier son propre travail, tu la laisses tester si la nouvelle version est meilleure, et si oui, elle continue à partir de là — sinon elle revient en arrière et essaie autre chose</strong>. Et tu recommences. Toute la nuit. Sans toi.
     </p>
     <p>
-      Ce qui m'a fait tilter, c'est que j'avais justement un truc qui me pourrissait la vie depuis trois mois : <strong>mon script de tri d'emails</strong>. Pas un truc sophistiqué, juste un petit programme que m'avait écrit Claude (l'IA d'<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>, un des grands modèles de conversation comme ChatGPT) pour qu'il regarde ma boîte mail le matin et me sorte les 10 emails les plus importants à traiter en priorité. Le souci : il en ratait régulièrement. Une demande de devis perdue dans les newsletters, un email de mon comptable noyé dans les pubs LinkedIn. Pas catastrophique, mais énervant.
+      Ce qui m'a fait tilter, c'est que j'avais justement un point qui me pourrissait la vie depuis trois mois : <strong>mon script de tri d'emails</strong>. Pas un programme sophistiqué, juste un petit script que m'avait écrit Claude (l'IA d'<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>, un des grands modèles de conversation comme ChatGPT) pour qu'il regarde ma boîte mail le matin et me sorte les 10 emails les plus importants à traiter en priorité. Le souci : il en ratait régulièrement. Une demande de devis perdue dans les newsletters, un email de mon comptable noyé dans les pubs LinkedIn. Pas catastrophique, mais énervant.
     </p>
     <p>
       Et là, je me dis : <strong>« Et si je laissais l'IA améliorer son propre script ? Toute seule, pendant que je dors ? »</strong> Je ferme l'ordi. Je dors mal. Le lendemain matin, je me lève, je prépare le café, et je décide de tenter le coup le soir même.
@@ -460,7 +466,7 @@
 
     <h3>Ce que l'IA a changé (et que je n'aurais pas trouvé)</h3>
     <p>
-      Voilà ce qui m'a vraiment surpris. Les modifications que Claude a gardées étaient trois trucs auxquels je n'avais jamais pensé :
+      Voilà ce qui m'a vraiment surpris. Les modifications que Claude a gardées étaient trois choses auxquelles je n'avais jamais pensé :
     </p>
     <ul>
       <li><strong>Il a regardé l'historique des conversations.</strong> Si quelqu'un m'avait déjà répondu trois fois dans la semaine, il considérait qu'un nouveau mail de cette personne était plus probablement important. Évident une fois dit. Pas évident à coder soi-même.</li>
@@ -468,7 +474,7 @@
       <li><strong>Il a appris à se méfier des emails « urgent » en objet.</strong> Statistiquement dans ma liste, les emails qui crient « URGENT !!! » dans l'objet étaient en réalité 4 fois moins importants que les emails qui annonçaient calmement un sujet en deux mots. Le marketing m'a appris à me méfier des cris.</li>
     </ul>
     <p>
-      Honnêtement ? J'aurais mis trois mois à trouver ces trois trucs tout seul, en réglant mon programme petit à petit, à chaque fois qu'un email passait à travers. Claude a fait ça en 9 heures pendant que je dormais.
+      Honnêtement ? J'aurais mis trois mois à trouver ces trois ajustements tout seul, en réglant mon programme petit à petit, à chaque fois qu'un email passait à travers. Claude a fait ça en 9 heures pendant que je dormais.
     </p>
     <p>
       Le plus drôle de l'histoire : la version finale est plus <em>simple</em> que celle d'origine. Pas plus longue, pas plus compliquée — plus intelligente. C'est exactement ce que disait Karpathy dans son projet : les bonnes améliorations enlèvent souvent du code, elles n'en ajoutent pas.
@@ -553,8 +559,8 @@
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-body">
-        <h4>Choisis un truc à améliorer qui n'est PAS critique</h4>
-        <p>Pour ton premier essai, surtout pas un système qui envoie tes factures ou qui touche à de l'argent. Choisis quelque chose où une erreur n'a aucune conséquence : un prompt que tu utilises souvent, l'objet de tes emails de prospection, un petit script perso. Mon conseil : commence par un truc <strong>qui te sert à toi seul</strong>, pas à un client.</p>
+        <h4>Choisis un élément à améliorer qui n'est PAS critique</h4>
+        <p>Pour ton premier essai, surtout pas un système qui envoie tes factures ou qui touche à de l'argent. Choisis quelque chose où une erreur n'a aucune conséquence : un prompt que tu utilises souvent, l'objet de tes emails de prospection, un petit script perso. Mon conseil : commence par un projet <strong>qui te sert à toi seul</strong>, pas à un client.</p>
       </div>
     </div>
 
@@ -682,7 +688,7 @@
       <div class="piege-icon">🚨</div>
       <div class="piege-body">
         <h4>Piège 3 — Laisser ça tourner sur du critique</h4>
-        <p>Jamais sur ton CRM client. Jamais sur ta facturation. Jamais sur ton site en production. <strong>Toujours sur une copie</strong>. L'IA peut très bien casser des choses en essayant de les améliorer. Pour ton premier essai, choisis un truc où la pire chose qui peut arriver, c'est que tu rigoles. Pas que tu perdes un client.</p>
+        <p>Jamais sur ton CRM client. Jamais sur ta facturation. Jamais sur ton site en production. <strong>Toujours sur une copie</strong>. L'IA peut très bien casser des choses en essayant de les améliorer. Pour ton premier essai, choisis un cas où la pire chose qui peut arriver, c'est que tu rigoles. Pas que tu perdes un client.</p>
       </div>
     </div>
 
@@ -747,7 +753,7 @@
 
     <div class="callout warn">
       <h4>Mon vrai conseil après deux mois d'essais</h4>
-      <p>N'investis pas trois weekends à monter ton premier banc d'essai en pensant que tu vas découvrir le secret du business. Investis trois heures, fais un essai sur un truc bête (un objet de newsletter, par exemple), regarde si ça te plaît, et si oui, applique-le à un cas plus utile la semaine suivante. <strong>L'apprentissage progressif bat l'enthousiasme initial</strong> à tous les coups.</p>
+      <p>N'investis pas trois weekends à monter ton premier banc d'essai en pensant que tu vas découvrir le secret du business. Investis trois heures, fais un essai sur un cas anodin (un objet de newsletter, par exemple), regarde si ça te plaît, et si oui, applique-le à un cas plus utile la semaine suivante. <strong>L'apprentissage progressif bat l'enthousiasme initial</strong> à tous les coups.</p>
     </div>
   </div>
 </section>
@@ -811,7 +817,7 @@
     </p>
     <ul>
       <li><strong><a href="loops-claude.html">Les loops Claude Code, expliquées</a></strong> — la base technique pour comprendre comment Claude peut tourner en boucle. Indispensable avant de tenter ton propre essai.</li>
-      <li><strong><a href="hermes-agent.html">Construire un Hermes Agent pas à pas</a></strong> — comment monter un agent qui fait des trucs précis pour toi. La marche d'avant l'auto-amélioration.</li>
+      <li><strong><a href="hermes-agent.html">Construire un Hermes Agent pas à pas</a></strong> — comment monter un agent qui fait des tâches précises pour toi. La marche d'avant l'auto-amélioration.</li>
       <li><strong><a href="karpathy.html">Les travaux de Karpathy, vulgarisés</a></strong> — si tu veux comprendre qui est le bonhomme et pourquoi ses idées comptent dans le monde de l'IA.</li>
       <li><strong><a href="llm-wiki-karpathy.html">Le LLM Wiki, ton deuxième cerveau</a></strong> — l'autre projet Karpathy qui complète l'auto-recherche · une encyclopédie locale qui apprend de tes retours.</li>
       <li><strong><a href="claude-code-workflow-tips.html">Mon retour d'XP Claude Code après 6 mois</a></strong> — la routine quotidienne qui rend ce genre d'essais nocturnes possibles sans tout casser le matin.</li>
@@ -906,7 +912,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1036,5 +1042,6 @@
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

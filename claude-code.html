@@ -825,8 +825,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <!-- Sidebar share sticky (desktop uniquement) -->
 <aside class="share-rail" aria-label="Partager">
@@ -854,7 +856,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="apprendre.html">Apprendre</a>
     <a href="articles.html">Articles</a>
     <a href="podcast.html">Podcast</a>
@@ -870,6 +875,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <!-- Header -->
 <header class="header">
@@ -1084,7 +1090,7 @@ claude</pre>
       <h4>Télécharge mon CLAUDE.md</h4>
       <p>C'est un fichier <code>.md</code> de 100 lignes. Anonymisé, prêt à utiliser.</p>
       <form class="download-form" data-download="claude-md" data-newsletter="ai-playbook">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <button type="submit">Recevoir le fichier</button>
       </form>
       <div class="download-status" aria-live="polite"></div>
@@ -1152,7 +1158,7 @@ cp ~/Downloads/CLAUDE.md ~/.claude/CLAUDE.md</pre>
       <h4>Télécharge mon pack de 26 skills</h4>
       <p>ZIP de 690 Ko. Contient tous mes skills custom + le CLAUDE.md + un README.</p>
       <form class="download-form" data-download="pack" data-newsletter="ai-playbook">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <button type="submit">Télécharger le pack</button>
       </form>
       <div class="download-status" aria-live="polite"></div>
@@ -1571,7 +1577,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1806,5 +1812,6 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
   });
 });
 </script>
+<script src="assets/nav-v2.js" defer></script>
 </body>
 </html>

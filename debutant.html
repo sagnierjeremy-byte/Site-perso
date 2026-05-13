@@ -1147,8 +1147,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <!-- Sidebar share sticky (desktop uniquement) -->
 <aside class="share-rail" aria-label="Partager">
@@ -1176,7 +1178,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="apprendre.html">Apprendre</a>
     <a href="articles.html">Articles</a>
     <a href="podcast.html">Podcast</a>
@@ -1192,6 +1197,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <!-- Header -->
 <header class="header">
@@ -2223,7 +2229,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         <h3>Recevoir ma veille IA chaque vendredi</h3>
         <p>10 nouveautés IA qui comptent, triées, testées. Sans pub, sans spam. Désinscription en 1 clic.</p>
         <form class="newsletter-form" data-newsletter="ai-playbook">
-          <input type="email" name="email" placeholder="ton@email.com" required>
+          <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
           <button type="submit">Recevoir la veille →</button>
         </form>
         <div class="form-status" aria-live="polite"></div>
@@ -2253,7 +2259,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -2498,5 +2504,6 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
   });
 });
 </script>
+<script src="assets/nav-v2.js" defer></script>
 </body>
 </html>

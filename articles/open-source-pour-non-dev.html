@@ -237,8 +237,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <div class="triple-stripe" aria-hidden="true">
   <span style="background:#00B2A9"></span>
@@ -255,7 +257,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="../apprendre.html">Apprendre</a>
     <a href="../articles.html" aria-current="page">Articles</a>
     <a href="../podcast.html">Podcast</a>
@@ -271,6 +276,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <header class="header">
   <div class="header-inner">
@@ -313,7 +319,7 @@
       <li>Les boîtes qui font de l'open source <strong>gagnent leur vie</strong> sur le service, l'hébergement, ou les fonctions entreprise — pas sur le code lui-même</li>
       <li>L'<strong>IA en 2026</strong> est en plein clivage : Mistral, Llama, DeepSeek (ouverts) contre GPT-5, Claude, Gemini (fermés). Tu peux tester un modèle ouvert sur ton ordi en cinq minutes</li>
       <li>Top 5 d'outils à essayer demain : <strong>Bitwarden, Firefox, LibreOffice, Joplin, Audacity</strong>. Zéro carte bancaire, plein de données reprises en main</li>
-      <li><strong>Transparence</strong> : article écrit avec Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), relu et validé par moi. Si tu repères une erreur ou un truc qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
+      <li><strong>Transparence</strong> : article écrit avec Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), relu et validé par moi. Si tu repères une erreur ou un point qui sonne faux, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
     </ul>
   </div>
 </div>
@@ -889,7 +895,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -1019,5 +1025,6 @@
   })();
 </script>
 
+<script src="../assets/nav-v2.js" defer></script>
 </body>
 </html>

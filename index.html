@@ -2016,6 +2016,7 @@
     }
   }
 </style>
+<link rel="stylesheet" href="assets/nav-v2.css">
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
   <script>
@@ -2024,8 +2025,10 @@
   </script>
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
 
 <!-- Rowel SVG symbol -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -2075,7 +2078,10 @@
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <div class="links">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
     <a href="apprendre.html">Apprendre</a>
     <a href="articles.html">Articles</a>
     <a href="podcast.html">Podcast</a>
@@ -2091,6 +2097,7 @@
     </svg>
   </button>
 </nav>
+<a id="main-content" tabindex="-1"></a>
 
 <!-- ============================================================ -->
 <!-- HERO JERWIS v2 — animé (letter-stagger, blobs, photo magnétique) -->
@@ -2651,7 +2658,7 @@
           </label>
         </div>
         <div class="newsletter-unified-submit">
-          <input type="email" name="email" placeholder="ton@email.com" required>
+          <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
           <button type="submit">M'inscrire →</button>
         </div>
         <div class="form-status" aria-live="polite"></div>
@@ -2736,7 +2743,7 @@
         <div class="freebie-actions">
           <form class="freebie-download-form" data-download="claude-md" data-newsletter="ai-playbook">
             <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
-            <input type="email" name="email" placeholder="ton@email.com" required>
+            <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
             <button type="submit">Recevoir</button>
           </form>
           <div class="freebie-status" aria-live="polite"></div>
@@ -2767,7 +2774,7 @@
         <div class="freebie-actions">
           <form class="freebie-download-form" data-download="pack" data-newsletter="ai-playbook">
             <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
-            <input type="email" name="email" placeholder="ton@email.com" required>
+            <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
             <button type="submit">Télécharger</button>
           </form>
           <div class="freebie-status" aria-live="polite"></div>
@@ -3379,7 +3386,7 @@
       </p>
       <form class="cta-form newsletter-form" data-newsletter="early-access">
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0; pointer-events:none">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <button type="submit">
           Rejoindre
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -3447,7 +3454,7 @@
         <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required>
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <button type="submit">M'inscrire</button>
       </form>
@@ -3926,5 +3933,6 @@ document.querySelectorAll('.op-share').forEach(btn => {
 });
 </script>
 
+<script src="assets/nav-v2.js" defer></script>
 </body>
 </html>

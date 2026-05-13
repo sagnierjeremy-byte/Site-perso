@@ -167,9 +167,14 @@
     toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2400);
   }
 
+  // Différer l'init après le first paint pour libérer le main-thread.
+  function deferredInit() {
+    const ric = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1); };
+    ric(init, { timeout: 2000 });
+  }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', deferredInit);
   } else {
-    init();
+    deferredInit();
   }
 })();

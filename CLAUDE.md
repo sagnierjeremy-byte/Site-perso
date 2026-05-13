@@ -243,10 +243,30 @@ Entre étapes : mini-marquees narratifs (Bases posées → Claude Code → Agent
 7. CTA final (back-btn noir) → inscription newsletter
 8. Footer identique home
 
+### TOC sidebar + back-to-top — OBLIGATOIRE sur chaque article (depuis 2026-05-13)
+
+**Tout article DOIT inclure** :
+- `<link rel="stylesheet" href="../assets/article-toc.css">` dans le `<head>`
+- `<script src="../assets/article-toc.js" defer></script>` avant `</body>`
+
+Le JS s'auto-active s'il trouve ≥3 `<h2>` dans le contenu (hors hero/tldr/final-cta/footer). Il génère **3 éléments** sans toucher au markup de l'article :
+1. **Sidebar desktop fixed** à droite (≥ 1280px) : liste h2/h3 avec highlight de la section en cours via scroll spy
+2. **Bottom-sheet drawer mobile** + FAB allongé « SOMMAIRE » bas-gauche (< 1280px) : pattern natif iOS/Android, swipe-down pour fermer, body lock scroll
+3. **Bouton back-to-top** rond bas-droite (toujours, s'affiche après 400px de scroll)
+
+**Aucun markup à ajouter** dans l'article — tout est généré JS. Les `<h2>` doivent juste être dans `<section class="block">` ou dans `<main>`. Le JS ajoute auto-ids slugifiés sur les headings si manquants.
+
+Mobile friendly garanti :
+- Touch targets ≥ 44 px sur les liens du drawer
+- Safe-area `env(safe-area-inset-*)` pour iPhone notch / home indicator
+- `-webkit-tap-highlight-color: transparent` partout (pas de flash bleu Android)
+- Escape, backdrop tap, swipe-down : 3 manières de fermer le drawer
+
 ### Pour ajouter un nouvel article
-1. Copier `articles/_TEMPLATE.html` → `articles/mon-sujet.html`
+1. Copier `articles/_TEMPLATE.html` → `articles/mon-sujet.html` (déjà câblé TOC)
 2. Remplacer placeholders `{{TITRE}}`, `{{CATEGORIE}}`, etc.
 3. Ajouter la card dans `#learn` de `index.html` (bloc `.article-card`)
+4. **Vérifier** : ouvrir l'article en local, scroller, ouvrir le sommaire mobile, cliquer un lien → la section doit s'activer et le drawer se fermer. Si moins de 3 `<h2>`, la TOC ne s'affiche pas (volontaire).
 
 ---
 

@@ -9,19 +9,34 @@
  * Piloté par assets/article-toc.js
  * ============================================================ */
 
-/* ---------- Sidebar desktop (≥1280px) ---------- */
+/* ---------- Sidebar desktop (≥1400px) ----------
+   Calcul du breakpoint : contenu max 880px + sidebar 220px + gap 32px
+   + 2×24px marges = 1180px minimum théorique. Marge confort : 1400px.
+   Position : alignée à droite du contenu max 880px avec gap 32px minimum.
+   Si l'écran est étroit, la sidebar tombe à 24px du bord (pas d'overlap
+   car cachée < 1400px). Background + border : card lisible visuellement. */
 .article-toc {
   position: fixed;
   top: 110px;
-  right: max(20px, calc((100vw - 880px) / 2 - 260px));
+  right: max(24px, calc((100vw - 880px) / 2 - 220px - 32px));
   width: 220px;
   max-height: calc(100vh - 160px);
   z-index: 40;
   font-family: 'Archivo', sans-serif;
+  background: color-mix(in srgb, var(--bg, #FBF7F0) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line, rgba(10,10,10,.10));
+  border-radius: 10px;
+  padding: 18px 16px;
   display: none;
+  overflow: hidden;
 }
-@media (min-width: 1280px) {
-  .article-toc.is-ready { display: block; }
+@media (min-width: 1400px) {
+  .article-toc.is-ready {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .article-toc-label {

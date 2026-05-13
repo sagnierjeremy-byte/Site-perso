@@ -872,6 +872,82 @@
       Claude Code propose deux types de loops. C'est important de comprendre la différence — ça change tout selon ton cas d'usage.
     </p>
 
+    <figure style="margin: 32px auto; max-width: 760px;">
+      <svg viewBox="0 0 800 420" role="img" aria-labelledby="schema-loops-title schema-loops-desc" style="width: 100%; height: auto; display: block;">
+        <title id="schema-loops-title">Timed loop versus Dynamic loop</title>
+        <desc id="schema-loops-desc">Comparaison côte à côte : Timed loop (intervalles réguliers de 5 minutes, coût fixe 0,4 euro par heure) versus Dynamic loop (intervalles irréguliers décidés par Claude, coût variable 0,1 à 0,8 euro par heure).</desc>
+
+        <g>
+          <rect x="30" y="40" width="360" height="340" rx="14" fill="#FBF7F0" stroke="#00B2A9" stroke-width="3"/>
+          <rect x="30" y="40" width="360" height="48" rx="14" fill="#00B2A9"/>
+          <rect x="30" y="74" width="360" height="14" fill="#00B2A9"/>
+          <text x="210" y="71" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="18" letter-spacing="2" fill="#0A0A0A">TIMED LOOP</text>
+
+          <text x="210" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Intervalles réguliers · prévisibles</text>
+
+          <line x1="65" y1="180" x2="355" y2="180" stroke="#0A0A0A" stroke-width="2.5"/>
+          <polygon points="355,180 345,174 345,186" fill="#0A0A0A"/>
+
+          <g font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#0A0A0A">
+            <line x1="75" y1="170" x2="75" y2="190" stroke="#00B2A9" stroke-width="4"/>
+            <text x="75" y="208" text-anchor="middle">0</text>
+            <line x1="135" y1="170" x2="135" y2="190" stroke="#00B2A9" stroke-width="4"/>
+            <text x="135" y="208" text-anchor="middle">5m</text>
+            <line x1="195" y1="170" x2="195" y2="190" stroke="#00B2A9" stroke-width="4"/>
+            <text x="195" y="208" text-anchor="middle">10m</text>
+            <line x1="255" y1="170" x2="255" y2="190" stroke="#00B2A9" stroke-width="4"/>
+            <text x="255" y="208" text-anchor="middle">15m</text>
+            <line x1="315" y1="170" x2="315" y2="190" stroke="#00B2A9" stroke-width="4"/>
+            <text x="315" y="208" text-anchor="middle">20m</text>
+          </g>
+
+          <text x="210" y="245" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">/loop 5m /veille-ia</text>
+
+          <rect x="80" y="275" width="260" height="74" rx="8" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="1.5"/>
+          <text x="210" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">COÛT FIXE</text>
+          <text x="210" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#00B2A9">0,4 €</text>
+          <text x="210" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">par heure</text>
+        </g>
+
+        <g>
+          <rect x="410" y="40" width="360" height="340" rx="14" fill="#FBF7F0" stroke="#EF426F" stroke-width="3"/>
+          <rect x="410" y="40" width="360" height="48" rx="14" fill="#EF426F"/>
+          <rect x="410" y="74" width="360" height="14" fill="#EF426F"/>
+          <text x="590" y="71" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="18" letter-spacing="2" fill="#FBF7F0">DYNAMIC LOOP</text>
+
+          <text x="590" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Claude décide quand relancer</text>
+
+          <line x1="445" y1="180" x2="735" y2="180" stroke="#0A0A0A" stroke-width="2.5"/>
+          <polygon points="735,180 725,174 725,186" fill="#0A0A0A"/>
+
+          <g font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#0A0A0A">
+            <line x1="455" y1="170" x2="455" y2="190" stroke="#EF426F" stroke-width="4"/>
+            <text x="455" y="208" text-anchor="middle">0</text>
+            <line x1="478" y1="170" x2="478" y2="190" stroke="#EF426F" stroke-width="4"/>
+            <text x="478" y="208" text-anchor="middle">30s</text>
+            <line x1="510" y1="170" x2="510" y2="190" stroke="#EF426F" stroke-width="4"/>
+            <text x="510" y="208" text-anchor="middle">2m</text>
+            <line x1="585" y1="170" x2="585" y2="190" stroke="#EF426F" stroke-width="4"/>
+            <text x="585" y="208" text-anchor="middle">7m</text>
+            <line x1="720" y1="170" x2="720" y2="190" stroke="#EF426F" stroke-width="4"/>
+            <text x="720" y="208" text-anchor="middle">27m</text>
+          </g>
+
+          <text x="590" y="245" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">/loop /monitor-deploy</text>
+
+          <rect x="460" y="275" width="260" height="74" rx="8" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="1.5"/>
+          <text x="590" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">COÛT VARIABLE</text>
+          <text x="590" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#EF426F">0,1 – 0,8 €</text>
+          <text x="590" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">par heure · selon contexte</text>
+        </g>
+
+        <text x="400" y="404" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="2" fill="#0A0A0A">RÉGULIER + PRÉVISIBLE          vs          ADAPTATIF + CONTEXTUEL</text>
+      </svg>
+      <figcaption style="text-align: center; font-style: italic; color: var(--ink-muted); font-size: 14.5px; margin-top: 12px;">
+        Timed = régulier, prévisible. Dynamic = Claude décide quand relancer. Le coût suit le pattern.
+      </figcaption>
+    </figure>
+
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">

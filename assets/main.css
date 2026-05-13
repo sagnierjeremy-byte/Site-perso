@@ -4,6 +4,21 @@
     --orange:  #FF8200;
   }
 
+  /* ============================================================
+   * Safety-net image height — JAMAIS d'image étirée
+   * ------------------------------------------------------------
+   * Les <img width="X" height="Y"> ont un aspect-ratio intrinsèque
+   * implicite (via UA stylesheet) qui peut supplanter un aspect-ratio
+   * CSS plus spécifique si on ne neutralise pas la hauteur.
+   * Cette règle low-spec force height:auto sur toutes les images
+   * avec attributs HTML width+height, sauf override explicite.
+   * Toute règle CSS plus spécifique (display: ...; height: 200px;)
+   * gagne par cascade normale.
+   * ============================================================ */
+  img[width][height] {
+    height: auto;
+  }
+
   [data-theme="light"] {
     --bg:          #FBF7F0;
     --bg-2:        #F2EDE2;

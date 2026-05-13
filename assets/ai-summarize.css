@@ -1,0 +1,214 @@
+/* ============================================================
+   AI summarize bar — « Demande à une IA de te le résumer »
+   ============================================================
+   - Position : insérée auto par JS juste après le .tldr de l'article
+   - 2 boutons directs : Perplexity (auto-submit) + ChatGPT (hints=search)
+   - 1 menu dropdown : Claude, Gemini, Le Chat, Copilot (copy + open)
+   - Toast confirmation après copy
+   - Mobile : labels qui se rétractent en icônes seules ≤ 540px
+   ============================================================ */
+
+.ai-summarize {
+  max-width: 880px;
+  margin: 24px auto 0;
+  padding: 18px 22px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--teal, #00B2A9) 6%, transparent),
+    color-mix(in srgb, var(--fuchsia, #EF426F) 6%, transparent));
+  border: 1px solid var(--line-strong, rgba(10,10,10,.18));
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: 'Archivo', sans-serif;
+  position: relative;
+}
+
+.ai-summarize-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #0A0A0A);
+  line-height: 1.4;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.ai-summarize-label::before {
+  content: "✨ ";
+  margin-right: 2px;
+}
+
+.ai-summarize-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ai-summarize-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line-strong, rgba(10,10,10,.18));
+  border-radius: 999px;
+  color: var(--ink, #0A0A0A);
+  font-family: 'Archivo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s, border-color .15s, background .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ai-summarize-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink, #0A0A0A);
+  box-shadow: 0 6px 16px rgba(0,0,0,.10);
+}
+.ai-summarize-btn:active { transform: translateY(0); }
+
+.ai-summarize-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* Boutons directs : Perplexity teal, ChatGPT teal foncé */
+.ai-summarize-btn[data-ai="perplexity"] svg { color: #20808D; }
+.ai-summarize-btn[data-ai="chatgpt"] svg { color: #10A37F; }
+
+/* Bouton "Autres IA" */
+.ai-summarize-more {
+  position: relative;
+}
+.ai-summarize-more .ai-summarize-btn::after {
+  content: "";
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  margin-left: 2px;
+  transition: transform .15s;
+}
+.ai-summarize-more.is-open .ai-summarize-btn::after {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.ai-summarize-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line-strong, rgba(10,10,10,.18));
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 16px 40px -10px rgba(0,0,0,.18);
+  min-width: 220px;
+  display: none;
+  z-index: 30;
+}
+.ai-summarize-more.is-open .ai-summarize-menu { display: block; }
+.ai-summarize-menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--ink, #0A0A0A);
+  font-family: 'Archivo', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.ai-summarize-menu button:hover {
+  background: var(--bg-2, #F2EDE2);
+}
+.ai-summarize-menu button svg {
+  width: 16px; height: 16px;
+  flex: 0 0 auto;
+}
+.ai-summarize-menu-hint {
+  font-size: 11px;
+  color: var(--ink-muted, #6E6E6E);
+  padding: 8px 12px 4px;
+  border-top: 1px solid var(--line, rgba(10,10,10,.10));
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Toast */
+.ai-summarize-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink, #0A0A0A);
+  color: var(--bg, #FBF7F0);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  box-shadow: 0 12px 32px rgba(0,0,0,.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 100;
+}
+.ai-summarize-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Mobile : label qui passe sur sa ligne, boutons compacts */
+@media (max-width: 640px) {
+  .ai-summarize {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px 18px;
+  }
+  .ai-summarize-label { flex: none; }
+  .ai-summarize-actions { width: 100%; justify-content: flex-start; }
+  .ai-summarize-menu {
+    left: 0;
+    right: auto;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] .ai-summarize {
+  border-color: rgba(255,255,255,.12);
+  background: linear-gradient(135deg,
+    rgba(0,178,169,.10),
+    rgba(239,66,111,.10));
+}
+[data-theme="dark"] .ai-summarize-btn {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.16);
+  color: #F4EFE6;
+}
+[data-theme="dark"] .ai-summarize-btn:hover {
+  border-color: #F4EFE6;
+  background: rgba(255,255,255,.10);
+}
+[data-theme="dark"] .ai-summarize-menu {
+  background: #141414;
+  border-color: rgba(255,255,255,.16);
+}
+[data-theme="dark"] .ai-summarize-menu button { color: #F4EFE6; }
+[data-theme="dark"] .ai-summarize-menu button:hover { background: rgba(255,255,255,.06); }
+[data-theme="dark"] .ai-summarize-menu-hint { color: rgba(244,239,230,.55); border-top-color: rgba(255,255,255,.10); }

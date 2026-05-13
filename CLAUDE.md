@@ -262,11 +262,45 @@ Mobile friendly garanti :
 - `-webkit-tap-highlight-color: transparent` partout (pas de flash bleu Android)
 - Escape, backdrop tap, swipe-down : 3 manières de fermer le drawer
 
+### Barre « Résumer avec une IA » — OBLIGATOIRE sur chaque article (depuis 2026-05-13)
+
+**Tout article DOIT inclure** (en plus de la TOC) :
+- `<link rel="stylesheet" href="../assets/ai-summarize.css">` dans le `<head>` (juste après `article-toc.css`)
+- `<script src="../assets/ai-summarize.js" defer></script>` avant `</body>` (juste après `article-toc.js`)
+
+Le JS s'auto-insère **juste après le `.tldr`** (ou en haut de la 1re `section.block` si pas de TL;DR). Il génère une barre horizontale `.ai-summarize` avec :
+
+1. **Bouton Perplexity** (auto-submit) — pattern `?q=` + browsing natif, **le plus naturel pour résumer**
+2. **Bouton ChatGPT** (`hints=search` activé) — pré-rempli, l'utilisateur valide
+3. **Dropdown « Autres IA »** : Claude, Gemini, Le Chat (Mistral), Copilot, ou copy seul
+   - Clic → le prompt est **copié dans le presse-papier** via Clipboard API
+   - Puis ouvre la home de l'IA dans un nouvel onglet
+   - Toast de confirmation « Prompt copié — colle-le dans le chat »
+
+**Pourquoi pas de boutons directs pour Claude/Gemini/Mistral/Copilot ?**
+- Claude web a perdu son `?q=` en octobre 2025 (régression CVE prompt injection)
+- Gemini n'a jamais eu de pattern URL (feature request Google ignorée depuis 2024)
+- Le Chat (Mistral) n'a aucun pattern
+- Copilot a cassé son `?q=` fin 2025 (CVE Reprompt)
+
+→ Le pattern **copy + open** est le seul fiable cross-IA. Source : audit 2026-05-13 sur paramètres URL.
+
+**Prompt copié** (généré par le JS, à partir de `<link rel="canonical">`) :
+```
+Résume-moi cet article en 5 points clés, en français.
+Article : https://jerwis.fr/articles/<slug>.html
+Titre : <titre de la page>
+```
+
+**Position visuelle** : intercalée entre le TL;DR et la 1re section narrative. C'est le moment où le lecteur a vu le pitch et décide « je lis tout » ou « je passe par une IA ». Mobile : passe en colonne (label sur sa ligne, boutons en dessous, dropdown pleine largeur).
+
 ### Pour ajouter un nouvel article
-1. Copier `articles/_TEMPLATE.html` → `articles/mon-sujet.html` (déjà câblé TOC)
+1. Copier `articles/_TEMPLATE.html` → `articles/mon-sujet.html` (déjà câblé TOC + barre IA)
 2. Remplacer placeholders `{{TITRE}}`, `{{CATEGORIE}}`, etc.
 3. Ajouter la card dans `#learn` de `index.html` (bloc `.article-card`)
-4. **Vérifier** : ouvrir l'article en local, scroller, ouvrir le sommaire mobile, cliquer un lien → la section doit s'activer et le drawer se fermer. Si moins de 3 `<h2>`, la TOC ne s'affiche pas (volontaire).
+4. **Vérifier** :
+   - Ouvrir l'article en local, scroller, ouvrir le sommaire mobile, cliquer un lien → la section doit s'activer et le drawer se fermer. Si moins de 3 `<h2>`, la TOC ne s'affiche pas (volontaire).
+   - Vérifier que la barre `.ai-summarize` apparaît juste après le `.tldr`. Cliquer « Perplexity » doit ouvrir un onglet avec un résumé en cours. Cliquer « Autres IA → Claude » doit copier le prompt et ouvrir claude.ai dans un nouvel onglet.
 
 ---
 

@@ -70,6 +70,133 @@
     color: #F4EFE6;
     border-top: 1px solid rgba(255,255,255,.08);
   }
+
+  /* ===== Hero · Label Jerwis Productions (refonte 2 séries) ===== */
+  .pod-hero-label { padding: 72px 0 88px; }
+  .pod-hero-label-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .pod-hero-label-intro {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 56px;
+  }
+  .pod-hero-label-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(40px, 5.6vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -.035em;
+    color: #F4EFE6;
+    text-transform: uppercase;
+    margin: 16px 0 20px;
+  }
+  .pod-hero-label-title .slash { color: #EF426F; font-weight: 400; }
+  .pod-hero-label .pod-hero-lead {
+    font-size: 17px;
+    color: rgba(244,239,230,0.78);
+    line-height: 1.62;
+    margin: 0 auto;
+    max-width: 720px;
+  }
+
+  /* Grid 2 séries */
+  .pod-series-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 860px) {
+    .pod-series-grid { grid-template-columns: 1fr; }
+  }
+  .pod-series-card {
+    display: block;
+    text-decoration: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 32px;
+    transition: transform .25s, border-color .25s, background .25s;
+    color: #F4EFE6;
+  }
+  .pod-series-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.24);
+  }
+  .pod-series-cover {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto 22px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 6px 16px rgba(0,0,0,0.4);
+  }
+  .pod-series-cover img { width:100%; height:100%; display:block; object-fit:cover; }
+  .pod-series-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .pod-series-tag[data-tag="fuchsia"] { background: rgba(239,66,111,0.18); color: #EF426F; }
+  .pod-series-tag[data-tag="orange"]  { background: rgba(255,130,0,0.18);  color: #FF8200; }
+  .pod-series-tag[data-tag="teal"]    { background: rgba(0,178,169,0.18);  color: #00B2A9; }
+  .pod-series-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: #F4EFE6;
+    text-transform: uppercase;
+    margin: 6px 0 16px;
+  }
+  .pod-series-title .slash { color: #00B2A9; font-weight: 400; }
+  .pod-series-card:nth-child(2) .pod-series-title .slash { color: #FF8200; }
+  .pod-series-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(244,239,230,0.78);
+    margin: 0 0 20px;
+  }
+  .pod-series-meta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.5);
+    margin-bottom: 18px;
+  }
+  .pod-series-meta strong { color: #F4EFE6; }
+  .pod-series-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #F4EFE6;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 4px;
+    transition: gap .2s;
+  }
+  .pod-series-card:hover .pod-series-cta { gap: 14px; }
   .pod-hero-inner {
     display: grid;
     grid-template-columns: 400px 1fr;
@@ -484,24 +611,47 @@
 
 <main>
 
-  <section class="pod-hero">
-    <div class="pod-hero-inner">
-      <div class="pod-hero-cover">
-        <img src="/podcast/covers/serie.png" alt="Pochette Guerres d&#39;IA" width="400" height="400">
+  <!-- ═════════ HERO · LE LABEL JERWIS PRODUCTIONS ═════════ -->
+  <section class="pod-hero pod-hero-label">
+    <div class="pod-hero-label-inner">
+      <div class="pod-hero-label-intro">
+        <div class="pod-hero-kicker">● Jerwis Productions · 2 séries narratives FR</div>
+        <h1 class="pod-hero-label-title">Deux podcasts.<br><span class="slash">//</span> Une production.</h1>
+        <p class="pod-hero-lead">Voix générées par IA, écriture humaine, mastering studio. Deux séries pensées pour deux moments très différents — l'une pour les adultes qui veulent comprendre les coulisses de l'IA, l'autre pour les enfants de 4 à 6 ans qui veulent une histoire pendant le trajet école.</p>
       </div>
-      <div class="pod-hero-text">
-        <div class="pod-hero-kicker">Jerwis Productions · Saison 01</div>
-        <h1>Guerres<br><span class="slash">//</span> d&#39;IA</h1>
-        <p class="pod-hero-lead">Sam Altman contre Dario Amodei. Les schismes idéologiques entre OpenAI et Anthropic. Les coups d&#39;état qui ont fait trembler la Silicon Valley. Série narrative française style Wondery, 15 minutes par épisode, mastering studio, voix ElevenLabs. Une production Jerwis Productions.</p>
-        <div class="pod-cta-row">
-          <a class="pod-cta primary" href="#la-fracture">▶ Écouter l'épisode 01</a>
-          <a class="pod-cta ghost" href="#saison-02">Saison 02 · Les 3 Petites Lanternes →</a>
-        </div>
-        <div class="pod-hero-meta">
-          <span><strong>2</strong> séries</span>
-          <span><strong>7</strong> épisodes</span>
-          <span>FR · fr-FR</span>
-        </div>
+
+      <div class="pod-series-grid">
+        <!-- Série 01 — Guerres d'IA -->
+        <a class="pod-series-card" href="#saison-01">
+          <div class="pod-series-cover">
+            <img src="/podcast/covers/serie.png" alt="Pochette Guerres d'IA" width="240" height="240" loading="eager">
+          </div>
+          <div class="pod-series-tag" data-tag="fuchsia">Saison 01 · Adultes</div>
+          <h2 class="pod-series-title">Guerres<br><span class="slash">//</span> d'IA</h2>
+          <p class="pod-series-desc">Sam Altman contre Dario Amodei. Les schismes entre OpenAI et Anthropic. Les coups d'état qui ont fait trembler la Silicon Valley. Style narratif Wondery, 15 min par épisode.</p>
+          <div class="pod-series-meta">
+            <span><strong>3</strong> épisodes</span>
+            <span><strong>50</strong> min</span>
+            <span>Public ado/adulte</span>
+          </div>
+          <span class="pod-series-cta">Écouter la série →</span>
+        </a>
+
+        <!-- Série 02 — Les 3 Petites Lanternes -->
+        <a class="pod-series-card" href="#saison-02">
+          <div class="pod-series-cover">
+            <img src="/podcast/covers/lanternes.png" alt="Pochette Les 3 Petites Lanternes" width="240" height="240" loading="eager">
+          </div>
+          <div class="pod-series-tag" data-tag="orange">Saison 02 · 4-6 ans · Nouveau</div>
+          <h2 class="pod-series-title">Les 3 Petites<br><span class="slash">//</span> Lanternes</h2>
+          <p class="pod-series-desc">Alma, Lewis et James affrontent les peurs de l'enfance (monstre sous le lit, chute, hauteur, tournoi). Chaque épisode dure 10 à 16 min, conçu pour les trajets école. Fin résolue, zéro cliffhanger.</p>
+          <div class="pod-series-meta">
+            <span><strong>4</strong> épisodes</span>
+            <span><strong>53</strong> min</span>
+            <span>Pour les 4-6 ans</span>
+          </div>
+          <span class="pod-series-cta">Écouter la série →</span>
+        </a>
       </div>
     </div>
   </section>

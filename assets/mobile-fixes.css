@@ -133,3 +133,16 @@ article p a {
   white-space: nowrap;
   border: 0;
 }
+
+/* ============================================================
+ * content-visibility: skip le layout/paint des sections sous le fold
+ * Gain LCP attendu : -300 à -800ms sur articles longs.
+ * `contain-intrinsic-size` réserve la place pour éviter de casser
+ * le scroll-to-anchor depuis la TOC.
+ * ============================================================ */
+article section.block,
+main section.block,
+body > section.block {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px;
+}

@@ -253,16 +253,17 @@
     return btn;
   }
 
-  // ------------ Scroll spy + visibility controls ------------
+  // ------------ Scroll spy via IntersectionObserver (zéro forced reflow) ------------
 
   function setupScrollSpy(items, sidebar, drawer) {
-    // Map heading id → li elements (sidebar + drawer)
     const sidebarLis = sidebar.querySelectorAll('.article-toc-item');
     const drawerLis = drawer.querySelectorAll('.article-toc-item');
     const refs = items.map((it, i) => ({
       el: it.el,
+      idx: i,
       lis: [sidebarLis[i], drawerLis[i]].filter(Boolean),
     }));
+    const visible = new Set();
 
     let currentIdx = -1;
     function setActive(idx) {
@@ -272,44 +273,71 @@
       }
       if (idx >= 0 && refs[idx]) {
         refs[idx].lis.forEach(l => l.classList.add('is-active'));
-        // auto-scroll de la liste sidebar pour garder l'item visible
-        const sidebarActive = refs[idx].lis[0];
-        if (sidebarActive && sidebarActive.scrollIntoView) {
-          const rect = sidebarActive.getBoundingClientRect();
-          const listRect = sidebar.querySelector('.article-toc-list').getBoundingClientRect();
-          if (rect.top < listRect.top || rect.bottom > listRect.bottom) {
-            sidebarActive.scrollIntoView({ block: 'nearest' });
-          }
-        }
       }
       currentIdx = idx;
     }
 
-    function updateActive() {
-      const offset = 140;
+    // L'IntersectionObserver mesure les entrées/sorties sans forcer de reflow.
+    // rootMargin négatif en bas pour activer l'item juste avant qu'il atteigne le milieu.
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const idx = parseInt(e.target.dataset.tocIdx, 10);
+        if (e.isIntersecting) visible.add(idx);
+        else visible.delete(idx);
+      });
+      // Item actif = celui le plus haut parmi les visibles
       let best = -1;
-      for (let i = 0; i < refs.length; i++) {
-        const rect = refs[i].el.getBoundingClientRect();
-        if (rect.top - offset <= 0) best = i;
-        else break;
+      visible.forEach(i => { if (best < 0 || i < best) best = i; });
+      // Si rien de visible mais on a scrollé, garder le dernier qui était au-dessus
+      if (best < 0) {
+        // sentinel : un seul item passé, on garde celui-là
+        let above = -1;
+        refs.forEach(r => {
+          const rect = r.el.getBoundingClientRect();
+          if (rect.bottom < 140) above = r.idx;
+        });
+        best = above;
       }
       setActive(best);
-    }
-    window.addEventListener('scroll', throttle(updateActive, 80), { passive: true });
-    updateActive();
+    }, {
+      rootMargin: '-110px 0px -65% 0px',
+      threshold: 0,
+    });
+
+    refs.forEach((r) => {
+      r.el.dataset.tocIdx = r.idx;
+      io.observe(r.el);
+    });
   }
 
+  // FAB + back-to-top visibility via IntersectionObserver sur un sentinel
   function setupVisibility(fab, backToTop) {
-    const fabThreshold = 600;   // FAB Sommaire apparaît après scroll 600px (laisse passer le hero)
-    const btnThreshold = 400;   // back-to-top apparaît après scroll 400px
+    if (!fab && !backToTop) return;
+    // Crée un sentinel invisible à 400px du haut. Quand il sort du viewport (scroll vers le bas),
+    // on affiche les boutons. Pas de scroll listener, pas de reflow.
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:400px;left:0;width:1px;height:1px;pointer-events:none';
+    document.body.appendChild(sentinel);
 
-    function onScroll() {
-      const y = window.pageYOffset;
-      if (fab) fab.classList.toggle('is-visible', y > fabThreshold);
-      if (backToTop) backToTop.classList.toggle('is-visible', y > btnThreshold);
+    const io = new IntersectionObserver((entries) => {
+      const above = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      if (backToTop) backToTop.classList.toggle('is-visible', above);
+    }, { threshold: 0 });
+    io.observe(sentinel);
+
+    // FAB Sommaire : seuil 600px → sentinel séparé
+    if (fab) {
+      const fabSentinel = document.createElement('div');
+      fabSentinel.setAttribute('aria-hidden', 'true');
+      fabSentinel.style.cssText = 'position:absolute;top:600px;left:0;width:1px;height:1px;pointer-events:none';
+      document.body.appendChild(fabSentinel);
+      const io2 = new IntersectionObserver((entries) => {
+        const above = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+        fab.classList.toggle('is-visible', above);
+      }, { threshold: 0 });
+      io2.observe(fabSentinel);
     }
-    window.addEventListener('scroll', throttle(onScroll, 100), { passive: true });
-    onScroll();
   }
 
   // ------------ init ------------
@@ -340,9 +368,15 @@
     setupVisibility(fab, backToTop);
   }
 
+  // Différer l'init après le first paint pour libérer le main-thread.
+  // requestIdleCallback si dispo (Chrome, Firefox, Edge), sinon setTimeout(0) fallback (Safari).
+  function deferredInit() {
+    const ric = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1); };
+    ric(init, { timeout: 2000 });
+  }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', deferredInit);
   } else {
-    init();
+    deferredInit();
   }
 })();

@@ -620,7 +620,7 @@
 <!-- seo:byline -->
 <div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
   <a href="../index.html#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
-    <img src="../photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0">
+    <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img src="../photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
     Jérémy Sagnier
   </a>
   <span style="color:var(--ink-muted)">·</span>
@@ -658,6 +658,57 @@
     <p>Dev-browser règle ce problème. C&#39;est un <strong>navigateur sans fenêtre</strong> (Chromium en coulisse, comme <a href="https://www.google.com/intl/fr/chrome/" target="_blank" rel="noopener">Chrome</a> sans les pubs) que ton IA pilote en écrivant un petit script. Tu n&#39;ouvres jamais Chrome toi-même. Tu dis ce que tu veux, Claude écrit le script, il s&#39;exécute dans un Chrome invisible, tu récupères ce qui t&#39;intéresse · le texte d'un article, un chiffre précis dans un tableau, un screenshot d'une page, le rendu d'une page que tu viens de modifier. Sous le capot, dev-browser s'appuie sur la même mécanique que <a href="https://playwright.dev/" target="_blank" rel="noopener">Playwright</a> et <a href="https://pptr.dev/" target="_blank" rel="noopener">Puppeteer</a> (les deux librairies de référence pour piloter un navigateur), mais tu ne touches jamais leur API : Claude le fait pour toi.</p>
     <p>Je l&#39;ai installé sur mon Mac il y a deux mois. Aujourd&#39;hui, je l&#39;utilise presque tous les jours : vérifier qu&#39;une page est bien déployée, scraper un site que Claude ne connaît pas, prendre un screenshot pour valider un design, tester le formulaire d&#39;inscription de mon site sans ouvrir Chrome à la main, capturer un article concurrent avant qu'il change.</p>
     <p><strong>Le déclic, pour moi, ça a été le moment où j'ai compris que dev-browser n'est pas un outil de dev.</strong> C'est un outil d'entrepreneur curieux qui veut que son IA puisse <em>vraiment</em> faire ce qu'il lui demande. Tu ne te bats plus avec des « je ne peux pas accéder », tu ne copies-colles plus du contenu à la main, tu n'ouvres plus dix onglets Chrome pour vérifier dix pages. Tu délègues, et ton IA exécute pour de vrai.</p>
+
+    <p>Voici les principales alternatives en un coup d'œil pour situer dev-browser dans l'écosystème.</p>
+    <table class="article-table" style="width:100%; border-collapse:collapse; margin:18px 0 28px; font-size:14.5px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Outil</th>
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Public cible</th>
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Prix</th>
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Courbe d'apprentissage</th>
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Scraping massif</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;"><strong>dev-browser</strong></td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Non-dev / dev curieux</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Gratuit (open source)</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Faible</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Limité (1 navigateur local)</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;"><strong>Playwright</strong></td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Dev</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Gratuit (open source)</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Moyenne à élevée</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Excellent</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;"><strong>Puppeteer</strong></td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Dev</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Gratuit (open source)</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Moyenne</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Excellent</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;"><strong>Apify</strong></td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Tous niveaux</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">À l'usage (~50 $/mois)</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Faible (UI)</td>
+          <td style="padding:12px 14px; border-bottom:1px solid rgba(10,10,10,.12); vertical-align:top;">Excellent (cloud)</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 14px; vertical-align:top;"><strong>Browserbase</strong></td>
+          <td style="padding:12px 14px; vertical-align:top;">Dev</td>
+          <td style="padding:12px 14px; vertical-align:top;">Payant (~30 $/mois)</td>
+          <td style="padding:12px 14px; vertical-align:top;">Moyenne</td>
+          <td style="padding:12px 14px; vertical-align:top;">Excellent (cloud)</td>
+        </tr>
+      </tbody>
+    </table>
+
     <div class="callout tip">
       <h4>Mon avis en 5 secondes</h4>
       <p>Si tu utilises Claude Code tous les jours et que tu touches à du web (un site, des sources à vérifier, un scraping ponctuel), dev-browser doit être installé chez toi. Il rend ton IA vraiment utile pour les tâches qui touchent à Internet. Trois minutes d'install, retour sur investissement en dix minutes. Je ne connais pas un seul outil dans la galaxie Claude Code qui ait un meilleur ratio effort/valeur.</p>
@@ -699,7 +750,7 @@
     <p>Lecture en français : « ouvre un navigateur, va sur jerwis.fr, récupère le texte du gros titre (le h1), affiche-le dans le terminal ». Fin. Le navigateur se ferme tout seul, le titre s'affiche, Claude te le renvoie. Cinq secondes chrono.</p>
 
     <figure class="fig">
-      <img src="../photos/dev-browser/terminal-output.png" width="1240" height="820" alt="Capture du terminal montrant une commande dev-browser exécutée et son output : titre H1 récupéré, screenshot enregistré sur disque.">
+      <picture><source srcset="../photos/dev-browser/terminal-output.webp" type="image/webp"><img src="../photos/dev-browser/terminal-output.png" width="1240" height="820" alt="Capture du terminal montrant une commande dev-browser exécutée et son output : titre H1 récupéré, screenshot enregistré sur disque."></picture>
       <figcaption>À quoi ça ressemble dans mon terminal · une commande dev-browser et son output</figcaption>
     </figure>
 
@@ -762,7 +813,7 @@
     </code></pre>
 
       <figure class="fig">
-        <img src="../photos/dev-browser/anthropic-home.png" width="1440" height="900" alt="Screenshot complet de la page d'accueil d'anthropic.com capturée par dev-browser en 1440x900.">
+        <picture><source srcset="../photos/dev-browser/anthropic-home.webp" type="image/webp"><img src="../photos/dev-browser/anthropic-home.png" width="1440" height="900" alt="Screenshot complet de la page d'accueil d'anthropic.com capturée par dev-browser en 1440x900."></picture>
         <figcaption>Exemple de capture · anthropic.com en 1440×900, prise par dev-browser pendant que j'écrivais ce tuto</figcaption>
       </figure>
     </div>
@@ -916,7 +967,7 @@
     <p>Si tu vois une liste d&#39;options qui défile (quelque chose dans le genre de la capture ci-dessous), c&#39;est installé. Sinon, relance ton terminal ou demande à Claude de t&#39;aider à débugger.</p>
 
     <figure class="fig">
-      <img src="../photos/dev-browser/terminal-help.png" width="1240" height="935" alt="Capture du terminal montrant la sortie de la commande dev-browser --help : sandbox QuickJS, API browser, exemples d'invocation.">
+      <picture><source srcset="../photos/dev-browser/terminal-help.webp" type="image/webp"><img src="../photos/dev-browser/terminal-help.png" width="1240" height="935" alt="Capture du terminal montrant la sortie de la commande dev-browser --help : sandbox QuickJS, API browser, exemples d'invocation."></picture>
       <figcaption>Sortie de <code>dev-browser --help</code> · ce que tu dois voir si l'install s'est bien passée</figcaption>
     </figure>
     <h3>Étape 3 · Premier usage</h3>

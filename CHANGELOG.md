@@ -1,5 +1,48 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-13 · Audit mobile sprint 2 — perf, images, cache
+
+### Pourquoi
+Suite du Sprint 1 (UX mobile fixes critiques). Sprint 2 attaque la perf : WebP, CLS, fonts, cache headers. Cible : LCP < 2.5s, CLS < 0.05, poids page ÷ 2 sur la home.
+
+### Livré
+- **WebP conversion** : 163 images JPG/PNG converties en `.webp` (q=80, resize max 1600px). `photos/` passe de 28 MB JPG → 11.5 MB WebP (-59%). Images JPG conservées comme fallback.
+- **`<picture>` wrapping** : 53 balises `<img>` enveloppées en `<picture><source srcset="X.webp" type="image/webp"><img src="X.jpg" ...></picture>` (sur les 18 pages qui contenaient des images locales). Préserve la compat OG/Twitter cards (les `<meta>` restent en JPG).
+- **CLS (dimensions images)** : `width` et `height` injectés sur 86 balises `<img>` (sips → dimensions réelles). Avant : 0 image avait `width`/`height`. CLS mesuré post-fix = **0.002** (cible < 0.1).
+- **Cache headers Vercel** : `Cache-Control: public, max-age=31536000, immutable` sur `/assets/*`, `/photos/*`, `/downloads/*`. Visiteur récurrent ne re-télécharge plus rien.
+- **Fonts allègement** : `Bebas Neue` supprimé des 8 pages qui le chargeaient pour rien (1 usage dans `drafts/` uniquement, hors prod). Gain ~30 KB woff2.
+- **Pages légales** : `mobile-fixes.css` injecté sur les 4 pages (cgv, mentions-legales, politique-confidentialite, suppression-donnees) qui n'ont pas la mini-nav → bénéficient au minimum des fixes overflow/focus/typo mobile.
+
+### Fichiers touchés
+- `vercel.json` — 3 règles `Cache-Control: immutable` ajoutées
+- 8 pages HTML (index, apprendre, claude-code, articles, github, outils, precommande-merci, precommande-photos-personal-branding) — `Bebas+Neue` retiré du chargement Google Fonts
+- 18 pages HTML — `<picture>` wrapping (index + 17 articles)
+- 4 pages HTML (index, precommande-photos-personal-branding, articles/photos-airbnb-nano-banana, articles/photos-perso-ia) — dimensions injectées sur 86 `<img>`
+- 4 pages légales — `<link mobile-fixes.css>` ajouté
+- 163 nouveaux fichiers `.webp` dans `photos/` (à côté des JPG/PNG d'origine)
+
+### Mesures post-sprint (390×844 iPhone 14 Pro émulé, sans throttle 4G)
+- **CLS** : 0.002 (avant ~0.15-0.30 estimé)
+- **Total weight home** : 1.5 MB (avant ~1.8 MB)
+- **Pictures avec WebP source** : 21/21 sur la home
+- **Overflow horizontal** : 0px sur toutes les pages testées
+- **Burger / skip-link / inputs 16px** : maintenus depuis sprint 1
+
+### Reporté au backlog éditorial
+- **TOC mobile** : 25/26 articles n'ont pas de TOC. Tâche éditoriale article-par-article, pas industrialisable.
+- **Headings hierarchy** : skip h2→h4 sur `autoresearch-karpathy.html` (8x) et `agents-ia-guide.html` (2x). Promotion de `<h4>` en `<h3>` casse le style CSS attaché à h4. Refacto éditoriale à faire avec révision visuelle.
+- **Hover gating** : 47 `:hover` à encapsuler dans `@media (hover: hover)`. Trop intrusif sans test desktop case-by-case. CSS reset `@media (hover: none)` testé : casserait certains états interactifs souhaités.
+- **Contrastes accents** : `--teal #00B2A9 / --fuchsia #EF426F / --orange #F58025` ratent WCAG AA en texte courant (2.3-3.5:1). Si on veut les utiliser comme texte body, prévoir variantes assombries (`#007A75 / #C8194B / #CC6800`). Décision design à prendre.
+- **Pages légales** : migration complète vers mini-nav (avec burger + drawer + theme toggle) reste à faire. Pour l'instant elles ont au moins les fixes mobile via `mobile-fixes.css`.
+- **Doublons nav** dans `preferences.html` et `quiz.html` (header legacy `display:none` + mini-nav).
+
+### Sprint 3 idéaux
+- Migration totale pages légales vers mini-nav
+- Headings + hover refactor (chantier éditorial 4-6h)
+- Audit Lighthouse en prod après ce sprint 2 pour mesurer le delta réel (PageSpeed Insights mobile attendu 75-85 vs 50-60 avant)
+
+---
+
 ## 2026-05-13 · Audit mobile complet + sprint 1 de fixes critiques
 
 ### Pourquoi

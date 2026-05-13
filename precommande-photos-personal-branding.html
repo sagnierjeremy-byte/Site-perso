@@ -2042,21 +2042,25 @@
     try {
       var fbp = getCookie('_fbp');
       var fbc = getCookie('_fbc');
-      // Fire InitiateCheckout côté pixel · signal funnel pour l'algo Meta
-      if (typeof window.jerwisTrack === 'function') {
-        window.jerwisTrack('InitiateCheckout', {
-          value: 39, currency: 'EUR',
-          content_ids: ['workflow-genpics-team-v1'], content_type: 'product',
-        });
-      }
       const r = await fetch('/api/checkout-create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fbp: fbp || null, fbc: fbc || null }),
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      const { clientSecret, publishableKey } = await r.json();
+      const { clientSecret, publishableKey, checkoutEventId } = await r.json();
       if (!clientSecret || !publishableKey) throw new Error('Réponse incomplète');
+
+      // Fire InitiateCheckout côté pixel · MÊME event_id que le serveur (Stripe session.id)
+      // → Meta dédoublonne entre l'event CAPI server-side et l'event pixel browser.
+      // Le serveur a déjà envoyé l'IC avant nous · si pixel client KO (consent/ATT), le
+      // signal server-side reste OK. Si pixel client OK, Meta garde le meilleur match.
+      if (typeof window.jerwisTrack === 'function' && checkoutEventId) {
+        window.jerwisTrack('InitiateCheckout', {
+          value: 39, currency: 'EUR',
+          content_ids: ['workflow-genpics-team-v1'], content_type: 'product',
+        }, { eventID: checkoutEventId });
+      }
 
       const Stripe = await ensureStripeJs();
       openStripeModal();

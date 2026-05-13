@@ -20,6 +20,55 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 const DEFAULT_ORIGIN = "https://jerwis.fr";
 
+// Meta Conversions API · fire InitiateCheckout en server-side au moment du click CTA.
+// Le pixel client fire déjà IC côté navigateur, mais sur iOS dans le webview Instagram
+// (≈ 80% du trafic de l'ad) le pixel est bloqué par ATT ou par le consent banner.
+// L'event server-side passe par-dessus ces limitations · Meta dédoublonne via event_id.
+async function sendMetaCapiInitiateCheckout({ fbp, fbc, clientIp, userAgent, sourceUrl, eventId }) {
+  const pixelId = process.env.META_PIXEL_ID;
+  const token = process.env.META_CAPI_TOKEN || process.env.META_ADS_ACCESS_TOKEN;
+  if (!pixelId || !token) return { ok: false, skipped: true };
+
+  const payload = {
+    data: [
+      {
+        event_name: "InitiateCheckout",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        action_source: "website",
+        event_source_url: sourceUrl,
+        user_data: {
+          fbp,
+          fbc,
+          client_ip_address: clientIp,
+          client_user_agent: userAgent,
+        },
+        custom_data: {
+          currency: "EUR",
+          value: PRODUCT_AMOUNT_CENTS / 100,
+          content_ids: ["workflow-genpics-team-v1"],
+          content_type: "product",
+          content_name: PRODUCT_NAME,
+          num_items: 1,
+        },
+      },
+    ],
+  };
+
+  try {
+    const r = await fetch(`https://graph.facebook.com/v24.0/${pixelId}/events?access_token=${token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, status: r.status, detail: j };
+    return { ok: true, eventsReceived: j.events_received, fbtrace: j.fbtrace_id };
+  } catch (err) {
+    return { ok: false, detail: err?.message || String(err) };
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -87,9 +136,33 @@ export default async function handler(req, res) {
       metadata,
     });
 
+    // Fire InitiateCheckout en server-side · best-effort, ne bloque jamais Stripe.
+    // event_id = Stripe session.id → dédoublonné avec le fbq client (qui devra envoyer
+    // le même event_id côté browser pour matcher). À défaut de dédup, Meta gardera
+    // les deux mais ne double-comptera pas si l'event_id matche.
+    const clientIp = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || undefined;
+    const userAgent = req.headers["user-agent"] || undefined;
+    sendMetaCapiInitiateCheckout({
+      fbp,
+      fbc,
+      clientIp,
+      userAgent,
+      sourceUrl: req.headers.referer || origin,
+      eventId: session.id,
+    })
+      .then((r) => {
+        if (!r.ok && !r.skipped) {
+          console.warn("[checkout-create] Meta CAPI IC failed:", JSON.stringify(r));
+        } else if (r.ok) {
+          console.log(`[checkout-create] Meta CAPI IC OK · session=${session.id} fbtrace=${r.fbtrace}`);
+        }
+      })
+      .catch((err) => console.warn("[checkout-create] Meta CAPI IC error:", err.message));
+
     return res.status(200).json({
       clientSecret: session.client_secret,
       publishableKey,
+      checkoutEventId: session.id, // pour dédoublonnage côté pixel client
     });
   } catch (err) {
     console.error("[checkout-create] Stripe error:", err.type, err.message);

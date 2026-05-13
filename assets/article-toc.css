@@ -12,13 +12,13 @@
 /* ---------- Sidebar desktop (≥1400px) ----------
    Calcul du breakpoint : contenu max 880px + sidebar 220px + gap 32px
    + 2×24px marges = 1180px minimum théorique. Marge confort : 1400px.
-   Position : alignée à droite du contenu max 880px avec gap 32px minimum.
+   Position : alignée à GAUCHE du contenu max 880px avec gap 32px minimum.
    Si l'écran est étroit, la sidebar tombe à 24px du bord (pas d'overlap
    car cachée < 1400px). Background + border : card lisible visuellement. */
 .article-toc {
   position: fixed;
   top: 110px;
-  right: max(24px, calc((100vw - 880px) / 2 - 220px - 32px));
+  left: max(24px, calc((100vw - 880px) / 2 - 220px - 32px));
   width: 220px;
   max-height: calc(100vh - 160px);
   z-index: 40;

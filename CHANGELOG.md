@@ -1,5 +1,34 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-13 · Audit mobile sprint 3 — preload LCP home
+
+### Pourquoi
+PageSpeed prod après sprint 2 : perf 80, LCP 4.4s (rouge), CLS 0 ✨. Le LCP reste le seul point rouge — le rapport flag "Requêtes bloquant le rendu : économies estimées 1700 ms" + "Images à optimiser : 622 KB".
+
+### Livré
+- **Preload image LCP home** : `<link rel="preload" as="image" href="photos/A7100670.webp" type="image/webp" fetchpriority="high">` dans `<head>`. Le navigateur télécharge l'image hero en parallèle du CSS au lieu d'attendre que le DOM la rencontre.
+- **`fetchpriority="high" decoding="async"`** sur l'`<img>` portrait du hero.
+
+### Mesures avant/après (émulation iPhone 14 Pro, Slow 4G 1.6 Mbps, CPU x4)
+| Métrique | Avant sprint 3 | Après sprint 3 | Cible |
+|---|---|---|---|
+| LCP | 4.4 s (PageSpeed prod) | **2.3 s** (local) | < 2.5 s 🟢 |
+| FCP | 2.7 s | 2.2 s | < 1.8 s 🟠 |
+| CLS | 0 | 0 | < 0.1 🟢 |
+
+Note : LCP element identifié n'est pas l'image elle-même mais un `<p>` du hero — le preload de l'image l'aide indirectement en libérant le bus réseau pour les autres ressources critiques.
+
+### Reporté (sprint 4 si nécessaire)
+- **Defer main.css** (CSS async load via `media="print" onload`) : gain attendu LCP -800 à -1200 ms, mais risque FOUC sur la home (style inline + main.css). À tester rigoureusement avec hydratation visuelle.
+- **Critical CSS inline** : extraire les ~8 KB above-the-fold de main.css. Process avec `critters` ou manuel. Gain LCP attendu -500 à -800 ms.
+- **CSS unused** : split main.css en home.css + articles.css + commun.css (110 KB inutilisé sur la home). PurgeCSS au build.
+- **AVIF en parallèle WebP** : `<source srcset="X.avif" type="image/avif">` avant le WebP pour browsers récents. ~30-40% plus léger que WebP sur certaines images.
+
+### Fichiers touchés
+- `index.html` — preload + fetchpriority sur l'image LCP
+
+---
+
 ## 2026-05-13 · Audit mobile sprint 2 — perf, images, cache
 
 ### Pourquoi

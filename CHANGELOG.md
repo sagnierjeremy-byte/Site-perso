@@ -1,5 +1,41 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-13 · Nouvel article — Podcast IA pour enfants (3 Petites Lanternes)
+
+### Pourquoi
+Premier making-of du projet `~/Projets/podcast-enfants/` (« Les 3 Petites Lanternes »). Angle perso fort (papa qui refuse YouTube Kids), stack IA concrète (ElevenLabs v3 + Python + EBU R128), trous de marché identifiés par 4 sous-agents, et utilité parentale directe. Cible SEO « podcast IA pour enfants », « alternative YouTube Kids », « ElevenLabs podcast français » + GEO via FAQPage schema.
+
+### Livré
+- `drafts/podcast-ia-pour-enfants.md` — draft markdown avec frontmatter SEO complet (slug, kw primaires/secondaires, FAQ JSON-prêt)
+- `articles/podcast-ia-pour-enfants.html` — article complet (~3 200 mots, 14 min de lecture) :
+  - Title : « Podcast IA pour enfants : making-of des 3 Petites Lanternes » (58 chars)
+  - Meta description : 146 chars, 2 keywords primaires + 1 hook neurosciences
+  - OG/Twitter : « Un podcast IA pour mon fils, pas YouTube Kids » (46 chars) + desc 102 chars
+  - JSON-LD Article + FAQPage (6 Q/R) pour boost AI Overviews / ChatGPT / Perplexity
+  - Canonical absolu, article:published_time
+  - Structure : Hero + TL;DR + 10 sections (déclic, recherche, concept, stack, casting, 8 interdits, structure, mastering, chiffres, pièges, leçons, à qui ça sert, FAQ, CTA)
+  - 5 tables comparatives (trous de marché, casting voix, mastering vs adulte, structure 5 blocs, chiffres ép 2)
+  - 3 usecase cards (pièges quota / bouclage / bug silencieux)
+- `articles.html` — card ajoutée en première position (type:makingof, scene:studio, size:m, 14 MIN)
+
+### Décisions ton & SEO
+- Type schema : `Article` (making-of narratif, pas TechArticle ni OpinionPiece)
+- Keyword principal naturel : « podcast IA pour enfants » → titre + meta + H1 + FAQ
+- Long-tail GEO : « alternative YouTube Kids », « voix IA française », « podcast trajet voiture enfant »
+- Ton Leo strict : 1ère personne, « PAS dev » assumé, zéro argot, montrer le travail (chiffres concrets ép 2 : 13:42, 109 segments, -16.1 LUFS, 6 € marginal)
+- Mention « mon fils » (cohérent mini-bio jerwis.fr), zéro détail intime
+
+### Cover OG livrée
+- `scripts/og-batch.html` — entrée `podcast-ia-pour-enfants` ajoutée (kicker fuchsia, H1 « UN PODCAST IA POUR MON FILS. PAS YOUTUBE KIDS. », tagline « ElevenLabs v3, 2 voix, 4 personnages. »)
+- `photos/og/podcast-ia-pour-enfants.jpg` généré via `dev-browser --headless` (1200×630 JPEG qualité 85, 80 Ko, baseline)
+- Rendu validé visuellement : triple-stripe top/bottom, photo Jérémy, kicker pulse fuchsia, accent fuchsia sur « PAS YOUTUBE KIDS », URL jerwis.fr en bas droite
+
+### À venir
+- [ ] Si la page `podcast.html` existe : éventuellement teaser la série « 3 Petites Lanternes » + lien vers l'article
+- [ ] Quand le pilote sort sur Spotify/Apple : update CTA bas de page avec lien d'écoute direct + dateModified
+
+---
+
 ## 2026-05-05 · Refonte admin → jerwis-admin (repo séparé)
 
 ### Pourquoi

@@ -124,11 +124,12 @@
 <script>
 const COVERS = {
   "podcast-ia-pour-enfants": {
-    kicker: "Making-of · Podcast IA",
-    h1: "Un podcast IA<br>pour mon fils.<br><span class=\"accent-fuchsia\">Pas YouTube Kids.</span>",
-    tagline: "ElevenLabs v3, 2 voix, 4 personnages. Comment j'ai construit Les 3 Petites Lanternes.",
+    kicker: "Making-of · Podcast pour enfants",
+    h1: "Un podcast<br>pour mon fils.<br><span class=\"accent-fuchsia\">Pas YouTube Kids.</span>",
+    tagline: "Le making-of d'un podcast 4-6 ans pour les trajets voiture. Quatre épisodes à écouter.",
     accent: "fuchsia",
-    size: "md"
+    size: "md",
+    photo: "jeremy-et-fils.jpg"
   },
   "agents-ia-guide": {
     kicker: "Guide · Agents IA",
@@ -285,6 +286,7 @@ if (data) {
   if (data.size) h1.classList.add("size-" + data.size);
   document.getElementById("tagline").textContent = data.tagline;
   document.getElementById("photo-wrap").classList.add("shadow-" + data.accent);
+  if (data.photo) document.getElementById("photo-img").src = "../photos/" + data.photo;
 } else {
   document.getElementById("title").textContent = "Slug inconnu : " + slug;
 }

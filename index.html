@@ -977,6 +977,29 @@
     transform: translateY(-3px);
     box-shadow: 0 20px 42px -20px rgba(0,0,0,.22), inset 0 0 0 1px var(--line-strong);
   }
+  .alaune-cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .alaune-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .alaune-card:hover .alaune-cover img {
+    transform: scale(1.045);
+  }
+  .alaune-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.18));
+    pointer-events: none;
+  }
   .alaune-stub {
     padding: 18px 20px 14px;
     color: #fff;
@@ -2146,6 +2169,9 @@
     <div class="alaune-grid">
 
       <a class="alaune-card type-article" href="articles/podcast-ia-pour-enfants.html" data-published="2026-05-13">
+        <div class="alaune-cover">
+          <img src="photos/og/podcast-ia-pour-enfants.jpg" alt="Un podcast IA pour mon fils, pas YouTube Kids" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Making-of</span>
           <span class="alaune-stub-num">13/05</span>
@@ -2162,6 +2188,9 @@
       </a>
 
       <a class="alaune-card type-opinion" href="articles/photos-perso-ia.html" data-published="2026-05-07">
+        <div class="alaune-cover">
+          <img src="photos/og/photos-perso-ia.jpg" alt="Mon générateur de photos personal branding" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Récit</span>
           <span class="alaune-stub-num">07/05</span>
@@ -2178,6 +2207,9 @@
       </a>
 
       <a class="alaune-card type-opinion" href="articles/musk-vs-openai-le-proces.html" data-published="2026-04-29">
+        <div class="alaune-cover">
+          <img src="photos/og/musk-vs-openai-le-proces.jpg" alt="Musk contre OpenAI, raconté simplement" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Opinion</span>
           <span class="alaune-stub-num">Nº 05</span>
@@ -2194,6 +2226,9 @@
       </a>
 
       <a class="alaune-card type-opinion" href="articles/monde-ia-5-10-20-ans.html" data-published="2026-04-24">
+        <div class="alaune-cover">
+          <img src="photos/og/monde-ia-5-10-20-ans.jpg" alt="J'ai un fils de quatre ans, voici son monde" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Opinion</span>
           <span class="alaune-stub-num">Nº 04</span>
@@ -2210,6 +2245,9 @@
       </a>
 
       <a class="alaune-card type-podcast" href="articles/guerres-d-ia-podcast.html#episode-03" data-published="2026-04-24">
+        <div class="alaune-cover">
+          <img src="photos/og/guerres-d-ia-podcast.jpg" alt="Frères Ennemis, épisode 3 du podcast Guerres d'IA" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Podcast</span>
           <span class="alaune-stub-num">Ép 03</span>
@@ -2226,6 +2264,9 @@
       </a>
 
       <a class="alaune-card type-opinion" href="articles/plan-chine-2026-2030.html" data-published="2026-04-23">
+        <div class="alaune-cover">
+          <img src="photos/og/plan-chine-2026-2030.jpg" alt="Le plan chinois 2026-2030, décrypté" loading="lazy">
+        </div>
         <div class="alaune-stub">
           <span class="alaune-stub-type">Opinion</span>
           <span class="alaune-stub-num">Nº 03</span>

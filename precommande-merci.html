@@ -172,9 +172,24 @@
   })();
 
   // Meta Pixel · Purchase event côté client avec eventID = session.id pour dédup CAPI server-side
+  // Anti-doublon : on stocke les sessionId déjà trackées en localStorage pour éviter qu'un refresh
+  // ou une re-visite de cette page (depuis le receipt Stripe, l'historique navigateur, etc.) re-fire
+  // un Purchase. La dédup Meta browser/server a une fenêtre de ~60s seulement, donc au-delà chaque
+  // visite était comptée comme nouveau Purchase → on avait 3 events pour 1 vraie vente.
   (function trackPurchase() {
     const sessionId = new URLSearchParams(window.location.search).get('session');
     if (!sessionId || !sessionId.startsWith('cs_')) return;
+
+    const STORAGE_KEY = 'jerwis-tracked-purchases';
+    let tracked = [];
+    try {
+      tracked = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      if (!Array.isArray(tracked)) tracked = [];
+    } catch (e) {
+      tracked = [];
+    }
+    if (tracked.includes(sessionId)) return; // déjà fired pour cette session
+
     let tries = 0;
     const id = setInterval(() => {
       if (typeof window.jerwisTrack === 'function') {
@@ -184,6 +199,10 @@
           { value: 39, currency: 'EUR', content_ids: ['workflow-genpics-team-v1'], content_type: 'product' },
           { eventID: sessionId }
         );
+        // Marque cette session comme tracked · on garde les 50 dernières pour éviter de croître à l'infini
+        tracked.push(sessionId);
+        if (tracked.length > 50) tracked = tracked.slice(-50);
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(tracked)); } catch (e) {}
       } else if (++tries > 30) {
         clearInterval(id);
       }

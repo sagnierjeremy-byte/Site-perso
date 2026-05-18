@@ -302,7 +302,10 @@
     margin-right: 12px;
   }
   .pod-platform {
-    padding: 10px 18px;
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     border-radius: 999px;
     border: 1px solid var(--line-strong);
     font-family: 'JetBrains Mono', monospace;
@@ -430,7 +433,7 @@
     max-width: 440px;
   }
   .pp-play {
-    width: 34px; height: 34px;
+    width: 44px; height: 44px;
     border: none;
     border-radius: 50%;
     background: #EF426F;
@@ -441,9 +444,10 @@
     cursor: pointer;
     transition: background .15s;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .pp-play:hover { background: #FF8200; }
-  .pp-play svg { width: 14px; height: 14px; }
+  .pp-play svg { width: 16px; height: 16px; }
   [data-podcast-player] .pp-icon-pause { display: none; }
   [data-podcast-player][data-state="playing"] .pp-icon-play { display: none; }
   [data-podcast-player][data-state="playing"] .pp-icon-pause { display: block; }
@@ -472,18 +476,83 @@
   }
   .pp-speed {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: .1em;
     font-weight: 700;
     background: transparent;
     border: 1px solid rgba(255,255,255,0.2);
     color: #F4EFE6;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 8px 12px;
+    min-height: 36px;
+    min-width: 44px;
+    border-radius: 6px;
     cursor: pointer;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .pp-speed:hover { background: rgba(255,255,255,0.08); }
+
+  /* ===== Intro Saison 02 — cover + texte responsive ===== */
+  .pod-saison-intro {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 48px;
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(0,178,169,.08), rgba(239,66,111,.08), rgba(255,130,0,.08));
+    border: 1px solid rgba(0,178,169,.25);
+    border-radius: 16px;
+  }
+  .pod-saison-intro-cover {
+    display: block;
+    width: 200px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0,0,0,.25);
+    justify-self: start;
+  }
+  .pod-saison-intro-cover picture,
+  .pod-saison-intro-cover img {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+  }
+  .pod-saison-intro-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .pod-saison-intro-title {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 3.5vw, 42px);
+  }
+  .pod-saison-intro-desc {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  @media (max-width: 760px) {
+    .pod-saison-intro {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 24px 20px;
+      text-align: left;
+    }
+    .pod-saison-intro-cover {
+      width: 160px;
+      justify-self: center;
+    }
+    .pod-saison-intro-desc {
+      font-size: 15.5px;
+      line-height: 1.6;
+    }
+  }
 
   /* ===== Mini marquee ===== */
   .pod-marquee {
@@ -679,16 +748,16 @@
   <!-- ═════════ SAISON 02 · LES 3 PETITES LANTERNES ═════════ -->
   <section class="pod-episodes" id="saison-02">
     <div class="pod-episodes-inner">
-      <div style="display:grid; grid-template-columns:200px 1fr; gap:32px; align-items:center; margin-bottom:48px; padding:32px; background:linear-gradient(135deg, rgba(0,178,169,.08), rgba(239,66,111,.08), rgba(255,130,0,.08)); border:1px solid rgba(0,178,169,.25); border-radius:16px;">
-        <a href="#saison-02" style="display:block; width:200px; aspect-ratio:1/1; border-radius:10px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,.25);">
-          <picture><source srcset="/podcast/covers/lanternes.webp" type="image/webp"><img src="/podcast/covers/lanternes.png" alt="Pochette Les 3 Petites Lanternes" width="200" height="200" loading="lazy" style="width:100%; height:auto; height:100%; display:block;" decoding="async"></picture>
+      <div class="pod-saison-intro">
+        <a class="pod-saison-intro-cover" href="#saison-02">
+          <picture><source srcset="/podcast/covers/lanternes.webp" type="image/webp"><img src="/podcast/covers/lanternes.png" alt="Pochette Les 3 Petites Lanternes" width="200" height="200" loading="lazy" decoding="async"></picture>
         </a>
-        <div>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--orange); font-weight:700; margin-bottom:10px;">
+        <div class="pod-saison-intro-body">
+          <div class="pod-saison-intro-kicker">
             ● Saison 02 · Nouveau · 4-6 ans
           </div>
-          <h2 class="pod-section-title" style="margin:0 0 14px; font-size:clamp(28px,3.5vw,42px);">Les 3 Petites Lanternes</h2>
-          <p style="margin:0; font-size:16px; line-height:1.55; color:var(--ink-soft); max-width:60ch;">
+          <h2 class="pod-section-title pod-saison-intro-title">Les 3 Petites Lanternes</h2>
+          <p class="pod-saison-intro-desc">
             Alma, Lewis et James, élèves d'une école française, ont découvert au grenier trois lanternes magiques. Chaque épisode, l'un des trois affronte une peur précise — sa lanterne s'allume au bon moment. Fin résolue obligatoire, conçue pour les trajets école. <a href="articles/podcast-ia-pour-enfants.html"><strong>Lire le making-of →</strong></a>
           </p>
         </div>

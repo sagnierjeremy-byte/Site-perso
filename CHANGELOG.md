@@ -1,5 +1,49 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Complétude modeles-image-ia.html — focus vidéo
+
+### Pourquoi
+La section vidéo de la page image/vidéo était trop maigre : juste une grille auto-générée sans contexte éditorial. Le hash `#video` atterrissait sur un mini-marquee sans valeur ajoutée. Manquait : guide de décision spécifique vidéo, limitations réelles, workflow type.
+
+### Livré
+- **`modeles-image-ia.html`** — enrichissement majeur :
+  - **Hero amélioré** : ajout du panel stats (modèles image + vidéo, dernière vérif, alerte 30j)
+  - **Glossaire image** (4 mots) : prompt-to-image, image-to-image, inpainting, reference/ControlNet
+  - **Section #video repensée** :
+    - Bloc d'intro éditoriale "Ce n'est pas un LLM avec une caméra" + 4 stats clés (durée typique, coût, audio, cohérence)
+    - 6 decision cards spécifiques vidéo (narration courte, audio sync, édition multimodale, production créative, clip social, test format)
+    - Compare strip Sora vs Veo 3.1 (en parallèle du Nano Banana Pro vs 2 existant)
+    - 3 reality cards "À garder en tête" : coût, cohérence personnage, audio à faire en post
+    - Workflow type 4 étapes (image clé → animation → audio → montage)
+  - URL canonical + og:url → `/modeles-image-ia` (sans `.html`)
+  - JS étendu pour alimenter statImage / statVideo depuis le JSON
+  - L'ancre `#video` pointe maintenant sur la section éditoriale (et non le mini-marquee)
+
+### Fichiers touchés
+- `modeles-image-ia.html` (de 568 → 858 lignes)
+- `CHANGELOG.md`
+
+---
+
+## 2026-05-20 · Refonte modeles-ia.html — table → cards + UX lecture
+
+### Pourquoi
+La page était lisible pour un dev, pas pour un entrepreneur curieux. La table à 9 colonnes avec 3 dropdowns techniques + preset buttons LLM était surchargée. Demande explicite de Jérémy : "repense cette page pour qu'elle soit utile pour la personne qui la lit".
+
+### Livré
+- **`modeles-ia.html`** — refonte UX :
+  - **Table remplacée par grille de cards** (3→2→1 col responsive) : chaque card = nom, provider, score, avis en 1 ligne, tags, lien source + checkbox comparer
+  - **Toolbar simplifié** : search + bouton "Comparer X/4" uniquement — suppression des 3 dropdowns (catégorie, licence, prix) trop techniques
+  - **Preset buttons LLM supprimés** de la toolbar (audience non-dev)
+  - **Usage buttons déplacés** : maintenant juste au-dessus du catalogue (logique), plus flottants avant la section "Dans ta situation"
+  - Section "Guide simple" renommée "Dans ta situation..." (plus orientée lecteur)
+  - Choice cards : ajout de bord coloré (fuchsia/teal/orange) pour distinguer visuellement les 6 cas d'usage
+  - Footer enrichi avec nav links (Accueil, Apprendre, Articles, Actus IA, Newsletter)
+  - URLs fixées : canonical + og:url + schema.org → `/modeles-ia` (sans `.html`)
+  - JS simplifié : suppression des state.category/license/price + leurs listeners, filteredModels() épuré
+
+---
+
 ## 2026-05-20 · Nav v3 unifiée (dropdown « Plus ») + footer rich Option C
 
 ### Pourquoi

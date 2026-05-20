@@ -9,7 +9,7 @@
 <meta property="og:title" content="Modèles IA image et vidéo">
 <meta property="og:description" content="Je trie Nano Banana, GPT Image, Midjourney, FLUX, Sora, Veo, Gemini Omni et Grok Imagine par usage concret.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://jerwis.fr/modeles-image-ia.html">
+<meta property="og:url" content="https://jerwis.fr/modeles-image-ia">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 
@@ -20,11 +20,27 @@
 <meta name="twitter:description" content="Nano Banana Pro vs 2, GPT Image, Midjourney, Gemini Omni, Sora, Veo : le guide pratique.">
 <meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 
-<link rel="canonical" href="https://jerwis.fr/modeles-image-ia.html">
+<link rel="canonical" href="https://jerwis.fr/modeles-image-ia">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/nav-v2.css">
 <link rel="stylesheet" href="assets/mobile-fixes.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Modèles IA image et vidéo : lequel choisir ?",
+  "description": "Guide des modèles IA créatifs : image, vidéo, audio synchronisé, formats sociaux.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/modeles-image-ia",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  }
+}
+</script>
 
 <style>
   body {
@@ -41,6 +57,10 @@
   .creative-inner {
     max-width: 1180px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+    gap: 44px;
+    align-items: end;
   }
   .kicker {
     display: inline-flex;
@@ -81,6 +101,47 @@
     line-height: 1.7;
     margin: 0;
   }
+  .lead strong { color: var(--ink); }
+  .hero-panel {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 10px 10px 0 var(--teal);
+    border: 1px solid rgba(255,255,255,.12);
+  }
+  .hero-panel-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(251,247,240,.62);
+    margin-bottom: 14px;
+  }
+  .hero-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .hero-stat {
+    border: 1px solid rgba(251,247,240,.16);
+    border-radius: 12px;
+    padding: 14px;
+    background: rgba(251,247,240,.04);
+  }
+  .hero-stat b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero-stat span {
+    display: block;
+    font-size: 12px;
+    line-height: 1.35;
+    color: rgba(251,247,240,.7);
+  }
   .creative-shell {
     max-width: 1180px;
     margin: 0 auto;
@@ -108,6 +169,12 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
+  }
+  .decision-grid-video {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 24px;
   }
   .decision-card,
   .model-card {
@@ -215,6 +282,176 @@
     color: var(--ink-muted);
     margin-bottom: 10px;
   }
+  /* ── Glossaire image / vidéo ──────────────────────────────────── */
+  .plain-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0 32px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+  }
+  .plain-table th,
+  .plain-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  .plain-table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .plain-table td:first-child {
+    font-weight: 900;
+    color: var(--ink);
+    min-width: 140px;
+  }
+  .plain-table tr:last-child td { border-bottom: 0; }
+  /* ── Vidéo : intro éditoriale + workflow ──────────────────────── */
+  .video-intro {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 28px;
+    margin: 0 0 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+  }
+  .video-intro h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+  .video-intro p {
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .video-intro p + p { margin-top: 10px; }
+  .video-intro-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .video-stat {
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 14px;
+    background: var(--bg-2);
+  }
+  .video-stat b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 5px;
+    color: var(--ink);
+  }
+  .video-stat span {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  /* ── Limitations / À garder en tête ──────────────────────────── */
+  .reality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 28px 0 40px;
+  }
+  .reality-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 22px;
+    position: relative;
+  }
+  .reality-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    border-radius: 16px 0 0 16px;
+    background: var(--orange);
+  }
+  .reality-card:nth-child(2)::before { background: var(--fuchsia); }
+  .reality-card:nth-child(3)::before { background: var(--teal); }
+  .reality-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  .reality-card p {
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+    font-size: 14px;
+  }
+  /* ── Workflow recommandé ──────────────────────────────────────── */
+  .workflow-panel {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    border-radius: 18px;
+    padding: 32px;
+    margin-top: 12px;
+    box-shadow: 10px 10px 0 var(--fuchsia);
+    border: 1px solid rgba(255,255,255,.12);
+  }
+  .workflow-panel h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(24px, 3.5vw, 36px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+  .workflow-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .workflow-step {
+    border: 1px solid rgba(251,247,240,.16);
+    border-radius: 12px;
+    padding: 16px;
+    background: rgba(251,247,240,.05);
+  }
+  .workflow-step-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .workflow-step b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin-bottom: 6px;
+  }
+  .workflow-step span {
+    display: block;
+    color: rgba(251,247,240,.72);
+    font-size: 13px;
+    line-height: 1.45;
+  }
   .mini-marquee {
     overflow: hidden; padding: 14px 0;
     background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
@@ -275,14 +512,21 @@
     font-weight: 900;
   }
   @media (max-width: 920px) {
+    .creative-inner { grid-template-columns: 1fr; }
     .decision-grid,
+    .decision-grid-video,
     .models-grid,
-    .compare-strip { grid-template-columns: 1fr; }
+    .compare-strip,
+    .reality-grid { grid-template-columns: 1fr; }
+    .video-intro { grid-template-columns: 1fr; }
+    .workflow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-band { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 640px) {
     .creative-shell { padding-left: 16px; padding-right: 16px; }
     .creative-hero { padding-top: 34px; }
+    .hero-panel-grid { grid-template-columns: 1fr; }
+    .workflow-steps { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -313,11 +557,22 @@
 <main>
   <section class="creative-hero">
     <div class="creative-inner">
-      <div class="kicker">Image · vidéo · création IA</div>
-      <h1>Nano Banana, Sora, Gemini Omni : <em>quoi choisir ?</em></h1>
-      <p class="lead">
-        Les modèles créatifs ne se choisissent pas comme un chatbot. Ici je sépare brouillon rapide, image finale, texte dans l'image, vidéo courte, montage et formats sociaux.
-      </p>
+      <div>
+        <div class="kicker">Image · vidéo · création IA</div>
+        <h1>Nano Banana, Sora, Gemini Omni : <em>quoi choisir ?</em></h1>
+        <p class="lead">
+          Les modèles créatifs ne se choisissent pas comme un chatbot. Ici je sépare <strong>brouillon rapide, image finale, texte dans l'image, vidéo courte, audio synchronisé, montage et formats sociaux</strong>.
+        </p>
+      </div>
+      <aside class="hero-panel" aria-label="Résumé créatif">
+        <div class="hero-panel-label">Catalogue créatif</div>
+        <div class="hero-panel-grid">
+          <div class="hero-stat"><b id="statImage">--</b><span>modèles image suivis</span></div>
+          <div class="hero-stat"><b id="statVideo">--</b><span>modèles vidéo suivis</span></div>
+          <div class="hero-stat"><b>Mai 26</b><span>dernière vérification</span></div>
+          <div class="hero-stat"><b>30j</b><span>alerte si fiche obsolète</span></div>
+        </div>
+      </aside>
     </div>
   </section>
 
@@ -382,6 +637,51 @@
 
   <div class="mini-marquee" aria-hidden="true">
     <div class="mini-marquee-track">
+      <span>Prompt-to-image</span><span>Image-to-image</span><span>Inpainting</span><span>Upscale</span><span>ControlNet</span><span>Reference</span>
+      <span>Prompt-to-image</span><span>Image-to-image</span><span>Inpainting</span><span>Upscale</span><span>ControlNet</span><span>Reference</span>
+    </div>
+  </div>
+
+  <section class="creative-shell">
+    <div class="section-label">Vocabulaire image</div>
+    <h2 class="section-title">Les 4 mots qui changent ton choix.</h2>
+    <p class="lead">Pas besoin d'être designer pour comprendre. Mais ces 4 termes reviennent dans toutes les docs et conditionnent ce que tu peux faire.</p>
+
+    <table class="plain-table">
+      <thead>
+        <tr>
+          <th>Mot</th>
+          <th>Traduction simple</th>
+          <th>Ce que ça change pour toi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prompt-to-image</td>
+          <td>Tu décris en texte, l'IA produit une image à partir de rien.</td>
+          <td>Le mode classique. Toutes les IA image savent faire ça.</td>
+        </tr>
+        <tr>
+          <td>Image-to-image</td>
+          <td>Tu donnes une image de base, l'IA la transforme selon ton prompt.</td>
+          <td>Indispensable pour retoucher, restyliser ou itérer sur un visuel existant.</td>
+        </tr>
+        <tr>
+          <td>Inpainting</td>
+          <td>Tu sélectionnes une zone précise et tu demandes à l'IA de la régénérer.</td>
+          <td>Très utile pour effacer un objet, changer un visage, corriger un détail.</td>
+        </tr>
+        <tr>
+          <td>Reference / ControlNet</td>
+          <td>Tu donnes une image de référence pour le style, la pose ou la composition.</td>
+          <td>Essentiel pour la cohérence : même personnage sur plusieurs visuels.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
       <span>Nano Banana</span><span>GPT Image</span><span>Midjourney</span><span>Ideogram</span><span>FLUX</span><span>Stable Diffusion</span>
       <span>Nano Banana</span><span>GPT Image</span><span>Midjourney</span><span>Ideogram</span><span>FLUX</span><span>Stable Diffusion</span>
     </div>
@@ -393,10 +693,89 @@
     <div class="models-grid" id="imageGrid"></div>
   </section>
 
-  <div class="mini-marquee" aria-hidden="true" id="video">
+  <div class="mini-marquee" aria-hidden="true">
     <div class="mini-marquee-track">
       <span>Gemini Omni</span><span>Sora</span><span>Veo</span><span>Runway</span><span>Kling</span><span>Grok Imagine</span>
       <span>Gemini Omni</span><span>Sora</span><span>Veo</span><span>Runway</span><span>Kling</span><span>Grok Imagine</span>
+    </div>
+  </div>
+
+  <section class="creative-shell" id="video">
+    <div class="section-label">Vidéo IA · dans la vraie vie</div>
+    <h2 class="section-title">La vidéo IA, sans la hype.</h2>
+
+    <div class="video-intro">
+      <div>
+        <h3>Ce n'est pas un LLM avec une caméra.</h3>
+        <p>La vidéo IA répond à d'autres critères que l'image ou le texte : <strong>durée maximale</strong>, <strong>audio synchronisé ou pas</strong>, <strong>cohérence du personnage entre plans</strong>, <strong>image-to-video pour partir d'une photo</strong>, <strong>prix au seconde</strong>.</p>
+        <p>En 2026, aucun modèle ne fait tout. Tu choisis souvent <strong>en fonction du livrable</strong> : un teaser de 8 secondes pour Instagram, une scène narrative de 30 secondes, ou une vidéo retravaillée à partir d'images existantes.</p>
+      </div>
+      <div class="video-intro-stats">
+        <div class="video-stat"><b>8–30s</b><span>durée typique d'une vidéo IA aujourd'hui</span></div>
+        <div class="video-stat"><b>10×</b><span>plus cher que l'image, au seconde de rendu</span></div>
+        <div class="video-stat"><b>Souvent</b><span>l'audio est à ajouter en post-prod</span></div>
+        <div class="video-stat"><b>Rare</b><span>la vraie cohérence personnage longue durée</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">Dans ta situation...</div>
+    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Quel modèle vidéo pour quoi ?</h2>
+
+    <div class="decision-grid-video">
+      <article class="decision-card">
+        <h3>Narration courte</h3>
+        <p><strong>Sora</strong> est conçu pour produire une séquence avec une intention narrative claire — utile pour un teaser, un spot ou un storytelling de 10 à 20 secondes.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Audio synchronisé</h3>
+        <p><strong>Veo 3.1</strong> sort une vidéo courte avec une bande son cohérente. Le compromis le plus naturel quand tu veux éviter de monter le son après coup.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Édition multimodale</h3>
+        <p><strong>Gemini Omni</strong> accepte texte, image, audio ou vidéo en entrée et modifie ta vidéo en conversation. Le pari le plus intéressant côté workflow.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Production créative</h3>
+        <p><strong>Runway Gen-4</strong> joue plus le rôle de studio que de chatbot. Mieux adapté quand tu veux un outil de production avec timeline et contrôle plan par plan.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Clip rapide social</h3>
+        <p><strong>Kling 2.5 Turbo</strong> reste un concurrent sérieux pour des clips courts. À garder sous la main, mais à sourcer avant tout usage marque-sensible.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Test format social</h3>
+        <p><strong>Grok Imagine</strong> sert à tester très vite un format pour X ou un teaser jetable. Cadre plus risqué : à éviter pour une marque qui doit protéger son image.</p>
+      </article>
+    </div>
+
+    <div class="compare-strip" style="margin-top:32px;">
+      <article class="banana">
+        <div class="label">Narration premium</div>
+        <h3>Sora</h3>
+        <ul>
+          <li>Pensé pour les séquences avec intention de story.</li>
+          <li>Image-to-video et génération audio intégrés.</li>
+          <li>À privilégier quand la qualité narrative compte plus que la rapidité.</li>
+          <li>Reste dans l'écosystème OpenAI : pratique si tu y es déjà.</li>
+        </ul>
+      </article>
+      <article class="banana">
+        <div class="label">Audio natif sync</div>
+        <h3>Veo 3.1</h3>
+        <ul>
+          <li>Sort vidéo + audio cohérents dès la première passe.</li>
+          <li>Court mais propre, idéal pour scène avec dialogue ou ambiance sonore.</li>
+          <li>Accessible via Flow (Google) et l'API.</li>
+          <li>Mon choix si je veux éviter le passage par un outil audio séparé.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Image-to-video</span><span>Text-to-video</span><span>Audio sync</span><span>Cohérence</span><span>Durée max</span><span>Prix au seconde</span>
+      <span>Image-to-video</span><span>Text-to-video</span><span>Audio sync</span><span>Cohérence</span><span>Durée max</span><span>Prix au seconde</span>
     </div>
   </div>
 
@@ -404,6 +783,49 @@
     <div class="section-label">Catalogue vidéo</div>
     <h2 class="section-title">Les modèles vidéo à surveiller.</h2>
     <div class="models-grid" id="videoGrid"></div>
+
+    <div class="section-label" style="margin-top:54px;">À garder en tête</div>
+    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Ce que la hype te cache.</h2>
+    <div class="reality-grid">
+      <article class="reality-card">
+        <h4>Le coût grimpe vite</h4>
+        <p>Une minute de vidéo IA coûte facilement 10 à 50× le prix d'une image équivalente. Si tu veux 20 plans, calcule avant de générer.</p>
+      </article>
+      <article class="reality-card">
+        <h4>La cohérence personnage est dure</h4>
+        <p>Le même visage entre deux plans reste un sujet ouvert. Solutions actuelles : références d'image, fine-tuning, ou montage main avec photos identiques.</p>
+      </article>
+      <article class="reality-card">
+        <h4>L'audio reste souvent à faire</h4>
+        <p>Sauf Veo 3.1 et Sora qui essaient l'audio natif, la plupart des sorties sont muettes. ElevenLabs ou un sound designer restent souvent nécessaires.</p>
+      </article>
+    </div>
+
+    <div class="workflow-panel">
+      <h3>Workflow type pour une vidéo IA propre</h3>
+      <div class="workflow-steps">
+        <div class="workflow-step">
+          <div class="workflow-step-num">01</div>
+          <b>Image clé</b>
+          <span>Génère 1 ou 2 images de référence avec Nano Banana Pro ou Midjourney.</span>
+        </div>
+        <div class="workflow-step">
+          <div class="workflow-step-num">02</div>
+          <b>Animation</b>
+          <span>Passe en image-to-video sur Sora, Veo 3.1 ou Runway pour la séquence courte.</span>
+        </div>
+        <div class="workflow-step">
+          <div class="workflow-step-num">03</div>
+          <b>Audio</b>
+          <span>Si pas natif, ajoute voix avec ElevenLabs et musique d'ambiance.</span>
+        </div>
+        <div class="workflow-step">
+          <div class="workflow-step-num">04</div>
+          <b>Montage</b>
+          <span>Assemble dans CapCut, DaVinci ou Premiere. C'est là que la pub finit.</span>
+        </div>
+      </div>
+    </div>
 
     <div class="cta-band">
       <div>
@@ -553,14 +975,14 @@
     .then(res => res.json())
     .then(data => {
       const models = data.models || [];
-      document.getElementById('imageGrid').innerHTML = models
-        .filter(model => model.category === 'image')
-        .map(renderCard)
-        .join('');
-      document.getElementById('videoGrid').innerHTML = models
-        .filter(model => model.category === 'video')
-        .map(renderCard)
-        .join('');
+      const imageModels = models.filter(m => m.category === 'image');
+      const videoModels = models.filter(m => m.category === 'video');
+      document.getElementById('imageGrid').innerHTML = imageModels.map(renderCard).join('');
+      document.getElementById('videoGrid').innerHTML = videoModels.map(renderCard).join('');
+      const si = document.getElementById('statImage');
+      const sv = document.getElementById('statVideo');
+      if (si) si.textContent = imageModels.length;
+      if (sv) sv.textContent = videoModels.length;
     });
 </script>
 <script src="assets/nav-v2.js" defer></script>

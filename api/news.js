@@ -82,7 +82,7 @@ function parseXml(xml, sourceName, category) {
 }
 
 function rssItem(item, sourceName, category) {
-  const title = str(item.title);
+  const title = decodeEntities(str(item.title));
   const url = str(item.link) || str(item.guid);
   if (!title || !url || !url.startsWith('http')) return null;
   return {
@@ -90,14 +90,14 @@ function rssItem(item, sourceName, category) {
     url,
     sourceName,
     category,
-    excerpt: item.description ? stripHtml(str(item.description)).slice(0, 300) : null,
+    excerpt: item.description ? decodeEntities(stripHtml(str(item.description))).slice(0, 300) : null,
     publishedAt: item.pubDate ? safeDate(str(item.pubDate)) : null,
     image: extractImage(item),
   };
 }
 
 function atomEntry(entry, sourceName, category) {
-  const title = str(entry.title);
+  const title = decodeEntities(str(entry.title));
   let url = '';
   const link = entry.link;
   if (Array.isArray(link)) {
@@ -115,7 +115,7 @@ function atomEntry(entry, sourceName, category) {
     url,
     sourceName,
     category,
-    excerpt: rawExcerpt ? stripHtml(str(rawExcerpt)).slice(0, 300) : null,
+    excerpt: rawExcerpt ? decodeEntities(stripHtml(str(rawExcerpt))).slice(0, 300) : null,
     publishedAt: safeDate(str(entry.published ?? entry.updated ?? '')),
     image: extractImage(entry),
   };
@@ -189,6 +189,18 @@ function str(v) {
   if (v === null || v === undefined) return '';
   if (typeof v === 'object') return v['#text'] ? String(v['#text']) : '';
   return String(v);
+}
+
+function decodeEntities(s) {
+  return s
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/&laquo;/g, '«').replace(/&raquo;/g, '»').replace(/&hellip;/g, '…')
+    .replace(/&mdash;/g, '—').replace(/&ndash;/g, '–')
+    .replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’')
+    .replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”');
 }
 
 function stripHtml(s) {

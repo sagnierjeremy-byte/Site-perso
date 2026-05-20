@@ -1861,6 +1861,7 @@
   <!-- Microsoft Clarity (heatmaps + session replay) -->
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
 <link rel="stylesheet" href="assets/mobile-fixes.css">
+<script src="assets/nav-dropdown.js?v=20260520-unified" defer></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Aller au contenu</a>
@@ -1883,8 +1884,9 @@
 </div>
 
 <!-- Mini-nav Jerwis v2 -->
-<nav class="mini-nav">
-  <a class="brand brand-stamp" href="index" aria-label="Jerwis">
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Navigation principale">
+  <a class="brand brand-stamp" href="/" aria-label="Accueil Jerwis">
     <span class="stamp">
       <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
       <span class="stamp-word">JERWIS</span>
@@ -1895,10 +1897,11 @@
     <span class="burger-icon" aria-hidden="true"></span>
   </button>
   <div class="links" id="mini-nav-links">
-    <a href="apprendre">Apprendre</a>
-    <a href="articles">Articles</a>
-    <a href="podcast">Podcast</a>
-    <a href="index#newsletters">Newsletter</a>
+    <a href="/apprendre">Apprendre</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/consultant-ia-provence">Conseil</a>
+    <a href="/#newsletters">Newsletter</a>
     <div class="more-wrap">
       <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
         Plus
@@ -1911,27 +1914,44 @@
           <span class="more-icon">🧠</span>
           <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
         </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>Modèles image IA</strong><span>Génération d'images, audio, vidéo</span></span>
+        </a>
         <a href="/lexique" role="menuitem">
           <span class="more-icon">📚</span>
-          <span class="more-text"><strong>Lexique IA</strong><span>Tous les termes expliqués</span></span>
+          <span class="more-text"><strong>Lexique IA</strong><span>40 termes expliqués</span></span>
+        </a>
+        <a href="/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code par métier</span></span>
         </a>
         <a href="/outils" role="menuitem">
           <span class="more-icon">🛠</span>
-          <span class="more-text"><strong>Mes outils</strong><span>30 outils du quotidien</span></span>
+          <span class="more-text"><strong>Mes outils</strong><span>Ma stack IA et web</span></span>
         </a>
         <a href="/github" role="menuitem">
           <span class="more-icon">⚡</span>
-          <span class="more-text"><strong>GitHub</strong><span>Mes repos publics</span></span>
+          <span class="more-text"><strong>GitHub</strong><span>Pour non-devs · guide complet</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>Veille IA</strong><span>Auto-mise à jour toutes les 6h</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>Qui je suis</strong><span>Bio + parcours + contact</span></span>
         </a>
         <div class="more-separator"></div>
         <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
           <span class="more-icon">💳</span>
-          <span class="more-text"><strong>Précommande 39 €</strong><span>Générateur de photos IA</span></span>
+          <span class="more-text"><strong>Photos perso · 39 €</strong><span>Générateur de photos IA</span></span>
         </a>
       </div>
     </div>
-</div>
-  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Changer de thème">
     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
       <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
     </svg>
@@ -1941,32 +1961,11 @@
     </svg>
   </button>
 </nav>
+<!-- NAV-UNIFIED-END -->
 <a id="main-content" tabindex="-1"></a>
 <main>
 
 <!-- Header -->
-<header class="header">
-  <div class="header-inner">
-    <a href="index" class="logo">
-      <span class="logo-dot"></span>
-      Jérémy Sagnier
-    </a>
-    <div style="display:flex; align-items:center">
-      <a href="index#learn" class="back-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        Retour au site
-      </a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
-
-
 <!-- Hero -->
 <section class="hero">
   <div class="container">
@@ -3534,6 +3533,5 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
 });
 </script>
 <script src="assets/nav-v2.js" defer></script>
-<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
 </body>
 </html>

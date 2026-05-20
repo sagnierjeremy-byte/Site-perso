@@ -743,6 +743,171 @@
   .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px; }
   @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
   /* ── Responsive ───────────────────────────────────────────────── */
+  /* ── Catalog groups (refonte 2026-05-20) ─────────────────────── */
+  .catalog-search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 0 0 32px;
+    padding: 16px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    position: sticky;
+    top: 12px;
+    z-index: 5;
+    backdrop-filter: blur(8px);
+  }
+  .catalog-search input {
+    flex: 1;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    padding: 11px 16px;
+    font: 500 14px 'Archivo', sans-serif;
+    min-width: 0;
+  }
+  .catalog-group {
+    margin: 0 0 44px;
+  }
+  .catalog-group.is-hidden { display: none; }
+  .group-header {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .group-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .group-eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--teal);
+  }
+  .catalog-group[data-color="fuchsia"] .group-eyebrow::before { background: var(--fuchsia); }
+  .catalog-group[data-color="orange"] .group-eyebrow::before { background: var(--orange); }
+  .catalog-group[data-color="ink"] .group-eyebrow::before { background: var(--ink); }
+  .group-header h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  .group-header h3 .group-count {
+    margin-left: 10px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .group-header p {
+    margin: 0;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 720px;
+  }
+  .group-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .model-card.is-hidden { display: none; }
+  /* Multimedia jump cards (link to /modeles-image-ia) */
+  .multimedia-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .multimedia-jump {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    padding: 24px;
+    text-decoration: none;
+    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .multimedia-jump:hover {
+    transform: translateY(-3px);
+    box-shadow: 8px 8px 0 var(--fuchsia);
+  }
+  .multimedia-jump:nth-child(2):hover { box-shadow: 8px 8px 0 var(--teal); }
+  .multimedia-jump:nth-child(3):hover { box-shadow: 8px 8px 0 var(--orange); }
+  .multimedia-jump .mj-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(251,247,240,.62);
+    margin-bottom: 12px;
+  }
+  .multimedia-jump h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  .multimedia-jump p {
+    color: rgba(251,247,240,.72);
+    line-height: 1.45;
+    font-size: 14px;
+    margin: 0 0 14px;
+  }
+  .multimedia-jump .mj-cta {
+    color: var(--fuchsia);
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: auto;
+  }
+  .multimedia-jump:nth-child(2) .mj-cta { color: var(--teal); }
+  .multimedia-jump:nth-child(3) .mj-cta { color: var(--orange); }
+  .no-results {
+    display: none;
+    padding: 32px;
+    text-align: center;
+    color: var(--ink-soft);
+    background: var(--bg-2);
+    border: 1px dashed var(--line-strong);
+    border-radius: 14px;
+    margin-top: 16px;
+  }
+  .no-results.is-visible { display: block; }
+  .no-results b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  /* Override .model-card-grid padding when used inside groups (already styled) */
+  .group-grid .model-card {
+    padding: 18px;
+  }
   @media (max-width: 980px) {
     .models-hero-inner { grid-template-columns: 1fr; }
     .decision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -751,6 +916,7 @@
     .compare-grid, .compare-verdict { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-band { flex-direction: column; align-items: flex-start; }
     .model-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .group-grid, .multimedia-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
     .models-hero { padding-top: 34px; }
@@ -762,6 +928,8 @@
     .compare-grid, .compare-verdict { grid-template-columns: 1fr; }
     .model-card-grid { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
     .catalog-toolbar { flex-direction: column; align-items: stretch; }
+    .group-grid, .multimedia-grid { grid-template-columns: 1fr; }
+    .catalog-search { flex-direction: column; align-items: stretch; position: static; }
   }
 </style>
 </head>
@@ -867,25 +1035,25 @@
         <div class="choice-use">Assistant généraliste</div>
         <h3>GPT ou Claude Sonnet</h3>
         <p>Si tu veux avancer sans comparer pendant une heure, commence ici. Ce sont les deux choix les plus simples pour réfléchir, écrire et décider.</p>
-        <a class="choice-link" href="#catalogue" data-shortcut="all">Voir les généralistes →</a>
+        <a class="choice-link" href="#group-frontier">Voir les frontier →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Code et agents</div>
         <h3>GPT-Codex, Claude, Qwen Coder</h3>
         <p>Pour modifier un projet, corriger un bug ou lancer des tests, prends un modèle pensé pour travailler avec des fichiers et un terminal.</p>
-        <a class="choice-link" href="#catalogue" data-shortcut="coding">Voir les modèles code →</a>
+        <a class="choice-link" href="#group-frontier">Voir les modèles code →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Budget serré</div>
         <h3>Gemini Flash, DeepSeek, Qwen</h3>
         <p>Quand tu traites beaucoup de textes courts, le meilleur modèle n'est pas toujours le plus cher. Le bon choix est souvent le plus régulier.</p>
-        <a class="choice-link" href="#catalogue" data-shortcut="low_cost">Voir les low cost →</a>
+        <a class="choice-link" href="#group-cheap">Voir les low cost →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Local / confidentialité</div>
         <h3>Qwen, Mistral, Phi, Gemma</h3>
         <p>Le local sert surtout quand tes données ne doivent pas partir chez un fournisseur. Ce n'est pas automatiquement plus simple ni moins cher.</p>
-        <a class="choice-link" href="#catalogue" data-shortcut="local">Voir le local →</a>
+        <a class="choice-link" href="#group-open">Voir l'open-weight →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Image</div>
@@ -981,7 +1149,7 @@
     </table>
 
     <div class="section-eyebrow">Étape 02</div>
-    <h2 class="models-section-title">Mes raccourcis.</h2>
+    <h2 class="models-section-title" id="raccourcis">Mes raccourcis.</h2>
     <div class="reco-grid" id="recoGrid"></div>
   </section>
 
@@ -994,36 +1162,122 @@
 
   <section class="models-shell" id="catalogue">
     <div class="section-eyebrow">Étape 03</div>
-    <h2 class="models-section-title">Le catalogue.</h2>
-    <p class="models-lead" style="margin-bottom:28px;">Filtre par usage, cherche un nom, ou parcours la liste. Chaque fiche donne mon avis en une ligne et un lien vers la source officielle.</p>
+    <h2 class="models-section-title">Le catalogue, par groupes.</h2>
+    <p class="models-lead" style="margin-bottom:24px;"><span id="catalogCount">52</span> modèles classés par budget et par usage. Si tu hésites, regarde plutôt <a href="#raccourcis" style="color:var(--fuchsia);font-weight:800;text-decoration:none;">Mes raccourcis</a> plus haut — c'est mon top 6.</p>
 
-    <div class="usage-grid" id="usageGrid">
-      <button class="usage-btn active" data-use="all"><strong>Tout voir</strong><span>Catalogue complet, sans filtre.</span></button>
-      <button class="usage-btn" data-use="writing"><strong>Écrire</strong><span>Articles, mails, scripts, synthèses.</span></button>
-      <button class="usage-btn" data-use="coding"><strong>Coder</strong><span>Agents, debug, repo, automatisation.</span></button>
-      <button class="usage-btn" data-use="documents"><strong>Documents</strong><span>PDF, longs contextes, analyse.</span></button>
-      <button class="usage-btn" data-use="image"><strong>Image</strong><span>Nano Banana, Midjourney, FLUX.</span></button>
-      <button class="usage-btn" data-use="video"><strong>Vidéo</strong><span>Sora, Veo, Gemini Omni, Runway.</span></button>
-      <button class="usage-btn" data-use="local"><strong>Local</strong><span>Poids ouverts, machine perso, confidentialité.</span></button>
-      <button class="usage-btn" data-use="low_cost"><strong>Moins cher</strong><span>Traiter du volume sans exploser le budget.</span></button>
+    <div class="catalog-search">
+      <input id="searchInput" type="search" placeholder="Chercher GPT, Claude, Mistral, local, open-weight...">
+      <button class="compare-toggle" id="compareToggle" type="button">Comparer 0/4</button>
     </div>
 
-    <div class="catalog-card">
-      <div class="catalog-toolbar">
-        <input id="searchInput" type="search" placeholder="Chercher GPT, Claude, Nano Banana, local...">
-        <button class="compare-toggle" id="compareToggle" type="button">Comparer 0/4</button>
+    <div class="compare-panel" id="comparePanel" aria-live="polite" style="border-radius:14px;margin-bottom:32px;">
+      <div class="compare-head">
+        <strong>Comparateur</strong>
+        <button type="button" id="clearCompare">Vider</button>
       </div>
-      <div class="compare-panel" id="comparePanel" aria-live="polite">
-        <div class="compare-head">
-          <strong>Comparateur</strong>
-          <button type="button" id="clearCompare">Vider</button>
-        </div>
-        <div class="compare-verdict" id="compareVerdict"></div>
-        <div class="compare-grid" id="compareGrid"></div>
-      </div>
-      <div class="count-line" id="countLine">Chargement du catalogue...</div>
-      <div class="model-card-grid" id="modelsBody"></div>
+      <div class="compare-verdict" id="compareVerdict"></div>
+      <div class="compare-grid" id="compareGrid"></div>
     </div>
+
+    <div class="no-results" id="noResults">
+      <b>Aucun modèle ne matche ta recherche.</b>
+      Essaie un autre mot-clé ou regarde "Mes raccourcis" plus haut pour les choix par défaut.
+    </div>
+
+    <!-- GROUPE 1 : Frontier · Premium -->
+    <article class="catalog-group" id="group-frontier" data-color="fuchsia">
+      <div class="group-header">
+        <div class="group-eyebrow">Frontier · Premium</div>
+        <h3>Les LLM les plus capables <span class="group-count" id="count-frontier"></span></h3>
+        <p>Quand le résultat doit être au top : raisonnement, code complexe, agents, longs contextes. Compte 15-30 $ par million de tokens. Tu les utilises quand le coût d'une erreur dépasse le coût du modèle.</p>
+      </div>
+      <div class="group-grid" data-group="frontier"></div>
+    </article>
+
+    <!-- GROUPE 2 : Low cost · Volume -->
+    <article class="catalog-group" id="group-cheap" data-color="teal">
+      <div class="group-header">
+        <div class="group-eyebrow">Low cost · Volume</div>
+        <h3>Bon rapport qualité/prix <span class="group-count" id="count-cheap"></span></h3>
+        <p>Pour traiter beaucoup de tâches simples : classer, résumer, extraire, taguer. Souvent 10× moins cher que les frontier. À combiner avec un modèle premium pour le contrôle final.</p>
+      </div>
+      <div class="group-grid" data-group="cheap"></div>
+    </article>
+
+    <!-- GROUPE 3 : Open-weight -->
+    <article class="catalog-group" id="group-open" data-color="orange">
+      <div class="group-header">
+        <div class="group-eyebrow">Open-weight · Local</div>
+        <h3>Les modèles que tu peux héberger <span class="group-count" id="count-open"></span></h3>
+        <p>Pour garder le contrôle de tes données ou expérimenter sans abonnement. La taille du modèle fait le besoin matériel : 3B tourne sur un Mac, 70B demande un GPU sérieux.</p>
+      </div>
+      <div class="group-grid" data-group="open"></div>
+    </article>
+
+    <!-- GROUPE 4 : Recherche -->
+    <article class="catalog-group" id="group-search" data-color="ink">
+      <div class="group-header">
+        <div class="group-eyebrow">Recherche · Sourcé</div>
+        <h3>Quand tu cherches avec sources <span class="group-count" id="count-search"></span></h3>
+        <p>Optimisé pour répondre avec liens et citations à jour. Plus moteur de réponse qu'assistant créatif. Réflexe à garder : une source citée n'est pas forcément une source suffisante.</p>
+      </div>
+      <div class="group-grid" data-group="search"></div>
+    </article>
+
+    <!-- GROUPE 5 : Multimedia (jump links) -->
+    <article class="catalog-group" id="group-multimedia" data-color="fuchsia">
+      <div class="group-header">
+        <div class="group-eyebrow">Image · Vidéo · Audio</div>
+        <h3>Les modèles créatifs</h3>
+        <p>Image, vidéo et audio ont une page dédiée avec guide de décision, table comparative, workflow type et toutes les voix que j'utilise pour le podcast <em>Guerres d'IA</em>.</p>
+      </div>
+      <div class="multimedia-grid">
+        <a class="multimedia-jump" href="modeles-image-ia.html">
+          <div>
+            <div class="mj-label">7 modèles image</div>
+            <h4>Image</h4>
+            <p>Nano Banana, GPT Image, Midjourney, Ideogram, FLUX, Stable Diffusion.</p>
+          </div>
+          <div class="mj-cta">Voir la page image →</div>
+        </a>
+        <a class="multimedia-jump" href="modeles-image-ia.html#video">
+          <div>
+            <div class="mj-label">6 modèles vidéo</div>
+            <h4>Vidéo</h4>
+            <p>Sora, Veo 3.1, Gemini Omni, Runway Gen-4, Kling, Grok Imagine.</p>
+          </div>
+          <div class="mj-cta">Voir la page vidéo →</div>
+        </a>
+        <a class="multimedia-jump" href="modeles-image-ia.html#audio">
+          <div>
+            <div class="mj-label">4 modèles audio</div>
+            <h4>Audio</h4>
+            <p>Eleven v3, Gemini Native Audio, Whisper, Voxtral. Ma stack podcast.</p>
+          </div>
+          <div class="mj-cta">Voir la page audio →</div>
+        </a>
+      </div>
+    </article>
+
+    <!-- GROUPE 6 : RAG -->
+    <article class="catalog-group" id="group-rag" data-color="teal">
+      <div class="group-header">
+        <div class="group-eyebrow">RAG · Embeddings · Rerank</div>
+        <h3>Les briques pour ta base documentaire <span class="group-count" id="count-rag"></span></h3>
+        <p>Tu ne les utilises pas seul, tu les combines pour faire un RAG : on cherche d'abord dans tes documents (embeddings), on tri (reranking), puis on passe au LLM. Plus précis que coller 100 pages dans un prompt.</p>
+      </div>
+      <div class="group-grid" data-group="rag"></div>
+    </article>
+
+    <!-- GROUPE 7 : Plateforme spécifique -->
+    <article class="catalog-group" id="group-other" data-color="ink">
+      <div class="group-header">
+        <div class="group-eyebrow">Plate-forme spécifique</div>
+        <h3>Modèles intégrés natifs <span class="group-count" id="count-other"></span></h3>
+        <p>Modèles fournis directement par l'OS ou la plate-forme. À connaître si tu construis sur cette base, sinon tu peux ignorer.</p>
+      </div>
+      <div class="group-grid" data-group="other"></div>
+    </article>
 
     <div class="method-grid">
       <article class="method-card">
@@ -1175,20 +1429,69 @@
 <script>
   const state = {
     models: [],
-    usage: 'all',
     query: '',
     compare: []
   };
 
-  const usageLabels = {
-    all: 'Tout voir',
-    writing: 'Écrire',
-    coding: 'Coder',
-    documents: 'Documents',
-    image: 'Image',
-    video: 'Vidéo',
-    local: 'Local',
-    low_cost: 'Moins cher'
+  // Liens directs d'accès grand public (pas la doc, l'app)
+  const ACCESS_URLS = {
+    'openai-gpt-5-5': 'https://chatgpt.com',
+    'openai-gpt-5-4': 'https://chatgpt.com',
+    'openai-gpt-5-3-codex': 'https://platform.openai.com',
+    'anthropic-claude-opus-4-6': 'https://claude.ai',
+    'anthropic-claude-sonnet-4-6': 'https://claude.ai',
+    'anthropic-claude-haiku-4-5': 'https://claude.ai',
+    'google-gemini-3-1-pro-preview': 'https://gemini.google.com',
+    'google-gemini-3-5-flash': 'https://gemini.google.com',
+    'xai-grok-4-3': 'https://grok.com',
+    'mistral-medium-3-5': 'https://chat.mistral.ai',
+    'cohere-command-a': 'https://cohere.com',
+    'perplexity-sonar-pro': 'https://perplexity.ai',
+    'deepseek-v4-flash': 'https://chat.deepseek.com',
+    'qwen3-max': 'https://chat.qwen.ai',
+    'amazon-nova-2-lite': 'https://aws.amazon.com/bedrock',
+    'apple-foundation-models': 'https://developer.apple.com/apple-intelligence',
+    'meta-llama-4-maverick': 'https://www.llama.com',
+    'meta-llama-4-scout': 'https://www.llama.com',
+    'qwen3-235b-a22b': 'https://huggingface.co/Qwen',
+    'qwen3-14b': 'https://huggingface.co/Qwen',
+    'qwen3-coder-next': 'https://huggingface.co/Qwen',
+    'deepseek-r1': 'https://chat.deepseek.com',
+    'deepseek-v3-1': 'https://chat.deepseek.com',
+    'mistral-small-4': 'https://huggingface.co/mistralai',
+    'mistral-magistral-small': 'https://huggingface.co/mistralai',
+    'google-gemma-4': 'https://huggingface.co/google',
+    'microsoft-phi-4': 'https://huggingface.co/microsoft',
+    'minimax-m1': 'https://www.minimax.io',
+    'zai-glm-4-6': 'https://chatglm.cn',
+    'nvidia-nemotron-3-super': 'https://huggingface.co/nvidia',
+    'ai2-olmo-2-32b': 'https://huggingface.co/allenai',
+    'openai-embedding-3-large': 'https://platform.openai.com/docs/guides/embeddings',
+    'cohere-rerank-v4': 'https://cohere.com/rerank',
+    'jina-embeddings-v5': 'https://jina.ai/embeddings',
+    'voyage-3-large': 'https://www.voyageai.com',
+    'qwen3-embedding-reranker': 'https://huggingface.co/Qwen'
+  };
+
+  // Mapping ID → groupe du catalogue
+  const GROUPS = {
+    frontier: ['openai-gpt-5-5', 'openai-gpt-5-4', 'openai-gpt-5-3-codex',
+               'anthropic-claude-opus-4-6', 'anthropic-claude-sonnet-4-6',
+               'google-gemini-3-1-pro-preview', 'xai-grok-4-3'],
+    cheap: ['anthropic-claude-haiku-4-5', 'google-gemini-3-5-flash',
+            'deepseek-v4-flash', 'qwen3-max', 'mistral-medium-3-5',
+            'cohere-command-a', 'amazon-nova-2-lite'],
+    open: ['qwen3-14b', 'qwen3-235b-a22b', 'qwen3-coder-next',
+           'mistral-small-4', 'mistral-magistral-small',
+           'meta-llama-4-maverick', 'meta-llama-4-scout',
+           'deepseek-r1', 'deepseek-v3-1', 'google-gemma-4',
+           'microsoft-phi-4', 'minimax-m1', 'zai-glm-4-6',
+           'nvidia-nemotron-3-super', 'ai2-olmo-2-32b'],
+    search: ['perplexity-sonar-pro'],
+    rag: ['openai-embedding-3-large', 'cohere-rerank-v4',
+          'jina-embeddings-v5', 'voyage-3-large',
+          'qwen3-embedding-reranker'],
+    other: ['apple-foundation-models']
   };
 
   const recoMap = [
@@ -1243,26 +1546,18 @@
     return model.context_window ? `${formatContext(model.context_window)} tokens` : 'Non publié';
   }
 
-  function modelMatchesUsage(model) {
-    if (state.usage === 'all') return true;
-    if (state.usage === 'image' || state.usage === 'video') return model.category === state.usage || model.best_for.includes(state.usage);
-    if (state.usage === 'local') return model.access.includes('local') || model.access.includes('open_weights');
-    return model.best_for.includes(state.usage);
-  }
-
-  function filteredModels() {
-    const q = state.query.toLowerCase();
-    return state.models.filter(model => {
-      const haystack = [model.name, model.family, model.provider, model.category, model.license, model.leo_take, ...(model.best_for || [])].join(' ').toLowerCase();
-      if (q && !haystack.includes(q)) return false;
-      if (!modelMatchesUsage(model)) return false;
-      return true;
-    });
+  function modelMatchesQuery(model) {
+    const q = state.query.toLowerCase().trim();
+    if (!q) return true;
+    const haystack = [model.name, model.family, model.provider, model.category, model.license, model.leo_take, ...(model.best_for || []), ...(model.access || [])].join(' ').toLowerCase();
+    return haystack.includes(q);
   }
 
   function renderStats() {
     document.getElementById('statTotal').textContent = state.models.length;
     document.getElementById('statOpen').textContent = state.models.filter(isOpen).length;
+    const catalogCount = document.getElementById('catalogCount');
+    if (catalogCount) catalogCount.textContent = state.models.length;
   }
 
   function renderCompare() {
@@ -1344,11 +1639,10 @@
     }).join('');
   }
 
-  function renderTable() {
-    const rows = filteredModels();
-    document.getElementById('countLine').textContent = `${rows.length} modèle${rows.length > 1 ? 's' : ''} — filtre : ${usageLabels[state.usage]}`;
-    document.getElementById('modelsBody').innerHTML = rows.map(model => `
-      <article class="model-card">
+  function renderModelCard(model) {
+    const accessUrl = ACCESS_URLS[model.id] || model.sources[0];
+    return `
+      <article class="model-card" data-model-id="${model.id}">
         <div class="model-card-head">
           <div>
             <div class="model-card-name">${model.name}</div>
@@ -1358,19 +1652,40 @@
         </div>
         <p class="model-card-take">${model.leo_take}</p>
         <div class="model-card-tags">
-          <span class="tag">${labelize(model.category)}</span>
           <span class="tag">${labelize(model.pricing_tier)}</span>
-          ${model.best_for.slice(0, 2).map(v => `<span class="tag">${labelize(v)}</span>`).join('')}
+          <span class="tag">${isOpen(model) ? 'open' : 'fermé'}</span>
+          ${(model.best_for || []).slice(0, 2).map(v => `<span class="tag">${labelize(v)}</span>`).join('')}
         </div>
         <div class="model-card-foot">
           <label class="model-card-cmp">
             <input class="compare-box" type="checkbox" data-compare-id="${model.id}" ${state.compare.includes(model.id) ? 'checked' : ''} aria-label="Comparer ${model.name}">
             Comparer
           </label>
-          <a class="source-link" href="${model.sources[0]}" target="_blank" rel="noopener">Vérifier →</a>
+          <div style="display:flex;gap:14px;align-items:center;">
+            <a class="source-link" href="${accessUrl}" target="_blank" rel="noopener">Accéder →</a>
+            <a href="${model.sources[0]}" target="_blank" rel="noopener" style="color:var(--ink-muted);text-decoration:none;font-size:12px;font-family:'JetBrains Mono',monospace;">Docs ↗</a>
+          </div>
         </div>
       </article>
-    `).join('');
+    `;
+  }
+
+  function renderGroups() {
+    let total = 0;
+    Object.keys(GROUPS).forEach(groupKey => {
+      const ids = GROUPS[groupKey];
+      const groupModels = ids
+        .map(id => state.models.find(m => m.id === id))
+        .filter(Boolean);
+      const container = document.querySelector(`[data-group="${groupKey}"]`);
+      if (!container) return;
+      container.innerHTML = groupModels.map(renderModelCard).join('');
+      const countEl = document.getElementById(`count-${groupKey}`);
+      if (countEl) countEl.textContent = `· ${groupModels.length}`;
+      total += groupModels.length;
+    });
+
+    // Attach compare listeners after render
     document.querySelectorAll('[data-compare-id]').forEach(input => {
       input.addEventListener('change', () => {
         const id = input.dataset.compareId;
@@ -1381,39 +1696,49 @@
           state.compare = state.compare.filter(v => v !== id);
         }
         renderCompare();
+        // Sync all checkboxes with same id (just in case)
+        document.querySelectorAll(`[data-compare-id="${id}"]`).forEach(box => {
+          box.checked = state.compare.includes(id);
+        });
       });
     });
-    renderCompare();
   }
 
-  function syncControls() {
-    document.querySelectorAll('.usage-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.use === state.usage);
+  function applySearch() {
+    const q = state.query.toLowerCase().trim();
+    let totalVisible = 0;
+
+    // Filter cards
+    state.models.forEach(model => {
+      const cards = document.querySelectorAll(`[data-model-id="${model.id}"]`);
+      const visible = modelMatchesQuery(model);
+      cards.forEach(card => {
+        card.classList.toggle('is-hidden', !visible);
+      });
+      if (visible) totalVisible += cards.length;
     });
+
+    // Hide empty groups (but keep multimedia visible — it's a jump section)
+    document.querySelectorAll('.catalog-group').forEach(group => {
+      const id = group.id;
+      if (id === 'group-multimedia') return; // always visible
+      const gridDiv = group.querySelector('.group-grid');
+      if (!gridDiv) return;
+      const visibleCards = gridDiv.querySelectorAll('.model-card:not(.is-hidden)');
+      group.classList.toggle('is-hidden', visibleCards.length === 0);
+    });
+
+    // Show / hide no-results
+    const noResults = document.getElementById('noResults');
+    if (noResults) {
+      noResults.classList.toggle('is-visible', q && totalVisible === 0);
+    }
   }
-
-  function renderAll() {
-    syncControls();
-    renderTable();
-  }
-
-  document.querySelectorAll('.usage-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      state.usage = btn.dataset.use;
-      renderAll();
-    });
-  });
-
-  document.querySelectorAll('[data-shortcut]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      state.usage = link.dataset.shortcut;
-      renderAll();
-    });
-  });
 
   document.getElementById('clearCompare').addEventListener('click', () => {
     state.compare = [];
-    renderAll();
+    document.querySelectorAll('[data-compare-id]').forEach(box => { box.checked = false; });
+    renderCompare();
   });
 
   document.getElementById('compareToggle').addEventListener('click', () => {
@@ -1422,7 +1747,7 @@
 
   document.getElementById('searchInput').addEventListener('input', (event) => {
     state.query = event.target.value;
-    renderTable();
+    applySearch();
   });
 
   fetch('data/models-ai.json')
@@ -1434,10 +1759,15 @@
       state.models = data.models || [];
       renderStats();
       renderRecommendations();
-      renderAll();
+      renderGroups();
+      renderCompare();
     })
     .catch(() => {
-      document.getElementById('countLine').textContent = 'Impossible de charger data/models-ai.json';
+      const noResults = document.getElementById('noResults');
+      if (noResults) {
+        noResults.classList.add('is-visible');
+        noResults.innerHTML = '<b>Impossible de charger les modèles.</b>Recharge la page ou reviens plus tard.';
+      }
     });
 </script>
 

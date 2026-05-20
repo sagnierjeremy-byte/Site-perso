@@ -1,5 +1,38 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Refonte radicale du catalogue modeles-ia — fin du filtre "0 modèle"
+
+### Pourquoi
+Le catalogue affichait "0 modèle — filtre : Écrire" quand on cliquait sur un usage qui ne matchait aucun `best_for` du JSON. Le filtre était cassé par design : les usages "writing/coding/documents" cherchaient des chaînes que les fiches n'avaient pas. UX horrible — l'utilisateur clique, ne voit rien, ne sait pas pourquoi. Verbatim Jérémy : "je le trouve tres mauvaise pas utilisable trouve un moyen de modifier ça change completement cette section".
+
+### Livré
+- **Suppression de la usage-grid** (8 boutons qui retournaient souvent 0) + suppression du `modelMatchesUsage()` cassé
+- **Catalogue organisé en 7 groupes pré-classés** avec en-tête éditorial (eyebrow couleur, h3, intro) :
+  1. **Frontier · Premium** (7 modèles) — GPT 5.5/5.4/Codex, Claude Opus/Sonnet, Gemini 3.1 Pro, Grok
+  2. **Low cost · Volume** (7 modèles) — Haiku, Gemini Flash, DeepSeek Flash, Qwen Max, Mistral Medium, Command A, Nova 2 Lite
+  3. **Open-weight · Local** (15 modèles) — Qwen 14B/235B/Coder, Mistral Small/Magistral, Llama 4 Maverick/Scout, DeepSeek R1/V3.1, Gemma 4, Phi-4, MiniMax M1, GLM 4.6, Nemotron, OLMo 2
+  4. **Recherche · Sourcé** (1 modèle) — Perplexity Sonar Pro
+  5. **Image · Vidéo · Audio** — 3 grandes vignettes noires `multimedia-jump` qui redirigent vers `/modeles-image-ia` (avec sous-ancres `#video` et `#audio`)
+  6. **RAG · Embeddings · Rerank** (5 modèles)
+  7. **Plate-forme spécifique** (1 modèle) — Apple Foundation Models
+- **Search bar sticky** en haut du catalogue : masque les cards qui ne matchent pas + masque automatiquement les groupes vides + affiche un panneau "Aucun modèle" éditorial si recherche stérile
+- **Liens directs** : chaque card a "Accéder →" (URL grand public via mapping `ACCESS_URLS`) + "Docs ↗" (en gris, plus discret) — 35 mapping ID → URL ajoutés
+- Choice cards : `data-shortcut` remplacé par anchors directs vers les groupes (`#group-frontier`, `#group-cheap`, `#group-open`)
+- Lien "Mes raccourcis" dans l'intro du catalogue pointe vers `#raccourcis`
+- Nouveau no-results panel avec message éditorial qui propose "Mes raccourcis" en fallback
+
+### Bénéfices UX
+- **Impossible d'avoir "0 modèle"** dans le mode par défaut (les groupes sont pré-remplis)
+- Navigation par scroll naturel au lieu de filtre/déclic
+- Découverte plus large (l'utilisateur voit tous les groupes en scrollant)
+- Compare-panel reste fonctionnel, en sticky en haut, plus discret
+
+### Fichiers touchés
+- `modeles-ia.html` (refonte catalog section + JS complet)
+- `CHANGELOG.md`
+
+---
+
 ## 2026-05-20 · Section audio enrichie + Mistral Voxtral + liens directs partout
 
 ### Pourquoi

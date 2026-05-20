@@ -1,5 +1,22 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Home actualisée pour le hub modèles IA
+
+### Pourquoi
+Après ajout du hub modèles IA, la home ne le mettait pas assez en avant et la pulse-bar du haut ne pouvait pas compter cette nouveauté car le lien footer n'avait pas `data-published`.
+
+### Livré
+- **`index.html`** :
+  - Ajout du lien "Modèles IA" dans la mini-nav.
+  - Ajout d'une 5e carte dans le bloc Apprendre : "Guide vivant · Modèles IA".
+  - Carte datée `data-published="2026-05-20"` pour alimenter automatiquement la pulse-bar.
+  - CTA du parcours mis à jour : "1 comparateur IA".
+
+### Vérification attendue
+La bande du haut doit afficher automatiquement `Dernière MAJ · 20 mai` et compter la page modèles IA dans les nouveautés de la semaine.
+
+---
+
 ## 2026-05-20 · Hub modèles IA V2 — décision + page image/vidéo
 
 ### Pourquoi

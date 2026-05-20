@@ -72,7 +72,7 @@
     el.setAttribute("role", "dialog");
     el.setAttribute("aria-label", "Préférences cookies");
     el.innerHTML =
-      '<p><strong>Cookies marketing</strong> · jerwis.fr utilise un pixel Meta pour mesurer l\'efficacité des pubs Facebook/Instagram. Tu peux refuser — ça ne change rien à ton expérience. <a href="/politique-confidentialite.html#cookies-traceurs">Détails</a>.</p>' +
+      '<p><strong>Cookies marketing</strong> · jerwis.fr utilise un pixel Meta pour mesurer l\'efficacité des pubs Facebook/Instagram. Tu peux refuser — ça ne change rien à ton expérience. <a href="/politique-confidentialite#cookies-traceurs">Détails</a>.</p>' +
       '<div class="actions">' +
       '<button class="decline" type="button">Refuser</button>' +
       '<button class="accept" type="button">Accepter</button>' +

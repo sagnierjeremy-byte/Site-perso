@@ -1,5 +1,25 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Fix mobile home — pulse bar + menu
+
+### Pourquoi
+Sur mobile, la bande noire de vie du site se repliait sur plusieurs lignes et le drawer de la mini-nav restait présent en calque invisible au-dessus du bandeau. Résultat : impression que le bloc newsletter masquait l'arrivée sur la home.
+
+### Livré
+- **`assets/mobile-fixes.css`** :
+  - Pulse-bar mobile forcée sur une ligne horizontale scrollable, hauteur réduite (~37px).
+  - Drawer mini-nav fermé réellement masqué (`display:none`, `pointer-events:none`) jusqu'au clic burger.
+  - Hero blobs bornés en mobile pour éviter les débordements parasites.
+- **`index.html`** :
+  - Versioning du lien `mobile-fixes.css` pour casser le cache navigateur/CDN sur la home.
+
+### Vérifié
+- Mobile 390px : pulse-bar compacte, `Dernière MAJ · 20 mai`, `1 nouveauté`.
+- Menu fermé : liens invisibles et non cliquables.
+- Document width : 390/390 côté `documentElement`.
+
+---
+
 ## 2026-05-20 · Home actualisée pour le hub modèles IA
 
 ### Pourquoi

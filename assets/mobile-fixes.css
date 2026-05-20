@@ -93,6 +93,55 @@ article p a {
   border-radius: 3px;
 }
 
+/* Home mobile — le bandeau noir doit rester compact et ne pas masquer la nav */
+@media (max-width: 760px) {
+  .pulse-bar {
+    padding: 6px 0 !important;
+    overflow: hidden;
+  }
+  .pulse-bar .container {
+    max-width: none;
+    padding: 0;
+  }
+  .pulse-bar-inner {
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 16px;
+  }
+  .pulse-bar-inner::-webkit-scrollbar { display: none; }
+  .pulse-bar-item {
+    flex: 0 0 auto;
+    min-height: 24px;
+  }
+  .pulse-bar-sep { display: inline !important; flex: 0 0 auto; }
+  .hero-blobs {
+    inset: 0 !important;
+    overflow: hidden !important;
+    contain: paint;
+  }
+  .hero-blob {
+    max-width: 88vw;
+    max-height: 88vw;
+  }
+}
+
+/* Mini-nav v2 — fermé, le drawer ne doit pas rester en calque invisible */
+@media (max-width: 960px) {
+  .mini-nav:not(.is-open) .links {
+    display: none !important;
+    pointer-events: none !important;
+  }
+  .mini-nav.is-open .links {
+    display: flex !important;
+    pointer-events: auto !important;
+  }
+}
+
 /* Lecture article mobile : largeur de ligne + corps plus généreux */
 @media (max-width: 640px) {
   .container { padding: 0 18px; }

@@ -9,7 +9,7 @@
 <meta property="og:title" content="Modèles IA : lequel choisir ?">
 <meta property="og:description" content="Un guide vivant pour trier les principaux modèles IA par usage : texte, code, image, vidéo, audio, local, open-weight.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://jerwis.fr/modeles-ia.html">
+<meta property="og:url" content="https://jerwis.fr/modeles-ia">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 
@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="GPT, Claude, Gemini, Mistral, Llama, DeepSeek, Nano Banana, Sora : je trie les modèles IA par usage concret.">
 <meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 
-<link rel="canonical" href="https://jerwis.fr/modeles-ia.html">
+<link rel="canonical" href="https://jerwis.fr/modeles-ia">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/nav-v2.css">
@@ -33,7 +33,7 @@
   "name": "Modèles IA : lequel choisir ?",
   "description": "Guide vivant des principaux modèles IA disponibles, classés par usage.",
   "inLanguage": "fr-FR",
-  "url": "https://jerwis.fr/modeles-ia.html",
+  "url": "https://jerwis.fr/modeles-ia",
   "author": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
@@ -168,7 +168,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
-    margin: 28px 0 42px;
+    margin: 0 0 28px;
   }
   .usage-btn {
     min-height: 88px;
@@ -201,6 +201,67 @@
     font-size: 13px;
     line-height: 1.4;
   }
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 24px 0 18px;
+  }
+  .decision-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 18px;
+    min-height: 218px;
+  }
+  .decision-card strong {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .decision-card p {
+    color: var(--ink-soft);
+    line-height: 1.48;
+    margin: 0 0 12px;
+  }
+  .decision-card b {
+    color: var(--ink);
+    font-weight: 900;
+  }
+  .plain-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0 42px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+  }
+  .plain-table th,
+  .plain-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  .plain-table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .plain-table td:first-child {
+    font-weight: 900;
+    color: var(--ink);
+    min-width: 160px;
+  }
+  .plain-table tr:last-child td { border-bottom: 0; }
   .reco-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -211,16 +272,18 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
-    margin: 26px 0 46px;
+    margin: 26px 0 52px;
   }
   .choice-card {
     border: 1px solid var(--line-strong);
     border-radius: 16px;
     background: var(--surface);
-    padding: 20px;
-    min-height: 188px;
+    padding: 24px;
+    min-height: 210px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   .choice-card::after {
     content: "";
@@ -236,6 +299,18 @@
   .choice-card:nth-child(5)::after { background: rgba(0,178,169,.13); }
   .choice-card:nth-child(3)::after,
   .choice-card:nth-child(6)::after { background: rgba(255,130,0,.14); }
+  .choice-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    border-radius: 16px 0 0 16px;
+    background: var(--fuchsia);
+  }
+  .choice-card:nth-child(2)::before,
+  .choice-card:nth-child(5)::before { background: var(--teal); }
+  .choice-card:nth-child(3)::before,
+  .choice-card:nth-child(6)::before { background: var(--orange); }
   .choice-use {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -256,12 +331,17 @@
     color: var(--ink-soft);
     line-height: 1.5;
     margin: 0 0 14px;
+    flex: 1;
   }
   .choice-link {
     color: var(--fuchsia);
     font-weight: 800;
     text-decoration: none;
+    font-size: 14px;
+    align-self: flex-start;
+    margin-top: auto;
   }
+  .choice-link:hover { text-decoration: underline; }
   .reco-card {
     background: var(--surface);
     border: 1px solid var(--line-strong);
@@ -279,6 +359,9 @@
   }
   .reco-card:nth-child(2)::before { background: var(--fuchsia); }
   .reco-card:nth-child(3)::before { background: var(--orange); }
+  .reco-card:nth-child(4)::before { background: var(--teal); }
+  .reco-card:nth-child(5)::before { background: var(--fuchsia); }
+  .reco-card:nth-child(6)::before { background: var(--orange); }
   .reco-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -325,22 +408,21 @@
     overflow: hidden;
   }
   .catalog-toolbar {
-    display: grid;
-    grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(140px, 176px));
+    display: flex;
     gap: 10px;
     padding: 18px;
     border-bottom: 1px solid var(--line);
     background: var(--bg-2);
+    align-items: center;
   }
-  .catalog-toolbar input,
-  .catalog-toolbar select {
-    width: 100%;
+  .catalog-toolbar input {
+    flex: 1;
     border: 1px solid var(--line-strong);
     border-radius: 999px;
     background: var(--surface);
     color: var(--ink);
-    padding: 11px 14px;
-    font: 500 13px 'Archivo', sans-serif;
+    padding: 11px 16px;
+    font: 500 14px 'Archivo', sans-serif;
   }
   .count-line {
     padding: 14px 18px;
@@ -382,32 +464,17 @@
     cursor: pointer;
     font-weight: 800;
   }
-  .llm-preset-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 0 18px 18px;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg-2);
-  }
-  .llm-preset {
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    background: var(--surface);
-    color: var(--ink);
-    min-height: 38px;
-    padding: 0 13px;
-    cursor: pointer;
-    font: 800 12px 'Archivo', sans-serif;
-  }
-  .llm-preset:hover {
-    border-color: var(--fuchsia);
-    transform: translateY(-1px);
-  }
   .compare-toggle {
     border-color: var(--line-strong);
     background: var(--surface);
     color: var(--ink);
+    min-height: 44px;
+    padding: 0 16px;
+    flex-shrink: 0;
+    font: 800 13px 'Archivo', sans-serif;
+  }
+  .compare-toggle:hover {
+    border-color: var(--fuchsia);
   }
   .compare-grid {
     display: grid;
@@ -494,76 +561,109 @@
     font-size: 13px;
   }
   .compare-box {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     accent-color: var(--fuchsia);
+    cursor: pointer;
   }
-  .score-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 42px;
-    min-height: 28px;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 800;
+  /* ── Model card grid ───────────────────────────────────────────── */
+  .model-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding: 18px;
   }
-  [data-theme="dark"] .score-pill {
-    background: #FBF7F0;
-    color: #0A0A0A;
+  .model-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform .15s, box-shadow .15s;
   }
-  .models-table-wrap { overflow-x: auto; }
-  .models-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 980px;
+  .model-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.09);
   }
-  .models-table th,
-  .models-table td {
-    padding: 15px 16px;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-    vertical-align: top;
+  .model-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
   }
-  .models-table th {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    background: var(--bg-2);
-  }
-  .model-name {
+  .model-card-name {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 17px;
-    line-height: 1.1;
+    font-size: 18px;
+    line-height: 1.05;
     letter-spacing: -.02em;
     text-transform: uppercase;
   }
-  .model-provider {
-    margin-top: 5px;
+  .model-card-sub {
+    margin-top: 4px;
     color: var(--ink-muted);
     font-size: 12px;
   }
-  .model-take {
-    max-width: 360px;
-    line-height: 1.48;
+  .model-card-score {
+    display: flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  [data-theme="dark"] .model-card-score {
+    background: #FBF7F0;
+    color: #0A0A0A;
+  }
+  .model-card-take {
     color: var(--ink-soft);
+    line-height: 1.55;
+    font-size: 14px;
+    flex: 1;
+    margin: 0;
+  }
+  .model-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .model-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    gap: 10px;
+  }
+  .model-card-cmp {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    user-select: none;
   }
   .source-link {
     color: var(--fuchsia);
     text-decoration: none;
     font-weight: 700;
+    font-size: 13px;
   }
   .source-link:hover { text-decoration: underline; }
+  /* ── Method & CTA ─────────────────────────────────────────────── */
   .method-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
-    margin-top: 26px;
+    margin-top: 32px;
   }
   .method-card {
     border: 1px solid var(--line-strong);
@@ -620,6 +720,7 @@
     text-decoration: none;
     font-weight: 800;
   }
+  /* ── Mini-marquee ──────────────────────────────────────────────── */
   .mini-marquee {
     overflow: hidden; padding: 14px 0;
     background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
@@ -641,21 +742,26 @@
   .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px; }
   .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px; }
   @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+  /* ── Responsive ───────────────────────────────────────────────── */
   @media (max-width: 980px) {
     .models-hero-inner { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .usage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .choice-grid, .reco-grid, .method-grid { grid-template-columns: 1fr; }
-    .catalog-toolbar { grid-template-columns: 1fr 1fr; }
     .compare-grid, .compare-verdict { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-band { flex-direction: column; align-items: flex-start; }
+    .model-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
     .models-hero { padding-top: 34px; }
-    .usage-grid, .catalog-toolbar { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .usage-grid { grid-template-columns: 1fr; }
     .hero-panel-grid { grid-template-columns: 1fr; }
     .models-shell { padding-left: 16px; padding-right: 16px; }
     .catalog-card { border-radius: 12px; }
     .compare-grid, .compare-verdict { grid-template-columns: 1fr; }
+    .model-card-grid { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+    .catalog-toolbar { flex-direction: column; align-items: stretch; }
   }
 </style>
 </head>
@@ -728,26 +834,26 @@
     <div class="choice-grid">
       <article class="choice-card">
         <div class="choice-use">Assistant généraliste</div>
-        <h3>Claude Sonnet ou GPT-5.5</h3>
-        <p>Si tu veux avancer sans comparer pendant une heure, commence ici. Bon niveau global, bons raisonnements, bons workflows.</p>
-        <a class="choice-link" href="#catalogue" data-shortcut="general">Voir les généralistes →</a>
+        <h3>GPT ou Claude Sonnet</h3>
+        <p>Si tu veux avancer sans comparer pendant une heure, commence ici. Ce sont les deux choix les plus simples pour réfléchir, écrire et décider.</p>
+        <a class="choice-link" href="#catalogue" data-shortcut="all">Voir les généralistes →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Code et agents</div>
         <h3>GPT-Codex, Claude, Qwen Coder</h3>
-        <p>Pour modifier un repo, debugger ou construire un agent, je privilégie les modèles qui savent utiliser des outils.</p>
+        <p>Pour modifier un projet, corriger un bug ou lancer des tests, prends un modèle pensé pour travailler avec des fichiers et un terminal.</p>
         <a class="choice-link" href="#catalogue" data-shortcut="coding">Voir les modèles code →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Budget serré</div>
-        <h3>DeepSeek, Gemini Flash, Qwen</h3>
-        <p>Quand tu traites du volume, le meilleur modèle premium devient parfois le mauvais choix économique.</p>
+        <h3>Gemini Flash, DeepSeek, Qwen</h3>
+        <p>Quand tu traites beaucoup de textes courts, le meilleur modèle n'est pas toujours le plus cher. Le bon choix est souvent le plus régulier.</p>
         <a class="choice-link" href="#catalogue" data-shortcut="low_cost">Voir les low cost →</a>
       </article>
       <article class="choice-card">
         <div class="choice-use">Local / confidentialité</div>
-        <h3>Qwen, Llama, Mistral, Gemma</h3>
-        <p>Open-weight ne veut pas dire simple, mais c'est la bonne piste si tu veux garder plus de contrôle.</p>
+        <h3>Qwen, Mistral, Phi, Gemma</h3>
+        <p>Le local sert surtout quand tes données ne doivent pas partir chez un fournisseur. Ce n'est pas automatiquement plus simple ni moins cher.</p>
         <a class="choice-link" href="#catalogue" data-shortcut="local">Voir le local →</a>
       </article>
       <article class="choice-card">
@@ -764,16 +870,84 @@
       </article>
     </div>
 
-    <div class="usage-grid" id="usageGrid">
-      <button class="usage-btn active" data-use="all"><strong>Tout voir</strong><span>Catalogue complet, sans filtre.</span></button>
-      <button class="usage-btn" data-use="writing"><strong>Écrire</strong><span>Articles, mails, scripts, synthèses.</span></button>
-      <button class="usage-btn" data-use="coding"><strong>Coder</strong><span>Agents, debug, repo, automatisation.</span></button>
-      <button class="usage-btn" data-use="documents"><strong>Documents</strong><span>PDF, longs contextes, analyse.</span></button>
-      <button class="usage-btn" data-use="image"><strong>Image</strong><span>Nano Banana, Midjourney, FLUX.</span></button>
-      <button class="usage-btn" data-use="video"><strong>Vidéo</strong><span>Sora, Veo, Gemini Omni, Runway.</span></button>
-      <button class="usage-btn" data-use="local"><strong>Local</strong><span>Poids ouverts, machine perso, confidentialité.</span></button>
-      <button class="usage-btn" data-use="low_cost"><strong>Moins cher</strong><span>Traiter du volume sans exploser le budget.</span></button>
+    <div class="section-eyebrow">Guide simple</div>
+    <h2 class="models-section-title">Dans ta situation...</h2>
+    <p class="models-lead">La bonne question n'est pas "quel modèle est le plus fort ?". C'est "qu'est-ce que je veux lui faire faire, avec quelles données, et combien d'erreurs je peux tolérer ?".</p>
+
+    <div class="decision-grid">
+      <article class="decision-card">
+        <strong>Je veux un assistant quotidien</strong>
+        <p><b>Commence par GPT ou Claude Sonnet.</b> Ils savent écrire, résumer, comparer, reformuler et t'aider à décider sans réglages compliqués.</p>
+        <p>Évite de commencer par un modèle local : tu vas gérer la technique avant d'avoir validé l'usage.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux écrire mieux</strong>
+        <p><b>Claude Sonnet</b> est le choix le plus naturel pour un texte propre, nuancé, bien structuré. GPT reste excellent si tu veux plus d'outils autour.</p>
+        <p>Pour publier, demande toujours une version plus courte et une version plus directe.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux chercher avec sources</strong>
+        <p><b>Perplexity Sonar</b> sert à répondre avec liens et sources. C'est plus proche d'un moteur de réponse que d'un assistant créatif.</p>
+        <p>Garde un réflexe simple : une source citée n'est pas forcément une source suffisante.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux lire un gros dossier</strong>
+        <p><b>Gemini</b> est très fort quand tu donnes beaucoup de PDF, images, tableaux ou transcriptions d'un coup.</p>
+        <p>Pour un dossier sensible avec citations, Claude reste très bon si les PDF contiennent du texte lisible.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux coder avec l'IA</strong>
+        <p><b>GPT-Codex ou Claude Code</b> sont les bons choix si l'IA doit lire un projet, modifier des fichiers et lancer des tests.</p>
+        <p>Ne lui demande pas "fais tout". Demande un plan, une petite étape, puis une vérification.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux automatiser beaucoup</strong>
+        <p><b>Haiku, Gemini Flash, Qwen ou DeepSeek</b> sont souvent plus rationnels que les modèles premium pour classer, résumer ou extraire en volume.</p>
+        <p>Le modèle premium sert au contrôle final, pas forcément à chaque ligne traitée.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux garder mes données</strong>
+        <p><b>Qwen, Mistral, Phi ou Gemma</b> peuvent tourner localement ou sur ton propre serveur selon la taille choisie.</p>
+        <p>Local veut dire plus de contrôle, mais aussi machine, maintenance, logs et mises à jour.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux payer moins cher</strong>
+        <p><b>Ne descends pas seulement en prix.</b> Descends en difficulté : petits modèles pour tâches simples, gros modèles pour décisions importantes.</p>
+        <p>Le mauvais calcul, c'est un modèle moins cher qui t'oblige à tout relire deux fois.</p>
+      </article>
     </div>
+
+    <table class="plain-table">
+      <thead>
+        <tr>
+          <th>Mot</th>
+          <th>Traduction simple</th>
+          <th>Ce que ça change pour ton choix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Contexte</td>
+          <td>Tout ce que le modèle peut garder sous les yeux pendant qu'il répond.</td>
+          <td>Utile pour gros dossiers. Inutile de payer très long si tu poses des questions courtes.</td>
+        </tr>
+        <tr>
+          <td>Open-weight</td>
+          <td>Les poids du modèle sont disponibles, mais la licence peut rester encadrée.</td>
+          <td>Bon pour contrôle et local. À relire avant un produit commercial.</td>
+        </tr>
+        <tr>
+          <td>RAG</td>
+          <td>Le système cherche d'abord les bons passages dans tes documents, puis les donne au modèle.</td>
+          <td>Meilleur qu'un énorme prompt si tu as une base documentaire qui vit dans le temps.</td>
+        </tr>
+        <tr>
+          <td>Reranking</td>
+          <td>Un deuxième tri plus précis après une recherche large.</td>
+          <td>Très utile pour éviter que l'assistant réponde avec le mauvais document.</td>
+        </tr>
+      </tbody>
+    </table>
 
     <div class="section-eyebrow">Étape 02</div>
     <h2 class="models-section-title">Mes raccourcis.</h2>
@@ -789,66 +963,35 @@
 
   <section class="models-shell" id="catalogue">
     <div class="section-eyebrow">Étape 03</div>
-    <h2 class="models-section-title">Le catalogue filtrable.</h2>
+    <h2 class="models-section-title">Le catalogue.</h2>
+    <p class="models-lead" style="margin-bottom:28px;">Filtre par usage, cherche un nom, ou parcours la liste. Chaque fiche donne mon avis en une ligne et un lien vers la source officielle.</p>
+
+    <div class="usage-grid" id="usageGrid">
+      <button class="usage-btn active" data-use="all"><strong>Tout voir</strong><span>Catalogue complet, sans filtre.</span></button>
+      <button class="usage-btn" data-use="writing"><strong>Écrire</strong><span>Articles, mails, scripts, synthèses.</span></button>
+      <button class="usage-btn" data-use="coding"><strong>Coder</strong><span>Agents, debug, repo, automatisation.</span></button>
+      <button class="usage-btn" data-use="documents"><strong>Documents</strong><span>PDF, longs contextes, analyse.</span></button>
+      <button class="usage-btn" data-use="image"><strong>Image</strong><span>Nano Banana, Midjourney, FLUX.</span></button>
+      <button class="usage-btn" data-use="video"><strong>Vidéo</strong><span>Sora, Veo, Gemini Omni, Runway.</span></button>
+      <button class="usage-btn" data-use="local"><strong>Local</strong><span>Poids ouverts, machine perso, confidentialité.</span></button>
+      <button class="usage-btn" data-use="low_cost"><strong>Moins cher</strong><span>Traiter du volume sans exploser le budget.</span></button>
+    </div>
+
     <div class="catalog-card">
       <div class="catalog-toolbar">
         <input id="searchInput" type="search" placeholder="Chercher GPT, Claude, Nano Banana, local...">
-        <select id="categoryFilter" aria-label="Filtrer par catégorie">
-          <option value="all">Toutes catégories</option>
-          <option value="llm">LLM / texte</option>
-          <option value="image">Image</option>
-          <option value="video">Vidéo</option>
-          <option value="audio">Audio</option>
-          <option value="embedding">Embeddings</option>
-          <option value="reranking">Reranking</option>
-        </select>
-        <select id="licenseFilter" aria-label="Filtrer par licence">
-          <option value="all">Toutes licences</option>
-          <option value="proprietary">Proprietaire</option>
-          <option value="open">Open / poids ouverts</option>
-        </select>
-        <select id="priceFilter" aria-label="Filtrer par prix">
-          <option value="all">Tous prix</option>
-          <option value="low_cost">Low cost</option>
-          <option value="premium">Premium</option>
-          <option value="local_cost">Local / self-host</option>
-        </select>
         <button class="compare-toggle" id="compareToggle" type="button">Comparer 0/4</button>
-      </div>
-      <div class="llm-preset-row" aria-label="Comparaisons LLM rapides">
-        <button class="llm-preset" type="button" data-preset="frontier">Frontier : GPT / Claude / Gemini</button>
-        <button class="llm-preset" type="button" data-preset="coding">Code : Codex / Claude / Qwen</button>
-        <button class="llm-preset" type="button" data-preset="cheap">Low cost API</button>
-        <button class="llm-preset" type="button" data-preset="local">Local / open-weight</button>
-        <button class="llm-preset" type="button" data-preset="clear">Réinitialiser</button>
       </div>
       <div class="compare-panel" id="comparePanel" aria-live="polite">
         <div class="compare-head">
-          <strong>Comparateur LLM</strong>
+          <strong>Comparateur</strong>
           <button type="button" id="clearCompare">Vider</button>
         </div>
         <div class="compare-verdict" id="compareVerdict"></div>
         <div class="compare-grid" id="compareGrid"></div>
       </div>
       <div class="count-line" id="countLine">Chargement du catalogue...</div>
-      <div class="models-table-wrap">
-        <table class="models-table">
-          <thead>
-            <tr>
-              <th>Modèle</th>
-              <th>Comparer</th>
-              <th>Type</th>
-              <th>Accès</th>
-              <th>Idéal pour</th>
-              <th>Contexte</th>
-              <th>Score</th>
-              <th>Mon avis</th>
-              <th>Source</th>
-            </tr>
-          </thead>
-          <tbody id="modelsBody"></tbody>
-        </table>
-      </div>
+      <div class="model-card-grid" id="modelsBody"></div>
     </div>
 
     <div class="method-grid">
@@ -887,7 +1030,14 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 Jérémy Sagnier</span>
-      <span>Modèles IA · Sources publiques · Mise à jour manuelle</span>
+      <nav style="display:flex;gap:18px;flex-wrap:wrap;">
+        <a href="/" style="color:var(--ink-muted);text-decoration:none;font-size:13px;">Accueil</a>
+        <a href="/apprendre" style="color:var(--ink-muted);text-decoration:none;font-size:13px;">Apprendre</a>
+        <a href="/articles" style="color:var(--ink-muted);text-decoration:none;font-size:13px;">Articles</a>
+        <a href="/news" style="color:var(--ink-muted);text-decoration:none;font-size:13px;">Actus IA</a>
+        <a href="/#newsletters" style="color:var(--fuchsia);font-weight:700;text-decoration:none;font-size:13px;">Newsletter</a>
+      </nav>
+      <span>Sources publiques · Mise à jour manuelle</span>
     </div>
   </div>
 </footer>
@@ -897,9 +1047,6 @@
     models: [],
     usage: 'all',
     query: '',
-    category: 'all',
-    license: 'all',
-    price: 'all',
     compare: []
   };
 
@@ -916,19 +1063,12 @@
 
   const recoMap = [
     { label: 'Choix sûr généraliste', id: 'anthropic-claude-sonnet-4-6' },
-    { label: 'Premium agents et code', id: 'openai-gpt-5-5' },
-    { label: 'Open-weight à suivre', id: 'qwen3-235b-a22b' },
+    { label: 'Premium agents et code', id: 'openai-gpt-5-3-codex' },
+    { label: 'Open-weight simple', id: 'qwen3-14b' },
     { label: 'Image finale', id: 'google-nano-banana-pro' },
     { label: 'Vidéo à surveiller', id: 'google-gemini-omni' },
     { label: 'Recherche sourcée', id: 'perplexity-sonar-pro' }
   ];
-
-  const comparePresets = {
-    frontier: ['openai-gpt-5-5', 'anthropic-claude-sonnet-4-6', 'google-gemini-3-pro'],
-    coding: ['openai-gpt-5-3-codex', 'anthropic-claude-sonnet-4-6', 'qwen3-coder-next', 'mistral-medium-3-5'],
-    cheap: ['deepseek-v4-flash', 'google-gemini-3-flash', 'qwen3-max', 'anthropic-claude-haiku-4-5'],
-    local: ['qwen3-235b-a22b', 'meta-llama-4-maverick', 'mistral-small-4', 'google-gemma-4']
-  };
 
   function formatContext(n) {
     if (!n) return '—';
@@ -986,10 +1126,6 @@
       const haystack = [model.name, model.family, model.provider, model.category, model.license, model.leo_take, ...(model.best_for || [])].join(' ').toLowerCase();
       if (q && !haystack.includes(q)) return false;
       if (!modelMatchesUsage(model)) return false;
-      if (state.category !== 'all' && model.category !== state.category) return false;
-      if (state.license === 'proprietary' && model.license !== 'proprietary') return false;
-      if (state.license === 'open' && !isOpen(model)) return false;
-      if (state.price !== 'all' && model.pricing_tier !== state.price) return false;
       return true;
     });
   }
@@ -1071,7 +1207,7 @@
           <div class="tag-row">
             <span class="tag">${labelize(model.category)}</span>
             <span class="tag">${labelize(model.pricing_tier)}</span>
-            <span class="tag">${isOpen(model) ? 'open' : 'ferme'}</span>
+            <span class="tag">${isOpen(model) ? 'open' : 'fermé'}</span>
           </div>
         </article>
       `;
@@ -1080,34 +1216,39 @@
 
   function renderTable() {
     const rows = filteredModels();
-    document.getElementById('countLine').textContent = `${rows.length} modèle${rows.length > 1 ? 's' : ''} affiché${rows.length > 1 ? 's' : ''} · filtre : ${usageLabels[state.usage]}`;
+    document.getElementById('countLine').textContent = `${rows.length} modèle${rows.length > 1 ? 's' : ''} — filtre : ${usageLabels[state.usage]}`;
     document.getElementById('modelsBody').innerHTML = rows.map(model => `
-      <tr>
-        <td>
-          <div class="model-name">${model.name}</div>
-          <div class="model-provider">${model.provider} · ${model.family}</div>
-        </td>
-        <td><input class="compare-box" type="checkbox" data-compare-id="${model.id}" ${state.compare.includes(model.id) ? 'checked' : ''} aria-label="Comparer ${model.name}"></td>
-        <td><span class="tag">${labelize(model.category)}</span><br><span class="tag">${labelize(model.license)}</span></td>
-        <td><div class="tag-row">${model.access.slice(0, 3).map(v => `<span class="tag">${labelize(v)}</span>`).join('')}</div></td>
-        <td><div class="tag-row">${model.best_for.slice(0, 4).map(v => `<span class="tag">${labelize(v)}</span>`).join('')}</div></td>
-        <td>${formatContext(model.context_window)}</td>
-        <td><span class="score-pill">${model.jerwis_score || '—'}</span></td>
-        <td><div class="model-take">${model.leo_take}</div></td>
-        <td><a class="source-link" href="${model.sources[0]}" target="_blank" rel="noopener">Vérifier</a></td>
-      </tr>
+      <article class="model-card">
+        <div class="model-card-head">
+          <div>
+            <div class="model-card-name">${model.name}</div>
+            <div class="model-card-sub">${model.provider} · ${model.family}</div>
+          </div>
+          <div class="model-card-score">${model.jerwis_score || '—'}</div>
+        </div>
+        <p class="model-card-take">${model.leo_take}</p>
+        <div class="model-card-tags">
+          <span class="tag">${labelize(model.category)}</span>
+          <span class="tag">${labelize(model.pricing_tier)}</span>
+          ${model.best_for.slice(0, 2).map(v => `<span class="tag">${labelize(v)}</span>`).join('')}
+        </div>
+        <div class="model-card-foot">
+          <label class="model-card-cmp">
+            <input class="compare-box" type="checkbox" data-compare-id="${model.id}" ${state.compare.includes(model.id) ? 'checked' : ''} aria-label="Comparer ${model.name}">
+            Comparer
+          </label>
+          <a class="source-link" href="${model.sources[0]}" target="_blank" rel="noopener">Vérifier →</a>
+        </div>
+      </article>
     `).join('');
     document.querySelectorAll('[data-compare-id]').forEach(input => {
       input.addEventListener('change', () => {
         const id = input.dataset.compareId;
         if (input.checked) {
-          if (state.compare.length >= 4) {
-            input.checked = false;
-            return;
-          }
+          if (state.compare.length >= 4) { input.checked = false; return; }
           state.compare.push(id);
         } else {
-          state.compare = state.compare.filter(value => value !== id);
+          state.compare = state.compare.filter(v => v !== id);
         }
         renderCompare();
       });
@@ -1130,32 +1271,13 @@
     btn.addEventListener('click', () => {
       state.usage = btn.dataset.use;
       renderAll();
-      document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
   document.querySelectorAll('[data-shortcut]').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
       state.usage = link.dataset.shortcut;
       renderAll();
-    });
-  });
-
-  document.querySelectorAll('[data-preset]').forEach(button => {
-    button.addEventListener('click', () => {
-      const preset = button.dataset.preset;
-      state.category = preset === 'clear' ? 'all' : 'llm';
-      state.usage = 'all';
-      state.license = 'all';
-      state.price = 'all';
-      state.query = '';
-      state.compare = preset === 'clear' ? [] : [...(comparePresets[preset] || [])];
-      document.getElementById('categoryFilter').value = state.category;
-      document.getElementById('licenseFilter').value = state.license;
-      document.getElementById('priceFilter').value = state.price;
-      document.getElementById('searchInput').value = '';
-      renderAll();
-      document.getElementById('comparePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
@@ -1170,18 +1292,6 @@
 
   document.getElementById('searchInput').addEventListener('input', (event) => {
     state.query = event.target.value;
-    renderTable();
-  });
-  document.getElementById('categoryFilter').addEventListener('change', (event) => {
-    state.category = event.target.value;
-    renderTable();
-  });
-  document.getElementById('licenseFilter').addEventListener('change', (event) => {
-    state.license = event.target.value;
-    renderTable();
-  });
-  document.getElementById('priceFilter').addEventListener('change', (event) => {
-    state.price = event.target.value;
     renderTable();
   });
 

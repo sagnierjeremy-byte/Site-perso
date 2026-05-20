@@ -1,5 +1,57 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Refonte modeles-ia.html — table → cards + UX lecture
+
+### Pourquoi
+La page était lisible pour un dev, pas pour un entrepreneur curieux. La table à 9 colonnes avec 3 dropdowns techniques + preset buttons LLM était surchargée. Demande explicite de Jérémy : "repense cette page pour qu'elle soit utile pour la personne qui la lit".
+
+### Livré
+- **`modeles-ia.html`** — refonte UX :
+  - **Table remplacée par grille de cards** (3→2→1 col responsive) : chaque card = nom, provider, score, avis en 1 ligne, tags, lien source + checkbox comparer
+  - **Toolbar simplifié** : search + bouton "Comparer X/4" uniquement — suppression des 3 dropdowns (catégorie, licence, prix) trop techniques
+  - **Preset buttons LLM supprimés** de la toolbar (audience non-dev)
+  - **Usage buttons déplacés** : maintenant juste au-dessus du catalogue (logique), plus flottants avant la section "Dans ta situation"
+  - Section "Guide simple" renommée "Dans ta situation..." (plus orientée lecteur)
+  - Choice cards : ajout de bord coloré (fuchsia/teal/orange) pour distinguer visuellement les 6 cas d'usage
+  - Footer enrichi avec nav links (Accueil, Apprendre, Articles, Actus IA, Newsletter)
+  - URLs fixées : canonical + og:url + schema.org → `/modeles-ia` (sans `.html`)
+  - JS simplifié : suppression des state.category/license/price + leurs listeners, filteredModels() épuré
+
+### Fichiers touchés
+- `modeles-ia.html` (refonte majeure)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Éventuellement : filtres avancés derrière un "Voir filtres avancés ▾" pour les power users
+
+---
+
+## 2026-05-20 · Recherche LLM + guide sans jargon
+
+### Pourquoi
+La page listait déjà beaucoup de modèles, mais il manquait une couche de décision lisible pour quelqu'un qui ne veut pas comparer des benchmarks : écrire, chercher, lire des PDF, coder, automatiser, garder ses données ou réduire le budget.
+
+### Livré
+- **`modeles-ia.html`** :
+  - Ajout d'un bloc "Quel LLM choisir ?" en 8 usages concrets.
+  - Ajout d'un mini-glossaire sans jargon : contexte, open-weight, RAG, reranking.
+  - Raccourcis éditoriaux réécrits pour éviter le réflexe "meilleur modèle universel".
+  - Presets mis à jour : frontier, code, low cost, local.
+- **`data/models-ai.json`** :
+  - Correction de fiches LLM à risque : Claude Opus 4.7 → Claude Opus 4.6, Gemini 3 Pro → Gemini 3.1 Pro Preview, Gemini 3 Flash → Gemini 3.5 Flash.
+  - Ajout de **Qwen3 14B** comme option locale/open-weight plus accessible que les très gros modèles.
+  - Sources revues vers docs officielles / model cards.
+
+### Décisions
+- Le comparateur doit recommander par usage, pas par score brut.
+- Le local est présenté comme un choix de contrôle/confidentialité, pas comme une option automatiquement moins chère.
+- Perplexity est décrit comme moteur de réponse sourcé, pas comme assistant généraliste.
+
+### Vérifié
+- `npm test`
+
+---
+
 ## 2026-05-20 · Comparateur LLM amélioré
 
 ### Pourquoi

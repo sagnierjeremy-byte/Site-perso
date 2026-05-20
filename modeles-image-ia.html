@@ -23,7 +23,7 @@
 <link rel="canonical" href="https://jerwis.fr/modeles-image-ia">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
-<link rel="stylesheet" href="assets/nav-v2.css">
+<link rel="stylesheet" href="assets/nav-v2.css?v=20260520-dropdown">
 <link rel="stylesheet" href="assets/mobile-fixes.css">
 
 <script type="application/ld+json">
@@ -511,6 +511,173 @@
     text-decoration: none;
     font-weight: 900;
   }
+  /* ── Direct access link on decision cards ────────────────────── */
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 14px;
+    color: var(--fuchsia);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -.01em;
+  }
+  .card-link:hover { text-decoration: underline; }
+  /* ── Audio detail cards ──────────────────────────────────────── */
+  .audio-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 28px 0 36px;
+  }
+  .audio-detail {
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    background: var(--surface);
+    padding: 24px;
+    position: relative;
+  }
+  .audio-detail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--teal);
+    border-radius: 16px 16px 0 0;
+  }
+  .audio-detail:nth-child(2)::before { background: var(--fuchsia); }
+  .audio-detail:nth-child(3)::before { background: var(--orange); }
+  .audio-detail:nth-child(4)::before { background: var(--teal); }
+  .audio-detail h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .audio-detail .audio-detail-sub {
+    color: var(--ink-muted);
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .audio-detail p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+  .audio-detail dl {
+    margin: 0 0 14px;
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 6px 12px;
+  }
+  .audio-detail dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding-top: 4px;
+  }
+  .audio-detail dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .audio-detail dd b { color: var(--ink); }
+  /* ── Podcast stack panel ─────────────────────────────────────── */
+  .podcast-stack {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 32px;
+    box-shadow: 10px 10px 0 var(--orange);
+    border: 1px solid rgba(255,255,255,.12);
+  }
+  .podcast-stack .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(251,247,240,.62);
+    margin-bottom: 10px;
+  }
+  .podcast-stack h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .podcast-stack > p {
+    margin: 0 0 20px;
+    color: rgba(251,247,240,.78);
+    line-height: 1.6;
+  }
+  .podcast-cast {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .podcast-voice {
+    border: 1px solid rgba(251,247,240,.18);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: rgba(251,247,240,.05);
+  }
+  .podcast-voice b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin-bottom: 4px;
+  }
+  .podcast-voice span {
+    display: block;
+    color: rgba(251,247,240,.7);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .podcast-pipeline {
+    border-top: 1px solid rgba(251,247,240,.15);
+    padding-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .podcast-pipeline div {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(251,247,240,.78);
+  }
+  .podcast-pipeline b {
+    display: block;
+    color: #FBF7F0;
+    margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .podcast-stack-cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 18px;
+    color: var(--orange);
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .podcast-stack-cta:hover { text-decoration: underline; }
   @media (max-width: 920px) {
     .creative-inner { grid-template-columns: 1fr; }
     .decision-grid,
@@ -521,12 +688,16 @@
     .video-intro { grid-template-columns: 1fr; }
     .workflow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-band { flex-direction: column; align-items: flex-start; }
+    .audio-detail-grid { grid-template-columns: 1fr; }
+    .podcast-cast { grid-template-columns: 1fr; }
+    .podcast-pipeline { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
     .creative-shell { padding-left: 16px; padding-right: 16px; }
     .creative-hero { padding-top: 34px; }
     .hero-panel-grid { grid-template-columns: 1fr; }
     .workflow-steps { grid-template-columns: 1fr; }
+    .audio-detail dl { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -590,26 +761,32 @@
       <article class="decision-card">
         <h3>Image finale</h3>
         <p><strong>Nano Banana Pro</strong> si la typo, les détails et le rendu final comptent. Je ne l'utiliserais pas pour générer 40 brouillons.</p>
+        <a class="card-link" href="https://labs.google" target="_blank" rel="noopener">labs.google →</a>
       </article>
       <article class="decision-card">
         <h3>Variantes rapides</h3>
         <p><strong>Nano Banana 2</strong> pour tester vite des compositions, styles et idées avant de garder la meilleure piste.</p>
+        <a class="card-link" href="https://labs.google" target="_blank" rel="noopener">labs.google →</a>
       </article>
       <article class="decision-card">
         <h3>Texte dans l'image</h3>
         <p><strong>Ideogram</strong> reste une option très pratique quand le visuel contient un slogan, une affiche ou un layout.</p>
+        <a class="card-link" href="https://ideogram.ai" target="_blank" rel="noopener">ideogram.ai →</a>
       </article>
       <article class="decision-card">
         <h3>Style créatif</h3>
         <p><strong>Midjourney</strong> garde un vrai avantage direction artistique, surtout si l'API n'est pas ton critère principal.</p>
+        <a class="card-link" href="https://midjourney.com" target="_blank" rel="noopener">midjourney.com →</a>
       </article>
       <article class="decision-card">
         <h3>Contrôle / open</h3>
         <p><strong>FLUX</strong> et <strong>Stable Diffusion</strong> sont les bonnes pistes si tu veux personnaliser, héberger ou expérimenter.</p>
+        <a class="card-link" href="https://blackforestlabs.ai" target="_blank" rel="noopener">blackforestlabs.ai →</a>
       </article>
       <article class="decision-card">
         <h3>Vidéo IA</h3>
         <p><strong>Gemini Omni</strong> pour l'édition multimodale, <strong>Sora</strong> pour narration, <strong>Veo</strong> pour scène courte avec audio.</p>
+        <a class="card-link" href="#video">Voir la section vidéo ↓</a>
       </article>
     </div>
 
@@ -622,6 +799,7 @@
           <li>Plus adapté aux scènes complexes et à la typographie.</li>
           <li>Moins naturel pour produire beaucoup de variantes économiques.</li>
         </ul>
+        <a class="card-link" href="https://labs.google" target="_blank" rel="noopener" style="color:var(--orange);margin-top:18px;">labs.google →</a>
       </article>
       <article class="banana">
         <div class="label">Itération rapide</div>
@@ -631,6 +809,7 @@
           <li>Plus logique pour brouillons, tests, styles et lots d'images.</li>
           <li>À remplacer par Pro quand l'image doit être publiable telle quelle.</li>
         </ul>
+        <a class="card-link" href="https://labs.google" target="_blank" rel="noopener" style="color:var(--teal);margin-top:18px;">labs.google →</a>
       </article>
     </div>
   </section>
@@ -725,26 +904,32 @@
       <article class="decision-card">
         <h3>Narration courte</h3>
         <p><strong>Sora</strong> est conçu pour produire une séquence avec une intention narrative claire — utile pour un teaser, un spot ou un storytelling de 10 à 20 secondes.</p>
+        <a class="card-link" href="https://openai.com/sora" target="_blank" rel="noopener">openai.com/sora →</a>
       </article>
       <article class="decision-card">
         <h3>Audio synchronisé</h3>
         <p><strong>Veo 3.1</strong> sort une vidéo courte avec une bande son cohérente. Le compromis le plus naturel quand tu veux éviter de monter le son après coup.</p>
+        <a class="card-link" href="https://labs.google/fx/fr/tools/flow" target="_blank" rel="noopener">labs.google/fx (Flow) →</a>
       </article>
       <article class="decision-card">
         <h3>Édition multimodale</h3>
         <p><strong>Gemini Omni</strong> accepte texte, image, audio ou vidéo en entrée et modifie ta vidéo en conversation. Le pari le plus intéressant côté workflow.</p>
+        <a class="card-link" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com →</a>
       </article>
       <article class="decision-card">
         <h3>Production créative</h3>
         <p><strong>Runway Gen-4</strong> joue plus le rôle de studio que de chatbot. Mieux adapté quand tu veux un outil de production avec timeline et contrôle plan par plan.</p>
+        <a class="card-link" href="https://runwayml.com" target="_blank" rel="noopener">runwayml.com →</a>
       </article>
       <article class="decision-card">
         <h3>Clip rapide social</h3>
         <p><strong>Kling 2.5 Turbo</strong> reste un concurrent sérieux pour des clips courts. À garder sous la main, mais à sourcer avant tout usage marque-sensible.</p>
+        <a class="card-link" href="https://klingai.com" target="_blank" rel="noopener">klingai.com →</a>
       </article>
       <article class="decision-card">
         <h3>Test format social</h3>
         <p><strong>Grok Imagine</strong> sert à tester très vite un format pour X ou un teaser jetable. Cadre plus risqué : à éviter pour une marque qui doit protéger son image.</p>
+        <a class="card-link" href="https://grok.com" target="_blank" rel="noopener">grok.com →</a>
       </article>
     </div>
 
@@ -758,6 +943,7 @@
           <li>À privilégier quand la qualité narrative compte plus que la rapidité.</li>
           <li>Reste dans l'écosystème OpenAI : pratique si tu y es déjà.</li>
         </ul>
+        <a class="card-link" href="https://openai.com/sora" target="_blank" rel="noopener" style="color:var(--orange);margin-top:18px;">openai.com/sora →</a>
       </article>
       <article class="banana">
         <div class="label">Audio natif sync</div>
@@ -768,6 +954,7 @@
           <li>Accessible via Flow (Google) et l'API.</li>
           <li>Mon choix si je veux éviter le passage par un outil audio séparé.</li>
         </ul>
+        <a class="card-link" href="https://labs.google/fx/fr/tools/flow" target="_blank" rel="noopener" style="color:var(--teal);margin-top:18px;">labs.google/fx (Flow) →</a>
       </article>
     </div>
 
@@ -905,26 +1092,137 @@
   <section class="creative-shell" id="audio">
     <div class="section-label">Audio · le 3e étage créatif</div>
     <h2 class="section-title">L'audio, le maillon souvent oublié.</h2>
-    <p class="lead" style="margin-bottom:24px;">Une vidéo IA muette ne raconte rien. Un agent vocal sans voix propre sonne robot. Ces 3 outils complètent l'image et la vidéo — narration, agents temps réel, transcription.</p>
+    <p class="lead" style="margin-bottom:24px;">Une vidéo IA muette ne raconte rien. Un agent vocal sans voix propre sonne robot. Ces 4 outils couvrent les vrais besoins audio : <strong>narration propre, agents vocaux temps réel, transcription précise, audio open-weight</strong>.</p>
 
-    <div class="decision-grid-video">
+    <div class="decision-grid">
       <article class="decision-card">
         <h3>Narration propre</h3>
-        <p><strong>Eleven v3</strong> reste la référence quand tu veux une voix qui ne sonne pas synthétique : voiceover de vidéo, podcast, livre audio. Coût raisonnable à l'abonnement.</p>
+        <p><strong>Eleven v3</strong> reste la référence quand tu veux une voix qui ne sonne pas synthétique : voiceover de vidéo, podcast, livre audio. C'est ce que j'utilise pour <em>Guerres d'IA</em>.</p>
+        <a class="card-link" href="https://elevenlabs.io" target="_blank" rel="noopener">elevenlabs.io →</a>
       </article>
       <article class="decision-card">
         <h3>Agent vocal temps réel</h3>
-        <p><strong>Gemini Native Audio</strong> est pensé pour des agents qui parlent et écoutent — pas juste lire un texte. À regarder si tu construis un assistant vocal.</p>
+        <p><strong>Gemini Native Audio</strong> est pensé pour des agents qui parlent <em>et</em> écoutent — pas juste lire un texte. À regarder si tu construis un assistant vocal interactif.</p>
+        <a class="card-link" href="https://ai.google.dev/gemini-api/docs/live" target="_blank" rel="noopener">ai.google.dev/live →</a>
       </article>
       <article class="decision-card">
         <h3>Transcription</h3>
-        <p><strong>Whisper</strong> reste utile pour transcrire audio → texte. Modèle open-weight d'OpenAI, peut tourner localement, idéal pour du volume.</p>
+        <p><strong>Whisper</strong> reste utile pour transcrire audio → texte. Modèle open-weight d'OpenAI, peut tourner localement, idéal pour du volume sans coût par minute.</p>
+        <a class="card-link" href="https://github.com/openai/whisper" target="_blank" rel="noopener">github.com/openai/whisper →</a>
+      </article>
+      <article class="decision-card">
+        <h3>Audio open-weight</h3>
+        <p><strong>Voxtral</strong> de Mistral fait transcription et compréhension audio en open-weight (Apache 2.0). Le bon choix si tu veux du multilingue sans envoyer chez un fournisseur.</p>
+        <a class="card-link" href="https://mistral.ai/news/voxtral" target="_blank" rel="noopener">mistral.ai/voxtral →</a>
       </article>
     </div>
 
-    <div class="section-label" style="margin-top:40px;">Catalogue audio</div>
-    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Les 3 modèles audio à connaître.</h2>
-    <div class="models-grid" id="audioGrid"></div>
+    <div class="section-label" style="margin-top:40px;">En détail</div>
+    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Ce que fait vraiment chaque modèle.</h2>
+
+    <div class="audio-detail-grid">
+      <article class="audio-detail">
+        <h4>Eleven v3</h4>
+        <div class="audio-detail-sub">ElevenLabs · text-to-speech · propriétaire</div>
+        <p>Le modèle voix grand public le plus naturel sur la narration longue. Voix françaises crédibles, contrôle prosodie (pauses, intonation, emphase) via tags, voice cloning à partir de 1 minute d'échantillon.</p>
+        <dl>
+          <dt>Modalités</dt><dd>Text-to-speech, voice cloning, dubbing</dd>
+          <dt>Langues</dt><dd>32+ langues, dont français très naturel</dd>
+          <dt>Prix</dt><dd><b>Abonnement</b> : Starter 5 $/mois · Creator 22 $/mois · Pro 99 $/mois (selon caractères/minutes)</dd>
+          <dt>Accès</dt><dd>Web app, API, intégrations (CapCut, Descript, Make...)</dd>
+          <dt>Pour qui</dt><dd>Créateurs podcast, vidéo, livre audio, e-learning</dd>
+          <dt>Limites</dt><dd>Pas d'open-weight, dépendance plateforme, qualité varie selon la voix</dd>
+        </dl>
+        <a class="card-link" href="https://elevenlabs.io" target="_blank" rel="noopener">Tester elevenlabs.io →</a>
+      </article>
+
+      <article class="audio-detail">
+        <h4>Gemini Native Audio</h4>
+        <div class="audio-detail-sub">Google · audio bidirectionnel temps réel · propriétaire</div>
+        <p>Capable d'écouter ET de répondre vocalement, en temps réel, avec interruptions naturelles. La brique pour construire un agent qui converse — pas juste un TTS qui lit un script.</p>
+        <dl>
+          <dt>Modalités</dt><dd>Audio in, audio out, temps réel, interruption</dd>
+          <dt>Langues</dt><dd>Multilingue (français inclus)</dd>
+          <dt>Prix</dt><dd><b>API</b> : facturé au token audio (≈ 25 $/M tokens audio input)</dd>
+          <dt>Accès</dt><dd>API Gemini Live, Vertex AI, Google AI Studio</dd>
+          <dt>Pour qui</dt><dd>Devs qui construisent un assistant vocal, support client IA</dd>
+          <dt>Limites</dt><dd>Plus dev que créatif, latence à mesurer sur tes usages</dd>
+        </dl>
+        <a class="card-link" href="https://ai.google.dev/gemini-api/docs/live" target="_blank" rel="noopener">Docs Gemini Live →</a>
+      </article>
+
+      <article class="audio-detail">
+        <h4>Whisper</h4>
+        <div class="audio-detail-sub">OpenAI · speech-to-text · MIT (open-weight)</div>
+        <p>Le standard de fait pour transcrire. 99 langues détectées automatiquement, robuste sur audio bruité, peut tourner localement sur un Mac. Le large-v3 reste la référence en 2026.</p>
+        <dl>
+          <dt>Modalités</dt><dd>Speech-to-text, translation (vers anglais)</dd>
+          <dt>Langues</dt><dd>99 langues détectées auto</dd>
+          <dt>Prix</dt><dd><b>Gratuit en local</b> · API OpenAI : 0,006 $/minute</dd>
+          <dt>Accès</dt><dd>GitHub (pip install), Whisper.cpp, API OpenAI, Hugging Face</dd>
+          <dt>Pour qui</dt><dd>Transcription podcast, retranscription réunions, sous-titrage</dd>
+          <dt>Limites</dt><dd>Ne génère pas de voix, latence en local selon ta machine</dd>
+        </dl>
+        <a class="card-link" href="https://github.com/openai/whisper" target="_blank" rel="noopener">GitHub openai/whisper →</a>
+      </article>
+
+      <article class="audio-detail">
+        <h4>Voxtral</h4>
+        <div class="audio-detail-sub">Mistral AI · audio understanding · Apache 2.0 (open-weight)</div>
+        <p>Modèle audio open-weight de Mistral (2024-2025). Deux tailles : <b>Mini 3B</b> (rapide, edge) et <b>Small 24B</b> (qualité production). Plus large que Whisper : il transcrit ET comprend (Q&A sur l'audio, résumé, analyse).</p>
+        <dl>
+          <dt>Modalités</dt><dd>Speech-to-text + audio understanding (Q&A, résumé)</dd>
+          <dt>Langues</dt><dd>Multilingue solide (FR, EN, ES, DE, IT, PT, NL, HI)</dd>
+          <dt>Prix</dt><dd><b>Gratuit en local</b> · API Mistral : 0,001 $/min (Small) · 0,0004 $/min (Mini)</dd>
+          <dt>Accès</dt><dd>Mistral API, Hugging Face, le Chat, déploiement local (vLLM)</dd>
+          <dt>Pour qui</dt><dd>Confidentialité, volume, multilingue, contexte long (40 min)</dd>
+          <dt>Limites</dt><dd>Ne génère pas de voix, écosystème moins mature qu'OpenAI</dd>
+        </dl>
+        <a class="card-link" href="https://huggingface.co/mistralai/Voxtral-Small-24B-2507" target="_blank" rel="noopener">Hugging Face mistralai/Voxtral →</a>
+      </article>
+    </div>
+
+    <div class="podcast-stack">
+      <div class="label">Ma stack — Jerwis Productions</div>
+      <h3>Comment je produis le podcast Guerres d'IA</h3>
+      <p>Pas de buzz, du concret. Voici exactement la chaîne d'outils que j'utilise pour produire un épisode de 15-20 minutes, avec voix synthétiques, mastering studio, zéro humain devant un micro. Tu peux la copier ou t'en inspirer.</p>
+
+      <div class="podcast-cast">
+        <div class="podcast-voice">
+          <b>Narrateur · Paul K</b>
+          <span>Voix « Deep French Narrator » sur Eleven v3. Le ton calme et grave qui porte une narration de 17 minutes sans saouler.</span>
+        </div>
+        <div class="podcast-voice">
+          <b>Sam Altman · Simon</b>
+          <span>Voix française masculine Eleven, pitch un peu plus haut pour coller au timbre rapide d'Altman.</span>
+        </div>
+        <div class="podcast-voice">
+          <b>Dario Amodei · Mathieu</b>
+          <span>Voix française masculine Eleven, plus posée. Le contraste avec Simon rend les dialogues lisibles.</span>
+        </div>
+        <div class="podcast-voice">
+          <b>Daniela Amodei · Camille Martin</b>
+          <span>Voix française féminine Eleven, registre direct et professionnel.</span>
+        </div>
+      </div>
+
+      <div class="podcast-pipeline">
+        <div>
+          <b>01 · Script</b>
+          Écrit avec <strong>Claude Sonnet</strong> à partir de sources publiques (interviews, articles, livres). Relu humainement pour éviter les hallucinations.
+        </div>
+        <div>
+          <b>02 · Synthèse voix</b>
+          Chaque ligne assemblée en Python via l'API ElevenLabs. Tags prosodie pour les pauses, emphases, transitions.
+        </div>
+        <div>
+          <b>03 · Mix & mastering</b>
+          Importé dans <strong>REAPER</strong>. Musique d'ambiance, sound design léger, mastering studio à -16 LUFS pour les normes podcast.
+        </div>
+      </div>
+
+      <a class="podcast-stack-cta" href="podcast.html">Écouter le podcast complet →</a>
+    </div>
 
     <div class="cta-band">
       <div>
@@ -1056,7 +1354,29 @@
     return String(value || '').replaceAll('_', ' ');
   }
 
+  // Liens directs d'accès grand public (pas la doc, l'app)
+  const ACCESS_URLS = {
+    'google-nano-banana-pro': 'https://labs.google',
+    'google-nano-banana-2': 'https://labs.google',
+    'openai-gpt-image': 'https://chatgpt.com',
+    'midjourney-v7': 'https://midjourney.com',
+    'ideogram-3': 'https://ideogram.ai',
+    'black-forest-labs-flux-2': 'https://blackforestlabs.ai',
+    'stability-sd-3-5': 'https://stability.ai',
+    'openai-sora': 'https://openai.com/sora',
+    'google-veo-3-1': 'https://labs.google/fx/fr/tools/flow',
+    'google-gemini-omni': 'https://gemini.google.com',
+    'runway-gen-4': 'https://runwayml.com',
+    'kling-2-5-turbo': 'https://klingai.com',
+    'xai-grok-imagine': 'https://grok.com',
+    'elevenlabs-v3': 'https://elevenlabs.io',
+    'openai-whisper': 'https://github.com/openai/whisper',
+    'google-gemini-native-audio': 'https://ai.google.dev/gemini-api/docs/live',
+    'mistral-voxtral': 'https://huggingface.co/mistralai/Voxtral-Small-24B-2507'
+  };
+
   function renderCard(model) {
+    const accessUrl = ACCESS_URLS[model.id] || model.sources[0];
     return `
       <article class="model-card">
         <div class="model-meta">${model.provider} · ${labelize(model.license)} · score ${model.jerwis_score || '—'}</div>
@@ -1065,7 +1385,10 @@
         <div class="tag-row">
           ${(model.choose_if || []).slice(0, 2).map(item => `<span class="tag">${item}</span>`).join('')}
         </div>
-        <p style="margin-top:14px"><a class="source-link" href="${model.sources[0]}" target="_blank" rel="noopener">Vérifier la source →</a></p>
+        <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+          <a class="source-link" href="${accessUrl}" target="_blank" rel="noopener">Accéder →</a>
+          <a href="${model.sources[0]}" target="_blank" rel="noopener" style="color:var(--ink-muted);text-decoration:none;font-size:12px;font-family:'JetBrains Mono',monospace;">Docs ↗</a>
+        </div>
       </article>
     `;
   }
@@ -1079,8 +1402,6 @@
       const audioModels = models.filter(m => m.category === 'audio');
       document.getElementById('imageGrid').innerHTML = imageModels.map(renderCard).join('');
       document.getElementById('videoGrid').innerHTML = videoModels.map(renderCard).join('');
-      const audioEl = document.getElementById('audioGrid');
-      if (audioEl) audioEl.innerHTML = audioModels.map(renderCard).join('');
       const si = document.getElementById('statImage');
       const sv = document.getElementById('statVideo');
       const sa = document.getElementById('statAudio');

@@ -186,3 +186,176 @@ body > header.article-header { display: none !important; }
 .seo-byline + .tldr {
   margin-top: 16px !important;
 }
+
+/* ============================================================
+ * Dropdown « Plus » (Option B · 5e item de nav avec menu déroulant)
+ * Contient les pages secondaires : Modèles IA, Lexique, Outils,
+ * GitHub, Précommande.
+ * ============================================================ */
+.mini-nav .more-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.mini-nav .more-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono-v2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: transparent;
+  border: none;
+  padding: 0 0 2px;
+  cursor: pointer;
+  position: relative;
+  transition: color .15s;
+}
+.mini-nav .more-trigger::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 2px;
+  background: var(--fuchsia);
+  transition: right .3s cubic-bezier(.2,.7,.2,1);
+}
+.mini-nav .more-trigger:hover,
+.mini-nav .more-trigger[aria-expanded="true"] { color: var(--ink); }
+.mini-nav .more-trigger:hover::after,
+.mini-nav .more-trigger[aria-expanded="true"]::after { right: 0; }
+.mini-nav .more-trigger svg {
+  width: 10px; height: 10px;
+  transition: transform .2s;
+}
+.mini-nav .more-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.mini-nav .more-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  box-shadow: 0 20px 48px -12px rgba(0,0,0,.18);
+  min-width: 300px;
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s, transform .2s, visibility .2s;
+  z-index: 100;
+}
+.mini-nav .more-wrap.is-open .more-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.mini-nav .more-menu a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-mono-v2);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background .15s;
+  border-bottom: 0;
+}
+.mini-nav .more-menu a::after { display: none; }
+.mini-nav .more-menu a:hover { background: var(--bg-2); }
+.mini-nav .more-menu .more-icon {
+  flex: 0 0 32px;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: color-mix(in srgb, var(--fuchsia) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fuchsia) 18%, transparent);
+}
+.mini-nav .more-menu .more-text strong {
+  display: block;
+  font-family: var(--font-display-v2);
+  font-size: 13.5px;
+  letter-spacing: -.01em;
+  text-transform: none;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.mini-nav .more-menu .more-text span {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
+.mini-nav .more-menu .more-separator {
+  height: 1px;
+  background: var(--line);
+  margin: 6px 8px;
+}
+.mini-nav .more-menu a.more-cta .more-icon {
+  background: color-mix(in srgb, var(--fuchsia) 16%, transparent);
+  color: var(--fuchsia);
+}
+.mini-nav .more-menu a.more-cta .more-text strong {
+  color: var(--fuchsia);
+}
+
+/* Mobile : dans le drawer, « Plus » devient une section repliée */
+@media (max-width: 880px) {
+  .mini-nav .more-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .mini-nav .more-trigger {
+    padding: 16px 4px;
+    font-family: var(--font-display-v2);
+    font-size: 22px;
+    letter-spacing: -.02em;
+    text-transform: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    width: 100%;
+    justify-content: space-between;
+    min-height: 44px;
+  }
+  .mini-nav .more-trigger::after { display: none; }
+  .mini-nav .more-trigger svg { width: 14px; height: 14px; }
+  .mini-nav .more-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    min-width: 0;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 4px 0 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s ease;
+  }
+  .mini-nav .more-wrap.is-open .more-menu { max-height: 600px; }
+  .mini-nav .more-menu a {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+  }
+  .mini-nav .more-menu a:last-child { border-bottom: 0; }
+}
+
+[data-theme="dark"] .mini-nav .more-menu {
+  background: var(--bg-2);
+  border-color: var(--line-strong);
+}
+[data-theme="dark"] .mini-nav .more-menu a:hover { background: rgba(255,255,255,0.04); }

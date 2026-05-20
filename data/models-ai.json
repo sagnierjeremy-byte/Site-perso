@@ -4,7 +4,7 @@
     "generated_at": "2026-05-20",
     "last_checked": "2026-05-20",
     "source_policy": "docs officielles d'abord, benchmarks et agrégateurs ensuite",
-    "note": "Catalogue éditorial Jerwis. Les capacités et prix changent vite : vérifier les sources avant décision critique."
+    "note": "Catalogue éditorial Jerwis. Les capacités, noms de modèles et prix changent vite : sources officielles vérifiées avant publication."
   },
   "models": [
     {
@@ -142,8 +142,8 @@
       "recommended_for_beginner": false
     },
     {
-      "id": "anthropic-claude-opus-4-7",
-      "name": "Claude Opus 4.7",
+      "id": "anthropic-claude-opus-4-6",
+      "name": "Claude Opus 4.6",
       "family": "Claude",
       "provider": "Anthropic",
       "category": "llm",
@@ -171,20 +171,20 @@
       "pricing_tier": "premium",
       "maturity": "stable",
       "status": "active",
-      "leo_take": "Très fort pour réfléchir longtemps, écrire proprement et travailler sur des dossiers épais.",
+      "leo_take": "Le Claude premium pour dossiers longs, décisions difficiles et gros travaux de code. Puissant, mais à réserver aux tâches qui le méritent.",
       "sources": [
-        "https://platform.claude.com/docs/en/about-claude/models/overview",
-        "https://platform.claude.com/docs/en/about-claude/pricing"
+        "https://claude.com/blog/1m-context-ga",
+        "https://platform.claude.com/docs/en/about-claude/models/overview"
       ],
       "choose_if": [
-        "tu travailles sur du code ou des agents",
-        "tu analyses des documents ou une base de connaissances"
+        "tu as une tâche longue, coûteuse ou difficile",
+        "tu dois analyser beaucoup de documents ou de code"
       ],
       "avoid_if": [
-        "tu veux tout faire tourner en local",
+        "tu veux juste un assistant quotidien",
         "ton budget est le critère numéro un"
       ],
-      "jerwis_score": 82,
+      "jerwis_score": 86,
       "freshness_status": "current",
       "recommended_for_beginner": false
     },
@@ -217,8 +217,9 @@
       "pricing_tier": "premium",
       "maturity": "stable",
       "status": "active",
-      "leo_take": "Le Claude que je mettrais au centre d'un workflow quotidien : sérieux, fiable, moins extrême qu'Opus.",
+      "leo_take": "Mon choix par défaut pour écrire, structurer une idée, relire un dossier et travailler proprement au quotidien.",
       "sources": [
+        "https://claude.com/blog/1m-context-ga",
         "https://platform.claude.com/docs/en/about-claude/models/overview"
       ],
       "choose_if": [
@@ -228,7 +229,7 @@
       "avoid_if": [
         "tu veux tout faire tourner en local"
       ],
-      "jerwis_score": 88,
+      "jerwis_score": 90,
       "freshness_status": "current",
       "recommended_for_beginner": true
     },
@@ -275,8 +276,8 @@
       "recommended_for_beginner": false
     },
     {
-      "id": "google-gemini-3-pro",
-      "name": "Gemini 3 Pro",
+      "id": "google-gemini-3-1-pro-preview",
+      "name": "Gemini 3.1 Pro Preview",
       "family": "Gemini",
       "provider": "Google",
       "category": "llm",
@@ -305,24 +306,26 @@
       "pricing_tier": "premium",
       "maturity": "preview",
       "status": "active",
-      "leo_take": "À tester si ton besoin mélange texte, images, vidéos, audio et recherche Google.",
+      "leo_take": "À tester quand ton besoin mélange gros documents, images, audio, vidéo et outils Google.",
       "sources": [
-        "https://ai.google.dev/gemini-api/docs/pricing",
-        "https://cloud.google.com/vertex-ai/generative-ai/docs/models"
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/pricing"
       ],
       "choose_if": [
-        "tu analyses des documents ou une base de connaissances"
+        "tu analyses beaucoup de documents ou fichiers multimodaux",
+        "tu travailles déjà avec les outils Google"
       ],
       "avoid_if": [
+        "tu veux une version ultra stable",
         "tu veux tout faire tourner en local"
       ],
-      "jerwis_score": 73,
+      "jerwis_score": 78,
       "freshness_status": "preview",
       "recommended_for_beginner": false
     },
     {
-      "id": "google-gemini-3-flash",
-      "name": "Gemini 3 Flash",
+      "id": "google-gemini-3-5-flash",
+      "name": "Gemini 3.5 Flash",
       "family": "Gemini",
       "provider": "Google",
       "category": "llm",
@@ -348,20 +351,23 @@
       ],
       "context_window": 1000000,
       "pricing_tier": "low_cost",
-      "maturity": "preview",
+      "maturity": "stable",
       "status": "active",
-      "leo_take": "Le bon réflexe Google quand tu veux itérer vite sans payer le prix du Pro.",
+      "leo_take": "Le bon réflexe Google pour aller vite, traiter du volume et garder un coût raisonnable.",
       "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
         "https://ai.google.dev/gemini-api/docs/pricing"
       ],
       "choose_if": [
-        "tu as un cas proche de ses points forts"
+        "tu veux résumer, classer ou automatiser vite",
+        "tu as besoin de comprendre texte, images ou audio"
       ],
       "avoid_if": [
+        "tu veux la meilleure qualité sur une décision difficile",
         "tu veux tout faire tourner en local"
       ],
-      "jerwis_score": 81,
-      "freshness_status": "preview",
+      "jerwis_score": 84,
+      "freshness_status": "current",
       "recommended_for_beginner": true
     },
     {
@@ -842,6 +848,54 @@
         "tu veux un modèle léger sur laptop"
       ],
       "jerwis_score": 84,
+      "freshness_status": "current",
+      "recommended_for_beginner": false
+    },
+    {
+      "id": "qwen3-14b",
+      "name": "Qwen3 14B",
+      "family": "Qwen",
+      "provider": "Alibaba",
+      "category": "llm",
+      "license": "apache_2",
+      "access": [
+        "open_weights",
+        "local",
+        "api_via_partners"
+      ],
+      "modalities": [
+        "text",
+        "tool_use",
+        "reasoning"
+      ],
+      "best_for": [
+        "local",
+        "open_source",
+        "multilingual",
+        "low_cost"
+      ],
+      "not_for": [
+        "frontier_general",
+        "huge_documents"
+      ],
+      "context_window": 32000,
+      "pricing_tier": "local_cost",
+      "maturity": "stable",
+      "status": "active",
+      "leo_take": "Le modèle ouvert que je mettrais en premier pour tester le local sans sortir l’artillerie lourde.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-14B",
+        "https://qwen.ai/blog"
+      ],
+      "choose_if": [
+        "tu veux tester un modèle local crédible",
+        "tu veux une licence permissive"
+      ],
+      "avoid_if": [
+        "tu veux le meilleur modèle du marché",
+        "tu refuses toute configuration technique"
+      ],
+      "jerwis_score": 82,
       "freshness_status": "current",
       "recommended_for_beginner": false
     },

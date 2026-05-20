@@ -1,5 +1,45 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Nav v3 unifiée (dropdown « Plus ») + footer rich Option C
+
+### Pourquoi
+La nav était fragmentée à travers les 38 pages du site : certaines avaient « Modèles IA » en menu direct (seulement 2 pages sur 38), d'autres avaient des sous-menus différents, et 3 articles (`photos-airbnb-nano-banana`, `photos-perso-ia`, `podcast-ia-pour-enfants`) n'avaient même pas de mini-nav du tout. La page précommande trainait une 2e nav legacy à 9 items qui doublonnait la mini-nav. Le footer rich (5 colonnes + newsletter inline) n'existait que sur 23 pages — 11 pages avaient un footer minimaliste ou pas de footer du tout. **Décision Jérémy** : « fait b et le footer C » → mini-nav à 4 items principaux + dropdown « Plus », et footer rich avec 4 colonnes (Lire / Outils / Suis-moi / Légal).
+
+### Livré
+- **`assets/nav-v2.css`** — ~180 lignes ajoutées pour le dropdown :
+  - `.more-wrap`, `.more-trigger`, `.more-menu` (panneau flottant 300px, border-radius 14px, shadow douce)
+  - Items `.more-menu a` avec `.more-icon` + `.more-text strong + span` (titre + sous-titre)
+  - `.more-separator` + `.more-cta` (variant fuchsia pour la précommande)
+  - Animations `opacity + transform translateY` au open/close
+  - Mobile @media (max-width: 880px) : le dropdown devient un accordéon statique dans le drawer mobile
+- **`assets/nav-dropdown.js`** (nouveau, ~60 lignes) : click trigger, click outside, Escape, aria-expanded sync, garde anti-multi-instance
+- **38 pages HTML** patchées via script Python idempotent :
+  - « Modèles IA » retiré du menu direct (était sur 2 pages seulement)
+  - Bloc dropdown « Plus » injecté avec 4 items (Modèles IA, Lexique IA, Mes outils, GitHub) + séparateur + CTA Précommande 39 €
+  - Chemins relatifs respectés : `/` à la racine, `../` dans `articles/`
+- **3 articles complétés** (avaient zéro mini-nav avant) : `photos-airbnb-nano-banana`, `photos-perso-ia`, `podcast-ia-pour-enfants` reçoivent maintenant la mini-nav v2 complète avec dropdown + scripts `nav-v2.js` + `nav-dropdown.js`
+- **Précommande nettoyée** : nav legacy de 9 items supprimée sur `precommande-photos-personal-branding.html` (doublon de la mini-nav)
+- **Footer rich Option C** standardisé sur 11 pages manquantes :
+  - 4 colonnes claires : **Lire** (Parcours, Claude Code, Articles, Lexique) · **Outils** (Précommande, Outils, Modèles IA, Podcast, GitHub) · **Suis-moi** (LinkedIn, 2× YouTube, Instagram) · **Légal** (Mentions, Confidentialité, CGV, Suppression, Préférences)
+  - Newsletter inline conservée + handler Resend self-contained
+  - Footer-bottom avec triple-dot teal/fuchsia/orange + « Fiesta · 89 »
+  - Pages avec footer existant remplacé : `modeles-ia`, `modeles-image-ia`, `_TEMPLATE` + 3 articles
+  - Pages sans footer (legal + merci) : footer injecté avant `</body>` : `cgv`, `mentions-legales`, `politique-confidentialite`, `suppression-donnees`, `precommande-merci`
+- **QC visuel** (dev-browser headless) : dropdown s'ouvre (is-open=true, opacity=1, aria-expanded=true), 5 items affichés, 4 colonnes footer, 0 erreur JS sur index/article/precommande/cgv
+
+### Fichiers touchés
+- `assets/nav-v2.css` (+180 lignes dropdown)
+- `assets/nav-dropdown.js` (nouveau)
+- 38 pages HTML : mini-nav + dropdown
+- 11 pages HTML : footer rich
+- `precommande-photos-personal-branding.html` : nav legacy retirée
+
+### À venir
+- Surveiller en prod (Plausible + Clarity) si le dropdown « Plus » est cliqué — si <2% → simplifier en virant le menu et en gardant les liens en pied de page seulement
+- Éventuellement homogénéiser `.site-footer` (utilisé par d'anciennes pages comme news/quiz) avec la classe canonique `.footer`
+
+---
+
 ## 2026-05-20 · Refonte modeles-ia.html — table → cards + UX lecture
 
 ### Pourquoi

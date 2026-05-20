@@ -1,5 +1,27 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Hub modèles IA V1
+
+### Pourquoi
+Besoin d'une page Jerwis qui liste les principaux modèles IA disponibles sans tout mélanger : LLM propriétaires, open-weight, image, vidéo, audio, embeddings/reranking. Objectif : aider à choisir par usage concret, pas produire un annuaire technique ingérable.
+
+### Livré
+- **`modeles-ia.html`** : nouvelle page pilier Fiesta avec hero, sélecteur d'usage, 6 recommandations, catalogue filtrable en vanilla JS, méthode et CTA newsletter.
+- **`data/models-ai.json`** : base V1 de modèles/familles avec fournisseur, catégorie, licence, accès, modalités, usages, contexte, prix éditorial, maturité, avis Leo et sources.
+- **`outils.html`** : encart vers le guide modèles IA depuis la page stack outils.
+- **`index.html`** : lien footer "Guide des modèles IA".
+- **`sitemap.xml`** : nouvelle URL ajoutée en weekly / priority 0.9.
+
+### Décision éditoriale
+Ne pas promettre "tous les modèles existants". La page dit plutôt : catalogue vivant des principaux modèles IA, classés par usage. Les pages enfants viendront ensuite : LLM, image, vidéo, audio, embeddings/reranking, agents coding.
+
+### Prochaines étapes
+- Créer `modeles-llm.html` avec focus GPT / Claude / Gemini / Mistral / Llama / DeepSeek / Qwen.
+- Créer `modeles-image-ia.html` pour Nano Banana Pro vs Nano Banana 2, GPT Image, Midjourney, Ideogram, FLUX, Stable Diffusion.
+- Ajouter un script mensuel de refresh du JSON + alerte `last_checked > 30 jours`.
+
+---
+
 ## 2026-05-13 · Audit mobile sprint 4 — self-host fonts
 
 ### Pourquoi

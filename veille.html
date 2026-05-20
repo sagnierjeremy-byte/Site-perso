@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veille IA + Business — par Jérémy Sagnier</title>
+<meta name="description" content="Les meilleures actus IA et Business sélectionnées chaque jour. Sources mondiales, score de pertinence, mise à jour automatique.">
+
+<meta property="og:title" content="Veille IA + Business — Jérémy Sagnier">
+<meta property="og:description" content="Les meilleures actus IA et Business sélectionnées chaque jour. Mis à jour automatiquement.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jerwis.fr/veille.html">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:title" content="Veille IA + Business — Jérémy Sagnier">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+
+<link rel="canonical" href="https://jerwis.fr/veille.html">
+
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/main.css">
+<link rel="stylesheet" href="assets/nav-v2.css">
+<link rel="stylesheet" href="assets/mobile-fixes.css">
+
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+
+<style>
+  /* ─── MINI-MARQUEE ─── */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px; }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px; }
+  @keyframes mini-marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── HERO ─── */
+  .veille-hero {
+    padding: 72px 0 56px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .veille-hero .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--ink-muted); margin-bottom: 20px;
+  }
+  .veille-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(42px, 7vw, 80px);
+    line-height: .92; letter-spacing: -.03em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 20px;
+  }
+  .veille-hero h1 em { font-style: normal; color: var(--fuchsia); }
+  .veille-hero h1 .alt { color: var(--teal); }
+  .veille-hero .lead {
+    font-size: 17px; line-height: 1.65; color: var(--ink-soft);
+    max-width: 560px; margin: 0 auto 28px;
+  }
+  .veille-hero .meta-bar {
+    display: inline-flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--ink-muted);
+  }
+  .veille-hero .meta-bar .dot { display: inline-flex; gap: 3px; }
+  .veille-hero .meta-bar .dot span {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+
+  /* ─── FILTERS ─── */
+  .veille-filters {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+    background: var(--bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .filter-inner {
+    max-width: 1180px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .filter-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: .18em; color: var(--ink-muted);
+    margin-right: 4px;
+  }
+  .filter-btn {
+    padding: 6px 16px; border-radius: 100px;
+    font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 500;
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink-soft); background: transparent;
+    cursor: pointer; transition: all .15s;
+  }
+  .filter-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .filter-btn.active {
+    background: var(--ink); color: var(--bg);
+    border-color: var(--ink);
+  }
+  [data-theme="dark"] .filter-btn.active { background: #fff; color: #0A0A0A; border-color: #fff; }
+
+  /* ─── GRID ─── */
+  .veille-section {
+    max-width: 1180px; margin: 0 auto; padding: 48px 24px 64px;
+  }
+  .veille-count {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .15em; color: var(--ink-muted);
+    margin-bottom: 28px;
+  }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1020px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .news-grid { grid-template-columns: 1fr; gap: 16px; } }
+
+  /* ─── FEATURED (first card spans 2 cols) ─── */
+  .news-card-featured {
+    grid-column: span 2;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    transition: box-shadow .2s, transform .2s;
+    text-decoration: none; color: inherit;
+  }
+  .news-card-featured:hover { box-shadow: 0 8px 32px rgba(0,0,0,.12); transform: translateY(-2px); }
+  .news-card-featured .card-img-wrap { aspect-ratio: unset; min-height: 220px; }
+  .news-card-featured .card-body { padding: 28px 28px 24px; display: flex; flex-direction: column; justify-content: space-between; }
+  .news-card-featured .card-title { font-size: 22px; line-height: 1.25; }
+  @media (max-width: 1020px) {
+    .news-card-featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .news-card-featured .card-img-wrap { min-height: 180px; }
+  }
+  @media (max-width: 600px) {
+    .news-card-featured .card-img-wrap { min-height: 160px; }
+    .news-card-featured .card-body { padding: 18px; }
+    .news-card-featured .card-title { font-size: 18px; }
+  }
+
+  /* ─── CARD ─── */
+  .news-card {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    transition: box-shadow .2s, transform .2s;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+  }
+  .news-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.12); transform: translateY(-2px); }
+
+  .card-img-wrap {
+    width: 100%; aspect-ratio: 16/9;
+    overflow: hidden; position: relative;
+    flex-shrink: 0;
+  }
+  .card-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .3s;
+  }
+  .news-card:hover .card-img-wrap img,
+  .news-card-featured:hover .card-img-wrap img { transform: scale(1.04); }
+
+  .card-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+  }
+  .card-img-placeholder.cat-ia {
+    background: linear-gradient(135deg, #9b1f4a 0%, var(--fuchsia) 60%, #ff6f9c 100%);
+  }
+  .card-img-placeholder.cat-business {
+    background: linear-gradient(135deg, #006b65 0%, var(--teal) 60%, #00d4ca 100%);
+  }
+  .card-img-placeholder.cat-other {
+    background: linear-gradient(135deg, #a05200 0%, var(--orange) 60%, #ffb347 100%);
+  }
+
+  .card-body {
+    padding: 18px 20px 16px;
+    flex: 1; display: flex; flex-direction: column; gap: 8px;
+  }
+  .card-meta {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .card-source {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--ink-muted);
+  }
+  .card-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px;
+  }
+  .card-tag.cat-ia    { background: rgba(239,66,111,.12); color: var(--fuchsia); }
+  .card-tag.cat-business { background: rgba(0,178,169,.12); color: var(--teal); }
+  .card-tag.cat-other { background: rgba(255,130,0,.12);   color: var(--orange); }
+
+  .card-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px; line-height: 1.3; letter-spacing: -.01em;
+    color: var(--ink); margin: 0;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card-excerpt {
+    font-size: 13px; line-height: 1.55; color: var(--ink-soft);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    margin: 0;
+  }
+  .card-footer {
+    display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); text-transform: uppercase; letter-spacing: .1em;
+  }
+  .card-score {
+    margin-left: auto;
+    padding: 1px 7px; border-radius: 100px; font-size: 10px; font-weight: 700;
+  }
+  .score-high { background: rgba(0,178,169,.15); color: var(--teal); }
+  .score-mid  { background: rgba(255,130,0,.15);  color: var(--orange); }
+
+  /* ─── SKELETON ─── */
+  .skeleton-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 1020px) { .skeleton-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .skeleton-grid { grid-template-columns: 1fr; gap: 16px; } }
+
+  .skeleton-card {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--surface);
+  }
+  .skeleton-img { aspect-ratio: 16/9; background: var(--line); }
+  .skeleton-body { padding: 18px 20px; }
+  .skel { background: var(--line); border-radius: 4px; height: 12px; margin-bottom: 10px; }
+  .skel.w-full { width: 100%; }
+  .skel.w-3-4  { width: 75%; }
+  .skel.w-1-2  { width: 50%; }
+  .skel.h-tall { height: 18px; }
+
+  @keyframes shimmer {
+    from { opacity: .5; } to { opacity: 1; }
+  }
+  .skeleton-card { animation: shimmer 1.2s ease-in-out alternate infinite; }
+
+  /* ─── EMPTY / ERROR ─── */
+  .veille-empty {
+    grid-column: 1/-1; text-align: center; padding: 80px 20px;
+    font-size: 16px; color: var(--ink-muted);
+  }
+  .veille-empty strong { display: block; font-size: 20px; margin-bottom: 10px; color: var(--ink-soft); }
+
+  /* ─── CTA NEWSLETTER ─── */
+  .veille-cta {
+    background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .veille-cta h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px); line-height: 1.05;
+    letter-spacing: -.025em; text-transform: uppercase; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .veille-cta h2 em { font-style: normal; color: var(--fuchsia); }
+  .veille-cta p { font-size: 16px; color: var(--ink-soft); max-width: 500px; margin: 0 auto 28px; }
+  .veille-cta-form {
+    display: flex; gap: 10px; max-width: 420px; margin: 0 auto;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .veille-cta-form input[type="email"] {
+    flex: 1; min-width: 220px;
+    padding: 12px 18px; border-radius: 8px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--bg); color: var(--ink); font-size: 15px;
+    outline: none; transition: border-color .15s;
+  }
+  .veille-cta-form input[type="email"]:focus { border-color: var(--fuchsia); }
+  .veille-cta-form button {
+    padding: 12px 24px; border-radius: 8px;
+    background: var(--fuchsia); color: #fff; border: none;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+    cursor: pointer; transition: opacity .15s; white-space: nowrap;
+  }
+  .veille-cta-form button:hover { opacity: .85; }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
+
+<!-- Mini-nav Jerwis v2 -->
+<nav class="mini-nav">
+  <a class="brand brand-stamp" href="index.html" aria-label="Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="apprendre.html">Apprendre</a>
+    <a href="articles.html">Articles</a>
+    <a href="veille.html" aria-current="page">Veille</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="index.html#newsletters">Newsletter</a>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<!-- ─── HERO ─── -->
+<section class="veille-hero">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>— Mise à jour toutes les 6h</div>
+    <h1>Veille <em>IA</em><br>+ <span class="alt">Business</span></h1>
+    <p class="lead">
+      Les meilleures actus IA et Business, agrégées en direct
+      depuis mes sources mondiales. Actualisé en continu — sans blabla.
+    </p>
+    <div class="meta-bar">
+      <span>10 sources mondiales</span>
+      <span>·</span>
+      <span>Mis à jour toutes les 6h</span>
+      <span>·</span>
+      <span>Gratuit · Sans inscription</span>
+      <span>·</span>
+      <div class="dot">
+        <span style="background:var(--teal)"></span>
+        <span style="background:var(--fuchsia)"></span>
+        <span style="background:var(--orange)"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE 01 ─── -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Intelligence Artificielle</span><span>Business</span><span>Startups</span>
+    <span>LLM</span><span>Agents IA</span><span>Tech</span><span>Investissement</span>
+    <span>Innovation</span><span>Automatisation</span><span>Productivité</span>
+    <span>Intelligence Artificielle</span><span>Business</span><span>Startups</span>
+    <span>LLM</span><span>Agents IA</span><span>Tech</span><span>Investissement</span>
+    <span>Innovation</span><span>Automatisation</span><span>Productivité</span>
+  </div>
+</div>
+
+<!-- ─── FILTERS ─── -->
+<div class="veille-filters" role="navigation" aria-label="Filtrer par catégorie">
+  <div class="filter-inner">
+    <span class="filter-label">Filtrer :</span>
+    <div id="filterBar">
+      <button class="filter-btn active" data-cat="all">Tout</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NEWS GRID ─── -->
+<section class="veille-section">
+  <p class="veille-count" id="articleCount">Chargement…</p>
+  <div id="newsGrid" class="skeleton-grid" aria-live="polite" aria-label="Actualités">
+    <!-- Skeleton initial -->
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skel h-tall w-3-4"></div><div class="skel w-full"></div><div class="skel w-full"></div><div class="skel w-1-2"></div></div></div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE 02 ─── -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Sélection automatique</span><span>Scoring par IA</span><span>Sources vérifiées</span>
+    <span>Mis à jour 6h</span><span>Sans pub</span><span>Sans algo</span>
+    <span>Sélection automatique</span><span>Scoring par IA</span><span>Sources vérifiées</span>
+    <span>Mis à jour 6h</span><span>Sans pub</span><span>Sans algo</span>
+  </div>
+</div>
+
+<!-- ─── CTA NEWSLETTER ─── -->
+<section class="veille-cta">
+  <h2>La veille, <em>résumée</em><br>chaque vendredi</h2>
+  <p>Un mail. Les 5 actus qui comptent vraiment. Ce que ça change pour toi. Désinscription en 1 clic.</p>
+  <form class="veille-cta-form" data-source="veille-cta">
+    <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit">Recevoir</button>
+  </form>
+</section>
+
+<!-- ─── MARQUEE 03 ─── -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Vendredi 9h dans ta boîte</span><span>Sans algorithme</span><span>Juste les faits</span>
+    <span>1 clic pour sortir</span><span>Zéro blabla</span><span>100% gratuit</span>
+    <span>Vendredi 9h dans ta boîte</span><span>Sans algorithme</span><span>Juste les faits</span>
+    <span>1 clic pour sortir</span><span>Zéro blabla</span><span>100% gratuit</span>
+  </div>
+</div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong></p>
+      </div>
+      <div class="footer-col">
+        <h5>Apprendre</h5>
+        <ul>
+          <li><a href="/apprendre.html">Parcours débutant</a></li>
+          <li><a href="/claude-code.html">Guide Claude Code</a></li>
+          <li><a href="/articles.html">Tous les articles</a></li>
+          <li><a href="/lexique.html">Lexique IA</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Produits &amp; outils</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding.html" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils.html">Ma stack outils</a></li>
+          <li><a href="/podcast.html">Podcast Guerres d'IA</a></li>
+          <li><a href="/github.html">Mon GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/index.html#newsletters">Newsletters</a></li>
+          <li><a href="/preferences.html">Préférences</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true; btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  // ─── THEME ───
+  (function() {
+    const toggle = document.getElementById('themeToggleV2');
+    const saved = localStorage.getItem('theme');
+    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (sysDark ? 'dark' : 'light'));
+    if (toggle) toggle.addEventListener('click', function() {
+      var cur = document.documentElement.getAttribute('data-theme');
+      var next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // ─── NEWS FEED ───
+  var allArticles = [];
+  var activeFilter = 'all';
+
+  function catClass(cat) {
+    if (!cat) return 'cat-other';
+    var lower = cat.toLowerCase();
+    if (lower.includes('ia') || lower.includes('ai') || lower.includes('intelligence')) return 'cat-ia';
+    if (lower.includes('business') || lower.includes('finance') || lower.includes('startup')) return 'cat-business';
+    return 'cat-other';
+  }
+
+  function catLabel(cat) {
+    return cat || 'Autre';
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+  }
+
+  function buildCard(article, featured) {
+    var cat = article.category;
+    var cls = catClass(cat);
+    var source = article.sourceName || '';
+
+    var imgHtml = article.image
+      ? '<img src="' + escHtml(article.image) + '" alt="" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=\\\"card-img-placeholder ' + cls + '\\\">' + escHtml(source || 'Veille') + '<\\/div>\'">'
+      : '<div class="card-img-placeholder ' + cls + '">' + escHtml(source || 'Veille') + '</div>';
+
+    var excerptHtml = article.excerpt
+      ? '<p class="card-excerpt">' + escHtml(article.excerpt.slice(0, 180)) + '</p>'
+      : '';
+
+    if (featured) {
+      return '<a href="' + escHtml(article.url) + '" target="_blank" rel="noopener" class="news-card-featured">'
+        + '<div class="card-img-wrap">' + imgHtml + '</div>'
+        + '<div class="card-body">'
+        + '<div>'
+        + '<div class="card-meta"><span class="card-source">' + escHtml(source) + '</span>'
+        + (cat ? '<span class="card-tag ' + cls + '">' + escHtml(catLabel(cat)) + '</span>' : '')
+        + '</div>'
+        + '<p class="card-title" style="-webkit-line-clamp:4">' + escHtml(article.title) + '</p>'
+        + excerptHtml
+        + '</div>'
+        + '<div class="card-footer"><span>' + formatDate(article.publishedAt) + '</span></div>'
+        + '</div>'
+        + '</a>';
+    }
+
+    return '<a href="' + escHtml(article.url) + '" target="_blank" rel="noopener" class="news-card">'
+      + '<div class="card-img-wrap">' + imgHtml + '</div>'
+      + '<div class="card-body">'
+      + '<div class="card-meta"><span class="card-source">' + escHtml(source) + '</span>'
+      + (cat ? '<span class="card-tag ' + cls + '">' + escHtml(catLabel(cat)) + '</span>' : '')
+      + '</div>'
+      + '<p class="card-title">' + escHtml(article.title) + '</p>'
+      + excerptHtml
+      + '<div class="card-footer"><span>' + formatDate(article.publishedAt) + '</span></div>'
+      + '</div>'
+      + '</a>';
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderArticles(articles) {
+    var grid = document.getElementById('newsGrid');
+    var count = document.getElementById('articleCount');
+
+    if (!articles.length) {
+      grid.className = 'news-grid';
+      grid.innerHTML = '<div class="veille-empty"><strong>Aucun article pour le moment.</strong>La veille se met à jour toutes les 6h.</div>';
+      count.textContent = '0 article';
+      return;
+    }
+
+    count.textContent = articles.length + ' article' + (articles.length > 1 ? 's' : '');
+    grid.className = 'news-grid';
+
+    var html = '';
+    articles.forEach(function(a, i) {
+      html += buildCard(a, i === 0);
+    });
+    grid.innerHTML = html;
+  }
+
+  function applyFilter(cat) {
+    activeFilter = cat;
+    var filtered = cat === 'all'
+      ? allArticles
+      : allArticles.filter(function(a) {
+          return a.category && a.category.toLowerCase() === cat.toLowerCase();
+        });
+    renderArticles(filtered);
+  }
+
+  function buildFilters(articles) {
+    var cats = [];
+    articles.forEach(function(a) {
+      if (a.category && !cats.includes(a.category)) cats.push(a.category);
+    });
+    cats.sort();
+
+    var bar = document.getElementById('filterBar');
+    var html = '<button class="filter-btn active" data-cat="all">Tout (' + articles.length + ')</button>';
+    cats.forEach(function(c) {
+      var n = articles.filter(function(a) { return a.category === c; }).length;
+      html += '<button class="filter-btn" data-cat="' + escHtml(c) + '">' + escHtml(c) + ' (' + n + ')</button>';
+    });
+    bar.innerHTML = html;
+
+    bar.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        bar.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        applyFilter(btn.dataset.cat);
+      });
+    });
+  }
+
+  async function loadNews() {
+    try {
+      var res = await fetch('/api/news');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var data = await res.json();
+      allArticles = Array.isArray(data) ? data : [];
+      buildFilters(allArticles);
+      applyFilter('all');
+    } catch (err) {
+      console.error('[veille]', err);
+      var grid = document.getElementById('newsGrid');
+      grid.className = 'news-grid';
+      grid.innerHTML = '<div class="veille-empty"><strong>Impossible de charger les articles.</strong>Actualise la page dans quelques secondes.</div>';
+      document.getElementById('articleCount').textContent = '';
+    }
+  }
+
+  loadNews();
+
+  // ─── CTA NEWSLETTER ───
+  document.querySelectorAll('.veille-cta-form').forEach(function(form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[name="email"]').value.trim();
+      var btn = form.querySelector('button');
+      var orig = btn.textContent;
+      btn.disabled = true; btn.textContent = '...';
+      try {
+        var res = await fetch('/api/subscribe', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: form.dataset.source || 'veille-cta' }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        btn.textContent = '✓ Inscription confirmée';
+        setTimeout(function() { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
+      } catch {
+        btn.textContent = '× Erreur';
+        setTimeout(function() { btn.textContent = orig; btn.disabled = false; }, 2500);
+      }
+    });
+  });
+</script>
+
+<script src="assets/nav-v2.js" defer></script>
+</body>
+</html>

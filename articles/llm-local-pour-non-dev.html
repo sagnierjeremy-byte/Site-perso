@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Faire tourner un vrai modèle d'IA chez toi</title>
 <meta name="description" content="Installer une IA chez toi, sans abonnement, sans cloud. Le tuto pas à pas pour quelqu'un qui n'a jamais codé. Sans jargon.">
-<link rel="canonical" href="https://jerwis.fr/articles/llm-local-pour-non-dev.html">
+<link rel="canonical" href="https://jerwis.fr/articles/llm-local-pour-non-dev">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://jerwis.fr/articles/llm-local-pour-non-dev">
@@ -24,7 +24,7 @@
   "@type": "TechArticle",
   "headline": "Faire tourner un vrai modèle d'IA chez toi",
   "description": "Tutoriel complet pour installer un modèle d'IA en local sur ton ordi : matériel, outils, modèles, tuto pas à pas avec Ollama et Open WebUI, cas d'usage, RAG.",
-  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr"},
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/jeremy-sagnier"},
   "datePublished": "2026-04-24",
   "dateModified": "2026-04-24",
   "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
@@ -318,7 +318,7 @@
 
 <!-- Mini-nav Jerwis v2 -->
 <nav class="mini-nav">
-  <a class="brand brand-stamp" href="../index.html" aria-label="Jerwis">
+  <a class="brand brand-stamp" href="../index" aria-label="Jerwis">
     <span class="stamp">
       <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
       <span class="stamp-word">JERWIS</span>
@@ -329,10 +329,10 @@
     <span class="burger-icon" aria-hidden="true"></span>
   </button>
   <div class="links" id="mini-nav-links">
-    <a href="../apprendre.html">Apprendre</a>
-    <a href="../articles.html" aria-current="page">Articles</a>
-    <a href="../podcast.html">Podcast</a>
-    <a href="../index.html#newsletters">Newsletter</a>
+    <a href="../apprendre">Apprendre</a>
+    <a href="../articles" aria-current="page">Articles</a>
+    <a href="../podcast">Podcast</a>
+    <a href="../index#newsletters">Newsletter</a>
     <div class="more-wrap">
       <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
         Plus
@@ -341,24 +341,24 @@
         </svg>
       </button>
       <div class="more-menu" role="menu">
-        <a href="../modeles-ia.html" role="menuitem">
+        <a href="../modeles-ia" role="menuitem">
           <span class="more-icon">🧠</span>
           <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
         </a>
-        <a href="../lexique.html" role="menuitem">
+        <a href="../lexique" role="menuitem">
           <span class="more-icon">📚</span>
           <span class="more-text"><strong>Lexique IA</strong><span>Tous les termes expliqués</span></span>
         </a>
-        <a href="../outils.html" role="menuitem">
+        <a href="../outils" role="menuitem">
           <span class="more-icon">🛠</span>
           <span class="more-text"><strong>Mes outils</strong><span>30 outils du quotidien</span></span>
         </a>
-        <a href="../github.html" role="menuitem">
+        <a href="../github" role="menuitem">
           <span class="more-icon">⚡</span>
           <span class="more-text"><strong>GitHub</strong><span>Mes repos publics</span></span>
         </a>
         <div class="more-separator"></div>
-        <a href="../precommande-photos-personal-branding.html" class="more-cta" role="menuitem">
+        <a href="../precommande-photos-personal-branding" class="more-cta" role="menuitem">
           <span class="more-icon">💳</span>
           <span class="more-text"><strong>Précommande 39 €</strong><span>Générateur de photos IA</span></span>
         </a>
@@ -380,9 +380,9 @@
 
 <header class="header">
   <div class="header-inner">
-    <a href="../index.html" class="logo"><span class="logo-dot"></span>Jérémy Sagnier</a>
+    <a href="../index" class="logo"><span class="logo-dot"></span>Jérémy Sagnier</a>
     <div style="display:flex; align-items:center">
-      <a href="../index.html#learn" class="back-link">
+      <a href="../index#learn" class="back-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Retour à Apprendre
       </a>
@@ -435,7 +435,7 @@
       Ce qui a changé en 2025-2026 : <strong>les modèles ouverts ont rattrapé les modèles fermés</strong>. <a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a>, Llama, <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a>, Qwen — tu peux télécharger des IA gratuitement qui <a href="https://lmarena.ai/leaderboard" target="_blank" rel="noopener">rivalisent avec ChatGPT</a> pour la plupart des usages quotidiens. Et le 27 janvier 2025, <strong>une boîte chinoise inconnue (DeepSeek) a publié un modèle qui a fait perdre <a href="https://www.reuters.com/technology/chinas-deepseek-sets-off-ai-market-rout-2025-01-27/" target="_blank" rel="noopener">589 milliards de dollars à NVIDIA</a> en une seule journée</strong>. Toute la thèse « il faut des milliards et des serveurs à 100 000 € pour faire de l'IA » s'est effondrée.
     </p>
     <p>
-      Si tu as déjà lu mon <a href="open-source-pour-non-dev.html">article sur l'open source</a>, tu sais d'où vient ce mouvement. Là, on passe à l'étape d'après : <strong>comment tu en profites concrètement, sur ton ordi, ce week-end</strong>.
+      Si tu as déjà lu mon <a href="open-source-pour-non-dev">article sur l'open source</a>, tu sais d'où vient ce mouvement. Là, on passe à l'étape d'après : <strong>comment tu en profites concrètement, sur ton ordi, ce week-end</strong>.
     </p>
 
     <h3>Cinq raisons concrètes de s'y mettre</h3>
@@ -1023,7 +1023,7 @@
     </p>
 
     <p>
-      Si tu n'as pas encore lu mon article qui pose les bases — ce qu'est l'open source, comment les boîtes vivent en faisant du gratuit, pourquoi l'IA ouverte change tout — il est juste là : <a href="open-source-pour-non-dev.html">L'open source expliqué pour ceux qui ne sont pas dev</a>. C'est le complément naturel de celui-ci. Et si tu veux le récit du moment où DeepSeek a fait s'effondrer NVIDIA, je le raconte dans <a href="guerres-d-ia-podcast.html">l'épisode 4 de mon podcast Guerres d'IA</a>.
+      Si tu n'as pas encore lu mon article qui pose les bases — ce qu'est l'open source, comment les boîtes vivent en faisant du gratuit, pourquoi l'IA ouverte change tout — il est juste là : <a href="open-source-pour-non-dev">L'open source expliqué pour ceux qui ne sont pas dev</a>. C'est le complément naturel de celui-ci. Et si tu veux le récit du moment où DeepSeek a fait s'effondrer NVIDIA, je le raconte dans <a href="guerres-d-ia-podcast">l'épisode 4 de mon podcast Guerres d'IA</a>.
     </p>
 
     <h3>Trois choses à faire ce week-end</h3>
@@ -1034,7 +1034,7 @@
     </ol>
 
     <p>
-      Si tu veux que je t'envoie d'autres tutos comme ça (sur l'IA, l'open source, les outils que je teste pour moi en premier), <a href="../index.html#newsletters">inscris-toi à AI Playbook</a> — c'est ma veille hebdomadaire, je te partage la même chose qu'à moi-même. Et si tu galères sur une étape, ou si tu trouves que je me trompe quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je ne le prends pas mal.
+      Si tu veux que je t'envoie d'autres tutos comme ça (sur l'IA, l'open source, les outils que je teste pour moi en premier), <a href="../index#newsletters">inscris-toi à AI Playbook</a> — c'est ma veille hebdomadaire, je te partage la même chose qu'à moi-même. Et si tu galères sur une étape, ou si tu trouves que je me trompe quelque part, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>. Je lis tout, je ne le prends pas mal.
     </p>
   </div>
 </section>
@@ -1103,7 +1103,7 @@
     <p>
       Chaque semaine, je partage les outils IA et open source que je teste pour moi. Pas de blabla, pas de pub. Désinscription en un clic, je ne le prends pas mal.
     </p>
-    <a href="../index.html#newsletters" class="back-btn">Voir les newsletters →</a>
+    <a href="../index#newsletters" class="back-btn">Voir les newsletters →</a>
   </div>
 </section>
 
@@ -1137,20 +1137,20 @@
       <div class="footer-col">
         <h5>Apprendre</h5>
         <ul>
-          <li><a href="/apprendre.html">Parcours débutant</a></li>
-          <li><a href="/claude-code.html">Guide Claude Code</a></li>
-          <li><a href="/articles.html">Tous les articles</a></li>
-          <li><a href="/lexique.html">Lexique IA</a></li>
+          <li><a href="/apprendre">Parcours débutant</a></li>
+          <li><a href="/claude-code">Guide Claude Code</a></li>
+          <li><a href="/articles">Tous les articles</a></li>
+          <li><a href="/lexique">Lexique IA</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h5>Produits &amp; outils</h5>
         <ul>
-          <li><a href="/precommande-photos-personal-branding.html" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
-          <li><a href="/outils.html">Ma stack outils</a></li>
-          <li><a href="/podcast.html">Podcast Guerres d'IA</a></li>
-          <li><a href="/github.html">Mon GitHub</a></li>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils">Ma stack outils</a></li>
+          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="/github">Mon GitHub</a></li>
         </ul>
       </div>
 
@@ -1168,8 +1168,8 @@
         <h5>Direct</h5>
         <ul>
           <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
-          <li><a href="/index.html#newsletters">Newsletters</a></li>
-          <li><a href="/preferences.html">Préférences</a></li>
+          <li><a href="/index#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Préférences</a></li>
         </ul>
       </div>
 

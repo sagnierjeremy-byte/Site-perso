@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jérémy Sagnier — Entrepreneur curieux de l'IA, pas dev</title>
+<meta name="description" content="Entrepreneur, frère jumeau, père. Pas dev. Je teste l'IA à fond depuis 2024 et je partage chaque vendredi ce qui m'a servi à moi en premier.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Jérémy Sagnier — Entrepreneur curieux de l'IA, pas dev">
+<meta property="og:description" content="Entrepreneur, frère jumeau, père. Je teste l'IA à fond et je partage chaque vendredi ce qui m'a servi à moi en premier.">
+<meta property="og:url" content="https://jerwis.fr/jeremy-sagnier">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="profile:first_name" content="Jérémy">
+<meta property="profile:last_name" content="Sagnier">
+<meta property="profile:username" content="JeremySagnier">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Jérémy Sagnier — Entrepreneur curieux de l'IA, pas dev">
+<meta name="twitter:description" content="Je teste l'IA à fond et je partage chaque vendredi ce qui m'a servi à moi en premier.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/jeremy-sagnier">
+
+<!-- Schema.org : ProfilePage + Person + BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://jerwis.fr/jeremy-sagnier#profilepage",
+      "url": "https://jerwis.fr/jeremy-sagnier",
+      "name": "Jérémy Sagnier — Entrepreneur curieux de l'IA, pas dev",
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": "https://jerwis.fr/#website" },
+      "mainEntity": { "@id": "https://jerwis.fr/#person" },
+      "dateModified": "2026-05-20"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://jerwis.fr/#person",
+      "name": "Jérémy Sagnier",
+      "givenName": "Jérémy",
+      "familyName": "Sagnier",
+      "url": "https://jerwis.fr/jeremy-sagnier",
+      "image": "https://jerwis.fr/photos/A7100670.webp",
+      "jobTitle": "Entrepreneur, fondateur de Jerwis Conseil",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Jerwis Conseil",
+        "url": "https://jerwis.fr/"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Roussillon",
+        "postalCode": "84220",
+        "addressCountry": "FR"
+      },
+      "email": "mailto:jeremy.sagnier@jerwis.fr",
+      "knowsAbout": [
+        "Intelligence artificielle",
+        "Claude Code",
+        "Agents IA",
+        "Productivité avec l'IA",
+        "Entrepreneuriat",
+        "Vulgarisation de l'IA pour non-développeurs"
+      ],
+      "sameAs": [
+        "https://x.com/JeremySagnier",
+        "https://www.linkedin.com/in/jeremy-sagnier/",
+        "https://www.youtube.com/@jeremy-sagnier",
+        "https://www.youtube.com/@kevinetjeremysagnier",
+        "https://www.instagram.com/jeremy.sagnier/"
+      ],
+      "description": "Entrepreneur curieux de l'IA, pas dev. Frère jumeau de Kevin Sagnier (fondateur d'Eurofiscalis). Père d'un fils. Teste l'IA à fond depuis 2024 et partage chaque vendredi sa veille par mail à 1500+ abonnés.",
+      "alumniOf": {
+        "@type": "Organization",
+        "name": "Eurofiscalis"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Jérémy Sagnier", "item": "https://jerwis.fr/jeremy-sagnier" }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/main.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+    --bg:      #FBF7F0;
+    --bg-2:    #F2EDE2;
+    --ink:     #0A0A0A;
+    --ink-soft:#3A3A3A;
+    --ink-muted:#6E6E6E;
+    --line:    rgba(10,10,10,.10);
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A;
+    --bg-2:    #141414;
+    --ink:     #F4EFE6;
+    --ink-soft: #D4D4D4;
+    --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 16px; line-height: 1.65;
+    transition: background .3s, color .3s;
+  }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--teal); }
+
+  /* Hero portrait (toujours sombre, charte FIESTA) */
+  .bio-hero {
+    background: #0A0A0A;
+    color: #FBF7F0;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bio-hero::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+  }
+  .bio-hero-grid {
+    max-width: 1100px; margin: 0 auto; padding: 0 28px;
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 880px) {
+    .bio-hero-grid { grid-template-columns: 360px 1fr; gap: 60px; padding: 0 48px; }
+  }
+  .bio-photo {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    border-radius: 6px; max-width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+  .bio-hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.55); margin-bottom: 14px;
+  }
+  .bio-hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 5.5vw, 60px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .bio-hero h1 em { color: var(--fuchsia); font-style: normal; }
+  .bio-hero .lead {
+    color: rgba(255,255,255,.85);
+    font-size: 18px; line-height: 1.55; max-width: 520px;
+    margin-bottom: 26px;
+  }
+  .bio-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bio-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 7px 12px; border-radius: 4px;
+    color: rgba(255,255,255,.78);
+  }
+  .bio-tag.teal { color: var(--teal); border-color: rgba(0,178,169,.4) }
+  .bio-tag.fuchsia { color: var(--fuchsia); border-color: rgba(239,66,111,.4) }
+  .bio-tag.orange { color: var(--orange); border-color: rgba(255,130,0,.4) }
+
+  /* Mini-marquee (charte FIESTA, obligatoire) */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    text-transform: uppercase; letter-spacing: -.01em;
+    position: relative; z-index: 1;
+  }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px; }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px; }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Sections */
+  .bio-wrap { max-width: 780px; margin: 0 auto; padding: 70px 24px 100px; }
+  .bio-section { padding: 32px 0; border-top: 1px solid var(--line); }
+  .bio-section:first-child { border-top: none; padding-top: 0; }
+  .bio-section h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px; line-height: 1.15;
+    text-transform: uppercase; letter-spacing: -.02em;
+    margin-bottom: 18px;
+  }
+  .bio-section h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--fuchsia); margin-right: 10px;
+  }
+  .bio-section h2 em { color: var(--fuchsia); font-style: normal; }
+  .bio-section p { margin-bottom: 14px; color: var(--ink-soft); font-size: 17px; }
+  .bio-section ul { margin: 10px 0 14px 22px; }
+  .bio-section li { margin-bottom: 8px; color: var(--ink-soft); font-size: 17px; }
+  .bio-section strong { color: var(--ink); }
+
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    margin: 20px 0;
+  }
+  @media (min-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .stat-card {
+    background: var(--bg-2); padding: 22px 18px; border-radius: 6px;
+    border-left: 3px solid var(--teal);
+  }
+  .stat-card:nth-child(2) { border-left-color: var(--fuchsia); }
+  .stat-card:nth-child(3) { border-left-color: var(--orange); }
+  .stat-card:nth-child(4) { border-left-color: var(--ink); }
+  .stat-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px; line-height: 1; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .timeline { margin: 16px 0; }
+  .timeline-item {
+    display: grid; grid-template-columns: 80px 1fr; gap: 18px;
+    padding: 14px 0; border-top: 1px solid var(--line);
+  }
+  .timeline-item:first-child { border-top: none; padding-top: 0; }
+  .timeline-year {
+    font-family: 'Archivo Black', sans-serif; font-size: 18px;
+    color: var(--fuchsia); text-transform: uppercase;
+  }
+  .timeline-content p { margin-bottom: 6px; font-size: 16px; }
+  .timeline-content strong { color: var(--ink); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    margin-top: 20px;
+  }
+  @media (min-width: 600px) {
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .contact-card {
+    background: var(--bg-2); padding: 18px 20px; border-radius: 6px;
+    border-left: 3px solid var(--line);
+    transition: border-color .2s;
+  }
+  .contact-card:hover { border-left-color: var(--fuchsia); }
+  .contact-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 6px;
+  }
+  .contact-link {
+    color: var(--ink); text-decoration: none; font-weight: 600;
+    font-size: 16px;
+  }
+  .contact-link:hover { color: var(--fuchsia); }
+
+  .back {
+    display: inline-block; margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--ink-muted); text-decoration: none;
+  }
+  .back:hover { color: var(--fuchsia); }
+</style>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
+</head>
+<body>
+
+<header class="bio-hero">
+  <div class="bio-hero-grid">
+    <img src="photos/A7100670.webp" alt="Portrait de Jérémy Sagnier" class="bio-photo" loading="eager" fetchpriority="high">
+    <div>
+      <div class="kicker">Qui je suis · pour qu'on se comprenne</div>
+      <h1>Jérémy <em>Sagnier.</em></h1>
+      <p class="lead">Entrepreneur. Frère jumeau. Père. <strong>Pas dev.</strong> Je teste l'IA à fond depuis 2024 et je partage chaque vendredi ce qui m'a servi à moi en premier.</p>
+      <div class="bio-tags">
+        <span class="bio-tag teal">Entrepreneur</span>
+        <span class="bio-tag fuchsia">Pas dev</span>
+        <span class="bio-tag orange">Roussillon · 84</span>
+        <span class="bio-tag">Curieux de l'IA</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Pas dev</span><span>Pas dépassé</span><span>Juste curieux</span><span>Je teste tout</span><span>Je partage ce qui sert</span><span>D'abord pour moi</span>
+    <span>Pas dev</span><span>Pas dépassé</span><span>Juste curieux</span><span>Je teste tout</span><span>Je partage ce qui sert</span><span>D'abord pour moi</span>
+  </div>
+</div>
+
+<main class="bio-wrap">
+
+  <a href="/" class="back">← retour à l'accueil</a>
+
+  <section class="bio-section">
+    <h2><span class="num">01</span> Qui je suis, <em>en deux minutes.</em></h2>
+    <p>Je m'appelle Jérémy Sagnier. J'ai 41 ans. Je suis <strong>le frère jumeau de Kevin Sagnier</strong>, qui a fondé <a href="https://www.eurofiscalis.com" target="_blank" rel="noopener">Eurofiscalis</a> en 2017 — un cabinet de représentation fiscale en Europe. Moi, j'ai bossé avec lui sur le développement business du groupe pendant des années avant de monter ma propre structure, <strong>Jerwis Conseil</strong>, en 2025.</p>
+    <p>Je vis à <strong>Roussillon</strong>, dans le Vaucluse (le village ocre, oui, celui-là). J'ai un fils. Je passe beaucoup de temps à courir, à lire, à tester des outils IA, et à essayer de comprendre où le monde va dans les dix prochaines années.</p>
+    <p><strong>Je ne suis pas développeur.</strong> Je ne code pas. Je n'ai jamais fait d'informatique. Je suis juste quelqu'un qui, depuis fin 2024, a décidé que l'IA n'allait pas me dépasser. Alors j'ai appris dans l'ordre, lentement, en testant tout moi-même. Et ce que ça a changé dans mon quotidien et celui de mon équipe, c'est massif.</p>
+  </section>
+
+  <section class="bio-section">
+    <h2><span class="num">02</span> Ce que je fais ici, <em>concrètement.</em></h2>
+    <p>Sur ce site, je publie trois choses :</p>
+    <ul>
+      <li><strong>Un parcours pédagogique gratuit</strong> en 4 étapes pour apprendre l'IA dans l'ordre où je l'ai apprise. <a href="/apprendre">Commence ici</a> si tu débutes.</li>
+      <li><strong>Une veille automatique chaque vendredi à 9h</strong> — la newsletter AI Playbook. Je l'ai d'abord faite pour moi (je voulais arrêter de scroller LinkedIn pendant 2h le lundi matin). Tu peux <a href="/#newsletters">recevoir la même</a>.</li>
+      <li><strong>Des articles tests + opinions tranchées</strong> sur l'IA, Claude Code, les agents, et où tout ça nous emmène. <a href="/articles">Tous les articles ici</a>.</li>
+    </ul>
+    <p>Plus un podcast <a href="/podcast">Guerres d'IA</a> (à propos des bagarres entre les géants de l'IA, racontées comme un roman) et un petit outil maison à <a href="/precommande-photos-personal-branding">39 € pour générer ses photos de personal branding avec l'IA</a>.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Articles publiés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1500+</div>
+        <div class="stat-label">Abonnés newsletter</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Sources scannées / semaine</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1/sem</div>
+        <div class="stat-label">Rythme veille IA</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bio-section">
+    <h2><span class="num">03</span> Mon parcours, <em>en quelques dates.</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2017</div>
+        <div class="timeline-content">
+          <p><strong>Kevin lance Eurofiscalis.</strong> Représentation fiscale en Europe pour les sociétés étrangères. Je rejoins l'aventure côté business development, marketing, opérations.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2020-23</div>
+        <div class="timeline-content">
+          <p><strong>Eurofiscalis scale.</strong> 15 pays couverts, équipe à 60+ personnes, Leo (la mascotte IA) lancé pour assister les clients. Ma première vraie immersion dans l'IA appliquée, côté produit.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-content">
+          <p><strong>Le déclic.</strong> ChatGPT, puis Claude, puis Claude Code. Je passe 6 mois à tester en mode <em>« je veux comprendre ce truc avant qu'il me passe dessus »</em>. Je découvre que l'IA, pour quelqu'un comme moi (pas dev), c'est utilisable en vrai.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2025</div>
+        <div class="timeline-content">
+          <p><strong>Création de Jerwis Conseil</strong> (SAS, RCS Avignon). Lancement de la newsletter AI Playbook. Premiers articles tests Claude Code. Le site jerwis.fr passe en prod en avril.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-content">
+          <p><strong>L'année des agents.</strong> Le site dépasse 25 articles, le podcast <em>Guerres d'IA</em> sort, le premier outil payant (générateur photos personal branding) est lancé. Et ça continue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bio-section">
+    <h2><span class="num">04</span> Ma garantie, <em>en deux phrases.</em></h2>
+    <p><strong>Je fais tout ça d'abord pour moi.</strong> Si ça arrive jusqu'à toi, c'est parce que ça m'a servi à moi en premier. Les newsletters, ce sont des veilles automatiques que je me produis à moi-même. Les articles, ce sont des tests que je fais d'abord pour comprendre, et qui finissent par être utiles à d'autres.</p>
+    <p>Pas de produit miracle. Pas de promesse de revenu passif. Pas de programme à 2000 €. Juste quelqu'un qui apprend en public et qui partage ce qui marche — et ce qui marche pas. <strong>Si je me trompe, écris-moi.</strong> Je lis tout, je réponds à tout, et je corrige si c'est mérité.</p>
+  </section>
+
+  <section class="bio-section">
+    <h2><span class="num">05</span> Comment me <em>contacter.</em></h2>
+    <p>Le plus efficace, c'est par mail. Je réponds vite (sous 48h ouvrées, max 7 jours). Si tu veux juste me suivre, le mieux c'est la newsletter ou LinkedIn.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email pro</div>
+        <a href="mailto:jeremy.sagnier@jerwis.fr" class="contact-link">jeremy.sagnier@jerwis.fr</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener" class="contact-link">linkedin.com/in/jeremy-sagnier</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">X / Twitter</div>
+        <a href="https://x.com/JeremySagnier" target="_blank" rel="noopener" class="contact-link">@JeremySagnier</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">YouTube</div>
+        <a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener" class="contact-link">@jeremy-sagnier</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Newsletter hebdo</div>
+        <a href="/#newsletters" class="contact-link">AI Playbook · vendredi 9h</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Structure pro</div>
+        <span class="contact-link" style="color: var(--ink-soft); font-weight: 500;">Jerwis Conseil · SAS · RCS Avignon</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="bio">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="/apprendre">Parcours débutant</a></li>
+          <li><a href="/claude-code">Guide Claude Code</a></li>
+          <li><a href="/articles">Tous les articles</a></li>
+          <li><a href="/lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils">Ma stack outils</a></li>
+          <li><a href="/modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="/github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/politique-confidentialite">Confidentialité</a></li>
+          <li><a href="/cgv">CGV</a></li>
+          <li><a href="/suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="/preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'bio' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+</body>
+</html>

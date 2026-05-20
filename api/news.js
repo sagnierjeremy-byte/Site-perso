@@ -4,25 +4,26 @@
 import { XMLParser } from 'fast-xml-parser';
 
 const FEEDS = [
-  // ── IA & Tech ──────────────────────────────────────────────────────────────
+  // ── IA & Tech — sources mondiales avec images fiables ─────────────────────
   { url: 'https://techcrunch.com/category/artificial-intelligence/feed/', name: 'TechCrunch', category: 'IA' },
   { url: 'https://venturebeat.com/category/ai/feed/', name: 'VentureBeat', category: 'IA' },
   { url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml', name: 'The Verge', category: 'IA' },
   { url: 'https://www.wired.com/feed/category/artificial-intelligence/latest/rss', name: 'Wired', category: 'IA' },
-  { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab', name: 'Ars Technica', category: 'IA' },
-  // ── Business & Startups ───────────────────────────────────────────────────
-  { url: 'https://hbr.org/feed', name: 'Harvard Business Review', category: 'Business' },
-  { url: 'https://www.inc.com/rss.xml', name: 'Inc Magazine', category: 'Business' },
-  { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
-  { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
-  // ── Tech francophone ──────────────────────────────────────────────────────
+  // ── IA & Tech — sources françaises ────────────────────────────────────────
+  { url: 'https://www.numerama.com/feed/', name: 'Numerama', category: 'IA' },
+  { url: 'https://siecledigital.fr/feed/', name: 'Siècle Digital', category: 'IA' },
   { url: 'https://www.usine-digitale.fr/rss/', name: "L'Usine Digitale", category: 'IA' },
+  { url: 'https://www.clubic.com/feed/rss.xml', name: 'Clubic', category: 'IA' },
+  // ── Business — sources françaises ─────────────────────────────────────────
+  { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
+  { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
 ];
 
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
   parseAttributeValue: false,
+  stopNodes: ['*.script', '*.style'],
 });
 
 const UA = 'Mozilla/5.0 (compatible; Jerwis-Veille/1.0; +https://jerwis.fr)';
@@ -65,14 +66,12 @@ function parseXml(xml, sourceName, category) {
   let doc;
   try { doc = parser.parse(xml); } catch { return []; }
 
-  // RSS 2.0
   const rss = doc.rss;
   if (rss?.channel?.item) {
     const items = Array.isArray(rss.channel.item) ? rss.channel.item : [rss.channel.item];
     return items.map((i) => rssItem(i, sourceName, category)).filter(Boolean);
   }
 
-  // Atom
   const feed = doc.feed;
   if (feed?.entry) {
     const entries = Array.isArray(feed.entry) ? feed.entry : [feed.entry];
@@ -92,7 +91,7 @@ function rssItem(item, sourceName, category) {
     sourceName,
     category,
     excerpt: item.description ? stripHtml(str(item.description)).slice(0, 300) : null,
-    publishedAt: item.pubDate ? new Date(str(item.pubDate)).toISOString() : null,
+    publishedAt: item.pubDate ? safeDate(str(item.pubDate)) : null,
     image: extractImage(item),
   };
 }
@@ -117,20 +116,28 @@ function atomEntry(entry, sourceName, category) {
     sourceName,
     category,
     excerpt: rawExcerpt ? stripHtml(str(rawExcerpt)).slice(0, 300) : null,
-    publishedAt: entry.published
-      ? new Date(str(entry.published)).toISOString()
-      : entry.updated ? new Date(str(entry.updated)).toISOString() : null,
+    publishedAt: safeDate(str(entry.published ?? entry.updated ?? '')),
     image: extractImage(entry),
   };
 }
 
 function extractImage(node) {
-  // media:thumbnail
+  // media:thumbnail (le plus courant)
   const thumb = node['media:thumbnail'];
-  if (thumb && typeof thumb === 'object') {
-    const u = thumb['@_url'];
-    if (typeof u === 'string' && u) return u;
+  if (thumb) {
+    const u = pickUrl(thumb);
+    if (u) return u;
   }
+
+  // media:group > media:thumbnail (YouTube et certains feeds)
+  const group = node['media:group'];
+  if (group && typeof group === 'object') {
+    const gt = group['media:thumbnail'];
+    if (gt) { const u = pickUrl(gt); if (u) return u; }
+    const gc = group['media:content'];
+    if (gc) { const u = pickUrl(gc); if (u) return u; }
+  }
+
   // media:content
   const mc = node['media:content'];
   if (mc) {
@@ -142,19 +149,40 @@ function extractImage(node) {
     const u = list[0]?.['@_url'];
     if (typeof u === 'string' && u) return u;
   }
+
   // enclosure image
   const enc = node.enclosure;
   if (enc && typeof enc === 'object') {
     const type = enc['@_type'], u = enc['@_url'];
     if (typeof u === 'string' && u && typeof type === 'string' && type.startsWith('image/')) return u;
   }
-  // first <img> in HTML content
-  const html = str(node.description ?? node['content:encoded'] ?? node.content ?? node.summary ?? '');
+
+  // premier <img> dans le HTML du contenu
+  const html = str(node['content:encoded'] ?? node.description ?? node.content ?? node.summary ?? '');
   if (html) {
-    const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if (m?.[1]) return m[1];
+    const m = html.match(/<img[^>]+src=["']([^"']{10,})["']/i);
+    if (m?.[1] && !m[1].includes('pixel') && !m[1].includes('1x1')) return m[1];
+  }
+
+  return null;
+}
+
+function pickUrl(v) {
+  if (!v) return null;
+  if (Array.isArray(v)) {
+    for (const item of v) { const u = item?.['@_url']; if (typeof u === 'string' && u) return u; }
+    return null;
+  }
+  if (typeof v === 'object') {
+    const u = v['@_url'];
+    return typeof u === 'string' && u ? u : null;
   }
   return null;
+}
+
+function safeDate(s) {
+  if (!s) return null;
+  try { const d = new Date(s); return isNaN(d.getTime()) ? null : d.toISOString(); } catch { return null; }
 }
 
 function str(v) {

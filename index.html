@@ -2468,6 +2468,124 @@
   </div>
 </section>
 
+<!-- Mini-marquee : Apprendre → News -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Ce qui se passe</span><span>En ce moment</span><span>IA</span><span>Business</span><span>Sans filtre</span><span>En direct</span>
+    <span>Ce qui se passe</span><span>En ce moment</span><span>IA</span><span>Business</span><span>Sans filtre</span><span>En direct</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- NEWS — Actus en direct                                        -->
+<!-- ============================================================ -->
+<section id="news" style="padding:72px 0 64px; background:var(--bg-2); border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label lbl-teal">— 03 · Les actus</span>
+        <h2 class="section-title">Ne rien <em>rater.</em></h2>
+      </div>
+      <p class="section-sub">
+        10 sources mondiales agrégées en direct : TechCrunch, VentureBeat, Wired, HBR, Fast Company et plus. Tout ce qui compte en IA et Business — mis à jour toutes les 6h, sans inscription.
+      </p>
+    </div>
+
+    <!-- Grille 3 cartes -->
+    <div id="homeNewsGrid" style="
+      display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:32px;
+    ">
+      <!-- Skeletons -->
+      <div class="home-news-skel"><div class="home-news-skel-img"></div><div style="padding:16px"><div class="home-news-skel-line" style="width:60%;height:10px;margin-bottom:10px"></div><div class="home-news-skel-line" style="width:100%;height:14px;margin-bottom:6px"></div><div class="home-news-skel-line" style="width:80%;height:14px"></div></div></div>
+      <div class="home-news-skel"><div class="home-news-skel-img"></div><div style="padding:16px"><div class="home-news-skel-line" style="width:60%;height:10px;margin-bottom:10px"></div><div class="home-news-skel-line" style="width:100%;height:14px;margin-bottom:6px"></div><div class="home-news-skel-line" style="width:80%;height:14px"></div></div></div>
+      <div class="home-news-skel"><div class="home-news-skel-img"></div><div style="padding:16px"><div class="home-news-skel-line" style="width:60%;height:10px;margin-bottom:10px"></div><div class="home-news-skel-line" style="width:100%;height:14px;margin-bottom:6px"></div><div class="home-news-skel-line" style="width:80%;height:14px"></div></div></div>
+    </div>
+
+    <div style="text-align:center">
+      <a href="news.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">
+        Voir toutes les actus
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-news-skel { border-radius:12px; overflow:hidden; border:1px solid var(--line); background:var(--surface); animation:shimmer-home 1.2s ease-in-out alternate infinite; }
+  .home-news-skel-img { aspect-ratio:16/9; background:var(--line); }
+  .home-news-skel-line { background:var(--line); border-radius:4px; }
+  @keyframes shimmer-home { from{opacity:.5} to{opacity:1} }
+
+  .home-news-card { border-radius:12px; overflow:hidden; border:1px solid var(--line-strong); background:var(--surface); text-decoration:none; color:inherit; display:flex; flex-direction:column; transition:box-shadow .2s, transform .2s; }
+  .home-news-card:hover { box-shadow:0 6px 24px rgba(0,0,0,.1); transform:translateY(-2px); }
+  .home-news-card-img { width:100%; aspect-ratio:16/9; overflow:hidden; position:relative; }
+  .home-news-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .3s; }
+  .home-news-card:hover .home-news-card-img img { transform:scale(1.04); }
+  .home-news-card-img-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.7); }
+  .home-news-card-body { padding:16px 18px 14px; flex:1; display:flex; flex-direction:column; gap:6px; }
+  .home-news-card-source { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-muted); }
+  .home-news-card-title { font-family:'Archivo Black',sans-serif; font-size:14px; line-height:1.3; color:var(--ink); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .home-news-card-date { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--ink-muted); text-transform:uppercase; margin-top:auto; padding-top:4px; }
+  .home-news-card-tag { font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:100px; }
+  .home-news-card-tag.cat-ia { background:rgba(239,66,111,.12); color:var(--fuchsia); }
+  .home-news-card-tag.cat-business { background:rgba(0,178,169,.12); color:var(--teal); }
+  .home-news-card-tag.cat-other { background:rgba(255,130,0,.12); color:var(--orange); }
+
+  @media(max-width:900px) { #homeNewsGrid { grid-template-columns:repeat(2,1fr) !important; } }
+  @media(max-width:560px) { #homeNewsGrid { grid-template-columns:1fr !important; } }
+</style>
+
+<script>
+(function() {
+  function hEsc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function hCatClass(cat) {
+    if (!cat) return 'cat-other';
+    var l = cat.toLowerCase();
+    return l.includes('ia')||l.includes('ai') ? 'cat-ia' : l.includes('business')||l.includes('startup') ? 'cat-business' : 'cat-other';
+  }
+  function hFmtDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
+  }
+  async function loadHomeNews() {
+    var grid = document.getElementById('homeNewsGrid');
+    if (!grid) return;
+    try {
+      var res = await fetch('/api/news');
+      if (!res.ok) throw new Error();
+      var data = await res.json();
+      var articles = Array.isArray(data) ? data.slice(0, 3) : [];
+      if (!articles.length) { grid.innerHTML = ''; return; }
+      var html = '';
+      articles.forEach(function(a) {
+        var cls = hCatClass(a.category);
+        var imgHtml = a.image
+          ? '<img src="'+hEsc(a.image)+'" alt="" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=\\\"home-news-card-img-placeholder '+cls+'\\\">'+hEsc(a.sourceName||'')+'<\\/div>\'">'
+          : '<div class="home-news-card-img-placeholder '+cls+'">'+hEsc(a.sourceName||'')+'</div>';
+        html += '<a href="'+hEsc(a.url)+'" target="_blank" rel="noopener" class="home-news-card">'
+          + '<div class="home-news-card-img">'+imgHtml+'</div>'
+          + '<div class="home-news-card-body">'
+          + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+          + '<span class="home-news-card-source">'+hEsc(a.sourceName||'')+'</span>'
+          + (a.category ? '<span class="home-news-card-tag '+cls+'">'+hEsc(a.category)+'</span>' : '')
+          + '</div>'
+          + '<p class="home-news-card-title">'+hEsc(a.title)+'</p>'
+          + '<span class="home-news-card-date">'+hFmtDate(a.publishedAt)+'</span>'
+          + '</div></a>';
+      });
+      grid.innerHTML = html;
+    } catch(e) {
+      grid.innerHTML = '';
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadHomeNews);
+  } else {
+    loadHomeNews();
+  }
+})();
+</script>
+
 <!-- ============================================================ -->
 <!-- NEWSLETTERS — La veille continue                              -->
 <!-- ============================================================ -->

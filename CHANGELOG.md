@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Hub modèles IA V2 — décision + page image/vidéo
+
+### Pourquoi
+La V1 listait bien les modèles, mais restait trop proche d'un annuaire. Besoin de rapprocher la page de l'intention Jerwis : aider à choisir rapidement selon un cas réel.
+
+### Livré
+- **`modeles-ia.html`** :
+  - Bloc "Mes choix actuels" avant les filtres.
+  - Raccourcis décisionnels : généraliste, code/agents, low cost, local, image, vidéo.
+  - Mode comparaison jusqu'à 4 modèles avec `à choisir si`, `à éviter si`, licence et score Jerwis.
+  - Score Jerwis visible dans le tableau.
+- **`data/models-ai.json`** :
+  - Ajout automatique sur toutes les fiches : `choose_if`, `avoid_if`, `jerwis_score`, `freshness_status`, `recommended_for_beginner`.
+- **`modeles-image-ia.html`** :
+  - Nouvelle page enfant image/vidéo.
+  - Angle Nano Banana Pro vs Nano Banana 2.
+  - Sections décisions rapides, catalogue image, catalogue vidéo.
+- **`sitemap.xml`** : ajout de `modeles-image-ia.html`.
+
+### Décision
+La page hub reste un guide de choix. Les catégories créatives ont leur page dédiée car les critères image/vidéo n'ont rien à voir avec les LLM texte.
+
+---
+
 ## 2026-05-20 · Hub modèles IA V1
 
 ### Pourquoi

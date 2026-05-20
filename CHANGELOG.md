@@ -1,5 +1,33 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Section audio enrichie + Mistral Voxtral + liens directs partout
+
+### Pourquoi
+La section audio listait juste 3 cards minimalistes. L'utilisateur veut du concret : ajouter Mistral Voxtral (audio open-weight), détailler chaque modèle (capacités, langues, prix, accès, limites), montrer la stack réelle utilisée pour le podcast *Guerres d'IA*. Et surtout : des **liens directs** vers chaque modèle au lieu de juste les docs.
+
+### Livré
+- **`data/models-ai.json`** : ajout de l'entrée `mistral-voxtral` (Apache 2.0, open-weight, transcription + audio understanding, multilingue, score 78). Total passe à 53 modèles, 4 audio.
+- **`modeles-image-ia.html`** — section audio refondue (page passe de 1094 → 1415 lignes) :
+  - **4 decision cards** (au lieu de 3) avec liens directs : Eleven v3 / Gemini Native Audio / Whisper / **Voxtral**
+  - **Section "En détail"** : 4 cards riches (`.audio-detail`) avec liste structurée — modalités, langues, prix exact, accès, pour qui, limites — et lien direct par card
+  - **Panel "Ma stack — Jerwis Productions"** (`.podcast-stack`) :
+    - Casting voix : Paul K (Deep French Narrator), Simon (Altman), Mathieu (Amodei), Camille (Daniela)
+    - Pipeline 3 étapes : script Claude → synthèse Python+ElevenLabs → mix REAPER -16 LUFS
+    - CTA vers `/podcast`
+- **Liens directs partout** :
+  - Toutes les decision cards image et vidéo : URL d'accès direct (labs.google, midjourney.com, ideogram.ai, openai.com/sora, runwayml.com, klingai.com, grok.com, etc.)
+  - Compare-strips Nano Banana et Sora/Veo : lien direct ajouté
+  - Table comparative vidéo : noms de modèles cliquables
+  - Catalogue auto-généré : nouveau lien "Accéder →" en plus du "Docs ↗" (mapping ID → URL grand public dans `ACCESS_URLS`)
+- Nouveau CSS : `.card-link`, `.audio-detail`, `.podcast-stack`, `.podcast-cast`, `.podcast-pipeline`
+
+### Fichiers touchés
+- `modeles-image-ia.html`
+- `data/models-ai.json`
+- `CHANGELOG.md`
+
+---
+
 ## 2026-05-20 · Complétude étendue modeles-image-ia — section audio + table vidéo
 
 ### Pourquoi

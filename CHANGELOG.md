@@ -1,5 +1,25 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Comparateur LLM amélioré
+
+### Pourquoi
+Le comparateur V2 permettait de cocher 2-4 modèles, mais restait trop léger pour décider entre GPT, Claude, Gemini, Qwen, DeepSeek ou Llama.
+
+### Livré
+- **`modeles-ia.html`** :
+  - Presets rapides : frontier, code, low cost API, local/open-weight.
+  - Comparateur renommé "Comparateur LLM".
+  - Verdict automatique : meilleur score, plus long contexte, budget, contrôle données.
+  - Cartes enrichies : famille, prix, contexte, accès, licence, à choisir si, à éviter si.
+  - Gestion des égalités prix/contexte et signal "Aucun local" quand aucun modèle sélectionné ne peut tourner hors plateforme fermée.
+
+### Vérifié
+- Preset frontier : 3 modèles sélectionnés, verdicts affichés.
+- Preset low cost : 4 modèles sélectionnés.
+- Preset local : 4 modèles sélectionnés, mobile 390px sans débordement.
+
+---
+
 ## 2026-05-20 · Fix mobile home — pulse bar + menu
 
 ### Pourquoi

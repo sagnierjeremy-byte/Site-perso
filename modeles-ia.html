@@ -382,6 +382,28 @@
     cursor: pointer;
     font-weight: 800;
   }
+  .llm-preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 18px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .llm-preset {
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 38px;
+    padding: 0 13px;
+    cursor: pointer;
+    font: 800 12px 'Archivo', sans-serif;
+  }
+  .llm-preset:hover {
+    border-color: var(--fuchsia);
+    transform: translateY(-1px);
+  }
   .compare-toggle {
     border-color: var(--line-strong);
     background: var(--surface);
@@ -391,6 +413,35 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
+  }
+  .compare-verdict {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .verdict-chip {
+    border: 1px solid rgba(251,247,240,.16);
+    border-radius: 12px;
+    padding: 12px;
+    background: rgba(251,247,240,.06);
+  }
+  .verdict-chip span {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(251,247,240,.55);
+    margin-bottom: 5px;
+  }
+  .verdict-chip strong {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
   }
   .compare-card {
     border: 1px solid rgba(251,247,240,.18);
@@ -404,6 +455,28 @@
     line-height: 1.05;
     text-transform: uppercase;
     margin: 0 0 10px;
+  }
+  .compare-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(251,247,240,.62);
+  }
+  .compare-score b {
+    display: inline-flex;
+    min-width: 38px;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--fuchsia);
+    color: #fff;
+    font-size: 12px;
   }
   .compare-card dl { margin: 0; }
   .compare-card dt {
@@ -573,7 +646,7 @@
     .usage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .choice-grid, .reco-grid, .method-grid { grid-template-columns: 1fr; }
     .catalog-toolbar { grid-template-columns: 1fr 1fr; }
-    .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .compare-grid, .compare-verdict { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-band { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 640px) {
@@ -582,7 +655,7 @@
     .hero-panel-grid { grid-template-columns: 1fr; }
     .models-shell { padding-left: 16px; padding-right: 16px; }
     .catalog-card { border-radius: 12px; }
-    .compare-grid { grid-template-columns: 1fr; }
+    .compare-grid, .compare-verdict { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -742,11 +815,19 @@
         </select>
         <button class="compare-toggle" id="compareToggle" type="button">Comparer 0/4</button>
       </div>
+      <div class="llm-preset-row" aria-label="Comparaisons LLM rapides">
+        <button class="llm-preset" type="button" data-preset="frontier">Frontier : GPT / Claude / Gemini</button>
+        <button class="llm-preset" type="button" data-preset="coding">Code : Codex / Claude / Qwen</button>
+        <button class="llm-preset" type="button" data-preset="cheap">Low cost API</button>
+        <button class="llm-preset" type="button" data-preset="local">Local / open-weight</button>
+        <button class="llm-preset" type="button" data-preset="clear">Réinitialiser</button>
+      </div>
       <div class="compare-panel" id="comparePanel" aria-live="polite">
         <div class="compare-head">
-          <strong>Comparaison rapide</strong>
+          <strong>Comparateur LLM</strong>
           <button type="button" id="clearCompare">Vider</button>
         </div>
+        <div class="compare-verdict" id="compareVerdict"></div>
         <div class="compare-grid" id="compareGrid"></div>
       </div>
       <div class="count-line" id="countLine">Chargement du catalogue...</div>
@@ -842,6 +923,13 @@
     { label: 'Recherche sourcée', id: 'perplexity-sonar-pro' }
   ];
 
+  const comparePresets = {
+    frontier: ['openai-gpt-5-5', 'anthropic-claude-sonnet-4-6', 'google-gemini-3-pro'],
+    coding: ['openai-gpt-5-3-codex', 'anthropic-claude-sonnet-4-6', 'qwen3-coder-next', 'mistral-medium-3-5'],
+    cheap: ['deepseek-v4-flash', 'google-gemini-3-flash', 'qwen3-max', 'anthropic-claude-haiku-4-5'],
+    local: ['qwen3-235b-a22b', 'meta-llama-4-maverick', 'mistral-small-4', 'google-gemma-4']
+  };
+
   function formatContext(n) {
     if (!n) return '—';
     if (n >= 1000000) return (n / 1000000).toLocaleString('fr-FR') + 'M';
@@ -858,6 +946,31 @@
 
   function isOpen(model) {
     return model.license !== 'proprietary';
+  }
+
+  function pricingLabel(model) {
+    const labels = {
+      premium: 'premium',
+      mid: 'intermédiaire',
+      low_cost: 'low cost',
+      local_cost: 'local/self-host',
+      included: 'inclus',
+      subscription: 'abonnement',
+      mixed: 'mixte'
+    };
+    return labels[model.pricing_tier] || model.pricing_tier || '—';
+  }
+
+  function accessLabel(model) {
+    return (model.access || []).map(labelize).join(' · ') || '—';
+  }
+
+  function contextValue(model) {
+    return typeof model.context_window === 'number' ? model.context_window : 0;
+  }
+
+  function contextLabel(model) {
+    return model.context_window ? `${formatContext(model.context_window)} tokens` : 'Non publié';
   }
 
   function modelMatchesUsage(model) {
@@ -889,18 +1002,55 @@
   function renderCompare() {
     const panel = document.getElementById('comparePanel');
     const grid = document.getElementById('compareGrid');
+    const verdict = document.getElementById('compareVerdict');
     const toggle = document.getElementById('compareToggle');
     toggle.textContent = `Comparer ${state.compare.length}/4`;
     panel.classList.toggle('is-open', state.compare.length > 0);
     const selected = state.compare
       .map(id => state.models.find(model => model.id === id))
       .filter(Boolean);
+    if (!selected.length) {
+      verdict.innerHTML = '';
+      grid.innerHTML = '';
+      return;
+    }
+    const bestScore = selected.reduce((best, model) => (model.jerwis_score || 0) > (best.jerwis_score || 0) ? model : best, selected[0]);
+    const maxContext = Math.max(...selected.map(contextValue));
+    const contextWinners = selected.filter(model => contextValue(model) === maxContext && maxContext > 0);
+    const contextVerdict = contextWinners.length > 1
+      ? `Égalité ${formatContext(maxContext)}`
+      : (contextWinners[0]?.name || 'Non publié');
+    const priceRank = { included: 0, local_cost: 1, low_cost: 2, mid: 3, subscription: 4, mixed: 5, premium: 6 };
+    const minPriceRank = Math.min(...selected.map(model => priceRank[model.pricing_tier] ?? 9));
+    const priceWinners = selected.filter(model => (priceRank[model.pricing_tier] ?? 9) === minPriceRank);
+    const priceVerdict = priceWinners.length > 1
+      ? `${pricingLabel(priceWinners[0])} (${priceWinners.length})`
+      : priceWinners[0].name;
+    const privateWinners = selected.filter(model => model.access.includes('local') || model.access.includes('open_weights'));
+    const privacyVerdict = privateWinners.length
+      ? privateWinners.sort((a, b) => (b.jerwis_score || 0) - (a.jerwis_score || 0))[0].name
+      : 'Aucun local';
+    verdict.innerHTML = [
+      ['Meilleur score', bestScore.name],
+      ['Plus long contexte', contextVerdict],
+      ['Budget', priceVerdict],
+      ['Contrôle données', privacyVerdict]
+    ].map(([label, value]) => `
+      <div class="verdict-chip">
+        <span>${label}</span>
+        <strong>${value}</strong>
+      </div>
+    `).join('');
     grid.innerHTML = selected.map(model => `
       <article class="compare-card">
         <h4>${model.name}</h4>
+        <div class="compare-score"><b>${model.jerwis_score || '—'}</b> score Jerwis</div>
         <dl>
-          <dt>Type</dt><dd>${labelize(model.category)} · ${labelize(model.license)}</dd>
-          <dt>Score Jerwis</dt><dd>${model.jerwis_score || '—'}/100</dd>
+          <dt>Famille</dt><dd>${model.provider} · ${model.family}</dd>
+          <dt>Prix</dt><dd>${pricingLabel(model)}</dd>
+          <dt>Contexte</dt><dd>${contextLabel(model)}</dd>
+          <dt>Accès</dt><dd>${accessLabel(model)}</dd>
+          <dt>Licence</dt><dd>${labelize(model.license)}</dd>
           <dt>À choisir si</dt><dd>${(model.choose_if || []).join(' · ')}</dd>
           <dt>À éviter si</dt><dd>${(model.avoid_if || []).join(' · ')}</dd>
         </dl>
@@ -988,6 +1138,24 @@
     link.addEventListener('click', () => {
       state.usage = link.dataset.shortcut;
       renderAll();
+    });
+  });
+
+  document.querySelectorAll('[data-preset]').forEach(button => {
+    button.addEventListener('click', () => {
+      const preset = button.dataset.preset;
+      state.category = preset === 'clear' ? 'all' : 'llm';
+      state.usage = 'all';
+      state.license = 'all';
+      state.price = 'all';
+      state.query = '';
+      state.compare = preset === 'clear' ? [] : [...(comparePresets[preset] || [])];
+      document.getElementById('categoryFilter').value = state.category;
+      document.getElementById('licenseFilter').value = state.license;
+      document.getElementById('priceFilter').value = state.price;
+      document.getElementById('searchInput').value = '';
+      renderAll();
+      document.getElementById('comparePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 

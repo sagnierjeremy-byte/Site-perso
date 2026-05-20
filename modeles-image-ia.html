@@ -569,8 +569,8 @@
         <div class="hero-panel-grid">
           <div class="hero-stat"><b id="statImage">--</b><span>modèles image suivis</span></div>
           <div class="hero-stat"><b id="statVideo">--</b><span>modèles vidéo suivis</span></div>
+          <div class="hero-stat"><b id="statAudio">--</b><span>modèles audio suivis</span></div>
           <div class="hero-stat"><b>Mai 26</b><span>dernière vérification</span></div>
-          <div class="hero-stat"><b>30j</b><span>alerte si fiche obsolète</span></div>
         </div>
       </aside>
     </div>
@@ -578,8 +578,8 @@
 
   <div class="mini-marquee" aria-hidden="true">
     <div class="mini-marquee-track">
-      <span>Image finale</span><span>Variantes rapides</span><span>Texte lisible</span><span>Vidéo courte</span><span>Montage IA</span><span>Sources</span>
-      <span>Image finale</span><span>Variantes rapides</span><span>Texte lisible</span><span>Vidéo courte</span><span>Montage IA</span><span>Sources</span>
+      <span>Image finale</span><span>Variantes rapides</span><span>Texte lisible</span><span>Vidéo courte</span><span>Voix narration</span><span>Montage IA</span>
+      <span>Image finale</span><span>Variantes rapides</span><span>Texte lisible</span><span>Vidéo courte</span><span>Voix narration</span><span>Montage IA</span>
     </div>
   </div>
 
@@ -770,6 +770,73 @@
         </ul>
       </article>
     </div>
+
+    <div class="section-label" style="margin-top:36px;">Tableau comparatif</div>
+    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Vidéo IA : qui fait quoi ?</h2>
+    <div style="overflow-x:auto;">
+      <table class="plain-table">
+        <thead>
+          <tr>
+            <th>Modèle</th>
+            <th>Durée typique</th>
+            <th>Audio natif</th>
+            <th>Image-to-video</th>
+            <th>Accès</th>
+            <th>Cas d'usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sora</td>
+            <td>10–20 s</td>
+            <td>Oui (récent)</td>
+            <td>Oui</td>
+            <td>Chat OpenAI · API</td>
+            <td>Narration courte, teaser, storytelling</td>
+          </tr>
+          <tr>
+            <td>Veo 3.1</td>
+            <td>8–10 s</td>
+            <td><b>Oui — natif</b></td>
+            <td>Oui</td>
+            <td>API · Flow</td>
+            <td>Scène avec dialogue ou ambiance sonore</td>
+          </tr>
+          <tr>
+            <td>Gemini Omni</td>
+            <td>Court</td>
+            <td>Possible (multimodal)</td>
+            <td>Oui</td>
+            <td>Gemini · Flow · API</td>
+            <td>Édition vidéo en conversation</td>
+          </tr>
+          <tr>
+            <td>Runway Gen-4</td>
+            <td>10 s +</td>
+            <td>Non (post-prod)</td>
+            <td>Oui</td>
+            <td>Web app · API</td>
+            <td>Production studio, timeline créative</td>
+          </tr>
+          <tr>
+            <td>Kling 2.5 Turbo</td>
+            <td>Court</td>
+            <td>Limité</td>
+            <td>Oui</td>
+            <td>Web app · API</td>
+            <td>Clip rapide, format social</td>
+          </tr>
+          <tr>
+            <td>Grok Imagine</td>
+            <td>Très court</td>
+            <td>Non</td>
+            <td>Limité</td>
+            <td>X · Grok app</td>
+            <td>Test format social, jetable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <div class="mini-marquee" aria-hidden="true">
@@ -826,11 +893,43 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Voix</span><span>Narration</span><span>Podcast</span><span>Agent vocal</span><span>Transcription</span><span>Temps réel</span>
+      <span>Voix</span><span>Narration</span><span>Podcast</span><span>Agent vocal</span><span>Transcription</span><span>Temps réel</span>
+    </div>
+  </div>
+
+  <section class="creative-shell" id="audio">
+    <div class="section-label">Audio · le 3e étage créatif</div>
+    <h2 class="section-title">L'audio, le maillon souvent oublié.</h2>
+    <p class="lead" style="margin-bottom:24px;">Une vidéo IA muette ne raconte rien. Un agent vocal sans voix propre sonne robot. Ces 3 outils complètent l'image et la vidéo — narration, agents temps réel, transcription.</p>
+
+    <div class="decision-grid-video">
+      <article class="decision-card">
+        <h3>Narration propre</h3>
+        <p><strong>Eleven v3</strong> reste la référence quand tu veux une voix qui ne sonne pas synthétique : voiceover de vidéo, podcast, livre audio. Coût raisonnable à l'abonnement.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Agent vocal temps réel</h3>
+        <p><strong>Gemini Native Audio</strong> est pensé pour des agents qui parlent et écoutent — pas juste lire un texte. À regarder si tu construis un assistant vocal.</p>
+      </article>
+      <article class="decision-card">
+        <h3>Transcription</h3>
+        <p><strong>Whisper</strong> reste utile pour transcrire audio → texte. Modèle open-weight d'OpenAI, peut tourner localement, idéal pour du volume.</p>
+      </article>
+    </div>
+
+    <div class="section-label" style="margin-top:40px;">Catalogue audio</div>
+    <h2 class="section-title" style="font-size:clamp(24px, 3.5vw, 40px);">Les 3 modèles audio à connaître.</h2>
+    <div class="models-grid" id="audioGrid"></div>
 
     <div class="cta-band">
       <div>
         <h2>Retour au comparateur complet</h2>
-        <p>Image et vidéo ne sont qu'une partie du sujet. Le hub liste aussi les LLM, modèles locaux, audio, embeddings et rerankers.</p>
+        <p>Image, vidéo et audio ne sont qu'une partie du sujet. Le hub liste aussi les LLM, modèles locaux, embeddings et rerankers.</p>
       </div>
       <a href="modeles-ia.html">Voir tous les modèles</a>
     </div>
@@ -977,12 +1076,17 @@
       const models = data.models || [];
       const imageModels = models.filter(m => m.category === 'image');
       const videoModels = models.filter(m => m.category === 'video');
+      const audioModels = models.filter(m => m.category === 'audio');
       document.getElementById('imageGrid').innerHTML = imageModels.map(renderCard).join('');
       document.getElementById('videoGrid').innerHTML = videoModels.map(renderCard).join('');
+      const audioEl = document.getElementById('audioGrid');
+      if (audioEl) audioEl.innerHTML = audioModels.map(renderCard).join('');
       const si = document.getElementById('statImage');
       const sv = document.getElementById('statVideo');
+      const sa = document.getElementById('statAudio');
       if (si) si.textContent = imageModels.length;
       if (sv) sv.textContent = videoModels.length;
+      if (sa) sa.textContent = audioModels.length;
     });
 </script>
 <script src="assets/nav-v2.js" defer></script>

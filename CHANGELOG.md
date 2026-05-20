@@ -1,5 +1,23 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Complétude étendue modeles-image-ia — section audio + table vidéo
+
+### Pourquoi
+La page traitait image et vidéo mais pas audio, alors que l'audio est explicitement mentionné comme étape obligatoire dans le workflow type vidéo (voix off, narration). Manque aussi une vraie table comparative pour la vidéo pour décider en un coup d'œil.
+
+### Livré (en plus de la complétude précédente)
+- **Section "Audio · le 3e étage créatif"** (id="audio") avec :
+  - Intro éditoriale "L'audio, le maillon souvent oublié"
+  - 3 decision cards : narration propre (Eleven v3), agent vocal temps réel (Gemini Native Audio), transcription (Whisper)
+  - Catalogue audio auto-généré depuis le JSON (3 modèles)
+- **Table comparative vidéo** dans la section #video : 6 modèles × 5 colonnes (durée typique, audio natif, image-to-video, accès, cas d'usage) — décision en un coup d'œil
+- **Hero panel stats** : 4e stat ajoutée (modèles audio)
+- **Mini-marquee 1** mis à jour : "Voix narration" remplace "Sources"
+- JS étendu : audioGrid + statAudio
+- Page passe de 858 → ~1094 lignes
+
+---
+
 ## 2026-05-20 · Complétude modeles-image-ia.html — focus vidéo
 
 ### Pourquoi

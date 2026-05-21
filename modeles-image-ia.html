@@ -20,7 +20,27 @@
 <meta name="twitter:description" content="Nano Banana Pro vs 2, GPT Image, Midjourney, Gemini Omni, Sora, Veo : le guide pratique.">
 <meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
 
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
 <link rel="canonical" href="https://jerwis.fr/modeles-image-ia">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Modèles image IA", "item": "https://jerwis.fr/modeles-image-ia" }
+  ]
+}
+</script>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/nav-v2.css?v=20260520-dropdown">
@@ -700,10 +720,12 @@
     .audio-detail dl { grid-template-columns: 1fr; }
   }
 </style>
+<script src="assets/nav-dropdown.js?v=20260520-unified" defer></script>
 </head>
 <body>
-<nav class="mini-nav">
-  <a class="brand brand-stamp" href="/" aria-label="Jerwis">
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Navigation principale">
+  <a class="brand brand-stamp" href="/" aria-label="Accueil Jerwis">
     <span class="stamp">
       <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
       <span class="stamp-word">JERWIS</span>
@@ -714,16 +736,70 @@
     <span class="burger-icon" aria-hidden="true"></span>
   </button>
   <div class="links" id="mini-nav-links">
-    <a href="apprendre.html">Apprendre</a>
-    <a href="articles.html">Articles</a>
-    <a href="modeles-ia.html">Modèles IA</a>
-    <a href="modeles-image-ia.html" aria-current="page">Image IA</a>
+    <a href="/apprendre">Apprendre</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
+        Plus
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>Modèles image IA</strong><span>Génération d'images, audio, vidéo</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>Lexique IA</strong><span>40 termes expliqués</span></span>
+        </a>
+        <a href="/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code par métier</span></span>
+        </a>
+        <a href="/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>Mes outils</strong><span>Ma stack IA et web</span></span>
+        </a>
+        <a href="/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>Pour non-devs · guide complet</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>Veille IA</strong><span>Auto-mise à jour toutes les 6h</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>Qui je suis</strong><span>Bio + parcours + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Photos perso · 39 €</strong><span>Générateur de photos IA</span></span>
+        </a>
+      </div>
+    </div>
   </div>
-  <button class="theme-toggle-v2" id="themeToggleV2" aria-label="Changer de thème">
-    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
   </button>
 </nav>
+<!-- NAV-UNIFIED-END -->
 
 <main>
   <section class="creative-hero">
@@ -1221,7 +1297,7 @@
         </div>
       </div>
 
-      <a class="podcast-stack-cta" href="podcast.html">Écouter le podcast complet →</a>
+      <a class="podcast-stack-cta" href="podcast">Écouter le podcast complet →</a>
     </div>
 
     <div class="cta-band">
@@ -1229,7 +1305,7 @@
         <h2>Retour au comparateur complet</h2>
         <p>Image, vidéo et audio ne sont qu'une partie du sujet. Le hub liste aussi les LLM, modèles locaux, embeddings et rerankers.</p>
       </div>
-      <a href="modeles-ia.html">Voir tous les modèles</a>
+      <a href="modeles-ia">Voir tous les modèles</a>
     </div>
   </section>
 </main>
@@ -1264,21 +1340,21 @@
       <div class="footer-col">
         <h5>Lire</h5>
         <ul>
-          <li><a href="/apprendre.html">Parcours débutant</a></li>
-          <li><a href="/claude-code.html">Guide Claude Code</a></li>
-          <li><a href="/articles.html">Tous les articles</a></li>
-          <li><a href="/lexique.html">Lexique IA</a></li>
+          <li><a href="/apprendre">Parcours débutant</a></li>
+          <li><a href="/claude-code">Guide Claude Code</a></li>
+          <li><a href="/articles">Tous les articles</a></li>
+          <li><a href="/lexique">Lexique IA</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h5>Outils</h5>
         <ul>
-          <li><a href="/precommande-photos-personal-branding.html" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
-          <li><a href="/outils.html">Ma stack outils</a></li>
-          <li><a href="/modeles-ia.html">Guide des modèles IA</a></li>
-          <li><a href="/podcast.html">Podcast Guerres d'IA</a></li>
-          <li><a href="/github.html">Mon GitHub</a></li>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils">Ma stack outils</a></li>
+          <li><a href="/modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="/github">Mon GitHub</a></li>
         </ul>
       </div>
 
@@ -1295,11 +1371,11 @@
       <div class="footer-col">
         <h5>Légal</h5>
         <ul>
-          <li><a href="/mentions-legales.html">Mentions légales</a></li>
-          <li><a href="/politique-confidentialite.html">Confidentialité</a></li>
-          <li><a href="/cgv.html">CGV</a></li>
-          <li><a href="/suppression-donnees.html">Supprimer mes données</a></li>
-          <li><a href="/preferences.html">Préférences</a></li>
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/politique-confidentialite">Confidentialité</a></li>
+          <li><a href="/cgv">CGV</a></li>
+          <li><a href="/suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="/preferences">Préférences</a></li>
         </ul>
       </div>
 

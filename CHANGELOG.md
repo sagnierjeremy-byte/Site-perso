@@ -1,5 +1,24 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-20 · Audit mini-nav cross-site + fix modeles-ia-monde
+
+### Pourquoi
+Vérifier que la mini-nav (refonte v3 du 2026-05-20, commit `9a3bcf9` + `efe757d`) est identique sur les 49 pages du site. 3 sous-agents Explore dispatchés en parallèle (pages principales / articles / pages légales).
+
+### Livré
+- **Audit complet** : 48/49 pages strictement conformes
+  - 16 pages principales : 15 conformes, 1 anomalie
+  - 25 articles : 100% conformes
+  - 8 pages légales/utilitaires : 100% conformes
+- **Fix `modeles-ia-monde.html`** : nav avait un dropdown réduit à 5 items (manquait Modèles image IA, Workflows, Veille IA, Qui je suis) et un `aria-current="page"` orphelin. La page n'avait pas les marqueurs `NAV-UNIFIED-START/END` donc le script de sync l'avait ratée. Remplacement par le bloc canonique avec marqueurs.
+- **Résultat final** : **49/49 pages avec dropdown 9 items + marqueurs NAV-UNIFIED**
+
+### Fichiers touchés
+- `modeles-ia-monde.html` (nav remplacée par bloc canonique)
+- `CHANGELOG.md`
+
+---
+
 ## 2026-05-20 · Refonte radicale du catalogue modeles-ia — fin du filtre "0 modèle"
 
 ### Pourquoi

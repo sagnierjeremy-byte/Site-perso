@@ -952,207 +952,76 @@
     .catalog-search { flex-direction: column; align-items: stretch; position: static; }
   }
 
-  /* === Catalogue par pays === */
-  .country-catalog {
-    margin: 70px 0 40px;
-    padding: 0;
+
+
+  /* === Atlas teaser (lien vers /modeles-ia-monde) === */
+  .atlas-teaser {
+    margin: 60px 0 30px;
   }
-  .country-lede {
-    max-width: 760px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin: 6px 0 28px;
+  .atlas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
   }
-  .country-quick-nav {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-bottom: 36px;
-  }
-  .country-quick-nav a {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 10px 16px;
+  .atlas-card {
+    position: relative;
+    display: flex; align-items: stretch;
+    padding: 24px;
     border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    background: var(--surface);
-    color: var(--ink);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    transition: transform .15s, border-color .15s;
-  }
-  .country-quick-nav a:hover {
-    transform: translateY(-2px);
-    border-color: var(--fuchsia);
-  }
-  .country-block {
-    margin: 0 0 56px;
-    border: 1px solid var(--line);
     border-radius: 18px;
     background: var(--surface);
+    text-decoration: none; color: var(--ink);
     overflow: hidden;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
   }
-  .country-block[data-accent="teal"] { border-top: 6px solid var(--teal); }
-  .country-block[data-accent="fuchsia"] { border-top: 6px solid var(--fuchsia); }
-  .country-block[data-accent="orange"] { border-top: 6px solid var(--orange); }
-  .country-head {
-    display: flex; align-items: flex-start; gap: 20px;
-    padding: 24px 28px 18px;
-    border-bottom: 1px solid var(--line);
+  .atlas-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 6px; background: var(--ink);
   }
-  .country-flag {
-    font-size: 44px;
-    line-height: 1;
-    flex-shrink: 0;
+  .atlas-card[data-accent="teal"]::before { background: var(--teal); }
+  .atlas-card[data-accent="fuchsia"]::before { background: var(--fuchsia); }
+  .atlas-card[data-accent="orange"]::before { background: var(--orange); }
+  .atlas-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--fuchsia);
+    box-shadow: 0 14px 32px rgba(0,0,0,.10);
   }
-  .country-eyebrow {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 22px;
-    line-height: 1.1;
-    letter-spacing: -.02em;
-    text-transform: uppercase;
-    color: var(--ink);
+  .atlas-flag {
+    font-size: 38px; line-height: 1;
+    flex-shrink: 0; margin-right: 16px;
+  }
+  .atlas-meta { flex: 1; }
+  .atlas-count {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-muted);
     margin-bottom: 6px;
   }
-  .country-intro {
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin: 0;
-    max-width: 880px;
-  }
-  .country-intro strong { color: var(--ink); }
-  .country-table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .country-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-    line-height: 1.45;
-  }
-  .country-table thead th {
-    background: var(--bg-2);
-    color: var(--ink-muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: .13em;
-    text-transform: uppercase;
-    text-align: left;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--line);
-    position: sticky; top: 0;
-    z-index: 1;
-  }
-  .country-table tbody td {
-    padding: 14px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
-  .country-table tbody tr:last-child td { border-bottom: 0; }
-  .country-table tbody tr:hover td { background: var(--bg-2); }
-  .cell-provider {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: .04em;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    white-space: nowrap;
-    min-width: 130px;
-  }
-  .cell-model strong {
-    display: block;
+  .atlas-meta h3 {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 14px;
-    letter-spacing: -.015em;
-    color: var(--ink);
-    text-transform: none;
-    line-height: 1.2;
-    margin-bottom: 3px;
+    font-size: 22px; line-height: 1; letter-spacing: -.02em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 0 0 10px;
   }
-  .cell-model .cell-type {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    color: var(--ink-muted);
-    letter-spacing: .04em;
-    text-transform: uppercase;
+  .atlas-meta p {
+    font-size: 13.5px; line-height: 1.5;
+    color: var(--ink-soft); margin: 0;
   }
-  .cell-usage {
-    color: var(--ink-soft);
-    max-width: 380px;
+  .atlas-arrow {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; color: var(--ink-muted);
+    align-self: center; margin-left: 12px;
+    transition: transform .2s, color .2s;
   }
-  .cell-price {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .cell-ctx {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .lic-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .lic-os {
-    background: color-mix(in srgb, var(--teal) 14%, transparent);
-    color: var(--teal);
-    border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent);
-  }
-  .lic-ow {
-    background: color-mix(in srgb, var(--fuchsia) 12%, transparent);
+  .atlas-card:hover .atlas-arrow {
+    transform: translateX(4px);
     color: var(--fuchsia);
-    border: 1px solid color-mix(in srgb, var(--fuchsia) 30%, transparent);
-  }
-  .lic-prop {
-    background: color-mix(in srgb, var(--ink) 10%, transparent);
-    color: var(--ink);
-    border: 1px solid var(--line-strong);
-  }
-  .country-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin: 20px 0 0;
-    padding: 18px;
-    background: var(--bg-2);
-    border-radius: 14px;
-    font-size: 13px;
-    color: var(--ink-soft);
-  }
-  .country-legend span {
-    display: inline-flex; align-items: center; gap: 8px;
   }
   @media (max-width: 880px) {
-    .country-head { flex-direction: column; gap: 12px; padding: 20px; }
-    .country-flag { font-size: 36px; }
-    .country-eyebrow { font-size: 18px; }
-    .country-table { font-size: 12.5px; }
-    .country-table thead th { font-size: 10px; padding: 10px 12px; }
-    .country-table tbody td { padding: 12px; }
-    .cell-provider { min-width: 110px; font-size: 10.5px; }
-    .cell-model strong { font-size: 13px; }
-    .cell-usage { max-width: 280px; }
+    .atlas-grid { grid-template-columns: 1fr; }
   }
-  [data-theme="dark"] .country-block { background: rgba(255,255,255,0.03); }
-  [data-theme="dark"] .country-table tbody tr:hover td { background: rgba(255,255,255,0.04); }
-  [data-theme="dark"] .country-table thead th { background: rgba(255,255,255,0.04); }
 
 </style>
 <script src="assets/nav-dropdown.js?v=20260520-unified" defer></script>
@@ -1357,6 +1226,16 @@
         <p><b>Ne descends pas seulement en prix.</b> Descends en difficulté : petits modèles pour tâches simples, gros modèles pour décisions importantes.</p>
         <p>Le mauvais calcul, c'est un modèle moins cher qui t'oblige à tout relire deux fois.</p>
       </article>
+      <article class="decision-card">
+        <strong>Je veux un assistant vocal</strong>
+        <p><b>ElevenLabs v3 ou GPT-Realtime</b> selon que tu veux une voix studio ou une conversation temps réel. Pour de la transcription, prends Whisper ou Scribe.</p>
+        <p>Si tu veux du local sans envoyer ta voix à un fournisseur : Moshi (Kyutai, CC-BY) est le seul choix sérieux à ce jour.</p>
+      </article>
+      <article class="decision-card">
+        <strong>Je veux un chatbot sur mon site</strong>
+        <p><b>Claude Haiku 4.5 ou Gemini 2.5 Flash-Lite</b> sont le bon point de départ. Petit, rapide, peu cher, suffisant pour répondre aux 80 % des questions clients.</p>
+        <p>Garde un modèle premium en backup pour les cas complexes que le petit n'arrive pas à gérer.</p>
+      </article>
     </div>
 
     <table class="plain-table">
@@ -1393,7 +1272,69 @@
 
     <div class="section-eyebrow">Étape 02</div>
     <h2 class="models-section-title" id="raccourcis">Mes raccourcis.</h2>
-    <div class="reco-grid" id="recoGrid"></div>
+    <p class="models-lead" style="margin-bottom:20px;">Mon top 6 du moment. Ceux que j'utilise vraiment chaque semaine — pour mes mails, mes photos, mon podcast, mes outils internes.</p>
+    <div class="reco-grid" id="recoGrid">
+      <article class="reco-card">
+        <div class="reco-label">Assistant général</div>
+        <h3>Claude Sonnet 4.6</h3>
+        <p>Mon assistant par défaut pour réfléchir, écrire, organiser. Le meilleur équilibre prix/qualité quand je veux quelque chose de propre du premier coup.</p>
+        <div class="tag-row">
+          <span class="tag">llm</span>
+          <span class="tag">standard</span>
+          <span class="tag">fermé</span>
+        </div>
+      </article>
+      <article class="reco-card">
+        <div class="reco-label">Quand je veux le top</div>
+        <h3>GPT-5.4</h3>
+        <p>Quand la tâche est complexe ou que je sens que je vais y passer du temps. Plus cher, mais souvent ça vaut le prix.</p>
+        <div class="tag-row">
+          <span class="tag">llm</span>
+          <span class="tag">premium</span>
+          <span class="tag">fermé</span>
+        </div>
+      </article>
+      <article class="reco-card">
+        <div class="reco-label">Photos & images</div>
+        <h3>Nano Banana</h3>
+        <p>Ce que j'utilise pour les photos Airbnb de ma mère et le générateur de photos personal branding. Le meilleur rapport qualité/prix sur l'édition photo.</p>
+        <div class="tag-row">
+          <span class="tag">image</span>
+          <span class="tag">low cost</span>
+          <span class="tag">fermé</span>
+        </div>
+      </article>
+      <article class="reco-card">
+        <div class="reco-label">Gros documents</div>
+        <h3>Gemini 2.5 Flash</h3>
+        <p>Pour traiter des PDF longs, des bases de code entières ou des transcriptions. Un million de tokens de contexte à moins d'un dollar.</p>
+        <div class="tag-row">
+          <span class="tag">llm</span>
+          <span class="tag">low cost</span>
+          <span class="tag">fermé</span>
+        </div>
+      </article>
+      <article class="reco-card">
+        <div class="reco-label">Voix & podcast</div>
+        <h3>ElevenLabs v3</h3>
+        <p>Ce que j'utilise pour les voix du podcast Jerwis Productions. Multilingue, multi-personnages, qualité studio.</p>
+        <div class="tag-row">
+          <span class="tag">audio</span>
+          <span class="tag">standard</span>
+          <span class="tag">fermé</span>
+        </div>
+      </article>
+      <article class="reco-card">
+        <div class="reco-label">Budget serré · ouvert</div>
+        <h3>Mistral Small 4</h3>
+        <p>Le sauveur de mes scripts à fort volume. Apache 2.0 donc je peux le faire tourner sur mes machines si besoin. Imbattable sur le prix.</p>
+        <div class="tag-row">
+          <span class="tag">llm</span>
+          <span class="tag">low cost</span>
+          <span class="tag">open</span>
+        </div>
+      </article>
+    </div>
   </section>
 
   <div class="mini-marquee" aria-hidden="true">
@@ -1538,1350 +1479,40 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- SECTION : Catalogue mondial par pays         -->
+    <!-- TEASER : Atlas mondial (lien vers /modeles-ia-monde) -->
     <!-- ============================================ -->
-    <section class="country-catalog" id="catalogue-monde">
-      <div class="section-eyebrow">Catalogue mondial · 156 modèles · vérifié 20 mai 2026</div>
-      <h2 class="models-section-title">Qui fait <em>quoi</em>, dans quel pays.</h2>
-      <p class="country-lede">Le catalogue par pays. Pour chaque modèle : à quoi il sert vraiment, sa licence et son prix. Les chiffres en USD per million tokens (input/output) sauf indication contraire.</p>
-
-      <div class="country-quick-nav">
-        <a href="#country-us">🇺🇸 USA · 51</a>
-        <a href="#country-eu">🇪🇺 Europe + UK · 48</a>
-        <a href="#country-cn">🇨🇳 Chine · 57</a>
-      </div>
-
-    <article class="country-block" data-accent="teal" id="country-us">
-      <header class="country-head">
-        <div class="country-flag" aria-hidden="true">🇺🇸</div>
-        <div>
-          <div class="country-eyebrow">USA · 51 modèles</div>
-          <p class="country-intro">Les géants américains gardent l'avantage sur le frontier propriétaire — GPT-5.5, Claude Opus 4.7, Gemini 3.1 Pro — mais l'écosystème open-weight est plus mince (Llama, Phi, Nemotron). À regarder de près si tu veux comprendre la fronti­ère.</p>
-        </div>
-      </header>
-      <div class="country-table-wrap">
-        <table class="country-table">
-          <thead>
-            <tr>
-              <th>Acteur</th>
-              <th>Modèle</th>
-              <th>Licence</th>
-              <th>À quoi ça sert</th>
-              <th>Prix (input / output)</th>
-              <th>Contexte</th>
-            </tr>
-          </thead>
-          <tbody>
-        <tr>
-          <td class="cell-provider">OpenAI</td>
-          <td class="cell-model"><strong>GPT-5.5</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le frontier d&#x27;OpenAI. À prendre quand tu veux la meilleure réponse possible et que le budget passe au second plan.</td>
-          <td class="cell-price">$5 / $30 /Mtok</td>
-          <td class="cell-ctx">270k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-5.4</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le rapport qualité/prix d&#x27;OpenAI pour le quotidien : assistant, agent, code basique.</td>
-          <td class="cell-price">$2.50 / $15 /Mtok</td>
-          <td class="cell-ctx">270k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-5.4-mini</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Petit modèle rapide. Pour les workflows à fort volume où chaque centime compte.</td>
-          <td class="cell-price">$0.75 / $4.50 /Mtok</td>
-          <td class="cell-ctx">270k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-5.3-Codex</strong><span class="cell-type">LLM code</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Spécialisé code : refactoring, debug, génération de tests. Le bras droit d&#x27;un dev.</td>
-          <td class="cell-price">Tarif Codex Enterprise</td>
-          <td class="cell-ctx">270k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-5.3 Instant</strong><span class="cell-type">LLM rapide</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Réponses sub-seconde pour chatbots à fort traffic. Sacrifie un peu de qualité pour la latence.</td>
-          <td class="cell-price">Inclus plan Pro</td>
-          <td class="cell-ctx">270k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-Realtime-2</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Conversation vocale temps réel avec interruption. Pour assistants téléphoniques ou compagnons vocaux.</td>
-          <td class="cell-price">$32 / $64 audio /Mtok</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-Realtime-Translate</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Traduction simultanée en temps réel. Live d&#x27;événements, calls internationaux.</td>
-          <td class="cell-price">$0.034 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Whisper-Realtime</strong><span class="cell-type">STT</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Speech-to-text temps réel. Transcription live, sous-titres automatiques.</td>
-          <td class="cell-price">$0.017 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GPT-Image-2</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération + édition image. Plus précis sur le texte que Dall-E 3.</td>
-          <td class="cell-price">$8 / $30 /Mtok img</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>text-embedding-3-large</strong><span class="cell-type">Embedding</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vectorise tes documents pour RAG. La référence quand tu cherches la qualité.</td>
-          <td class="cell-price">$0.13 /Mtok</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>text-embedding-3-small</strong><span class="cell-type">Embedding</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Embedding low-cost pour RAG à fort volume. 6× moins cher que le large.</td>
-          <td class="cell-price">$0.02 /Mtok</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Anthropic</td>
-          <td class="cell-model"><strong>Claude Opus 4.7</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le modèle le plus subtil du marché. Pour rédaction longue, raisonnement nuancé, écriture haut de gamme.</td>
-          <td class="cell-price">$5 / $25 /Mtok</td>
-          <td class="cell-ctx">200k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claude Opus 4.7 Fast</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Opus 4.7 avec priorité latence. Cher mais tu réponds en quelques secondes.</td>
-          <td class="cell-price">$30 / $150 /Mtok</td>
-          <td class="cell-ctx">200k+</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claude Opus 4.6 / 4.5</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Versions précédentes d&#x27;Opus, encore en service. Comparable à 4.7 sur 95% des usages.</td>
-          <td class="cell-price">$5 / $25 /Mtok</td>
-          <td class="cell-ctx">200k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claude Sonnet 4.6</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le sweet-spot Anthropic. Mon choix par défaut pour CRM, agents, contenus pro.</td>
-          <td class="cell-price">$3 / $15 /Mtok</td>
-          <td class="cell-ctx">200k (1M β)</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claude Sonnet 4.5</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Sonnet stable avant la 4.6. Si tu as un workflow déjà testé dessus, garde-le.</td>
-          <td class="cell-price">$3 / $15 /Mtok</td>
-          <td class="cell-ctx">200k (1M β)</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claude Haiku 4.5</strong><span class="cell-type">LLM rapide</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Petit Claude pour classifications, extractions, tâches simples à fort volume.</td>
-          <td class="cell-price">$1 / $5 /Mtok</td>
-          <td class="cell-ctx">200k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Google</td>
-          <td class="cell-model"><strong>Gemini 3.5 Flash</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le plus rapide de Google avec 1M de contexte. Pour traiter des PDF longs ou bases de code entières.</td>
-          <td class="cell-price">$1.50 / $9 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 3.1 Pro</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Frontier de Google. Excellent en multimodal natif (image+audio+vidéo dans un seul appel).</td>
-          <td class="cell-price">$2-4 / $12-18 /Mtok</td>
-          <td class="cell-ctx">1M+</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 3.1 Flash-Lite</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Mini Gemini, ridiculement low-cost. Pour parsing massif de documents.</td>
-          <td class="cell-price">$0.25 / $1.50 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 3.1 Flash Live</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Conversation audio temps réel chez Google. Concurrent direct de GPT-Realtime.</td>
-          <td class="cell-price">$0.75-3 / $4.50-12 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 3.1 Flash Image Preview</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération d&#x27;image intégrée au modèle texte. Pratique pour prompts multimodaux.</td>
-          <td class="cell-price">$0.50 in / 60$/Mimg out</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 3 Pro Image Preview</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération image haut de gamme. La qualité a rattrapé Midjourney.</td>
-          <td class="cell-price">$2 in / 120$/Mimg out</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 2.5 Pro</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Version 2.5 encore très utilisée. 2M de contexte (le plus large du marché).</td>
-          <td class="cell-price">$1.25-2.50 / $10-15 /Mtok</td>
-          <td class="cell-ctx">2M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 2.5 Flash</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le couteau suisse low-cost de Google. Multimodal natif à $0.30/Mtok.</td>
-          <td class="cell-price">$0.30 / $2.50 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemini 2.5 Flash-Lite</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Encore plus petit que Flash. Pour les jobs batch où le volume écrase le budget.</td>
-          <td class="cell-price">$0.10 / $0.40 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Nano Banana (Gemini 2.5 Flash Image)</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">La référence rapport qualité/prix sur l&#x27;édition photo. C&#x27;est ce que j&#x27;utilise pour Airbnb et personal branding.</td>
-          <td class="cell-price">$0.039 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Imagen 4 Fast / Standard / Ultra</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération photo réaliste premium. Ultra rivalise avec Midjourney v7.</td>
-          <td class="cell-price">$0.02 / $0.04 / $0.06 par image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Veo 3.1 Standard / Fast / Lite</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération vidéo Google. Standard fait jusqu&#x27;à 4K. Sora killer.</td>
-          <td class="cell-price">$0.05 → $0.60 / s selon res.</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Veo 2</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Version précédente, toujours dispo. 720p à $0.35/s.</td>
-          <td class="cell-price">$0.35 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Lyria 3</strong><span class="cell-type">Audio musique</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération musicale Google. Concurrent direct de Suno mais intégré API Gemini.</td>
-          <td class="cell-price">Par requête (preview)</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Gemma 4</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Les modèles ouverts de Google. Gratuits à self-host, performants pour leur taille.</td>
-          <td class="cell-price">Gratuit poids</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">xAI</td>
-          <td class="cell-model"><strong>Grok 4.3</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le frontier d&#x27;Elon. Forces : humour, accès X temps réel, raisonnement scientifique.</td>
-          <td class="cell-price">$1.25 / $2.50 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Grok Build 0.1</strong><span class="cell-type">LLM code</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Variant code de Grok. Encore en preview.</td>
-          <td class="cell-price">Preview</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Grok Voice TTS</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Voix de Grok. Caractère, accent custom, intégration X Spaces.</td>
-          <td class="cell-price">$15 / Mchars TTS</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Grok Imagine (image)</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération image xAI. Style un peu plus permissif que les autres.</td>
-          <td class="cell-price">$0.02 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Grok Imagine (vidéo)</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vidéo IA chez xAI. Tarif agressif vs Runway/Pika.</td>
-          <td class="cell-price">$0.05 / s 720p</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Meta</td>
-          <td class="cell-model"><strong>Llama 4 Maverick</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Open-weight phare de Meta. Contexte 10M (lit ton dépôt git entier d&#x27;un coup).</td>
-          <td class="cell-price">Gratuit poids · $0.19-0.49 hosted</td>
-          <td class="cell-ctx">10M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Llama 4 Scout</strong><span class="cell-type">LLM multimodal</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Llama 4 plus petit. Même contexte 10M, plus rapide à servir.</td>
-          <td class="cell-price">Gratuit poids</td>
-          <td class="cell-ctx">10M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Llama 3.3 70B</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le classique stable. Encore beaucoup déployé en prod.</td>
-          <td class="cell-price">Gratuit poids</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Llama 3.2 (1B / 3B / 11B / 90B)</strong><span class="cell-type">LLM (+vision sur 11B/90B)</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">La gamme complète Llama 3.2. Le 1B et 3B tournent sur smartphone.</td>
-          <td class="cell-price">Gratuit poids</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Llama 3.1 (8B / 70B / 405B)</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Tier-1 historique du monde open. 405B reste le plus gros modèle Llama ouvert.</td>
-          <td class="cell-price">Gratuit poids</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Microsoft</td>
-          <td class="cell-model"><strong>Phi-4 / mini / multimodal</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Les petits modèles MIT de Microsoft. Excellents en raisonnement pour leur taille.</td>
-          <td class="cell-price">Gratuit poids · Azure</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">NVIDIA</td>
-          <td class="cell-model"><strong>Nemotron Nano 9B v2 / Super 49B</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Modèles NVIDIA optimisés pour leurs GPU. Tarifs serrés via NIM enterprise.</td>
-          <td class="cell-price">Gratuit poids · $4500/GPU/an</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Databricks</td>
-          <td class="cell-model"><strong>DBRX 132B</strong><span class="cell-type">LLM (MoE)</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">MoE open de Databricks. Au-dessus de Llama 3 70B sur benchmarks code.</td>
-          <td class="cell-price">$0.75 / $2.25 /Mtok Mosaic</td>
-          <td class="cell-ctx">32k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Runway</td>
-          <td class="cell-model"><strong>Gen-4.5 / Gen-4 / Turbo / Gen-3</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Les modèles vidéo Runway. Gen-4.5 = qualité film, Turbo = vitesse créative.</td>
-          <td class="cell-price">$12/mois (625 crédits)</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Aleph / Act-Two / GWM-1</strong><span class="cell-type">Vidéo édition</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Outils Runway pour éditer une vidéo existante (relight, perf capture, world model).</td>
-          <td class="cell-price">Inclus crédits</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Luma</td>
-          <td class="cell-model"><strong>Ray3.14 / Ray3.14 HDR</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vidéo IA Luma. Très bon en mouvement de caméra cinéma.</td>
-          <td class="cell-price">$30 → $300 / mois</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Pika</td>
-          <td class="cell-model"><strong>Pika 2.5 + 7 variantes</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">L&#x27;application vidéo IA grand public. Spécialités : effets, swaps, transitions.</td>
-          <td class="cell-price">$8 / $28 / $76 par mois</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">ElevenLabs (UK/US)</td>
-          <td class="cell-model"><strong>Eleven v3 / Music v1 / SFX v2 / Scribe</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Référence TTS multilingue. v3 fait du multi-speaker, Music compose, SFX génère des bruitages.</td>
-          <td class="cell-price">~$0.17-0.36 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Suno</td>
-          <td class="cell-model"><strong>Suno v4.5 / v5</strong><span class="cell-type">Audio musique</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération musicale grand public. Chanson complète paroles+voix+instru en 1 prompt.</td>
-          <td class="cell-price">$10 / mois Pro (≈500 morceaux)</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <article class="country-block" data-accent="fuchsia" id="country-eu">
-      <header class="country-head">
-        <div class="country-flag" aria-hidden="true">🇪🇺</div>
-        <div>
-          <div class="country-eyebrow">Europe + UK · 48 modèles</div>
-          <p class="country-intro">L'Europe est la région la plus <strong>ouverte</strong> en ratio : Mistral en Apache 2.0, FLUX.2 klein, Kyutai en CC-BY, Apertus, Bielik, Salamandra, Lucie. Si tu veux self-host des modèles libres légalement utilisables, c'est ici.</p>
-        </div>
-      </header>
-      <div class="country-table-wrap">
-        <table class="country-table">
-          <thead>
-            <tr>
-              <th>Acteur</th>
-              <th>Modèle</th>
-              <th>Licence</th>
-              <th>À quoi ça sert</th>
-              <th>Prix (input / output)</th>
-              <th>Contexte</th>
-            </tr>
-          </thead>
-          <tbody>
-        <tr>
-          <td class="cell-provider">🇫🇷 Mistral AI</td>
-          <td class="cell-model"><strong>Mistral Large 3</strong><span class="cell-type">LLM MoE 41B/675B</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Le frontier européen, Apache 2.0. Tu peux le self-host, le fine-tune, le revendre.</td>
-          <td class="cell-price">$0.50 / $1.50 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Mistral Medium 3.5</strong><span class="cell-type">Vision-LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Multimodal de Mistral. Lecture d&#x27;images + chat en français natif.</td>
-          <td class="cell-price">$1.50 / $7.50 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Mistral Medium 3.1</strong><span class="cell-type">Vision-LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Version 3.1 stable. Choix sûr pour passer en prod.</td>
-          <td class="cell-price">$0.40 / $2 /Mtok</td>
-          <td class="cell-ctx">131k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Mistral Small 4</strong><span class="cell-type">LLM hybride</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le rapport perf/prix de Mistral. Hybride pour basculer entre rapide et réfléchi.</td>
-          <td class="cell-price">$0.15 / $0.60 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Magistral Medium 1.2</strong><span class="cell-type">LLM raisonnement</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le modèle de raisonnement de Mistral. Pour problèmes math/logique nécessitant des étapes.</td>
-          <td class="cell-price">$2 / $5 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Ministral 3 (14B / 8B / 3B)</strong><span class="cell-type">Vision-LLM edge</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Modèles edge de Mistral. Le 3B tient sur Raspberry Pi 5.</td>
-          <td class="cell-price">$0.10-0.20 /Mtok</td>
-          <td class="cell-ctx">131-262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Codestral 25.08</strong><span class="cell-type">LLM code</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Spécialisé code de Mistral. Bon en complétion, refactoring, gen tests.</td>
-          <td class="cell-price">$0.30 / $0.90 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Devstral 2</strong><span class="cell-type">Code agentique</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Mistral pour agents code (workflows multi-étapes). License MIT modifiée.</td>
-          <td class="cell-price">$0.40 / $2 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Codestral Embed / Mistral Embed</strong><span class="cell-type">Embedding</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Embeddings de Mistral. Codestral Embed comprend mieux le code source.</td>
-          <td class="cell-price">$0.10-0.15 /Mtok</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Voxtral Small 24B</strong><span class="cell-type">Audio-LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Audio-LLM Apache 2.0 de Mistral. Comprend la parole et répond en texte ou audio.</td>
-          <td class="cell-price">$0.10 + $100/Ms audio</td>
-          <td class="cell-ctx">32k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Voxtral Mini Transcribe 2</strong><span class="cell-type">STT</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Speech-to-text de Mistral. Latence faible, support français natif.</td>
-          <td class="cell-price">$0.003 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Voxtral Mini TTS</strong><span class="cell-type">TTS</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">TTS open-weight de Mistral. Voix française propre, self-host possible.</td>
-          <td class="cell-price">$16 / Mchars</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Mistral OCR 3</strong><span class="cell-type">OCR</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Extraction de texte depuis PDF, photos de documents, captures. Pratique pour digitaliser des archives.</td>
-          <td class="cell-price">$1 / 1000 pages</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Moderation 2</strong><span class="cell-type">Modération</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Classification de contenu inapproprié. À mettre devant ton chatbot grand public.</td>
-          <td class="cell-price">$0.10 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Mistral Nemo 12B</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Mistral × NVIDIA Apache 2.0. Très bon rapport qualité/taille en 12B.</td>
-          <td class="cell-price">$0.02 / $0.03 /Mtok</td>
-          <td class="cell-ctx">131k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇫🇷 Kyutai</td>
-          <td class="cell-model"><strong>Moshi</strong><span class="cell-type">Speech-native</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Modèle dialogue voix-à-voix en temps réel. Tu parles, il répond, sans passer par du texte.</td>
-          <td class="cell-price">Self-host CC-BY</td>
-          <td class="cell-ctx">streaming</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hibiki-Zero</strong><span class="cell-type">Traduction voix</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Traduction parlée temps réel. CC-BY donc free pour usage perso et commercial.</td>
-          <td class="cell-price">Self-host CC-BY</td>
-          <td class="cell-ctx">streaming</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>MoshiVis</strong><span class="cell-type">Vision-speech</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Moshi + vision. Tu lui montres une image, il décrit oralement.</td>
-          <td class="cell-price">Self-host CC-BY</td>
-          <td class="cell-ctx">streaming</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Pocket TTS / Mimi / Helium 1</strong><span class="cell-type">Audio + LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Stack audio Kyutai. Pocket TTS = synthèse mobile, Mimi = codec audio, Helium = LLM 2B.</td>
-          <td class="cell-price">Self-host CC-BY</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇫🇷 H Company</td>
-          <td class="cell-model"><strong>Holo3</strong><span class="cell-type">Vision-LLM computer-use</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Agent qui contrôle ton ordinateur (clic, scroll, formulaires). Concurrent de Claude Computer Use.</td>
-          <td class="cell-price">API privée sur devis</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Holotron 3 Nano</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Petit Holotron open. Post-train de Nemotron NVIDIA.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇫🇷 LightOn</td>
-          <td class="cell-model"><strong>Paradigm RAG</strong><span class="cell-type">LLM + RAG</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Stack RAG on-premise pour grandes entreprises. Tes données ne sortent pas du serveur.</td>
-          <td class="cell-price">Sur devis on-prem</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇫🇷 LinAGORA / OpenLLM-France</td>
-          <td class="cell-model"><strong>Lucie-7B Instruct</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">LLM français Apache 2.0, entraîné sur données françaises et européennes.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">32k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Claire-7B</strong><span class="cell-type">LLM dialogue FR</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Modèle de conversation FR. CC-BY-NC-SA (pas d&#x27;usage commercial).</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇩🇪 Aleph Alpha</td>
-          <td class="cell-model"><strong>Pharia-1-LLM-7B-control</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Modèle de la souveraineté allemande. Pour clients publics européens.</td>
-          <td class="cell-price">Self-host (non-comm.)</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>SLLMs enterprise</strong><span class="cell-type">LLM custom</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèles taillés sur mesure pour grandes entreprises et secteur public.</td>
-          <td class="cell-price">Sur devis</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇩🇪 Black Forest Labs</td>
-          <td class="cell-model"><strong>FLUX.2 [max / pro / flex]</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">L&#x27;état de l&#x27;art en image, équipe ex-Stability. Max = qualité film. Flex = équilibre.</td>
-          <td class="cell-price">$0.03-0.07 / Mpx</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>FLUX.2 [klein] 9B / 4B</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Versions ouvertes de FLUX.2. Le 4B est Apache 2.0 pur, self-host facile.</td>
-          <td class="cell-price">$0.014-0.015 / Mpx</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>FLUX.1 Kontext [max / pro]</strong><span class="cell-type">Édition image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Édition d&#x27;image avec un prompt (style ChatGPT pour images). Le plus précis du marché.</td>
-          <td class="cell-price">$0.04-0.08 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>FLUX 1.1 [pro] Ultra / Pro</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">FLUX 1.1 encore en service. Ultra = 4K natif.</td>
-          <td class="cell-price">$0.04-0.06 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>FLUX.1 [dev]</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">FLUX.1 dev. Non-commercial mais hyper utilisé en R&amp;D.</td>
-          <td class="cell-price">$0.025 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>FLUX Outpainting</strong><span class="cell-type">Image édition</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Étend une image au-delà de ses bords originaux. Pratique pour ratios différents.</td>
-          <td class="cell-price">$0.10 / Mpx</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇩🇪 DeepL</td>
-          <td class="cell-model"><strong>Translator API</strong><span class="cell-type">Traduction</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Traduction tier-1 mondiale. Plus précis que Google Translate sur EN↔FR/DE.</td>
-          <td class="cell-price">€20-22 / Mchars</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>DeepL Voice STT</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Speech-to-text DeepL. Pour transcrire des calls multilingues.</td>
-          <td class="cell-price">€3.27 / heure</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇪🇸 BSC</td>
-          <td class="cell-model"><strong>Salamandra-2B / 7B / 40B</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Modèle Apache 2.0 du Barcelona Supercomputing Center. Fort sur catalan/espagnol/portugais.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">8k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇨🇭 Swiss AI (ETH/EPFL)</td>
-          <td class="cell-model"><strong>Apertus-8B / 70B Instruct</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Le modèle Apache 2.0 suisse. Conçu pour transparence totale (data + recette publiques).</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇵🇱 SpeakLeash</td>
-          <td class="cell-model"><strong>Bielik 7B / 11B / Guard</strong><span class="cell-type">LLM polonais</span></td>
-          <td><span class="lic-badge lic-os">open-source</span></td>
-          <td class="cell-usage">Modèles Apache 2.0 spécialisés polonais. Bielik Guard fait de la modération.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇳🇱 Bria.ai</td>
-          <td class="cell-model"><strong>Fibo / Fibo Lite / Fibo Edit</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèles image entraînés sur data 100% licenced. Conformes pour pubs/médias.</td>
-          <td class="cell-price">$0.02-0.03 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Video background tools</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Suppression background, segmentation, effets vidéo. API pour outils créatifs.</td>
-          <td class="cell-price">$0.01-0.02 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇬🇧 ElevenLabs</td>
-          <td class="cell-model"><strong>Eleven v3 / Multilingual v2 / Flash v2.5</strong><span class="cell-type">TTS</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">La référence mondiale TTS. v3 fait dialogue multi-personnages, Flash optimise la latence.</td>
-          <td class="cell-price">$0.15-0.30 / 1k chars</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Scribe v2 / Realtime</strong><span class="cell-type">STT</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">STT ElevenLabs. Realtime pour live, Scribe pour transcription async.</td>
-          <td class="cell-price">$0.40 / heure</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Music v1 / Sound Effects v2</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Musique générée + bruitages. Plus modulables que Suno (durée, instruments).</td>
-          <td class="cell-price">Crédits PAYG</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇬🇧 Stability AI</td>
-          <td class="cell-model"><strong>SD 3.5 Large / Turbo / Medium / Flash</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Les Stable Diffusion encore largement déployés. Turbo = vitesse, Flash = mobile.</td>
-          <td class="cell-price">$0.025-0.065 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Stable Image Ultra / Core</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèles closed haut de gamme Stability. Ultra rivalise avec Imagen 4.</td>
-          <td class="cell-price">$0.03 / $0.08 par image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Stable Audio 2.5 / 3.0</strong><span class="cell-type">Audio musique</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération musicale Stability. 3.0 va jusqu&#x27;à 6 minutes en une passe.</td>
-          <td class="cell-price">$0.20-0.26 / clip</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Stable Fast 3D / SPAR3D</strong><span class="cell-type">3D</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Génération de mesh 3D depuis 1 image. Pour jeux, AR, prototypage.</td>
-          <td class="cell-price">$0.04-0.10 / scène</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇬🇧 Synthesia</td>
-          <td class="cell-model"><strong>Express-2 Avatar Video</strong><span class="cell-type">Vidéo avatar</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Avatars vidéo qui parlent. Pour formations internes, e-learning, vidéos produit.</td>
-          <td class="cell-price">€12+ / mois</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">🇬🇧 Wayve</td>
-          <td class="cell-model"><strong>AI Driver (GAIA)</strong><span class="cell-type">Vision driving</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèle de conduite autonome end-to-end. B2B uniquement (Tesla concurrent).</td>
-          <td class="cell-price">B2B OEM</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <article class="country-block" data-accent="orange" id="country-cn">
-      <header class="country-head">
-        <div class="country-flag" aria-hidden="true">🇨🇳</div>
-        <div>
-          <div class="country-eyebrow">Chine · 57 modèles</div>
-          <p class="country-intro">La Chine pousse une stratégie de prix cassés (DeepSeek, Doubao Flash) et d'open-weight massif (43 modèles sur 75). <strong>Attention</strong> : « open-weight » côté chinois n'est <em>pas</em> Apache 2.0, lis la licence avant d'industrialiser. Domine la vidéo IA (Kling, Hailuo, Seedance).</p>
-        </div>
-      </header>
-      <div class="country-table-wrap">
-        <table class="country-table">
-          <thead>
-            <tr>
-              <th>Acteur</th>
-              <th>Modèle</th>
-              <th>Licence</th>
-              <th>À quoi ça sert</th>
-              <th>Prix (input / output)</th>
-              <th>Contexte</th>
-            </tr>
-          </thead>
-          <tbody>
-        <tr>
-          <td class="cell-provider">DeepSeek</td>
-          <td class="cell-model"><strong>DeepSeek-V4-Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le moins cher du marché si tu réutilises ton prompt (cache hit à $0.0028/Mtok). Pour bots à haute fréquence.</td>
-          <td class="cell-price">$0.14 / $0.28 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>DeepSeek-V4-Pro</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le frontier open-weight le moins cher du monde. Concurrent direct de Claude Sonnet à 10× moins cher.</td>
-          <td class="cell-price">$0.435 / $0.87 /Mtok (promo)</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Alibaba</td>
-          <td class="cell-model"><strong>Qwen3.6-Max-Preview</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Premier flagship Alibaba en closed-weight (rupture historique). Frontier comparable à GPT-5.</td>
-          <td class="cell-price">$1.30 / $7.80 /Mtok</td>
-          <td class="cell-ctx">260k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3.6-Plus</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le quotidien Alibaba. 1M de contexte à $0.32, imbattable.</td>
-          <td class="cell-price">$0.325 / $1.95 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3.6-Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Variant rapide. Pour assistant à fort traffic.</td>
-          <td class="cell-price">$0.188 / $1.13 /Mtok</td>
-          <td class="cell-ctx">1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3.5-Omni-Plus</strong><span class="cell-type">Omni</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Un seul modèle pour texte + audio + image + vidéo. Pour assistants multimodaux complets.</td>
-          <td class="cell-price">$0.30 / $1.80 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3.5-397B-A17B</strong><span class="cell-type">Vision-LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le gros Qwen open. 397B params, 17B actifs (MoE). Self-host sérieux.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3-Coder Plus / Flash / Next</strong><span class="cell-type">LLM code</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Les spécialisés code de Qwen. Forts sur Python, JS, Java.</td>
-          <td class="cell-price">$0.11-0.65 / Mtok</td>
-          <td class="cell-ctx">262k-1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3-ASR-Flash</strong><span class="cell-type">STT</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Speech-to-text Alibaba. Excellent en chinois et anglais.</td>
-          <td class="cell-price">$0.30 / heure audio</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen3-VL-Embedding</strong><span class="cell-type">Embedding multimodal</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Vectorise image+texte ensemble. Pour recherche multimodale (catalogue produit).</td>
-          <td class="cell-price">$0.07 /Mtok</td>
-          <td class="cell-ctx">32k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>text-embedding-v4 / vision-plus / rerank</strong><span class="cell-type">Embedding/Rerank</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Embeddings classiques + rerank. Rerank affine les résultats RAG.</td>
-          <td class="cell-price">$0.04-0.10 /Mtok</td>
-          <td class="cell-ctx">8-32k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Qwen-Image-2.0-Pro</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération image Alibaba. Forte sur texte dans l&#x27;image.</td>
-          <td class="cell-price">$0.075 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Wan2.7-Image-Pro / Wan2.7 video</strong><span class="cell-type">Image / Vidéo</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Image et vidéo open-weight Alibaba. Self-host sans restriction commerciale.</td>
-          <td class="cell-price">$0.06 img · $0.10-0.15 /s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>HappyHorse-1.0</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèle vidéo dernier-né Alibaba. Pour text-to-video et image-to-video.</td>
-          <td class="cell-price">$0.14-0.28 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>CosyVoice v3.5+ / Fun-CosyVoice3.5</strong><span class="cell-type">TTS</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">TTS open Alibaba. Clonage de voix à partir de 3 secondes d&#x27;échantillon.</td>
-          <td class="cell-price">$7.15 / M UTF-8 bytes</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Fun-ASR realtime</strong><span class="cell-type">STT</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Transcription temps réel open. Pour sous-titres live, call centers.</td>
-          <td class="cell-price">$0.20 / heure</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Fun-Music-v1</strong><span class="cell-type">Musique</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération musique Alibaba. Concurrent récent de Suno.</td>
-          <td class="cell-price">n.d.</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Baidu</td>
-          <td class="cell-model"><strong>Ernie 5.1</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le frontier de Baidu. Comparable à GPT-4o, fort en chinois.</td>
-          <td class="cell-price">$0.59 / $2.65 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Ernie 5.0</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Version précédente. Encore très utilisée en entreprise chinoise.</td>
-          <td class="cell-price">$0.80 / $3.20 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Ernie X1</strong><span class="cell-type">LLM raisonnement</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le modèle reasoning de Baidu. Pour math, science, problèmes multi-étapes.</td>
-          <td class="cell-price">$0.28 / $1.10 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Ernie 4.5</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le seul Ernie open-weight. Bonne option pour self-host modèle chinois.</td>
-          <td class="cell-price">$0.55 / $2.20 /Mtok</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">ByteDance</td>
-          <td class="cell-model"><strong>Doubao Seed 2.0 Pro</strong><span class="cell-type">Vision-LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le frontier vision de ByteDance (maison-mère TikTok). Excellent en édition image guidée.</td>
-          <td class="cell-price">$0.47 / $2.37 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Doubao Seed 2.0 Lite / Mini</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Versions économiques pour traitement à grande échelle.</td>
-          <td class="cell-price">$0.07-0.14 / $0.28-0.71</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Doubao Seed 2.0 Code</strong><span class="cell-type">LLM code</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Doubao spécialisé code. Fort sur frameworks chinois et JS.</td>
-          <td class="cell-price">~$0.30 / ~$1.50 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Doubao Seed 1.6 Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le moins cher non-DeepSeek du marché. $0.022/Mtok input.</td>
-          <td class="cell-price">$0.022 / $0.219 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Doubao Seed 1.6 Vision</strong><span class="cell-type">Vision-LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vision version 1.6. Bon rapport perf/prix.</td>
-          <td class="cell-price">$0.11-0.34 / $1.13-3.39</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Seedream 5.0</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération image ByteDance. Très bon en illustrations style anime/manga.</td>
-          <td class="cell-price">~$0.03 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Seedance 2.0</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vidéo IA ByteDance. Spécialité : mouvement, danse, sport.</td>
-          <td class="cell-price">$0.14 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Tencent</td>
-          <td class="cell-model"><strong>Hunyuan HY3 Preview</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Frontier Tencent. Très compétitif sur le prix vs perf.</td>
-          <td class="cell-price">$0.066 / $0.260 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hunyuan Turbo S</strong><span class="cell-type">Reasoning rapide</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Reasoning à $0.11/Mtok. Concurrent direct DeepSeek pour le raisonnement à bas prix.</td>
-          <td class="cell-price">$0.11 / $0.28 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hunyuan HY2.0 Instruct / Think</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Version 2.0 stable. Augmenté de +460% en mars (rationalisation post-price-war).</td>
-          <td class="cell-price">$0.625 / $1.546 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hunyuan Image 3.0 (80B)</strong><span class="cell-type">Image</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Image open-weight Tencent 80B. Très bon en photoréalisme.</td>
-          <td class="cell-price">$0.05-0.10 / image</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hunyuan Video 1.5</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Vidéo open-weight Tencent. Self-host possible si tu as les GPU.</td>
-          <td class="cell-price">~$0.40 / clip via fal</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Moonshot</td>
-          <td class="cell-model"><strong>Kimi K2.6</strong><span class="cell-type">LLM/coder</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le frontier de Moonshot. Réputé pour son coding et son contexte long bien géré.</td>
-          <td class="cell-price">$0.73 / $3.49 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Zhipu</td>
-          <td class="cell-model"><strong>GLM-5</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">GLM dernier-né. Le challenger sérieux à DeepSeek en open-weight.</td>
-          <td class="cell-price">$0.60 / $1.92 /Mtok</td>
-          <td class="cell-ctx">202k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GLM-5.1</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Update mineure de GLM-5. Plus performant sur math/code.</td>
-          <td class="cell-price">$1 / $3.20 /Mtok</td>
-          <td class="cell-ctx">202k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>GLM-4.6 / 4.5-Air / 4.7-Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">La gamme GLM 4.x encore active. 4.7-Flash est gratuit pour usage registered.</td>
-          <td class="cell-price">Gratuit → $0.43 /Mtok</td>
-          <td class="cell-ctx">128-203k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>CogVideoX 1.5 / CogVLM2-Video</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Vidéo open-weight Zhipu. Pour expérimentation R&amp;D.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">MiniMax</td>
-          <td class="cell-model"><strong>MiniMax-M2.7 / M2.5 / M2</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Open-weight MiniMax. Très bon rapport contexte/prix avec 197k de fenêtre.</td>
-          <td class="cell-price">$0.15-0.279 / $1-1.20</td>
-          <td class="cell-ctx">197k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Hailuo 2.3 Standard / Pro</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Hailuo est l&#x27;app vidéo grand public MiniMax. Pro = 1080p, fluide.</td>
-          <td class="cell-price">$0.047-0.082 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Music</strong><span class="cell-type">Musique</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Génération musicale MiniMax. Encore moins connu que Suno en occident.</td>
-          <td class="cell-price">n.d.</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">StepFun</td>
-          <td class="cell-model"><strong>Step-3.5 Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">StepFun flash. Performant pour son prix bas.</td>
-          <td class="cell-price">$0.10 / $0.30 /Mtok</td>
-          <td class="cell-ctx">262k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Step-3</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Le frontier de StepFun. Open-weight, bonne perf en multilingual.</td>
-          <td class="cell-price">$0.57 / $1.42 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Step-Audio R1.1 Realtime</strong><span class="cell-type">Audio</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Audio temps réel speech-to-speech. Concurrent GPT-Realtime en Chine.</td>
-          <td class="cell-price">$1.43 / $15 /Mtok</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Step-Audio 2.5 TTS</strong><span class="cell-type">TTS</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">TTS StepFun. Voix mandarin parmi les meilleures.</td>
-          <td class="cell-price">$0.08 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>Step-Video-T2V</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Text-to-video open StepFun. Pour R&amp;D ou self-host massif.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">01.AI</td>
-          <td class="cell-model"><strong>Yi-Lightning</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le modèle commercial de Kai-Fu Lee. Cher pour ce qu&#x27;il offre vs concurrents chinois.</td>
-          <td class="cell-price">$0.14 / $0.14 /Mtok</td>
-          <td class="cell-ctx">16k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Xiaomi</td>
-          <td class="cell-model"><strong>MiMo-V2-Pro / Flash / Omni / TTS</strong><span class="cell-type">LLM/Omni/TTS</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">La famille MiMo de Xiaomi. Pro = 1T params, Omni = multimodal, TTS = synthèse.</td>
-          <td class="cell-price">$0.10-0.40 / $0.40-1.60 self-host</td>
-          <td class="cell-ctx">128k-1M</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Huawei</td>
-          <td class="cell-model"><strong>Pangu 5.5 (718B MoE)</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Frontier propriétaire de Huawei. Réservé clients entreprise/gouvernement chinois.</td>
-          <td class="cell-price">Sur devis</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>openPangu Pro MoE 72B</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Pangu open-weight 72B. Disponible en self-host.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">iFlytek</td>
-          <td class="cell-model"><strong>Spark X2 / X2-Flash</strong><span class="cell-type">LLM</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Modèles d&#x27;iFlytek (leader voix en Chine). Forts pour assistants vocaux.</td>
-          <td class="cell-price">$0.014-0.07 / $0.04-0.21 /Mtok</td>
-          <td class="cell-ctx">256k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Kuaishou</td>
-          <td class="cell-model"><strong>Kling 3.0 / 2.6</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Le meilleur générateur vidéo IA en 2026, période. C&#x27;est ce que les créateurs occidentaux utilisent en sous-marin.</td>
-          <td class="cell-price">$0.04-0.168 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Shengshu</td>
-          <td class="cell-model"><strong>Vidu Q3 Pro / Turbo</strong><span class="cell-type">Vidéo</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Vidu, l&#x27;autre top vidéo chinois. Plus rapide que Kling, moins cher.</td>
-          <td class="cell-price">$0.034-0.06 / s</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">SenseTime</td>
-          <td class="cell-model"><strong>SenseNova U1 / MARS 32B</strong><span class="cell-type">Vision/Reasoning</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Modèles vision-reasoning unifiés. R&amp;D de pointe en multimodal.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>SenseNova V6.5 Omni realtime</strong><span class="cell-type">Omni</span></td>
-          <td><span class="lic-badge lic-prop">propriétaire</span></td>
-          <td class="cell-usage">Omni temps réel commercial. Pour B2B chinois.</td>
-          <td class="cell-price">¥0.06-0.08 / min</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-        <tr>
-          <td class="cell-provider">Skywork (Kunlun)</td>
-          <td class="cell-model"><strong>Skywork-R1V 3.0</strong><span class="cell-type">Vision-LLM reasoning</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Vision reasoning open-weight. Pour R&amp;D academique.</td>
-          <td class="cell-price">Self-host</td>
-          <td class="cell-ctx">128k</td>
-        </tr>
-        <tr>
-          <td class="cell-provider"></td>
-          <td class="cell-model"><strong>SkyReels-V4</strong><span class="cell-type">Vidéo + audio</span></td>
-          <td><span class="lic-badge lic-ow">open-weight</span></td>
-          <td class="cell-usage">Génère vidéo + bande son d&#x27;un coup. Pratique pour shorts complets.</td>
-          <td class="cell-price">$28 / mois</td>
-          <td class="cell-ctx">—</td>
-        </tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-
-      <div class="country-legend">
-        <span><strong class="lic-badge lic-os">open-source</strong> licence OSI (Apache 2.0, MIT, CC-BY...) → libre commercial</span>
-        <span><strong class="lic-badge lic-ow">open-weight</strong> poids publics, licence custom souvent restrictive</span>
-        <span><strong class="lic-badge lic-prop">propriétaire</strong> API uniquement</span>
+    <section class="atlas-teaser">
+      <div class="section-eyebrow">Atlas mondial · 156 modèles</div>
+      <h2 class="models-section-title">Tu veux la carte du monde IA ?</h2>
+      <p class="models-lead" style="max-width:760px;margin-bottom:28px;">J'ai mis à part le catalogue complet par pays : USA, Europe, Chine. <strong>156 modèles, ce qu'ils font et combien ils coûtent.</strong> Pas indispensable pour choisir — mais pratique si tu veux comprendre qui fait quoi dans le paysage.</p>
+      <div class="atlas-grid">
+        <a class="atlas-card" data-accent="teal" href="/modeles-ia-monde#country-us">
+          <div class="atlas-flag" aria-hidden="true">🇺🇸</div>
+          <div class="atlas-meta">
+            <span class="atlas-count">51 modèles</span>
+            <h3>USA</h3>
+            <p>OpenAI, Anthropic, Google, xAI, Meta. Le frontier propriétaire et la majorité des assistants que tu utilises.</p>
+          </div>
+          <span class="atlas-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="atlas-card" data-accent="fuchsia" href="/modeles-ia-monde#country-eu">
+          <div class="atlas-flag" aria-hidden="true">🇪🇺</div>
+          <div class="atlas-meta">
+            <span class="atlas-count">48 modèles</span>
+            <h3>Europe + UK</h3>
+            <p>Mistral, Kyutai, Black Forest Labs, ElevenLabs, Stability. La région la plus ouverte (17 modèles vraiment open-source).</p>
+          </div>
+          <span class="atlas-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="atlas-card" data-accent="orange" href="/modeles-ia-monde#country-cn">
+          <div class="atlas-flag" aria-hidden="true">🇨🇳</div>
+          <div class="atlas-meta">
+            <span class="atlas-count">57 modèles</span>
+            <h3>Chine</h3>
+            <p>DeepSeek, Qwen, Doubao, Kling, Hunyuan. Domine la vidéo IA et casse les prix sur les LLM. 43 modèles open-weight.</p>
+          </div>
+          <span class="atlas-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
 
@@ -3211,23 +1842,8 @@
   }
 
   function renderRecommendations() {
-    const grid = document.getElementById('recoGrid');
-    grid.innerHTML = recoMap.map(item => {
-      const model = state.models.find(m => m.id === item.id);
-      if (!model) return '';
-      return `
-        <article class="reco-card">
-          <div class="reco-label">${item.label}</div>
-          <h3>${model.name}</h3>
-          <p>${model.leo_take}</p>
-          <div class="tag-row">
-            <span class="tag">${labelize(model.category)}</span>
-            <span class="tag">${labelize(model.pricing_tier)}</span>
-            <span class="tag">${isOpen(model) ? 'open' : 'fermé'}</span>
-          </div>
-        </article>
-      `;
-    }).join('');
+    // No-op : le top 6 est hardcodé en HTML (failsafe contre fetch raté).
+    // Cette fonction reste pour compat mais ne touche plus #recoGrid.
   }
 
   function renderModelCard(model) {

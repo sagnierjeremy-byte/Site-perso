@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Glossaire IA enrichi à 130 termes
+
+### Pourquoi
+Après la séparation entre glossaire A-Z et 8 essentiels, il fallait densifier le glossaire avec davantage de vocabulaire IA concret : agents, RAG, API, sécurité, outils no-code, Codex, Claude Code, Supabase, Vercel et n8n.
+
+### Livré
+- **4 sous-agents dispatchés** par domaine : modèles/API, agents/sécurité, RAG/données, outils/no-code.
+- **60 nouvelles définitions express** ajoutées au glossaire, pour passer de 70 à 130 termes.
+- **Hub A-Z régénéré** : 130 lignes alphabétiques, 122 cartes compactes, 24 pages SEO dédiées conservées.
+- **Stratégie SEO préservée** : les nouveaux mots restent en définitions express pour éviter de publier 60 pages minces d'un coup.
+- **Liens relatifs conservés** : le hub et les pages terme fonctionnent en prod Vercel et en ouverture locale `file://`.
+- **Contrôles liens** : les 130 entrées A-Z pointent vers une page existante ou une ancre valide.
+- **Vérification navigateur locale** : recherche GraphRAG / NotebookLM / sous-agent, clic d'ancre, filtre Agents et mobile 390 px sans overflow.
+
+### Fichiers touchés
+- `CHANGELOG.md`
+- `data/lexique.json`
+- `lexique.html`
+- `scripts/build-lexique.js`
+
+### À venir
+- Promouvoir progressivement les meilleurs termes P1 en pages SEO longues après premières données Search Console.
+- Ajouter des liens contextuels depuis les articles vers les termes les plus utiles.
+
 ## 2026-05-22 · Split glossaire IA / 8 essentiels
 
 ### Pourquoi

@@ -8,16 +8,33 @@
       "category": "Outils",
       "priority": "P1",
       "page": true,
-      "aliases": ["api key", "clé anthropic", "clé openai"],
-      "groups": ["essentials", "outils", "securite"],
+      "aliases": [
+        "api key",
+        "clé anthropic",
+        "clé openai"
+      ],
+      "groups": [
+        "essentials",
+        "outils",
+        "securite"
+      ],
       "summary": "Une clé API est un mot de passe technique qui autorise un outil à appeler un service d'IA en ton nom.",
       "where": "Tu la vois dans les consoles Anthropic, OpenAI, Resend, Supabase, Vercel ou dans les champs de connexion d'un outil no-code.",
       "intent": "Comprendre à quoi sert une clé API, où la trouver et comment éviter de l'exposer.",
       "angle": "Expliquer le badge d'accès payant sans minimiser le risque de fuite.",
       "example": "Tu branches Claude à n8n : n8n ne connaît pas ton compte complet, il utilise seulement la clé API que tu lui donnes.",
       "why": "Dès que l'IA sort du chat et entre dans une automatisation, la clé API devient le point d'entrée principal.",
-      "mistakes": ["Coller une clé API dans un document public.", "Réutiliser la même clé pour tous les outils.", "Oublier de fixer une limite de dépense."],
-      "related": ["fichier-env", "token", "variables-environnement-vercel", "oauth"]
+      "mistakes": [
+        "Coller une clé API dans un document public.",
+        "Réutiliser la même clé pour tous les outils.",
+        "Oublier de fixer une limite de dépense."
+      ],
+      "related": [
+        "fichier-env",
+        "token",
+        "variables-environnement-vercel",
+        "oauth"
+      ]
     },
     {
       "slug": "fichier-env",
@@ -25,16 +42,33 @@
       "category": "Outils",
       "priority": "P1",
       "page": true,
-      "aliases": [".env", "variables environnement", "secrets"],
-      "groups": ["essentials", "outils", "securite"],
+      "aliases": [
+        ".env",
+        "variables environnement",
+        "secrets"
+      ],
+      "groups": [
+        "essentials",
+        "outils",
+        "securite"
+      ],
       "summary": "Un fichier .env range les clés et réglages sensibles d'un projet hors du code visible.",
       "where": "Tu le croises à la racine d'un projet local, ou sous forme de variables d'environnement dans Vercel, Railway ou Supabase.",
       "intent": "Savoir à quoi sert un .env et pourquoi il ne doit jamais partir sur GitHub.",
       "angle": "Relier le sujet aux clés IA et au déploiement sans entrer dans une leçon de programmation.",
       "example": "Au lieu d'écrire ta clé Anthropic dans un script, tu écris ANTHROPIC_API_KEY=... dans .env puis le script la lit au démarrage.",
       "why": "Les agents et automatisations manipulent vite des secrets. Le .env évite de les exposer dans les fichiers partagés.",
-      "mistakes": ["Oublier .env dans .gitignore.", "Partager une capture d'écran avec les vraies valeurs.", "Modifier une variable sans redémarrer l'outil."],
-      "related": ["cle-api", "variables-environnement-vercel", "git", "commit"]
+      "mistakes": [
+        "Oublier .env dans .gitignore.",
+        "Partager une capture d'écran avec les vraies valeurs.",
+        "Modifier une variable sans redémarrer l'outil."
+      ],
+      "related": [
+        "cle-api",
+        "variables-environnement-vercel",
+        "git",
+        "commit"
+      ]
     },
     {
       "slug": "token",
@@ -42,16 +76,33 @@
       "category": "Base technique",
       "priority": "P1",
       "page": true,
-      "aliases": ["tokens", "coût ia", "compteur ia"],
-      "groups": ["essentials", "bases", "performance"],
+      "aliases": [
+        "tokens",
+        "coût ia",
+        "compteur ia"
+      ],
+      "groups": [
+        "essentials",
+        "bases",
+        "performance"
+      ],
       "summary": "Un token est un petit morceau de texte que l'IA compte pour mesurer ce qu'elle lit, écrit et facture.",
       "where": "Tu le vois dans les tableaux de prix des API IA, les limites de contexte et les compteurs d'usage.",
       "intent": "Comprendre pourquoi un document long coûte plus cher et pourquoi certaines conversations saturent.",
       "angle": "Donner des repères concrets pour maîtriser coût et longueur.",
       "example": "Un email court consomme peu. Un PDF de 80 pages envoyé à un modèle avancé peut représenter des dizaines de milliers de tokens.",
       "why": "Le token explique trois sujets à la fois : coût, longueur maximale et vitesse de réponse.",
-      "mistakes": ["Confondre nombre de mots et nombre exact de tokens.", "Oublier que la sortie coûte souvent plus cher que l'entrée.", "Lancer une boucle sur de gros documents sans limite."],
-      "related": ["context-window", "ttft", "tps", "latence"]
+      "mistakes": [
+        "Confondre nombre de mots et nombre exact de tokens.",
+        "Oublier que la sortie coûte souvent plus cher que l'entrée.",
+        "Lancer une boucle sur de gros documents sans limite."
+      ],
+      "related": [
+        "context-window",
+        "ttft",
+        "tps",
+        "latence"
+      ]
     },
     {
       "slug": "cli",
@@ -59,16 +110,32 @@
       "category": "Outils",
       "priority": "P2",
       "page": false,
-      "aliases": ["terminal", "ligne de commande", "shell"],
-      "groups": ["essentials", "outils"],
+      "aliases": [
+        "terminal",
+        "ligne de commande",
+        "shell"
+      ],
+      "groups": [
+        "essentials",
+        "outils"
+      ],
       "summary": "La CLI est une interface où tu écris des commandes au clavier au lieu de cliquer dans une application.",
       "where": "Tu la rencontres pour lancer Codex CLI, installer un outil, publier un site ou exécuter un script.",
       "intent": "Démystifier le terminal pour suivre des tutos IA et agentiques.",
       "angle": "Le présenter comme une interface de pilotage, pas comme un symbole réservé aux profils techniques.",
       "example": "Tu ouvres le terminal, tu te places dans un dossier, puis tu lances codex pour demander une modification.",
       "why": "Beaucoup d'outils IA sérieux commencent encore par une commande simple.",
-      "mistakes": ["Copier une commande sans savoir dans quel dossier on se trouve.", "Ignorer les messages d'erreur.", "Relancer dix fois une commande qui demande juste une confirmation."],
-      "related": ["codex-cli", "git", "branch", "plugin"]
+      "mistakes": [
+        "Copier une commande sans savoir dans quel dossier on se trouve.",
+        "Ignorer les messages d'erreur.",
+        "Relancer dix fois une commande qui demande juste une confirmation."
+      ],
+      "related": [
+        "codex-cli",
+        "git",
+        "branch",
+        "plugin"
+      ]
     },
     {
       "slug": "mcp",
@@ -76,16 +143,33 @@
       "category": "Agent",
       "priority": "P1",
       "page": true,
-      "aliases": ["model context protocol", "serveur mcp", "connecteur mcp"],
-      "groups": ["essentials", "agents", "outils"],
+      "aliases": [
+        "model context protocol",
+        "serveur mcp",
+        "connecteur mcp"
+      ],
+      "groups": [
+        "essentials",
+        "agents",
+        "outils"
+      ],
       "summary": "MCP, pour Model Context Protocol, est un standard qui permet à une IA de se connecter proprement à des outils et des données.",
       "where": "Tu le croises dans Claude Desktop, Claude Code, Cursor et les connecteurs qui donnent accès à GitHub, Notion, fichiers ou bases.",
       "intent": "Comprendre pourquoi tout le monde parle de MCP dans les agents IA.",
       "angle": "Le traiter comme une prise standard pour agents, pas comme un acronyme intimidant.",
       "example": "Au lieu de bricoler une intégration différente pour chaque outil, tu ajoutes un serveur MCP qui expose les bonnes actions à l'agent.",
       "why": "Les agents deviennent utiles quand ils peuvent lire, chercher et agir dans tes vrais outils.",
-      "mistakes": ["Installer trop de connecteurs sans savoir ce qu'ils autorisent.", "Donner accès à des données sensibles sans garde-fou.", "Confondre MCP et modèle IA."],
-      "related": ["tool-use", "agentic-workflow", "guardrail", "oauth"]
+      "mistakes": [
+        "Installer trop de connecteurs sans savoir ce qu'ils autorisent.",
+        "Donner accès à des données sensibles sans garde-fou.",
+        "Confondre MCP et modèle IA."
+      ],
+      "related": [
+        "tool-use",
+        "agentic-workflow",
+        "guardrail",
+        "oauth"
+      ]
     },
     {
       "slug": "modele",
@@ -93,16 +177,34 @@
       "category": "Base technique",
       "priority": "P1",
       "page": true,
-      "aliases": ["model", "opus", "sonnet", "haiku"],
-      "groups": ["essentials", "bases", "performance"],
+      "aliases": [
+        "model",
+        "opus",
+        "sonnet",
+        "haiku"
+      ],
+      "groups": [
+        "essentials",
+        "bases",
+        "performance"
+      ],
       "summary": "Un modèle IA est le moteur qui lit ta demande et produit une réponse.",
       "where": "Tu le choisis dans Claude, ChatGPT, Gemini, une API ou un outil qui propose plusieurs niveaux de qualité et de coût.",
       "intent": "Comprendre comment choisir entre modèles rapides, économiques ou plus puissants.",
       "angle": "Aider à choisir le bon moteur selon la tâche, sans idolâtrer le modèle le plus cher.",
       "example": "Tu peux utiliser un modèle rapide pour classer 500 emails, puis un modèle plus précis pour rédiger le message final.",
       "why": "Le modèle choisi change le coût, la vitesse, la qualité et parfois les capacités disponibles.",
-      "mistakes": ["Toujours prendre le modèle le plus cher.", "Comparer deux modèles sur une seule réponse.", "Oublier que certains outils imposent leur modèle."],
-      "related": ["llm", "reasoning-model", "slm", "temperature"]
+      "mistakes": [
+        "Toujours prendre le modèle le plus cher.",
+        "Comparer deux modèles sur une seule réponse.",
+        "Oublier que certains outils imposent leur modèle."
+      ],
+      "related": [
+        "llm",
+        "reasoning-model",
+        "slm",
+        "temperature"
+      ]
     },
     {
       "slug": "skill-agent",
@@ -110,16 +212,32 @@
       "category": "Agent",
       "priority": "P1",
       "page": true,
-      "aliases": ["skill", "agent", "agent ia"],
-      "groups": ["essentials", "agents"],
+      "aliases": [
+        "skill",
+        "agent",
+        "agent ia"
+      ],
+      "groups": [
+        "essentials",
+        "agents"
+      ],
       "summary": "Un skill est une méthode réutilisable. Un agent est un système qui avance sur une mission avec outils, contexte et décisions.",
       "where": "Tu vois les skills dans Claude Code et les agents dans Codex, n8n, Zapier ou les outils de veille automatisée.",
       "intent": "Clarifier la différence entre instruction spécialisée et assistant qui agit.",
       "angle": "Installer la distinction qui évite de tout appeler agent.",
       "example": "Un agent de veille peut utiliser un skill de synthèse éditoriale pour produire le résumé final.",
       "why": "La confusion skill/agent fait perdre du temps quand tu veux automatiser une vraie routine.",
-      "mistakes": ["Appeler agent une simple instruction de style.", "Créer un agent alors qu'un skill suffit.", "Laisser un agent agir sans critères d'arrêt."],
-      "related": ["agentic-workflow", "orchestration", "multi-agent", "human-in-the-loop"]
+      "mistakes": [
+        "Appeler agent une simple instruction de style.",
+        "Créer un agent alors qu'un skill suffit.",
+        "Laisser un agent agir sans critères d'arrêt."
+      ],
+      "related": [
+        "agentic-workflow",
+        "orchestration",
+        "multi-agent",
+        "human-in-the-loop"
+      ]
     },
     {
       "slug": "plugin",
@@ -127,16 +245,32 @@
       "category": "Outils",
       "priority": "P2",
       "page": false,
-      "aliases": ["marketplace", "extension", "plugin claude"],
-      "groups": ["essentials", "outils"],
+      "aliases": [
+        "marketplace",
+        "extension",
+        "plugin claude"
+      ],
+      "groups": [
+        "essentials",
+        "outils"
+      ],
       "summary": "Un plugin ajoute des capacités prêtes à utiliser à un outil, souvent sous forme de commandes, skills ou connecteurs.",
       "where": "Tu le rencontres dans les marketplaces Claude, Codex, navigateur, CMS ou outils d'automatisation.",
       "intent": "Comprendre ce qu'un plugin ajoute réellement et quand l'installer.",
       "angle": "Éviter la collection de plugins inutiles : installer quand un manque est clair.",
       "example": "Un plugin de documentation donne accès à des docs récentes sans que tu les colles dans chaque conversation.",
       "why": "Les plugins accélèrent le travail, mais élargissent aussi les accès et la surface de risque.",
-      "mistakes": ["Installer sans lire les permissions.", "Empiler plusieurs plugins qui font la même chose.", "Oublier de redémarrer l'outil après installation."],
-      "related": ["skill-agent", "mcp", "codex-cli", "guardrail"]
+      "mistakes": [
+        "Installer sans lire les permissions.",
+        "Empiler plusieurs plugins qui font la même chose.",
+        "Oublier de redémarrer l'outil après installation."
+      ],
+      "related": [
+        "skill-agent",
+        "mcp",
+        "codex-cli",
+        "guardrail"
+      ]
     },
     {
       "slug": "llm",
@@ -144,24 +278,44 @@
       "category": "Base technique",
       "priority": "P1",
       "page": true,
-      "aliases": ["large language model", "grand modèle de langage", "modèle de langage"],
-      "groups": ["bases"],
+      "aliases": [
+        "large language model",
+        "grand modèle de langage",
+        "modèle de langage"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Un LLM est un modèle d'IA entraîné à comprendre et générer du langage.",
       "where": "Il se cache derrière ChatGPT, Claude, Gemini, Perplexity et beaucoup d'assistants intégrés aux outils.",
       "intent": "Comprendre ce qu'est le moteur principal de l'IA générative moderne.",
       "angle": "Expliquer le moteur sans réduire l'IA à une machine à écrire.",
       "example": "Quand tu demandes à Claude de résumer un article, le LLM lit le texte, prédit une réponse plausible et l'ajuste au contexte.",
       "why": "Presque tous les autres mots du glossaire partent de là : prompt, token, contexte, hallucination, RAG.",
-      "mistakes": ["Croire qu'un LLM sait toujours d'où vient son information.", "Le traiter comme une base de données parfaite.", "Oublier qu'il peut être convaincant et faux."],
-      "related": ["modele", "token", "context-window", "hallucination"]
+      "mistakes": [
+        "Croire qu'un LLM sait toujours d'où vient son information.",
+        "Le traiter comme une base de données parfaite.",
+        "Oublier qu'il peut être convaincant et faux."
+      ],
+      "related": [
+        "modele",
+        "token",
+        "context-window",
+        "hallucination"
+      ]
     },
     {
       "slug": "slm",
       "title": "SLM",
       "category": "Base technique",
       "page": false,
-      "aliases": ["small language model", "petit modèle"],
-      "groups": ["bases"],
+      "aliases": [
+        "small language model",
+        "petit modèle"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Un SLM est un modèle de langage plus petit, souvent plus rapide et moins coûteux qu'un grand LLM.",
       "where": "Tu le vois dans les usages locaux, les tâches simples à gros volume ou les automatisations qui doivent coûter peu."
     },
@@ -170,8 +324,14 @@
       "title": "Inférence",
       "category": "Base technique",
       "page": false,
-      "aliases": ["inference", "réponse modèle"],
-      "groups": ["bases", "performance"],
+      "aliases": [
+        "inference",
+        "réponse modèle"
+      ],
+      "groups": [
+        "bases",
+        "performance"
+      ],
       "summary": "L'inférence est le moment où le modèle produit une réponse à partir de ta demande.",
       "where": "C'est ce que tu paies à chaque appel API ou message traité par un modèle hébergé."
     },
@@ -181,16 +341,31 @@
       "category": "Base technique",
       "priority": "P1",
       "page": true,
-      "aliases": ["context window", "contexte", "taille de contexte"],
-      "groups": ["bases"],
+      "aliases": [
+        "context window",
+        "contexte",
+        "taille de contexte"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "La fenêtre de contexte est la quantité de texte qu'un modèle peut prendre en compte en une seule conversation ou requête.",
       "where": "Tu la vois quand un outil refuse un PDF trop long, tronque une conversation ou annonce 128k, 200k ou 1M tokens.",
       "intent": "Comprendre pourquoi une IA oublie, tronque ou ne peut pas tout lire.",
       "angle": "Rendre visible la limite invisible qui gouverne les longues conversations.",
       "example": "Si tu donnes plusieurs rapports, le modèle ne garde que ce qui rentre dans sa fenêtre de contexte.",
       "why": "Elle conditionne la qualité d'une analyse longue, d'un agent et d'un système RAG.",
-      "mistakes": ["Penser qu'une grande fenêtre remplace une bonne sélection de documents.", "Coller trop de texte sans hiérarchie.", "Confondre mémoire longue et contexte immédiat."],
-      "related": ["token", "rag", "context-engineering", "memoire-court-terme"]
+      "mistakes": [
+        "Penser qu'une grande fenêtre remplace une bonne sélection de documents.",
+        "Coller trop de texte sans hiérarchie.",
+        "Confondre mémoire longue et contexte immédiat."
+      ],
+      "related": [
+        "token",
+        "rag",
+        "context-engineering",
+        "memoire-court-terme"
+      ]
     },
     {
       "slug": "system-prompt",
@@ -198,24 +373,45 @@
       "category": "Prompting",
       "priority": "P1",
       "page": true,
-      "aliases": ["instruction système", "instructions personnalisées"],
-      "groups": ["bases", "prompting"],
+      "aliases": [
+        "instruction système",
+        "instructions personnalisées"
+      ],
+      "groups": [
+        "bases",
+        "prompting"
+      ],
       "summary": "Le system prompt est l'instruction de niveau supérieur qui cadre le comportement du modèle pendant la conversation.",
       "where": "Tu le croises dans les API IA, les instructions personnalisées, AGENTS.md, CLAUDE.md ou les builders d'agents.",
       "intent": "Comprendre la différence entre consigne durable et message utilisateur.",
       "angle": "Montrer que le system prompt est un cadre, pas une formule magique.",
       "example": "Un system prompt peut dire : réponds en français, cite tes sources, demande validation avant toute action sensible.",
       "why": "Il donne une cohérence aux réponses et limite certains comportements risqués.",
-      "mistakes": ["Le remplir de règles contradictoires.", "Croire qu'il bloque toutes les attaques.", "Le modifier à chaque message alors qu'il doit rester stable."],
-      "related": ["prompt-engineering", "guardrail", "agents-md", "context-engineering"]
+      "mistakes": [
+        "Le remplir de règles contradictoires.",
+        "Croire qu'il bloque toutes les attaques.",
+        "Le modifier à chaque message alors qu'il doit rester stable."
+      ],
+      "related": [
+        "prompt-engineering",
+        "guardrail",
+        "agents-md",
+        "context-engineering"
+      ]
     },
     {
       "slug": "streaming",
       "title": "Streaming",
       "category": "Performance",
       "page": false,
-      "aliases": ["stream", "réponse en direct"],
-      "groups": ["bases", "performance"],
+      "aliases": [
+        "stream",
+        "réponse en direct"
+      ],
+      "groups": [
+        "bases",
+        "performance"
+      ],
       "summary": "Le streaming affiche la réponse au fur et à mesure que le modèle la génère.",
       "where": "Tu le vois dans les interfaces chat où les mots apparaissent progressivement."
     },
@@ -225,24 +421,45 @@
       "category": "Prompting",
       "priority": "P1",
       "page": true,
-      "aliases": ["prompt", "bien prompter", "ingénierie de prompt"],
-      "groups": ["prompting"],
+      "aliases": [
+        "prompt",
+        "bien prompter",
+        "ingénierie de prompt"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "Le prompt engineering consiste à formuler une demande avec assez de contexte, d'exemples et de contraintes pour obtenir une réponse utile.",
       "where": "Tu le pratiques dans ChatGPT, Claude, Gemini, Codex, n8n ou n'importe quel outil qui demande une instruction.",
       "intent": "Apprendre ce qui améliore vraiment une demande à une IA.",
       "angle": "Sortir du folklore des prompts miracles et revenir au contexte utile.",
       "example": "Au lieu de dire 'fais un résumé', tu précises le public, la longueur, le format et les points à ne pas oublier.",
       "why": "Même avec de meilleurs modèles, la qualité de la demande influence encore fortement le résultat.",
-      "mistakes": ["Chercher une formule universelle.", "Donner trop de contexte inutile.", "Oublier de montrer un exemple du résultat attendu."],
-      "related": ["system-prompt", "few-shot", "structured-output", "temperature"]
+      "mistakes": [
+        "Chercher une formule universelle.",
+        "Donner trop de contexte inutile.",
+        "Oublier de montrer un exemple du résultat attendu."
+      ],
+      "related": [
+        "system-prompt",
+        "few-shot",
+        "structured-output",
+        "temperature"
+      ]
     },
     {
       "slug": "few-shot",
       "title": "Few-shot / Zero-shot",
       "category": "Prompting",
       "page": false,
-      "aliases": ["few shot", "zero shot", "exemples prompt"],
-      "groups": ["prompting"],
+      "aliases": [
+        "few shot",
+        "zero shot",
+        "exemples prompt"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "Zero-shot signifie demander sans exemple. Few-shot signifie donner quelques exemples avant la demande.",
       "where": "Utile pour obtenir un format stable, classer des données ou imiter une structure."
     },
@@ -251,8 +468,13 @@
       "title": "Chain of thought",
       "category": "Prompting",
       "page": false,
-      "aliases": ["raisonnement étape par étape", "cot"],
-      "groups": ["prompting"],
+      "aliases": [
+        "raisonnement étape par étape",
+        "cot"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "La chain of thought désigne le raisonnement étape par étape que le modèle peut utiliser avant de répondre.",
       "where": "Tu l'entends surtout dans les sujets de logique, planification, maths et modèles de raisonnement."
     },
@@ -262,24 +484,44 @@
       "category": "Prompting",
       "priority": "P2",
       "page": false,
-      "aliases": ["température ia", "créativité modèle"],
-      "groups": ["prompting"],
+      "aliases": [
+        "température ia",
+        "créativité modèle"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "La temperature est un réglage qui influence la variété et la prise de risque dans les réponses du modèle.",
       "where": "Tu la vois dans les API IA, certains playgrounds et outils d'automatisation.",
       "intent": "Comprendre pourquoi deux réponses peuvent varier avec la même demande.",
       "angle": "Rendre le curseur utile sans en faire un réglage à toucher partout.",
       "example": "Pour extraire des données, tu veux une temperature basse. Pour explorer des idées, tu peux la monter.",
       "why": "Elle joue sur la stabilité, la créativité et parfois la fiabilité du résultat.",
-      "mistakes": ["Monter la temperature pour corriger un manque de contexte.", "L'utiliser sur des tâches factuelles sensibles.", "Toucher plusieurs réglages à la fois sans mesurer."],
-      "related": ["top-p-k", "prompt-engineering", "structured-output", "eval"]
+      "mistakes": [
+        "Monter la temperature pour corriger un manque de contexte.",
+        "L'utiliser sur des tâches factuelles sensibles.",
+        "Toucher plusieurs réglages à la fois sans mesurer."
+      ],
+      "related": [
+        "top-p-k",
+        "prompt-engineering",
+        "structured-output",
+        "eval"
+      ]
     },
     {
       "slug": "top-p-k",
       "title": "Top-p / Top-k",
       "category": "Prompting",
       "page": false,
-      "aliases": ["top p", "top k", "nucleus sampling"],
-      "groups": ["prompting"],
+      "aliases": [
+        "top p",
+        "top k",
+        "nucleus sampling"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "Top-p et Top-k limitent le choix des prochains mots possibles pendant la génération.",
       "where": "Tu les vois dans des réglages API avancés, souvent sans avoir besoin d'y toucher."
     },
@@ -288,8 +530,13 @@
       "title": "Stop sequence",
       "category": "Prompting",
       "page": false,
-      "aliases": ["séquence d'arrêt", "stop"],
-      "groups": ["prompting"],
+      "aliases": [
+        "séquence d'arrêt",
+        "stop"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "Une stop sequence indique au modèle où arrêter sa réponse.",
       "where": "Utile dans l'extraction structurée, les prompts répétables et certains scripts."
     },
@@ -299,16 +546,31 @@
       "category": "RAG",
       "priority": "P1",
       "page": true,
-      "aliases": ["retrieval augmented generation", "génération augmentée", "chatbot documentaire"],
-      "groups": ["rag"],
+      "aliases": [
+        "retrieval augmented generation",
+        "génération augmentée",
+        "chatbot documentaire"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Le RAG permet à une IA de répondre en s'appuyant sur des documents récupérés au moment de la question.",
       "where": "Tu le vois dans les chatbots sur documentation, les bases de connaissances internes et les agents qui citent leurs sources.",
       "intent": "Comprendre comment une IA peut utiliser tes documents sans réentraîner le modèle.",
       "angle": "Expliquer la chaîne chercher puis répondre, avec ses limites.",
       "example": "Tu poses une question sur une procédure interne. Le système cherche les passages pertinents, puis les donne au modèle pour répondre.",
       "why": "C'est l'une des méthodes les plus pratiques pour réduire les inventions et utiliser des données privées.",
-      "mistakes": ["Croire que RAG garantit une réponse vraie.", "Mal découper les documents.", "Ne pas afficher les sources utilisées."],
-      "related": ["embedding", "vector-db", "chunking", "reranking"]
+      "mistakes": [
+        "Croire que RAG garantit une réponse vraie.",
+        "Mal découper les documents.",
+        "Ne pas afficher les sources utilisées."
+      ],
+      "related": [
+        "embedding",
+        "vector-db",
+        "chunking",
+        "reranking"
+      ]
     },
     {
       "slug": "embedding",
@@ -316,16 +578,31 @@
       "category": "RAG",
       "priority": "P1",
       "page": true,
-      "aliases": ["vector embedding", "vecteur", "représentation sémantique"],
-      "groups": ["rag"],
+      "aliases": [
+        "vector embedding",
+        "vecteur",
+        "représentation sémantique"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Un embedding transforme un texte en liste de nombres pour comparer son sens avec d'autres textes.",
       "where": "Tu le croises dans le RAG, la recherche sémantique, les bases vectorielles et les moteurs de recommandation.",
       "intent": "Comprendre la brique qui permet de chercher par sens plutôt que par mot exact.",
       "angle": "Montrer que ce n'est pas de la magie, juste une représentation comparable.",
       "example": "Deux phrases qui parlent de la même idée peuvent être proches même si elles n'utilisent pas les mêmes mots.",
       "why": "Sans embeddings, un système RAG retrouve difficilement les bons passages dans un grand volume de texte.",
-      "mistakes": ["Confondre embedding et résumé.", "Comparer des embeddings créés par des modèles différents sans vérifier.", "Oublier de mettre à jour les embeddings quand la doc change."],
-      "related": ["rag", "vector-db", "chunking", "reranking"]
+      "mistakes": [
+        "Confondre embedding et résumé.",
+        "Comparer des embeddings créés par des modèles différents sans vérifier.",
+        "Oublier de mettre à jour les embeddings quand la doc change."
+      ],
+      "related": [
+        "rag",
+        "vector-db",
+        "chunking",
+        "reranking"
+      ]
     },
     {
       "slug": "vector-db",
@@ -333,16 +610,31 @@
       "category": "RAG",
       "priority": "P1",
       "page": true,
-      "aliases": ["vector db", "vector database", "pgvector"],
-      "groups": ["rag"],
+      "aliases": [
+        "vector db",
+        "vector database",
+        "pgvector"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Une base vectorielle stocke des embeddings et retrouve les textes les plus proches d'une question.",
       "where": "Tu la vois dans Pinecone, Qdrant, Weaviate, Supabase pgvector ou les architectures de chatbot documentaire.",
       "intent": "Comprendre où sont stockés les morceaux de documents utilisés par un RAG.",
       "angle": "Relier base vectorielle, embeddings et recherche sémantique.",
       "example": "Tu stockes chaque extrait de PDF sous forme de vecteur, puis tu cherches les extraits les plus proches de la question.",
       "why": "Elle rend la recherche rapide quand tu as beaucoup de documents.",
-      "mistakes": ["Utiliser une base vectorielle pour trois documents simples.", "Oublier les métadonnées comme date, source ou droits d'accès.", "Croire qu'elle remplace une base classique."],
-      "related": ["embedding", "rag", "chunking", "rls"]
+      "mistakes": [
+        "Utiliser une base vectorielle pour trois documents simples.",
+        "Oublier les métadonnées comme date, source ou droits d'accès.",
+        "Croire qu'elle remplace une base classique."
+      ],
+      "related": [
+        "embedding",
+        "rag",
+        "chunking",
+        "rls"
+      ]
     },
     {
       "slug": "tool-use",
@@ -350,24 +642,46 @@
       "category": "Agent",
       "priority": "P1",
       "page": true,
-      "aliases": ["function calling", "appel outil", "tools"],
-      "groups": ["rag", "agents"],
+      "aliases": [
+        "function calling",
+        "appel outil",
+        "tools"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
       "summary": "Le tool use permet à un modèle d'appeler un outil externe au lieu de seulement répondre avec du texte.",
       "where": "Tu le vois dans les agents qui envoient un email, lisent un fichier, cherchent sur le web ou appellent une API.",
       "intent": "Comprendre comment une IA passe de la réponse à l'action.",
       "angle": "Présenter l'appel d'outil comme la bascule majeure vers les agents.",
       "example": "Le modèle comprend qu'il doit vérifier un prix, appelle l'outil de recherche, puis rédige la réponse avec le résultat.",
       "why": "Sans outils, un agent reste enfermé dans la conversation. Avec outils, il peut agir dans un système réel.",
-      "mistakes": ["Donner trop d'outils sans règles.", "Laisser l'agent appeler une action sensible sans validation.", "Ne pas journaliser les appels d'outils."],
-      "related": ["mcp", "agentic-workflow", "guardrail", "observabilite-tracing"]
+      "mistakes": [
+        "Donner trop d'outils sans règles.",
+        "Laisser l'agent appeler une action sensible sans validation.",
+        "Ne pas journaliser les appels d'outils."
+      ],
+      "related": [
+        "mcp",
+        "agentic-workflow",
+        "guardrail",
+        "observabilite-tracing"
+      ]
     },
     {
       "slug": "computer-use",
       "title": "Computer use",
       "category": "Agent",
       "page": false,
-      "aliases": ["ordinateur piloté", "browser agent"],
-      "groups": ["rag", "agents"],
+      "aliases": [
+        "ordinateur piloté",
+        "browser agent"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
       "summary": "Le computer use permet à une IA de lire un écran, cliquer et taper comme un utilisateur.",
       "where": "Tu le vois dans les agents navigateur, les tests visuels et certaines automatisations web."
     },
@@ -376,8 +690,13 @@
       "title": "Grounding",
       "category": "RAG avancé",
       "page": false,
-      "aliases": ["ancrage aux sources", "réponse sourcée"],
-      "groups": ["rag"],
+      "aliases": [
+        "ancrage aux sources",
+        "réponse sourcée"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Le grounding consiste à ancrer une réponse dans des sources fournies ou retrouvées.",
       "where": "Tu le vois dans les réponses avec citations, les recherches web augmentées et les chatbots documentaires."
     },
@@ -386,8 +705,13 @@
       "title": "Chunking",
       "category": "RAG avancé",
       "page": false,
-      "aliases": ["découpage document", "chunks"],
-      "groups": ["rag"],
+      "aliases": [
+        "découpage document",
+        "chunks"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Le chunking découpe un long document en morceaux exploitables par un système de recherche IA.",
       "where": "C'est une étape clé quand tu construis un RAG sur des PDF, pages ou bases de connaissance."
     },
@@ -396,8 +720,13 @@
       "title": "Reranking",
       "category": "RAG avancé",
       "page": false,
-      "aliases": ["reranker", "reclassement"],
-      "groups": ["rag"],
+      "aliases": [
+        "reranker",
+        "reclassement"
+      ],
+      "groups": [
+        "rag"
+      ],
       "summary": "Le reranking retrie les résultats trouvés pour donner au modèle les passages les plus pertinents.",
       "where": "Tu le vois dans les moteurs de recherche sémantique et les RAG qui doivent citer précisément."
     },
@@ -407,16 +736,31 @@
       "category": "Agent",
       "priority": "P1",
       "page": true,
-      "aliases": ["agentic workflow", "workflow agent", "processus agentique"],
-      "groups": ["agents"],
+      "aliases": [
+        "agentic workflow",
+        "workflow agent",
+        "processus agentique"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "Un workflow agentique est une suite d'étapes où l'IA planifie, utilise des outils, vérifie et continue jusqu'au résultat.",
       "where": "Tu le croises dans Codex, Claude Code, n8n, les agents de veille et les automatisations avec plusieurs décisions.",
       "intent": "Comprendre ce qui distingue une réponse IA d'une mission déléguée.",
       "angle": "Montrer l'enchaînement concret : plan, outils, vérification, itération.",
       "example": "Un agent cherche des sources, trie, rédige un résumé, détecte les manques, puis prépare une version finale.",
       "why": "C'est la forme pratique de l'IA qui travaille sur une tâche réelle, pas juste sur une réponse isolée.",
-      "mistakes": ["Confondre workflow agentique et simple automatisation linéaire.", "Oublier le critère de fin.", "Ne pas prévoir de validation humaine pour les actions sensibles."],
-      "related": ["tool-use", "orchestration", "multi-agent", "human-in-the-loop"]
+      "mistakes": [
+        "Confondre workflow agentique et simple automatisation linéaire.",
+        "Oublier le critère de fin.",
+        "Ne pas prévoir de validation humaine pour les actions sensibles."
+      ],
+      "related": [
+        "tool-use",
+        "orchestration",
+        "multi-agent",
+        "human-in-the-loop"
+      ]
     },
     {
       "slug": "orchestration",
@@ -424,24 +768,43 @@
       "category": "Agent",
       "priority": "P2",
       "page": false,
-      "aliases": ["orchestration agent", "coordination agents"],
-      "groups": ["agents"],
+      "aliases": [
+        "orchestration agent",
+        "coordination agents"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "L'orchestration organise les étapes, outils ou agents nécessaires pour atteindre un résultat.",
       "where": "Tu la vois dans les workflows multi-étapes, les pipelines de contenu, les agents spécialisés et les outils comme n8n.",
       "intent": "Comprendre qui décide de l'ordre des actions dans un système IA.",
       "angle": "Ramener un mot abstrait à une question simple : qui fait quoi, quand, et avec quel contrôle.",
       "example": "Un orchestrateur lance d'abord la recherche, puis la rédaction, puis la relecture, puis la publication après validation.",
       "why": "Plus une automatisation devient utile, plus elle doit coordonner des briques différentes.",
-      "mistakes": ["Tout confier à un seul agent sans étapes visibles.", "Créer trop d'agents pour une tâche simple.", "Ne pas gérer les erreurs entre deux étapes."],
-      "related": ["agentic-workflow", "handoff", "multi-agent", "observabilite-tracing"]
+      "mistakes": [
+        "Tout confier à un seul agent sans étapes visibles.",
+        "Créer trop d'agents pour une tâche simple.",
+        "Ne pas gérer les erreurs entre deux étapes."
+      ],
+      "related": [
+        "agentic-workflow",
+        "handoff",
+        "multi-agent",
+        "observabilite-tracing"
+      ]
     },
     {
       "slug": "handoff",
       "title": "Handoff",
       "category": "Agent",
       "page": false,
-      "aliases": ["passage de relais", "transfert agent"],
-      "groups": ["agents"],
+      "aliases": [
+        "passage de relais",
+        "transfert agent"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "Un handoff est le passage d'une tâche d'un agent à un autre agent plus adapté.",
       "where": "Tu le vois dans les systèmes avec agent d'accueil, agent recherche, agent rédaction ou agent support."
     },
@@ -451,24 +814,43 @@
       "category": "Agent",
       "priority": "P2",
       "page": false,
-      "aliases": ["système multi-agent", "agents parallèles"],
-      "groups": ["agents"],
+      "aliases": [
+        "système multi-agent",
+        "agents parallèles"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "Un système multi-agent fait travailler plusieurs agents spécialisés sur une même mission.",
       "where": "Tu le vois dans les recherches complexes, les reviews de code, les veilles et les pipelines éditoriaux.",
       "intent": "Savoir quand plusieurs agents apportent quelque chose, et quand c'est juste trop lourd.",
       "angle": "Défendre l'usage utile : spécialisation, parallélisation, contrôle qualité.",
       "example": "Un agent cherche les sources, un autre rédige, un troisième vérifie les risques et les oublis.",
       "why": "La spécialisation peut améliorer la qualité quand la mission a plusieurs angles indépendants.",
-      "mistakes": ["Multiplier les agents pour une tâche simple.", "Ne pas définir qui tranche à la fin.", "Laisser deux agents modifier les mêmes fichiers sans coordination."],
-      "related": ["orchestration", "handoff", "agentic-workflow", "eval"]
+      "mistakes": [
+        "Multiplier les agents pour une tâche simple.",
+        "Ne pas définir qui tranche à la fin.",
+        "Laisser deux agents modifier les mêmes fichiers sans coordination."
+      ],
+      "related": [
+        "orchestration",
+        "handoff",
+        "agentic-workflow",
+        "eval"
+      ]
     },
     {
       "slug": "memoire-court-terme",
       "title": "Mémoire court terme",
       "category": "Mémoire",
       "page": false,
-      "aliases": ["short term memory", "mémoire session"],
-      "groups": ["agents"],
+      "aliases": [
+        "short term memory",
+        "mémoire session"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "La mémoire court terme est ce que l'agent garde pendant la session en cours.",
       "where": "Elle explique pourquoi un agent se souvient des dernières actions, mais pas forcément demain."
     },
@@ -477,8 +859,13 @@
       "title": "Mémoire long terme",
       "category": "Mémoire",
       "page": false,
-      "aliases": ["long term memory", "mémoire persistante"],
-      "groups": ["agents"],
+      "aliases": [
+        "long term memory",
+        "mémoire persistante"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "La mémoire long terme conserve des préférences ou faits utiles entre plusieurs sessions.",
       "where": "Tu la vois dans les instructions personnalisées, fichiers AGENTS.md, CLAUDE.md ou agents métier."
     },
@@ -488,16 +875,31 @@
       "category": "Contrôle",
       "priority": "P1",
       "page": true,
-      "aliases": ["ingénierie de contexte", "contexte ia"],
-      "groups": ["prompting", "agents"],
+      "aliases": [
+        "ingénierie de contexte",
+        "contexte ia"
+      ],
+      "groups": [
+        "prompting",
+        "agents"
+      ],
       "summary": "Le context engineering consiste à fournir au modèle les bons documents, règles, exemples et outils au bon moment.",
       "where": "Tu le vois dans les agents, les RAG, les fichiers d'instructions et les workflows qui sélectionnent le contexte avant de répondre.",
       "intent": "Comprendre pourquoi le contexte devient plus important que le prompt isolé.",
       "angle": "Déplacer le sujet de la phrase magique vers le système d'information donné à l'IA.",
       "example": "Avant de répondre, l'agent récupère les règles du projet, les fichiers utiles et les exemples de sortie attendue.",
       "why": "Un bon contexte réduit les erreurs, augmente la cohérence et rend les agents plus prévisibles.",
-      "mistakes": ["Tout mettre dans le prompt au lieu de sélectionner.", "Donner des règles contradictoires.", "Oublier de retirer les informations devenues fausses."],
-      "related": ["system-prompt", "rag", "agents-md", "memoire-long-terme"]
+      "mistakes": [
+        "Tout mettre dans le prompt au lieu de sélectionner.",
+        "Donner des règles contradictoires.",
+        "Oublier de retirer les informations devenues fausses."
+      ],
+      "related": [
+        "system-prompt",
+        "rag",
+        "agents-md",
+        "memoire-long-terme"
+      ]
     },
     {
       "slug": "structured-output",
@@ -505,24 +907,46 @@
       "category": "Contrôle",
       "priority": "P1",
       "page": true,
-      "aliases": ["json mode", "sortie structurée", "schema"],
-      "groups": ["prompting", "automatisation"],
+      "aliases": [
+        "json mode",
+        "sortie structurée",
+        "schema"
+      ],
+      "groups": [
+        "prompting",
+        "automatisation"
+      ],
       "summary": "Le structured output force une IA à répondre dans un format précis, souvent JSON, pour être réutilisée par un outil.",
       "where": "Tu le croises dans l'extraction de données, les automatisations, les agents reliés à une base et les formulaires générés.",
       "intent": "Comprendre pourquoi une réponse jolie ne suffit pas quand une machine doit la relire.",
       "angle": "Faire le lien entre IA conversationnelle et automatisation fiable.",
       "example": "Au lieu d'un paragraphe, l'IA renvoie {\"nom\":\"...\",\"email\":\"...\",\"score\":82}.",
       "why": "Les workflows cassent vite quand le format change. Une sortie structurée réduit ce risque.",
-      "mistakes": ["Demander du JSON sans valider le résultat.", "Mettre des champs flous.", "Oublier le cas où l'IA n'a pas l'information."],
-      "related": ["prompt-engineering", "eval", "tool-use", "webhook"]
+      "mistakes": [
+        "Demander du JSON sans valider le résultat.",
+        "Mettre des champs flous.",
+        "Oublier le cas où l'IA n'a pas l'information."
+      ],
+      "related": [
+        "prompt-engineering",
+        "eval",
+        "tool-use",
+        "webhook"
+      ]
     },
     {
       "slug": "eval",
       "title": "Évaluation / Eval",
       "category": "Évaluation",
       "page": false,
-      "aliases": ["eval", "test ia", "benchmark prompt"],
-      "groups": ["prompting"],
+      "aliases": [
+        "eval",
+        "test ia",
+        "benchmark prompt"
+      ],
+      "groups": [
+        "prompting"
+      ],
       "summary": "Une eval mesure régulièrement si une IA répond correctement sur des cas représentatifs.",
       "where": "Tu la vois quand on compare deux prompts, deux modèles ou deux versions d'un agent."
     },
@@ -531,8 +955,14 @@
       "title": "Observabilité / Tracing",
       "category": "Évaluation",
       "page": false,
-      "aliases": ["tracing", "logs agent", "observabilité"],
-      "groups": ["agents"],
+      "aliases": [
+        "tracing",
+        "logs agent",
+        "observabilité"
+      ],
+      "groups": [
+        "agents"
+      ],
       "summary": "L'observabilité montre les étapes internes d'un agent : prompts, outils appelés, erreurs et temps passé.",
       "where": "Tu la vois dans LangSmith, les dashboards d'agents et les journaux d'exécution."
     },
@@ -542,16 +972,32 @@
       "category": "Sécurité",
       "priority": "P1",
       "page": true,
-      "aliases": ["garde-fou", "sécurité agent", "règle de protection"],
-      "groups": ["securite", "agents"],
+      "aliases": [
+        "garde-fou",
+        "sécurité agent",
+        "règle de protection"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
       "summary": "Un guardrail est une règle de sécurité qui limite ce qu'une IA ou un agent peut faire.",
       "where": "Tu le vois dans les agents capables d'envoyer, publier, modifier, supprimer ou accéder à des données sensibles.",
       "intent": "Comprendre les garde-fous nécessaires avant de laisser une IA agir.",
       "angle": "Rendre les limites concrètes : refuser, demander validation, masquer, journaliser.",
       "example": "Un agent peut préparer un email mais doit demander confirmation avant de l'envoyer.",
       "why": "Plus l'agent a d'accès, plus les limites explicites deviennent importantes.",
-      "mistakes": ["Mettre les garde-fous seulement dans le prompt.", "Ne pas bloquer les actions irréversibles.", "Ne pas enregistrer ce qui a été fait."],
-      "related": ["human-in-the-loop", "prompt-injection", "tool-use", "rls"]
+      "mistakes": [
+        "Mettre les garde-fous seulement dans le prompt.",
+        "Ne pas bloquer les actions irréversibles.",
+        "Ne pas enregistrer ce qui a été fait."
+      ],
+      "related": [
+        "human-in-the-loop",
+        "prompt-injection",
+        "tool-use",
+        "rls"
+      ]
     },
     {
       "slug": "human-in-the-loop",
@@ -559,24 +1005,45 @@
       "category": "Sécurité",
       "priority": "P1",
       "page": true,
-      "aliases": ["humain dans la boucle", "validation humaine"],
-      "groups": ["securite", "agents"],
+      "aliases": [
+        "humain dans la boucle",
+        "validation humaine"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
       "summary": "Human-in-the-loop signifie qu'un humain valide une étape avant qu'un agent exécute une action sensible.",
       "where": "Tu le vois dans les agents email, finance, publication, support client ou toute automatisation avec impact réel.",
       "intent": "Savoir quand garder une validation humaine dans une automatisation IA.",
       "angle": "Assumer que le bon agent n'est pas toujours autonome à 100%.",
       "example": "L'agent rédige une réponse client, mais tu relis et valides avant l'envoi.",
       "why": "La validation humaine réduit les erreurs coûteuses sans empêcher l'agent de préparer le travail.",
-      "mistakes": ["Tout valider manuellement, ce qui annule l'automatisation.", "Ne rien valider sur des actions sensibles.", "Ne pas définir les seuils qui déclenchent la validation."],
-      "related": ["guardrail", "agentic-workflow", "tool-use", "observabilite-tracing"]
+      "mistakes": [
+        "Tout valider manuellement, ce qui annule l'automatisation.",
+        "Ne rien valider sur des actions sensibles.",
+        "Ne pas définir les seuils qui déclenchent la validation."
+      ],
+      "related": [
+        "guardrail",
+        "agentic-workflow",
+        "tool-use",
+        "observabilite-tracing"
+      ]
     },
     {
       "slug": "indirect-prompt-injection",
       "title": "Indirect prompt injection",
       "category": "Sécurité",
       "page": false,
-      "aliases": ["injection indirecte", "prompt injection indirecte"],
-      "groups": ["securite", "agents"],
+      "aliases": [
+        "injection indirecte",
+        "prompt injection indirecte"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
       "summary": "Une indirect prompt injection cache des instructions malveillantes dans un contenu que l'agent lit.",
       "where": "Tu la vois dans les risques liés aux agents qui lisent pages web, emails, documents ou tickets support."
     },
@@ -586,24 +1053,45 @@
       "category": "Customisation",
       "priority": "P2",
       "page": true,
-      "aliases": ["finetuning", "réentraînement", "modèle personnalisé"],
-      "groups": ["bases"],
+      "aliases": [
+        "finetuning",
+        "réentraînement",
+        "modèle personnalisé"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Le fine-tuning adapte un modèle existant sur des exemples pour améliorer un comportement précis.",
       "where": "Tu le vois dans les plateformes IA, les modèles open weight et les projets avec beaucoup d'exemples de qualité.",
       "intent": "Savoir quand entraîner un modèle est utile, et quand RAG ou prompting suffit.",
       "angle": "Remettre le fine-tuning à sa place : puissant mais pas premier réflexe.",
       "example": "Tu donnes des milliers d'exemples de classification déjà validés pour que le modèle reproduise mieux ce classement.",
       "why": "Il peut améliorer un style ou une tâche répétable, mais il coûte du temps et demande de bonnes données.",
-      "mistakes": ["Fine-tuner pour ajouter des connaissances qui changent souvent.", "Utiliser peu d'exemples faibles.", "Oublier de mesurer avant/après avec une eval."],
-      "related": ["rag", "eval", "lora", "distillation"]
+      "mistakes": [
+        "Fine-tuner pour ajouter des connaissances qui changent souvent.",
+        "Utiliser peu d'exemples faibles.",
+        "Oublier de mesurer avant/après avec une eval."
+      ],
+      "related": [
+        "rag",
+        "eval",
+        "lora",
+        "distillation"
+      ]
     },
     {
       "slug": "lora",
       "title": "LoRA / QLoRA",
       "category": "Customisation",
       "page": false,
-      "aliases": ["lora", "qlora", "adaptateur"],
-      "groups": ["bases"],
+      "aliases": [
+        "lora",
+        "qlora",
+        "adaptateur"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "LoRA est une méthode de fine-tuning légère qui ajuste une petite partie du modèle.",
       "where": "Tu la vois dans les communautés open weight et les tutos d'adaptation de modèles locaux."
     },
@@ -612,8 +1100,15 @@
       "title": "Quantization",
       "category": "Customisation",
       "page": false,
-      "aliases": ["quantification", "4 bits", "8 bits"],
-      "groups": ["bases", "performance"],
+      "aliases": [
+        "quantification",
+        "4 bits",
+        "8 bits"
+      ],
+      "groups": [
+        "bases",
+        "performance"
+      ],
       "summary": "La quantization réduit la précision interne d'un modèle pour gagner en mémoire et vitesse.",
       "where": "Tu la vois dans Ollama, LM Studio et les modèles qui tournent localement."
     },
@@ -622,8 +1117,13 @@
       "title": "Distillation",
       "category": "Customisation",
       "page": false,
-      "aliases": ["model distillation", "distillation modèle"],
-      "groups": ["bases"],
+      "aliases": [
+        "model distillation",
+        "distillation modèle"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "La distillation entraîne un petit modèle à imiter un modèle plus puissant.",
       "where": "Tu la vois quand on cherche à réduire les coûts tout en gardant une qualité proche."
     },
@@ -632,8 +1132,13 @@
       "title": "TTFT",
       "category": "Performance",
       "page": false,
-      "aliases": ["time to first token", "premier token"],
-      "groups": ["performance"],
+      "aliases": [
+        "time to first token",
+        "premier token"
+      ],
+      "groups": [
+        "performance"
+      ],
       "summary": "La TTFT mesure le temps entre l'envoi de la demande et l'apparition du premier token.",
       "where": "Tu la vois dans les métriques d'interface chat et les benchmarks de modèles."
     },
@@ -642,8 +1147,13 @@
       "title": "TPS",
       "category": "Performance",
       "page": false,
-      "aliases": ["tokens per second", "tokens par seconde"],
-      "groups": ["performance"],
+      "aliases": [
+        "tokens per second",
+        "tokens par seconde"
+      ],
+      "groups": [
+        "performance"
+      ],
       "summary": "Le TPS mesure combien de tokens un modèle génère par seconde.",
       "where": "Tu le vois dans les benchmarks de vitesse, surtout pour les réponses longues."
     },
@@ -652,8 +1162,13 @@
       "title": "Latence",
       "category": "Performance",
       "page": false,
-      "aliases": ["latency", "temps réponse"],
-      "groups": ["performance"],
+      "aliases": [
+        "latency",
+        "temps réponse"
+      ],
+      "groups": [
+        "performance"
+      ],
       "summary": "La latence est le délai total ressenti entre ta demande et la réponse.",
       "where": "Tu la vois dans les interfaces chat, agents vocaux et automatisations en temps réel."
     },
@@ -663,16 +1178,30 @@
       "category": "Risque",
       "priority": "P1",
       "page": true,
-      "aliases": ["invention ia", "erreur modèle"],
-      "groups": ["securite"],
+      "aliases": [
+        "invention ia",
+        "erreur modèle"
+      ],
+      "groups": [
+        "securite"
+      ],
       "summary": "Une hallucination est une réponse inventée ou fausse présentée avec assurance par le modèle.",
       "where": "Tu la rencontres dans les citations inexistantes, chiffres faux, fonctions inventées ou résumés trop confiants.",
       "intent": "Comprendre pourquoi une IA peut être convaincante et fausse.",
       "angle": "Installer le réflexe de vérification sans casser l'utilité de l'IA.",
       "example": "L'IA donne le nom d'une étude, une date et un lien, mais l'étude n'existe pas.",
       "why": "C'est le risque le plus fréquent quand on utilise l'IA pour apprendre, publier ou décider.",
-      "mistakes": ["Vérifier seulement quand la réponse paraît hésitante.", "Demander des sources sans les ouvrir.", "Utiliser l'IA comme seule preuve sur un sujet sensible."],
-      "related": ["rag", "grounding", "eval", "prompt-injection"]
+      "mistakes": [
+        "Vérifier seulement quand la réponse paraît hésitante.",
+        "Demander des sources sans les ouvrir.",
+        "Utiliser l'IA comme seule preuve sur un sujet sensible."
+      ],
+      "related": [
+        "rag",
+        "grounding",
+        "eval",
+        "prompt-injection"
+      ]
     },
     {
       "slug": "prompt-injection",
@@ -680,24 +1209,44 @@
       "category": "Risque",
       "priority": "P1",
       "page": true,
-      "aliases": ["injection de prompt", "attaque prompt"],
-      "groups": ["securite", "agents"],
+      "aliases": [
+        "injection de prompt",
+        "attaque prompt"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
       "summary": "Une prompt injection tente de détourner les instructions d'un modèle ou d'un agent.",
       "where": "Tu la vois dans les agents qui lisent du contenu externe, les chatbots publics et les outils connectés au web.",
       "intent": "Comprendre l'attaque la plus importante contre les agents connectés.",
       "angle": "Expliquer pourquoi le danger vient souvent du contenu lu par l'agent.",
       "example": "Une page web contient une instruction cachée qui demande à l'agent d'ignorer ses règles et d'envoyer des données.",
       "why": "Dès qu'un agent lit des emails, pages ou fichiers, il peut être exposé à des instructions hostiles.",
-      "mistakes": ["Croire qu'une phrase dans le system prompt suffit.", "Faire confiance à tout contenu externe.", "Laisser un agent agir sans validation ni permissions limitées."],
-      "related": ["indirect-prompt-injection", "guardrail", "human-in-the-loop", "mcp"]
+      "mistakes": [
+        "Croire qu'une phrase dans le system prompt suffit.",
+        "Faire confiance à tout contenu externe.",
+        "Laisser un agent agir sans validation ni permissions limitées."
+      ],
+      "related": [
+        "indirect-prompt-injection",
+        "guardrail",
+        "human-in-the-loop",
+        "mcp"
+      ]
     },
     {
       "slug": "jailbreak",
       "title": "Jailbreak",
       "category": "Risque",
       "page": false,
-      "aliases": ["contournement", "jailbreak ia"],
-      "groups": ["securite"],
+      "aliases": [
+        "contournement",
+        "jailbreak ia"
+      ],
+      "groups": [
+        "securite"
+      ],
       "summary": "Un jailbreak cherche à contourner les règles de sécurité d'un modèle.",
       "where": "Tu l'entends surtout dans les discussions de sécurité IA et les tests de robustesse."
     },
@@ -706,8 +1255,13 @@
       "title": "Multimodal",
       "category": "Modalité",
       "page": false,
-      "aliases": ["texte image audio", "modèle multimodal"],
-      "groups": ["bases"],
+      "aliases": [
+        "texte image audio",
+        "modèle multimodal"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Un modèle multimodal accepte plusieurs types d'entrées, comme texte, image, audio ou vidéo.",
       "where": "Tu le vois quand une IA analyse une capture, transcrit une voix ou comprend une image."
     },
@@ -716,8 +1270,14 @@
       "title": "Modèle de vision",
       "category": "Modalité",
       "page": false,
-      "aliases": ["vision model", "ocr ia", "analyse image"],
-      "groups": ["bases"],
+      "aliases": [
+        "vision model",
+        "ocr ia",
+        "analyse image"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Un modèle de vision comprend ou décrit des images.",
       "where": "Tu le croises dans l'analyse de captures, photos, graphiques, tableaux et documents scannés."
     },
@@ -726,8 +1286,15 @@
       "title": "TTS / STT",
       "category": "Modalité",
       "page": false,
-      "aliases": ["text to speech", "speech to text", "voix ia", "transcription"],
-      "groups": ["bases"],
+      "aliases": [
+        "text to speech",
+        "speech to text",
+        "voix ia",
+        "transcription"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "TTS transforme du texte en voix. STT transforme la voix en texte.",
       "where": "Tu les vois dans les assistants vocaux, podcasts IA, sous-titres et transcriptions."
     },
@@ -736,8 +1303,13 @@
       "title": "Modèle de diffusion",
       "category": "Modalité",
       "page": false,
-      "aliases": ["diffusion model", "génération image"],
-      "groups": ["bases"],
+      "aliases": [
+        "diffusion model",
+        "génération image"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Un modèle de diffusion génère une image en partant du bruit puis en le transformant progressivement.",
       "where": "Tu le vois dans les outils de génération d'image et d'illustration."
     },
@@ -746,8 +1318,13 @@
       "title": "AGI / ASI",
       "category": "Concept",
       "page": false,
-      "aliases": ["intelligence artificielle générale", "superintelligence"],
-      "groups": ["bases"],
+      "aliases": [
+        "intelligence artificielle générale",
+        "superintelligence"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "AGI désigne une IA généraliste au niveau humain. ASI désigne une IA qui dépasserait largement les humains.",
       "where": "Tu l'entends dans les débats sur la trajectoire longue de l'intelligence artificielle."
     },
@@ -757,16 +1334,31 @@
       "category": "Concept",
       "priority": "P2",
       "page": true,
-      "aliases": ["open weights", "modèle ouvert", "open source ia"],
-      "groups": ["bases"],
+      "aliases": [
+        "open weights",
+        "modèle ouvert",
+        "open source ia"
+      ],
+      "groups": [
+        "bases"
+      ],
       "summary": "Open weight signifie que les poids du modèle sont disponibles. Open source implique aussi plus de transparence sur le code et parfois les données.",
       "where": "Tu le vois dans les discussions autour de Llama, Mistral, Qwen, Hugging Face et des modèles locaux.",
       "intent": "Comprendre la différence entre modèle téléchargeable et vrai open source.",
       "angle": "Clarifier un abus de langage très courant.",
       "example": "Un modèle peut être téléchargeable sans que ses données d'entraînement ou son code complet soient publics.",
       "why": "La différence change ce que tu peux auditer, modifier, héberger ou utiliser commercialement.",
-      "mistakes": ["Dire open source dès qu'un modèle est téléchargeable.", "Ignorer la licence.", "Oublier les contraintes d'usage commercial."],
-      "related": ["llm", "fine-tuning", "quantization", "slm"]
+      "mistakes": [
+        "Dire open source dès qu'un modèle est téléchargeable.",
+        "Ignorer la licence.",
+        "Oublier les contraintes d'usage commercial."
+      ],
+      "related": [
+        "llm",
+        "fine-tuning",
+        "quantization",
+        "slm"
+      ]
     },
     {
       "slug": "reasoning-model",
@@ -774,24 +1366,47 @@
       "category": "Concept",
       "priority": "P2",
       "page": true,
-      "aliases": ["modèle de raisonnement", "thinking model", "o1", "o3"],
-      "groups": ["bases", "performance"],
+      "aliases": [
+        "modèle de raisonnement",
+        "thinking model",
+        "o1",
+        "o3"
+      ],
+      "groups": [
+        "bases",
+        "performance"
+      ],
       "summary": "Un reasoning model prend plus de temps pour raisonner avant de répondre à une tâche complexe.",
       "where": "Tu le vois dans les options thinking, les modèles de résolution de problèmes et les tâches de planification.",
       "intent": "Savoir quand utiliser un modèle de raisonnement plutôt qu'un modèle rapide.",
       "angle": "Valoriser la lenteur utile quand la précision compte.",
       "example": "Pour classer un email, inutile. Pour analyser un plan complexe ou résoudre une erreur difficile, il peut faire la différence.",
       "why": "Tous les problèmes ne demandent pas la même profondeur de raisonnement.",
-      "mistakes": ["L'utiliser pour tout.", "Confondre lenteur et intelligence.", "Oublier de donner assez de contexte au modèle."],
-      "related": ["modele", "chain-of-thought", "eval", "latence"]
+      "mistakes": [
+        "L'utiliser pour tout.",
+        "Confondre lenteur et intelligence.",
+        "Oublier de donner assez de contexte au modèle."
+      ],
+      "related": [
+        "modele",
+        "chain-of-thought",
+        "eval",
+        "latence"
+      ]
     },
     {
       "slug": "agents-md",
       "title": "AGENTS.md",
       "category": "Codex",
       "page": false,
-      "aliases": ["instructions codex", "fichier agents"],
-      "groups": ["outils", "agents"],
+      "aliases": [
+        "instructions codex",
+        "fichier agents"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
       "summary": "AGENTS.md est un fichier d'instructions que Codex lit pour respecter les règles d'un projet.",
       "where": "Tu le vois à la racine d'un projet utilisé avec Codex."
     },
@@ -801,24 +1416,45 @@
       "category": "Codex",
       "priority": "P2",
       "page": false,
-      "aliases": ["codex terminal", "openai codex cli"],
-      "groups": ["outils", "agents"],
+      "aliases": [
+        "codex terminal",
+        "openai codex cli"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
       "summary": "Codex CLI est l'interface locale qui permet à Codex de lire un projet, proposer des changements et lancer des commandes.",
       "where": "Tu le vois dans les tutos Codex, les projets locaux et les sessions où l'agent travaille directement dans les fichiers.",
       "intent": "Comprendre la différence entre discuter avec une IA et lui confier un dossier de travail.",
       "angle": "Positionner Codex CLI comme outil de travail assisté, pas comme prérequis technique inaccessible.",
       "example": "Tu ouvres un projet, tu demandes de corriger une page, Codex lit les fichiers puis applique une modification vérifiable.",
       "why": "C'est l'un des chemins les plus directs pour transformer une idée en changement réel sur un site.",
-      "mistakes": ["Lancer Codex dans le mauvais dossier.", "Accepter des modifications sans lire le diff.", "Oublier de tester après changement."],
-      "related": ["cli", "agents-md", "git", "pull-request"]
+      "mistakes": [
+        "Lancer Codex dans le mauvais dossier.",
+        "Accepter des modifications sans lire le diff.",
+        "Oublier de tester après changement."
+      ],
+      "related": [
+        "cli",
+        "agents-md",
+        "git",
+        "pull-request"
+      ]
     },
     {
       "slug": "codex-web",
       "title": "Codex web",
       "category": "Codex",
       "page": false,
-      "aliases": ["codex navigateur", "codex cloud"],
-      "groups": ["outils", "agents"],
+      "aliases": [
+        "codex navigateur",
+        "codex cloud"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
       "summary": "Codex web est l'interface navigateur pour suivre ou lancer des tâches Codex sans rester dans le terminal.",
       "where": "Tu le croises pour les tâches longues, reviews et travaux lancés à distance."
     },
@@ -827,8 +1463,13 @@
       "title": "Git",
       "category": "GitHub",
       "page": false,
-      "aliases": ["versioning", "historique projet"],
-      "groups": ["outils"],
+      "aliases": [
+        "versioning",
+        "historique projet"
+      ],
+      "groups": [
+        "outils"
+      ],
       "summary": "Git garde l'historique des changements d'un projet et permet de revenir en arrière.",
       "where": "Tu le vois dans GitHub, les commits, branches, pull requests et déploiements."
     },
@@ -837,8 +1478,13 @@
       "title": "Commit",
       "category": "GitHub",
       "page": false,
-      "aliases": ["sauvegarde git", "historique"],
-      "groups": ["outils"],
+      "aliases": [
+        "sauvegarde git",
+        "historique"
+      ],
+      "groups": [
+        "outils"
+      ],
       "summary": "Un commit est une sauvegarde nommée dans l'historique Git.",
       "where": "Tu le vois dans l'historique GitHub et les changements préparés par un agent."
     },
@@ -847,8 +1493,13 @@
       "title": "Branch",
       "category": "GitHub",
       "page": false,
-      "aliases": ["branche git", "branche"],
-      "groups": ["outils"],
+      "aliases": [
+        "branche git",
+        "branche"
+      ],
+      "groups": [
+        "outils"
+      ],
       "summary": "Une branch est une ligne de travail séparée de la version principale.",
       "where": "Tu la vois quand un changement est préparé sans toucher directement à la production."
     },
@@ -857,8 +1508,13 @@
       "title": "Pull request",
       "category": "GitHub",
       "page": false,
-      "aliases": ["pr", "demande de fusion"],
-      "groups": ["outils"],
+      "aliases": [
+        "pr",
+        "demande de fusion"
+      ],
+      "groups": [
+        "outils"
+      ],
       "summary": "Une pull request propose d'intégrer une branche dans le projet principal après revue.",
       "where": "Tu la vois dans GitHub, avant fusion et déploiement."
     },
@@ -867,8 +1523,13 @@
       "title": "Webhook",
       "category": "Automatisation",
       "page": false,
-      "aliases": ["callback", "url événement"],
-      "groups": ["automatisation"],
+      "aliases": [
+        "callback",
+        "url événement"
+      ],
+      "groups": [
+        "automatisation"
+      ],
       "summary": "Un webhook est une URL appelée automatiquement quand un événement arrive.",
       "where": "Tu le vois entre formulaires, paiements, CRM, emails et agents IA."
     },
@@ -877,8 +1538,14 @@
       "title": "RLS",
       "category": "Supabase",
       "page": false,
-      "aliases": ["row level security", "sécurité lignes"],
-      "groups": ["securite", "automatisation"],
+      "aliases": [
+        "row level security",
+        "sécurité lignes"
+      ],
+      "groups": [
+        "securite",
+        "automatisation"
+      ],
       "summary": "RLS définit quelles lignes d'une base Supabase chaque utilisateur peut lire ou modifier.",
       "where": "Tu le vois dans les projets avec comptes utilisateurs et données privées."
     },
@@ -887,8 +1554,13 @@
       "title": "Variables d'environnement Vercel",
       "category": "Vercel",
       "page": false,
-      "aliases": ["vercel env", "environment variables"],
-      "groups": ["outils"],
+      "aliases": [
+        "vercel env",
+        "environment variables"
+      ],
+      "groups": [
+        "outils"
+      ],
       "summary": "Les variables d'environnement Vercel stockent les clés et réglages sensibles côté déploiement.",
       "where": "Tu les règles dans les paramètres du projet Vercel, sans les écrire dans le code public."
     },
@@ -897,8 +1569,14 @@
       "title": "n8n Workflow",
       "category": "No-code",
       "page": false,
-      "aliases": ["workflow n8n", "automatisation n8n"],
-      "groups": ["automatisation", "outils"],
+      "aliases": [
+        "workflow n8n",
+        "automatisation n8n"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
       "summary": "Un workflow n8n est une automatisation composée d'étapes reliées entre elles.",
       "where": "Tu le vois pour brancher formulaires, emails, bases, IA et webhooks."
     },
@@ -907,10 +1585,1107 @@
       "title": "OAuth 2.0",
       "category": "Connexion",
       "page": false,
-      "aliases": ["connexion google", "autorisation compte"],
-      "groups": ["automatisation", "outils", "securite"],
+      "aliases": [
+        "connexion google",
+        "autorisation compte"
+      ],
+      "groups": [
+        "automatisation",
+        "outils",
+        "securite"
+      ],
       "summary": "OAuth autorise un outil à accéder à un compte sans lui donner ton mot de passe.",
       "where": "Tu le vois dans les boutons Se connecter avec Google, Slack, Notion ou GitHub."
+    },
+    {
+      "slug": "sous-agent",
+      "title": "Sous-agent",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "subagent",
+        "agent spécialisé",
+        "agent delegue"
+      ],
+      "groups": [
+        "agents",
+        "outils"
+      ],
+      "summary": "Un sous-agent est un assistant spécialisé à qui je confie une partie précise du travail.",
+      "where": "Tu le croises dans Codex, Claude Code, les workflows de recherche, les reviews et les veilles multi-agents."
+    },
+    {
+      "slug": "permission-outil",
+      "title": "Permission d'outil",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "tool permission",
+        "accès outil",
+        "permission agent"
+      ],
+      "groups": [
+        "securite",
+        "agents",
+        "outils"
+      ],
+      "summary": "Une permission d'outil décide ce qu'un agent a le droit de lire, écrire ou lancer.",
+      "where": "Tu la vois dans Codex, Claude Code, MCP, les connecteurs et les outils capables d'agir sur tes fichiers."
+    },
+    {
+      "slug": "mode-approbation-agent",
+      "title": "Mode d'approbation",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "approval mode",
+        "tool approval",
+        "validation outil"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
+      "summary": "Le mode d'approbation décide quand l'agent peut agir seul et quand il doit demander validation.",
+      "where": "Tu le croises avant une commande shell, une modification de fichier, un envoi d'email ou une action MCP sensible."
+    },
+    {
+      "slug": "sandbox",
+      "title": "Sandbox",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "bac a sable",
+        "environnement isolé",
+        "container"
+      ],
+      "groups": [
+        "securite",
+        "outils",
+        "agents"
+      ],
+      "summary": "Une sandbox isole l'agent pour limiter les dégâts si une action se passe mal.",
+      "where": "Tu la vois dans Codex cloud, les agents qui exécutent du code, les tests et les environnements contrôlés."
+    },
+    {
+      "slug": "outil-shell",
+      "title": "Outil shell",
+      "category": "Outils",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "shell tool",
+        "terminal tool",
+        "commande shell"
+      ],
+      "groups": [
+        "outils",
+        "agents",
+        "securite"
+      ],
+      "summary": "L'outil shell permet à un agent de proposer ou lancer des commandes dans un terminal contrôlé.",
+      "where": "Tu le rencontres dans Codex, les Agents SDK, les tests locaux et les automatisations qui manipulent des fichiers."
+    },
+    {
+      "slug": "allowlist-denylist",
+      "title": "Allowlist / Denylist",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "liste blanche",
+        "liste noire",
+        "blocage commandes"
+      ],
+      "groups": [
+        "securite",
+        "outils",
+        "agents"
+      ],
+      "summary": "Une allowlist autorise seulement ce qui est prévu, une denylist bloque ce qui est risqué.",
+      "where": "Tu les vois pour limiter les commandes shell, les domaines web, les serveurs MCP ou les outils accessibles."
+    },
+    {
+      "slug": "portee-acces",
+      "title": "Portée d'accès",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "scope",
+        "accèss scope",
+        "périmètre"
+      ],
+      "groups": [
+        "securite",
+        "outils"
+      ],
+      "summary": "La portée d'accès définit le périmètre exact qu'un token ou un outil peut utiliser.",
+      "where": "Tu la croises dans OAuth, MCP, les clés API, les permissions GitHub et les connecteurs d'automatisation."
+    },
+    {
+      "slug": "moindre-privilege",
+      "title": "Moindre privilège",
+      "category": "Sécurité",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "least privilege",
+        "minimum permissions",
+        "droits minimums"
+      ],
+      "groups": [
+        "securite",
+        "agents",
+        "outils"
+      ],
+      "summary": "Le moindre privilège consiste à donner à l'agent seulement les droits nécessaires.",
+      "where": "Tu le vois dans MCP, Supabase, GitHub, les clés API et tout agent capable d'agir dans un vrai outil."
+    },
+    {
+      "slug": "serveur-mcp-local",
+      "title": "Serveur MCP local",
+      "category": "MCP",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "local MCP server",
+        "MCP local",
+        "stdio MCP"
+      ],
+      "groups": [
+        "agents",
+        "outils",
+        "securite"
+      ],
+      "summary": "Un serveur MCP local tourne sur ta machine et expose des fichiers, outils ou commandes à l'IA.",
+      "where": "Tu le croises dans Claude Desktop, Claude Code, Codex et les connecteurs fichiers ou bases locales."
+    },
+    {
+      "slug": "boucle-outils",
+      "title": "Boucle d'outils",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "tool loop",
+        "tool-calling loop",
+        "agent loop"
+      ],
+      "groups": [
+        "agents",
+        "outils",
+        "automatisation"
+      ],
+      "summary": "Une boucle d'outils alterne réflexion de l'IA, appel d'outil, résultat, puis nouvelle étape.",
+      "where": "Tu la vois dans Codex, les Agents SDK, Vercel AI SDK et les agents de recherche qui avancent par étapes."
+    },
+    {
+      "slug": "limite-boucle",
+      "title": "Limite de boucle",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "stop condition",
+        "stopWhen",
+        "step limit"
+      ],
+      "groups": [
+        "agents",
+        "securite",
+        "performance"
+      ],
+      "summary": "Une limite de boucle empêche un agent de tourner trop longtemps ou de répéter les mêmes actions.",
+      "where": "Tu la croises dans les agents autonomes, les workflows n8n, les scripts de veille et les appels d'outils en boucle."
+    },
+    {
+      "slug": "checkpoint",
+      "title": "Checkpoint",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "point de reprise",
+        "sauvegarde etat",
+        "checkpoint agent"
+      ],
+      "groups": [
+        "agents",
+        "automatisation"
+      ],
+      "summary": "Un checkpoint sauvegarde l'état d'un agent pour reprendre proprement plus tard.",
+      "where": "Tu le vois dans les workflows longs, les validations humaines, LangGraph et les agents qui doivent survivre à une pause."
+    },
+    {
+      "slug": "interrupt",
+      "title": "Interrupt",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "pause agent",
+        "interruption",
+        "human pause"
+      ],
+      "groups": [
+        "agents",
+        "securite",
+        "automatisation"
+      ],
+      "summary": "Un interrupt met l'agent en pause le temps qu'une personne valide, corrige ou complète.",
+      "where": "Tu le croises avant un envoi d'email, une action financière, une publication ou une modification sensible."
+    },
+    {
+      "slug": "supervisor-agent",
+      "title": "Supervisor",
+      "category": "Agent",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "agent superviseur",
+        "orchestrateur",
+        "manager agent"
+      ],
+      "groups": [
+        "agents"
+      ],
+      "summary": "Un supervisor est l'agent qui répartit le travail entre plusieurs agents spécialisés.",
+      "where": "Tu le vois dans les systèmes multi-agents, les veilles, les reviews de code et les workflows de recherche complexes."
+    },
+    {
+      "slug": "excessive-agency",
+      "title": "Excessive agency",
+      "category": "Risque",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "autonomie excessive",
+        "excessive autonomy",
+        "trop de droits"
+      ],
+      "groups": [
+        "securite",
+        "agents"
+      ],
+      "summary": "L'excessive agency arrive quand un agent a trop d'autonomie, trop d'outils ou trop de droits.",
+      "where": "Tu la croises dans les discussions OWASP, les agents capables d'écrire, supprimer, publier ou appeler des outils externes."
+    },
+    {
+      "slug": "base-connaissances",
+      "title": "Base de connaissances",
+      "category": "RAG",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "knowledge base",
+        "KB",
+        "base documentaire"
+      ],
+      "groups": [
+        "rag",
+        "bases"
+      ],
+      "summary": "Une base de connaissances est le dossier organisé dans lequel l'IA va chercher avant de répondre.",
+      "where": "Tu la vois dans les assistants documentaires, Bedrock, Vertex AI Search, LangChain, Notion ou les docs internes d'une équipe."
+    },
+    {
+      "slug": "ingestion-documents",
+      "title": "Ingestion de documents",
+      "category": "Data",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "ingestion",
+        "data ingestion",
+        "import documentaire"
+      ],
+      "groups": [
+        "rag",
+        "automatisation"
+      ],
+      "summary": "L'ingestion importe des documents pour les nettoyer, les découper et les rendre cherchables.",
+      "where": "Tu la croises quand tu branches des PDF, pages web, dossiers Drive ou bases Notion dans un système RAG."
+    },
+    {
+      "slug": "connecteur-donnees",
+      "title": "Connecteur de données",
+      "category": "Data",
+      "priority": "P2",
+      "page": false,
+      "aliases": [
+        "data connector",
+        "reader",
+        "source connector"
+      ],
+      "groups": [
+        "rag",
+        "outils",
+        "automatisation"
+      ],
+      "summary": "Un connecteur de données va chercher les informations là où elles vivent déjà.",
+      "where": "Tu le vois pour Google Drive, Slack, Notion, SharePoint, Confluence, Supabase ou des dossiers locaux."
+    },
+    {
+      "slug": "indexation-documentaire",
+      "title": "Indexation documentaire",
+      "category": "RAG",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "indexing",
+        "searchable index",
+        "index documentaire"
+      ],
+      "groups": [
+        "rag",
+        "performance"
+      ],
+      "summary": "L'indexation prépare les morceaux de documents pour qu'une recherche puisse les retrouver vite.",
+      "where": "Tu la croises dans les bases vectorielles, Azure AI Search, OpenAI Retrieval et les pipelines RAG."
+    },
+    {
+      "slug": "retriever",
+      "title": "Retriever",
+      "category": "RAG avancé",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "retrieval",
+        "recuperateur",
+        "moteur de recuperation"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
+      "summary": "Un retriever récupère les passages les plus utiles avant que l'IA rédige sa réponse.",
+      "where": "Tu le vois dans LangChain, LlamaIndex, GraphRAG, les agents RAG et les schémas d'architecture documentaire."
+    },
+    {
+      "slug": "recherche-semantique",
+      "title": "Recherche sémantique",
+      "category": "RAG",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "semantic search",
+        "recherche par sens",
+        "similarite semantique"
+      ],
+      "groups": [
+        "rag",
+        "bases"
+      ],
+      "summary": "La recherche sémantique retrouve le sens d'une question, même si les mots exacts changent.",
+      "where": "Tu la croises dans le RAG, les embeddings, les bases vectorielles et les moteurs de recherche internes."
+    },
+    {
+      "slug": "recherche-hybride",
+      "title": "Recherche hybride",
+      "category": "RAG avancé",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "hybrid search",
+        "recherche BM25 vecteurs",
+        "keyword plus semantic"
+      ],
+      "groups": [
+        "rag",
+        "performance"
+      ],
+      "summary": "La recherche hybride combine mots-clés et recherche sémantique pour retrouver plus de bons passages.",
+      "where": "Tu la vois dans Weaviate, Pinecone, Azure AI Search et les RAG qui doivent être fiables sur du contenu métier."
+    },
+    {
+      "slug": "bm25",
+      "title": "BM25",
+      "category": "RAG avancé",
+      "priority": "P2",
+      "page": false,
+      "aliases": [
+        "keyword search",
+        "recherche lexicale",
+        "recherche mots clés"
+      ],
+      "groups": [
+        "rag"
+      ],
+      "summary": "BM25 est une méthode de recherche par mots-clés qui reste utile quand les termes exacts comptent.",
+      "where": "Tu le croises dans les moteurs full-text, la recherche hybride et les architectures RAG qui ne misent pas tout sur les vecteurs."
+    },
+    {
+      "slug": "metadonnees",
+      "title": "Métadonnées",
+      "category": "Data",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "metadata",
+        "attributes",
+        "champs document"
+      ],
+      "groups": [
+        "rag",
+        "automatisation"
+      ],
+      "summary": "Les métadonnées sont les infos autour d'un document : source, date, auteur, type, client ou dossier.",
+      "where": "Tu les vois dans les documents RAG, les filtres de recherche, les bases de connaissance et les exports de CRM."
+    },
+    {
+      "slug": "parsing-documentaire",
+      "title": "Parsing documentaire",
+      "category": "Documents",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "document parsing",
+        "parse PDF",
+        "layout parser"
+      ],
+      "groups": [
+        "rag",
+        "automatisation"
+      ],
+      "summary": "Le parsing transforme un PDF ou une page en texte, titres, tableaux et sections exploitables par l'IA.",
+      "where": "Tu le croises dans Document AI, Azure Document Intelligence, LlamaParse et les workflows qui lisent contrats ou factures."
+    },
+    {
+      "slug": "extraction-structuree",
+      "title": "Extraction structurée",
+      "category": "Documents",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "structured extraction",
+        "field extraction",
+        "extraction de champs"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
+      "summary": "L'extraction structurée demande à l'IA de sortir des champs propres depuis un document.",
+      "where": "Tu la vois pour transformer emails, factures, contrats, formulaires ou PDF en données utilisables."
+    },
+    {
+      "slug": "reecriture-requete",
+      "title": "Réécriture de requête",
+      "category": "RAG avancé",
+      "priority": "P2",
+      "page": false,
+      "aliases": [
+        "query rewriting",
+        "query enhancement",
+        "reformulation"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
+      "summary": "La réécriture de requête reformule une question floue pour mieux chercher dans les documents.",
+      "where": "Tu la croises dans les agents de recherche, les RAG avancés et les moteurs qui transforment une question avant de chercher."
+    },
+    {
+      "slug": "rag-agentique",
+      "title": "RAG agentique",
+      "category": "RAG avancé",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "agentic RAG",
+        "agentic retrieval",
+        "RAG agent"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
+      "summary": "Le RAG agentique laisse l'agent décider quand chercher, quoi chercher et quand relancer une recherche.",
+      "where": "Tu le vois dans les assistants de recherche, Azure agentic retrieval, LangChain et les agents de veille."
+    },
+    {
+      "slug": "graphrag",
+      "title": "GraphRAG",
+      "category": "RAG avancé",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "graph retrieval augmented generation",
+        "RAG graphe",
+        "Microsoft GraphRAG"
+      ],
+      "groups": [
+        "rag",
+        "agents"
+      ],
+      "summary": "GraphRAG ajoute un graphe de relations pour répondre aux questions qui demandent une vue d'ensemble.",
+      "where": "Tu le croises dans Microsoft GraphRAG, les knowledge graphs et les analyses de gros corpus documentaires."
+    },
+    {
+      "slug": "citations-sources",
+      "title": "Citations de sources",
+      "category": "Sources",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "citations",
+        "source attribution",
+        "references"
+      ],
+      "groups": [
+        "rag",
+        "securite"
+      ],
+      "summary": "Les citations montrent précisément d'où vient une réponse pour que je puisse vérifier.",
+      "where": "Tu les vois dans Claude, Perplexity, ChatGPT Search, les RAG documentaires et les agents de veille."
+    },
+    {
+      "slug": "id-modele",
+      "title": "ID de modèle",
+      "category": "API",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "model id",
+        "nom de modèle",
+        "gpt claude gemini"
+      ],
+      "groups": [
+        "bases",
+        "outils"
+      ],
+      "summary": "L'ID de modèle est le nom exact à mettre dans un outil ou une API pour choisir le moteur qui répond.",
+      "where": "Tu le croises dans les API OpenAI, Claude, Gemini, Vercel AI SDK, n8n ou les réglages d'un agent."
+    },
+    {
+      "slug": "fournisseur-modele",
+      "title": "Fournisseur de modèle",
+      "category": "API",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "provider",
+        "model provider",
+        "fournisseur IA"
+      ],
+      "groups": [
+        "bases",
+        "outils"
+      ],
+      "summary": "Le fournisseur de modèle est la plateforme qui donne accès au modèle que tu utilises.",
+      "where": "Tu le vois quand tu choisis entre OpenAI, Anthropic, Google, Mistral, Hugging Face, Vercel ou OpenRouter."
+    },
+    {
+      "slug": "responses-api",
+      "title": "Responses API",
+      "category": "API OpenAI",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "OpenAI Responses",
+        "endpoint responses",
+        "API responses"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
+      "summary": "La Responses API est le point d'entrée moderne d'OpenAI pour demander une réponse et brancher des outils.",
+      "where": "Tu la croises dans les docs OpenAI, les SDK, les agents, le web search tool, file search et certains projets générés avec Codex."
+    },
+    {
+      "slug": "api-compatible-openai",
+      "title": "API compatible OpenAI",
+      "category": "API",
+      "priority": "P2",
+      "page": false,
+      "aliases": [
+        "OpenAI compatible",
+        "compatibilite OpenAI",
+        "OpenAI-compatible API"
+      ],
+      "groups": [
+        "outils"
+      ],
+      "summary": "Une API compatible OpenAI permet d'utiliser presque le même code avec un autre fournisseur.",
+      "where": "Tu la vois chez Gemini, Hugging Face, OpenRouter, certains gateways et des outils qui laissent changer de fournisseur."
+    },
+    {
+      "slug": "web-search-tool",
+      "title": "Web Search tool",
+      "category": "Outil IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "web search",
+        "recherche web IA",
+        "search tool"
+      ],
+      "groups": [
+        "outils",
+        "rag",
+        "agents"
+      ],
+      "summary": "Le Web Search tool permet au modèle d'aller vérifier le web avant de répondre.",
+      "where": "Tu le croises dans OpenAI, Gemini avec Google Search, ChatGPT Search, Claude Search et les agents de veille."
+    },
+    {
+      "slug": "file-search-tool",
+      "title": "File Search tool",
+      "category": "Outil IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "file search",
+        "recherche fichiers",
+        "retrieval tool"
+      ],
+      "groups": [
+        "outils",
+        "rag"
+      ],
+      "summary": "File Search permet au modèle de chercher dans tes fichiers avant de répondre.",
+      "where": "Tu le vois dans OpenAI Responses, Gemini File Search, les assistants documentaires et les projets qui lisent des PDF."
+    },
+    {
+      "slug": "code-interpreter",
+      "title": "Code Interpreter",
+      "category": "Outil IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "code exécution",
+        "sandbox Python",
+        "exécution code"
+      ],
+      "groups": [
+        "outils",
+        "automatisation"
+      ],
+      "summary": "Code Interpreter permet à l'IA d'écrire et lancer du code dans un espace isolé pour calculer ou analyser.",
+      "where": "Tu le croises dans ChatGPT, les API IA, l'analyse de CSV, les graphiques, les calculs et les prototypes rapides."
+    },
+    {
+      "slug": "prompt-caching",
+      "title": "Prompt caching",
+      "category": "Performance",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "cache prompt",
+        "context caching",
+        "cache contexte"
+      ],
+      "groups": [
+        "performance",
+        "outils"
+      ],
+      "summary": "Le prompt caching réutilise une partie stable du contexte pour aller plus vite et payer moins.",
+      "where": "Tu le vois dans OpenAI, Anthropic, Gemini, Claude Code et les agents qui renvoient souvent les mêmes gros documents."
+    },
+    {
+      "slug": "reasoning-effort",
+      "title": "Reasoning effort",
+      "category": "Contrôle",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "thinking budget",
+        "effort",
+        "extended thinking"
+      ],
+      "groups": [
+        "prompting",
+        "performance",
+        "bases"
+      ],
+      "summary": "Le reasoning effort règle combien d'effort le modèle consacre à réfléchir avant de répondre.",
+      "where": "Tu le croises dans les modèles de raisonnement, les API, Gemini thinking, Claude extended thinking et certains réglages Codex."
+    },
+    {
+      "slug": "deep-research",
+      "title": "Deep Research",
+      "category": "Produit IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "recherche profonde",
+        "agent de recherche",
+        "rapport source"
+      ],
+      "groups": [
+        "agents",
+        "rag",
+        "outils"
+      ],
+      "summary": "Deep Research lance une recherche longue, cite ses sources et rend un rapport structuré.",
+      "where": "Tu le vois dans ChatGPT, Gemini, OpenAI API, les agents de veille et les workflows de recherche approfondie."
+    },
+    {
+      "slug": "custom-gpt",
+      "title": "Custom GPT",
+      "category": "Produit IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "GPT personnalisé",
+        "GPT builder",
+        "GPT Store"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
+      "summary": "Un Custom GPT est un ChatGPT personnalisé avec ses consignes, fichiers et actions.",
+      "where": "Tu le croises dans ChatGPT, le GPT Builder, les assistants internes et les outils no-code autour d'OpenAI."
+    },
+    {
+      "slug": "notebooklm",
+      "title": "NotebookLM",
+      "category": "Produit IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "Notebook LM",
+        "Google NotebookLM",
+        "assistant de recherche Google"
+      ],
+      "groups": [
+        "rag",
+        "outils"
+      ],
+      "summary": "NotebookLM transforme tes sources en assistant de recherche qui cite les documents que tu lui donnes.",
+      "where": "Tu le vois chez Google, avec des PDF, Google Docs, vidéos YouTube, audio overviews et recherches sourcées."
+    },
+    {
+      "slug": "claude-code",
+      "title": "Claude Code",
+      "category": "Claude Code",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "claude cli",
+        "anthropic code",
+        "agent Claude"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
+      "summary": "Claude Code est l'agent de Claude qui lit un projet, modifie des fichiers et lance des commandes avec ton accord.",
+      "where": "Tu le croises dans les tutos terminal, les agents, GitHub Actions, les reviews et les automatisations de projet."
+    },
+    {
+      "slug": "claude-md",
+      "title": "CLAUDE.md",
+      "category": "Claude Code",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "memoire Claude",
+        "instructions Claude",
+        "Claude memory"
+      ],
+      "groups": [
+        "agents",
+        "outils"
+      ],
+      "summary": "CLAUDE.md est le fichier où tu notes les règles du projet pour que Claude ne reparte pas de zéro.",
+      "where": "Tu le vois à la racine d'un projet, dans les dossiers .claude, les tutos agents et les configurations partagées."
+    },
+    {
+      "slug": "slash-command",
+      "title": "Slash command",
+      "category": "Outils",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "commande slash",
+        "slash command Claude",
+        "commande /"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
+      "summary": "Une slash command est une commande courte qui lance une instruction préparée dans un outil IA.",
+      "where": "Tu la croises dans Claude Code, Codex CLI, les commandes /memory, /agents, /review ou les workflows réutilisables."
+    },
+    {
+      "slug": "hook",
+      "title": "Hook",
+      "category": "Automatisation",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "lifecycle hook",
+        "pretooluse",
+        "posttooluse"
+      ],
+      "groups": [
+        "automatisation",
+        "agents",
+        "securite"
+      ],
+      "summary": "Un hook déclenche une action automatique avant ou après certains gestes de l'agent.",
+      "where": "Tu le vois dans Claude Code pour bloquer une commande, lancer un formatage ou vérifier un fichier modifié."
+    },
+    {
+      "slug": "issue-github",
+      "title": "Issue GitHub",
+      "category": "GitHub",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "ticket GitHub",
+        "bug GitHub",
+        "issue"
+      ],
+      "groups": [
+        "outils",
+        "agents"
+      ],
+      "summary": "Une issue GitHub est une demande de travail structurée que tu peux confier à une personne ou à un agent.",
+      "where": "Tu la croises dans les backlogs, bugs, demandes de feature, agents GitHub et tâches assignées à Codex ou Claude."
+    },
+    {
+      "slug": "github-actions",
+      "title": "GitHub Actions",
+      "category": "GitHub",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "actions",
+        "workflow GitHub",
+        "CI GitHub"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
+      "summary": "GitHub Actions lance automatiquement des tâches quand quelque chose arrive dans un repo.",
+      "where": "Tu le vois pour les tests, builds, déploiements, newsletters, reviews de PR et scripts planifiés."
+    },
+    {
+      "slug": "vercel-function",
+      "title": "Vercel Function",
+      "category": "Vercel",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "serverless function",
+        "function Vercel",
+        "API Vercel"
+      ],
+      "groups": [
+        "outils",
+        "automatisation"
+      ],
+      "summary": "Une Vercel Function exécute du code serveur sans que tu gères un serveur toi-même.",
+      "where": "Tu la croises dans les dossiers /api, les formulaires newsletter, les webhooks, les appels IA et les logs Vercel."
+    },
+    {
+      "slug": "cron-job-vercel",
+      "title": "Cron Job Vercel",
+      "category": "Automatisation",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "tache planifiee",
+        "cron Vercel",
+        "scheduled job"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
+      "summary": "Un Cron Job Vercel lance une tâche à heure fixe, comme une veille ou une mise à jour de données.",
+      "where": "Tu le vois pour les briefs automatiques, scripts planifiés, newsletters, refreshs de cache et agents récurrents."
+    },
+    {
+      "slug": "supabase-auth",
+      "title": "Supabase Auth",
+      "category": "Supabase",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "auth Supabase",
+        "authentication",
+        "login Supabase"
+      ],
+      "groups": [
+        "securite",
+        "outils"
+      ],
+      "summary": "Supabase Auth gère les comptes, connexions et droits d'accès des utilisateurs.",
+      "where": "Tu le croises dans les logins, magic links, OAuth, JWT, RLS et projets avec espace utilisateur."
+    },
+    {
+      "slug": "edge-function-supabase",
+      "title": "Edge Function Supabase",
+      "category": "Supabase",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "Supabase Function",
+        "fonction Edge",
+        "backend Supabase"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
+      "summary": "Une Edge Function Supabase lance du code serveur pour connecter une app à des API ou traiter une action sensible.",
+      "where": "Tu la vois dans les webhooks Stripe, appels IA, traitements backend légers et automatisations reliées à Supabase."
+    },
+    {
+      "slug": "service-role-key",
+      "title": "Service role key",
+      "category": "Supabase",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "service_role",
+        "secret key Supabase",
+        "cle admin Supabase"
+      ],
+      "groups": [
+        "securite",
+        "outils"
+      ],
+      "summary": "La service role key est une clé Supabase très puissante qui contourne les règles RLS et doit rester côté serveur.",
+      "where": "Tu la croises dans les Edge Functions, scripts admin, backends privés et intégrations qui doivent agir hors session utilisateur."
+    },
+    {
+      "slug": "node-n8n",
+      "title": "Node n8n",
+      "category": "No-code",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "noeud n8n",
+        "node",
+        "bloc n8n"
+      ],
+      "groups": [
+        "automatisation",
+        "outils"
+      ],
+      "summary": "Un node n8n est une brique d'automatisation qui reçoit, transforme ou envoie des données.",
+      "where": "Tu le vois dans le canvas n8n avec HTTP Request, Gmail, OpenAI, Supabase, webhook ou AI Agent."
+    },
+    {
+      "slug": "credentials-n8n",
+      "title": "Credentials n8n",
+      "category": "No-code",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "identifiants n8n",
+        "credentials",
+        "n8n secrets"
+      ],
+      "groups": [
+        "securite",
+        "automatisation",
+        "outils"
+      ],
+      "summary": "Les credentials n8n stockent les accès à tes outils pour éviter de recopier les clés partout.",
+      "where": "Tu les croises dans les connexions API, OAuth, OpenAI, Gmail, Supabase, Slack ou Google Sheets."
+    },
+    {
+      "slug": "trigger-automatisation",
+      "title": "Trigger d'automatisation",
+      "category": "Automatisation",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "déclencheur",
+        "trigger node",
+        "automation trigger"
+      ],
+      "groups": [
+        "automatisation"
+      ],
+      "summary": "Un trigger est l'événement qui démarre une automatisation.",
+      "where": "Tu le vois dans n8n, Zapier, GitHub Actions, webhooks, formulaires, plannings et agents récurrents."
+    },
+    {
+      "slug": "ai-agent-node-n8n",
+      "title": "AI Agent node n8n",
+      "category": "No-code IA",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "n8n AI Agent",
+        "agent node",
+        "AI Agent"
+      ],
+      "groups": [
+        "agents",
+        "automatisation",
+        "outils"
+      ],
+      "summary": "Le AI Agent node n8n donne à une automatisation un agent capable de choisir des outils selon la demande.",
+      "where": "Tu le croises dans les workflows IA no-code, Chat Trigger, tools n8n, human review et assistants métier."
+    },
+    {
+      "slug": "repository-github",
+      "title": "Repository GitHub",
+      "category": "GitHub",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "repo",
+        "depot GitHub",
+        "repository"
+      ],
+      "groups": [
+        "outils"
+      ],
+      "summary": "Un repository GitHub est le dossier officiel qui contient les fichiers, l'historique et les réglages d'un projet.",
+      "where": "Tu le vois quand tu connectes Codex, importes un projet dans Vercel, ou suis les issues, branches et pull requests."
+    },
+    {
+      "slug": "preview-deployment",
+      "title": "Preview Deployment",
+      "category": "Vercel",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "preview Vercel",
+        "déploiement preview",
+        "version test"
+      ],
+      "groups": [
+        "outils"
+      ],
+      "summary": "Une Preview Deployment est une version test en ligne générée avant de publier officiellement.",
+      "where": "Tu la croises dans Vercel, les pull requests GitHub, les liens de validation et les corrections avant production."
+    },
+    {
+      "slug": "table-supabase",
+      "title": "Table Supabase",
+      "category": "Supabase",
+      "priority": "P1",
+      "page": false,
+      "aliases": [
+        "table Postgres",
+        "table database",
+        "table base de données"
+      ],
+      "groups": [
+        "outils",
+        "automatisation"
+      ],
+      "summary": "Une table Supabase range des données comme un tableur, avec Postgres derrière.",
+      "where": "Tu la vois dans les dashboards Supabase, CRM, leads, utilisateurs, contenus, transactions et historiques d'agents."
     }
   ]
 }

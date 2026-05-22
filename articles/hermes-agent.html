@@ -350,6 +350,68 @@
 <link rel="stylesheet" href="../assets/mobile-fixes.css">
 <link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
 <link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<!-- Schema.org : HowTo -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Construire Hermes, l'agent qui trie ma boîte mail",
+  "description": "Tutoriel pas à pas pour construire un agent IA qui trie 200 mails par jour avec Make et Claude, sans coder.",
+  "totalTime": "PT120M",
+  "image": "https://jerwis.fr/photos/og/hermes-agent.jpg",
+  "inLanguage": "fr-FR",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Créer un compte chez Anthropic (l'éditeur de Claude)",
+      "text": "L'IA qui va faire le boulot, c'est Claude. C'est celle qui me donne les meilleurs résultats sur ce genre de tri (j'ai aussi essayé ChatGPT, c'est très bien aussi, choisis selon ce que tu connais déjà). Va sur console.anthropic.com . Clique sur « Sign up », mets ton email, vérifie via le lien reçu."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Choisir comment tu connectes Gmail",
+      "text": "Tu as deux voies, à choisir selon ton niveau de confort. Voilà la comparaison honnête, sans détour."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Connecter Gmail (5 minutes, voie A en exemple)",
+      "text": "Sur Make, tu crées un nouveau « scénario ». Le premier bloc, c'est « Gmail · Watch Emails » (surveiller les mails). Tu cliques, tu autorises Make à se connecter à ton Gmail (Google te montre un écran de permission, tu acceptes). Tu choisis « Inbox » comme dossier à surveiller. Tu mets « toutes les…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Écrire la consigne (le prompt système) — la partie qui change tout",
+      "text": "C'est ici que tu apprends à ton agent qui tu es, ce que tu attends, et comment tu fonctionnes. La qualité de ton tri à 91 % se joue à 80 % sur ce texte. Prends 30 minutes à le rédiger soigneusement. Voilà la trame que j'utilise, à adapter à ton cas."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Tester sur 10 mails en mode « observation »",
+      "text": "Avant de laisser Hermes étiqueter ta boîte pour de vrai, tu vas le faire tourner en mode test. Sur Make, tu cliques sur « Run once » dix fois de suite, sur tes 10 derniers mails reçus. Tu regardes pour chaque mail : quelle étiquette propose Hermes ? Tu compares avec ce que toi tu aurais mis."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Activer pour de vrai (mode étiquetage seul)",
+      "text": "Quand ton test à 10 mails est bon, tu actives le scénario sur Make (gros bouton vert « ON » en haut). À partir de maintenant, toutes les 15 minutes, Make va lire tes nouveaux mails, demander à Claude de les étiqueter, appliquer l'étiquette dans Gmail. Tu n'as plus rien à faire."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 7,
+      "name": "Ajouter les brouillons de réponse (uniquement après 2 semaines stables)",
+      "text": "Si après 2 semaines tu es content du tri, tu peux passer au niveau au-dessus : laisser Hermes préparer des brouillons pour les mails simples. Tu ajoutes un nouveau bloc à ton scénario Make : « Gmail · Create Draft » . Le brouillon apparaît dans Gmail avec une petite mention « Brouillon » — tu…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 8,
+      "name": "Surveiller pendant le premier mois",
+      "text": "Bloque 5 minutes chaque vendredi pour ouvrir l'historique de Make et regarder : combien de mails traités cette semaine ? Combien d'erreurs visibles ? Y a-t-il un type de mail qui tombe systématiquement dans la mauvaise catégorie ?"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Aller au contenu</a>

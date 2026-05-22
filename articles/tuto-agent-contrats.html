@@ -754,6 +754,62 @@
 <link rel="stylesheet" href="../assets/mobile-fixes.css">
 <link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
 <link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<!-- Schema.org : HowTo -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Agent IA pour analyser tes contrats PDF (tutoriel)",
+  "description": "Tutoriel étape par étape pour construire un agent Claude Code qui lit tes contrats PDF, résume et liste les clauses à négocier.",
+  "totalTime": "PT60M",
+  "image": "https://jerwis.fr/photos/og/tuto-agent-contrats.jpg",
+  "inLanguage": "fr-FR",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Étape 1 — Installer Claude Code",
+      "text": "Si ce n'est pas déjà fait, ouvre Terminal et colle :"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Étape 2 — Créer ton projet",
+      "text": "Dans Terminal, crée la structure de dossiers :"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Étape 3 — Autoriser l'agent à lire ton dossier",
+      "text": "Pour que l'agent puisse lire les PDFs que tu déposes dans inbox/ , tu dois ajouter un MCP filesystem (un petit pont qui donne à Claude un accès contrôlé à un dossier précis de ton Mac, voir aussi la spec MCP ). Colle cette commande :"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Étape 4 — Écrire le prompt système",
+      "text": "C'est la partie la plus importante. Le prompt système (les instructions de fond que l'agent garde en tête à chaque échange) cadre tout le reste. Crée un fichier CLAUDE.md à la racine de ~/contrats-agent avec ce contenu exact :"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Étape 5 — Créer ta commande slash",
+      "text": "Crée le fichier .claude/commands/analyser.md — la commande slash (un raccourci personnalisé du type /ma-commande ) — avec :"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Étape 6 — Premier test",
+      "text": "Télécharge un contrat type pour tester. Si tu n'en as pas sous la main, récupère un NDA template public sur lawinsider.com et sauvegarde-le dans inbox/nda-test.pdf ."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 7,
+      "name": "Étape 7 — Automatiser sur drop de fichier",
+      "text": "Pour que l'agent analyse automatiquement tout PDF déposé dans inbox/ , on utilise un hook Claude Code (un déclencheur automatique qui lance une commande quand un événement précis se produit) qui écoute les changements de fichiers."
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Aller au contenu</a>

@@ -9,14 +9,25 @@ const FEEDS = [
   { url: 'https://venturebeat.com/category/ai/feed/', name: 'VentureBeat', category: 'IA' },
   { url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml', name: 'The Verge', category: 'IA' },
   { url: 'https://www.wired.com/feed/category/artificial-intelligence/latest/rss', name: 'Wired', category: 'IA' },
-  // ── IA & Tech — sources françaises ────────────────────────────────────────
+  // ── IA & Tech — sources françaises (originales) ──────────────────────────
   { url: 'https://www.numerama.com/feed/', name: 'Numerama', category: 'IA' },
   { url: 'https://siecledigital.fr/feed/', name: 'Siècle Digital', category: 'IA' },
   { url: 'https://www.usine-digitale.fr/rss/', name: "L'Usine Digitale", category: 'IA' },
   { url: 'https://www.clubic.com/feed/rss.xml', name: 'Clubic', category: 'IA' },
+  // ── IA & Tech — sources françaises (nouvelles 2026-05-22) ─────────────────
+  { url: 'https://next.ink/feed/', name: 'Next', category: 'IA' },
+  { url: 'https://www.blogdumoderateur.com/feed/', name: 'Blog du Modérateur', category: 'IA' },
+  { url: 'https://www.01net.com/feed/', name: '01net', category: 'IA' },
+  { url: 'https://www.presse-citron.net/feed/', name: 'Presse-citron', category: 'IA' },
+  { url: 'https://www.actuia.com/feed/', name: 'Actu IA', category: 'IA' },
+  { url: 'https://www.silicon.fr/feed', name: 'Silicon.fr', category: 'IA' },
+  { url: 'https://korben.info/feed', name: 'Korben', category: 'IA' },
+  { url: 'https://www.lemonde.fr/pixels/rss_full.xml', name: 'Le Monde Pixels', category: 'IA' },
   // ── Business — sources françaises ─────────────────────────────────────────
   { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
   { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
+  { url: 'https://www.bfmtv.com/rss/economie/', name: 'BFM Économie', category: 'Business' },
+  { url: 'https://www.lefigaro.fr/rss/figaro_economie.xml', name: 'Le Figaro Économie', category: 'Business' },
 ];
 
 const parser = new XMLParser({

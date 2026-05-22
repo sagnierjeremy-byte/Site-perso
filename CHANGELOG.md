@@ -35,6 +35,34 @@ Jérémy a construit un outil perso (`~/Projets/portfolio-tracker`, app Next.js 
 
 ---
 
+## 2026-05-22 · 10 nouvelles sources RSS françaises + rename "Veille IA" → "News"
+
+### Pourquoi
+La page `/news` avait 10 sources (4 FR + 6 EN). Pour enrichir le mix français et coller au public Jérémy (entrepreneurs FR), agent de recherche dispatché pour identifier des flux RSS français de qualité avec images (critère UX critique pour les cards). En parallèle, le label "Veille IA" dans le menu était ambigu (la page s'appelle déjà `/news` et "Veille" sonne newsletter-only).
+
+### Livré
+- **`api/news.js`** : +10 sources françaises validées (URL flux + présence d'images vérifiée par fetch HTTP). Total 20 sources (4 EN + 16 FR).
+  - **IA / Tech FR (Tier 1)** : Next (ex-Next Inpact), Blog du Modérateur, 01net, Presse-citron, Actu IA, Silicon.fr
+  - **IA / Tech FR (compléments)** : Korben (ton décalé), Le Monde Pixels (autorité)
+  - **Business FR** : BFM Économie, Le Figaro Économie
+  - Toutes les sources ont des images dans le flux (media:thumbnail / enclosure / media:content), critère UX validé
+- **Rename menu sur 50 pages** :
+  - `<strong>Veille IA</strong>` → `<strong>News</strong>`
+  - `<span>Auto-mise à jour toutes les 6h</span>` (faux : cache 30 min) → `<span>Actus IA et Business</span>` (juste)
+- Le mot "veille" reste utilisé dans le contenu éditorial (articles + pitch newsletter) où il désigne l'activité, pas le label
+
+### Fichiers touchés
+- `api/news.js`
+- 50 pages HTML (toutes celles avec la nav v3 unifiée)
+- `CHANGELOG.md`
+
+### À surveiller
+- Vercel cache : peut prendre quelques min pour propager
+- Si certains flux sont trop lents (>8s timeout), ils sont silently skipped par `Promise.allSettled`
+- L'Usine Digitale et Les Échos renvoient 403 sur certains user-agents (déjà géré, fallback gracieux)
+
+---
+
 ## 2026-05-20 · Audit mini-nav cross-site + fix modeles-ia-monde
 
 ### Pourquoi

@@ -15,7 +15,7 @@ function episodeCard(ep, idx) {
   return `
       <article class="pod-ep" id="${ep.slug}" data-accent="${ep.accent_color}">
         <a class="pod-ep-cover" href="#${ep.slug}">
-          <img src="${ep.cover}" alt="Pochette ${escapeHtml(ep.title)}" width="120" height="120" loading="${idx === 0 ? 'eager' : 'lazy'}">
+          <img src="${ep.cover}" alt="Pochette ${escapeHtml(ep.title)}" width="120" height="120" loading="lazy" decoding="async">
         </a>
         <div class="pod-ep-body">
           <div class="pod-ep-num">Épisode ${ep.id} · ${duration}</div>
@@ -71,9 +71,12 @@ const html = `<!DOCTYPE html>
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo.woff2" crossorigin>
+<link rel="preload" as="image" href="${s.cover}" type="image/webp">
+
+<link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
 
 <style>
@@ -464,7 +467,7 @@ const html = `<!DOCTYPE html>
   <section class="pod-hero">
     <div class="pod-hero-inner">
       <div class="pod-hero-cover">
-        <img src="${s.cover}" alt="Pochette ${escapeHtml(s.title)}" width="400" height="400">
+        <img src="${s.cover}" alt="Pochette ${escapeHtml(s.title)}" width="400" height="400" loading="eager" fetchpriority="high" decoding="async">
       </div>
       <div class="pod-hero-text">
         <div class="pod-hero-kicker">${escapeHtml(s.publisher)} · ${escapeHtml(s.subtitle)}</div>

@@ -159,6 +159,11 @@
 }
 </script>
 
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo.woff2" crossorigin>
+<link rel="preload" as="image" href="/podcast/covers/serie.webp" type="image/webp">
+
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/main.css">
 
@@ -950,7 +955,7 @@
 
       <article class="pod-ep" id="la-fracture" data-accent="fuchsia">
         <a class="pod-ep-cover" href="#la-fracture">
-          <picture><source srcset="/podcast/covers/ep01.webp" type="image/webp"><img src="/podcast/covers/ep01.webp" alt="Pochette La Fracture" width="120" height="120" loading="eager" decoding="async"></picture>
+          <picture><source srcset="/podcast/covers/ep01.webp" type="image/webp"><img src="/podcast/covers/ep01.webp" alt="Pochette La Fracture" width="120" height="120" loading="lazy" decoding="async"></picture>
         </a>
         <div class="pod-ep-body">
           <div class="pod-ep-num">Épisode 01 · 17:16</div>

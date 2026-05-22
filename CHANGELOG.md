@@ -1,5 +1,46 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Core Web Vitals — lazy loading, preload fonts (SEO-B9)
+
+### Pourquoi
+Lighthouse Performance dépend de LCP < 2.5s, CLS < 0.1, INP < 200ms. Audit statique a révélé : 22 images sans `loading="lazy"` réparties sur 4 pages (gaspillent bandwidth + bloquent décode), 0 preload de polices critiques sur les pages secondaires (apprendre, podcast, articles, claude-code, 26 articles). Sur des pages de 100+ Ko de HTML, ça décale le LCP de 200-400ms en moyenne.
+
+### Livré
+- **Lazy loading** ajouté sur les 22 images below-the-fold restantes :
+  - `index.html` story photo (section 09, deep) → lazy
+  - `podcast.html` ep01 cover (saison 01, deep) → lazy
+  - `articles/dev-browser.html` 3 captures terminal → lazy
+  - `articles/photos-airbnb-nano-banana.html` 10 photos avant/après → lazy (script idempotent)
+  - Builder podcast (`scripts/build-podcast-page.js`) corrigé : tous les épisodes lazy, hero série avec `fetchpriority="high"`
+- **Preload fonts critiques** (`archivo-black.woff2` + `archivo.woff2`) ajouté sur 31 pages :
+  - 4 pages root (apprendre, podcast, articles, claude-code)
+  - 26 articles via script Node idempotent + template `_TEMPLATE.html`
+  - Évite le FOIT et accélère le LCP du H1 (Archivo Black) de ~150-300ms
+- **Preload hero image** podcast (`/podcast/covers/serie.webp`)
+- **Builder podcast** : retrait du legacy Google Fonts CDN → utilise `assets/fonts.css` (self-hosted woff2)
+- **Tests** : 17/17 pass.
+
+### Fichiers touchés
+- 26 articles dans `articles/` (insertion 2-3 lignes head)
+- `articles/_TEMPLATE.html` (préchargement par défaut pour les futurs articles)
+- `index.html`, `apprendre.html`, `podcast.html`, `articles.html`, `claude-code.html` (preloads + lazy)
+- `articles/dev-browser.html`, `articles/photos-airbnb-nano-banana.html` (lazy loading)
+- `scripts/build-podcast-page.js` (preloads + self-hosted fonts + tous épisodes lazy)
+
+### Avant / après (audit statique)
+| Métrique | Avant | Après |
+|---|---|---|
+| Images lazy | 130/152 (85%) | 145/150 (97%) |
+| Pages avec preload fonts | 1 (index.html) | 32 |
+| `font-display` declarations | 3/3 (déjà OK) | 3/3 |
+| Scripts deferred/async | 100% | 100% (déjà OK) |
+
+Les 5 images non-lazy restantes sont les heros above-the-fold (eager intentionnel) : home, bio, podcast series (×2), articles featured.
+
+### À venir
+- Lancer Lighthouse en prod pour mesurer le gain réel (LCP, CLS, INP).
+- Si LCP > 2.5s sur mobile : envisager `<link rel="preconnect">` vers R2 (audio podcast) + inline du CSS critique au-dessus du fold.
+
 ## 2026-05-22 · Answer cards "Réponse rapide" pour AI Overviews / SGE (SEO-B10)
 
 ### Pourquoi

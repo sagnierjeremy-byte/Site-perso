@@ -87,7 +87,7 @@
     {
       "@type": "DefinedTerm",
       "name": "CLI / Terminal",
-      "url": "https://jerwis.fr/lexique#cli",
+      "url": "https://jerwis.fr/lexique-essentiels#cli",
       "description": "La CLI est une interface où tu écris des commandes au clavier au lieu de cliquer dans une application.",
       "inDefinedTermSet": "https://jerwis.fr/lexique#termset"
     },
@@ -115,7 +115,7 @@
     {
       "@type": "DefinedTerm",
       "name": "Plugin",
-      "url": "https://jerwis.fr/lexique#plugin",
+      "url": "https://jerwis.fr/lexique-essentiels#plugin",
       "description": "Un plugin ajoute des capacités prêtes à utiliser à un outil, souvent sous forme de commandes, skills ou connecteurs.",
       "inDefinedTermSet": "https://jerwis.fr/lexique#termset"
     },
@@ -1784,6 +1784,96 @@
     text-align: center;
   }
   .lex-empty.is-visible { display: block }
+  .lex-card,
+  .lex-az-term,
+  .lex-entry { scroll-margin-top: 104px }
+  .lex-essentials-promo {
+    max-width: 1040px;
+    margin: 52px auto 0;
+    padding: clamp(24px, 4vw, 42px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 12px;
+    background:
+      linear-gradient(135deg, rgba(0,178,169,.12), rgba(239,66,111,.10) 55%, rgba(255,130,0,.12)),
+      var(--surface);
+    box-shadow: 0 24px 80px -55px rgba(10,10,10,.45);
+  }
+  .lex-essentials-promo h2 {
+    margin: 8px 0 10px;
+    font-size: clamp(30px, 4.4vw, 58px);
+  }
+  .lex-essentials-promo p {
+    margin: 0;
+    max-width: 720px;
+    color: var(--ink-muted);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .lex-essentials-promo a,
+  .lex-essential-index a {
+    text-decoration: none;
+  }
+  .lex-essentials-btn {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    border: 1px solid rgba(10,10,10,.85);
+  }
+  .lex-essential-index {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .lex-essential-index a {
+    min-height: 116px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    transition: transform .2s, border-color .2s;
+  }
+  .lex-essential-index a:hover {
+    transform: translateY(-2px);
+    border-color: var(--fuchsia);
+  }
+  .lex-essential-index span {
+    display: block;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    color: var(--fuchsia);
+  }
+  .lex-essential-index strong {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    line-height: 1.05;
+  }
+  .lex-essential-index small {
+    display: block;
+    margin-top: 8px;
+    color: var(--ink-muted);
+    font-size: 13px;
+    line-height: 1.35;
+  }
   .lex-entry[hidden],
   .lex-card[hidden],
   .lex-az-term[hidden],
@@ -1799,6 +1889,9 @@
     .lex-az-term a { grid-template-columns: 1fr }
     .lex-az-term em { justify-self: start }
     .lex-result-count { min-width: 0 }
+    .lex-essentials-promo { grid-template-columns: 1fr }
+    .lex-essentials-btn { width: 100% }
+    .lex-essential-index { grid-template-columns: 1fr 1fr }
     .lex-filter-row,
     .lex-alpha-index {
       flex-wrap: nowrap;
@@ -1810,6 +1903,9 @@
     .lex-alpha-index::-webkit-scrollbar { display: none }
     .lex-filter-btn { flex: 0 0 auto }
     .lex-alpha-link { flex: 0 0 42px }
+  }
+  @media (max-width: 520px) {
+    .lex-essential-index { grid-template-columns: 1fr }
   }
 
   .lex-entry {
@@ -2797,7 +2893,7 @@
             </a>
           </li>
           <li class="lex-az-term" data-term-id="cli" data-term-letter="C" data-term-groups="all essentials outils" data-term-search="cli terminal outils la cli est une interface ou tu ecris des commandes au clavier au lieu de cliquer dans une application tu la rencontres pour lancer codex cli, installer un outil, publier un site ou executer un script terminal ligne de commande shell">
-            <a href="/lexique.html#cli">
+            <a href="/lexique-essentiels.html#cli">
               <span>
                 <strong>CLI / Terminal</strong>
                 <small>La CLI est une interface où tu écris des commandes au clavier au lieu de cliquer dans une application.</small>
@@ -3199,7 +3295,7 @@
         <h3 id="lex-letter-p">P</h3>
         <ul class="lex-term-list">
           <li class="lex-az-term" data-term-id="plugin" data-term-letter="P" data-term-groups="all essentials outils" data-term-search="plugin outils un plugin ajoute des capacites pretes a utiliser a un outil, souvent sous forme de commandes, skills ou connecteurs tu le rencontres dans les marketplaces claude, codex, navigateur, cms ou outils d&#39;automatisation marketplace extension plugin claude">
-            <a href="/lexique.html#plugin">
+            <a href="/lexique-essentiels.html#plugin">
               <span>
                 <strong>Plugin</strong>
                 <small>Un plugin ajoute des capacités prêtes à utiliser à un outil, souvent sous forme de commandes, skills ou connecteurs.</small>
@@ -3463,923 +3559,33 @@
   </div>
 </section>
 
-<!-- Mini-marquee avant les entrées -->
+<!-- Renvoi vers les 8 essentiels -->
+<section class="block" id="lexique-essentiels" style="padding-top: 0;">
+  <div class="container">
+    <div class="lex-essentials-promo">
+      <div>
+        <span class="section-kicker k-fuchsia" style="display:inline-flex">— Les 8 bases longues</span>
+        <h2>Les définitions fondatrices ont maintenant leur page.</h2>
+        <p>Clé API, fichier .env, token, CLI, MCP, modèle IA, skill, agent et plugin : je les ai séparés du glossaire pour garder ici une vraie page de recherche A-Z.</p>
+      </div>
+      <a class="lex-essentials-btn" href="/lexique-essentiels.html">Lire les 8 essentiels →</a>
+    </div>
+  </div>
+</section>
+
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
-    <span>8 définitions détaillées</span><span>Clé API</span><span>Fichier .env</span><span>Token</span><span>CLI</span><span>MCP</span><span>Modèle</span><span>Skill &amp; Agent</span><span>Plugin</span>
-    <span>8 définitions détaillées</span><span>Clé API</span><span>Fichier .env</span><span>Token</span><span>CLI</span><span>MCP</span><span>Modèle</span><span>Skill &amp; Agent</span><span>Plugin</span>
+    <span>Glossaire complet</span><span>Recherche A-Z</span><span>Définitions express</span><span>Pages dédiées</span><span>8 bases à part</span>
+    <span>Glossaire complet</span><span>Recherche A-Z</span><span>Définitions express</span><span>Pages dédiées</span><span>8 bases à part</span>
   </div>
 </div>
 
-<!-- ENTRÉE 01 · CLÉ API -->
-<div class="container">
-<section class="lex-entry" id="cle-api">
-  <div class="lex-header">
-    <span class="lex-number">01</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #01</span>
-      <h2>Clé API</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> une clé API, c'est un mot de passe personnel que tu colles dans un outil pour qu'il puisse parler à Claude (ou à un autre service d'IA) en ton nom, et te facturer à l'usage.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Imagine un badge nominatif de salle de sport. Tu le scannes en entrant, la salle sait que c'est toi, et elle débite ton abonnement à chaque passage. Si tu le perds ou que tu le prêtes, c'est toi qui reçois la facture. Une clé API, c'est exactement ça : un badge nominatif pour Claude. Je garde le mien dans un gestionnaire de mots de passe, jamais à la vue.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li>Brancher Claude sur Zapier, Make ou n8n pour automatiser la rédaction d'emails, les résumés de réunions ou les fiches produit.</li>
-      <li>Connecter Claude à un éditeur comme Cursor, qui t'aide à écrire des documents, des scripts ou des sites sans partir de zéro.</li>
-      <li>Faire tourner un automatisme qui lit ton Notion, ta Google Sheet ou ton CRM et génère du contenu en boucle pendant que tu dors.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas la rencontrer</h3>
-    <p>Pour Claude, tout se passe sur <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com/settings/keys</a>. Tu vois un bouton violet "Create Key" en haut à droite, et un tableau avec les colonnes Name, Key, Created, Last used. Au moment où tu crées la clé, une fenêtre s'ouvre avec la valeur complète (elle commence par <code>sk-ant-</code>). <strong>Attention : elle ne sera affichée qu'une seule fois.</strong> Du côté des outils no-code, tu la colles dans un champ "API Key" au moment de connecter Claude à Zapier, dans un "Credential" sur n8n, ou dans la "Connection" d'un module Claude sur Make.</p>
-    <div class="lex-mockup lex-mockup-web">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">console.anthropic.com/settings/keys</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-web-header">
-          <span class="lex-web-title">API Keys</span>
-          <span class="lex-web-btn">+ Create Key</span>
-        </div>
-        <div class="lex-web-content">
-          <table class="lex-web-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Key</th>
-                <th>Created</th>
-                <th>Last used</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>zapier-prod</strong></td>
-                <td><code>sk-ant-api03-••••</code></td>
-                <td>Apr 12, 2026</td>
-                <td>Apr 20, 2026</td>
-              </tr>
-              <tr>
-                <td><strong>n8n-test</strong></td>
-                <td><code>sk-ant-api03-••••</code></td>
-                <td>Apr 08, 2026</td>
-                <td>Apr 19, 2026</td>
-              </tr>
-              <tr>
-                <td><strong>cursor-local</strong></td>
-                <td><code>sk-ant-api03-••••</code></td>
-                <td>Mar 24, 2026</td>
-                <td>Apr 20, 2026</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">Une clé par outil — la colonne "Key" masque tout sauf les 4 derniers caractères</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment l'utiliser — pas à pas</h3>
-    <ol>
-      <li>Crée-toi un compte sur <strong>console.anthropic.com</strong> (c'est séparé de claude.ai, même si tu as déjà un abonnement Pro).</li>
-      <li>Ajoute une carte bancaire dans l'onglet <strong>Billing</strong>. Pas d'abonnement mensuel obligatoire, tu paies uniquement ce que tu consommes.</li>
-      <li>Va dans <strong>Settings → API Keys</strong>, puis clique sur <strong>Create Key</strong>.</li>
-      <li>Donne-lui un nom parlant (exemple : <em>zapier-prod</em>, <em>n8n-test</em>). Règle que je m'applique : une clé par outil, jamais une seule pour tout.</li>
-      <li>Copie la clé immédiatement et colle-la dans un gestionnaire de mots de passe. Si tu fermes la fenêtre, elle est perdue : il faudra en recréer une.</li>
-      <li>Colle-la dans l'outil cible (le champ API Key de Zapier, Make, n8n, Cursor, etc.).</li>
-      <li>Retourne dans <strong>Billing → Limits</strong> et fixe une limite de dépense mensuelle. C'est ton filet de sécurité.</li>
-    </ol>
-    <p style="margin-top: 12px;"><strong>Ce que ça coûte (avril 2026, par million de "tokens" — voir l'entrée <a href="#token">#03</a>) :</strong> Haiku 4.5 à 1&nbsp;$ en entrée et 5&nbsp;$ en sortie, Sonnet 4.6 à 3&nbsp;$ / 15&nbsp;$, Opus 4.7 à 5&nbsp;$ / 25&nbsp;$. Pour la plupart des automatisations courantes, Haiku ou Sonnet suffisent largement.</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>Tu utilises uniquement <strong>claude.ai</strong> ou l'application mobile pour discuter avec Claude. Dans ce cas, ton abonnement Pro (20&nbsp;$/mois) ou Max (200&nbsp;$/mois) suffit, et tu n'as jamais besoin de toucher à une clé API. Petit piège à connaître quand même : Claude Pro et l'API sont deux facturations distinctes. Si un jour tu veux automatiser, il faudra recharger la carte côté API en plus de ton abonnement. Je peux me tromper sur un détail, écris-moi si tu vois une incohérence.</p>
-  </div>
-</section>
-</div>
-
-<!-- ENTRÉE 02 · FICHIER .env -->
-<div class="container">
-<section class="lex-entry" id="fichier-env">
-  <div class="lex-header">
-    <span class="lex-number">02</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #02</span>
-      <h2>Fichier .env</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> un fichier <code>.env</code>, c'est un petit carnet texte posé à côté de ton projet, qui contient tes clés API et tes mots de passe, pour éviter de les écrire en dur dans ton code.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>C'est le trousseau de clés rangé dans le tiroir d'entrée. Quand quelqu'un visite ta maison (ton code), il voit les meubles mais pas les clés. Le trousseau reste caché, et quand l'application a besoin d'ouvrir une porte (appeler Claude, envoyer un email), elle va discrètement piocher dedans. La pire erreur, ce serait de coller les clés sur la porte d'entrée — l'équivalent de poster ton code sur internet avec les mots de passe dedans.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li>Séparer tes secrets de ton code. Tu peux partager ton projet avec une personne technique sans lui donner tes accès payants.</li>
-      <li>Changer une clé (après une rotation ou une fuite) sans avoir à retoucher une seule ligne de code.</li>
-      <li>Avoir plusieurs environnements en parallèle : un <code>.env.development</code> avec des clés de test, un <code>.env.production</code> avec les vraies clés.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas le rencontrer</h3>
-    <p>Dans un éditeur comme VS Code ou Cursor, le fichier apparaît à la racine du dossier du projet, souvent affiché en grisé parce qu'il est considéré comme caché. Son nom est littéralement <code>.env</code> (avec le point devant, sans extension). À l'intérieur, une ligne par secret, au format <code>NOM_EN_MAJUSCULES=valeur</code>, sans espaces autour du signe égal. Si tu déploies sur Vercel, Netlify ou Railway, tu ne crées pas de fichier : tu vas dans l'onglet <strong>Environment Variables</strong> des réglages du projet et tu remplis la même chose dans un tableau.</p>
-    <div class="lex-mockup lex-mockup-editor">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">mon-projet — Cursor</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-editor-sidebar">
-          <div class="lex-editor-folder">mon-projet</div>
-          <div class="lex-editor-file">index.html</div>
-          <div class="lex-editor-file">package.json</div>
-          <div class="lex-editor-file env active">.env</div>
-          <div class="lex-editor-file env">.env.example</div>
-          <div class="lex-editor-file">.gitignore</div>
-          <div class="lex-editor-file">README.md</div>
-        </div>
-        <div class="lex-editor-main">
-          <div><span class="lex-env-comment"># Mes clés — à ne JAMAIS commit sur GitHub</span></div>
-          <div><span class="lex-env-key">ANTHROPIC_API_KEY</span><span class="lex-env-eq">=</span><span class="lex-env-value">sk-ant-api03-xxxxxxxxxxxx</span></div>
-          <div><span class="lex-env-key">RESEND_API_KEY</span><span class="lex-env-eq">=</span><span class="lex-env-value">re_xxxxxxxxxxxx</span></div>
-          <div><span class="lex-env-key">SUPABASE_URL</span><span class="lex-env-eq">=</span><span class="lex-env-value">https://xxx.supabase.co</span></div>
-          <div>&nbsp;</div>
-          <div><span class="lex-env-comment"># Redémarre l'appli après modification</span></div>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">Un fichier caché à la racine · une ligne par clé · jamais dans Git</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment l'utiliser — pas à pas</h3>
-    <ol>
-      <li>À la racine de ton projet, crée un fichier nommé exactement <strong>.env</strong> (attention au point au début).</li>
-      <li>Ajoute une ligne par secret, par exemple : <code>ANTHROPIC_API_KEY=sk-ant-ton-vrai-code</code>. Pas d'espaces autour du <code>=</code>, pas de guillemets sauf si la valeur contient un espace.</li>
-      <li>Avant de sauvegarder quoi que ce soit sur GitHub, vérifie que le fichier <code>.gitignore</code> contient bien la ligne <code>.env</code>. C'est ce qui empêche ton carnet de partir avec le reste.</li>
-      <li>Crée à côté un fichier <code>.env.example</code> avec les mêmes noms mais sans les vraies valeurs (exemple : <code>ANTHROPIC_API_KEY=ta-cle-ici</code>). Celui-là peut partir sur GitHub, il sert de modèle pour toi ou un collaborateur.</li>
-      <li>Redémarre ton application pour qu'elle charge les nouvelles variables.</li>
-    </ol>
-    <p style="margin-top: 12px;"><strong>Ressources qui vont plus loin</strong> si un jour tu gères plusieurs clés avec une équipe : 1Password CLI (les secrets ne touchent jamais le disque, déverrouillage par Touch ID) ou Doppler (rotation automatique des clés, pratique à partir de trois personnes). Pour un projet solo, le simple <code>.env</code> suffit largement.</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>Tu utilises uniquement des outils no-code comme Zapier, Make ou n8n en version cloud. Ces plateformes stockent tes clés à ta place, dans leur propre interface, et tu n'as jamais de fichier à manipuler. Même chose si tu passes par Claude Code avec un abonnement Pro : les clés sont rangées dans le trousseau macOS (le "Keychain"), et il n'y a rien à configurer de ton côté. Le <code>.env</code> devient utile le jour où tu fais tourner un petit script sur ton ordinateur ou sur un serveur.</p>
-  </div>
-</section>
-</div>
-
-<!-- ENTRÉE 03 · TOKEN -->
-<div class="container">
-<section class="lex-entry" id="token">
-  <div class="lex-header">
-    <span class="lex-number">03</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #03</span>
-      <h2>Token</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> un token, c'est un petit morceau de mot (trois à quatre lettres en moyenne) que l'IA compte pour savoir combien de texte tu lui envoies et combien elle te renvoie — et c'est à cette unité qu'elle te facture.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Pense à un Uber. Tu ne paies pas au voyage, tu paies à la distance parcourue. Le compteur avance à chaque kilomètre. Les tokens, c'est pareil : chaque mot que tu envoies à Claude fait tourner le compteur, et chaque mot qu'il te renvoie aussi. Un email court = quelques centimes. Un contrat de cinquante pages = plusieurs euros. Moi, j'estime toujours avant de lancer une boucle pour éviter la mauvaise surprise le lendemain.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li>Comprendre pourquoi ta facture varie : cent emails courts coûtent bien moins qu'un seul PDF de cinquante pages.</li>
-      <li>Estimer le coût d'une automatisation avant de la lancer. Exemple chiffré : 1&nbsp;000 fiches produit de 300 mots traitées avec Sonnet 4.6, ça fait environ 400&nbsp;000 tokens en entrée, soit à peu près 1,20&nbsp;$.</li>
-      <li>Choisir le bon modèle selon la tâche. Haiku 4.5 à 1&nbsp;$ le million de tokens, c'est trois fois moins cher que Sonnet 4.6 à 3&nbsp;$, et ça suffit amplement pour les tâches simples (classer, résumer court, extraire).</li>
-      <li>Éviter les mauvaises surprises. Un contrat PDF de cent pages représente à peu près 125&nbsp;000 tokens en entrée. Si tu le relances en boucle dans un scénario, la facture grimpe vite.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas le rencontrer</h3>
-    <p>Sur <a href="https://console.anthropic.com/settings/usage" target="_blank" rel="noopener">console.anthropic.com/settings/usage</a>, tu as un graphique qui montre les tokens consommés en entrée et en sortie, jour par jour et modèle par modèle. Dans claude.ai, un indicateur "Long conversation" apparaît quand tu approches de la limite. Dans Cursor ou Claude Code, un compteur en bas de l'écran t'indique la consommation de la session. Pour estimer un texte avant de l'envoyer, il existe un outil en ligne : <a href="https://claude-tokenizer.vercel.app" target="_blank" rel="noopener">claude-tokenizer.vercel.app</a>, tu colles ton texte et tu vois le nombre exact.</p>
-    <div class="lex-mockup lex-mockup-web">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">console.anthropic.com/settings/usage</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-web-header">
-          <span class="lex-web-title">Usage · Apr 2026</span>
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #888; letter-spacing: .08em;">FILTER: Sonnet 4.6 ▾</span>
-        </div>
-        <div class="lex-web-content">
-          <div class="lex-chart">
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 60%;">
-                <div class="lex-chart-bar-input" style="height: 70%;"></div>
-                <div class="lex-chart-bar-output" style="height: 30%;"></div>
-              </div>
-              <span class="lex-chart-day-label">L 14</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 85%;">
-                <div class="lex-chart-bar-input" style="height: 65%;"></div>
-                <div class="lex-chart-bar-output" style="height: 35%;"></div>
-              </div>
-              <span class="lex-chart-day-label">M 15</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 45%;">
-                <div class="lex-chart-bar-input" style="height: 75%;"></div>
-                <div class="lex-chart-bar-output" style="height: 25%;"></div>
-              </div>
-              <span class="lex-chart-day-label">M 16</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 92%;">
-                <div class="lex-chart-bar-input" style="height: 60%;"></div>
-                <div class="lex-chart-bar-output" style="height: 40%;"></div>
-              </div>
-              <span class="lex-chart-day-label">J 17</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 70%;">
-                <div class="lex-chart-bar-input" style="height: 68%;"></div>
-                <div class="lex-chart-bar-output" style="height: 32%;"></div>
-              </div>
-              <span class="lex-chart-day-label">V 18</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 30%;">
-                <div class="lex-chart-bar-input" style="height: 80%;"></div>
-                <div class="lex-chart-bar-output" style="height: 20%;"></div>
-              </div>
-              <span class="lex-chart-day-label">S 19</span>
-            </div>
-            <div class="lex-chart-day">
-              <div class="lex-chart-bar-stack" style="height: 75%;">
-                <div class="lex-chart-bar-input" style="height: 62%;"></div>
-                <div class="lex-chart-bar-output" style="height: 38%;"></div>
-              </div>
-              <span class="lex-chart-day-label">D 20</span>
-            </div>
-          </div>
-          <div class="lex-chart-legend">
-            <span class="lex-chart-legend-item"><span class="lex-chart-legend-dot" style="background: var(--teal);"></span>Input tokens</span>
-            <span class="lex-chart-legend-item"><span class="lex-chart-legend-dot" style="background: var(--fuchsia);"></span>Output tokens</span>
-          </div>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">Input (vert) et output (rose) côte à côte — l'output coûte 5× plus</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment estimer — pas à pas</h3>
-    <ol>
-      <li>Compte le nombre de mots du document que tu veux envoyer (clic droit → Propriétés sur Word, ou en bas de Google Docs).</li>
-      <li>Multiplie par 1,3 si c'est de l'anglais, 1,5 si c'est du français. Tu obtiens le nombre de tokens en entrée. Bon à savoir : le français coûte environ 14&nbsp;% plus cher que l'anglais à volume égal, parce que la découpe en tokens est moins optimisée.</li>
-      <li>Estime la longueur de la réponse attendue et multiplie-la aussi par 1,5. C'est tes tokens de sortie.</li>
-      <li>Applique le tarif du modèle. Règle simple à mémoriser : la sortie coûte cinq fois plus que l'entrée. Donc un prompt court qui demande un long résumé coûte plus cher qu'un long document avec une question courte à la fin.</li>
-      <li>Si tu veux le chiffre exact, passe ton texte dans <a href="https://claude-tokenizer.vercel.app" target="_blank" rel="noopener">claude-tokenizer.vercel.app</a>.</li>
-    </ol>
-    <p style="margin-top: 12px;"><strong>Quelques repères visuels :</strong> 1&nbsp;000 tokens ≈ 500 à 650 mots en français, soit à peu près une page A4. La fenêtre de contexte (ce que Claude peut lire d'un coup) est de 1&nbsp;million de tokens sur Sonnet 4.6 et Opus 4.6/4.7, soit environ 1&nbsp;500 pages. Largement de quoi lui faire avaler un livre entier.</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>Tu utilises uniquement l'abonnement Claude Pro (20&nbsp;$/mois) ou Max (200&nbsp;$/mois) via claude.ai ou l'application. Dans ces formules, tu as un quota de messages, pas un comptage à l'unité. Les tokens deviennent un sujet le jour où tu branches l'API sur un outil d'automatisation — et encore, pour une utilisation raisonnable, on est souvent à quelques euros par mois. Le vrai risque à surveiller, c'est la boucle qui tourne sur 1&nbsp;000 prospects sans que personne regarde : là, un PDF de 50 pages passé à Opus peut monter à 310&nbsp;$ sans prévenir. D'où la limite de dépense à fixer dans Billing (voir entrée <a href="#cle-api">#01</a>). Je peux me tromper sur un tarif, la grille bouge — vérifie sur <a href="https://anthropic.com/pricing" target="_blank" rel="noopener">anthropic.com/pricing</a> avant de chiffrer un projet.</p>
-  </div>
-</section>
-</div>
-
-<!-- Mini-marquee intermédiaire -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Secrets et coûts : vu</span><span>Place aux interfaces</span><span>CLI · MCP</span><span>Sans peur du terminal</span><span>Avec la bonne info</span>
-    <span>Secrets et coûts : vu</span><span>Place aux interfaces</span><span>CLI · MCP</span><span>Sans peur du terminal</span><span>Avec la bonne info</span>
-  </div>
-</div>
-
-<!-- ENTRÉE 04 · CLI / TERMINAL -->
-<div class="container">
-<section class="lex-entry" id="cli">
-  <div class="lex-header">
-    <span class="lex-number">04</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #04</span>
-      <h2>CLI / Terminal</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> une fenêtre de texte sur ton ordinateur où tu écris des ordres au clavier au lieu de cliquer avec la souris.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Imagine que tu échanges des SMS avec ton ordinateur. Pas de boutons, pas d'icônes, pas de menus. Tu écris une phrase, il te répond. C'est tout. La première fois que je l'ai ouvert, cette fenêtre noire m'a fait peur. En vrai, c'est juste un cadre de dialogue. Vocabulaire rapide : <strong>CLI</strong> = le principe (interface en ligne de commande), <strong>Terminal</strong> = l'application qui ouvre la fenêtre, <strong>Shell</strong> = le moteur qui tourne dedans (bash ou zsh sur Mac, PowerShell sur Windows). Tu n'as pas besoin de retenir, je te le remets juste au cas où tu le croises.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li>Installer un outil qu'un tuto te demande de copier-coller (Claude Code, Node.js, Homebrew).</li>
-      <li>Lancer Claude Code dans un dossier de ton ordinateur en écrivant simplement <code>claude</code>.</li>
-      <li>Exécuter un petit programme que ton prestataire t'a envoyé, sans passer par une équipe technique.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas le rencontrer</h3>
-    <p>Dans les tutoriels vidéo YouTube (la fameuse fenêtre noire). Sur la page officielle <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>. Dès qu'un article te dit « exécute cette commande » (du style <code>brew install…</code> ou <code>npm install…</code>), c'est lui. Sur Mac, tu l'ouvres avec Cmd+Espace puis tu écris « Terminal ». Sur Windows, c'est « Windows Terminal » dans le menu Démarrer.</p>
-    <div class="lex-mockup lex-mockup-terminal">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">Terminal — mon-projet — 80 × 24</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div><span class="lex-term-prompt">jeremy@macbook ~ $</span> <span class="lex-term-command">cd Documents/mon-projet</span></div>
-        <div><span class="lex-term-prompt">jeremy@macbook mon-projet $</span> <span class="lex-term-command">ls</span></div>
-        <div class="lex-term-output">README.md&nbsp;&nbsp;&nbsp;index.html&nbsp;&nbsp;&nbsp;package.json&nbsp;&nbsp;&nbsp;.env</div>
-        <div><span class="lex-term-prompt">jeremy@macbook mon-projet $</span> <span class="lex-term-command">claude</span></div>
-        <div class="lex-term-output">Claude Code v3.2 · ready to help</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Reading CLAUDE.md</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> 3 skills loaded (cold-email, seo-audit, copywriting)</div>
-        <div>&nbsp;</div>
-        <div><span class="lex-term-fuchsia">›</span> <span class="lex-term-cursor"></span></div>
-      </div>
-      <div class="lex-mockup-caption">3 commandes à vie : cd (entrer) · ls (lister) · claude (lancer Claude Code)</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment l'utiliser — pas à pas</h3>
-    <ol>
-      <li><strong>Sur Mac :</strong> appuie sur Cmd+Espace, écris « Terminal », valide avec Entrée. Si tu veux plus joli plus tard : <a href="https://ghostty.org" target="_blank" rel="noopener">Ghostty</a> (gratuit) ou <a href="https://www.warp.dev" target="_blank" rel="noopener">Warp</a> (payant, avec IA intégrée).</li>
-      <li><strong>Sur Windows :</strong> ouvre « Windows Terminal » depuis le menu Démarrer, il est pré-installé. Par défaut, il lance PowerShell, ça fera l'affaire.</li>
-      <li>Copie la commande donnée par le tuto, colle-la dans la fenêtre, appuie sur Entrée, attends que la machine réponde.</li>
-      <li>Si tu vois une erreur rouge, pas de panique : copie-la, colle-la dans Claude, demande-lui de te la traduire et de te donner la solution.</li>
-    </ol>
-    <p>Les 3 commandes qui suffisent pour 90 % des cas : <code>cd nom-du-dossier</code> pour entrer dans un dossier, <code>ls</code> pour voir ce qu'il contient, <code>claude</code> pour lancer Claude Code dedans.</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>Depuis le 14 avril 2026, Anthropic a sorti <strong>l'application desktop Claude Code pour Mac et Windows</strong>. Tu la télécharges sur <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>, tu double-cliques sur le fichier .dmg (Mac) ou .exe (Windows), et tu utilises Claude Code <strong>sans jamais ouvrir le terminal</strong>. Onglet « Code » dans Claude Desktop, et c'est tout. Voilà la vraie bonne nouvelle de 2026 : tu peux démarrer aujourd'hui sans toucher à la fenêtre noire. Le jour où tu voudras aller plus loin, les 3 commandes au-dessus suffiront. Je peux me tromper sur tes besoins, mais honnêtement, 9 entrepreneurs sur 10 n'auront jamais à l'ouvrir.</p>
-  </div>
-</section>
-</div>
-
-<!-- ENTRÉE 05 · MCP -->
-<div class="container">
-<section class="lex-entry" id="mcp">
-  <div class="lex-header">
-    <span class="lex-number">05</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #05</span>
-      <h2>MCP (Model Context Protocol)</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> une prise standard qui permet à n'importe quelle IA (Claude, ChatGPT) de se brancher à n'importe quel outil (Gmail, Notion, Stripe, ta base de données) sans écrire une intégration sur mesure.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>C'est <strong>l'USB-C de l'intelligence artificielle</strong>. Souviens-toi d'avant : chaque appareil avait son propre câble. Un pour l'iPhone, un autre pour le Kindle, un troisième pour le casque, et tu fouillais dans un tiroir plein de fils pour trouver le bon. L'USB-C a imposé une seule prise universelle. Tu branches, ça marche. MCP fait exactement la même chose pour l'IA : une seule prise, et n'importe quelle IA peut parler à n'importe quel outil que tu utilises déjà. Pas d'adaptateur, pas de projet sur mesure à 15&nbsp;000 €. C'est Anthropic (l'entreprise derrière Claude) qui a lancé le standard en novembre 2024, et OpenAI l'a adopté à son tour en mars 2025. Aujourd'hui Google et Microsoft aussi. C'est devenu la norme en moins de 18 mois.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li><strong>Brancher Claude à ton Gmail :</strong> il lit tes mails, les trie, rédige des brouillons de réponse à ta place.</li>
-      <li><strong>Brancher Claude à Notion :</strong> il crée des pages, met à jour une base de données, retrouve une note dans tout ton workspace.</li>
-      <li><strong>Brancher Claude à Stripe ou à ta base de données :</strong> tu demandes « résume-moi les ventes de la semaine » et il interroge la vraie donnée en direct, pas une estimation.</li>
-      <li><strong>Côté chiffres :</strong> plus de 10&nbsp;000 connecteurs MCP disponibles fin 2025, 97 millions de téléchargements par mois. Ce n'est plus un gadget, c'est une brique standard.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas le rencontrer</h3>
-    <p>Dans Claude Desktop : Settings → Connectors (ou « connecteurs MCP » selon la version). Dans ChatGPT Desktop : Settings → Connectors, depuis mars 2025. Dans l'application Claude Code : commande <code>/mcp</code>. Le catalogue officiel est sur <a href="https://modelcontextprotocol.io/servers" target="_blank" rel="noopener">modelcontextprotocol.io/servers</a>, tu peux y parcourir tous les connecteurs disponibles.</p>
-    <div class="lex-mockup lex-mockup-web">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">claude.ai — Settings → Connectors</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-web-header">
-          <span class="lex-web-title">Connectors (connecteurs MCP)</span>
-          <span class="lex-web-btn">+ Add connector</span>
-        </div>
-        <div class="lex-web-content">
-          <div class="lex-connectors">
-            <div class="lex-connector-item">
-              <div class="lex-connector-logo" style="background: linear-gradient(135deg, #ea4335, #fbbc04);">G</div>
-              <div>
-                <div class="lex-connector-name">Gmail</div>
-                <div class="lex-connector-desc">Lire, trier, rédiger des brouillons</div>
-              </div>
-              <span class="lex-connector-status">Connecté</span>
-            </div>
-            <div class="lex-connector-item">
-              <div class="lex-connector-logo" style="background: #0a0a0a;">N</div>
-              <div>
-                <div class="lex-connector-name">Notion</div>
-                <div class="lex-connector-desc">Créer pages, chercher dans workspace</div>
-              </div>
-              <span class="lex-connector-status">Connecté</span>
-            </div>
-            <div class="lex-connector-item">
-              <div class="lex-connector-logo" style="background: #4a154b;">S</div>
-              <div>
-                <div class="lex-connector-name">Slack</div>
-                <div class="lex-connector-desc">47 actions : recherche, post, workflows</div>
-              </div>
-              <span class="lex-connector-status" style="background: #f3f3f3; color: #888;">À brancher</span>
-            </div>
-            <div class="lex-connector-item">
-              <div class="lex-connector-logo" style="background: #635bff;">$</div>
-              <div>
-                <div class="lex-connector-name">Stripe</div>
-                <div class="lex-connector-desc">Dashboard ventes conversationnel</div>
-              </div>
-              <span class="lex-connector-status" style="background: #f3f3f3; color: #888;">À brancher</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">Tu choisis dans la liste · connexion en 1 clic · pas de projet sur mesure</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment l'utiliser — pas à pas</h3>
-    <ol>
-      <li>Ouvre Claude Desktop (l'application que tu as installée) ou va sur <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> dans ton navigateur.</li>
-      <li>Clique sur ton nom en bas à gauche, puis sur <strong>Settings</strong>, puis sur <strong>Connectors</strong>.</li>
-      <li>Clique sur <strong>Add connector</strong>. Tu choisis dans la liste : Gmail, Notion, Slack, Google Drive, Calendar, Stripe, etc.</li>
-      <li>Tu t'identifies à ton compte Gmail (ou autre) comme quand tu te connectes à une application normale. Tu cliques « J'autorise ». C'est tout.</li>
-      <li>De retour dans Claude, tu testes en écrivant : « Résume-moi mes 10 derniers mails non lus. » Il le fait.</li>
-    </ol>
-    <p>Les connecteurs les plus utiles quand tu es entrepreneur : <strong>Gmail et Google Workspace</strong> (lire/trier/rédiger, agenda, Drive, Sheets), <strong>Notion</strong> (officiel, créer et chercher dans tes pages), <strong>Slack</strong> (47 actions disponibles), <strong>Stripe</strong> (dashboard ventes conversationnel), <strong>Supabase ou HubSpot</strong> (interroger ta base clients en français normal).</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>Tu n'as <strong>absolument rien à installer</strong> pour commencer à utiliser une IA. Claude et ChatGPT fonctionnent très bien sans aucun connecteur MCP. Tu leur copies-colles un texte, tu leur poses une question, ils répondent. MCP, c'est la couche que tu ajoutes <strong>le jour où tu veux que l'IA agisse directement sur tes vrais outils</strong> (ton Gmail, ton Notion, ta base de données) au lieu que tu fasses des copier-coller toute la journée. Si tu débutes, installe Claude Desktop, utilise-le pendant 2 semaines comme un chatbot classique. Quand tu sentiras que tu perds du temps à recopier le même contenu de Notion vers Claude, ce jour-là tu reviendras ici et tu branches le connecteur Notion. Pas avant.</p>
-  </div>
-</section>
-</div>
-
-<!-- Mini-marquee intermédiaire -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Interfaces : vu</span><span>Place aux concepts Anthropic</span><span>Modèle · Skill · Agent</span><span>Les mots qui reviennent partout</span>
-    <span>Interfaces : vu</span><span>Place aux concepts Anthropic</span><span>Modèle · Skill · Agent</span><span>Les mots qui reviennent partout</span>
-  </div>
-</div>
-
-<!-- ENTRÉE 06 · MODÈLE -->
-<div class="container">
-<section class="lex-entry" id="modele">
-  <div class="lex-header">
-    <span class="lex-number">06</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #06</span>
-      <h2>Modèle (Opus / Sonnet / Haiku)</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> un modèle Claude, c'est la version du cerveau de l'IA que tu choisis selon la difficulté de ta demande. Les trois principaux s'appellent Opus, Sonnet et Haiku.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Imagine trois moteurs dans le même garage. Opus, c'est le V8 de compétition : il peut tout faire, mais il consomme et il coûte. Sonnet, c'est l'hybride familial : puissant quand il faut, raisonnable au quotidien. Haiku, c'est la citadine électrique : tu la sors pour les courses, elle va vite, elle ne te ruine pas.</p>
-    <p>Je ne choisis pas le V8 pour aller chercher le pain. Je ne prends pas la citadine pour traverser l'Europe. Avec les modèles Claude, c'est pareil : tu ajustes l'outil à la mission.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li><strong>Piloter trois leviers en même temps :</strong> intelligence, vitesse et coût. Plus le modèle est puissant, plus il coûte cher par requête.</li>
-      <li><strong>Opus</strong> évite les allers-retours quand tu veux un raisonnement stratégique propre du premier coup (plan d'acquisition, analyse d'un contrat, arbitrage complexe).</li>
-      <li><strong>Sonnet</strong> est mon réglage par défaut pour environ 90&nbsp;% des usages : rédaction, recherche, synthèse, réponses aux emails.</li>
-      <li><strong>Haiku</strong> fait économiser jusqu'à 80&nbsp;% sur les tâches répétitives en gros volume : classer 500 emails, extraire des données d'une liste de factures, étiqueter des leads.</li>
-    </ul>
-
-    <div class="lex-table-wrap">
-      <table class="lex-table">
-        <thead>
-          <tr>
-            <th>Modèle</th>
-            <th>Identifiant exact</th>
-            <th>Entrée ($/M tokens)</th>
-            <th>Sortie ($/M tokens)</th>
-            <th>Mémoire</th>
-            <th>Quand le choisir</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Opus 4.7</strong></td>
-            <td><code>claude-opus-4-7</code></td>
-            <td>$5</td>
-            <td>$25</td>
-            <td>1 million</td>
-            <td>Raisonnement complexe, analyse stratégique</td>
-          </tr>
-          <tr>
-            <td><strong>Sonnet 4.6</strong></td>
-            <td><code>claude-sonnet-4-6</code></td>
-            <td>$3</td>
-            <td>$15</td>
-            <td>1 million</td>
-            <td>Par défaut : rédaction, recherche, quotidien</td>
-          </tr>
-          <tr>
-            <td><strong>Haiku 4.5</strong></td>
-            <td><code>claude-haiku-4-5</code></td>
-            <td>$1</td>
-            <td>$5</td>
-            <td>200&nbsp;000</td>
-            <td>Classification, extraction, gros volume</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="lex-table-note">Ordres de grandeur : Opus coûte environ 5 fois Haiku, Sonnet environ 3 fois Haiku. Prix officiels Anthropic, avril 2026.</p>
-    </div>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas le rencontrer</h3>
-    <p>Le mot "modèle" apparaît dans trois endroits différents, et c'est souvent ce qui embrouille.</p>
-    <ul>
-      <li><strong>Sur claude.ai (abonnement Pro ou Max) :</strong> un menu déroulant en haut de la conversation, à côté du titre. Tu y lis par exemple <em>"Claude Sonnet 4.6 ▾"</em>. Tu cliques, tu changes.</li>
-      <li><strong>Dans Claude Code (l'application dans le terminal) :</strong> la commande <code>/model</code> affiche la liste et permet de basculer (<code>/model opus</code>, <code>/model haiku</code>).</li>
-      <li><strong>Sur un outil qui branche l'IA à autre chose</strong> (Cursor, n8n, Zapier, une API) : un champ <em>"model"</em> où tu colles l'identifiant exact du tableau au-dessus.</li>
-    </ul>
-    <div class="lex-mockup lex-mockup-web">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">claude.ai — conversation</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-web-header">
-          <span class="lex-web-dropdown">Claude Sonnet 4.6 <span style="color: #888;">▾</span></span>
-        </div>
-        <div class="lex-web-content">
-          <div class="lex-web-menu">
-            <div class="lex-web-menu-item">
-              <div>
-                <div style="font-weight: 800; color: #1a1a1a;">Claude Opus 4.7</div>
-                <div style="color: #888; font-size: 11.5px; margin-top: 2px;">Raisonnement max, analyse stratégique</div>
-              </div>
-              <span class="lex-web-menu-badge">+Cher</span>
-            </div>
-            <div class="lex-web-menu-item active">
-              <div>
-                <div style="font-weight: 800; color: #1a1a1a;">Claude Sonnet 4.6</div>
-                <div style="color: #888; font-size: 11.5px; margin-top: 2px;">Par défaut · polyvalent</div>
-              </div>
-              <span class="lex-web-menu-badge" style="background: #d1f2e0; color: #0a8a3e;">✓ Actif</span>
-            </div>
-            <div class="lex-web-menu-item">
-              <div>
-                <div style="font-weight: 800; color: #1a1a1a;">Claude Haiku 4.5</div>
-                <div style="color: #888; font-size: 11.5px; margin-top: 2px;">Rapide, économique, volume</div>
-              </div>
-              <span class="lex-web-menu-badge" style="background: #fff3d1; color: #b87900;">Rapide</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">Clique sur le nom du modèle en haut · choisis dans la liste · c'est tout</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment l'utiliser — pas à pas</h3>
-    <ol>
-      <li>Sur <strong>claude.ai</strong> : clique sur le nom du modèle en haut de ta conversation, puis sélectionne celui que tu veux dans la liste qui s'ouvre.</li>
-      <li>Dans <strong>Claude Code</strong> : tape <code>/model</code> dans la fenêtre, une liste s'affiche, choisis celui qui t'intéresse.</li>
-      <li>Sur un <strong>outil tiers</strong> (n8n, Zapier, Cursor, une intégration API) : copie l'identifiant exact (par exemple <code>claude-sonnet-4-6</code>) et colle-le dans le champ <em>"model"</em> de la configuration.</li>
-      <li>Teste le même prompt sur deux modèles quand tu hésites : tu verras tout de suite la différence de qualité et de vitesse, tu décideras en connaissance de cause.</li>
-    </ol>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>…tu démarres. Laisse Sonnet 4.6 par défaut, c'est le réglage équilibré pour l'immense majorité des cas. Tu t'occuperas du choix de modèle quand tu auras un signal clair : soit le coût grimpe parce que tu traites des gros volumes (passe à Haiku), soit la qualité manque sur une tâche précise (bascule sur Opus le temps de la mission).</p>
-  </div>
-</section>
-</div>
-
-<!-- ENTRÉE 07 · SKILL & AGENT -->
-<div class="container">
-<section class="lex-entry" id="skill-agent">
-  <div class="lex-header">
-    <span class="lex-number">07</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #07</span>
-      <h2>Skill &amp; Agent (la différence, enfin claire)</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> un skill, c'est un manuel de spécialité que Claude ouvre quand il en a besoin. Un agent, c'est Claude lâché seul sur une mission, qui avance jusqu'à ce que ce soit fini.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Tu entres dans un restaurant. Sur le plan de travail du cuisinier, il y a plusieurs manuels : cuisine italienne, pâtisserie, sushi. Le cuisinier ouvre le bon manuel au moment où il en a besoin. Ces manuels, ce sont les <strong>skills</strong>. Seuls, ils ne cuisinent rien. Ils rendent le cuisinier compétent sur un domaine précis dès qu'il s'y met.</p>
-    <p>L'<strong>agent</strong>, c'est le chef que tu envoies faire le marché, revenir, cuisiner, dresser l'assiette et servir. Tu lui dis "prépare le dîner", tu repars à tes affaires, il enchaîne les étapes seul jusqu'à poser l'assiette sur la table. Et pendant qu'il cuisine, il peut très bien ouvrir un manuel (un skill) pour la recette italienne du soir.</p>
-    <p>Résumé : un agent peut utiliser des skills. Un skill, lui, n'agit jamais seul.</p>
-
-    <div class="lex-table-wrap">
-      <table class="lex-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Skill</th>
-            <th>Agent</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Ce que c'est</th>
-            <td>Un dossier avec des instructions et des ressources spécialisées</td>
-            <td>Un programme qui tourne en boucle, décide et exécute des actions</td>
-          </tr>
-          <tr>
-            <th>Actif ou passif</th>
-            <td>Passif : Claude l'ouvre automatiquement quand la situation correspond</td>
-            <td>Actif : il choisit ses étapes, les enchaîne, s'arrête quand la mission est finie</td>
-          </tr>
-          <tr>
-            <th>Qui le déclenche</th>
-            <td>Claude, tout seul, en reconnaissant le besoin</td>
-            <td>Toi, via un bouton, une commande, un email entrant ou une heure planifiée</td>
-          </tr>
-          <tr>
-            <th>Exemples</th>
-            <td>Un skill "email de prospection", un skill "audit SEO", un skill "article Eurofiscalis"</td>
-            <td>Un agent de veille qui scanne 100 sources, un agent qui trie ta boîte mail, un agent commercial</td>
-          </tr>
-          <tr>
-            <th>Ce que tu dois faire</th>
-            <td>Déposer le dossier au bon endroit une fois, puis oublier : il se déclenche seul</td>
-            <td>Le lancer, le surveiller de temps en temps, fixer les limites de sa mission</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li><strong>Un skill</strong> installe une expertise une bonne fois. Exemple : j'ai un skill "email de prospection". Chaque fois que je demande "écris-moi un email à ce prospect", Claude applique automatiquement les bonnes pratiques du skill sans que j'aie à les rappeler.</li>
-      <li><strong>Un agent</strong> exécute une mission à plusieurs étapes pendant que tu fais autre chose. Exemple : un agent de veille qui lit chaque matin 100 sources, écarte le bruit, résume l'essentiel et te prévient quand il a fini.</li>
-      <li><strong>Le combo :</strong> mon agent de veille utilise un skill "synthèse éditoriale" quand il rédige le résumé final. L'agent conduit, le skill apporte la méthode.</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Où tu vas les rencontrer</h3>
-    <p><strong>Les skills</strong>, tu les verras surtout dans Claude Code (les commandes <code>/skill list</code> et <code>/skill create</code>), dans les versions Team et Enterprise de claude.ai (gestion centralisée dans l'admin), et dans le pack de skills que je partage (ce sont des dossiers nommés <code>SKILL.md</code> dans un répertoire <code>~/.claude/skills/</code>).</p>
-    <p><strong>Les agents</strong>, tu les croises dans les articles qui parlent d'"agent de veille" ou d'"agent commercial", dans Claude Code lui-même (qui est un agent), dans des outils comme n8n ou Zapier quand ils appellent l'Agent SDK d'Anthropic, ou dans des offres SaaS prêtes à l'emploi qui emballent tout ça pour toi.</p>
-    <div class="lex-mockup lex-mockup-editor">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">~/.claude/skills/ — mes skills installés</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-editor-sidebar" style="grid-column: 1 / -1; padding: 16px 18px;">
-          <div class="lex-editor-folder" style="color: var(--teal); font-weight: 700;">.claude / skills</div>
-          <div class="lex-editor-folder" style="padding-left: 22px;">cold-email</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">SKILL.md</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">templates.md</div>
-          <div class="lex-editor-folder" style="padding-left: 22px;">seo-audit</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">SKILL.md</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">references/</div>
-          <div class="lex-editor-folder" style="padding-left: 22px;">copywriting</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">SKILL.md</div>
-          <div class="lex-editor-folder" style="padding-left: 22px;">humanizer</div>
-          <div class="lex-editor-file" style="padding-left: 42px;">SKILL.md</div>
-        </div>
-      </div>
-      <div class="lex-mockup-caption">1er mockup · un skill = un dossier avec un SKILL.md dedans · tu le copies une fois, Claude le charge tout seul</div>
-    </div>
-
-    <div class="lex-mockup lex-mockup-terminal" style="margin-top: 28px;">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">Claude Code — agent veille en cours</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Agent "veille-ia" démarré · Apr 20, 08:00</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> 100 sources chargées (blogs, X, YouTube, newsletters)</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Skill "synthèse-éditoriale" activé</div>
-        <div>&nbsp;</div>
-        <div class="lex-term-output">[1/100] Scanning thepragmaticengineer.com...</div>
-        <div class="lex-term-output">[2/100] Scanning simonwillison.net...</div>
-        <div class="lex-term-output">[3/100] Scanning latent.space...</div>
-        <div class="lex-term-output"><span class="lex-term-fuchsia">→</span> 2 articles pertinents détectés</div>
-        <div class="lex-term-output">...</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Synthèse rédigée en markdown</div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Envoyée à jeremy@sagnier.me</div>
-        <div>&nbsp;</div>
-        <div><span class="lex-term-prompt">Mission accomplie ·</span> <span class="lex-term-fuchsia">durée 4m 32s</span> <span class="lex-term-cursor"></span></div>
-      </div>
-      <div class="lex-mockup-caption">2e mockup · un agent tourne seul · ici il utilise un skill en passant · mission finie, il s'arrête</div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment t'en servir — pas à pas</h3>
-    <ol>
-      <li><strong>Pour un skill :</strong> télécharge ou copie le dossier du skill, dépose-le dans <code>~/.claude/skills/nom-du-skill/</code>. À l'intérieur, il y a un fichier <code>SKILL.md</code> avec une description. Claude lit cette description automatiquement et active le skill dès qu'il reconnaît le bon contexte. Tu n'as pas besoin de l'appeler à la main.</li>
-      <li><strong>Pour un agent :</strong> soit tu utilises Claude Code (qui est déjà un agent fonctionnel au quotidien), soit tu passes par un outil qui emballe ça proprement (n8n, Zapier, une solution SaaS), soit tu fais construire un agent sur mesure via l'Agent SDK d'Anthropic.</li>
-      <li><strong>Pour vérifier qu'un skill fonctionne :</strong> lance une demande qui correspond à sa spécialité et regarde si Claude applique la méthode du skill sans que tu la rappelles. Si oui, c'est en place.</li>
-      <li><strong>Pour vérifier qu'un agent fonctionne :</strong> donne-lui une mission simple avec un critère de fin clair ("scanne ces 10 sources, envoie-moi un résumé"), vérifie le résultat, ajuste ses instructions si besoin.</li>
-    </ol>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux les ignorer si…</h3>
-    <p>…tu utilises Claude uniquement pour des questions ponctuelles dans le chat. Pas besoin de skill si tu ne répètes jamais le même type de demande. Pas besoin d'agent si tu ne cherches pas à déléguer une mission à plusieurs étapes sans supervision.</p>
-    <p>En revanche, dès que tu te surprends à redonner les mêmes consignes deux fois ("écris comme ceci, suis ce plan, évite cela"), c'est le bon moment pour installer un skill. Et dès que tu répètes un enchaînement d'actions chaque semaine (lire des sources, synthétiser, publier), c'est le bon moment pour regarder du côté des agents.</p>
-    <p>Rassure-toi : tu n'as rien à programmer. Les skills se copient dans un dossier. Les agents existent déjà sous forme d'outils prêts à utiliser.</p>
-  </div>
-</section>
-</div>
-
-<!-- Mini-marquee avant l'entrée Plugin -->
-<div class="mini-marquee" aria-hidden="true">
-  <div class="mini-marquee-track">
-    <span>Skills · Agents : vus</span><span>Reste à voir</span><span>Où tu les trouves</span><span>Et comment tu les installes</span><span>En une commande</span>
-    <span>Skills · Agents : vus</span><span>Reste à voir</span><span>Où tu les trouves</span><span>Et comment tu les installes</span><span>En une commande</span>
-  </div>
-</div>
-
-<!-- ENTRÉE 08 · PLUGIN & MARKETPLACE -->
-<div class="container">
-<section class="lex-entry" id="plugin">
-  <div class="lex-header">
-    <span class="lex-number">08</span>
-    <div class="lex-titles">
-      <span class="lex-kicker">— Mot technique · #08</span>
-      <h2>Plugin &amp; Marketplace</h2>
-    </div>
-  </div>
-
-  <div class="lex-oneline">
-    <strong>En une phrase :</strong> un plugin, c'est un pack tout prêt de skills, commandes et agents que tu ajoutes à Claude Code en une ligne. Le marketplace, c'est la boutique officielle où tu les prends.
-  </div>
-
-  <div class="lex-block">
-    <h3>L'analogie qui clique</h3>
-    <p>Imagine un smartphone à la sortie d'usine. Il fonctionne, mais tu n'y trouves pas grand-chose : téléphone, SMS, navigateur. Tu ouvres l'<strong>App Store</strong>, tu télécharges WhatsApp, Notion, Spotify. En 3 minutes ton téléphone a 10 nouveaux super-pouvoirs.</p>
-    <p>C'est exactement ça pour Claude Code. À l'install de base, il sait coder et répondre. Avec un <strong>plugin</strong>, tu ajoutes en une commande un pack d'expertise : méthode de travail, docs à jour d'un framework, review automatique, etc. Le <strong>marketplace</strong> officiel d'Anthropic en expose plus de 140, tous testés et signés.</p>
-  </div>
-
-  <div class="lex-block">
-    <h3>À quoi ça te sert concrètement</h3>
-    <ul>
-      <li>Installer en une commande une méthodologie complète (<code>superpowers</code>) au lieu de la réécrire toi-même dans ton <code>CLAUDE.md</code>.</li>
-      <li>Brancher la doc officielle à jour d'un framework dans Claude Code (<code>context7</code>) · fini les réponses obsolètes de Claude sur Next.js ou Supabase.</li>
-      <li>Obtenir des interfaces front soignées sans briefer 20 lignes de prompt (<code>frontend-design</code> se déclenche tout seul).</li>
-    </ul>
-  </div>
-
-  <div class="lex-block lex-block-screenshot">
-    <h3>Les 6 plugins que j'utilise</h3>
-    <p>Ma sélection après plusieurs semaines de tests. Tous installables depuis le <a href="https://claude.com/plugins" target="_blank" rel="noopener">marketplace officiel</a> avec <code>claude plugin install &lt;nom&gt;</code>.</p>
-    <div class="lex-table-wrap">
-      <table class="lex-table">
-        <thead>
-          <tr>
-            <th>Plugin</th>
-            <th>Ce que ça apporte</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><code>superpowers</code></th>
-            <td>Méthodologie de projet · 14 skills + 3 commandes slash (<code>/brainstorm</code>, <code>/write-plan</code>, <code>/execute-plan</code>). Force Claude à spécifier avant de coder.</td>
-          </tr>
-          <tr>
-            <th><code>context7</code></th>
-            <td>Docs à jour de n'importe quel framework. Claude ne répond plus sur la version d'il y a 2 ans.</td>
-          </tr>
-          <tr>
-            <th><code>claude-md-management</code></th>
-            <td>Commande <code>/revise-claude-md</code> · audite et améliore le <code>CLAUDE.md</code> de ton projet courant.</td>
-          </tr>
-          <tr>
-            <th><code>frontend-design</code></th>
-            <td>Skill qui se déclenche tout seul sur les refontes UI. Génère du front production-grade.</td>
-          </tr>
-          <tr>
-            <th><code>code-review</code></th>
-            <td>Commande <code>/code-review</code> · multi-agents spécialisés avant un commit.</td>
-          </tr>
-          <tr>
-            <th><code>code-simplifier</code></th>
-            <td>Agent qui simplifie le code généré. Utile quand Claude a écrit 400 lignes pour ce qui en méritait 100.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="lex-mockup lex-mockup-terminal">
-      <div class="lex-mockup-chrome">
-        <span class="lex-mockup-dot red"></span>
-        <span class="lex-mockup-dot yellow"></span>
-        <span class="lex-mockup-dot green"></span>
-        <span class="lex-mockup-url">Terminal — installation des 6 plugins</span>
-      </div>
-      <div class="lex-mockup-body">
-        <div><span class="lex-term-prompt">jeremy@macbook ~ $</span> <span class="lex-term-command">claude plugin install superpowers</span></div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Successfully installed plugin: superpowers@claude-plugins-official</div>
-        <div><span class="lex-term-prompt">jeremy@macbook ~ $</span> <span class="lex-term-command">claude plugin install context7</span></div>
-        <div class="lex-term-output"><span class="lex-term-success">✓</span> Successfully installed plugin: context7@claude-plugins-official</div>
-        <div><span class="lex-term-prompt">jeremy@macbook ~ $</span> <span class="lex-term-command">claude plugin list</span></div>
-        <div class="lex-term-output">✔ superpowers · context7 · claude-md-management · frontend-design · code-review · code-simplifier</div>
-        <div>&nbsp;</div>
-        <div><span class="lex-term-fuchsia">›</span> <span class="lex-term-cursor"></span></div>
-      </div>
-      <div class="lex-mockup-caption">Une commande par plugin · l'état se voit avec <code>claude plugin list</code></div>
-    </div>
-  </div>
-
-  <div class="lex-block">
-    <h3>Comment installer — pas à pas</h3>
-    <ol>
-      <li><strong>Ouvre ton terminal</strong> (cf. entrée <a href="#cli">#04 CLI / Terminal</a> si tu n'es pas à l'aise).</li>
-      <li><strong>Liste les plugins déjà installés</strong> avec <code>claude plugin list</code> pour savoir d'où tu pars.</li>
-      <li><strong>Installe un plugin</strong> avec <code>claude plugin install &lt;nom&gt;</code>. Par exemple <code>claude plugin install context7</code>.</li>
-      <li><strong>Redémarre Claude Code</strong> (ferme et relance) pour que les nouvelles commandes slash soient reconnues.</li>
-      <li><strong>Teste-le</strong>. Pour <code>superpowers</code> : tape <code>/brainstorm</code> dans Claude Code sur une idée d'article. Pour <code>claude-md-management</code> : <code>/revise-claude-md</code>.</li>
-    </ol>
-    <p>Tu peux désactiver sans désinstaller avec <code>claude plugin disable &lt;nom&gt;</code> · réactiver avec <code>claude plugin enable &lt;nom&gt;</code>. Toujours testé et réversible.</p>
-  </div>
-
-  <div class="lex-block lex-block-reassure">
-    <h3>Tu peux l'ignorer si…</h3>
-    <p>…tu débutes complètement. Les plugins n'ont de sens qu'une fois que tu as utilisé Claude Code au moins une semaine et repéré ce qui te manque. Pour tes premiers jours, reste sur Claude Code sans plugin · tu verras vite les frustrations, et chaque plugin y répond précisément.</p>
-    <p>En revanche, dès que tu te dis « j'aimerais que Claude connaisse la dernière version de Next.js » ou « ma méthode de travail n'est pas respectée à chaque fois », c'est le bon moment. Une ligne de commande, c'est installé pour toujours, sur tous tes projets. Tu ne touches à rien d'autre.</p>
-  </div>
-</section>
-</div>
-
-<!-- Glossaire express · 62 termes IA en format compact -->
+<!-- Glossaire express · définitions IA en format compact -->
 <section class="lex-express-section" id="glossaire-express">
   <div class="container-wide">
-    <span class="section-kicker k-orange" style="display:inline-flex">— Glossaire express · 62 termes</span>
+    <span class="section-kicker k-orange" style="display:inline-flex">— Définitions express</span>
     <h2>Et tous les autres mots <em class="orange">que tu vas croiser.</em></h2>
-    <p class="lex-express-intro">Les essentiels restent là pour les sujets qui demandent plus qu'une ligne. En dessous, voilà les 62 définitions express que tu peux filtrer et chercher quand un mot te bloque dans un article, un podcast, une démo ou un outil.</p>
+    <p class="lex-express-intro">Ici, je garde les définitions courtes pour les mots que tu veux retrouver vite. Les 8 définitions fondatrices ont leur page à part, et les notions prioritaires gardent leurs pages dédiées pour le SEO.</p>
 
     <div class="lex-express-grid">
 
@@ -5044,25 +4250,21 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     const filterButtons = Array.from(document.querySelectorAll('[data-lex-filter]'));
     const azRows = Array.from(document.querySelectorAll('.lex-az-term'));
     const azGroups = Array.from(document.querySelectorAll('.lex-letter-group'));
-    const azMetaById = new Map(azRows.map((row) => [row.dataset.termId, {
-      letter: row.dataset.termLetter,
-      search: normalize(row.dataset.termSearch || ''),
-      page: Boolean(row.querySelector('a[href^="lexique/"]')),
-    }]));
-    const terms = Array.from(document.querySelectorAll('.lex-entry, .lex-card')).map((el) => {
-      const title = (el.querySelector('h2, h3')?.textContent || '').replace(/\s+/g, ' ').trim();
-      const category = (el.querySelector('.lex-card-cat')?.textContent || '— Essentiel').replace(/^—\s*/, '').trim();
-      const id = el.id;
-      const isEntry = el.classList.contains('lex-entry');
-      const azMeta = azMetaById.get(id);
+    const contentById = new Map(Array.from(document.querySelectorAll('.lex-card')).map((el) => [el.id, el]));
+    const terms = azRows.map((row) => {
+      const id = row.dataset.termId || '';
+      const content = contentById.get(id) || null;
+      const title = (row.querySelector('strong')?.textContent || '').replace(/\s+/g, ' ').trim();
+      const summary = (row.querySelector('small')?.textContent || '').replace(/\s+/g, ' ').trim();
+      const groups = new Set((row.dataset.termGroups || 'all').split(/\s+/).filter(Boolean));
       return {
-        el,
+        row,
+        el: content,
         id,
         title,
-        category,
-        firstLetter: azMeta?.letter || normalize(title).slice(0, 1).toUpperCase(),
-        text: normalize([title, category, el.textContent || '', azMeta?.search || ''].join(' ')),
-        groups: getGroups(id, category, isEntry),
+        firstLetter: row.dataset.termLetter || normalize(title).slice(0, 1).toUpperCase(),
+        text: normalize([title, summary, row.dataset.termSearch || '', content?.textContent || ''].join(' ')),
+        groups,
       };
     });
 
@@ -5078,28 +4280,6 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         .replace(/[./_-]+/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
-    }
-
-    function getGroups(id, category, isEntry) {
-      const cat = normalize(category);
-      const groups = new Set(['all']);
-      if (isEntry) groups.add('essentials');
-      if (azMetaById.get(id)?.page) groups.add('pages');
-      if (['cle-api', 'fichier-env', 'cli', 'mcp', 'plugin'].includes(id)) groups.add('outils');
-      if (['mcp', 'skill-agent'].includes(id)) groups.add('agents');
-      if (['cle-api', 'fichier-env'].includes(id)) groups.add('securite');
-      if (['token', 'modele'].includes(id)) groups.add('performance');
-      if (['token', 'modele'].includes(id)) groups.add('bases');
-
-      if (cat.includes('base') || cat.includes('concept') || cat.includes('modalite') || cat.includes('customisation')) groups.add('bases');
-      if (cat.includes('prompting') || cat.includes('controle')) groups.add('prompting');
-      if (cat.includes('performance')) groups.add('performance');
-      if (cat.includes('augmentation') || cat.includes('rag')) groups.add('rag');
-      if (cat.includes('agent') || cat.includes('memoire')) groups.add('agents');
-      if (cat.includes('risque') || cat.includes('securite') || cat.includes('supabase')) groups.add('securite');
-      if (cat.includes('codex') || cat.includes('github') || cat.includes('vercel') || cat.includes('connexion') || cat.includes('no-code')) groups.add('outils');
-      if (cat.includes('automatisation') || cat.includes('no-code') || cat.includes('connexion') || cat.includes('supabase')) groups.add('automatisation');
-      return groups;
     }
 
     function renderAlphaIndex() {
@@ -5120,22 +4300,14 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     function applyFilters() {
       const query = normalize(search?.value || '').trim();
       let visible = 0;
-      const visibleIds = new Set();
       terms.forEach((term) => {
         const matchFilter = activeFilter === 'all' || term.groups.has(activeFilter);
         const matchLetter = !activeLetter || term.firstLetter === activeLetter;
         const matchSearch = !query || term.text.includes(query);
         const show = matchFilter && matchLetter && matchSearch;
-        term.el.hidden = !show;
-        if (show) {
-          visible += 1;
-          visibleIds.add(term.id);
-        }
-      });
-
-      azRows.forEach((row) => {
-        const show = visibleIds.has(row.dataset.termId);
-        row.hidden = !show;
+        term.row.hidden = !show;
+        if (term.el) term.el.hidden = !show;
+        if (show) visible += 1;
       });
       azGroups.forEach((group) => {
         const hasVisibleRow = Boolean(group.querySelector('.lex-az-term:not([hidden])'));

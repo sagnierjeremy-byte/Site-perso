@@ -1,5 +1,29 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Split glossaire IA / 8 essentiels
+
+### Pourquoi
+Le lexique mélangeait deux usages : chercher rapidement une définition dans un vrai glossaire A-Z, et lire les 8 définitions longues créées au départ. Ça rendait la page trop dense et certains liens d'ancre devenaient fragiles après la réorganisation SEO.
+
+### Livré
+- **`lexique.html`** devient la page glossaire pure : recherche, filtres, index A-Z, définitions express et renvoi clair vers les 8 essentiels.
+- **`lexique-essentiels.html`** créé pour les 8 définitions fondatrices : Clé API, fichier `.env`, Token, CLI, MCP, Modèle IA, Skill & Agent, Plugin.
+- **Routes contrôlées** : les entrées A-Z `CLI / Terminal` et `Plugin` pointent vers `/lexique-essentiels.html#...`; les pages SEO gardent leurs URLs `/lexique/<slug>.html`.
+- **Parcours Apprendre** : étape 01 passée de 2 à 3 repères avec une carte dédiée aux 8 essentiels et une carte séparée pour le glossaire A-Z.
+- **SEO** : ajout de `/lexique-essentiels` au sitemap, canonical + schema WebPage, et correction des CTA des pages termes vers le hub A-Z sans ancre fragile.
+
+### Fichiers touchés
+- `CHANGELOG.md`
+- `apprendre.html`
+- `lexique.html`
+- `lexique-essentiels.html`
+- `lexique/*.html`
+- `scripts/build-lexique.js`
+- `sitemap.xml`
+
+### À venir
+- Ajouter progressivement des liens contextuels depuis les articles vers les pages terme prioritaires, plutôt que tout pousser vers le hub.
+
 ## 2026-05-22 · Fix routes du glossaire IA
 
 ### Pourquoi

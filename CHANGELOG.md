@@ -1,5 +1,78 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · News page v2 — search/sort/trending/AI summary
+
+### Pourquoi
+La page `/news` était un agrégateur RSS plat : 60 articles tous au même poids, pas de search, pas de tri, pas de hiérarchie. Refonte UX en 7 chantiers pour la transformer en vraie page de veille intelligente pour entrepreneurs.
+
+Spec : `docs/superpowers/specs/2026-05-22-news-page-enhancements-design.md`
+Plan : `docs/superpowers/plans/2026-05-22-news-page-enhancements.md` (16 tâches en 5 phases)
+Exécution : 15 sous-agents dispatchés (mode subagent-driven), 15 commits atomiques.
+
+### Livré
+
+**Phase 1 — Foundation (T1-T3)**
+- `assets/news-page.js` créé (extract du JS inline de news.html)
+- `scripts/news-helpers.mjs` créé : helpers purs (normalize, tokenize, jaccard, buildClusters, timeBucket, capFifo) partagés client + tests
+- `tests/news.test.mjs` : 9 tests unitaires (17/17 pass globalement)
+
+**Phase 2 — UX features (T4-T11)**
+- State unifié + pipeline déterministe `applyFiltersAndRender()`
+- Search bar live (debounce 200ms, normalize accents, scope title+excerpt+source)
+- Filtre par source : dropdown `<select>` avec `<optgroup>` par catégorie, auto-généré
+- Tri : Trending / Plus récents / A-Z Source
+- Groupes temporels : Aujourd'hui / Hier / Cette semaine / Plus ancien (uniquement sur tri date)
+- Marqueur "déjà lu" : capture clic, opacity 0.55, badge "vu", localStorage cap FIFO 500
+- Toggle "Cacher lus" + "Tout marquer comme lu" + "Réinitialiser" (avec confirm)
+- URL state : `?cat=&source=&sort=&q=&hideRead=` pour bookmark / partage
+- Empty state : "Aucun article ne matche tes filtres" + bouton reset
+- Featured card pattern préservé sur tris non-date
+
+**Phase 3 — Trending (T12)**
+- `buildClusters()` détecte 3+ sources couvrant le même sujet (Jaccard 0.35 + 3 mots communs)
+- Badge "🔥 N sources" fuchsia sur les cards trending
+- Tri "Trending" : clusters en haut par taille décroissante
+
+**Phase 4 — Synthèse IA quotidienne (T13-T15)**
+- `scripts/build-news-summary.js` : appelle Claude Sonnet avec forced tool use `record_summary`, sécurisé contre prompt injection
+- `.github/workflows/daily-news-summary.yml` : cron 5h UTC (7h Paris), commit + push auto du JSON
+- `data/news-summary.json` : sample initial committé (sera overwritten par le cron)
+- Encart dark Fiesta en haut de `/news` : day_label + 5 items numérotés (titre + pourquoi c'est important + sources cliquables)
+- Close button per-day (localStorage flag `news-summary-closed-YYYY-MM-DD`)
+- Bannière "obsolète" si generated_at > 30h
+
+### Fichiers touchés
+- `news.html` (refactor + nouveau markup pour search, controls, summary card)
+- `assets/news-page.js` (créé, ~600 lignes)
+- `assets/news-page.css` (créé)
+- `scripts/news-helpers.mjs` (créé)
+- `scripts/build-news-summary.js` (créé)
+- `tests/news.test.mjs` (créé)
+- `data/news-summary.json` (créé, sera regénéré)
+- `.github/workflows/daily-news-summary.yml` (créé)
+- `package.json` (+@anthropic-ai/sdk, +news:build script)
+
+### Étape manuelle requise avant le 1er run du cron
+Ajouter `ANTHROPIC_API_KEY` en GitHub repo secret :
+> Repo → Settings → Secrets and variables → Actions → New repository secret
+> Name: `ANTHROPIC_API_KEY` · Value: clé depuis https://console.anthropic.com/
+
+Sans ce secret, le workflow échoue au step "Build summary".
+
+### Coût marginal mensuel
+~0,15 $ Claude API (30 runs × 3k input + 600 output tokens) + 0 $ GitHub Actions free tier + 0 $ Vercel.
+
+### Performance
+- 17/17 tests pass
+- JS inline news.html : ~6 Ko → JS externe ~15 Ko (cache-bust ?v=20260522-v2)
+- Clustering 60 articles : ~5ms
+
+### À surveiller
+- Premier run du cron J+1 7h Paris : vérifier que `data/news-summary.json` est bien mis à jour + Vercel redéploie
+- 3 npm vulnérabilités transitives (2 moderate, 1 high) signalées par `npm install @anthropic-ai/sdk` — à auditer ultérieurement via `npm audit`
+
+---
+
 ## 2026-05-22 · Glossaire IA enrichi à 130 termes
 
 ### Pourquoi

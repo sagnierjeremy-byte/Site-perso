@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agents IA en 2026 — Le guide complet par un non-dev · Jérémy Sagnier</title>
+<meta name="description" content="Le guide pillar Agents IA 2026 en français : définition, 3 niveaux pour les construire (no-code, low-code, full code), 6 workflows qui marchent, prix, architecture, erreurs classiques, FAQ exhaustive, glossaire.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Agents IA — Le guide complet en français (par un non-dev)">
+<meta property="og:description" content="Agent IA en 2026 : c'est quoi, comment en construire un en no-code ou low-code, quels workflows marchent vraiment, combien ça coûte. 5000 mots, FAQ exhaustive, glossaire.">
+<meta property="og:url" content="https://jerwis.fr/agents-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/agents-ia-guide.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/agents-ia-guide.jpg">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Agents IA — Le guide complet par un non-dev">
+<meta name="twitter:description" content="Tout sur les agents IA en 2026 : no-code vs low-code vs full code, workflows utiles, prix, architecture, FAQ, glossaire.">
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/agents-ia">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Agents IA", "item": "https://jerwis.fr/agents-ia" }
+  ]
+}
+</script>
+
+<!-- Schema.org : Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Agents IA en 2026 — Le guide complet par un non-dev",
+  "description": "Le guide pillar Agents IA en français : définition, 3 niveaux pour construire (no-code, low-code, full code), workflows populaires, prix, architecture, FAQ exhaustive.",
+  "inLanguage": "fr-FR",
+  "datePublished": "2026-05-22",
+  "dateModified": "2026-05-22",
+  "author": {
+    "@id": "https://jerwis.fr/#jeremy",
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jerwis.fr/agents-ia"
+  },
+  "image": "https://jerwis.fr/photos/og/agents-ia-guide.jpg"
+}
+</script>
+
+<!-- Schema.org : HowTo (Construire un premier agent) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Construire ton premier agent IA en partant de zéro",
+  "description": "Méthode pas à pas pour passer d'une idée à un premier agent IA fonctionnel, sans être développeur.",
+  "totalTime": "PT60M",
+  "inLanguage": "fr-FR",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/"
+  },
+  "datePublished": "2026-05-22",
+  "step": [
+    { "@type": "HowToStep", "name": "Choisir un cas d'usage simple et répétitif" },
+    { "@type": "HowToStep", "name": "Choisir le bon niveau d'outil (no-code, low-code, full code)" },
+    { "@type": "HowToStep", "name": "Brancher l'IA et les outils dont l'agent a besoin" },
+    { "@type": "HowToStep", "name": "Tester en mode humain dans la boucle" },
+    { "@type": "HowToStep", "name": "Mettre en prod avec des garde-fous et du monitoring" }
+  ]
+}
+</script>
+
+<!-- Schema.org : FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi un agent IA en une phrase ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un agent IA, c'est un grand modèle de langage (LLM) à qui on a donné des outils, une boucle d'exécution et un objectif. Au lieu de juste répondre à une question, il agit, vérifie le résultat, et recommence jusqu'à atteindre son but. Simon Willison résume ça en une formule : LLM + tools + loop + goal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour faire un agent IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je ne suis pas développeur et j'en ai construit plusieurs. Les outils no-code (Lindy, Zapier, n8n, Crew AI Studio) permettent de monter un agent fonctionnel en une heure sans écrire de code. Pour aller plus loin, Claude Code et les Custom GPTs te font passer en low-code avec une courbe d'apprentissage raisonnable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un agent IA en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois fourchettes : un agent no-code coûte entre 15 et 100 euros par mois (Lindy à 49 USD, n8n self-hosted gratuit, Zapier à partir de 30 USD). Un agent low-code branché sur Claude ou GPT tourne entre 20 et 200 euros par mois selon l'usage des API. Un agent full code maison coûte ce que tu paies en tokens, généralement entre 50 et 500 euros par mois pour un usage personnel régulier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Agent IA vs chatbot : quelle différence ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un chatbot répond à des questions dans une conversation. Un agent agit dans le monde. Le chatbot retourne du texte ; l'agent lit un email, modifie un fichier, lance un appel API, vérifie le résultat. La différence centrale, c'est la capacité d'exécuter des outils et de bouclier sur le résultat jusqu'à atteindre un objectif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les meilleurs frameworks pour construire un agent IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour le no-code, Lindy et Crew AI Studio. Pour le low-code, Claude Code (skills + MCP) et les Custom GPTs d'OpenAI. Pour le full code, LangGraph (LangChain), l'Anthropic Agent SDK, AutoGen de Microsoft et CrewAI restent les références. Mon réflexe pour démarrer, c'est Claude Code, parce que c'est ce qui me donne le plus de contrôle sans m'obliger à écrire du Python."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un agent IA peut-il faire des bêtises et casser quelque chose ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un agent qui a accès à ta boîte mail, à ta base de données ou à ton GitHub peut envoyer un message à la mauvaise personne, supprimer un fichier ou pusher un commit cassé. La protection passe par trois choses : des garde-fous (interdire certaines actions), un humain dans la boucle avant les actions sensibles, et des logs pour pouvoir revenir en arrière. Je ne mets jamais un agent en autonomie totale sur des données financières ou clients sensibles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment monitorer un agent IA en production ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois briques de base : logs détaillés de chaque action (prompt, outil appelé, résultat, durée), alertes sur les erreurs ou les timeouts, dashboard de coût quotidien en tokens. Pour aller plus loin, LangSmith, Helicone ou Langfuse offrent un traçage par étape utile pour comprendre pourquoi un agent a pris une mauvaise décision. Pour mes agents perso, je branche simplement Telegram sur les événements critiques."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels cas d'usage marchent vraiment pour un agent IA en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les six qui fonctionnent le mieux dans mon expérience et celle de ma veille : agent email (tri et brouillon de réponse), agent contrats (relecture et clauses à risque), agent recherche (synthèse de plusieurs sources), agent vente (qualif de leads et brief commercial), agent veille (digest quotidien) et agent personnel (calendrier, tâches, rappels). Les cas d'usage qui plantent souvent : agents de support client autonomes, agents qui prennent des décisions financières seuls, agents créatifs sans relecture humaine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sont les limites connues des agents IA actuels ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre limites que je rencontre régulièrement : l'hallucination sur des données qu'ils ne connaissent pas, la dérive sur les sessions très longues au-delà de 500 000 tokens, l'incapacité à apprendre de leurs erreurs entre deux runs sans mécanisme de mémoire externe, et le coût qui peut exploser si tu laisses un agent boucler sans budget plafond. Aucun agent en 2026 n'est encore vraiment fiable à 100 %, même les plus avancés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment empêcher un agent IA d'halluciner ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois techniques qui marchent en combiné : RAG (Retrieval Augmented Generation) pour brancher l'agent sur une base de connaissances fiable, prompt qui force l'agent à citer ses sources et à dire je ne sais pas plutôt que d'inventer, et tools intermédiaires de vérification (recherche web, lecture de doc à jour via context7). L'hallucination tombe à environ 5 % avec un bon setup, contre 20 à 30 % en mode purement génératif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il garder un humain dans la boucle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour toute action irréversible ou sensible : oui, sans hésitation. Envoyer un email à un client, signer un document, supprimer une donnée, autoriser un paiement. Pour les actions à faible enjeu et facilement réversibles : non, l'agent peut tourner en autonomie. La règle que j'applique chez moi, c'est human in the loop sur tout ce qui touche à de l'argent, du client direct ou de la donnée légale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Agent IA et RAG : comment les combiner ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le RAG donne à l'agent une base de connaissances dans laquelle il va piocher avant de répondre. Concrètement, tu indexes tes documents en embeddings, tu stockes ça dans une base vectorielle (Pinecone, Supabase pgvector, Weaviate), et tu donnes à ton agent un tool search_knowledge_base. Quand il a besoin d'info métier, il cherche d'abord dans ta base avant d'utiliser sa connaissance générale. C'est la combinaison la plus puissante en 2026 pour les agents en entreprise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vie privée des données : un agent IA peut-il les fuiter ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui si tu n'es pas vigilant. Trois zones à risque : les API du fournisseur de LLM (Anthropic et OpenAI conservent les conversations 30 jours par défaut pour la modération abuse, sauf en mode Zero Data Retention sur les comptes Enterprise), les outils tiers que tu branches via MCP, et les logs de ton propre agent. Pour des données sensibles, je préfère un modèle hébergé (Llama, Mistral sur ton serveur) plutôt qu'une API externe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Agent open-source ou propriétaire : que choisir ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour démarrer et apprendre, propriétaire : Claude, GPT, Gemini sont plus simples à brancher, plus fiables, mieux documentés. Pour scaler à un usage massif ou pour des données sensibles, open-source devient pertinent : Llama 4, Mistral, Qwen tournent sur ton infra, coût marginal proche de zéro, et tu gardes la main sur les données. Le mix gagnant en 2026 chez beaucoup de boîtes, c'est Claude ou GPT pour les tâches de réflexion, Llama local pour le traitement de masse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel modèle Claude ou GPT utiliser pour un agent IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mon réflexe en 2026 : Claude Sonnet 4.x pour 80 % des tâches d'agent (rapide, économique, bon raisonnement), Claude Opus 4.7 quand la tâche est complexe ou nécessite du contexte long (jusqu'à 1 million de tokens), GPT-5 quand je veux varier ou pour des tâches très créatives. Pour les agents qui font de la recherche en boucle, Sonnet fait le job. Pour des décisions critiques d'architecture, Opus."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:          #FBF7F0;
+    --bg-2:        #F2EDE2;
+    --surface:     #FFFFFF;
+    --ink:         #0A0A0A;
+    --ink-soft:    #3A3A3A;
+    --ink-muted:   #6E6E6E;
+    --line:        rgba(10,10,10,.10);
+    --line-strong: rgba(10,10,10,.18);
+    --code-bg:     #F4EFE6;
+    --code-ink:    #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:          #0A0A0A;
+    --bg-2:        #141414;
+    --surface:     #141414;
+    --ink:         #F4EFE6;
+    --ink-soft:    #D4D4D4;
+    --ink-muted:   #9A9A9A;
+    --line:        rgba(255,255,255,.10);
+    --line-strong: rgba(255,255,255,.22);
+    --code-bg:     #1A1A1A;
+    --code-ink:    #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .3;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Hero */
+  .hero {
+    padding: 72px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.22), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.22), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,130,0,.12), transparent 60%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6;
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4);
+    border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: .92;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    margin-bottom: 28px;
+    max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--fuchsia); }
+  .hero h1 em.teal { color: var(--teal); }
+  .hero h1 em.orange { color: var(--orange); }
+  .hero p.hero-lead {
+    font-size: 17.5px;
+    color: #C4CED4;
+    max-width: 640px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta {
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-cta.primary { background: var(--fuchsia); color: #fff; }
+  .hero-cta.ghost {
+    background: transparent; color: #F4EFE6;
+    border: 1.5px solid rgba(255,255,255,.3);
+  }
+  .hero-cta:hover { transform: translateY(-2px); }
+
+  /* Sections */
+  section.block { padding: 80px 0; border-top: 1px solid var(--line) }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: .98;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 2.5vw, 28px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin: 32px 0 16px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--code-ink);
+  }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px;
+    border-radius: 14px;
+    margin: 20px 0;
+    position: relative;
+    padding-left: 52px;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 14px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Definition card */
+  .definition-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-left: 4px solid var(--fuchsia);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 24px 0 32px;
+  }
+  .definition-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink-muted);
+    margin: 0 0 10px;
+  }
+  .definition-card p {
+    margin: 0;
+    font-size: 16.5px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .definition-card p strong { color: var(--ink); font-weight: 800 }
+
+  /* Comparison table */
+  .compare-wrap {
+    margin: 28px 0 32px;
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    -webkit-overflow-scrolling: touch;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+  }
+  .compare-table thead th {
+    background: var(--bg-2);
+    text-align: left;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--line-strong);
+    white-space: nowrap;
+  }
+  .compare-table tbody tr { border-bottom: 1px solid var(--line) }
+  .compare-table tbody tr:last-child { border-bottom: none }
+  .compare-table td {
+    padding: 16px;
+    vertical-align: top;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .compare-table td.tool-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .compare-table td.tool-name .tool-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .compare-table td.tool-name .dot-teal    { background: var(--teal) }
+  .compare-table td.tool-name .dot-fuchsia { background: var(--fuchsia) }
+  .compare-table td.tool-name .dot-orange  { background: var(--orange) }
+  .compare-table td.tool-name .dot-ink     { background: var(--ink) }
+
+  /* Profile cards */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin: 28px 0 12px;
+  }
+  @media (min-width: 800px) { .profile-grid { grid-template-columns: 1fr 1fr } }
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 24px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .profile-card.p-teal::before    { background: var(--teal) }
+  .profile-card.p-fuchsia::before { background: var(--fuchsia) }
+  .profile-card.p-orange::before  { background: var(--orange) }
+  .profile-card.p-ink::before     { background: var(--ink) }
+  .profile-card .profile-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .profile-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .profile-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .profile-card p:last-child { margin: 0 }
+  .profile-card .profile-links {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 14px;
+  }
+  .profile-card .profile-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--bg-2);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    transition: border-color .2s, color .2s;
+  }
+  .profile-card .profile-links a:hover {
+    border-color: var(--fuchsia);
+    color: var(--fuchsia);
+  }
+
+  /* Article cards */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  @media (min-width: 720px)  { .articles-grid { grid-template-columns: 1fr 1fr } }
+  .article-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .article-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--fuchsia);
+    box-shadow: 0 18px 38px -22px rgba(239,66,111,.45);
+    color: inherit;
+  }
+  .article-card .article-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .article-card .article-kicker .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .article-card.c-teal    .article-kicker .dot { background: var(--teal) }
+  .article-card.c-fuchsia .article-kicker .dot { background: var(--fuchsia) }
+  .article-card.c-orange  .article-kicker .dot { background: var(--orange) }
+  .article-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.15;
+  }
+  .article-card p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .article-card .article-read {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    margin-top: 4px;
+  }
+  .article-card:hover .article-read { color: var(--orange) }
+
+  /* Glossary list */
+  .glossary-list {
+    list-style: none;
+    margin: 28px 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 720px) { .glossary-list { grid-template-columns: 1fr 1fr } }
+  .glossary-list li {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .glossary-list li strong {
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    font-size: 13.5px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .glossary-list li a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--fuchsia);
+    margin-left: 6px;
+  }
+  .glossary-list li a:hover { color: var(--orange) }
+
+  /* FAQ expandable */
+  .faq-list { margin: 28px 0 }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .faq-item[open] { border-color: var(--fuchsia) }
+  .faq-item summary {
+    cursor: pointer;
+    padding: 18px 22px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none }
+  .faq-item summary::after {
+    content: "+";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: var(--fuchsia);
+    transition: transform .2s;
+    line-height: 1;
+  }
+  .faq-item[open] summary::after { content: "−" }
+  .faq-item .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .faq-item .faq-answer p { margin: 0 0 10px; font-size: 15px }
+  .faq-item .faq-answer p:last-child { margin: 0 }
+  .faq-item .faq-answer a { color: var(--fuchsia); text-decoration: underline }
+
+  /* Resources */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+  @media (min-width: 720px) { .resources-grid { grid-template-columns: 1fr 1fr } }
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s, transform .2s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .resource-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+  .resource-card .res-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .resource-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .resource-card p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg);
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-newsletter {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+  @media (min-width: 800px) {
+    .footer-newsletter { grid-template-columns: 1.2fr 1fr; align-items: center; }
+  }
+  .footer-newsletter h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 3vw, 32px);
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin: 12px 0 10px;
+  }
+  .footer-newsletter h3 em { font-style: normal; color: var(--fuchsia); }
+  .footer-newsletter p { margin: 0; font-size: 14.5px; }
+  .newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .newsletter-form input {
+    flex: 1; min-width: 200px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+  }
+  .newsletter-form input:focus { outline: none; border-color: var(--fuchsia) }
+  .newsletter-form button {
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: none;
+    background: var(--fuchsia);
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 12px 28px -10px rgba(239,66,111,.5);
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  @media (min-width: 720px)  { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr } }
+  .footer-brand h3 { font-family: 'Archivo Black', sans-serif; font-size: 22px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: -.02em; }
+  .footer-brand p { font-size: 14px; color: var(--ink-soft); margin: 0; }
+  .footer-col h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .footer-col ul { list-style: none; margin: 0; padding: 0 }
+  .footer-col li { margin-bottom: 6px; }
+  .footer-col a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color .2s;
+  }
+  .footer-col a:hover { color: var(--fuchsia); }
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Mini-marquee — signature Fiesta */
+  .mini-marquee {
+    overflow: hidden;
+    padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,.18);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆";
+    color: rgba(10,10,10,.5);
+    font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  .skip-link {
+    position: absolute; left: -9999px;
+  }
+  .skip-link:focus {
+    position: fixed; top: 12px; left: 12px;
+    z-index: 200;
+    padding: 10px 14px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+</style>
+<link rel="stylesheet" href="assets/nav-v2.css?v=20260520-dropdown">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="assets/mobile-fixes.css">
+<script src="assets/nav-dropdown.js?v=20260520-unified" defer></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Navigation principale">
+  <a class="brand brand-stamp" href="/" aria-label="Accueil Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/apprendre">Apprendre</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
+        Plus
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>Modèles image IA</strong><span>Génération d'images, audio, vidéo</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>Lexique IA</strong><span>40 termes expliqués</span></span>
+        </a>
+        <a href="/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code par métier</span></span>
+        </a>
+        <a href="/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>Mes outils</strong><span>Ma stack IA et web</span></span>
+        </a>
+        <a href="/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>Pour non-devs · guide complet</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>Actus IA et Business</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>Qui je suis</strong><span>Bio + parcours + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Photos perso · 39 €</strong><span>Générateur de photos IA</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>Guide pillar · Agents IA en 2026</div>
+    <h1>Agents IA ·<br>le guide complet<br>par un <em>non-dev.</em></h1>
+    <p class="hero-lead">
+      Salut, moi c'est Jérémy. Je ne suis pas développeur. Pourtant, en 2026, j'ai monté plusieurs agents IA qui me servent tous les jours. Sur cette page, je rassemble tout ce que j'ai appris : ce qu'est vraiment un agent, les trois niveaux pour en construire un (no-code, low-code, full code), les workflows qui marchent, le prix, l'architecture, les erreurs classiques. Tout en français, sans jargon inutile.
+    </p>
+    <div class="hero-ctas">
+      <a class="hero-cta primary" href="/articles/agents-ia-guide">Lire le guide en profondeur</a>
+      <a class="hero-cta ghost" href="#construire">Voir comment construire</a>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 1 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>LLM</span><span>+ Outils</span><span>+ Boucle</span><span>+ Objectif</span><span>= Agent IA</span><span>Simon Willison</span>
+    <span>LLM</span><span>+ Outils</span><span>+ Boucle</span><span>+ Objectif</span><span>= Agent IA</span><span>Simon Willison</span>
+  </div>
+</div>
+
+<!-- Section A : C'est quoi un agent IA -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Définition</span>
+    <h2>Qu'est-ce qu'un<br><em class="fuchsia">agent IA ?</em></h2>
+
+    <div class="definition-card">
+      <h4>En une phrase</h4>
+      <p><strong>Un agent IA, c'est un grand modèle de langage à qui on a donné des outils, une boucle d'exécution et un objectif.</strong> Simon Willison, l'une des voix les plus claires sur le sujet, résume ça par la formule : <em>LLM + tools + loop + goal</em>. C'est tout. Pas de magie, juste quatre briques qui marchent ensemble.</p>
+    </div>
+
+    <p>
+      Concrètement, un agent IA part d'une intention que tu lui donnes en français (ou en anglais, ou en n'importe quelle langue qu'un <a href="/lexique/llm">LLM</a> comprend). Au lieu de juste te répondre par du texte comme un chatbot classique, il décide d'appeler des outils : lire un fichier, interroger une base de données, envoyer un email, faire une recherche web. Il observe le résultat, réfléchit, recommence si besoin. La boucle s'arrête quand l'objectif est atteint, ou quand un humain reprend la main.
+    </p>
+
+    <h3>Agent vs chatbot · la différence centrale</h3>
+    <p>
+      <strong>Un chatbot répond. Un agent agit.</strong> ChatGPT en mode chat classique, c'est un chatbot : tu lui poses une question, il génère du texte. Un agent IA, c'est différent : tu lui dis « envoie un brief à mes 10 derniers leads » et il va vraiment lire ton CRM, ouvrir Gmail, rédiger 10 emails personnalisés, te demander validation pour les envoyer. C'est cette capacité d'exécuter des actions dans le monde réel qui change tout.
+    </p>
+
+    <p>
+      Cette distinction est récente. En 2023, on parlait surtout d'« assistants IA » qui te proposaient du texte. En 2024, les premiers vrais frameworks d'agents sont sortis (LangChain, AutoGen). En 2025, les capacités de raisonnement des LLMs ont franchi un seuil qui rendait les agents fiables sur des tâches complexes. <strong>2026, c'est l'année où les agents IA sont devenus une réalité utilisable au quotidien</strong>, même pour des non-développeurs.
+    </p>
+
+    <h3>Pourquoi 2026 c'est l'année des agents</h3>
+    <p>
+      Trois choses ont changé en même temps. <strong>Premièrement, les modèles ont gagné en raisonnement</strong> : Claude Sonnet 4.x, GPT-5 et Gemini 2 raisonnent sur plusieurs étapes sans perdre le fil. <strong>Deuxièmement, le standard MCP a explosé</strong> : depuis fin 2024, n'importe quel agent peut se brancher sur Sanity, Stripe, Telegram ou n'importe quel service via le <a href="/lexique/mcp">Model Context Protocol</a>. <strong>Troisièmement, le no-code agent a émergé</strong> : Lindy, Crew AI Studio, Zapier AI Actions permettent de monter un agent en une heure, sans coder.
+    </p>
+
+    <p>
+      Résultat : ce qui demandait une équipe de devs et deux mois de boulot en 2023 se fait en un après-midi en 2026. C'est pour ça que j'ai écrit cette page : la barrière à l'entrée s'est effondrée, et beaucoup de gens ne le savent pas encore.
+    </p>
+
+    <div class="callout tip">
+      <h4>La citation à retenir</h4>
+      <p>« Un agent, c'est un LLM qui exécute une boucle d'outils dans un environnement pour atteindre un objectif. » — Simon Willison, créateur de Datasette, observateur de référence sur les LLMs depuis 2022.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 2 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>No-code</span><span>Low-code</span><span>Full code</span><span>Trois niveaux</span><span>Une seule logique</span><span>À toi de choisir</span>
+    <span>No-code</span><span>Low-code</span><span>Full code</span><span>Trois niveaux</span><span>Une seule logique</span><span>À toi de choisir</span>
+  </div>
+</div>
+
+<!-- Section B : Les 3 niveaux pour construire un agent -->
+<section class="block" id="construire">
+  <div class="container">
+    <span class="section-kicker k-teal">— Méthode</span>
+    <h2>Les 3 niveaux pour<br><em class="teal">construire un agent.</em></h2>
+
+    <p>
+      Avant de te demander quel outil choisir, il faut savoir à quel niveau tu veux jouer. J'ai testé les trois. Chacun a sa logique, ses limites, son public. Voici ma grille de lecture.
+    </p>
+
+    <h3>Niveau 1 · No-code (la rampe d'entrée)</h3>
+    <p>
+      Le no-code, c'est l'option pour démarrer. Tu n'écris pas une ligne de code. Tu glisses-déposes des blocs dans une interface visuelle. L'agent est construit comme un assemblage de briques. Mes quatre outils préférés à ce niveau :
+    </p>
+    <ul>
+      <li><strong>Lindy</strong> · agent email principalement, mais aussi calendrier, recherche, automatisations. Très propre, plan gratuit, payant à 49 USD par mois pour le sérieux.</li>
+      <li><strong>Zapier AI Actions</strong> · le géant du no-code a sorti une couche IA. Tu connectes tes 7000 apps habituelles avec un agent en surcouche. Pratique si tu vis déjà dans Zapier.</li>
+      <li><strong>Crew AI Studio</strong> · le no-code de CrewAI, le framework open-source. Tu construis des équipes d'agents qui collaborent. Plus visuel et plus complet que Lindy pour des workflows multi-agents.</li>
+      <li><strong>n8n + IA</strong> · n8n est un outil d'automatisation open-source que tu peux self-hoster gratuitement. Sa couche IA est solide, et tu gardes la main sur tes données.</li>
+    </ul>
+    <p>
+      <strong>Mon conseil :</strong> si tu débutes, commence par Lindy ou Crew AI Studio. Tu auras un agent fonctionnel en une heure. C'est le meilleur moyen de comprendre la logique avant de monter en niveau.
+    </p>
+
+    <h3>Niveau 2 · Low-code (le sweet spot)</h3>
+    <p>
+      Le low-code, c'est mon niveau préféré. Tu écris un peu de configuration en YAML, JSON ou markdown, mais l'outil fait le gros du travail technique. Tu gardes le contrôle, sans l'effort d'un projet full code. Mes trois options à ce niveau :
+    </p>
+    <ul>
+      <li><strong>Claude Code + skills + MCP</strong> · ma stack quotidienne. Claude Code est l'agent terminal d'Anthropic, les skills sont des dossiers d'instructions qui se déclenchent automatiquement, MCP permet de brancher n'importe quel service externe. <a href="/claude-code">Le guide complet est ici</a>.</li>
+      <li><strong>OpenAI Custom GPTs</strong> · tu construis un agent en quelques minutes via une interface guidée dans ChatGPT. Limité aux outils OpenAI (search, code interpreter, DALL-E), mais très accessible.</li>
+      <li><strong>Anthropic Skills (dans Claude Desktop)</strong> · même logique que les skills Claude Code mais sans terminal. Mac et Windows. Le ticket d'entrée le plus bas de tous.</li>
+    </ul>
+    <p>
+      <strong>Mon conseil :</strong> si tu fais de la rédaction, du marketing, du sales, ou tout métier intellectuel, Claude Code te donnera 10× plus de levier qu'un outil no-code. La courbe d'apprentissage est de quelques jours, pas de quelques mois.
+    </p>
+
+    <h3>Niveau 3 · Full code (pour les vrais projets)</h3>
+    <p>
+      Le full code, c'est quand tu veux construire un agent qui va en production avec des contraintes fortes : performance, coût optimisé, intégration profonde dans un système existant, équipe technique derrière. Les frameworks de référence en 2026 :
+    </p>
+    <ul>
+      <li><strong>LangGraph</strong> · l'évolution de LangChain, le framework Python le plus utilisé pour orchestrer des agents complexes. Graphes d'états, persistance, human in the loop natif.</li>
+      <li><strong>Anthropic Agent SDK</strong> · le SDK officiel d'Anthropic pour Python et TypeScript. Plus simple que LangGraph, plus opinionated. Idéal si tu construis tout autour de Claude.</li>
+      <li><strong>AutoGen (Microsoft)</strong> · framework conversationnel multi-agents, fort pour les setups où plusieurs agents collaborent.</li>
+      <li><strong>OpenAI Agents SDK</strong> · l'équivalent du côté OpenAI. Sortie publique fin 2025, monte vite en maturité.</li>
+    </ul>
+    <p>
+      <strong>Mon conseil :</strong> ne va en full code que si le low-code ne suffit plus. Pour 90 % des cas d'usage personnels et même PME, Claude Code couvre le besoin. Le full code est utile quand tu veux héberger toi-même, scaler à des milliers d'utilisateurs, ou avoir un contrôle fin du coût en tokens.
+    </p>
+
+    <h3>Tableau comparatif</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Niveau</th>
+            <th>Effort</th>
+            <th>Prix</th>
+            <th>Contrôle</th>
+            <th>Scalabilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-teal"></span>No-code</td>
+            <td>1 h pour le premier agent</td>
+            <td>0 à 100 €/mois</td>
+            <td>Limité (briques figées)</td>
+            <td>Faible (plafond rapide)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Low-code</td>
+            <td>1 jour pour bien démarrer</td>
+            <td>20 à 200 €/mois</td>
+            <td>Élevé (skills + MCP)</td>
+            <td>Bonne (perso et PME)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-orange"></span>Full code</td>
+            <td>Semaines à mois selon scope</td>
+            <td>Variable (tokens API)</td>
+            <td>Total (architecture maison)</td>
+            <td>Illimitée (production)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>Mon parcours perso</h4>
+      <p>J'ai commencé en 2024 avec Lindy pour comprendre. En 2025, je suis passé sur Claude Code et je n'en suis jamais ressorti. J'ai effleuré le full code une fois pour un projet client. <strong>Conclusion : le low-code Claude Code couvre 95 % de mes besoins.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 3 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Agent email</span><span>Agent contrats</span><span>Agent recherche</span><span>Agent vente</span><span>Agent veille</span><span>Agent perso</span>
+    <span>Agent email</span><span>Agent contrats</span><span>Agent recherche</span><span>Agent vente</span><span>Agent veille</span><span>Agent perso</span>
+  </div>
+</div>
+
+<!-- Section C : Workflows populaires -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Cas d'usage</span>
+    <h2>Workflows agent IA<br><em class="orange">populaires en 2026.</em></h2>
+
+    <p>
+      Voici les six workflows agents que je vois marcher le mieux en 2026, à la fois dans mon usage perso et dans ma veille. Pour chacun, je donne le pitch, l'outil que je recommande, et un lien vers un tuto plus poussé quand il existe.
+    </p>
+
+    <div class="profile-grid">
+      <div class="profile-card p-teal">
+        <span class="profile-tag">01 · Le must-have</span>
+        <h3>Agent email</h3>
+        <p>Trier ta boîte mail, répondre aux mails simples, te brouillonner les réponses complexes, classer par priorité. C'est l'agent qui sauve le plus de temps en moyenne, parce que tout le monde croule sous les emails.</p>
+        <p><strong>Mon stack :</strong> Claude Code + MCP Gmail, ou Lindy pour le no-code. Setup en une heure, gain quotidien d'une à deux heures.</p>
+        <div class="profile-links">
+          <a href="/articles/tuto-agent-gmail">Tuto Agent Gmail</a>
+        </div>
+      </div>
+
+      <div class="profile-card p-fuchsia">
+        <span class="profile-tag">02 · Pour les pros</span>
+        <h3>Agent contrats</h3>
+        <p>Relire un contrat fournisseur, identifier les clauses à risque, comparer avec un modèle, te générer une liste de points à négocier. Très utilisé en juridique, finance, achats. ROI immédiat.</p>
+        <p><strong>Mon stack :</strong> Claude Code avec un skill custom de relecture juridique. Tu lui donnes le PDF, il te sort un brief d'analyse en 3 minutes.</p>
+        <div class="profile-links">
+          <a href="/articles/tuto-agent-contrats">Tuto Agent Contrats</a>
+        </div>
+      </div>
+
+      <div class="profile-card p-orange">
+        <span class="profile-tag">03 · Pour les curieux</span>
+        <h3>Agent recherche</h3>
+        <p>Lancer plusieurs requêtes web en parallèle, lire les sources, synthétiser, te livrer un rapport sourcé. Plus puissant qu'une simple recherche Perplexity quand le sujet est complexe ou nécessite des données précises.</p>
+        <p><strong>Mon stack :</strong> le skill <code>deep-research</code> sur Claude Code, ou OpenAI Deep Research. Sortie 5-10 pages sourcées en 10-20 minutes.</p>
+        <div class="profile-links">
+          <a href="/articles/autoresearch-karpathy">L'agent auto-améliorant de Karpathy</a>
+        </div>
+      </div>
+
+      <div class="profile-card p-ink">
+        <span class="profile-tag">04 · Pour les commerciaux</span>
+        <h3>Agent vente</h3>
+        <p>Qualifier un lead, te briefer avant un appel, rédiger un suivi personnalisé, mettre à jour ton CRM. L'agent qui fait gagner du temps sur tout le cycle commercial, sans remplacer l'humain qui ferme.</p>
+        <p><strong>Mon stack :</strong> Claude Code + MCP Sanity ou HubSpot. J'ai construit un agent qui m'a servi pour mon dernier poste d'avant Jerwis.</p>
+        <div class="profile-links">
+          <a href="/articles/outil-vente-claude-code">Mon outil de vente Claude Code</a>
+        </div>
+      </div>
+
+      <div class="profile-card p-teal">
+        <span class="profile-tag">05 · Pour rester informé</span>
+        <h3>Agent veille</h3>
+        <p>Scanner 100+ sources (RSS, Reddit, Hacker News, YouTube, X), filtrer par pertinence, clusterer les sujets chauds, te livrer un digest quotidien ou hebdomadaire. C'est ce qui tourne en coulisses pour ma newsletter AI Playbook.</p>
+        <p><strong>Mon stack :</strong> sous-agents Claude Code en parallèle + scoring custom. Le digest <a href="/news">Jerwis News</a> est généré chaque jour par cet agent.</p>
+        <div class="profile-links">
+          <a href="/news">Voir le digest live</a>
+        </div>
+      </div>
+
+      <div class="profile-card p-fuchsia">
+        <span class="profile-tag">06 · Pour le quotidien</span>
+        <h3>Agent personnel</h3>
+        <p>Calendrier, tâches, rappels, rendez-vous, todo qui se met à jour seule. L'agent qui te sert d'assistant personnel : tu lui parles en français le matin, il organise ta journée. Le plus gros usage de Lindy en 2026.</p>
+        <p><strong>Mon stack :</strong> Lindy pour le no-code ou Claude Code + MCP Google Calendar pour le low-code. ROI : 30 min à 1h gagnée par jour.</p>
+        <div class="profile-links">
+          <a href="/articles/agents-ia-guide">Le guide complet</a>
+          <a href="/articles/hermes-agent">Hermes Agent</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <h4>Workflows qui plantent souvent</h4>
+      <p>Trois cas d'usage où les agents IA déçoivent en 2026 : <strong>support client autonome 100 %</strong> (les humains restent meilleurs sur les cas complexes), <strong>agents qui prennent des décisions financières seuls</strong> (trop risqué, garde un humain), <strong>agents créatifs sans relecture</strong> (la qualité est inégale, il faut éditer derrière). Ne te lance pas dans ces cas en première intention.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 4 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>15 €/mois</span><span>50 €/mois</span><span>200 €/mois</span><span>Variable</span><span>Coûts cachés</span><span>Faux gratuit</span>
+    <span>15 €/mois</span><span>50 €/mois</span><span>200 €/mois</span><span>Variable</span><span>Coûts cachés</span><span>Faux gratuit</span>
+  </div>
+</div>
+
+<!-- Section D : Coût d'un agent -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Prix</span>
+    <h2>Coût d'un agent IA<br><em class="fuchsia">en 2026.</em></h2>
+
+    <p>
+      Le prix d'un agent dépend de trois choses : l'outil que tu choisis (no-code, low-code, full code), le modèle IA derrière (Claude, GPT, Gemini, Llama), et l'intensité d'usage. Voici les fourchettes réelles que je vois autour de moi en mai 2026.
+    </p>
+
+    <h3>Tableau des prix indicatifs</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Niveau</th>
+            <th>Outil type</th>
+            <th>Prix mensuel</th>
+            <th>Couvre quoi ?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-teal"></span>No-code</td>
+            <td>Lindy plan Pro</td>
+            <td>49 USD</td>
+            <td>1 agent personnel, 1000 actions/mois</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-teal"></span>No-code</td>
+            <td>n8n self-host</td>
+            <td>5-15 € (serveur)</td>
+            <td>Workflows illimités, tu paies juste l'infra</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Low-code</td>
+            <td>Claude Pro</td>
+            <td>20 USD</td>
+            <td>Claude Code inclus, 100+ messages/jour</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Low-code</td>
+            <td>Claude Max</td>
+            <td>100 USD</td>
+            <td>Usage intensif, 1M tokens contexte</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Low-code</td>
+            <td>OpenAI Plus + Custom GPTs</td>
+            <td>20 USD</td>
+            <td>Construire et utiliser tes Custom GPTs</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-orange"></span>Full code</td>
+            <td>API Claude au token</td>
+            <td>50-500 € selon usage</td>
+            <td>Liberté totale, paie ce que tu consommes</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-orange"></span>Full code</td>
+            <td>API OpenAI au token</td>
+            <td>50-500 € selon usage</td>
+            <td>Idem côté OpenAI</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Les coûts cachés qu'on oublie</h3>
+    <p>
+      Ce qui apparaît sur la facture n'est jamais le coût réel d'un agent. Voici les coûts cachés que je vois revenir tout le temps.
+    </p>
+    <ul>
+      <li><strong>Maintenance</strong> · un agent qui marche aujourd'hui peut casser demain si l'API d'un outil tiers change. Compte 2-3 heures par mois de maintenance pour un agent en prod.</li>
+      <li><strong>Debug</strong> · quand un agent fait n'importe quoi, il faut comprendre pourquoi. Les outils de traçage (LangSmith, Helicone) coûtent 20-50 USD par mois en plus.</li>
+      <li><strong>Monitoring</strong> · si l'agent tourne sans surveillance, tu peux te réveiller un matin avec une facture API de 500 € parce qu'il a bouclé sur une erreur toute la nuit. Toujours mettre un plafond de coût quotidien.</li>
+      <li><strong>Apprentissage</strong> · le temps que tu passes à apprendre l'outil et à itérer sur tes prompts. La première semaine, compte 10-15 heures pour un setup propre.</li>
+    </ul>
+
+    <h3>Quand un agent payant vaut le coup</h3>
+    <p>
+      Ma règle simple : <strong>un agent vaut son prix quand il te fait gagner au moins 3 heures par mois.</strong> À 50 € par mois, 3 heures gagnées au tarif de 25 € de l'heure (ton temps perso de base), tu es déjà rentable. Pour un agent vente ou contrats qui te fait gagner 10 heures par mois, le ROI est massif.
+    </p>
+
+    <p>
+      <strong>Ce qui ne vaut pas le coup :</strong> payer pour un agent que tu n'utilises que pour le frime. Pas la peine de t'abonner à un outil à 99 USD pour faire « waw, j'ai un agent IA ». Démarre avec Claude Pro à 20 USD ou un n8n gratuit, et upgrade quand le besoin réel arrive.
+    </p>
+
+    <div class="callout tip">
+      <h4>Mon setup et son coût réel</h4>
+      <p>Pour Jerwis, je suis sur Claude Max (100 USD/mois) + API Anthropic en complément (~50 USD/mois selon usage) + quelques MCP servers gratuits. Total : 150-180 USD par mois pour 5-6 agents actifs en permanence. Compte ~10 heures gagnées par semaine. ROI : largement positif.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 5 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>LLM</span><span>Tools</span><span>Mémoire</span><span>Boucle</span><span>Garde-fous</span><span>Humain</span>
+    <span>LLM</span><span>Tools</span><span>Mémoire</span><span>Boucle</span><span>Garde-fous</span><span>Humain</span>
+  </div>
+</div>
+
+<!-- Section E : Architecture -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Sous le capot</span>
+    <h2>Architecture d'un agent ·<br><em class="teal">les briques techniques.</em></h2>
+
+    <p>
+      Que tu sois en no-code, low-code ou full code, un agent IA est toujours composé des mêmes briques. Comprendre ces briques te permet de mieux choisir tes outils et de mieux débugger quand quelque chose plante. Voici les six briques fondamentales.
+    </p>
+
+    <h3>Brique 1 · Le LLM (le cerveau)</h3>
+    <p>
+      C'est le modèle de langage qui raisonne, décide quel outil appeler, interprète les résultats. En 2026, les leaders sont <strong>Claude (Anthropic), GPT (OpenAI), Gemini (Google) et Llama (Meta, open-source)</strong>. Le choix du LLM impacte la qualité de raisonnement, la vitesse, le coût. Pour un agent perso, Claude Sonnet 4.x ou GPT-5 mini sont des choix solides. <a href="/lexique/llm">Lire la fiche LLM</a>.
+    </p>
+
+    <h3>Brique 2 · Les tools (function calling)</h3>
+    <p>
+      Les tools sont les outils que l'agent peut appeler. Lire un fichier, envoyer un email, faire une recherche web, interroger une API. Techniquement, c'est ce qu'on appelle le <strong>function calling</strong> : tu décris à l'agent une fonction (nom, paramètres, ce qu'elle fait), il décide quand l'appeler. Sans tools, l'agent n'est qu'un chatbot. <a href="/lexique/tool-use">Lire la fiche Tool use</a>.
+    </p>
+
+    <h3>Brique 3 · MCP (Model Context Protocol)</h3>
+    <p>
+      MCP est le standard ouvert lancé par Anthropic fin 2024, qui permet à n'importe quel agent de se brancher à n'importe quel service externe. Au lieu de coder une intégration custom pour chaque outil (Sanity, Stripe, Telegram, GitHub), tu installes un MCP server et l'agent peut s'en servir comme s'il avait été conçu pour. <strong>C'est ce qui a fait exploser l'écosystème des agents en 2025-2026</strong>. <a href="/lexique/mcp">Lire la fiche MCP</a>.
+    </p>
+
+    <h3>Brique 4 · La mémoire</h3>
+    <p>
+      Sans mémoire, un agent oublie tout entre deux runs. La mémoire se découpe en deux couches : <strong>court terme</strong> (le contexte de la conversation en cours, limité à 200K-1M tokens selon le modèle) et <strong>long terme</strong> (souvent implémentée via des <a href="/lexique/embedding">embeddings</a> stockés dans une base vectorielle comme Pinecone, Supabase pgvector ou Weaviate). La mémoire long terme permet à l'agent de se rappeler de tes préférences, de tes interactions passées, de tes documents.
+    </p>
+
+    <h3>Brique 5 · La boucle d'exécution (agentic loop)</h3>
+    <p>
+      C'est le cœur de ce qui distingue un agent d'un chatbot. La boucle typique : l'agent pense, choisit un tool, l'exécute, observe le résultat, recommence si l'objectif n'est pas atteint. Cette boucle peut tourner 1 fois ou 100 fois selon la complexité de la tâche. <strong>Ce sont ces itérations qui font l'autonomie d'un agent.</strong> <a href="/lexique/agentic-workflow">Lire la fiche Agentic workflow</a>.
+    </p>
+
+    <h3>Brique 6 · Garde-fous et human in the loop</h3>
+    <p>
+      Les <a href="/lexique/guardrail">garde-fous (guardrails)</a> sont les règles qui empêchent l'agent de faire des bêtises : interdiction de toucher à certains fichiers, de dépasser un budget, d'envoyer un mail sans validation. Le <a href="/lexique/human-in-the-loop">human in the loop</a>, c'est demander à un humain de valider les actions sensibles avant qu'elles ne soient exécutées. Ces deux briques sont indispensables dès que l'agent touche à de la donnée réelle. Sans elles, c'est juste une question de temps avant qu'il fasse une bêtise.
+    </p>
+
+    <h3>Schéma simplifié de l'architecture</h3>
+    <p>
+      Voici comment ces briques s'articulent dans la pratique :
+    </p>
+    <ul>
+      <li><strong>Tu donnes une intention</strong> en français à l'agent.</li>
+      <li><strong>Le LLM</strong> décompose en sous-tâches.</li>
+      <li><strong>Pour chaque sous-tâche, l'agent choisit un tool</strong> (lire un fichier, faire une recherche, appeler une API).</li>
+      <li><strong>Le tool s'exécute</strong> via MCP ou function calling natif.</li>
+      <li><strong>L'agent observe le résultat</strong>, le sauvegarde si pertinent dans la mémoire, et décide de la prochaine étape.</li>
+      <li><strong>Sur les actions sensibles</strong>, l'agent passe la main à l'humain pour validation.</li>
+      <li><strong>La boucle continue</strong> jusqu'à l'objectif atteint, le budget épuisé ou l'arrêt explicite.</li>
+    </ul>
+
+    <p>
+      C'est cette architecture qui permet à un agent de te livrer un brief de qualification client en 3 minutes, ou de te générer une newsletter complète en 10 minutes. <strong>Ce n'est pas magique, c'est juste de l'orchestration.</strong>
+    </p>
+
+    <p>
+      Pour aller plus loin sur le <a href="/lexique/context-engineering">context engineering</a> (l'art de donner le bon contexte au bon moment à un agent), je conseille de lire la fiche dédiée ou de me suivre via la newsletter — c'est un sujet qui mérite plusieurs articles à lui tout seul.
+    </p>
+  </div>
+</section>
+
+<!-- Mini-marquee 6 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Erreur 1</span><span>Erreur 2</span><span>Erreur 3</span><span>Erreur 4</span><span>Erreur 5</span><span>Apprends de mes échecs</span>
+    <span>Erreur 1</span><span>Erreur 2</span><span>Erreur 3</span><span>Erreur 4</span><span>Erreur 5</span><span>Apprends de mes échecs</span>
+  </div>
+</div>
+
+<!-- Section F : Erreurs classiques -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Pièges</span>
+    <h2>Erreurs classiques quand<br><em class="orange">on construit son premier agent.</em></h2>
+
+    <p>
+      J'ai fait toutes ces erreurs au moins une fois. Si tu démarres, voici les six pièges les plus fréquents et comment les éviter. Cette section va te faire gagner des semaines.
+    </p>
+
+    <h3>Erreur 1 · Sur-confiance dans l'agent</h3>
+    <p>
+      La première fois qu'un agent te livre un truc impressionnant, tu te dis « c'est bon, je peux le lâcher en autonomie ». Mauvaise idée. Un agent qui marche 9 fois sur 10 va te lâcher la 10ème fois sur l'action la plus importante. <strong>Règle : si une erreur de l'agent peut te coûter cher (mail envoyé au mauvais client, donnée supprimée), garde un humain dans la boucle.</strong>
+    </p>
+
+    <h3>Erreur 2 · Pas de logs</h3>
+    <p>
+      Quand l'agent fait n'importe quoi, tu veux comprendre pourquoi. Sans logs détaillés (quel prompt envoyé, quel tool appelé, quel résultat reçu), tu es aveugle. <strong>Configure un logging minimal dès le jour 1.</strong> Pour Claude Code, c'est natif. Pour les autres outils, branche LangSmith, Helicone ou un fichier de log basique.
+    </p>
+
+    <h3>Erreur 3 · Pas de timeout ni de budget plafond</h3>
+    <p>
+      Un agent peut boucler indéfiniment sur une erreur, en consommant des tokens à chaque itération. J'ai vu des cas réels où un agent en autonomie a généré 200 € de tokens en une nuit parce qu'il était coincé sur une boucle d'erreur. <strong>Toujours mettre un nombre max d'itérations (genre 20) et un budget plafond quotidien.</strong>
+    </p>
+
+    <h3>Erreur 4 · Credentials en clair</h3>
+    <p>
+      Brancher un agent à ton Gmail nécessite des credentials OAuth. Si tu colles ces credentials dans un prompt ou dans un fichier non-protégé, c'est game over en cas de fuite. <strong>Toujours utiliser des variables d'environnement (.env) et les ajouter à .gitignore.</strong> Pour les agents qui touchent à des données sensibles, j'utilise un coffre-fort de secrets (1Password CLI, Doppler, Vercel env).
+    </p>
+
+    <h3>Erreur 5 · Prompt trop vague</h3>
+    <p>
+      « Trie mes emails » est un prompt qui produira un résultat médiocre. « Trie mes emails dans 4 catégories : Urgent à répondre aujourd'hui, À répondre cette semaine, Newsletters à archiver, Spam à supprimer. Pour chaque email, donne ta confidence en % » donnera un résultat 10× meilleur. <strong>Plus le prompt est précis et structuré, meilleur est l'agent.</strong> C'est tout l'art du <a href="/lexique/context-engineering">context engineering</a>.
+    </p>
+
+    <h3>Erreur 6 · Vouloir tout faire d'un coup</h3>
+    <p>
+      Le premier agent que tu construis doit faire UNE chose, bien. Pas trier les emails ET planifier la journée ET générer des résumés. Démarre simple, ajoute des capacités une par une, teste à chaque étape. <strong>Un agent qui fait une seule chose bien vaut mieux qu'un agent qui essaie de tout faire mal.</strong> C'est valable pour l'ingénierie logicielle depuis 50 ans, c'est aussi vrai pour les agents.
+    </p>
+
+    <h3>Erreur 7 · Ignorer le coût de maintenance</h3>
+    <p>
+      Tu construis un agent en une heure, il marche, tu passes à autre chose. Trois mois plus tard, l'API Gmail change un endpoint, l'agent plante silencieusement, tu rates des emails importants pendant deux semaines avant de t'en rendre compte. <strong>Mets en place une alerte simple (mail à toi-même, notif Telegram) qui te prévient si l'agent ne tourne plus comme prévu.</strong>
+    </p>
+
+    <div class="callout warn">
+      <h4>La règle qui résume tout</h4>
+      <p><strong>Traite ton agent comme un stagiaire malin mais inexpérimenté.</strong> Tu lui donnes des instructions claires, tu valides son travail au début, tu lui laisses de plus en plus d'autonomie au fur et à mesure que tu lui fais confiance. Et tu lui demandes de te demander avant de faire quelque chose d'irréversible. Avec ce mindset, tu évites 90 % des problèmes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 7 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Articles essentiels</span><span>Pour aller plus loin</span><span>Tutos complets</span><span>Cas pratiques</span><span>Vraies erreurs</span><span>Vraies victoires</span>
+    <span>Articles essentiels</span><span>Pour aller plus loin</span><span>Tutos complets</span><span>Cas pratiques</span><span>Vraies erreurs</span><span>Vraies victoires</span>
+  </div>
+</div>
+
+<!-- Section G : Articles essentiels -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Approfondir</span>
+    <h2>Articles essentiels<br><em class="teal">Agents IA.</em></h2>
+
+    <p>
+      Sur Jerwis, j'ai publié plusieurs articles plus longs sur les agents IA. Chacun complète un angle de ce guide. Voici l'ordre dans lequel je te recommande de les lire selon ton point de départ.
+    </p>
+
+    <div class="articles-grid">
+      <a class="article-card c-teal" href="/articles/agents-ia-guide">
+        <span class="article-kicker"><span class="dot"></span>15 min · Le pilier</span>
+        <h3>Le guide complet pour créer ton agent IA</h3>
+        <p>Le grand guide où je rentre dans le détail : briques techniques, cas d'usage, comment ça marche concrètement étape par étape. À lire en premier si tu pars de zéro.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+
+      <a class="article-card c-fuchsia" href="/articles/hermes-agent">
+        <span class="article-kicker"><span class="dot"></span>10 min · Pas à pas</span>
+        <h3>Construire un Hermes Agent pas à pas</h3>
+        <p>Le tuto où je te montre comment j'ai construit mon agent Hermes qui me notifie sur Telegram quand mes builds Vercel passent ou plantent. Setup réel, code réel.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+
+      <a class="article-card c-orange" href="/articles/tuto-agent-gmail">
+        <span class="article-kicker"><span class="dot"></span>8 min · Tuto pratique</span>
+        <h3>Agent Gmail · le tuto complet</h3>
+        <p>Comment brancher un agent IA sur ta boîte Gmail pour trier, brouillonner et répondre. Le cas d'usage qui démarre le mieux pour un premier agent perso.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+
+      <a class="article-card c-teal" href="/articles/tuto-agent-contrats">
+        <span class="article-kicker"><span class="dot"></span>10 min · Tuto pro</span>
+        <h3>Agent Contrats · le tuto</h3>
+        <p>Relire un contrat fournisseur, identifier les clauses à risque, générer une liste de points à négocier. Utile pour avocats, achats, finance, ou tout entrepreneur qui signe des contrats.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+
+      <a class="article-card c-fuchsia" href="/articles/autoresearch-karpathy">
+        <span class="article-kicker"><span class="dot"></span>12 min · Théorie</span>
+        <h3>Les agents auto-améliorants</h3>
+        <p>Andrej Karpathy a popularisé l'idée d'agents qui s'auto-évaluent et s'améliorent. Je vulgarise ses travaux et je te montre comment appliquer ces principes à tes propres agents.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+
+      <a class="article-card c-orange" href="/articles/outil-vente-claude-code">
+        <span class="article-kicker"><span class="dot"></span>12 min · Cas réel</span>
+        <h3>L'outil de vente que j'ai construit en Claude Code</h3>
+        <p>Le cas d'usage agent vente que j'ai monté pour mon dernier job. Architecture, choix d'outils, ce qui a marché, ce qui a planté. Le post-mortem honnête.</p>
+        <span class="article-read">Lire l'article →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 8 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Glossaire</span><span>10 termes</span><span>Définis vite</span><span>Liens vers le détail</span><span>Vocabulaire 2026</span><span>L'essentiel</span>
+    <span>Glossaire</span><span>10 termes</span><span>Définis vite</span><span>Liens vers le détail</span><span>Vocabulaire 2026</span><span>L'essentiel</span>
+  </div>
+</div>
+
+<!-- Section H : Glossaire -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Vocabulaire</span>
+    <h2>Glossaire<br><em class="fuchsia">agent IA.</em></h2>
+
+    <p>
+      Les 12 termes que tu vas croiser en permanence quand tu construis des agents IA. Définition courte ici, lien vers la fiche détaillée pour approfondir.
+    </p>
+
+    <ul class="glossary-list">
+      <li>
+        <strong>Agent</strong>
+        Un LLM avec des outils, une boucle d'exécution et un objectif. C'est l'unité de base.
+        <a href="/lexique">Voir le lexique →</a>
+      </li>
+      <li>
+        <strong>Sous-agent</strong>
+        Un agent qu'un autre agent lance pour déléguer une sous-tâche, souvent en parallèle.
+        <a href="/lexique/sous-agent">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Agentic workflow</strong>
+        Une suite d'actions orchestrées par un ou plusieurs agents pour atteindre un objectif.
+        <a href="/lexique/agentic-workflow">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Tool use</strong>
+        La capacité d'un LLM d'appeler des fonctions externes (lire un fichier, faire une recherche, etc.).
+        <a href="/lexique/tool-use">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>MCP</strong>
+        Model Context Protocol, le standard ouvert d'Anthropic pour brancher un agent à n'importe quel service externe.
+        <a href="/lexique/mcp">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Skill agent</strong>
+        Un dossier d'instructions qui se déclenche automatiquement quand l'agent reconnaît le domaine de ta demande.
+        <a href="/lexique/skill-agent">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Human in the loop</strong>
+        Faire valider à un humain les actions sensibles de l'agent avant exécution.
+        <a href="/lexique/human-in-the-loop">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Guardrail</strong>
+        Une règle qui empêche l'agent de faire certaines actions risquées.
+        <a href="/lexique/guardrail">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Context engineering</strong>
+        L'art de donner le bon contexte au bon moment à un agent, pour qu'il prenne les meilleures décisions.
+        <a href="/lexique/context-engineering">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>RAG agentique</strong>
+        Un agent qui décide lui-même quand chercher dans sa base de connaissances, plutôt que de chercher à chaque fois.
+        <a href="/lexique/rag-agentique">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Embedding</strong>
+        Une représentation vectorielle d'un texte qui permet à un agent de comparer des documents par sens, pas par mots.
+        <a href="/lexique/embedding">Fiche détaillée →</a>
+      </li>
+      <li>
+        <strong>Hallucination</strong>
+        Quand un LLM invente une info fausse en la présentant comme vraie. Le pire ennemi des agents fiables.
+        <a href="/lexique/hallucination">Fiche détaillée →</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Mini-marquee 9 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>FAQ</span><span>15 questions</span><span>Vraies réponses</span><span>Mon expérience</span><span>Pas de blabla</span><span>Mon avis honnête</span>
+    <span>FAQ</span><span>15 questions</span><span>Vraies réponses</span><span>Mon expérience</span><span>Pas de blabla</span><span>Mon avis honnête</span>
+  </div>
+</div>
+
+<!-- Section I : FAQ exhaustive -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Questions fréquentes</span>
+    <h2>FAQ exhaustive<br><em class="orange">agents IA.</em></h2>
+
+    <p>
+      Les 15 questions que je reçois le plus en mai 2026 sur les agents IA. Réponses courtes, basées sur mon expérience directe.
+    </p>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>C'est quoi un agent IA en une phrase ?</summary>
+        <div class="faq-answer">
+          <p>Un agent IA, c'est un grand modèle de langage (LLM) à qui on a donné des outils, une boucle d'exécution et un objectif. Simon Willison résume ça par la formule <strong>LLM + tools + loop + goal</strong>. Au lieu de juste répondre à une question, il agit, vérifie le résultat, et recommence jusqu'à atteindre son but.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Faut-il être développeur pour faire un agent IA ?</summary>
+        <div class="faq-answer">
+          <p>Non. Je ne suis pas développeur et j'en ai construit plusieurs. Les outils no-code (Lindy, Zapier, n8n, Crew AI Studio) permettent de monter un agent fonctionnel en une heure sans écrire de code. Pour aller plus loin, Claude Code et les Custom GPTs te font passer en low-code avec une courbe d'apprentissage raisonnable. Le ticket d'entrée a complètement explosé en 2025-2026.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Combien coûte un agent IA en 2026 ?</summary>
+        <div class="faq-answer">
+          <p>Trois fourchettes. Un agent no-code coûte entre 15 et 100 euros par mois (Lindy à 49 USD, n8n self-hosted gratuit, Zapier à partir de 30 USD). Un agent low-code branché sur Claude ou GPT tourne entre 20 et 200 euros par mois selon l'usage des API. Un agent full code maison coûte ce que tu paies en tokens, généralement entre 50 et 500 euros par mois pour un usage personnel régulier.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Agent IA vs chatbot · quelle différence ?</summary>
+        <div class="faq-answer">
+          <p>Un chatbot répond à des questions dans une conversation. Un agent agit dans le monde. Le chatbot retourne du texte ; l'agent lit un email, modifie un fichier, lance un appel API, vérifie le résultat. La différence centrale, c'est <strong>la capacité d'exécuter des outils et de boucler sur le résultat jusqu'à atteindre un objectif</strong>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quels sont les meilleurs frameworks pour construire un agent ?</summary>
+        <div class="faq-answer">
+          <p>Pour le no-code, <strong>Lindy</strong> et <strong>Crew AI Studio</strong>. Pour le low-code, <strong>Claude Code</strong> (skills + MCP) et les <strong>Custom GPTs</strong> d'OpenAI. Pour le full code, <strong>LangGraph</strong> (LangChain), l'<strong>Anthropic Agent SDK</strong>, <strong>AutoGen</strong> de Microsoft et <strong>CrewAI</strong> restent les références. Mon réflexe pour démarrer, c'est Claude Code, parce que c'est ce qui me donne le plus de contrôle sans m'obliger à écrire du Python.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Un agent IA peut-il faire des bêtises ?</summary>
+        <div class="faq-answer">
+          <p>Oui. Un agent qui a accès à ta boîte mail, à ta base de données ou à ton GitHub peut envoyer un message à la mauvaise personne, supprimer un fichier ou pusher un commit cassé. La protection passe par trois choses : des <a href="/lexique/guardrail">garde-fous</a> (interdire certaines actions), un <a href="/lexique/human-in-the-loop">humain dans la boucle</a> avant les actions sensibles, et des logs pour pouvoir revenir en arrière. Je ne mets jamais un agent en autonomie totale sur des données financières ou clients sensibles.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Comment monitorer un agent en production ?</summary>
+        <div class="faq-answer">
+          <p>Trois briques de base : <strong>logs détaillés</strong> de chaque action (prompt, outil appelé, résultat, durée), <strong>alertes</strong> sur les erreurs ou les timeouts, <strong>dashboard de coût quotidien</strong> en tokens. Pour aller plus loin, LangSmith, Helicone ou Langfuse offrent un traçage par étape utile pour comprendre pourquoi un agent a pris une mauvaise décision. Pour mes agents perso, je branche simplement Telegram sur les événements critiques.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quels cas d'usage marchent vraiment en 2026 ?</summary>
+        <div class="faq-answer">
+          <p>Les six qui fonctionnent le mieux dans mon expérience et celle de ma veille : <strong>agent email</strong> (tri et brouillon de réponse), <strong>agent contrats</strong> (relecture et clauses à risque), <strong>agent recherche</strong> (synthèse de plusieurs sources), <strong>agent vente</strong> (qualif de leads et brief commercial), <strong>agent veille</strong> (digest quotidien) et <strong>agent personnel</strong> (calendrier, tâches, rappels). Les cas qui plantent souvent : agents de support client autonomes, agents qui prennent des décisions financières seuls, agents créatifs sans relecture humaine.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quelles sont les limitations connues des agents actuels ?</summary>
+        <div class="faq-answer">
+          <p>Quatre limites que je rencontre régulièrement : l'<strong>hallucination</strong> sur des données qu'ils ne connaissent pas, la <strong>dérive</strong> sur les sessions très longues au-delà de 500 000 tokens, l'<strong>incapacité à apprendre</strong> de leurs erreurs entre deux runs sans mécanisme de mémoire externe, et le <strong>coût qui peut exploser</strong> si tu laisses un agent boucler sans budget plafond. Aucun agent en 2026 n'est encore vraiment fiable à 100 %, même les plus avancés.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Comment empêcher mon agent d'halluciner ?</summary>
+        <div class="faq-answer">
+          <p>Trois techniques qui marchent en combiné : <strong>RAG</strong> (Retrieval Augmented Generation) pour brancher l'agent sur une base de connaissances fiable, <strong>prompt qui force l'agent à citer ses sources</strong> et à dire « je ne sais pas » plutôt que d'inventer, et <strong>tools intermédiaires de vérification</strong> (recherche web, lecture de doc à jour via context7). L'hallucination tombe à environ 5 % avec un bon setup, contre 20 à 30 % en mode purement génératif.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Faut-il un humain dans la boucle ?</summary>
+        <div class="faq-answer">
+          <p>Pour toute action irréversible ou sensible : oui, sans hésitation. Envoyer un email à un client, signer un document, supprimer une donnée, autoriser un paiement. Pour les actions à faible enjeu et facilement réversibles : non, l'agent peut tourner en autonomie. La règle que j'applique chez moi, c'est <strong>human in the loop sur tout ce qui touche à de l'argent, du client direct ou de la donnée légale</strong>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Agent + RAG · comment les combiner ?</summary>
+        <div class="faq-answer">
+          <p>Le RAG donne à l'agent une base de connaissances dans laquelle il va piocher avant de répondre. Concrètement, tu indexes tes documents en <a href="/lexique/embedding">embeddings</a>, tu stockes ça dans une base vectorielle (Pinecone, Supabase pgvector, Weaviate), et tu donnes à ton agent un tool <code>search_knowledge_base</code>. Quand il a besoin d'info métier, il cherche d'abord dans ta base avant d'utiliser sa connaissance générale. <strong>C'est la combinaison la plus puissante en 2026</strong> pour les agents en entreprise.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Vie privée des données traitées par un agent ?</summary>
+        <div class="faq-answer">
+          <p>Oui c'est un sujet sérieux. Trois zones à risque : les API du fournisseur de LLM (Anthropic et OpenAI conservent les conversations 30 jours par défaut pour la modération abuse, sauf en mode Zero Data Retention sur les comptes Enterprise), les outils tiers que tu branches via MCP, et les logs de ton propre agent. Pour des données sensibles, je préfère un modèle hébergé (Llama, Mistral sur ton serveur) plutôt qu'une API externe.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Open-source ou propriétaire ?</summary>
+        <div class="faq-answer">
+          <p>Pour démarrer et apprendre, <strong>propriétaire</strong> : Claude, GPT, Gemini sont plus simples à brancher, plus fiables, mieux documentés. Pour scaler à un usage massif ou pour des données sensibles, <strong>open-source</strong> devient pertinent : Llama 4, Mistral, Qwen tournent sur ton infra, coût marginal proche de zéro, et tu gardes la main sur les données. Le mix gagnant en 2026 chez beaucoup de boîtes, c'est <strong>Claude ou GPT pour les tâches de réflexion, Llama local pour le traitement de masse</strong>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quel modèle Claude ou GPT pour faire un agent ?</summary>
+        <div class="faq-answer">
+          <p>Mon réflexe en 2026 : <strong>Claude Sonnet 4.x</strong> pour 80 % des tâches d'agent (rapide, économique, bon raisonnement), <strong>Claude Opus 4.7</strong> quand la tâche est complexe ou nécessite du contexte long (jusqu'à 1 million de tokens), <strong>GPT-5</strong> quand je veux varier ou pour des tâches très créatives. Pour les agents qui font de la recherche en boucle, Sonnet fait le job. Pour des décisions critiques d'architecture, Opus.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 10 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Ressources</span><span>Liens externes</span><span>Liens internes</span><span>Pour creuser</span><span>Anthropic Docs</span><span>OpenAI</span>
+    <span>Ressources</span><span>Liens externes</span><span>Liens internes</span><span>Pour creuser</span><span>Anthropic Docs</span><span>OpenAI</span>
+  </div>
+</div>
+
+<!-- Section J : Ressources -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Pour aller plus loin</span>
+    <h2>Ressources<br><em class="teal">et liens utiles.</em></h2>
+
+    <h3>Ressources externes (les indispensables)</h3>
+    <div class="resources-grid">
+      <a class="resource-card" href="https://docs.anthropic.com/en/docs/agents-and-tools/computer-use" target="_blank" rel="noopener">
+        <span class="res-kicker">Doc officielle</span>
+        <h4>Anthropic · Agents and Tools</h4>
+        <p>La doc officielle d'Anthropic sur la construction d'agents avec Claude. Tool use, computer use, Agent SDK. Référence numéro 1.</p>
+      </a>
+      <a class="resource-card" href="https://platform.openai.com/docs/guides/function-calling" target="_blank" rel="noopener">
+        <span class="res-kicker">Doc officielle</span>
+        <h4>OpenAI · Function Calling</h4>
+        <p>La doc OpenAI sur le function calling, la brique de base d'un agent côté GPT. Indispensable si tu construis sur leur stack.</p>
+      </a>
+      <a class="resource-card" href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">
+        <span class="res-kicker">Framework</span>
+        <h4>LangGraph (LangChain)</h4>
+        <p>Le framework Python le plus complet pour orchestrer des agents complexes. Graphes d'états, persistance, human in the loop natif.</p>
+      </a>
+      <a class="resource-card" href="https://simonwillison.net/tags/llms/" target="_blank" rel="noopener">
+        <span class="res-kicker">Blog</span>
+        <h4>Simon Willison · LLM tag</h4>
+        <p>Le blog de Simon Willison, l'une des voix les plus claires sur les LLMs et les agents depuis 2022. À mettre dans tes flux RSS.</p>
+      </a>
+      <a class="resource-card" href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">
+        <span class="res-kicker">Standard</span>
+        <h4>Model Context Protocol</h4>
+        <p>Le site officiel du standard MCP. Spec, SDKs, liste des MCP servers disponibles. Indispensable dès que tu veux brancher un agent à des outils externes.</p>
+      </a>
+      <a class="resource-card" href="https://github.com/topics/agents" target="_blank" rel="noopener">
+        <span class="res-kicker">GitHub</span>
+        <h4>GitHub · topic agents</h4>
+        <p>La liste des repos GitHub taggés « agents ». Une mine de templates open-source pour démarrer un projet d'agent IA.</p>
+      </a>
+    </div>
+
+    <h3>Ressources internes (mes contenus sur Jerwis)</h3>
+    <div class="resources-grid">
+      <a class="resource-card" href="/apprendre">
+        <span class="res-kicker">Parcours</span>
+        <h4>Apprendre l'IA dans l'ordre</h4>
+        <p>Le parcours pédagogique complet, des bases aux agents avancés. Si tu pars de zéro, commence ici.</p>
+      </a>
+      <a class="resource-card" href="/lexique">
+        <span class="res-kicker">Lexique</span>
+        <h4>Lexique IA · 40 termes</h4>
+        <p>Tout le vocabulaire de l'IA en 2026, expliqué simplement. Agents, LLM, MCP, RAG, hallucination, embeddings et 35 autres.</p>
+      </a>
+      <a class="resource-card" href="/claude-code">
+        <span class="res-kicker">Pillar</span>
+        <h4>Claude Code · le guide complet</h4>
+        <p>Mon guide pillar sur Claude Code, l'outil que j'utilise pour 95 % de mes agents. Install, skills, MCP, workflows, FAQ.</p>
+      </a>
+      <a class="resource-card" href="/podcast">
+        <span class="res-kicker">Audio</span>
+        <h4>Podcast Guerres d'IA</h4>
+        <p>Mon podcast hebdomadaire où on décortique l'actu IA. Plusieurs épisodes consacrés aux agents et à leurs cas d'usage.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Reçois mes prochains <em class="fuchsia">tests agents IA.</em></h2>
+    <p>
+      Chaque semaine, ma newsletter AI Playbook te partage les agents que je teste, ce qui marche, ce qui plante. Pas de récap d'actu, pas de blabla. Désinscription en 1 clic.
+    </p>
+    <a class="back-btn" href="/#newsletters">M'inscrire à la newsletter</a>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer-agents-ia">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Apprendre</h5>
+        <ul>
+          <li><a href="/apprendre">Parcours débutant</a></li>
+          <li><a href="/agents-ia">Guide Agents IA</a></li>
+          <li><a href="/claude-code">Guide Claude Code</a></li>
+          <li><a href="/articles">Tous les articles</a></li>
+          <li><a href="/lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Produits &amp; outils</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils">Ma stack outils</a></li>
+          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="/github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/index#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer-agents-ia' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  // Theme toggle + localStorage (sync with main site)
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  }
+</script>
+<script src="assets/nav-v2.js" defer></script>
+</body>
+</html>

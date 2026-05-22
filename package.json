@@ -16,6 +16,7 @@
     "podcast:build": "npm run podcast:covers && npm run podcast:rss && npm run podcast:page",
     "podcast:upload": "node scripts/podcast-upload.js",
     "indexnow": "node scripts/indexnow-ping.js",
+    "news:build": "node scripts/build-news-summary.js",
     "test": "node --test scripts/test-helpers.js tests/news.test.mjs"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "sharp": "^0.34.5"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.98.0",
     "@supabase/supabase-js": "^2.105.3",
     "@vercel/blob": "^2.3.3",
     "fast-xml-parser": "^5.8.0",

@@ -350,6 +350,21 @@
     }
   }
 
+  // ─── EVENT HANDLERS ───────────────────────────────────────────────
+
+  // Search input handler with debounce
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(function(e) {
+      state.query = e.target.value;
+      applyFiltersAndRender();
+    }, 200));
+  }
+
+  // Stubs for handlers wired in T6-T8 — see plan
+  // sourceFilter, sortBy, hideReadToggle, markAllRead, resetRead exist in DOM but
+  // have no handlers yet. That's fine — they're inactive until those tasks.
+
   loadArticles();
 
   // ─── CTA NEWSLETTER ───────────────────────────────────────────────

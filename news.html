@@ -44,6 +44,7 @@
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/nav-v2.css?v=20260520-dropdown">
 <link rel="stylesheet" href="assets/mobile-fixes.css">
+<link rel="stylesheet" href="assets/news-page.css?v=20260522">
 
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
@@ -461,11 +462,42 @@
 </div>
 
 <!-- ─── FILTERS ─── -->
-<div class="veille-filters" role="navigation" aria-label="Filtrer par catégorie">
+<div class="veille-filters" role="navigation" aria-label="Filtrer les actus">
   <div class="filter-inner">
+    <div class="news-search">
+      <svg class="news-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input id="searchInput" type="search" placeholder="Chercher : Claude, OpenAI, fintech…" aria-label="Chercher dans les actus" autocomplete="off">
+    </div>
+
     <span class="filter-label">Filtrer :</span>
     <div id="filterBar">
       <button class="filter-btn active" data-cat="all">Tout</button>
+      <!-- other category buttons injected by JS -->
+    </div>
+
+    <div class="news-controls">
+      <label for="sourceFilter">Source</label>
+      <select id="sourceFilter" aria-label="Filtrer par source"></select>
+
+      <label for="sortBy">Trier</label>
+      <select id="sortBy" aria-label="Trier les actus">
+        <option value="trending">🔥 Trending</option>
+        <option value="date">📅 Plus récents</option>
+        <option value="source">A-Z Source</option>
+      </select>
+
+      <label class="toggle-read">
+        <input type="checkbox" id="hideReadToggle">
+        Cacher les articles lus
+      </label>
+    </div>
+
+    <div class="news-actions">
+      <a id="markAllRead">Tout marquer comme lu</a>
+      <a id="resetRead">Réinitialiser</a>
     </div>
   </div>
 </div>

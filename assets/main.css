@@ -3837,3 +3837,26 @@
     border: 0;
   }
 
+  /* ============================================================
+   * Answer card — encart "Réponse rapide" pour AI Overviews / SGE
+   * ------------------------------------------------------------
+   * Affiché juste avant le TL;DR sur les articles stratégiques.
+   * 40-60 mots factuels, 3e personne, optimisé pour extraction par
+   * Google AI Overviews, Perplexity, ChatGPT Browse.
+   * NB : sur les articles existants la classe est dupliquée en
+   * inline styles (les articles ne chargent pas main.css). Cette
+   * règle sert de fallback documenté pour usage futur.
+   * ============================================================ */
+  .answer-card {
+    margin: 20px 0 30px;
+    padding: 16px 20px;
+    background: var(--bg-2, #F4EFE6);
+    border-left: 4px solid var(--teal, #00B2A9);
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft, #3A3A3A);
+  }
+  .answer-card p { margin: 0; }
+  .answer-card strong { color: var(--ink, #0A0A0A); margin-right: 6px; }
+

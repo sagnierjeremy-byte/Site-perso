@@ -1,5 +1,46 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Answer cards "Réponse rapide" pour AI Overviews / SGE (SEO-B10)
+
+### Pourquoi
+Google AI Overviews, Perplexity et ChatGPT Browse scannent les **40-60 premiers mots** d'un article pour décider s'il répond à la requête et s'ils citent. Le TL;DR actuel dépasse 200 mots et reste narratif ("Ce que tu vas apprendre…"), inutilisable pour extraction IA. Sans réponse directe en haut, ces moteurs ignorent les articles.
+
+### Livré
+- **Encart `.answer-card` "Réponse rapide"** inséré sur les 10 articles stratégiques, juste avant le TL;DR existant (qui reste — l'encart est complémentaire).
+- **Style 3e personne factuel**, 53-63 mots, optimisé extraction IA. Pas de "je", pas de narration, focus sur la définition/réponse à la requête implicite.
+- **Articles ciblés** : `loops-claude`, `hermes-agent`, `karpathy`, `agents-ia-guide`, `llm-local-pour-non-dev`, `superpowers`, `claude-code-workflow-tips`, `dev-browser`, `monde-ia-5-10-20-ans`, `outil-vente-claude-code`.
+- **Script idempotent** `scripts/seo-b10-answer-cards.mjs` : check `class="answer-card"` avant insertion, ne patch jamais deux fois.
+- **CSS `.answer-card`** ajoutée à `assets/main.css` comme fallback documenté. Les articles n'important pas main.css, l'encart utilise aussi des inline styles (ceinture + bretelles).
+- **Tests** : 17/17 pass.
+
+### Fichiers touchés
+- 10 articles dans `articles/` (insertion d'environ 7 lignes par article)
+- `assets/main.css` (règle `.answer-card` ajoutée, ~20 lignes)
+- `scripts/seo-b10-answer-cards.mjs` (nouveau, idempotent)
+
+### À venir
+- Mesurer dans 4-6 semaines via Google Search Console l'évolution des impressions sur les 10 articles ciblés.
+- Étendre aux 17 autres articles si la stratégie paye.
+
+## 2026-05-22 · Course schema JSON-LD sur /apprendre (SEO-B5)
+
+### Pourquoi
+La page `/apprendre` présente le parcours pédagogique structuré en 4 étapes. Schema.org `Course` avec `hasPart` étapes permet aux moteurs de mieux crawler la structure hiérarchique et d'afficher du rich content (durée, niveau, progression).
+
+### Livré
+- **Schema Course JSON-LD** inséré ligne 63-115 après le `LearningResource` existant
+  - Propriétés : name, description, url, inLanguage, isAccessibleForFree, educationalLevel, teaches, provider
+  - `hasCourseInstance` avec courseMode/courseWorkload (PT5H estimation)
+  - **4 `hasPart`** (sub-courses) : Étape 01-04 avec name, description, url, position
+  - Descriptions alignées au contenu réel des 4 sections
+- **Validation JSON** : parse OK, syntaxe correcte
+- **Tests** : 17/17 pass, aucun regression
+
+### Fichiers touchés
+- `apprendre.html` (1 bloc JSON-LD ajouté, 55 lignes)
+
+### À venir
+
 ## 2026-05-22 · OG images dédiées pour 8 pages root (SEO-A2)
 
 ### Pourquoi

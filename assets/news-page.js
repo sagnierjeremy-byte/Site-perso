@@ -474,6 +474,67 @@
 
   // ─── LOAD ─────────────────────────────────────────────────────────
 
+  async function loadSummary() {
+    try {
+      const res = await fetch('data/news-summary.json', { cache: 'no-cache' });
+      if (!res.ok) return;
+      const json = await res.json();
+      state.summary = json;
+      renderSummary(json);
+    } catch (e) {
+      console.warn('Could not load news summary:', e);
+    }
+  }
+
+  function renderSummary(s) {
+    if (!s || !s.items || !s.items.length) return;
+
+    // Per-day close flag
+    const day = (s.generated_at || '').slice(0, 10);
+    const closedKey = `news-summary-closed-${day}`;
+    try {
+      if (localStorage.getItem(closedKey) === '1') return;
+    } catch (e) {}
+
+    // Freshness
+    const generated = new Date(s.generated_at);
+    const ageHours = (Date.now() - generated.getTime()) / 3600000;
+    const obsolete = ageHours > 30;
+
+    const aside = document.getElementById('newsSummary');
+    if (!aside) return;
+
+    aside.hidden = false;
+    aside.innerHTML = `
+      <div class="news-summary-head">
+        <div class="news-summary-kicker">◆ Aujourd'hui en 30 secondes · ${escapeHtml(s.day_label || '')}</div>
+        <button class="news-summary-close" type="button" aria-label="Fermer la synthèse">✕</button>
+      </div>
+      ${obsolete ? `<div class="news-summary-stale">Synthèse de ${escapeHtml(generated.toLocaleDateString('fr-FR', { day:'numeric', month:'long' }))}, pas mise à jour aujourd'hui.</div>` : ''}
+      <ol class="news-summary-list">
+        ${s.items.map(item => `
+          <li>
+            <div class="news-summary-title">${escapeHtml(item.title)}</div>
+            <div class="news-summary-why">→ ${escapeHtml(item.why_it_matters)}</div>
+            <div class="news-summary-sources">
+              📰 ${(item.sources || []).map(src =>
+                `<a href="${escapeHtml(src.url)}" target="_blank" rel="noopener">${escapeHtml(src.name)}</a>`
+              ).join(' · ')}
+            </div>
+          </li>
+        `).join('')}
+      </ol>
+    `;
+
+    const closeBtn = aside.querySelector('.news-summary-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        try { localStorage.setItem(closedKey, '1'); } catch (e) {}
+        aside.hidden = true;
+      });
+    }
+  }
+
   async function loadArticles() {
     try {
       _trendingIdx = null; // invalidate cache before re-fetch
@@ -590,6 +651,7 @@
   }
 
   loadArticles();
+  loadSummary();
 
   // ─── CTA NEWSLETTER ───────────────────────────────────────────────
   document.querySelectorAll('.veille-cta-form').forEach(function(form) {

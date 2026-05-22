@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>L'agent qui lit mes 200 mails à ma place chaque matin</title>
+<title>L'<a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — voir la définition">agent</a> qui lit mes 200 mails à ma place chaque matin</title>
 <meta name="description" content="J'ai construit un agent IA qui trie mes 200 mails par jour à 7h avec Make et Claude. 4h gagnées par semaine, 91 % de précision, sans coder. Le tuto.">
 
 <!-- Favicon set -->
@@ -606,7 +606,7 @@
       Le lendemain, ton assistant arrive à 7h, ouvre ta boîte, applique tes règles. Quand il a un doute, il te met le mail de côté pour que tu décides. Au bout d'une semaine, tu corriges deux ou trois choses (« non, ce client-là c'est pas urgent en fait »), et c'est calé.
     </p>
     <p>
-      <strong>Hermes, c'est exactement ça.</strong> Sauf que ton « assistant » est une IA. Et que tu ne lui parles pas, tu lui écris ses règles dans un texte qu'on appelle <strong>« le prompt système »</strong> (l'équivalent du contrat de travail de l'assistant — la liste des règles qu'il doit suivre tout le temps, dans tous les cas).
+      <strong>Hermes, c'est exactement ça.</strong> Sauf que ton « assistant » est une IA. Et que tu ne lui parles pas, tu lui écris ses règles dans un texte qu'on appelle <strong>« le <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — voir la définition">prompt</a> système »</strong> (l'équivalent du contrat de travail de l'assistant — la liste des règles qu'il doit suivre tout le temps, dans tous les cas).
     </p>
 
     <h3>Les trois ingrédients (et c'est tout)</h3>
@@ -689,7 +689,7 @@
       <div class="step-body">
         <h4>Connecter Gmail (5 minutes, voie A en exemple)</h4>
         <p>Sur Make, tu crées un nouveau « scénario ». Le premier bloc, c'est <strong>« Gmail · Watch Emails »</strong> (surveiller les mails). Tu cliques, tu autorises Make à se connecter à ton Gmail (Google te montre un écran de permission, tu acceptes). Tu choisis « Inbox » comme dossier à surveiller. Tu mets « toutes les 15 minutes » comme fréquence.</p>
-        <p>Le deuxième bloc, c'est <strong>« Anthropic · Send Message »</strong>. Tu colles ta clé API, tu choisis le modèle <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> (le plus rapide et le moins cher pour ce genre de tâche). Le troisième bloc, c'est <strong>« Gmail · Add Label »</strong> qui prend la réponse de Claude et applique l'étiquette correspondante.</p>
+        <p>Le deuxième bloc, c'est <strong>« Anthropic · Send Message »</strong>. Tu colles ta <a class="lex-link" href="/lexique/cle-api" title="Clé API — voir la définition">clé API</a>, tu choisis le modèle <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> (le plus rapide et le moins cher pour ce genre de tâche). Le troisième bloc, c'est <strong>« Gmail · Add Label »</strong> qui prend la réponse de Claude et applique l'étiquette correspondante.</p>
         <span class="os-note">Make a un mode « test » : tu cliques sur « Run once » pour voir comment ça se comporte sur un seul mail avant de tout activer. Indispensable pour la suite.</span>
       </div>
     </div>
@@ -734,7 +734,7 @@ RÈGLES IMPORTANTES :
 
 FORMAT DE RÉPONSE : retourne juste le mot de l'étiquette,
 en minuscules. Rien d'autre. Pas de phrase d'explication.</pre>
-        <p>Tu remplaces les <strong>[liste...]</strong> par tes vraies infos. Tu copies tout ce texte dans le bloc Anthropic de Make (champ « system prompt »). Le mail à analyser arrive en bloc « user message » via la variable Gmail.</p>
+        <p>Tu remplaces les <strong>[liste...]</strong> par tes vraies infos. Tu copies tout ce texte dans le bloc Anthropic de Make (champ « <a class="lex-link" href="/lexique/system-prompt" title="System prompt — voir la définition">system prompt</a> »). Le mail à analyser arrive en bloc « user message » via la variable Gmail.</p>
         <span class="os-note">Le secret, c'est la précision. « Urgent si client payant ET demande sous 48h » donne 91 % de précision. « Urgent selon ton intuition » donne 80 % de mails étiquetés en urgent. La règle simple : pas d'adverbes flous (« important », « pertinent », « pour toi »), des critères mesurables.</span>
       </div>
     </div>
@@ -755,7 +755,7 @@ en minuscules. Rien d'autre. Pas de phrase d'explication.</pre>
         <h4>Activer pour de vrai (mode étiquetage seul)</h4>
         <p>Quand ton test à 10 mails est bon, tu actives le scénario sur Make (gros bouton vert « ON » en haut). À partir de maintenant, toutes les 15 minutes, Make va lire tes nouveaux mails, demander à Claude de les étiqueter, appliquer l'étiquette dans Gmail. Tu n'as plus rien à faire.</p>
         <p><strong>Garde-le en mode étiquetage seul</strong> pendant deux semaines minimum. C'est-à-dire : il étiquette uniquement, il n'archive rien, il ne supprime rien, il n'envoie rien. Tu valides chaque jour que les étiquettes posées te conviennent. Si oui, tu pourras passer aux fonctions plus actives ensuite.</p>
-        <span class="os-note">Surveille tes crédits Anthropic la première semaine. Tu vas voir combien il consomme exactement. Pour 200 mails par jour avec Haiku 4, je consomme environ 0,25 € par jour. Aucune mauvaise surprise.</span>
+        <span class="os-note">Surveille tes crédits Anthropic la première semaine. Tu vas voir combien il consomme exactement. Pour 200 mails par jour avec <a class="lex-link" href="/lexique/modele" title="Modèle IA — voir la définition">Haiku</a> 4, je consomme environ 0,25 € par jour. Aucune mauvaise surprise.</span>
       </div>
     </div>
 

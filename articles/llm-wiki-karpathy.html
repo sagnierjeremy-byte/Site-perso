@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LLM Wiki de Karpathy : ton deuxième cerveau IA</title>
+<title><a class="lex-link" href="/lexique/llm" title="LLM — voir la définition">LLM</a> Wiki de Karpathy : ton deuxième cerveau IA</title>
 <meta name="description" content="Le pattern Karpathy pour bâtir une base de connaissances personnelle avec un LLM. Pas un RAG, un vrai deuxième cerveau qui s'enrichit à chaque source.">
 
 <!-- seo:jsonld-article -->
@@ -831,7 +831,7 @@
     <div class="kicker"><span class="dot"></span>Tuto · 05 · IA &amp; Outils</div>
     <h1>Le LLM Wiki,<br>ton <em>deuxième<br>cerveau.</em></h1>
     <p class="hero-lead">
-      <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a> <a href="https://x.com/karpathy/status/1859068624336351436" target="_blank" rel="noopener">a partagé en 2026</a> un pattern (un schéma de conception réutilisable) simple mais puissant : au lieu d'un RAG classique (Retrieval Augmented Generation, en clair : l'IA va chercher la réponse dans tes documents à chaque question), <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
+      <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a> <a href="https://x.com/karpathy/status/1859068624336351436" target="_blank" rel="noopener">a partagé en 2026</a> un pattern (un schéma de conception réutilisable) simple mais puissant : au lieu d'un <a class="lex-link" href="/lexique/rag" title="RAG — voir la définition">RAG</a> classique (Retrieval Augmented Generation, en clair : l'IA va chercher la réponse dans tes documents à chaque question), <strong>l'IA construit et maintient un vrai wiki</strong> qui s'enrichit à chaque nouvelle source. Un vrai deuxième cerveau, qui se compile et s'affine. Je t'explique le concept et comment te le monter.
     </p>
     <div class="hero-meta">
       <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
@@ -861,7 +861,7 @@
     <h2>Ce que tu vas apprendre</h2>
     <ul>
       <li><strong>Pourquoi le RAG ne suffit pas</strong> — l'IA "redécouvre" ta connaissance à chaque requête, rien ne s'accumule</li>
-      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources = sources brutes / wiki / schema = règles de structure), 3 opérations (ingest = ajouter une source / query = poser une question / lint = nettoyer)</li>
+      <li><strong>Le pattern LLM Wiki</strong> — 3 couches (raw sources = sources brutes / wiki / <a class="lex-link" href="/lexique/structured-output" title="Structured output — voir la définition">schema</a> = règles de structure), 3 opérations (ingest = ajouter une source / query = poser une question / lint = nettoyer)</li>
       <li><strong>5 cas d'usage</strong> concrets : personnel, recherche, lecture de livre, business, analyse concurrentielle</li>
     </ul>
   </div>
@@ -870,7 +870,7 @@
 <div class="container">
   <div class="callout warn" style="margin: 24px 0 32px;">
     <h4>Tu débutes complet en IA ?</h4>
-    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+    <p>Si certains termes te perdent (Claude Code, terminal, <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — voir la définition">agent</a>, <a class="lex-link" href="/lexique/mcp" title="MCP — voir la définition">MCP</a>, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
   <div class="callout tip" style="margin: 0 0 32px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--orange); border-radius:14px;">
     <h4 style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-.01em; margin-bottom:8px; color:var(--ink)">Statut de cet article — première version</h4>
@@ -1087,7 +1087,7 @@
       <ol>
         <li><strong>Dérive épistémique</strong> — si l'IA hallucine (terme technique : génère du contenu plausible mais faux) au moment de l'ingestion (un nom mal orthographié, une date fausse, un résumé inexact), l'erreur devient permanente et contamine tous les ingests suivants. Relis toujours la page de résumé juste après la création.</li>
         <li><strong>Duplication silencieuse</strong> — 3 sources sur le même sujet créent souvent 3 pages presque identiques. Sans règle explicite de <em>merge</em> (fusion) dans ton schema, tu te retrouves vite avec un wiki pollué. La passe de lint mensuelle est là pour ça.</li>
-        <li><strong>Coût <a href="../lexique#token">tokens</a> réel</strong> — un ingest touche 5 à 15 pages = 20 000 à 50 000 tokens en sortie. À 15$ le million de tokens (Claude <a href="../lexique#modele">Sonnet</a>), compte <strong>0,5 à 1$ par source</strong>. 100 sources = 50 à 100$. Pas catastrophique, mais à savoir avant de foncer.</li>
+        <li><strong>Coût <a href="../lexique#token">tokens</a> réel</strong> — un ingest touche 5 à 15 pages = 20 000 à 50 000 <a class="lex-link" href="/lexique/token" title="Token — voir la définition">tokens</a> en sortie. À 15$ le million de tokens (Claude <a href="../lexique#modele">Sonnet</a>), compte <strong>0,5 à 1$ par source</strong>. 100 sources = 50 à 100$. Pas catastrophique, mais à savoir avant de foncer.</li>
       </ol>
     </div>
   </div>
@@ -1222,7 +1222,7 @@ Tu es le mainteneur d'un wiki personnel sur [SUJET].
       <li><a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> — Pour explorer ton wiki en graph view</li>
       <li><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG (Microsoft)</a> — l'alternative RAG moderne pour très gros corpus</li>
       <li><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> — la même logique IDE + LLM côté code</li>
-      <li>Mon article <a href="karpathy">Les travaux de Karpathy, vulgarisés</a> — contexte sur le personnage</li>
+      <li>Mon article <a href="karpathy">Les travaux de Karpathy, vulgarisés</a> — <a class="lex-link" href="/lexique/context-window" title="Fenêtre de contexte — voir la définition">contexte</a> sur le personnage</li>
       <li>Mon article <a href="autoresearch-karpathy">Les agents auto-améliorants</a> — l'autre projet clé de Karpathy 2026</li>
       <li>Mon article <a href="veille-pour-demain">Construire ta veille IA pour demain</a> — pipeline pratique pour alimenter le wiki</li>
     </ul>
@@ -1246,7 +1246,7 @@ Tu es le mainteneur d'un wiki personnel sur [SUJET].
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
       <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>0,5 à 1 $ par source ingérée</strong> avec Sonnet (15 $/M tokens), soit 50-100 $ pour bâtir un wiki de 100 sources sur 30 jours. Ensuite, le coût décroît : tu n'ingères que les nouvelles sources, plus quelques opérations de lint et de query. Pour un usage perso à 5-10 sources/mois, compte <strong>5-10 $/mois</strong>. Obsidian gratuit. Tu n'as besoin que de Claude Code (Pro à 20 €/mois ou API en pay-as-you-go).</p>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Compte <strong>0,5 à 1 $ par source ingérée</strong> avec <a class="lex-link" href="/lexique/modele" title="Modèle IA — voir la définition">Sonnet</a> (15 $/M tokens), soit 50-100 $ pour bâtir un wiki de 100 sources sur 30 jours. Ensuite, le coût décroît : tu n'ingères que les nouvelles sources, plus quelques opérations de lint et de query. Pour un usage perso à 5-10 sources/mois, compte <strong>5-10 $/mois</strong>. Obsidian gratuit. Tu n'as besoin que de Claude Code (Pro à 20 €/mois ou API en pay-as-you-go).</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">

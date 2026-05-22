@@ -1007,7 +1007,7 @@
 <div class="container">
   <div class="callout warn" style="margin: 24px 0 32px;">
     <h4>Tu débutes complet en IA ?</h4>
-    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+    <p>Si certains termes te perdent (Claude Code, terminal, <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — voir la définition">agent</a>, <a class="lex-link" href="/lexique/mcp" title="MCP — voir la définition">MCP</a>, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
 </div>
 
@@ -1145,7 +1145,7 @@
       <li><strong>Un worker qui tourne à 7h du matin</strong> (un petit programme qui s'exécute tout seul en tâche de fond), déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors. C'est le même pattern de boucle que je décris dans <a href="loops-claude">les loops Claude Code</a> — un agent qui tourne sans surveillance pour produire un livrable au réveil.</li>
       <li><strong>Une base SQLite</strong> (une mini-base de données stockée dans un seul fichier) qui vit entièrement sur mon disque. Aucun cloud. Un seul fichier portable.</li>
       <li><strong>Un moteur de recherche sémantique</strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes. Si l'<a href="open-source-pour-non-dev">open source</a> te paraît un sujet de dev, il l'est de moins en moins — Ollama et SQLite sont accessibles sans bagage technique.</li>
-      <li><strong>Deux modèles Claude</strong> utilisés à des étapes différentes : Claude Sonnet pour proposer 30 sujets du jour, Claude Opus pour rédiger les analyses long-form quand je sélectionne un sujet.</li>
+      <li><strong>Deux modèles Claude</strong> utilisés à des étapes différentes : Claude <a class="lex-link" href="/lexique/modele" title="Modèle IA — voir la définition">Sonnet</a> pour proposer 30 sujets du jour, Claude Opus pour rédiger les analyses long-form quand je sélectionne un sujet.</li>
     </ul>
 
     <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
@@ -1233,7 +1233,7 @@
 
     <h3>1. Collecte parallèle des sources <span style="color:var(--ink-muted); font-weight:400">— ~476 items récupérés</span></h3>
     <p>
-      Le worker lance en parallèle une trentaine de requêtes : 11 subreddits Reddit, 5 recherches Hacker News, 2 recherches GitHub, 8 flux RSS officiels (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best), une dizaine de flux Google News dynamiques sur des mots-clés que je veux suivre, et 16 chaînes YouTube via leur flux Atom (gratuit, sans clé API).
+      Le worker lance en parallèle une trentaine de requêtes : 11 subreddits Reddit, 5 recherches Hacker News, 2 recherches GitHub, 8 flux RSS officiels (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best), une dizaine de flux Google News dynamiques sur des mots-clés que je veux suivre, et 16 chaînes YouTube via leur flux Atom (gratuit, sans <a class="lex-link" href="/lexique/cle-api" title="Clé API — voir la définition">clé API</a>).
     </p>
     <p>
       Tout ça en parallèle pour ne pas attendre. En 30 à 60 secondes, j'ai <strong>environ 476 items bruts</strong> dans un tableau en mémoire. Beaucoup sont des doublons, beaucoup sont du bruit. Mais c'est le filet large qu'il faut commencer par lancer.
@@ -1315,7 +1315,7 @@
         <tr><td>13</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« anthropic »</td><td>~30</td></tr>
         <tr><td>14</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« ai agent »</td><td>~30</td></tr>
         <tr><td>15</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« mcp »</td><td>~30</td></tr>
-        <tr><td>16</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« llm tutorial »</td><td>~30</td></tr>
+        <tr><td>16</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>« <a class="lex-link" href="/lexique/llm" title="LLM — voir la définition">llm</a> tutorial »</td><td>~30</td></tr>
         <tr><td>17</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>« claude code »</td><td>~15</td></tr>
         <tr><td>18</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>« mcp server »</td><td>~15</td></tr>
       </tbody>
@@ -1397,7 +1397,7 @@
 
     <h3>2. Pertinence — est-ce dans mon domaine</h3>
     <p>
-      Le titre passe au tamis d'une liste de mots-clés positifs (claude, agent, mcp, skill, automatisation, prompt, llm, solopreneur…) et d'une liste anti-bruit (memes, drama, doomerisme, jailbreaks). Chaque match positif ajoute 1.5 point, chaque anti-bruit retire 4 points.
+      Le titre passe au tamis d'une liste de mots-clés positifs (claude, agent, mcp, skill, automatisation, <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — voir la définition">prompt</a>, llm, solopreneur…) et d'une liste anti-bruit (memes, drama, doomerisme, jailbreaks). Chaque match positif ajoute 1.5 point, chaque anti-bruit retire 4 points.
     </p>
     <p>
       <strong>Exemple concret.</strong> « How I built an agent with Claude Code MCP » → +1.5 (built) +1.5 (agent) +1.5 (claude code) +1.5 (mcp) = 9 sur 10. « Anyone else feel AGI is coming? » → -4 (anyone else) -4 (agi coming) = 0 sur 10, éliminé.
@@ -1670,7 +1670,7 @@ note_finale = note_base × multiplicateur_cluster × boost_chaîne_youtube</code
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
       <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Pourquoi Ollama plutôt qu'OpenAI embeddings ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Ollama tourne en local</strong> sur mon Mac avec un modèle d'embedding multilingue, gratuitement, sans envoyer une seule ligne sur Internet. <strong>OpenAI text-embedding-3-small</strong> coûte 0,02 $ par million de tokens — pas cher mais payant, et mes données partent chez OpenAI. Sur 476 items par jour, l'écart financier est minime mais le contrôle des données est total avec Ollama. Et j'évite une dépendance de plus.</p>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Ollama tourne en local</strong> sur mon Mac avec un modèle d'<a class="lex-link" href="/lexique/embedding" title="Embedding — voir la définition">embedding</a> multilingue, gratuitement, sans envoyer une seule ligne sur Internet. <strong>OpenAI text-embedding-3-small</strong> coûte 0,02 $ par million de <a class="lex-link" href="/lexique/token" title="Token — voir la définition">tokens</a> — pas cher mais payant, et mes données partent chez OpenAI. Sur 476 items par jour, l'écart financier est minime mais le contrôle des données est total avec Ollama. Et j'évite une dépendance de plus.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent IA pour analyser tes contrats PDF · tutoriel</title>
+<title><a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — voir la définition">Agent IA</a> pour analyser tes contrats PDF · tutoriel</title>
 <meta name="description" content="Tutoriel étape par étape : un agent Claude Code qui lit tes contrats PDF, résume et liste les 12 clauses à négocier. Setup 60 min, 20 € par mois.">
 
 <!-- Open Graph -->
@@ -1021,7 +1021,7 @@
 <div class="container">
   <div class="callout warn" style="margin: 24px 0 32px;">
     <h4>Tu débutes complet en IA ?</h4>
-    <p>Si certains termes te perdent (Claude Code, terminal, agent, MCP, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+    <p>Si certains termes te perdent (Claude Code, terminal, agent, <a class="lex-link" href="/lexique/mcp" title="MCP — voir la définition">MCP</a>, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
   </div>
 </div>
 
@@ -1124,7 +1124,7 @@ cd ~/contrats-agent</code></pre>
 
 <div class="mini-marquee" aria-hidden="true">
   <div class="mini-marquee-track">
-    <span>Pas de théorie</span><span>12 clauses à scanner</span><span>Les vraies alertes</span><span>Le prompt exact</span>
+    <span>Pas de théorie</span><span>12 clauses à scanner</span><span>Les vraies alertes</span><span>Le <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — voir la définition">prompt</a> exact</span>
     <span>Pas de théorie</span><span>12 clauses à scanner</span><span>Les vraies alertes</span><span>Le prompt exact</span>
   </div>
 </div>
@@ -1353,7 +1353,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
 
     <h3>Piège 2 — Contrats de plus de 100 pages.</h3>
     <p>
-      Claude Code lit jusqu'à 20 pages par appel (à cause de la context window — la quantité maximale de texte que le modèle peut lire d'un coup). Sur un contrat de 100 pages, tu dois itérer par plage. Le plus simple&nbsp;: splitter le PDF en sections (contrat principal, annexes techniques, annexes tarifaires) et lancer <code>/analyser</code> sur chaque section.
+      Claude Code lit jusqu'à 20 pages par appel (à cause de la <a class="lex-link" href="/lexique/context-window" title="Fenêtre de contexte — voir la définition">context window</a> — la quantité maximale de texte que le modèle peut lire d'un coup). Sur un contrat de 100 pages, tu dois itérer par plage. Le plus simple&nbsp;: splitter le PDF en sections (contrat principal, annexes techniques, annexes tarifaires) et lancer <code>/analyser</code> sur chaque section.
     </p>
 
     <h3>Piège 3 — Faire confiance à 100 % à l'agent.</h3>
@@ -1514,7 +1514,7 @@ de confidentialité à 5 ans et la mention du droit français.</code></pre>
     <h2>FAQ <em class="fuchsia">agent contrats.</em></h2>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes contrats sont confidentiels, faut-il un LLM en local ?</summary>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Mes contrats sont confidentiels, faut-il un <a class="lex-link" href="/lexique/llm" title="LLM — voir la définition">LLM</a> en local ?</summary>
       <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Pas obligatoirement. Pour des contrats freelance ou SaaS standards, l'<strong>API Anthropic</strong> ou Claude Pro suffisent (pas d'entraînement par défaut). Pour des dossiers M&amp;A, contrats clients d'un cabinet d'avocats ou contenus très sensibles, il faut <strong>Claude for Work / Enterprise</strong> avec ZDR, ou <a href="llm-local-pour-non-dev">un modèle en local</a> (Mistral 7B via Ollama).</p>
     </details>
 

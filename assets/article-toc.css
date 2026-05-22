@@ -331,3 +331,26 @@ body.article-toc-open .back-to-top {
 [data-theme="dark"] .article-toc-drawer-panel .article-toc-item a { color: rgba(244,239,230,.7); }
 [data-theme="dark"] .article-toc-drawer-panel .article-toc-item.is-active a { color: #F4EFE6; }
 [data-theme="dark"] .article-toc-drawer-close { border-color: rgba(255,255,255,.22); color: #F4EFE6; }
+
+/* ============================================================
+ * Auto-liens lexique (.lex-link)
+ * Insérés automatiquement par scripts/auto-link-glossary.js dans
+ * les articles vers /lexique/<slug>. Soulignés discrets en fuchsia,
+ * couleur du texte préservée → ne casse pas la lecture.
+ * ============================================================ */
+.lex-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--fuchsia, #EF426F);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: auto;
+  transition: color .15s ease;
+}
+.lex-link:hover,
+.lex-link:focus-visible {
+  color: var(--fuchsia, #EF426F);
+}
+[data-theme="dark"] .lex-link {
+  text-decoration-color: var(--fuchsia, #EF426F);
+}

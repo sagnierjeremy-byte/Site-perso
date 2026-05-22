@@ -1,5 +1,25 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Fix routes du glossaire IA
+
+### Pourquoi
+Après publication, les liens du glossaire étaient trop dépendants de l'URL courante : liens relatifs, URLs propres Vercel et ancres pouvaient donner une impression de redirection incohérente selon le contexte.
+
+### Livré
+- **Routes contrôlées** : les liens du hub A-Z pointent maintenant explicitement vers `/lexique/<slug>.html` pour les pages dédiées et `/lexique.html#<slug>` pour les définitions express.
+- **Pages termes** : les liens de retour et mots liés utilisent les mêmes destinations explicites.
+- **Générateur** : `scripts/build-lexique.js` régénère ces routes déterministes pour éviter les régressions.
+- **Vérification** : contrôle automatique local des 70 liens A-Z : 24 fichiers de pages dédiées présents, 46 ancres existantes.
+
+### Fichiers touchés
+- `CHANGELOG.md`
+- `lexique.html`
+- `lexique/*.html`
+- `scripts/build-lexique.js`
+
+### À venir
+- Après déploiement, vérifier 5 clics en prod : RAG, MCP, Clé API, AGENTS.md, Chunking.
+
 ## 2026-05-22 · Lexique IA v3 · hub A-Z et 24 pages SEO
 
 ### Pourquoi

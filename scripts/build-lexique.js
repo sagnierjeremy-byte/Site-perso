@@ -47,8 +47,8 @@ function publicUrl(term) {
   return term.page ? `${SITE_URL}/lexique/${term.slug}` : `${SITE_URL}/lexique#${term.slug}`;
 }
 
-function localHref(term) {
-  return term.page ? `lexique/${term.slug}.html` : `#${term.slug}`;
+function hubHref(term) {
+  return term.page ? `/lexique/${term.slug}.html` : `/lexique.html#${term.slug}`;
 }
 
 function compactDescription(term) {
@@ -123,7 +123,7 @@ function renderAzList(terms) {
   const blocks = Array.from(groups.entries()).map(([letter, termsForLetter]) => {
     const rows = termsForLetter.map((term) => {
       const badge = term.page ? "Page détaillée" : "Définition express";
-      const href = localHref(term);
+      const href = hubHref(term);
       const groupsAttr = ["all", ...(term.page ? ["pages"] : []), ...(term.groups || [])].join(" ");
       return `          <li class="lex-az-term" data-term-id="${escapeAttr(term.slug)}" data-term-letter="${escapeAttr(letter)}" data-term-groups="${escapeAttr(groupsAttr)}" data-term-search="${escapeAttr(normalizeSearch(term))}">
             <a href="${escapeAttr(href)}">
@@ -182,7 +182,7 @@ ${JSON.stringify(schema, null, 2)}
 }
 
 function renderRelatedLink(current, related) {
-  const href = related.page ? `./${related.slug}.html` : `../lexique.html#${related.slug}`;
+  const href = related.page ? `/lexique/${related.slug}.html` : `/lexique.html#${related.slug}`;
   return `<a href="${escapeAttr(href)}">${escapeHtml(related.title)}</a>`;
 }
 
@@ -278,18 +278,18 @@ ${JSON.stringify(definedTerm, null, 2)}
 ${GENERATED_MARKER}
 <div class="triple-stripe" aria-hidden="true"><span style="background:#00B2A9"></span><span style="background:#EF426F"></span><span style="background:#FF8200"></span></div>
 <header class="term-header">
-  <a class="term-logo" href="../index.html"><span></span>Jerwis</a>
+  <a class="term-logo" href="/"><span></span>Jerwis</a>
   <nav aria-label="Navigation">
-    <a href="../apprendre.html">Apprendre</a>
-    <a href="../lexique.html">Lexique IA</a>
-    <a href="../index.html#newsletters">Newsletters</a>
+    <a href="/apprendre.html">Apprendre</a>
+    <a href="/lexique.html">Lexique IA</a>
+    <a href="/#newsletters">Newsletters</a>
   </nav>
 </header>
 
 <main>
   <section class="term-hero">
     <div class="term-container">
-      <a class="term-back" href="../lexique.html">← Retour au glossaire A-Z</a>
+      <a class="term-back" href="/lexique.html">← Retour au glossaire A-Z</a>
       <div class="term-kicker">Glossaire IA · ${escapeHtml(term.priority || "Définition")}</div>
       <h1>${escapeHtml(term.title)}</h1>
       <p class="term-lead">${escapeHtml(term.summary)}</p>
@@ -367,7 +367,7 @@ ${GENERATED_MARKER}
       <div class="term-side-card">
         <h2>Dans le glossaire</h2>
         <p>La version courte reste dans la liste A-Z, avec les autres mots du même univers.</p>
-        <a class="term-side-cta" href="../lexique.html#${escapeAttr(term.slug)}">Voir dans le hub</a>
+        <a class="term-side-cta" href="/lexique.html#${escapeAttr(term.slug)}">Voir dans le hub</a>
       </div>
     </aside>
   </div>
@@ -383,7 +383,7 @@ ${GENERATED_MARKER}
     <div class="term-container">
       <h2>Tu veux continuer dans l'ordre ?</h2>
       <p>Reviens au glossaire complet, cherche un mot, puis ouvre seulement les pages qui méritent plus qu'une définition courte.</p>
-      <a href="../lexique.html">Ouvrir le glossaire IA</a>
+      <a href="/lexique.html">Ouvrir le glossaire IA</a>
     </div>
   </section>
 </main>

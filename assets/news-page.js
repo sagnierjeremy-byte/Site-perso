@@ -246,6 +246,31 @@
     grid.innerHTML = html;
   }
 
+  function renderWithBuckets(list) {
+    const grid = document.getElementById('newsGrid');
+    if (!grid) return;
+    grid.classList.remove('skeleton-grid');
+    grid.className = 'news-grid';
+    if (!list.length) {
+      grid.innerHTML = '';
+      return;
+    }
+    const now = new Date();
+    const groups = new Map(BUCKET_ORDER.map(b => [b, []]));
+    for (const a of list) {
+      const bucket = timeBucket(a.publishedAt, now);
+      groups.get(bucket).push(a);
+    }
+    let html = '';
+    for (const bucket of BUCKET_ORDER) {
+      const items = groups.get(bucket);
+      if (!items.length) continue;
+      html += `<h3 class="time-divider"><span>${escapeHtml(BUCKET_LABELS[bucket])}</span><span class="count">${items.length} article${items.length > 1 ? 's' : ''}</span></h3>`;
+      html += items.map(a => cardHtml(a)).join('');
+    }
+    grid.innerHTML = html;
+  }
+
   function renderError(msg) {
     var grid = document.getElementById('newsGrid');
     if (grid) {
@@ -315,7 +340,11 @@
     syncURL();
     var count = document.getElementById('articleCount');
     if (count) count.textContent = formatCount(list.length, state.articles.length);
-    renderGrid(list);
+    if (state.sort === 'date') {
+      renderWithBuckets(list);
+    } else {
+      renderGrid(list);
+    }
   }
 
   function populateFilterButtons() {

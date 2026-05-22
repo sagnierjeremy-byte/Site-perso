@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Superpowers Claude Code · guide complet</title>
+<title>Superpowers <a class="lex-link" href="/lexique/claude-code" title="Claude Code — voir la définition">Claude Code</a> · guide complet</title>
 <meta name="description" content="Superpowers, le plugin qui force Claude à réfléchir avant de coder : brainstorm socratique, plan, TDD, revue. À quoi ça sert et quand l'éviter.">
 
 <!-- Open Graph -->
@@ -753,7 +753,7 @@
     <p>Au lieu de coder immédiatement, Claude te pose des questions. <em>« C&#39;est pour quel usage exactement ? Besoin de RGPD ? Envoi immédiat ou différé ? »</em> Tu réponds, il reformule sa compréhension, tu valides. Puis seulement il propose un design. Tu signes le design avant qu&#39;une ligne de code existe. Fini les malentendus à rallonge.</p>
     <p><strong>2. Test-Driven Development (TDD, ou « développement piloté par les tests »)</strong></p>
     <p>Claude écrit d&#39;abord <strong>un test qui échoue</strong>, puis le code qui le fait passer, puis il refactorise (réorganise le code sans changer ce qu'il fait). C&#39;est contre-intuitif, mais ça garantit deux choses : le test vérifie vraiment ce que tu voulais, et le code fait exactement ce qu&#39;il faut. Zéro exception · pas de <em>« je testerai plus tard »</em>.</p>
-    <p><strong>3. Subagent-Driven Development (en clair : développement par sous-agents)</strong></p>
+    <p><strong>3. <a class="lex-link" href="/lexique/sous-agent" title="Sous-agent — voir la définition">Subagent</a>-Driven Development (en clair : développement par sous-agents)</strong></p>
     <p>Sur les gros projets, Claude découpe le travail en tâches indépendantes et lance <strong>plusieurs sous-agents en parallèle</strong> (des « mini-Claude » qui bossent en même temps sur des bouts différents). Chacun fait sa tâche isolée, un autre agent relit et valide, un troisième audite la qualité. C&#39;est comme avoir 3 juniors vérifiés par un senior · mais automatique.</p>
     <div class="callout ok">
       <h4>Ce qui change concrètement dans ta journée</h4>
@@ -921,7 +921,7 @@
     </ul>
 
     <h4>Cas 3 · Nouvelle feature « cours email 5 jours » (8 fichiers)</h4>
-    <p>Brief · une page de capture, un endpoint Resend qui crée un contact dans une audience dédiée, 5 templates email espacés de 24 h, un mécanisme de tracking pour mesurer la complétion, plus la mise à jour du CLAUDE.md du projet.</p>
+    <p>Brief · une page de capture, un endpoint Resend qui crée un contact dans une audience dédiée, 5 templates email espacés de 24 h, un mécanisme de tracking pour mesurer la complétion, plus la mise à jour du <a class="lex-link" href="/lexique/claude-md" title="CLAUDE.md — voir la définition">CLAUDE.md</a> du projet.</p>
     <ul>
       <li><strong>Avant Superpowers (estimation projetée sur ma vélocité de l'époque)</strong> · 4 h 30 minimum, avec probablement 2 ou 3 allers-retours sur la séquence Resend (j'avais déjà galéré sur la première séquence sans plugin).</li>
       <li><strong>Avec Superpowers</strong> · 2 h 15 dont 22 min de brainstorm qui a fait émerger une question que je n'avais pas vue (<em>« si l'utilisateur s'inscrit à la newsletter ET au cours, on lui envoie 6 emails dans la même semaine, c'est OK pour toi ou tu veux désactiver la newsletter pendant le cours ? »</em>). Plan en 14 tâches, exécution propre, code review qui a corrigé un bug de fuseau horaire sur le scheduler.</li>

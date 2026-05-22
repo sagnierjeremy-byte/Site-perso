@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Les loops Claude Code, expliqués</title>
+<title>Les loops <a class="lex-link" href="/lexique/claude-code" title="Claude Code — voir la définition">Claude Code</a>, expliqués</title>
 <meta name="description" content="Automatise tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets (dont 1 non-dev), coûts chiffrés et pièges à éviter.">
 
 <!-- seo:jsonld-article -->
@@ -1020,7 +1020,7 @@
 
     <div class="callout warn">
       <h4>Attention au cache <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — voir la définition">prompt</a> (5 min)</h4>
-      <p>Le cache prompt Anthropic (un mécanisme qui « met en mémoire » ton prompt pour ne pas le repayer à chaque appel) a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les <a class="lex-link" href="/lexique/token" title="Token — voir la définition">tokens</a> (les « briques » de texte facturées par l'IA · environ 0,75 mot chacun) mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss (le « cache raté » qui te fait repayer plein tarif) au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
+      <p>Le <a class="lex-link" href="/lexique/prompt-caching" title="Prompt caching — voir la définition">cache prompt</a> Anthropic (un mécanisme qui « met en mémoire » ton prompt pour ne pas le repayer à chaque appel) a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les <a class="lex-link" href="/lexique/token" title="Token — voir la définition">tokens</a> (les « briques » de texte facturées par l'IA · environ 0,75 mot chacun) mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss (le « cache raté » qui te fait repayer plein tarif) au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
     </div>
   </div>
 </section>

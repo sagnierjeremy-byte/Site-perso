@@ -1,5 +1,34 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Lexique IA v3 · hub A-Z et 24 pages SEO
+
+### Pourquoi
+Le lexique devait devenir un vrai glossaire consultable et référencable : recherche instantanée, liste A-Z complète, et pages dédiées uniquement pour les notions qui méritent plus qu'une définition courte. Objectif SEO : construire un cluster IA propre sans générer 70 pages faibles.
+
+### Livré
+- **`lexique.html`** réorganisé en hub : recherche instantanée, filtres par besoin, index A-Z et liste alphabétique complète des 70 termes avec liens vers pages dédiées quand elles existent.
+- **24 pages SEO générées** sous `lexique/*.html` : Clé API, Fichier .env, Token, MCP, Modèle IA, Skill & Agent, LLM, Fenêtre de contexte, System prompt, Prompt engineering, RAG, Embedding, Base vectorielle, Tool use, Workflow agentique, Context engineering, Structured output, Guardrail, Human-in-the-loop, Hallucination, Prompt injection, Fine-tuning, Open weight, Reasoning model.
+- **Source de vérité** : ajout de `data/lexique.json` avec les 70 termes, slugs stables, groupes, alias, relations et contenu long pour les pages publiées.
+- **Générateur** : ajout de `scripts/build-lexique.js` + scripts npm `lexique:build` et `lexique:check` pour générer les pages, le bloc A-Z du hub, le schema DefinedTermSet et les URLs sitemap.
+- **SEO/schema/social** mis à jour : title, meta description, OG/Twitter, DefinedTermSet avec `@id`, pages termes avec canonical clean, BreadcrumbList + WebPage + DefinedTerm.
+- **Sitemap** : ajout automatique des 24 URLs `/lexique/<slug>` sans `.html`, lastmod au 2026-05-22, zéro doublon.
+- **UX de lecture** : glossaire express placé avant le bloc de partage, partage mis à jour, mini-marquees conservées.
+- **Nettoyage** : formulations trop familières/techniques adoucies, doublon de handler newsletter évité.
+
+### Fichiers touchés
+- `assets/lexique-pages.css`
+- `data/lexique.json`
+- `lexique/*.html`
+- `lexique.html`
+- `package.json`
+- `scripts/build-lexique.js`
+- `sitemap.xml`
+- `CHANGELOG.md`
+
+### À venir
+- Mesurer les impressions Search Console avant de passer de 24 à 40 pages dédiées.
+- Ajouter des liens contextuels depuis les articles existants vers les pages terme prioritaires.
+
 ## 2026-05-22 · Nouvel article · Jerwis Finance, le tracker perso construit avec Claude Code
 
 ### Pourquoi

@@ -1,5 +1,69 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · OG images dédiées pour 8 pages root (SEO-A2)
+
+### Pourquoi
+Les 8 pages root stratégiques (lexique, claude-code, apprendre, modeles-ia, modeles-image-ia, workflows, podcast, outils) partageaient encore l'OG générique `og-jerwis.jpg`. Les articles ont leur propre OG depuis avril, pas les pages root. Mauvais CTR sur les partages sociaux, image identique pour 8 contextes différents.
+
+### Livré
+- **8 OG images dédiées** générées en 1200×630 (JPG progressive ~45-57 KB + WebP ~31-39 KB).
+- **Template `scripts/og-root.html`** : variante du `og-batch.html` pensée pour les pages root (fond dark, gros title centré, pas de photo, triple-stripe haut + bas, kicker JetBrains Mono, signature "Jérémy Sagnier · pas dev"). Respecte la charte Fiesta/89.
+- **Script Puppeteer `scripts/generate-og-root.mjs`** : génère les 8 PNG via Puppeteer + serveur HTTP local (mêmes patterns que `generate-og-batch.mjs`).
+- **Script `scripts/convert-og-root.mjs`** : PNG → JPG progressive (qual 88, mozjpeg) + WebP 1600×840 (qual 82) via sharp.
+- **Script `scripts/patch-og-root.mjs`** : patch idempotent des 8 HTML pour pointer vers les nouvelles OG (og:image + width + height + twitter:image).
+
+### Fichiers touchés
+- `apprendre.html`, `claude-code.html`, `lexique.html`, `modeles-ia.html`, `modeles-image-ia.html`, `outils.html`, `podcast.html`, `workflows.html`
+- `photos/og/{lexique,claude-code,apprendre,modeles-ia,modeles-image-ia,workflows,podcast,outils}.{jpg,webp}` (16 nouveaux fichiers)
+- `scripts/og-root.html`, `scripts/generate-og-root.mjs`, `scripts/convert-og-root.mjs`, `scripts/patch-og-root.mjs`
+
+### À venir
+- Étendre le template aux autres pages root encore sur `og-jerwis.jpg` (news, github, debutant, articles, jeremy-sagnier) si SEO-A2 v2.
+- Tester le rendu en partage Slack / X / LinkedIn pour valider que le contraste tient.
+
+## 2026-05-22 · Glossaire IA vague 3 — 240 termes
+
+### Pourquoi
+Après la vague 2, il restait des angles IA très concrets à couvrir : MCP moderne, patterns agents, RAG d'évaluation, API providers, multimodal, navigateurs automatisés et outils no-code/devtools.
+
+### Livré
+- **50 nouvelles définitions express** ajoutées au glossaire, pour passer de 190 à 240 termes.
+- **Hub A-Z régénéré** : 240 lignes alphabétiques, 232 cartes compactes, 24 pages SEO dédiées conservées.
+- **Recherche enrichie** : alias FR/EN ajoutés sur les 50 nouveaux termes pour retrouver autant les mots techniques anglais que les formulations françaises.
+- **Stratégie SEO maintenue** : aucune page longue ajoutée dans cette vague, pour éviter 50 pages faibles et garder les pages dédiées pour les requêtes vraiment intentionnelles.
+- **Nouveaux clusters couverts** : MCP elicitation/roots/tasks, agent graph/planner-evaluator, response groundedness, late interaction, Sonar Perplexity, Vercel AI SDK, multimodal audio-image-vidéo, Browserbase/Stagehand, n8n et Supabase Realtime.
+
+### Fichiers touchés
+- `CHANGELOG.md`
+- `data/lexique.json`
+- `lexique.html`
+
+### À venir
+- Promouvoir seulement les termes à forte intention en pages SEO longues : MCP elicitation, progressive tool discovery, response groundedness, Browserbase, document intelligence.
+- Ajouter ensuite une vague plus orientée cas d'usage business si le glossaire doit viser 300+ termes sans devenir une liste d'outils.
+
+## 2026-05-22 · Glossaire IA vague 2 — 190 termes
+
+### Pourquoi
+Après la première densification à 130 termes, l'objectif était de couvrir les trous encore visibles : sécurité agents, MCP avancé, RAG documentaire, évaluation, gateways modèles et automatisations no-code.
+
+### Livré
+- **60 nouvelles définitions express** ajoutées au glossaire, pour passer de 130 à 190 termes.
+- **Hub A-Z régénéré** : 190 lignes alphabétiques, 182 cartes compactes, 24 pages SEO dédiées conservées.
+- **Stratégie SEO maintenue** : aucune page longue ajoutée dans cette vague, pour éviter de publier du contenu mince avant d'avoir des signaux Search Console.
+- **Grille express industrialisée** : `scripts/build-lexique.js` génère maintenant aussi les cartes compactes depuis `data/lexique.json`, en plus de l'A-Z, du schema et du sitemap.
+- **Nouveaux clusters couverts** : OpenAI Agents SDK, Realtime API, model gateway/fallback, sécurité agentique, resources MCP, tool schema, GraphRAG/data extraction, métriques RAG, Make/Zapier.
+
+### Fichiers touchés
+- `CHANGELOG.md`
+- `data/lexique.json`
+- `lexique.html`
+- `scripts/build-lexique.js`
+
+### À venir
+- Promouvoir seulement les termes à forte intention en pages SEO longues : agent goal hijack, tool schema, model gateway, filtre de métadonnées, golden dataset.
+- Ajouter une troisième vague plus orientée produits/outils si le glossaire dépasse 220 termes sans perdre en clarté.
+
 ## 2026-05-22 · News page v2 — search/sort/trending/AI summary
 
 ### Pourquoi

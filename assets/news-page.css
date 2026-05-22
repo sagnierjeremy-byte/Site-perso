@@ -65,3 +65,25 @@
   .news-controls { gap: 10px; }
   .news-controls select { font-size: 12px; padding: 6px 10px; }
 }
+
+/* Read-state visual */
+.news-card.is-read,
+.news-card-featured.is-read {
+  opacity: 0.55;
+  filter: saturate(0.7);
+  transition: opacity .15s, filter .15s;
+}
+.news-card.is-read:hover,
+.news-card-featured.is-read:hover {
+  opacity: 0.85;
+  filter: saturate(0.9);
+}
+.news-card.is-read .card-title::after,
+.news-card-featured.is-read .card-title::after {
+  content: " · vu";
+  color: var(--ink-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}

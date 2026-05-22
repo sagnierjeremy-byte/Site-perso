@@ -120,6 +120,35 @@
     return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
   }
 
+  // ─── READ-STATE TRACKING ──────────────────────────────────────────
+  const MAX_READ_URLS = 500;
+
+  function cssEscape(s) {
+    return (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/"/g, '\\"');
+  }
+
+  function persistReadUrls() {
+    let arr = [...state.readUrls];
+    if (arr.length > MAX_READ_URLS) {
+      arr = arr.slice(arr.length - MAX_READ_URLS);
+      state.readUrls = new Set(arr);
+    }
+    try {
+      localStorage.setItem('news-read', JSON.stringify(arr));
+    } catch (e) {
+      try { localStorage.removeItem('news-read'); } catch (_) {}
+    }
+  }
+
+  function markAsRead(url) {
+    if (!url || state.readUrls.has(url)) return;
+    state.readUrls.add(url);
+    persistReadUrls();
+    document.querySelectorAll(`[data-url="${cssEscape(url)}"]`).forEach(el => {
+      el.classList.add('is-read');
+    });
+  }
+
   // ─── THEME ────────────────────────────────────────────────────────
   (function() {
     const toggle = document.getElementById('themeToggleV2');
@@ -400,9 +429,46 @@
     });
   }
 
-  // Stubs for handlers wired in T8+ — see plan
-  // hideReadToggle, markAllRead, resetRead exist in DOM but
-  // have no handlers yet. That's fine — they're inactive until those tasks.
+  // Read-state: click delegation on grid to mark as read
+  const newsGrid = document.getElementById('newsGrid');
+  if (newsGrid) {
+    newsGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('[data-url]');
+      if (!card) return;
+      markAsRead(card.dataset.url);
+    });
+  }
+
+  // Read-state: hide-read toggle
+  const hideReadToggle = document.getElementById('hideReadToggle');
+  if (hideReadToggle) {
+    hideReadToggle.checked = state.hideRead;
+    hideReadToggle.addEventListener('change', (e) => {
+      state.hideRead = e.target.checked;
+      applyFiltersAndRender();
+    });
+  }
+
+  // Read-state: mark all as read
+  const markAllReadBtn = document.getElementById('markAllRead');
+  if (markAllReadBtn) {
+    markAllReadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      for (const a of state.articles) markAsRead(a.url);
+    });
+  }
+
+  // Read-state: reset
+  const resetReadBtn = document.getElementById('resetRead');
+  if (resetReadBtn) {
+    resetReadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!confirm('Réinitialiser tous les articles marqués comme lus ?')) return;
+      state.readUrls.clear();
+      persistReadUrls();
+      applyFiltersAndRender();
+    });
+  }
 
   loadArticles();
 

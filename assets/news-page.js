@@ -183,6 +183,27 @@
     return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
   }
 
+  let _trendingIdx = null;
+  function trendingIndexByUrl() {
+    if (_trendingIdx) return _trendingIdx;
+    const map = new Map();
+    for (const c of state.clusters) {
+      for (const idx of c.indices) {
+        const url = state.articles[idx].url;
+        if (!map.has(url)) map.set(url, c);
+      }
+    }
+    _trendingIdx = map;
+    return map;
+  }
+
+  function trendingBadge(article) {
+    if (!article.url) return '';
+    const cluster = trendingIndexByUrl().get(article.url);
+    if (!cluster) return '';
+    return `<span class="trending-badge" aria-label="${cluster.sourceCount} sources couvrent ce sujet">🔥 ${cluster.sourceCount} sources</span>`;
+  }
+
   function cardHtml(article, featured) {
     var cat = article.category;
     var cls = catClass(cat);
@@ -190,6 +211,7 @@
     var isRead = state.readUrls.has(article.url);
     var readCls = isRead ? ' is-read' : '';
     var dataUrl = ' data-url="' + escapeHtml(article.url || '') + '"';
+    var badge = trendingBadge(article);
 
     var imgHtml = article.image
       ? '<img src="' + escapeHtml(article.image) + '" alt="" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=\\\"card-img-placeholder ' + cls + '\\\">' + escapeHtml(source || 'Veille') + '<\\/div>\'">'
@@ -204,6 +226,7 @@
         + '<div class="card-img-wrap">' + imgHtml + '</div>'
         + '<div class="card-body">'
         + '<div>'
+        + badge
         + '<div class="card-meta"><span class="card-source">' + escapeHtml(source) + '</span>'
         + (cat ? '<span class="card-tag ' + cls + '">' + escapeHtml(catLabel(cat)) + '</span>' : '')
         + '</div>'
@@ -218,6 +241,7 @@
     return '<a href="' + escapeHtml(article.url) + '"' + dataUrl + ' target="_blank" rel="noopener" class="news-card' + readCls + '">'
       + '<div class="card-img-wrap">' + imgHtml + '</div>'
       + '<div class="card-body">'
+      + badge
       + '<div class="card-meta"><span class="card-source">' + escapeHtml(source) + '</span>'
       + (cat ? '<span class="card-tag ' + cls + '">' + escapeHtml(catLabel(cat)) + '</span>' : '')
       + '</div>'
@@ -452,11 +476,12 @@
 
   async function loadArticles() {
     try {
+      _trendingIdx = null; // invalidate cache before re-fetch
       var res = await fetch('/api/news');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       var data = await res.json();
       state.articles = Array.isArray(data) ? data : [];
-      state.clusters = []; // T12 will populate this
+      state.clusters = buildClusters(state.articles);
       initFiltersFromURL();
       populateSourceFilter();
       populateFilterButtons();

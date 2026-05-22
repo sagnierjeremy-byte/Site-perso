@@ -390,8 +390,18 @@
     });
   }
 
-  // Stubs for handlers wired in T7-T8 — see plan
-  // sortBy, hideReadToggle, markAllRead, resetRead exist in DOM but
+  // Sort dropdown handler
+  const sortBy = document.getElementById('sortBy');
+  if (sortBy) {
+    sortBy.value = state.sort;  // reflect initial state in UI
+    sortBy.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      applyFiltersAndRender();
+    });
+  }
+
+  // Stubs for handlers wired in T8+ — see plan
+  // hideReadToggle, markAllRead, resetRead exist in DOM but
   // have no handlers yet. That's fine — they're inactive until those tasks.
 
   loadArticles();

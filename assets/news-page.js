@@ -324,7 +324,27 @@
   }
 
   function populateSourceFilter() {
-    // T6: fill #sourceFilter <select> with optgroups
+    const sel = document.getElementById('sourceFilter');
+    if (!sel) return;
+
+    // Group sources by category
+    const byCat = new Map();
+    for (const a of state.articles) {
+      if (!a.sourceName || !a.category) continue;
+      if (!byCat.has(a.category)) byCat.set(a.category, new Set());
+      byCat.get(a.category).add(a.sourceName);
+    }
+
+    const total = state.articles.length;
+    sel.innerHTML = `<option value="all">Toutes les sources (${total})</option>` +
+      [...byCat.entries()].map(([cat, sources]) => {
+        const opts = [...sources].sort().map(s =>
+          `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`
+        ).join('');
+        return `<optgroup label="${escapeHtml(cat)}">${opts}</optgroup>`;
+      }).join('');
+
+    sel.value = state.source;
   }
 
   function syncURL() {
@@ -361,8 +381,17 @@
     }, 200));
   }
 
-  // Stubs for handlers wired in T6-T8 — see plan
-  // sourceFilter, sortBy, hideReadToggle, markAllRead, resetRead exist in DOM but
+  // Source filter handler
+  const sourceFilter = document.getElementById('sourceFilter');
+  if (sourceFilter) {
+    sourceFilter.addEventListener('change', (e) => {
+      state.source = e.target.value;
+      applyFiltersAndRender();
+    });
+  }
+
+  // Stubs for handlers wired in T7-T8 — see plan
+  // sortBy, hideReadToggle, markAllRead, resetRead exist in DOM but
   // have no handlers yet. That's fine — they're inactive until those tasks.
 
   loadArticles();

@@ -235,7 +235,7 @@
     grid.className = 'news-grid';
 
     if (!list.length) {
-      grid.innerHTML = '<div class="veille-empty"><strong>Aucun article pour le moment.</strong>La veille se met à jour toutes les 6h.</div>';
+      grid.innerHTML = renderEmptyState();
       return;
     }
 
@@ -252,7 +252,7 @@
     grid.classList.remove('skeleton-grid');
     grid.className = 'news-grid';
     if (!list.length) {
-      grid.innerHTML = '';
+      grid.innerHTML = renderEmptyState();
       return;
     }
     const now = new Date();
@@ -269,6 +269,16 @@
       html += items.map(a => cardHtml(a)).join('');
     }
     grid.innerHTML = html;
+  }
+
+  function renderEmptyState() {
+    return `
+      <div class="news-empty">
+        <div class="news-empty-icon">🔍</div>
+        <div class="news-empty-title">Aucun article ne matche tes filtres.</div>
+        <button id="resetFiltersBtn" type="button" class="news-empty-btn">Réinitialiser les filtres</button>
+      </div>
+    `;
   }
 
   function renderError(msg) {
@@ -487,10 +497,36 @@
     });
   }
 
-  // Read-state: click delegation on grid to mark as read
+  // Read-state: click delegation on grid to mark as read OR reset filters
   const newsGrid = document.getElementById('newsGrid');
   if (newsGrid) {
     newsGrid.addEventListener('click', (e) => {
+      // Reset filters button (in empty state)
+      if (e.target && e.target.id === 'resetFiltersBtn') {
+        state.query = '';
+        state.category = 'all';
+        state.source = 'all';
+        state.sort = 'trending';
+        state.hideRead = false;
+
+        // Reflect in UI controls
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) searchInput.value = '';
+        const sourceFilter = document.getElementById('sourceFilter');
+        if (sourceFilter) sourceFilter.value = 'all';
+        const sortBy = document.getElementById('sortBy');
+        if (sortBy) sortBy.value = 'trending';
+        const hideReadToggle = document.getElementById('hideReadToggle');
+        if (hideReadToggle) hideReadToggle.checked = false;
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.cat === 'all');
+        });
+
+        applyFiltersAndRender();
+        return;
+      }
+
+      // Mark as read (existing behavior)
       const card = e.target.closest('[data-url]');
       if (!card) return;
       markAsRead(card.dataset.url);

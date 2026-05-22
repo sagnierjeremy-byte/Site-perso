@@ -26,7 +26,6 @@ const FEEDS = [
   // ── Business — sources françaises ─────────────────────────────────────────
   { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
   { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
-  { url: 'https://www.bfmtv.com/rss/economie/', name: 'BFM Économie', category: 'Business' },
   { url: 'https://www.bfmtv.com/rss/economie/entreprises/', name: 'BFM Business', category: 'Business' },
   { url: 'https://www.lefigaro.fr/rss/figaro_economie.xml', name: 'Le Figaro Économie', category: 'Business' },
   { url: 'https://feed.prismamediadigital.com/v1/cap/rss', name: 'Capital', category: 'Business' },

@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J'ai créé Jerwis Finance pour vraiment suivre mes positions</title>
+<meta name="description" content="Trade Republic ne te montre que le prix moyen. J'ai construit mon propre tracker actions et crypto pour voir tous mes points d'entrée, savoir combien j'ai vraiment investi. Le making-of, sans filtre.">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/articles/jerwis-finance-tracker">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/articles" },
+    { "@type": "ListItem", "position": 3, "name": "On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine.", "item": "https://jerwis.fr/articles/jerwis-finance-tracker" }
+  ]
+}
+</script>
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/articles/jerwis-finance-tracker">
+<meta property="og:title" content="On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine.">
+<meta property="og:description" content="Le making-of de booking.eurofiscalis.app · 2 SaaS remplacés (réservation + signature email), 1 semaine, 20 utilisateurs aujourd'hui, ~ 345 €/mois économisés.">
+<meta property="og:image" content="https://jerwis.fr/photos/og/jerwis-finance-tracker.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/jerwis-finance-tracker.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "On a viré Calendly ET Letsignit. Voici comment on a construit le nôtre en une semaine.",
+  "description": "Récit de la création du booking interne Eurofiscalis qui remplace Calendly et Letsignit · Next.js + Supabase + Outlook + Resend, 1 semaine, 20 utilisateurs.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/jeremy-sagnier"},
+  "datePublished": "2026-05-22",
+  "dateModified": "2026-05-22",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/photos/og/jerwis-finance-tracker.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/articles/jerwis-finance-tracker"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Pourquoi avoir quitté Calendly et Letsignit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le vrai déclencheur n'était pas le prix mais l'impossibilité de personnaliser correctement les pages de réservation et les signatures email à notre charte Eurofiscalis. Calendly ne laissait changer qu'une couleur d'accent, et les 20 conseillers avaient des pages dépareillées. Tant qu'à refaire, on a tué Letsignit dans la foulée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûtaient Calendly et Letsignit avant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calendly Teams à 16 dollars par utilisateur et par mois, soit environ 295 euros pour 20 personnes. Letsignit autour de 80 euros par mois sur le plan standard. Total cumulé d'environ 375 euros par mois, soit à peu près 4 500 euros par an."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps a pris la construction de l'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cinq jours pour la base, du dimanche soir (le déclic) au vendredi soir (mise en ligne). Puis deux semaines supplémentaires pour construire le back-office complet (onboarding autonome, signatures, fonds visio) que je n'avais pas anticipé au départ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle stack technique a été utilisée ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Next.js pour le moteur du site, Supabase pour la base de données, Microsoft Graph pour la synchronisation Outlook, Resend pour les emails de confirmation, Vercel pour l'hébergement et Sentry pour le monitoring. Rien d'exotique, c'est un assemblage standard d'outils qu'utilise n'importe quelle startup web en 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment fonctionne la fonction RDV à 2 conseillers ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un conseiller génère un lien spécial qui réserve un créneau pour lui ET un collègue choisi. L'outil calcule automatiquement les créneaux où les deux sont libres dans Outlook. Très utile pour les passages de relais entre commercial et conseiller technique : un seul créneau, deux personnes en face, le client n'a plus à répéter son histoire deux fois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de personnes utilisent l'outil aujourd'hui ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 conseillers chez Eurofiscalis l'utilisent tous les jours. Plus de 500 rendez-vous ont été passés depuis la mise en ligne en avril 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte l'outil maison par mois maintenant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Environ 30 euros par mois cumulés pour Vercel, Supabase et Resend. Soit autour de 360 euros par an, contre 4 500 euros avant. Économie d'environ 4 140 euros par an. Ce coût ne compte pas le temps de construction (5 jours + 2 semaines) ni la maintenance (1 à 2 jours par mois)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi avoir basculé de Microsoft Graph à Resend pour les emails ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les envois via Microsoft Graph plantaient en silence environ une fois sur dix, sans erreur ni retour, et les clients ne recevaient pas leur confirmation. Resend, un service spécialisé email, marche du premier coup et n'a pas eu un seul raté en quatre semaines de production. La spécialisation a primé sur l'intégration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être développeur pour construire ce genre d'outil ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Je ne suis pas développeur, je suis entrepreneur, et tout a été construit avec Claude Code en pair-programming (l'IA tape, je guide). Max, notre développeur, est seulement intervenu sur la fin pour l'audit sécurité avant la mise en ligne. Le seuil pour construire son propre outil interne est devenu accessible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels pièges techniques avons-nous rencontrés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quatre pièges principaux : la gestion des fuseaux horaires (résolue avec date-fns-tz), les doubles réservations sur le même créneau (réglées par un index unique en base), les emails Microsoft Graph qui plantaient en silence (basculement sur Resend) et les jetons Outlook qui expirent toutes les heures (système de rafraîchissement automatique)."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,178,169,.5) } 70% { box-shadow: 0 0 0 12px rgba(0,178,169,0) } 100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
+  h2 em { font-style: normal }
+  h2 em.teal { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
+
+  /* Pieges (numbered list) */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Showcase image */
+  .showcase { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 18px; margin: 28px 0 8px; position: relative; overflow: hidden }
+  .showcase::before { content: ""; position: absolute; top: 0; left: 18px; right: 18px; height: 4px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 0 0 4px 4px }
+  .showcase img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line) }
+  .showcase .caption { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-top: 14px; text-align: center }
+  .showcase .caption a { color: var(--fuchsia); text-decoration: none }
+
+  /* Timeline */
+  .timeline { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 26px 0 8px }
+  @media (min-width: 720px) { .timeline { grid-template-columns: 1fr 1fr } }
+  .tl-item { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 18px 22px; position: relative; overflow: hidden }
+  .tl-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px }
+  .tl-item:nth-child(7n+1)::before { background: var(--teal) }
+  .tl-item:nth-child(7n+2)::before { background: var(--fuchsia) }
+  .tl-item:nth-child(7n+3)::before { background: var(--orange) }
+  .tl-item:nth-child(7n+4)::before { background: var(--ink) }
+  .tl-item:nth-child(7n+5)::before { background: var(--teal) }
+  .tl-item:nth-child(7n+6)::before { background: var(--fuchsia) }
+  .tl-item:nth-child(7n+7)::before { background: var(--orange) }
+  .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--ink-muted) }
+  .tl-item h4 { margin: 4px 0 8px; font-size: 16px }
+  .tl-item p { font-size: 14.5px; line-height: 1.55; margin: 0 }
+
+  /* Outils grid (features 3 colonnes) */
+  .feature-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .feature-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .feature { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 24px }
+  .feature-emoji { font-size: 28px; margin-bottom: 10px; line-height: 1 }
+  .feature h4 { margin: 0 0 8px; font-size: 16px }
+  .feature p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Final CTA */
+  .final-cta { padding: 72px 0 96px; background: radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%), radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%), var(--bg); border-top: 1px solid var(--line); text-align: center }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; background: var(--ink); color: var(--bg); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: transform .2s }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+</style>
+<link rel="stylesheet" href="../assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+  <!-- Microsoft Clarity (heatmaps + session replay) -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "whves74mv1");</script>
+<link rel="stylesheet" href="../assets/mobile-fixes.css">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Aller au contenu</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Navigation principale">
+  <a class="brand brand-stamp" href="/" aria-label="Accueil Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/apprendre">Apprendre</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
+        Plus
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>Modèles image IA</strong><span>Génération d'images, audio, vidéo</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>Lexique IA</strong><span>40 termes expliqués</span></span>
+        </a>
+        <a href="/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code par métier</span></span>
+        </a>
+        <a href="/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>Mes outils</strong><span>Ma stack IA et web</span></span>
+        </a>
+        <a href="/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>Pour non-devs · guide complet</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>Veille IA</strong><span>Auto-mise à jour toutes les 6h</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>Qui je suis</strong><span>Bio + parcours + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Photos perso · 39 €</strong><span>Générateur de photos IA</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Changer de thème">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Making-of · Outil perso · Finance</div>
+    <h1>J'ai créé <em class="fuchsia">mon propre tracker</em><br>pour vraiment savoir<br>où sont mes <em>positions.</em></h1>
+    <p class="hero-lead">
+      J'achète des actions et de la crypto de temps en temps sur Trade Republic et compagnie. Le problème : ces apps te montrent un prix moyen mais pas où tu as vraiment acheté, ni combien tu as mis de ta poche. J'en ai eu marre. Une semaine plus tard, j'avais mon propre tracker : <strong>Jerwis Finance</strong>. Tous mes points d'entrée sur un graphique, le montant réel investi, et une wishlist pour savoir si j'ai bien fait d'attendre. Le récit, sans filtre.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>12 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Tout public</span>
+      <span class="hero-meta-item"><strong>Date</strong> Mai 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="../index#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
+    <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img src="../photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>Je teste l’IA tous les jours · Je partage ce qui m’a servi</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Publié <time datetime="2026-05-22">22 mai 2026</time> · MAJ 22 mai 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu vas trouver dedans</h2>
+    <ul>
+      <li><strong>Le déclencheur</strong> : Trade Republic et compagnie te montrent un prix moyen. Mais où as-tu vraiment acheté ? Combien as-tu mis exactement de ta poche ? Aucune réponse claire.</li>
+      <li><strong>L'équipe</strong> : moi tout seul, en pair-programming avec Claude Code. Une semaine pour la base, deux semaines pour le polish.</li>
+      <li><strong>Le résultat</strong> : <strong>Jerwis Finance</strong>, un tracker perso branché sur Yahoo Finance, CoinGecko et la BCE. Tous mes points d'entrée sur un graphique, le PMP recalculé en EUR avec les vrais taux historiques, l'historique de la valorisation jour par jour.</li>
+      <li><strong>Les 5 fonctionnalités</strong> : positions avec PMP en EUR + transactions ledger + page actif avec chandeliers et indicateurs + plans DCA + wishlist (les actions que tu surveilles avec leur performance depuis ta date d'ajout).</li>
+      <li><strong>L'idée derrière la wishlist</strong> : tu te dis « j'aurais pu acheter cette action » → tu l'ajoutes → 6 mois plus tard tu sais exactement si tu as bien fait d'attendre ou pas.</li>
+      <li><strong>Transparence</strong> : article rédigé avec Claude (relu et validé par moi), construction faite avec Claude Code. Je ne suis pas développeur. Si tu repères une erreur, <a href="mailto:sagnier.jeremy@gmail.com">écris-moi</a>, je corrige.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Le déclencheur</span>
+    <h2>Le problème dont <em class="fuchsia">personne ne parle.</em></h2>
+    <p>
+      Pour planter le décor : j'investis de temps en temps. Pas un trader, pas un day-trader, pas quelqu'un qui regarde les cours toutes les heures. Juste quelqu'un qui met de l'argent sur des actions ou de la crypto quand l'occasion se présente. Quelques actions américaines, du Bitcoin, de l'Ethereum, un ETF de temps en temps. Multiplié par plusieurs achats sur 2-3 ans, ça commence à faire un petit portefeuille.
+    </p>
+    <p>
+      Pendant longtemps, j'ai utilisé <strong><a href="https://traderepublic.com/" target="_blank" rel="noopener nofollow">Trade Republic</a></strong> pour les actions, et un autre service pour la crypto. Sur le papier, ces apps sont parfaites · interface clean, frais quasi nuls, achat en deux clics. Mais à l'usage, j'ai fini par buter sur trois trucs <em>(pardon, sur trois points)</em> qui m'agaçaient profondément.
+    </p>
+
+    <p>
+      <strong>Premier point :</strong> tu n'as <strong>jamais</strong> l'historique de quand tu as acheté quoi. Sur Trade Republic, tu vois ton « prix d'achat moyen ». Mais ce prix moyen, c'est une moyenne mathématique de tous tes achats. Si tu as acheté Apple 5 fois sur 2 ans, à 5 prix différents, tu ne vois que la moyenne. Tu ne sais plus où étaient tes vrais points d'entrée. Tu ne sais plus si t'as acheté au plus haut ou au plus bas. L'historique brut est dans l'app mais il faut faire défiler à la main, et il n'est jamais affiché sur le graphique du cours.
+    </p>
+
+    <p>
+      <strong>Deuxième point :</strong> tu ne sais <strong>jamais</strong> combien tu as vraiment investi de ta poche. Le « total investi » affiché ne tient pas compte des conversions de devise (achat en dollars, mais ton compte est en euros). Les frais de change sont noyés dans le prix moyen. Tu connais grosso modo ton effort financier, mais pas au centime près. Quand tu veux raisonner « combien suis-je en gain réel ? », c'est compliqué.
+    </p>
+
+    <p>
+      <strong>Troisième point :</strong> aucun outil ne te permet de garder une <strong>wishlist intelligente</strong>. Tu te dis « tiens, ça vaudrait peut-être le coup d'acheter Netflix, je vais attendre une baisse » → puis tu oublies → 6 mois plus tard tu repasses, l'action a fait +40 %, tu te demandes si t'as bien fait d'attendre ou pas. Mais comme tu n'as pas noté la date où tu l'avais repérée, tu ne le sauras jamais vraiment.
+    </p>
+
+    <div class="callout warn">
+      <h4>Le vrai problème, ce n'est pas le broker · c'est ce que tu n'as pas en main</h4>
+      <p>Trade Republic, eToro, Revolut, ils font tous bien leur job : acheter et vendre. Ce qui leur manque, c'est la <strong>vue analytique sur ta propre prise de décision</strong>. Où as-tu vraiment acheté, à quel prix, dans quelle devise, à quel taux de change, combien ça t'a coûté en frais cachés. Et qu'est-ce que tu surveilles depuis quand. Ces données existent dans tes relevés mais elles sont coupées en morceaux dans 4 endroits différents.</p>
+    </div>
+
+    <p>
+      Un soir, j'en ai eu marre. J'ai pris une feuille de papier et je me suis fait la liste de ce que je voudrais avoir, si je me faisais mon propre outil.
+    </p>
+
+    <ol>
+      <li><strong>Tous mes points d'entrée sur le graphique de l'action</strong> · pas juste un trait pour le prix moyen, mais un point par achat, à la bonne date.</li>
+      <li><strong>Le PMP recalculé proprement</strong> en EUR avec les vrais taux de change historiques de la BCE, en intégrant les frais.</li>
+      <li><strong>Le montant total réellement investi</strong>, en euros sortis de mon compte, sans approximation.</li>
+      <li><strong>La +/- value latente et réalisée</strong> claire, en euros et en pourcentage.</li>
+      <li><strong>Une wishlist datée</strong> · je note la date où j'ajoute une action, et l'outil calcule sa performance depuis ce jour-là. Comme ça je sais après coup si j'avais raison d'attendre.</li>
+      <li><strong>Des plans DCA</strong> · si je veux acheter pour 200 € de Bitcoin tous les 15, l'outil me dit « tu dois en racheter aujourd'hui » et exécute en un clic.</li>
+      <li><strong>Une vue d'ensemble historique</strong> · l'évolution de la valeur totale de mon portefeuille jour par jour, pas juste le snapshot du moment.</li>
+    </ol>
+
+    <p>
+      Je l'ai relue. Je me suis dit · « ça, c'est exactement ce qu'aucun broker ne va faire pour moi. C'est ma vue d'analyste sur ma propre prise de décision. » Et avec Claude Code, en 2026, c'est faisable en quelques jours. Le lendemain matin, je m'y suis mis.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Plus de prix moyen mystère</span><span>Mes points d'entrée visibles</span><span>Le vrai montant investi</span><span>La wishlist datée</span><span>Mon outil · mes règles</span>
+    <span>Plus de prix moyen mystère</span><span>Mes points d'entrée visibles</span><span>Le vrai montant investi</span><span>La wishlist datée</span><span>Mon outil · mes règles</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Voilà le résultat</span>
+    <h2>Avant d'expliquer comment, <em class="teal">regarde.</em></h2>
+    <p>
+      Voici à quoi ressemble Jerwis Finance aujourd'hui. C'est mon dashboard d'accueil quand j'arrive sur l'outil. La valorisation totale du portefeuille en haut, l'historique de la valeur jour par jour, mes top positions, l'allocation par type d'actif, et un bloc « À surveiller » qui m'alerte si une de mes positions a beaucoup bougé ou si un seuil est dépassé.
+    </p>
+
+    <div class="showcase">
+      <picture><source srcset="../photos/jerwis-finance/02-dashboard.webp" type="image/webp"><img src="../photos/jerwis-finance/02-dashboard.png" width="1440" height="900" alt="Jerwis Finance · Dashboard avec valorisation, historique du portefeuille et allocation" loading="lazy"></picture>
+      <div class="caption">↗ Le dashboard d'accueil · valorisation totale, historique journalier, allocation et signaux</div>
+    </div>
+
+    <p>
+      C'est cet écran qui me manquait depuis des années. Quand j'ouvre l'app le matin, je sais en 5 secondes · ma valorisation totale, ce que j'ai investi cumulé, si je suis en gain ou en perte, et ce qu'il faut surveiller aujourd'hui. Trade Republic me donnait une partie de ça, mais en EUR seulement, sans historique, sans signaux, et sans mes vrais points d'entrée.
+    </p>
+
+    <p>
+      Tout le reste de l'outil, c'est juste l'approfondissement de cette vue. Détail par position. Liste des transactions. Plans DCA. Wishlist. Page par actif avec chandeliers et indicateurs techniques. Tout est rangé. Tout est calculé en EUR avec les vrais taux historiques. Et tout m'appartient · les données sont dans <strong>ma</strong> base, pas chez un broker qui peut changer ses CGU demain.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Mon outil · pas un SaaS</span><span>Mes données · pas un broker</span><span>PMP réel en EUR</span><span>Chandeliers + MA + RSI</span><span>Wishlist datée</span><span>Plans DCA</span>
+    <span>Mon outil · pas un SaaS</span><span>Mes données · pas un broker</span><span>PMP réel en EUR</span><span>Chandeliers + MA + RSI</span><span>Wishlist datée</span><span>Plans DCA</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Jour par jour</span>
+    <h2>La semaine de <em class="orange">construction.</em></h2>
+    <p>
+      Voilà comment ça s'est passé concrètement, du déclic à la mise en ligne. Pour info : je ne suis pas développeur. Je suis entrepreneur, je sais utiliser <strong>Claude Code</strong> (l'outil d'IA qui écrit le code à ma place pendant que je guide), et c'est tout. Tout ce qui suit, je l'ai fait avec Claude Code en pair-programming.
+    </p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">Soir 1 · J0</div>
+        <h4>La feuille de papier</h4>
+        <p>Je liste ce que je veux voir dans l'outil · points d'entrée, PMP en EUR, montant investi réel, +/- value, wishlist datée. Je dors là-dessus pour vérifier que je suis pas en train de réinventer un truc qui existe.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J1</div>
+        <h4>Le squelette du site</h4>
+        <p>J'ouvre Claude Code dans un nouveau dossier. Je demande un projet <strong>Next.js</strong> (le moteur de site web moderne) avec une page Dashboard et une page Positions. Le soir, j'ai 2 pages qui s'affichent avec des données factices, mais le routing et le thème sont en place.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J2</div>
+        <h4>La base de données et les calculs PMP</h4>
+        <p>Je branche d'abord SQLite en local (plus rapide pour démarrer). Je crée 4 tables · <code>assets</code> (les actions et cryptos), <code>transactions</code> (chaque achat/vente), <code>dca_plans</code> (les plans d'achat récurrents), <code>wishlist_items</code>. Et surtout, je travaille les calculs de PMP (prix moyen pondéré) en TDD : Claude Code écrit d'abord les tests, puis l'implémentation. <strong>86 tests automatisés</strong> sur les calculs au final.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J3</div>
+        <h4>Les prix en temps réel</h4>
+        <p>Je branche <strong>Yahoo Finance</strong> pour les actions et <strong>CoinGecko</strong> pour la crypto. Et un point crucial · <strong>Frankfurter</strong> pour les taux de change EUR de la BCE (Banque Centrale Européenne). C'est ce qui me permet de calculer le PMP en EUR avec le vrai taux du jour de l'achat, pas le taux d'aujourd'hui. Trade Republic ne te donne pas ça.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J4</div>
+        <h4>Le graphique avec mes points d'entrée</h4>
+        <p>La feature que je voulais le plus. J'utilise <strong>Recharts</strong> pour dessiner les chandeliers OHLC, et j'ajoute un calque de points qui marquent chacun de mes achats à la date exacte. Avec les indicateurs MA50, MA200 et RSI 21 dans un panneau séparé. C'est ce que je rêvais d'avoir depuis 2 ans.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J5</div>
+        <h4>La wishlist datée</h4>
+        <p>Je code la table <code>wishlist_items</code> avec un <code>reference_price</code> figé à l'ajout et un <code>reference_date</code>. Calcul automatique de la performance virtuelle depuis cette date. Je teste · « si j'avais acheté Booking le 12 mars 2026 à 4 800 $, où serais-je aujourd'hui ? ». Réponse à l'instant. Le truc que je voulais.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">J6-J7</div>
+        <h4>Les plans DCA et l'historique portfolio</h4>
+        <p>J'ajoute les plans d'investissement récurrent (« acheter pour 200 € de Bitcoin tous les 15 du mois »). Et surtout, la table <code>portfolio_snapshots</code> qui enregistre la valeur totale du portefeuille jour par jour. Du coup, sur le dashboard, j'ai enfin <strong>l'historique de la valorisation</strong>, pas juste le snapshot du moment.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Semaines 2-3</div>
+        <h4>Migration Supabase, auth, déploiement</h4>
+        <p>Pour héberger l'outil quelque part, je migre la base SQLite locale vers <strong>Supabase</strong> (Postgres dans le cloud). J'ajoute une auth privée par cookie JWT (parce que c'est mes données financières, pas question que ce soit public). Je déploie sur <strong>Vercel</strong>. Je passe à <a href="https://jerwis-finance.vercel.app/" target="_blank" rel="noopener nofollow">jerwis-finance.vercel.app</a> · accessible uniquement avec mon mot de passe.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Polish · semaines 4+</div>
+        <h4>Refontes UX successives</h4>
+        <p>Une fois en prod, j'itère · refonte du Dashboard avec bloc « À surveiller » et signaux automatiques, refonte de la page Positions avec filtres / tri / export CSV, ajout des objectifs et alertes par ticker, toggle EUR/USD, arrondis intelligents partout, page actif avec lecture rapide. Chaque utilisation me fait voir un petit truc à améliorer, et je le corrige le soir avec Claude Code.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>Ce que m'a appris cette construction</h4>
+      <p>Le déclic, c'est de réaliser qu'avec Claude Code, ton blocage n'est plus la technique · c'est de <strong>savoir exactement ce que tu veux voir</strong>. Le jour où j'ai listé sur papier mes 7 vraies questions (où ai-je acheté, combien j'ai mis, combien j'ai gagné, etc.), construire l'outil est devenu un assemblage. Pas un projet de plusieurs mois. Une semaine pour la base, et après tu raffines à l'usage.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Une semaine pour la base</span><span>86 tests automatisés</span><span>Yahoo + CoinGecko + BCE</span><span>SQLite puis Supabase</span><span>Privé sous mot de passe</span>
+    <span>Une semaine pour la base</span><span>86 tests automatisés</span><span>Yahoo + CoinGecko + BCE</span><span>SQLite puis Supabase</span><span>Privé sous mot de passe</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Les 3 features qui changent tout</span>
+    <h2>Ce que <em class="fuchsia">aucun broker ne fait.</em></h2>
+    <p>
+      Au-delà du PMP en EUR, trois fonctions ont fait que je n'ouvre plus Trade Republic. Aucune n'existe sur les apps des brokers grand public.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-emoji">📍</div>
+        <h4>Tous mes points d'entrée sur le graphique</h4>
+        <p>Sur la page de chaque actif, le chandelier OHLC affiche un point coloré à <strong>chaque date où j'ai acheté</strong>. D'un coup d'œil je vois si j'ai acheté au plus haut, au plus bas, ou en moyenne. C'est la feature qui a tout déclenché et c'est celle que j'ouvre le plus souvent.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-emoji">💶</div>
+        <h4>Le PMP en EUR avec les vrais taux historiques</h4>
+        <p>Quand tu achètes Apple en dollars en mars 2024 à un taux EUR/USD, l'outil enregistre ce <strong>taux snapshot</strong>. Le PMP est donc en euros sortis de ton compte le jour J, pas en euros « théoriques » au taux d'aujourd'hui. C'est la seule façon de vraiment savoir combien tu as investi.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-emoji">👀</div>
+        <h4>La wishlist datée (« j'aurais dû acheter »)</h4>
+        <p>Tu repères une action ? Tu l'ajoutes à la wishlist. L'outil fige le prix de référence et la date. Six mois plus tard, tu sais <strong>exactement</strong> ce que cette action a fait depuis ta date d'ajout. T'as bien fait d'attendre, ou tu rates 30 % de hausse. Plus de regrets diffus.</p>
+      </div>
+    </div>
+
+    <p>
+      La wishlist est devenue ma fonction préférée. Avant, je me disais « tiens, peut-être Netflix », j'oubliais, je n'en parlais plus, et je rachetais à un moment au hasard sans contexte. Maintenant, j'ajoute, je dors dessus, et 3-6 mois plus tard je décide en connaissance de cause. Si l'action a explosé, je sais que je l'ai loupée et j'apprends de la situation. Si elle a baissé, je me félicite et j'achète peut-être maintenant.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Mon vrai PMP</span><span>Mes vrais points d'entrée</span><span>Mes vraies décisions</span><span>Mes vraies données</span><span>Aucun broker ne fait ça</span>
+    <span>Mon vrai PMP</span><span>Mes vrais points d'entrée</span><span>Mes vraies décisions</span><span>Mes vraies données</span><span>Aucun broker ne fait ça</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Derrière le rideau</span>
+    <h2>Les 6 pages <em class="orange">de l'outil.</em></h2>
+    <p>
+      Pour te donner une idée concrète de ce que j'utilise au quotidien, voici les 6 pages principales. Toutes sont accessibles depuis la nav latérale, toutes calculent leurs chiffres en EUR avec les vrais taux historiques, toutes ont un toggle EUR/USD si tu veux voir l'autre devise.
+    </p>
+
+    <h3>1. Le Dashboard · ce que je vois le matin</h3>
+    <p>
+      Quatre KPI en haut · valorisation totale, montant investi cumulé, +/- value latente, dividendes encaissés. En dessous · l'historique journalier de la valeur du portefeuille (deux courbes superposées · valeur totale et capital investi). À droite · les 3 top positions par poids, l'allocation par type (actions vs crypto), les dernières opérations et le prochain DCA programmé. Enfin, le bloc <strong>À surveiller</strong> qui affiche des signaux automatiques (concentration excessive, performance hors normes, prix qui dépasse un seuil défini).
+    </p>
+
+    <h3>2. Les Positions · le tableau de bord détaillé</h3>
+    <div class="showcase">
+      <picture><source srcset="../photos/jerwis-finance/03-positions.webp" type="image/webp"><img src="../photos/jerwis-finance/03-positions.png" width="1440" height="900" alt="Jerwis Finance · Page Positions avec PMP, poids et performance" loading="lazy"></picture>
+      <div class="caption">↗ Page Positions · une ligne par actif avec PMP, poids dans le portefeuille, +/- value</div>
+    </div>
+    <p>
+      Chaque ligne · ticker, quantité, PMP, valeur courante, poids dans le portefeuille, +/- value en EUR et en pourcentage. Filtres par type (actions / crypto / tout), tri par colonne, groupement, mode dense, export CSV. C'est la page que j'ouvre quand je veux faire un point hebdo sur mes positions.
+    </p>
+
+    <h3>3. Les Transactions · l'historique ledger</h3>
+    <div class="showcase">
+      <picture><source srcset="../photos/jerwis-finance/04-transactions.webp" type="image/webp"><img src="../photos/jerwis-finance/04-transactions.png" width="1440" height="900" alt="Jerwis Finance · Page Transactions avec historique des achats et ventes" loading="lazy"></picture>
+      <div class="caption">↗ Page Transactions · chaque achat / vente / dividende dans l'ordre chronologique</div>
+    </div>
+    <p>
+      Le ledger complet · chaque achat, vente, dividende, avec la date, la quantité, le prix unitaire, les frais, la devise et le taux de change snapshot. C'est cette donnée qui sert à recalculer le PMP. Si je trouve une erreur dans une saisie, je modifie ici et tout est recalculé automatiquement.
+    </p>
+
+    <h3>4. La page Actif · chandeliers + mes points d'entrée</h3>
+    <div class="showcase">
+      <picture><source srcset="../photos/jerwis-finance/05-asset-detail.webp" type="image/webp"><img src="../photos/jerwis-finance/05-asset-detail.png" width="1440" height="900" alt="Jerwis Finance · Page détail actif avec chandeliers OHLC, MA50, MA200, RSI et points d'entrée" loading="lazy"></picture>
+      <div class="caption">↗ Page actif · chandeliers OHLC + MA50 + MA200 + RSI 21 + mes points d'entrée</div>
+    </div>
+    <p>
+      La fiche d'un actif · synthèse de position en haut (PMP, valeur, +/- value, break-even), chandeliers OHLC sur 1-2 ans, indicateurs MA50 et MA200 dans la légende et le tooltip, panneau RSI séparé en dessous. Et surtout · <strong>mes points d'entrée colorés directement sur les chandeliers</strong>. C'est <em>la</em> page que je voulais.
+    </p>
+    <p>
+      Un bloc <strong>Objectif &amp; alertes</strong> me permet de définir un prix cible par ticker. L'outil calcule la distance au target et affiche un statut « atteint » ou « en attente ».
+    </p>
+
+    <h3>5. Les Plans DCA · l'investissement programmé</h3>
+    <p>
+      Tu crées un plan · ticker, montant en euros, fréquence (hebdomadaire, mensuelle, à date fixe). L'outil te dit chaque mois quand exécuter, convertit ton budget dans la devise native de l'actif au taux du jour, et insère la transaction d'un clic. Si le prix ou le FX est indisponible, il refuse explicitement (pas d'enregistrement à l'aveugle). Sur le dashboard, j'ai en permanence le « prochain DCA » qui m'attend, avec l'échéance précise.
+    </p>
+
+    <h3>6. La Wishlist · ce que je surveille</h3>
+    <div class="showcase">
+      <picture><source srcset="../photos/jerwis-finance/07-wishlist.webp" type="image/webp"><img src="../photos/jerwis-finance/07-wishlist.png" width="1440" height="900" alt="Jerwis Finance · Page Wishlist avec actions surveillées et performance depuis la date d'ajout" loading="lazy"></picture>
+      <div class="caption">↗ Page Wishlist · prix de référence figé + performance virtuelle depuis ta date d'ajout</div>
+    </div>
+    <p>
+      Pour chaque actif surveillé · le ticker, la date où je l'ai ajouté, le prix de référence figé à ce moment, le prix actuel, et la <strong>performance virtuelle</strong> en pourcentage depuis la date d'ajout. C'est mon « si j'avais acheté ce jour-là, où en serais-je ? ». Un prix cible optionnel permet de marquer une alerte si l'action atteint le niveau auquel je voudrais l'acheter.
+    </p>
+
+    <div class="callout tip">
+      <h4>Le détail qui change tout · les arrondis intelligents</h4>
+      <p>J'ai passé une demi-journée juste sur les arrondis affichés. Les totaux et valorisations sont sans centimes (1 234 € au lieu de 1 234,57 €). Les pourcentages sont à 1 décimale. Les quantités s'adaptent (0,001 BTC vs 10 AAPL). Les prix unitaires gardent 2 décimales. Petit détail, gros confort de lecture au quotidien. C'est le genre de polish qui fait la différence entre « outil sympa » et « outil que tu utilises tous les jours ».</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>6 pages</span><span>1 toggle EUR/USD</span><span>Calculs en TDD</span><span>Export CSV</span><span>Objectifs &amp; alertes</span>
+    <span>6 pages</span><span>1 toggle EUR/USD</span><span>Calculs en TDD</span><span>Export CSV</span><span>Objectifs &amp; alertes</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Sous le capot</span>
+    <h2>Les choix techniques, <em class="teal">expliqués simplement.</em></h2>
+    <p>
+      Si tu n'as jamais touché à du code, tu peux sauter cette section sans dommage. Mais si tu veux comprendre comment ça tourne, voici les briques utilisées et pourquoi.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Outil</th><th>À quoi ça sert</th><th>Pourquoi celui-là</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong><a href="https://nextjs.org/" target="_blank" rel="noopener nofollow">Next.js</a></strong></td><td>Le moteur du site (l'équivalent du moteur dans une voiture)</td><td>Standard moderne, Claude Code le maîtrise très bien, bonne intégration avec Vercel.</td></tr>
+          <tr><td><strong><a href="https://supabase.com/" target="_blank" rel="noopener nofollow">Supabase</a></strong></td><td>La base de données dans le cloud (où sont stockées mes positions et transactions)</td><td>Gratuit jusqu'à un certain volume, sécurisé, je peux télécharger mes données quand je veux.</td></tr>
+          <tr><td><strong><a href="https://orm.drizzle.team/" target="_blank" rel="noopener nofollow">Drizzle ORM</a></strong></td><td>Le pont entre le code et la base de données (sans écrire de SQL brut)</td><td>Type-safe (l'outil te prévient si tu te trompes), migrations automatiques, parfait pour TDD.</td></tr>
+          <tr><td><strong><a href="https://github.com/gadicc/node-yahoo-finance2" target="_blank" rel="noopener nofollow">Yahoo Finance API</a></strong></td><td>Récupère les cours des actions et ETF</td><td>Gratuit, complet (chandeliers, indicateurs), couvre les bourses US et européennes.</td></tr>
+          <tr><td><strong><a href="https://www.coingecko.com/en/api" target="_blank" rel="noopener nofollow">CoinGecko</a></strong></td><td>Récupère les cours des cryptos</td><td>Gratuit, fiable, plus de 10 000 cryptos suivies, freemium très généreux.</td></tr>
+          <tr><td><strong><a href="https://frankfurter.dev/" target="_blank" rel="noopener nofollow">Frankfurter</a></strong></td><td>Les taux de change historiques de la BCE</td><td>API officielle Banque Centrale Européenne, gratuite, ce qui me permet d'avoir le vrai EUR/USD du jour de chaque achat.</td></tr>
+          <tr><td><strong><a href="https://recharts.org/" target="_blank" rel="noopener nofollow">Recharts</a></strong></td><td>Dessine les graphiques (chandeliers, courbes, allocation)</td><td>Lib React mature, customisable, parfaite pour superposer des points sur des chandeliers.</td></tr>
+          <tr><td><strong><a href="https://ui.shadcn.com/" target="_blank" rel="noopener nofollow">shadcn/ui</a></strong></td><td>Les composants visuels (boutons, tables, modales, dropdowns)</td><td>Pas un framework, juste du copier-coller. Tu possèdes le code, tu peux tout modifier.</td></tr>
+          <tr><td><strong><a href="https://vercel.com/" target="_blank" rel="noopener nofollow">Vercel</a></strong></td><td>L'hébergeur qui fait tourner l'app 24h/24</td><td>Couplage parfait avec Next.js, déploiement en 30 secondes à chaque modification.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Rien d'exotique. C'est un assemblage standard qu'utilise n'importe quelle app web moderne. Ce qui change la donne, c'est <strong>Claude Code</strong>, qui m'a permis d'orchestrer tout ça sans être développeur.
+    </p>
+
+    <div class="callout tip">
+      <h4>Le détail qui paie · les tests automatisés</h4>
+      <p>Pour les calculs de PMP, j'ai demandé à Claude Code d'écrire <strong>les tests d'abord, puis l'implémentation</strong> (méthode TDD · Test-Driven Development). Résultat · 86 tests automatisés qui s'exécutent à chaque modification du code. Quand je touche un calcul, je sais immédiatement si j'ai cassé quelque chose. Pour un outil qui manipule de l'argent, c'est non négociable.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Le calcul honnête</span>
+    <h2>Combien ça <em class="orange">coûte vraiment.</em></h2>
+    <p>
+      Beaucoup de monde m'a demandé « OK mais combien ça te coûte chaque mois de faire tourner ton truc ? ». Voilà la décomposition complète.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Service</th><th>Coût mensuel</th><th>Pourquoi je paye (ou pas)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Supabase</strong> · plan gratuit</td><td>0 €</td><td>Largement suffisant pour mes données perso (quelques centaines de transactions max).</td></tr>
+          <tr><td><strong>Vercel</strong> · plan Hobby</td><td>0 €</td><td>Plan gratuit OK pour usage perso, suffisant pour quelqu'un qui se connecte de temps en temps.</td></tr>
+          <tr><td><strong>Yahoo Finance / CoinGecko / Frankfurter</strong></td><td>0 €</td><td>Toutes les API utilisées sont gratuites dans leur tier free, parfaitement adapté à un usage perso.</td></tr>
+          <tr><td><strong>Domaine</strong> (optionnel)</td><td>~ 1 €/mois</td><td>Si tu veux un nom custom, sinon l'URL Vercel gratuite suffit.</td></tr>
+          <tr><td colspan="2"><strong>Total</strong></td><td><strong>0 à 1 € / mois</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Coût de fonctionnement</div>
+        <div class="num">~ 0 €</div>
+        <div class="desc">Tous les services utilisés ont un tier gratuit largement suffisant pour un usage perso.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Temps de construction</div>
+        <div class="num">~ 1 semaine</div>
+        <div class="desc">Pour la base solide. Le polish et les ajouts continuent en continu, le soir, par petites touches.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Tests automatisés</div>
+        <div class="num">86</div>
+        <div class="desc">Sur les calculs PMP, conversions FX, agrégation portefeuille. Non négociable pour un outil financier.</div>
+      </div>
+    </div>
+
+    <p>
+      Le vrai coût, ce n'est pas l'argent. C'est <strong>le temps</strong>. Compte 30-50 heures pour avoir une version solide qui fait exactement ce dont tu as besoin, si tu sais utiliser Claude Code. Si tu démarres avec l'IA, prévois plus.
+    </p>
+
+    <p>
+      Mais ce que tu gagnes vraiment, c'est la <strong>maîtrise totale</strong> de tes données et de tes vues. Tu n'es plus dépendant d'un broker qui peut changer ses CGU, fermer une feature, ou disparaître. Tes données sont chez toi, calculées comme tu veux, affichées comme tu veux.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— L'envers du décor</span>
+    <h2>Ce qui m'a posé <em class="fuchsia">le plus de problèmes.</em></h2>
+    <p>
+      Pour être transparent, voici les 3 trucs (pardon, les 3 points) qui m'ont coûté le plus de temps · pas évidents au démarrage, importants à connaître si tu veux te lancer.
+    </p>
+
+    <ol>
+      <li><strong>Les taux de change historiques.</strong> Au début, je calculais le PMP au taux EUR/USD du jour. C'est faux. Si t'as acheté Apple en mars 2024 quand l'EUR/USD était à 1,09 et qu'aujourd'hui il est à 1,07, la conversion change. Solution · enregistrer le taux snapshot au moment de chaque achat (via Frankfurter, l'API de la BCE). 2 jours à faire propre, mais c'est la base de tout le reste.</li>
+      <li><strong>La gestion des ventes (réalisé vs latent).</strong> Quand tu vends une partie d'une position, comment recalculer le PMP de ce qui te reste ? Il y a plusieurs méthodes (FIFO, LIFO, PMP global). J'ai choisi le <strong>PMP global pondéré en EUR</strong> · les ventes ne touchent pas le coût moyen, elles génèrent juste une +/- value réalisée. Plus simple à raisonner, et conforme à la fiscalité française (méthode du PEPS).</li>
+      <li><strong>Les fuseaux horaires.</strong> Yahoo Finance renvoie ses dates en UTC. Mon serveur tourne sur un autre fuseau. Mes utilisateurs (moi) sont en Europe. Si tu n'es pas attentif, tu te retrouves avec un achat « le 14 mars » qui s'affiche « le 13 mars » sur le graphique. 1 journée à comprendre, 2 heures à corriger une fois compris.</li>
+    </ol>
+
+    <div class="callout warn">
+      <h4>Le truc à ne JAMAIS faire avec ton outil financier</h4>
+      <p><strong>Ne déploie jamais ton outil financier en accès public.</strong> Même si tu pense que « personne ne va le trouver », même si tu mets pas tes vraies positions. Tes données financières (même fausses) peuvent servir à du profilage. Auth privée par mot de passe ou JWT cookie, blocage middleware sur toutes les routes. C'est la première chose que j'ai faite avant de mettre quoi que ce soit sur Vercel.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Taux historiques BCE</span><span>PMP global EUR</span><span>Auth privée obligatoire</span><span>Fuseaux horaires UTC</span><span>Tests automatisés</span>
+    <span>Taux historiques BCE</span><span>PMP global EUR</span><span>Auth privée obligatoire</span><span>Fuseaux horaires UTC</span><span>Tests automatisés</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Pour aller plus loin</span>
+    <h2>Si tu veux <em class="orange">reproduire.</em></h2>
+    <p>
+      L'idée centrale de cet article, c'est qu'aujourd'hui, avec les outils d'IA, tu peux construire tes propres outils sans être développeur. Pas seulement un tracker financier. N'importe quel outil dont tu as besoin et qu'aucun SaaS ne fait correctement pour toi.
+    </p>
+
+    <p>
+      Voici les 4 conseils que je te donnerais si tu veux te lancer sur un projet similaire :
+    </p>
+
+    <ol>
+      <li><strong>Commence par écrire sur papier ce que tu veux voir.</strong> Pas la techno. Pas les écrans. Juste les <strong>questions</strong> auxquelles ton outil doit répondre. Pour moi · « où ai-je acheté », « combien j'ai mis », « ai-je bien fait d'attendre ». Dès que ta liste est claire, la construction est 80 % faite.</li>
+      <li><strong>Utilise Claude Code en pair-programming.</strong> Tu ne tapes pas le code, tu guides. Tu donnes un objectif clair, Claude propose, tu valides ou tu corriges. C'est exactement comme bosser avec un dev junior très rapide et très patient. <a href="../articles/claude-code-workflow-tips">Mes tips Claude Code détaillés ici</a>.</li>
+      <li><strong>Pour un outil qui manipule de la donnée importante</strong> (argent, santé, contrats), <strong>tests automatisés obligatoires</strong>. Demande à Claude Code d'écrire les tests AVANT l'implémentation. C'est ce qui te permet de toucher au code 6 mois plus tard sans tout casser.</li>
+      <li><strong>Privé d'abord, public ensuite (ou jamais).</strong> Auth par cookie JWT ou Supabase Auth, blocage middleware. Et avant de mettre quoi que ce soit en ligne, fais un audit de sécurité. Claude Code peut t'aider à faire ça aussi · « scanne ce projet et liste les failles XSS, injection SQL, permissions base ».</li>
+    </ol>
+
+    <div class="callout ok">
+      <h4>Le vrai message de cet article</h4>
+      <p>Avec l'IA aujourd'hui, tu peux vraiment <strong>créer des outils qui te simplifient la vie</strong>. Pas besoin d'être codeur. Pas besoin d'une équipe. Pas besoin de financement. Juste de savoir <em>exactement</em> ce que tu veux et de guider Claude Code (ou équivalent). Tous les articles que je partage sur ce site sont des inspirations dans ce sens · gros projets comme le booking Eurofiscalis, petits outils comme Jerwis Finance. Les idées que tu as en tête, elles sont à portée de quelques jours de travail.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
+    <h2>Ce qu'on me demande <em class="fuchsia">le plus souvent.</em></h2>
+
+    <h3>L'outil est-il public ? Je peux l'utiliser ?</h3>
+    <p>Non. C'est un outil <strong>perso</strong>, sous auth privée. Mes positions ne sont visibles que par moi. Tu peux en revanche cloner le code source si je le rends public, ou construire le tien avec Claude Code en t'inspirant de ce que je décris dans l'article.</p>
+
+    <h3>Faut-il être développeur pour faire ça ?</h3>
+    <p>Non, mais il faut savoir piloter Claude Code (ou un équivalent IA). Je ne suis pas développeur, je suis entrepreneur. Ce qui compte, c'est de savoir <em>ce que tu veux</em>, de découper en étapes claires, et de relire ce que l'IA te propose. Si tu veux apprendre à utiliser Claude Code, <a href="../claude-code">j'ai un guide complet ici</a>.</p>
+
+    <h3>Pourquoi pas un outil existant style Sharesight ou Finary ?</h3>
+    <p>J'ai testé. Sharesight est cher et anglosaxon, mal adapté au fiscal français. Finary fait beaucoup mais ne te montre pas tes points d'entrée sur le graphique et n'a pas de wishlist datée. Aucun ne calcule le PMP en EUR avec le taux historique. Et surtout · ils possèdent tes données. C'est ce qui m'a fait basculer.</p>
+
+    <h3>Combien de temps ça prend si je démarre maintenant ?</h3>
+    <p>Si tu as l'habitude de Claude Code et que tu sais exactement ce que tu veux · <strong>1 à 2 semaines</strong> pour une base solide. Si tu démarres avec l'IA · plutôt 1 mois en travaillant le soir et le week-end. Le code, c'est 30 % du temps. Le reste, c'est tester, ajuster les arrondis, simplifier l'UX.</p>
+
+    <h3>Et niveau sécurité, c'est risqué de mettre tes données financières en ligne ?</h3>
+    <p>Pas plus que sur n'importe quel broker. Auth privée par cookie JWT signé, mot de passe long (12 caractères mini, bcrypt côté serveur), middleware qui bloque toute route sans session valide, headers de sécurité (CSP, HSTS, X-Frame-Options). Et surtout · pas de tracking, pas de pubs, pas de tiers à qui je donne accès. Les seules connexions extérieures sont les API de prix (Yahoo, CoinGecko, Frankfurter) qui ne reçoivent que des tickers, jamais mes positions.</p>
+
+    <h3>Tu as eu l'idée et tu l'as fait. Tu peux la faire pour quelqu'un d'autre ?</h3>
+    <p>Non, je ne fais pas de prestation. Mais l'idée de cet article, c'est justement de te montrer que <strong>tu peux le faire toi-même</strong>. Si tu veux apprendre, tous mes <a href="../articles">articles</a> sont là pour ça, et ma <a href="../#newsletters">newsletter AI Playbook</a> te montre chaque semaine ce que je construis.</p>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Reçois mes <em class="fuchsia">prochains making-of.</em></h2>
+    <p>
+      Chaque semaine, je partage les outils que je construis pour moi (comme Jerwis Finance), les modèles que je teste, et les apps qui m'ont fait gagner du temps. Pas de blabla, pas de pub. Désinscription en un clic, je ne le prends pas mal.
+    </p>
+    <a href="../index#newsletters" class="back-btn">Voir les newsletters →</a>
+  </div>
+</section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Apprendre</h5>
+        <ul>
+          <li><a href="/apprendre">Parcours débutant</a></li>
+          <li><a href="/claude-code">Guide Claude Code</a></li>
+          <li><a href="/articles">Tous les articles</a></li>
+          <li><a href="/lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Produits &amp; outils</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="/outils">Ma stack outils</a></li>
+          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="/github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Direct</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/index#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="../assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+
+<script src="../assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+</body>
+</html>

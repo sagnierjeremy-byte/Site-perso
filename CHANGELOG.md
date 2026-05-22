@@ -1,5 +1,40 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-22 · Nouvel article · Jerwis Finance, le tracker perso construit avec Claude Code
+
+### Pourquoi
+Jérémy a construit un outil perso (`~/Projets/portfolio-tracker`, app Next.js déployée sur Vercel) pour suivre ses positions actions/crypto avec ce qu'aucun broker grand public ne propose : tous les points d'entrée sur le graphique, le PMP recalculé en EUR avec les taux de change historiques BCE, le montant réellement investi, et une wishlist datée pour mesurer après coup si "j'ai bien fait d'attendre". Le but de l'article : montrer comme exemple qu'avec l'IA aujourd'hui, on peut créer ses propres outils utiles sans être codeur, et inspirer le lecteur à se lancer sur ses propres idées.
+
+### Livré
+- **`articles/jerwis-finance-tracker.html`** (nouveau, ~77 Ko)
+  - Hero dark + H1 « J'ai créé mon propre tracker pour vraiment savoir où sont mes positions »
+  - TL;DR 6 puces (déclencheur, équipe, résultat, 5 fonctionnalités, wishlist datée, transparence)
+  - Section **Le déclencheur** : 3 frustrations Trade Republic (prix moyen flou, montant investi flou, pas de wishlist intelligente)
+  - Section **Voilà le résultat** : screenshot dashboard
+  - Section **Jour par jour** : timeline J0→J7 + semaines 2-3 + polish (TDD, 86 tests, Yahoo+CoinGecko+Frankfurter)
+  - Section **Les 3 features qui changent tout** : points d'entrée sur graphique, PMP en EUR avec taux historique, wishlist datée
+  - Section **Derrière le rideau** : tour des 6 pages (Dashboard, Positions, Transactions, page Actif avec chandeliers OHLC + MA50/200 + RSI, DCA, Wishlist)
+  - Section **Sous le capot** : table stack technique (Next.js 16, Supabase Postgres, Drizzle ORM, Yahoo Finance, CoinGecko, Frankfurter BCE, Recharts, shadcn/ui, Vercel)
+  - Section **Le calcul honnête** : ~0 €/mois de fonctionnement (tier free partout), ~1 semaine de construction
+  - Section **L'envers du décor** : 3 difficultés rencontrées (taux de change historiques, gestion ventes FIFO vs PMP global, fuseaux horaires UTC)
+  - Section **Pour aller plus loin** : 4 conseils pour reproduire avec Claude Code
+  - Section **Questions fréquentes** : 6 Q&R (public ?, dev ?, vs Sharesight/Finary ?, temps ?, sécurité ?, presta ?)
+  - Final CTA newsletter
+- **6 screenshots** dans `photos/jerwis-finance/` : `01-login`, `02-dashboard`, `03-positions`, `04-transactions`, `05-asset-detail`, `06-dca`, `07-wishlist` (PNG + WebP)
+- **`articles.html`** : ajout de Jerwis Finance en position 1 du tableau `ALL_ARTICLES` + entrée Schema.org ListItem + renumérotation des positions 2-26
+
+### Fichiers touchés
+- `articles/jerwis-finance-tracker.html` (nouveau)
+- `articles.html` (listing + Schema.org)
+- `photos/jerwis-finance/*.png` + `*.webp` (nouveau dossier)
+- `CHANGELOG.md` (cette entrée)
+
+### À venir
+- Convertir tous les screenshots en WebP pour des perf optimisées
+- Ajouter une carte OG dédiée `photos/og/jerwis-finance-tracker.jpg` (via le script og-batch)
+
+---
+
 ## 2026-05-20 · Audit mini-nav cross-site + fix modeles-ia-monde
 
 ### Pourquoi

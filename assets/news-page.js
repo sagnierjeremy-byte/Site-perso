@@ -378,7 +378,29 @@
   // ─── STUBS (filled by T5–T11) ─────────────────────────────────────
 
   function initFiltersFromURL() {
-    // T10: read URL params, mutate state, reflect in UI controls
+    const p = new URLSearchParams(location.search);
+    state.query    = p.get('q') || '';
+    state.category = p.get('cat') || 'all';
+    state.source   = p.get('source') || 'all';
+    const sort = p.get('sort');
+    if (sort === 'trending' || sort === 'date' || sort === 'source') {
+      state.sort = sort;
+    }
+    state.hideRead = p.get('hideRead') === '1';
+
+    // Reflect in UI controls (sourceFilter is set in populateSourceFilter)
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = state.query;
+
+    const sortBy = document.getElementById('sortBy');
+    if (sortBy) sortBy.value = state.sort;
+
+    const hideReadToggle = document.getElementById('hideReadToggle');
+    if (hideReadToggle) hideReadToggle.checked = state.hideRead;
+
+    // Category filter buttons are populated by populateFilterButtons() which
+    // already reads state.category to set the 'active' class — no need to
+    // manually toggle here.
   }
 
   function populateSourceFilter() {
@@ -406,7 +428,14 @@
   }
 
   function syncURL() {
-    // T10: history.replaceState to reflect state in URL
+    const p = new URLSearchParams();
+    if (state.query)              p.set('q', state.query);
+    if (state.category !== 'all') p.set('cat', state.category);
+    if (state.source !== 'all')   p.set('source', state.source);
+    if (state.sort !== 'trending') p.set('sort', state.sort);
+    if (state.hideRead)           p.set('hideRead', '1');
+    const qs = p.toString();
+    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
   }
 
   // ─── LOAD ─────────────────────────────────────────────────────────

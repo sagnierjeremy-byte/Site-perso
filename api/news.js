@@ -27,7 +27,20 @@ const FEEDS = [
   { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
   { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
   { url: 'https://www.bfmtv.com/rss/economie/', name: 'BFM Économie', category: 'Business' },
+  { url: 'https://www.bfmtv.com/rss/economie/entreprises/', name: 'BFM Business', category: 'Business' },
   { url: 'https://www.lefigaro.fr/rss/figaro_economie.xml', name: 'Le Figaro Économie', category: 'Business' },
+  { url: 'https://feed.prismamediadigital.com/v1/cap/rss', name: 'Capital', category: 'Business' },
+  { url: 'https://www.challenges.fr/rss.xml', name: 'Challenges', category: 'Business' },
+  { url: 'https://www.lexpress.fr/rss/economie.xml', name: "L'Express Économie", category: 'Business' },
+  { url: 'https://www.latribune.fr/rss/homepage', name: 'La Tribune', category: 'Business' },
+  { url: 'https://www.lemonde.fr/economie/rss_full.xml', name: 'Le Monde Économie', category: 'Business' },
+  { url: 'https://www.franceinfo.fr/economie.rss', name: 'France Info Éco', category: 'Business' },
+  // ── International — médias mondiaux en français ──────────────────────────
+  { url: 'https://www.courrierinternational.com/feed/all/rss.xml', name: 'Courrier International', category: 'International' },
+  { url: 'https://www.france24.com/fr/rss', name: 'France 24', category: 'International' },
+  { url: 'https://www.rfi.fr/fr/économie/rss', name: 'RFI Économie', category: 'International' },
+  { url: 'https://www.lemonde.fr/international/rss_full.xml', name: 'Le Monde International', category: 'International' },
+  { url: 'https://theconversation.com/fr.atom', name: 'The Conversation', category: 'International' },
 ];
 
 const parser = new XMLParser({

@@ -35,6 +35,38 @@ Jérémy a construit un outil perso (`~/Projets/portfolio-tracker`, app Next.js 
 
 ---
 
+## 2026-05-22 · News v3 : +12 sources business FR + médias internationaux en français
+
+### Pourquoi
+Demande Jérémy : enrichir avec des chaînes infos françaises (BFM Business, Capital, Challenges...) et des journaux internationaux **en français** (style WSJ traduit). 2 sous-agents dispatchés en parallèle pour identifier et valider les flux.
+
+### Livré
+- **`api/news.js`** : +12 sources françaises validées (URL flux 200 OK + images vérifiées). Total **32 sources** (vs 20 avant).
+  - **Business FR (7 nouvelles)** : BFM Business (Entreprises), Capital, Challenges, L'Express Économie, La Tribune, Le Monde Économie, France Info Éco
+  - **International en FR (nouvelle catégorie, 5 sources)** : Courrier International (cible idéale = presse mondiale traduite), France 24, RFI Économie, Le Monde International, The Conversation France
+- **3 catégories** désormais : IA (16), Business (11), International (5). La barre de filtres sur `/news` génère auto un 3e bouton "International" car le code construit dynamiquement la liste depuis `article.category`.
+
+### Sources écartées (par les agents)
+- Les Échos : 403 anti-bot systématique (WAF Cloudflare)
+- L'Opinion : aucun flux RSS public détecté
+- Le Point Économie : renvoie HTML au lieu de XML
+- LCI / RTL / TF1 Info : 404 sur tous les endpoints testés
+- Euronews FR : flux RSS sans aucune image (critère bloquant pour cards)
+- Bloomberg / Reuters FR : pas d'édition française (comme WSJ)
+- Project Syndicate FR : `?lang=fr` ignoré, contenu en anglais
+- Korii.slate.fr : aucun flux RSS actif
+- Slate.fr : titres vides dans le flux (bug côté éditeur)
+
+### Fichiers touchés
+- `api/news.js`
+- `CHANGELOG.md`
+
+### À surveiller
+- Vercel timeout : 32 fetches en parallèle avec timeout 8s par flux, `Promise.allSettled` → si certains lents ils sont skipped sans casser la page
+- La catégorie "International" apparaîtra automatiquement en bouton de filtre dès le prochain build
+
+---
+
 ## 2026-05-22 · 10 nouvelles sources RSS françaises + rename "Veille IA" → "News"
 
 ### Pourquoi

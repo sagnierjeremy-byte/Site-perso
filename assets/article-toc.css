@@ -354,3 +354,26 @@ body.article-toc-open .back-to-top {
 [data-theme="dark"] .lex-link {
   text-decoration-color: var(--fuchsia, #EF426F);
 }
+
+/* ============================================================
+ * Auto-liens articles ↔ articles (.cross-link)
+ * Insérés automatiquement par scripts/auto-link-articles.mjs vers
+ * /articles/<slug>. Soulignés discrets en orange (vs fuchsia pour
+ * le lexique → permet de distinguer les deux niveaux de profondeur).
+ * ============================================================ */
+.cross-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--orange, #FF8200);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: auto;
+  transition: color .15s ease;
+}
+.cross-link:hover,
+.cross-link:focus-visible {
+  color: var(--orange, #FF8200);
+}
+[data-theme="dark"] .cross-link {
+  text-decoration-color: var(--orange, #FF8200);
+}

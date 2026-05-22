@@ -1023,7 +1023,7 @@
       Je voulais lancer un site. Un hub personnel où je partagerais ce que je lis, ce que je regarde, ce que je teste. Pas seulement sur l'IA : aussi sur le business, le sport, la paternité, la géopolitique. L'envie était là depuis des mois. Je me disais qu'à force d'accumuler de la veille, j'avais quelque chose à transmettre.
     </p>
     <p>
-      Avant de coder la première ligne, j'ai fait ce que je fais toujours maintenant : j'ai demandé à Claude Code de vérifier si l'idée tenait la route. Je n'avais pas envie de passer six mois sur un projet pour découvrir en route qu'il n'y avait pas de public. Cette logique de <a href="autoresearch-karpathy">faire travailler des agents en parallèle</a> avant de coder, je l'ai apprise en lisant les travaux de Karpathy.
+      Avant de coder la première ligne, j'ai fait ce que je fais toujours maintenant : j'ai demandé à Claude Code de vérifier si l'idée tenait la route. Je n'avais pas envie de passer six mois sur un projet pour découvrir en route qu'il n'y avait pas de public. Cette logique de <a href="autoresearch-karpathy">faire travailler des agents en parallèle</a> avant de coder, je l'ai apprise en lisant les travaux de <a class="cross-link" href="/articles/karpathy" title="Andrej Karpathy — lire l'article">Karpathy</a>.
     </p>
   </div>
 </section>
@@ -1148,7 +1148,7 @@
       <li><strong>96 sources</strong> Business IA multilingues, en anglais, français, espagnol, allemand et japonais — Ethan Mollick, Stratechery, a16z, McKinsey, des podcasts, des chaînes YouTube, GitHub, Hacker News, Reddit, Product Hunt.</li>
       <li><strong>Un worker qui tourne à 7h du matin</strong> (un petit programme qui s'exécute tout seul en tâche de fond), déclenché par le planificateur de mon Mac. Il ingère toutes les nouveautés de la nuit pendant que je dors. C'est le même pattern de boucle que je décris dans <a href="loops-claude">les loops Claude Code</a> — un agent qui tourne sans surveillance pour produire un livrable au réveil.</li>
       <li><strong>Une base SQLite</strong> (une mini-base de données stockée dans un seul fichier) qui vit entièrement sur mon disque. Aucun cloud. Un seul fichier portable.</li>
-      <li><strong>Un moteur de <a class="lex-link" href="/lexique/recherche-semantique" title="Recherche sémantique — voir la définition">recherche sémantique</a></strong> qui tourne en local grâce à Ollama — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes. Si l'<a href="open-source-pour-non-dev">open source</a> te paraît un sujet de dev, il l'est de moins en moins — Ollama et SQLite sont accessibles sans bagage technique.</li>
+      <li><strong>Un moteur de <a class="lex-link" href="/lexique/recherche-semantique" title="Recherche sémantique — voir la définition">recherche sémantique</a></strong> qui tourne en local grâce à <a class="cross-link" href="/articles/llm-local-pour-non-dev" title="LLM en local — lire l'article">Ollama</a> — un modèle d'embeddings multilingue (en clair : qui transforme les textes en chiffres pour comparer leur sens, pas seulement les mots) qui comprend les 96 sources même quand elles parlent des langues différentes. Si l'<a href="open-source-pour-non-dev">open source</a> te paraît un sujet de dev, il l'est de moins en moins — Ollama et SQLite sont accessibles sans bagage technique.</li>
       <li><strong>Deux modèles Claude</strong> utilisés à des étapes différentes : Claude <a class="lex-link" href="/lexique/modele" title="Modèle IA — voir la définition">Sonnet</a> pour proposer 30 sujets du jour, Claude Opus pour rédiger les analyses long-form quand je sélectionne un sujet.</li>
     </ul>
 
@@ -1343,7 +1343,7 @@
     </table>
 
     <p>
-      S'ajoutent à ça <strong>10 flux Google News dynamiques</strong> générés sur les mots-clés que je veux suivre (Claude Code, Anthropic, agents IA, AI skills, plugin Superpowers), en français et en anglais. C'est ce qui me ramène les annonces des médias business avant qu'elles n'arrivent sur les blogs.
+      S'ajoutent à ça <strong>10 flux Google News dynamiques</strong> générés sur les mots-clés que je veux suivre (Claude Code, Anthropic, agents IA, AI skills, <a class="cross-link" href="/articles/superpowers" title="Superpowers Claude Code — lire l'article">plugin Superpowers</a>), en français et en anglais. C'est ce qui me ramène les annonces des médias business avant qu'elles n'arrivent sur les blogs.
     </p>
 
     <h3>YouTube — 16 chaînes scannées via flux Atom</h3>
@@ -1425,7 +1425,7 @@
 
     <h3>5. Gap — manque-t-il un article clair sur le sujet ?</h3>
     <p>
-      L'outil compare le titre proposé à tous les articles déjà publiés sur le site (mesure de Jaccard sur les mots du titre). Plus la similarité est faible, plus le gap est élevé. Si j'ai déjà publié « Les loops Claude Code expliqués », un nouvel item « Understanding Claude Code loops » fait 0.6 de similarité et tombe à 1/10. Si rien ne matche, score 10.
+      L'outil compare le titre proposé à tous les articles déjà publiés sur le site (mesure de Jaccard sur les mots du titre). Plus la similarité est faible, plus le gap est élevé. Si j'ai déjà publié « <a class="cross-link" href="/articles/loops-claude" title="loops Claude Code — lire l'article">Les loops</a> Claude Code expliqués », un nouvel item « Understanding Claude Code loops » fait 0.6 de similarité et tombe à 1/10. Si rien ne matche, score 10.
     </p>
     <p>
       <strong>Pourquoi cet axe est crucial.</strong> Sans lui, je ré-écrirais 5 fois le même article sur les sous-agents. Le gap me force à explorer des sujets vraiment nouveaux pour ma collection.

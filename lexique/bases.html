@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 12 bases du lexique IA · à lire avant de plonger · Jerwis</title>
+<meta name="description" content="Avant de te perdre dans le lexique : 12 mots fondamentaux de l&#39;IA expliqués avec des analogies concrètes pour entrepreneurs non-dev. 3 minutes de lecture.">
+<meta property="og:title" content="Les 12 bases du lexique IA · à lire avant de plonger · Jerwis">
+<meta property="og:description" content="12 mots IA expliqués avec des analogies concrètes. Sans jargon, pour entrepreneurs qui n&#39;ont jamais touché un terminal.">
+<meta property="og:url" content="https://jerwis.fr/lexique/bases">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Les 12 bases du lexique IA · Jerwis">
+<meta name="twitter:description" content="12 mots IA expliqués avec des analogies concrètes pour entrepreneurs non-dev.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<link rel="canonical" href="https://jerwis.fr/lexique/bases">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/lexique-pages.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Lexique IA", "item": "https://jerwis.fr/lexique" },
+        { "@type": "ListItem", "position": 3, "name": "Les 12 bases", "item": "https://jerwis.fr/lexique/bases" }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://jerwis.fr/lexique/bases#webpage",
+      "url": "https://jerwis.fr/lexique/bases",
+      "name": "Les 12 bases du lexique IA",
+      "description": "12 mots fondamentaux de l&#39;IA expliqués avec des analogies concrètes pour entrepreneurs non-dev.",
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": "https://jerwis.fr/lexique#termset" }
+    }
+  ]
+}
+</script>
+<style>
+  .bases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 8px;
+  }
+  .base-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 22px 22px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--surface);
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .base-card:hover {
+    border-color: var(--fuchsia);
+    transform: translateY(-2px);
+  }
+  .base-card .base-num {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .base-card[data-accent="teal"] .base-num { background: var(--teal) }
+  .base-card[data-accent="fuchsia"] .base-num { background: var(--fuchsia) }
+  .base-card[data-accent="orange"] .base-num { background: var(--orange) }
+  .base-card h3 {
+    color: var(--ink);
+    font-family: "Archivo Black", sans-serif;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+  }
+  .base-card .base-analogy {
+    color: var(--ink);
+    font-size: 15.5px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .base-card .base-analogy::before {
+    content: "Image mentale · ";
+    color: var(--fuchsia);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .base-card .base-explain {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .base-card .base-link {
+    margin-top: auto;
+    align-self: flex-start;
+    color: var(--teal);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--teal);
+    padding-bottom: 2px;
+  }
+  .base-card .base-link:hover {
+    color: var(--fuchsia);
+    border-bottom-color: var(--fuchsia);
+  }
+  .bases-section {
+    padding: 56px 0;
+  }
+  .bases-section + .bases-section {
+    border-top: 1px solid var(--line);
+  }
+  .bases-section .section-kicker {
+    margin-bottom: 18px;
+  }
+  .bases-section h2 {
+    max-width: 720px;
+    margin-bottom: 24px;
+    color: var(--ink);
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+  }
+  .bases-section p.bases-intro {
+    max-width: 720px;
+    margin-bottom: 28px;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  @media (max-width: 980px) {
+    .bases-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  }
+  @media (max-width: 620px) {
+    .bases-grid { grid-template-columns: 1fr }
+    .bases-section { padding: 40px 0 }
+  }
+</style>
+<script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+</head>
+<body>
+<div class="triple-stripe" aria-hidden="true"><span style="background:#00B2A9"></span><span style="background:#EF426F"></span><span style="background:#FF8200"></span></div>
+<header class="term-header">
+  <a class="term-logo" href="../index.html"><span></span>Jerwis</a>
+  <nav aria-label="Navigation">
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../lexique.html">Lexique IA</a>
+    <a href="../index.html#newsletters">Newsletters</a>
+  </nav>
+</header>
+
+<main>
+  <section class="term-hero">
+    <div class="term-container">
+      <a class="term-back" href="../lexique.html">← Retour au glossaire A-Z</a>
+      <div class="term-kicker">Avant de te perdre · 3 min de lecture</div>
+      <h1>Les 12 bases · à lire avant de plonger dans le lexique</h1>
+      <p class="term-lead">Si tu n&#39;as jamais touché un terminal, le lexique peut sembler une montagne. Je t&#39;ai sorti les 12 mots à comprendre en premier. Chacun avec une image mentale concrète. Aucun jargon. Tu lis ça d&#39;abord, puis tu peux ouvrir n&#39;importe quelle fiche du glossaire sans te sentir largué.</p>
+      <div class="term-meta">
+        <span>12 mots</span>
+        <span>3 min</span>
+        <span>Niveau zéro</span>
+        <span>Mis à jour le 2026-05-25</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Pas de jargon</span><span>Images concrètes</span><span>Lecture 3 min</span><span>Tu n&#39;es pas dev</span><span>Tu vas comprendre</span><span>Promis</span>
+      <span>Pas de jargon</span><span>Images concrètes</span><span>Lecture 3 min</span><span>Tu n&#39;es pas dev</span><span>Tu vas comprendre</span><span>Promis</span>
+    </div>
+  </div>
+
+  <section class="term-definition">
+    <div class="term-container">
+      <span class="section-kicker">— Le pacte</span>
+      <h2>Si tu retiens ces 12 mots, le reste devient lisible</h2>
+      <p>Je t&#39;ai mis dans l&#39;ordre où je les ai compris moi. D&#39;abord ce qu&#39;est un modèle (le cerveau). Ensuite comment on lui parle (prompt, token, contexte). Puis comment on muscle sa mémoire (embedding, vecteur, RAG, chunk). Enfin comment on lui donne des bras (agent, MCP, workflow). Et la grande peur du milieu : l&#39;hallucination.</p>
+      <p>Lis les cards dans l&#39;ordre. Si une image mentale ne te parle pas, ce n&#39;est pas grave — l&#39;explication d&#39;après remet les choses en place. Et chaque card a un lien vers la fiche détaillée du lexique si tu veux creuser.</p>
+    </div>
+  </section>
+
+  <div class="term-container">
+    <section class="bases-section">
+      <span class="section-kicker">— Bloc 1 · Le cerveau et comment lui parler</span>
+      <h2>Le modèle, le prompt, le token, le contexte</h2>
+      <p class="bases-intro">Les 4 premiers mots. Tu peux faire 80 % de ce que tu vois sur LinkedIn avec juste ça.</p>
+      <div class="bases-grid">
+
+        <div class="base-card" data-accent="teal">
+          <span class="base-num">01 · Modèle</span>
+          <h3>Modèle (LLM)</h3>
+          <p class="base-analogy">Un cerveau qui a lu beaucoup de livres et retient surtout les liens entre les idées.</p>
+          <p class="base-explain">Quand tu utilises ChatGPT, Claude ou Gemini, tu parles à un modèle. Il ne sait rien sur toi par défaut, mais il a digéré une énorme quantité de texte et peut répondre comme un assistant cultivé.</p>
+          <a class="base-link" href="llm.html">Voir la fiche LLM →</a>
+        </div>
+
+        <div class="base-card" data-accent="fuchsia">
+          <span class="base-num">02 · Prompt</span>
+          <h3>Prompt</h3>
+          <p class="base-analogy">La demande que tu fais à un assistant — précise et tu reçois du bon, vague et tu reçois du mou.</p>
+          <p class="base-explain">Un prompt, c&#39;est juste le message que tu écris au modèle. La qualité de la réponse dépend à 70 % de la qualité de ta demande. Pas besoin de magie, juste être clair sur le contexte, le format et le résultat attendu.</p>
+          <a class="base-link" href="prompt-engineering.html">Voir la fiche Prompt →</a>
+        </div>
+
+        <div class="base-card" data-accent="orange">
+          <span class="base-num">03 · Token</span>
+          <h3>Token</h3>
+          <p class="base-analogy">Des petits morceaux de Lego — le modèle ne lit pas des mots entiers, il lit des fragments.</p>
+          <p class="base-explain">Un token, c&#39;est environ 3-4 caractères. Quand tu vois "1 000 tokens", compte à peu près 750 mots français. C&#39;est important parce que tout se facture au token et que chaque modèle a une limite max par conversation.</p>
+          <a class="base-link" href="token.html">Voir la fiche Token →</a>
+        </div>
+
+        <div class="base-card" data-accent="teal">
+          <span class="base-num">04 · Contexte</span>
+          <h3>Contexte</h3>
+          <p class="base-analogy">La mémoire de travail d&#39;un assistant — il n&#39;a en tête que ce que tu lui as dit dans la conversation en cours.</p>
+          <p class="base-explain">Le contexte, c&#39;est tout ce que le modèle "voit" pendant qu&#39;il te répond : ta demande, l&#39;historique, les fichiers que tu lui as donnés. Trop court il oublie le début. Trop long il se perd ou ça devient cher.</p>
+          <a class="base-link" href="context-window.html">Voir la fiche Contexte →</a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Le cerveau est posé</span><span>Maintenant ses limites</span><span>Et sa mémoire longue</span><span>Vecteurs · RAG · Chunks</span><span>Pas si compliqué</span>
+      <span>Le cerveau est posé</span><span>Maintenant ses limites</span><span>Et sa mémoire longue</span><span>Vecteurs · RAG · Chunks</span><span>Pas si compliqué</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="bases-section">
+      <span class="section-kicker">— Bloc 2 · Sa faille et sa mémoire longue</span>
+      <h2>L&#39;hallucination, l&#39;embedding, le vecteur, le RAG</h2>
+      <p class="bases-intro">Le modèle peut inventer avec aplomb. Heureusement, on sait lui apprendre à consulter tes documents avant de répondre. Voici comment.</p>
+      <div class="bases-grid">
+
+        <div class="base-card" data-accent="fuchsia">
+          <span class="base-num">05 · Hallucination</span>
+          <h3>Hallucination</h3>
+          <p class="base-analogy">Un collègue qui invente une réponse avec une assurance totale plutôt que d&#39;avouer qu&#39;il ne sait pas.</p>
+          <p class="base-explain">Le modèle est conçu pour produire la suite la plus probable d&#39;un texte. S&#39;il ne sait pas, il peut sortir une réponse fausse qui sonne vraie. C&#39;est LE risque numéro un. La parade : lui faire citer ses sources et vérifier.</p>
+          <a class="base-link" href="hallucination.html">Voir la fiche Hallucination →</a>
+        </div>
+
+        <div class="base-card" data-accent="orange">
+          <span class="base-num">06 · Embedding</span>
+          <h3>Embedding</h3>
+          <p class="base-analogy">L&#39;empreinte digitale du sens d&#39;un texte — deux phrases proches en sens ont des empreintes proches.</p>
+          <p class="base-explain">Un embedding, c&#39;est une longue suite de nombres qui capture la signification d&#39;un texte. Tu n&#39;as pas besoin de la lire toi, mais c&#39;est ce qui permet à une machine de dire "ces deux paragraphes parlent du même sujet".</p>
+          <a class="base-link" href="embedding.html">Voir la fiche Embedding →</a>
+        </div>
+
+        <div class="base-card" data-accent="teal">
+          <span class="base-num">07 · Base vectorielle</span>
+          <h3>Vecteur / base vectorielle</h3>
+          <p class="base-analogy">Un classeur intelligent qui range tes documents par thème — pas par ordre alphabétique, par sens.</p>
+          <p class="base-explain">Une base vectorielle stocke tous les embeddings de tes documents. Quand tu poses une question, elle retrouve les passages les plus proches en sens. C&#39;est l&#39;outil derrière toutes les "IA qui connaissent mes documents".</p>
+          <a class="base-link" href="vector-db.html">Voir la fiche Base vectorielle →</a>
+        </div>
+
+        <div class="base-card" data-accent="fuchsia">
+          <span class="base-num">08 · RAG</span>
+          <h3>RAG</h3>
+          <p class="base-analogy">Un assistant qui consulte tes archives avant de répondre — au lieu d&#39;inventer, il va chercher.</p>
+          <p class="base-explain">RAG (Retrieval Augmented Generation) = on cherche d&#39;abord les bons passages dans tes documents, puis on demande au modèle de répondre avec ces passages sous les yeux. C&#39;est la parade la plus efficace contre les hallucinations.</p>
+          <a class="base-link" href="rag.html">Voir la fiche RAG →</a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Le cerveau · ok</span><span>La mémoire · ok</span><span>Maintenant les bras</span><span>Agent · MCP · Workflow · Chunk</span><span>Dernière ligne droite</span>
+      <span>Le cerveau · ok</span><span>La mémoire · ok</span><span>Maintenant les bras</span><span>Agent · MCP · Workflow · Chunk</span><span>Dernière ligne droite</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="bases-section">
+      <span class="section-kicker">— Bloc 3 · Lui donner des bras et un mode d&#39;emploi</span>
+      <h2>L&#39;agent, le MCP, le workflow, le chunk</h2>
+      <p class="bases-intro">Un modèle qui répond, c&#39;est gentil. Un modèle qui agit, c&#39;est utile. Voici comment on lui donne des outils, un plan, et comment on découpe les gros documents qu&#39;il doit lire.</p>
+      <div class="bases-grid">
+
+        <div class="base-card" data-accent="orange">
+          <span class="base-num">09 · Agent</span>
+          <h3>Agent</h3>
+          <p class="base-analogy">Un stagiaire autonome — tu lui donnes une mission et il enchaîne les étapes sans que tu valides chaque clic.</p>
+          <p class="base-explain">Un agent, c&#39;est un modèle qui peut utiliser des outils (envoyer un email, lire un fichier, faire une recherche web) et boucler tant que la tâche n&#39;est pas finie. C&#39;est ce qui transforme un chatbot en collaborateur.</p>
+          <a class="base-link" href="../lexique.html#agent">Voir la fiche Agent →</a>
+        </div>
+
+        <div class="base-card" data-accent="teal">
+          <span class="base-num">10 · MCP</span>
+          <h3>MCP</h3>
+          <p class="base-analogy">Une prise jack universelle — branche n&#39;importe quel outil au modèle, sans recoder la connexion à chaque fois.</p>
+          <p class="base-explain">MCP (Model Context Protocol) est un standard ouvert pour qu&#39;un modèle puisse parler à tes outils (Gmail, Notion, ta base de données) de façon propre. Tu installes un serveur MCP, le modèle a accès à l&#39;outil. C&#39;est le USB de l&#39;IA.</p>
+          <a class="base-link" href="mcp.html">Voir la fiche MCP →</a>
+        </div>
+
+        <div class="base-card" data-accent="fuchsia">
+          <span class="base-num">11 · Workflow</span>
+          <h3>Workflow</h3>
+          <p class="base-analogy">Une recette de cuisine fixe, à l&#39;opposé d&#39;un cuisinier qui improvise — chaque étape est définie à l&#39;avance.</p>
+          <p class="base-explain">Un workflow IA, c&#39;est une suite d&#39;étapes prédéfinies (étape A → puis B → puis C). Plus fiable et moins cher qu&#39;un agent autonome, mais moins flexible. Pour 80 % des cas business, le workflow est le bon choix.</p>
+          <a class="base-link" href="agentic-workflow.html">Voir la fiche Workflow →</a>
+        </div>
+
+        <div class="base-card" data-accent="orange">
+          <span class="base-num">12 · Chunk</span>
+          <h3>Chunk</h3>
+          <p class="base-analogy">Déchirer un livre en morceaux digestes pour que le modèle puisse les avaler un par un.</p>
+          <p class="base-explain">Un modèle ne peut pas lire un PDF de 300 pages d&#39;un coup (le contexte n&#39;est pas assez grand, ou ça coûte trop cher). Donc on découpe en morceaux (chunks) de quelques paragraphes chacun. C&#39;est l&#39;étape juste avant de créer les embeddings.</p>
+          <a class="base-link" href="chunking.html">Voir la fiche Chunk →</a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Les 12 bases · vues</span><span>Tu peux explorer le lexique</span><span>Tu n&#39;es plus largué</span><span>Tu as la carte</span><span>Tu peux ouvrir n&#39;importe quelle fiche</span>
+      <span>Les 12 bases · vues</span><span>Tu peux explorer le lexique</span><span>Tu n&#39;es plus largué</span><span>Tu as la carte</span><span>Tu peux ouvrir n&#39;importe quelle fiche</span>
+    </div>
+  </div>
+
+  <section class="term-final">
+    <div class="term-container">
+      <h2>Maintenant tu peux explorer le lexique complet</h2>
+      <p>Tu as la carte. Tu peux ouvrir n&#39;importe quelle fiche du glossaire A-Z sans te sentir perdu. Et si un mot te coince, reviens ici — il est sûrement parmi les 12 bases.</p>
+      <a href="../lexique.html">Ouvrir le glossaire A-Z</a>
+    </div>
+  </section>
+</main>
+
+<footer class="term-footer">
+  <p>© 2026 · Jérémy Sagnier · Jerwis</p>
+</footer>
+</body>
+</html>

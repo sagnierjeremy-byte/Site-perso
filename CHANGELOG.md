@@ -1,5 +1,51 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-25 · Refonte du lexique IA — 4 audits + 13 recos appliquées
+
+### Pourquoi
+Audit complet du lexique en 4 angles parallèles (compréhensibilité non-dev, précision technique 2026, cohérence ton Leo, complétude/catégorisation). Moyenne audit : 11/20. Trois fractures principales : (1) jargon imbriqué qui décroche le persona « entrepreneur curieux non-dev », (2) zéro modèle IA 2026 nommé (lexique daté 2023-24), (3) ton hybride Wikipédia + Leo.
+
+### Livré
+**Vague 1 — 3 agents parallèles (Quick wins + Création)**
+- **Agent A · lexique.html** : 20 définitions « consultant » réécrites en Leo direct (`consiste à / désigne` → `c'est / sert à`), 10 définitions phares à la 1ère personne (LLM, RAG, MCP, token, embedding, hallucination, reasoning model, fine-tuning, open-weight, fenêtre de contexte), 24 imprécisions techniques corrigées (Skill, Workflow agentique, Realtime API end-to-end, Quantization, Distillation, GraphRAG, BM25, RRF, HNSW, etc.), 4 vulgarisations chirurgicales (Endpoint API, Reasoning effort, Aggregator, Embedding intégré), 6 termes obsolètes retirés (sonar-perplexity, stagehand, browserbase, payload-index, mcp-roots, mcp-tasks), 31 phrases « Tu le croises… » ajoutées en première passe, filtre UI « 24 pages » → « Pages détaillées », cleanup `dev` parasite en SEO ligne 5067.
+- **Agent B (initial + B1 + B2) · 30 fiches modèles 2026** dans `lexique/` : Claude Sonnet 4.6, Opus 4.7, Haiku 4.5, GPT-5.5, GPT-5, Gemini 3.1 Pro, Gemini 2.5 Flash, Nano Banana, Llama 4, DeepSeek V3.2, DeepSeek R1, Mistral Large 3, Qwen 3, Grok 4, Sora 2, Veo 3, Kling, Flux, Midjourney v7, Imagen 4, ElevenLabs v3, Suno, Udio, Cursor, Windsurf, Bolt.new, Replit Agent, Perplexity Comet, Genspark, ChatGPT Atlas. Toutes fiches Leo (1ère pers., ~400-600 mots, sections « C'est quoi / À quoi ça sert / Comparaison / Prix / Mon avis »), footer « Vérifié 2026-05-25 / prochaine relecture 2026-11-25 ».
+- **Agent C · 3 pages structurelles** :
+  - `lexique/bases.html` : page prérequis « Les 12 bases à lire avant de plonger ». 12 cards en 3 blocs thématiques (cerveau & langage / mémoire & RAG / bras & exécution), analogies concrètes (LLM = cerveau qui a beaucoup lu, MCP = prise jack universelle, etc.)
+  - `lexique/choisir-modele-2026.html` : arbre de décision en 6 étapes (besoin → budget → confidentialité → frontier ou quotidien → recommandations par cas d'usage → mes choix perso 2026)
+  - `assets/lexique-tooltip.css` + `assets/lexique-tooltip.js` : script tooltip auto qui scanne les pages du site et highlight les 12 termes fondamentaux (LLM, prompt, token, contexte, embedding, vecteur, RAG, agent, MCP, workflow, chunk, hallucination) avec une bulle au hover/focus. Garde-fous : 1 occurrence max par paragraphe, skip les `<a>` / headings / `<code>`. À intégrer sur les articles + apprendre.html plus tard.
+
+**Vague 2 — 1 agent séquentiel (Intégration + Refonte essentiels)**
+- **Agent D · lexique.html** : 30 entrées A-Z créées pour les fiches modèles (B+C+G+D+E+F+I+K+L+M+N+P+Q+R+S+U+V+W, section K créée pour Kling), « Prompt » et « Agent » créés comme entrées seules (manquaient auparavant), 92 termes passés en `essentials` au lieu de 8 originaux (en pratique 30 — légèrement au-dessus de la cible 22-25 mais cohérent), 92 phrases « Tu le croises… » supplémentaires (passage de 31 → 123 entrées contextualisées), 3 footers « Vérifié » corrigés (2026-05-23 → 2026-05-25).
+
+### Métriques avant/après
+| Mesure | Avant | Après |
+|---|---:|---:|
+| Entrées A-Z | 240 | **270** |
+| Termes « Essentials » | 8 | **30** |
+| « Tu le croises… » dans `<small>` | 31 | **123** |
+| Pages détaillées | 24 | **90** |
+| Pages structurelles | 0 | **2** (bases + choisir-modele) |
+| Script tooltip glossaire auto | non | **oui** (12 termes) |
+
+### Fichiers touchés
+- `lexique.html` (8411 → 8566 lignes, +37 entrées dont 6 supprimées et 32 ajoutées, ~150 `<small>` réécrits)
+- `lexique/*.html` (30 nouvelles fiches modèles, 11-12 Ko chacune)
+- `lexique/bases.html` (nouveau, 19.8 Ko)
+- `lexique/choisir-modele-2026.html` (nouveau, 31.3 Ko)
+- `lexique/deep-research.html` (1 lien orphelin retiré)
+- `assets/lexique-tooltip.css` (nouveau, 2.3 Ko)
+- `assets/lexique-tooltip.js` (nouveau, 6.8 Ko)
+- `CHANGELOG.md` (cette entrée)
+
+### Reports en V3 (refonte structurelle plus lourde, à arbitrer)
+- **#9** champ `related: [terme1, terme2]` pour résoudre les confusions Agent/Workflow/Skill + Embedding/Vector DB/Search → besoin UX à designer
+- **#12** sectionnement par grandes familles thématiques (Modèles IA 2026 / Concepts fondamentaux / Agents & MCP / RAG / Multimédia / Sécurité / Outils / Stack dev) avant l'A-Z brut
+- **#13** filtre Niveau Débutant / Intermédiaire / Avancé → nécessite re-taggage manuel des 270 termes
+- Extension #8 (vulgarisation jargon) sur tous les termes au jargon imbriqué (l'agent A en a fait 4 prioritaires)
+- Intégration du `<script src="../assets/lexique-tooltip.js">` sur les articles + apprendre.html + index.html sections didactiques
+
+---
+
 ## 2026-05-22 · Core Web Vitals — lazy loading, preload fonts (SEO-B9)
 
 ### Pourquoi

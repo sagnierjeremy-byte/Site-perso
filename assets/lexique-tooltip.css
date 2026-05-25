@@ -1,0 +1,104 @@
+/* lexique-tooltip.css — tooltip glossaire auto pour jerwis.fr */
+
+.lex-tooltip {
+  position: relative;
+  border-bottom: 1px dotted #EF426F;
+  cursor: help;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lex-tooltip:hover,
+.lex-tooltip:focus-visible {
+  outline: none;
+  border-bottom-style: solid;
+  border-bottom-color: #EF426F;
+}
+
+.lex-tooltip:focus-visible {
+  box-shadow: 0 0 0 2px rgba(239, 66, 111, .4);
+  border-radius: 2px;
+}
+
+.lex-tooltip-bubble {
+  position: absolute;
+  z-index: 200;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 280px;
+  width: max-content;
+  padding: 10px 12px;
+  background: #0A0A0A;
+  color: #FBF7F0;
+  border-radius: 8px;
+  font-family: "Archivo", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .15s ease, visibility .15s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+}
+
+.lex-tooltip-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0A0A0A;
+}
+
+.lex-tooltip-bubble.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lex-tooltip-bubble strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #EF426F;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* Dark mode : la bulle reste sombre, mais on adoucit la couleur du dotted */
+[data-theme="dark"] .lex-tooltip {
+  border-bottom-color: rgba(239, 66, 111, .8);
+}
+
+[data-theme="dark"] .lex-tooltip-bubble {
+  background: #141414;
+  border: 1px solid rgba(239, 66, 111, .35);
+}
+
+[data-theme="dark"] .lex-tooltip-bubble::after {
+  border-top-color: #141414;
+}
+
+/* Mobile : on bascule la bulle sous le mot si pas de place au-dessus */
+@media (max-width: 620px) {
+  .lex-tooltip-bubble {
+    max-width: min(280px, calc(100vw - 32px));
+    font-size: 12.5px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .lex-tooltip-bubble {
+    transition: none;
+  }
+}

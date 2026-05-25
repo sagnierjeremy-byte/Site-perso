@@ -23,6 +23,10 @@ const FEEDS = [
   { url: 'https://www.silicon.fr/feed', name: 'Silicon.fr', category: 'IA' },
   { url: 'https://korben.info/feed', name: 'Korben', category: 'IA' },
   { url: 'https://www.lemonde.fr/pixels/rss_full.xml', name: 'Le Monde Pixels', category: 'IA' },
+  // ── IA — sources spécialisées + expertes (nouvelles 2026-05-25) ───────────
+  { url: 'https://www.frandroid.com/marques/intelligence-artificielle/feed', name: 'Frandroid IA', category: 'IA' },
+  { url: 'https://intelligence-artificielle.com/feed/', name: 'Intelligence Artificielle', category: 'IA' },
+  { url: 'https://simonwillison.net/atom/everything/', name: 'Simon Willison', category: 'IA' },
   // ── Business — sources françaises ─────────────────────────────────────────
   { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
   { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },

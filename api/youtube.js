@@ -15,10 +15,12 @@
 import { XMLParser } from 'fast-xml-parser';
 
 const CHANNELS = [
+  { id: 'UCNJ1Ymd5yFuUPtn21xtRbbw', handle: '@aiexplained-official', name: "AI Explained", category: 'IA', tag: "IA · Analyses pointues", avatar: 'https://yt3.googleusercontent.com/GFuvgO3IZvs5XkYOxyLoWQto2lyY6-7Ob-7sfZRyoann4eBgvBMxuGgSVU1cvBgRCgAn41St7g=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UC6HUl-TjEB0iq0hExXrpjog', handle: '@GrandAnglePodcast', name: "Grand Angle", category: 'IA', tag: "Podcast · Tech", avatar: 'https://yt3.googleusercontent.com/iW9fPiaMUtOJ0qoCSnmqUNBNly4bzrvfGBDkJN4zEX6wt05iLrxoyMzoOcjh5_vOCjd0JoiqqQ=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UCkNZ-QtRIj0VepSoliDl_Bw', handle: '@grandanglenova', name: "Grand Angle Nova", category: 'IA', tag: "Podcast · IA", avatar: 'https://yt3.googleusercontent.com/n6Jarsn3odnxzX2wS5cgBwYHVbCf8CFLfodtUnZKY0t3rxTsvc7IemOg4QsHFKsJ9W87nL2DSw=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UC2UmrCDeb8CEB7t6v6Kqt7A', handle: '@SamouraiDansant', name: "IA et Stratégie", category: 'IA', tag: "IA · Stratégie", avatar: 'https://yt3.googleusercontent.com/8K3hgzb2OzJpW5ZmcjopsJdP02wci1gJOHuRGqpA7Wd0bncWEcs0MkJXq0ESXVK6JTi7prX3FQ=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UC5HDIVwuqoIuKKw-WbQ4CvA', handle: '@melvynxdev', name: "Melvynx", category: 'IA', tag: "Dev · SaaS", avatar: 'https://yt3.googleusercontent.com/FfaLdHpU5x7SKmc3u4y-x7SyJKILB95rVQOePc3s_xVYNIxk21V3vDboqfRsvbk5Eqd3ZHE28A=s240-c-k-c0x00ffffff-no-rj' },
+  { id: 'UCYnvxJ-PKiGXo_tYXpWAC-w', handle: '@Micode', name: "Micode", category: 'IA', tag: "Tech · Vulgarisation", avatar: 'https://yt3.googleusercontent.com/FWRkKi2u2NSqVBOyenh-Q0qpqpk562aVx6SMH-Caw6QIeZmAIFcwdA3mdpNnwW-Qm-XZHXPr=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UCt11zYNefnunOkgCrsO9UYg', handle: '@siliconcarnepod', name: "Silicon Carne 🌶️", category: 'IA', tag: "Tech · Startups", avatar: 'https://yt3.googleusercontent.com/HBH01jNMhS6dMa5rD9X8GdOFWn6IpKp6whIz2w1Y-qXjsDChlrtsgozwnF1UbnwJjtQn3iPHv10=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UCWedHS9qKebauVIK2J7383g', handle: '@Underscore_', name: "Underscore_", category: 'IA', tag: "Tech · Interviews", avatar: 'https://yt3.googleusercontent.com/RUb9pWwhDr8-uv4WTOOvn_c6cc1K5yHa2dPrOx7nqT8K2Ez1wYnVUQO_4PCJwMxOtZGg9vvZbw=s240-c-k-c0x00ffffff-no-rj' },
   { id: 'UCyc03X3uRuxM9n7fyRH_gIw', handle: '@VisionIA-FR', name: "Vision IA", category: 'IA', tag: "IA · Vulgarisation", avatar: 'https://yt3.googleusercontent.com/OnGeEJrbr1WV3x5xeC5zqOu8ew6EBzLlufq2KLggu7GhOAQhc8ZQrzkGWDqtdqwpBDVMGGN7=s240-c-k-c0x00ffffff-no-rj' },

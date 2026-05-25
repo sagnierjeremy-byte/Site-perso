@@ -34,12 +34,6 @@ const FEEDS = [
   { url: 'https://www.latribune.fr/rss/homepage', name: 'La Tribune', category: 'Business' },
   { url: 'https://www.lemonde.fr/economie/rss_full.xml', name: 'Le Monde Économie', category: 'Business' },
   { url: 'https://www.franceinfo.fr/economie.rss', name: 'France Info Éco', category: 'Business' },
-  // ── International — médias mondiaux en français ──────────────────────────
-  { url: 'https://www.courrierinternational.com/feed/all/rss.xml', name: 'Courrier International', category: 'International' },
-  { url: 'https://www.france24.com/fr/rss', name: 'France 24', category: 'International' },
-  { url: 'https://www.rfi.fr/fr/économie/rss', name: 'RFI Économie', category: 'International' },
-  { url: 'https://www.lemonde.fr/international/rss_full.xml', name: 'Le Monde International', category: 'International' },
-  { url: 'https://theconversation.com/fr.atom', name: 'The Conversation', category: 'International' },
 ];
 
 const parser = new XMLParser({

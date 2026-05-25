@@ -26,6 +26,23 @@
     return `il y a ${y} an${y > 1 ? 's' : ''}`;
   }
 
+  function formatDuration(seconds) {
+    if (!seconds || seconds < 0) return '';
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+
+  function formatViews(n) {
+    if (!n || n <= 0) return '';
+    if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1).replace('.0', '')} Md vues`;
+    if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace('.0', '')} M vues`;
+    if (n >= 1_000) return `${Math.round(n / 1_000)} K vues`;
+    return `${n} vues`;
+  }
+
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -79,23 +96,26 @@
     const ch = v.channel || {};
     const cat = ch.category || '';
     const catSlug = cat.toLowerCase();
+    const duration = formatDuration(v.duration_seconds);
+    const views = formatViews(v.view_count);
+    const dateLabel = timeAgo(v.publishedAt);
     return `
       <article class="video-card" data-video-id="${escapeHtml(v.videoId)}" data-video-url="${escapeHtml(v.url)}" data-video-title="${escapeHtml(v.title)}" data-channel-name="${escapeHtml(ch.name)}" data-channel-avatar="${escapeHtml(ch.avatar || '')}">
         <div class="video-thumb">
           <img src="${escapeHtml(v.thumbnail)}" alt="" loading="lazy">
           <div class="video-thumb-play" aria-hidden="true">▶</div>
+          ${duration ? `<span class="video-duration">${escapeHtml(duration)}</span>` : ''}
         </div>
         <div class="video-meta">
-          <img class="video-channel-avatar" src="${escapeHtml(ch.avatar || '/photos/og-jerwis.jpg')}" alt="" loading="lazy" width="36" height="36" onerror="this.src='/photos/og-jerwis.jpg'">
-          <div class="video-meta-text">
-            <h3 class="video-title">${escapeHtml(v.title)}</h3>
-            <div class="video-sub">
-              <span class="video-channel">${escapeHtml(ch.name || '')}</span>
-              <span class="video-dot">·</span>
-              <span class="video-date">${escapeHtml(timeAgo(v.publishedAt))}</span>
-            </div>
-            ${cat ? `<span class="video-cat-pill cat-${escapeHtml(catSlug)}">${escapeHtml(cat)}</span>` : ''}
+          <h3 class="video-title">${escapeHtml(v.title)}</h3>
+          <div class="video-sub-line1">
+            <img class="video-channel-avatar" src="${escapeHtml(ch.avatar || '/photos/og-jerwis.jpg')}" alt="" loading="lazy" width="24" height="24" onerror="this.src='/photos/og-jerwis.jpg'">
+            <span class="video-channel-name">${escapeHtml(ch.name || '')}</span>
           </div>
+          <div class="video-stats">
+            ${views ? `${escapeHtml(views)} · ` : ''}${escapeHtml(dateLabel)}
+          </div>
+          ${cat ? `<span class="video-cat-pill cat-${escapeHtml(catSlug)}">${escapeHtml(cat)}</span>` : ''}
         </div>
       </article>
     `;

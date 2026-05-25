@@ -136,6 +136,9 @@ function atomEntry(entry, channel) {
   }
   if (!videoUrl) videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
+  // Skip YouTube Shorts (verticales) — URL contient /shorts/
+  if (videoUrl.includes('/shorts/')) return null;
+
   // Thumbnail
   const media = entry['media:group'];
   let thumbnail = null;

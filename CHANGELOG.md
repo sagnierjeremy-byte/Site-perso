@@ -1,5 +1,44 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-25 · Vague 3 lexique — refonte structurelle (17/17 recos closes)
+
+### Pourquoi
+Suite des 2 vagues du 25 mai (déjà 13 recos sur 17). V3 ferme les 4 dernières recommandations structurelles de l'audit : sectionnement thématique (#12), filtre Niveau (#13), champ `data-term-related` (#9), extension vulgarisation (#8) + intégration du tooltip glossaire sur 41 pages éditoriales.
+
+### Livré
+**Agent E · refonte structurelle `lexique.html`**
+- **#12 grille thématique** : 8 cards d'entrée rapide en haut du lexique (Concepts fondamentaux · Modèles IA 2026 · Agents & MCP · RAG & connaissances · Multimédia · Sécurité · Outils · Automatisation), avec compteurs dynamiques, barre verticale colorée alternée teal/fuchsia/orange, click déclenche le filtre catégorie + scroll smooth vers la liste A-Z
+- **#13 filtre Niveau** : `data-term-level` ajouté sur les 266 entrées via règle auto (`essentials` → debutant · `bases` → intermediaire · sinon → avance). Répartition : 30 / 44 / 192. 4 boutons sous la rangée de filtres existante (Tous · Débutant · Intermédiaire · Avancé). Logique cumulative avec les filtres thématique et lettre
+- **#8 ext vulgarisation** : 20 défs supplémentaires reformulées (`agentic-workflow`, `chunking`, `noise-sensitivity`, `multi-query-retrieval`, `recherche-hybride`, `tool-use`, `structured-output`, `system-prompt`, `human-in-the-loop`, `eval`, `agent-graph`, `chain-of-thought`, `tool-misuse`, `token-passthrough`, `agent-goal-hijack`, `web-search-tool`, `voice-agent`, `vector-db`, `agents-md`, `supervisor-agent`)
+- **#9 `data-term-related`** : 29 attributs ajoutés sur les termes les plus structurants (LLM, RAG, MCP, agent, embedding, prompt, token, hallucination, fine-tuning, reasoning-model + 10 modèles 2026 phares + termes connexes). Données seulement, UI sidebar à designer plus tard
+- **Fix post-livraison** : ajout des click listeners sur `themeCards` et `levelButtons` (l'agent E avait oublié) — vérifié en QC : Agents → 89 visibles, Débutant → 30, Agents + Débutant → 5 visibles (intersection logique correcte)
+
+**Agent F · intégration tooltip JS sur 41 pages**
+- 27 articles patchés (`articles/*.html` incluant `_TEMPLATE.html`) avec `<link>` lexique-tooltip.css preload + `<script>` lexique-tooltip.js defer
+- 14 pages racine patchées : `index`, `apprendre`, `claude-code`, `debutant`, `news`, `outils`, `modeles-ia`, `modeles-image-ia`, `modeles-ia-monde`, `github`, `quiz`, `workflows`, `podcast`, `articles`
+- Skip volontaire : lexique.html, fiches détaillées `/lexique/*.html`, pages légales (CGV, mentions, confidentialité, suppression), pages commerciales (precommande, preferences)
+- QC live sur loops-claude : 11 tooltips détectés sur les 12 termes fondamentaux (LLM, RAG, MCP, embedding, prompt, token, contexte, agent, workflow, chunk, hallucination)
+
+### Métriques V3
+| Mesure | Avant V3 | Après V3 |
+|---|---:|---:|
+| Cards thématiques d'entrée | 0 | **8** |
+| Filtres Niveau | 0 | **4** (Tous + 3 niveaux) |
+| Entrées avec `data-term-level` | 0 | **266** |
+| Entrées avec `data-term-related` | 0 | **29** |
+| Vulgarisations cumulées (V1+V2+V3) | 24 | **44** |
+| Pages avec tooltip glossaire auto | 0 | **41** |
+
+### Bilan global refonte lexique (V1+V2+V3)
+**17/17 recos d'audit appliquées.** Notes audit initiales : 9-12/20 (4 angles). Le lexique est passé de 240 entrées à 270 (incluant 30 fiches modèles 2026), 8 termes essentiels à 30, 31 contextualisations « Tu le croises… » à 123, 24 pages détaillées à 90, sans page d'entrée prérequise à 2 pages structurelles (bases + choisir-modele-2026) + 1 script tooltip auto-glossaire intégré sur 41 pages éditoriales.
+
+### Fichiers touchés (V3)
+- `lexique.html` (+ ~600 lignes pour grille thématique, filtre niveau, fix click listeners, 29 attributs related, 20 vulgarisations)
+- 41 fichiers HTML patchés (27 articles + 14 pages racine)
+- `CHANGELOG.md` (cette entrée)
+
+---
+
 ## 2026-05-25 · Refonte du lexique IA — 4 audits + 13 recos appliquées
 
 ### Pourquoi

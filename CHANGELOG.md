@@ -1,5 +1,33 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-05-26 · Réparation cron news + couverture sitemap + RSS du blog
+
+### Pourquoi
+Audit "qu'est-ce qui manque" → 3 trous concrets : (1) le cron GitHub Actions `daily-news-summary` échouait en silence depuis le 23/05 (4 jours, `data/news-summary.json` figé au 22/05) ; (2) 35 pages réelles absentes du sitemap (dont 32 fiches modèles/outils du lexique, la page `/news`, `/modeles-ia-monde`, et l'article `jerwis-finance-tracker`) → invisibles aux moteurs ; (3) aucun flux RSS pour le blog (seul le podcast en avait un).
+
+### Livré
+**Cron news (`.github/workflows/daily-news-summary.yml`)**
+- Cause racine identifiée : secret `ANTHROPIC_API_KEY` **absent du repo GitHub** (le script `build-news-summary.js` exit 1). → Jérémy doit le poser : `gh secret set ANTHROPIC_API_KEY --repo sagnierjeremy-byte/Site-perso`
+- Node 20 → 24 (deprecation des runners juin 2026)
+- Nouveau step `Alert on failure` : ouvre/commente une issue GitHub à chaque échec (fini les 4 jours dans le noir)
+- Conversion du gitlink fantôme `downloads/skills/humanizer` (référencé sans `.gitmodules`) en fichiers normaux → supprime le warning `No url found for submodule path` à chaque run
+
+**Sitemap (`sitemap.xml` · 110 → 145 entrées)**
+- +32 fiches modèles/outils lexique (gpt-5, claude-sonnet-4-6, midjourney-v7, cursor, sora-2…) placées dans une section **hors des marqueurs** `build-lexique.js` pour survivre aux futurs rebuilds
+- +`/news` (changefreq daily), +`/modeles-ia-monde`, +`/articles/jerwis-finance-tracker`
+- Cause racine : ces 32 pages HTML existent sans entrée dans `data/lexique.json` (créées hors pipeline) ; `build-lexique.js` ne les voyait donc pas
+
+**RSS du blog (`feed/articles.xml` · nouveau)**
+- Script `scripts/build-articles-rss.mjs` (npm `articles:rss`) — RSS 2.0, 26 articles, source de vérité : `<title>` / canonical / meta description / `datePublished` JSON-LD, tri chronologique desc
+- Accroché à `scripts/publish.js` (régénération auto à chaque publication, pour ne plus dériver comme le sitemap)
+- `<link rel="alternate" type="application/rss+xml">` ajouté dans le `<head>` de `index.html` et `articles.html`
+
+### À venir / dette repérée pendant l'audit
+- **og:title faux** sur `articles/jerwis-finance-tracker.html` (parle de Calendly/Letsignit — copier-coller non mis à jour). À corriger.
+- **32 fiches modèles hors pipeline** : ni dans `data/lexique.json` ni générées par un script. Décider d'un système de génération unifié, ou les laisser autonomes (et un `scripts/check-sitemap.mjs` garantirait la couverture).
+- **Schéma Supabase mort** (`db/migrations/001-newsletter-schema.sql` : `broadcasts`/`broadcast_events`/`scheduled_broadcasts`) jamais alimenté ni lu. Finir la feature ou supprimer.
+- **`lexique.html` 527 Ko / 8859 lignes** inline → LCP mobile, à transformer en index léger.
+
 ## 2026-05-25 · Vague 3 lexique — refonte structurelle (17/17 recos closes)
 
 ### Pourquoi

@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import { buildArticlesRss } from './build-articles-rss.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -286,6 +287,8 @@ try {
   } else {
     await publishOne(args[0]);
   }
+  buildArticlesRss();
+  log.ok('feed/articles.xml régénéré');
 } catch (e) {
   log.err(e.message);
   if (process.env.DEBUG) console.error(e.stack);

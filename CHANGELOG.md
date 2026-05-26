@@ -22,11 +22,19 @@ Audit "qu'est-ce qui manque" → 3 trous concrets : (1) le cron GitHub Actions `
 - Accroché à `scripts/publish.js` (régénération auto à chaque publication, pour ne plus dériver comme le sitemap)
 - `<link rel="alternate" type="application/rss+xml">` ajouté dans le `<head>` de `index.html` et `articles.html`
 
+**Fix métadonnées `articles/jerwis-finance-tracker.html`**
+- Page dupliquée de l'article booking sans mise à jour du bloc SEO : og:title, og:description, breadcrumb, headline + description JSON-LD parlaient de Calendly/Letsignit, et la FAQPage entière portait sur le booking (risque mismatch structured-data + mauvais aperçu social)
+- Corrigé sur le vrai sujet + FAQPage réécrite avec les 6 vraies Q/R de l'article. Scan de cohérence og:title sur les 27 articles : aucun autre cas (photos-airbnb = divergence volontaire)
+
+**Suppression code mort Supabase/Resend**
+- Supprimés : `lib/resend.js`, `lib/supabase.js`, `db/migrations/001-newsletter-schema.sql`, deps `@supabase/supabase-js` + `ws` (resync lock)
+- Vérifié au préalable : tables `broadcasts`/`broadcast_events`/`scheduled_broadcasts` requêtées par AUCUN des deux projets (jerwis-admin ne les a que dans `database.ts` en types auto-générés, jamais en `.from()`)
+- **NON fait (volontaire)** : les tables existent toujours en prod sur Supabase `npxvttwhrlrmwafpfudy` (inertes). DROP optionnel à faire manuellement via SQL Editor si on veut nettoyer la base — non automatisé car projet partagé. Tests 17/17 OK après suppression
+
 ### À venir / dette repérée pendant l'audit
-- **og:title faux** sur `articles/jerwis-finance-tracker.html` (parle de Calendly/Letsignit — copier-coller non mis à jour). À corriger.
 - **32 fiches modèles hors pipeline** : ni dans `data/lexique.json` ni générées par un script. Décider d'un système de génération unifié, ou les laisser autonomes (et un `scripts/check-sitemap.mjs` garantirait la couverture).
-- **Schéma Supabase mort** (`db/migrations/001-newsletter-schema.sql` : `broadcasts`/`broadcast_events`/`scheduled_broadcasts`) jamais alimenté ni lu. Finir la feature ou supprimer.
-- **`lexique.html` 527 Ko / 8859 lignes** inline → LCP mobile, à transformer en index léger.
+- **`lexique.html` 527 Ko / 8859 lignes** inline → LCP mobile, à transformer en index léger (reporté, mérite sa propre session avec tests visuels).
+- **Tables broadcast* en prod** : DROP manuel optionnel (voir ci-dessus).
 
 ## 2026-05-25 · Vague 3 lexique — refonte structurelle (17/17 recos closes)
 

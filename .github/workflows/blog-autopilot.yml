@@ -43,6 +43,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE: ${{ secrets.CLAUDE }}   # tolère le secret nommé CLAUDE (fallback)
         run: |
           node scripts/blog/autopilot.mjs
           {

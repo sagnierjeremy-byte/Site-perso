@@ -85,8 +85,8 @@ export async function gemini(prompt, { model = 'gemini-2.5-flash', system = '', 
 // ── Claude (REST) — utilisé seulement si ANTHROPIC_API_KEY présente ──
 export async function claude(prompt, { model = 'claude-sonnet-4-6', system = '', temperature = 0.7, max_tokens = 8000 } = {}) {
   await loadEnv();
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) throw new Error('ANTHROPIC_API_KEY absente (.env.local)');
+  const key = process.env.ANTHROPIC_API_KEY || process.env.CLAUDE; // tolère le secret nommé CLAUDE
+  if (!key) throw new Error('ANTHROPIC_API_KEY (ou CLAUDE) absente');
 
   const data = await withRetry('Claude', () => fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -98,7 +98,7 @@ export async function claude(prompt, { model = 'claude-sonnet-4-6', system = '',
 }
 
 // ── le bon générateur selon les clés dispo ──
-export async function hasClaude() { await loadEnv(); return !!process.env.ANTHROPIC_API_KEY; }
+export async function hasClaude() { await loadEnv(); return !!(process.env.ANTHROPIC_API_KEY || process.env.CLAUDE); }
 export async function hasGemini() { await loadEnv(); return !!process.env.GEMINI_API_KEY; }
 
 // Mapping tier → modèle réel par provider (évite de passer un nom Claude à Gemini)

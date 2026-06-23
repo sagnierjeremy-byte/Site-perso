@@ -190,8 +190,8 @@ ${factsCtx}
 === TON LEO (règles du site) ===
 ${TON_LEO}
 
-=== ARTICLE À JUGER (markdown) ===
-${body.slice(0, 9000)}
+=== ARTICLE À JUGER (markdown, complet) ===
+${body.slice(0, 30000)}
 
 Note 3 critères de 0 à 10 (entiers) et liste les défauts concrets. Réponds UNIQUEMENT en JSON :
 {
@@ -200,7 +200,8 @@ Note 3 critères de 0 à 10 (entiers) et liste les défauts concrets. Réponds U
   "C5_coherence": {"score": 0-10, "contradictions": ["chiffres ou affirmations qui se contredisent"], "raisons": ["..."]}
 }
 Règles de notation :
-- C1 : tout chiffre non présent dans la matière de référence OU invraisemblable (ex: 98% d'adoption) = claim_refute, et score ≤ 5.
+- C1 FACTUALITÉ — ne pénalise QUE les faits VÉRIFIABLES inventés : chiffres/statistiques/pourcentages/dates absents de la matière OU invraisemblables (ex: 98% d'adoption), noms propres/citations/événements fabriqués. Un chiffre inventé ou invraisemblable = claim_refute, score ≤ 5.
+- NE PÉNALISE PAS l'explication de concepts généraux bien connus (RAG, agent, prompt, LLM, fine-tuning, etc.) même s'ils ne sont pas dans la matière : ce sont des connaissances communes, pas des hallucinations. Un article a le droit d'expliquer un concept sans source. Si l'article ne contient AUCUN chiffre/nom inventé, C1 ≥ 8.
 - C2 : "(source: ...)" en clair dans le texte, Title Case sur les titres, ou ton "fiche produit" = violations, score ≤ 6.
 - C5 : si deux chiffres se contredisent = score ≤ 5.`;
 

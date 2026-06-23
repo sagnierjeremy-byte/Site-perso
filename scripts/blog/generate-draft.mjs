@@ -98,7 +98,17 @@ tldr:
 
 [CORPS MARKDOWN ICI — pas de # H1 (déjà géré par le hero), commence directement par un <!-- section --> puis ## ]
 
-Écris maintenant l'article complet, en respectant le ton Leo À LA LETTRE. Pas de "dans cet article nous allons voir". Va au vécu, sois utile, sois chaleureux sans être familier.`;
+RÈGLE DE TUTOIEMENT (ton Leo de jerwis.fr) :
+- TUTOIE le lecteur partout : "tu", "ton", "tes", "tu veux", "tu écris". JAMAIS de "vous"/"votre"/"vos".
+- Vaut aussi pour les titres et les questions de la FAQ.
+
+RÈGLE TYPOGRAPHIQUE FRANÇAISE STRICTE (très important) :
+- TOUS les titres (##, ###, h4 d'encadré) en CASSE DE PHRASE française : SEULE la première lettre du titre est en majuscule, plus les noms propres. JAMAIS de Title Case anglo (Majuscule À Chaque Mot).
+- Exemples corrects : "Les 4 piliers d'un bon prompt", "Comment itérer sur tes prompts", "Les erreurs qui plombent tes réponses".
+- Exemples INTERDITS : "Les 4 Piliers d'un Bon Prompt", "Comment Itérer Sur Tes Prompts".
+- Les noms propres gardent leur casse : Chain-of-Thought, Context Engineering, Claude, RCTF.
+
+Écris maintenant l'article complet, en respectant le ton Leo À LA LETTRE. Pas de "dans cet article nous allons voir". Va au vécu, sois utile, sois chaleureux sans être familier. Termine l'article entièrement.`;
 
 console.error(`• Génération du draft "${slug}" (Type ${type})…`);
 const { provider, text } = await generate(prompt, {

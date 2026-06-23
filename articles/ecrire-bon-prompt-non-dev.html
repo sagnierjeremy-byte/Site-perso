@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/{{SLUG}}.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Écrire un bon prompt sans être développeur (2026)</title>
+<meta name="description" content="Méthodes concrètes pour rédiger des prompts IA efficaces en 2026. Frameworks RCTF, exemples business, pièges à éviter — sans jargon technique.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{TITRE_OG_60_CHARS_MAX}}">
+<meta property="og:description" content="{{OG_DESCRIPTION_110_CHARS_MAX}}">
+<meta property="og:url" content="https://jerwis.fr/articles/{{SLUG}}">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/{{SLUG}}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="{{DATE_PUBLI_AAAA-MM-JJ}}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="{{TITRE_OG_60_CHARS_MAX}}">
+<meta name="twitter:description" content="{{OG_DESCRIPTION_110_CHARS_MAX}}">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/{{SLUG}}.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/{{SLUG}}">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "{{TITRE_OG_60_CHARS_MAX}}",
+  "description": "{{META_DESCRIPTION_140_155_CHARS}}",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/{{SLUG}}",
+  "datePublished": "{{DATE_PUBLI_AAAA-MM-JJ}}",
+  "dateModified": "{{DATE_MAJ_AAAA-MM-JJ}}",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/{{SLUG}}.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 59</div>
+    <h1>Écrire un prompt<br>qui fonctionne vraiment<br><em>sans être développeur</em></h1>
+    <p class="hero-lead">
+      Comment faire pour que l'IA te donne une réponse vraiment utile, et pas une réponse générique qui ressemble à tout et à rien ? C'est la question que je me suis posée dès que j'ai commencé à intégrer ces outils dans mon quotidien. La réponse tient en un mot : la structure. En 2026, la qualité de ce que tu obtiens d'une IA dépend directement de la précision de ce que tu lui demandes. Pas besoin de coder. Pas besoin d'un diplôme d'informatique. Il suffit d'apprendre à formuler.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Claude, Gemini</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>La qualité d'un prompt détermine directement la <strong>qualité de la réponse</strong> : une instruction vague produit un résultat générique.</li>
+      <li>Le framework <strong>RCTF (Rôle, Contexte, Tâche, Format)</strong> est la base simple et efficace pour structurer n'importe quel prompt professionnel.</li>
+      <li>L'itération est normale : <strong>trois cycles d'affinage</strong> suffisent souvent à transformer une réponse moyenne en quelque chose d'exploitable.</li>
+      <li>ChatGPT, Claude et Gemini ont des forces différentes — <strong>teste le même prompt sur plusieurs modèles</strong> pour trouver le meilleur résultat.</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+    <h2>Pourquoi le prompt engineering est la nouvelle compétence clé pour les entrepreneurs en 2026</h2>
+    <p>En 2025, 75 % des salariés utilisaient déjà l&#39;IA dans leur travail. Ce chiffre dit une chose simple : l&#39;IA n&#39;est plus un sujet réservé aux équipes techniques. Elle est sur le bureau de tout le monde. Y compris le tien.</p>
+    <p>Mais il y a un écart énorme entre utiliser l&#39;IA et bien l&#39;utiliser. Cet écart, c&#39;est la qualité du prompt — c&#39;est-à-dire l&#39;instruction que tu donnes à l&#39;outil. En 2026, le <a href="/lexique/prompt-engineering">prompt engineering</a> est devenu une compétence professionnelle à part entière. Pas parce que c&#39;est à la mode. Parce qu&#39;il impacte directement ce que tu produis et la vitesse à laquelle tu le produis.</p>
+    <p>Voilà ce que j&#39;observe concrètement : deux personnes utilisent le même outil, la même version, la même interface. L&#39;une obtient un contenu exploitable en deux échanges. L&#39;autre passe vingt minutes à corriger, reformuler, recommencer. La différence ? La façon dont chacune a formulé sa demande.</p>
+    <p>Ce n&#39;est pas une question de talent. C&#39;est une question de méthode.</p>
+    <p>Et cette méthode, elle s&#39;apprend. Rapidement. Sans avoir besoin de comprendre comment fonctionne un modèle de langage sous le capot. Ce qui compte, c&#39;est de savoir quoi mettre dans ton prompt — et dans quel ordre.</p>
+    <p>En 2026, 91 % des PME qui utilisent l&#39;IA constatent une augmentation de leur chiffre d&#39;affaires. Ce chiffre ne signifie pas que l&#39;IA est magique. Il signifie que celles qui ont structuré leur approche en tirent quelque chose de réel. La structure commence par le prompt.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Cet article, c&#39;est la synthèse de ce que j&#39;ai appris à force de tester, rater, affiner.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les fondations d&#39;un prompt efficace : le framework RCTF</h2>
+    <p>Il existe plusieurs frameworks pour structurer un prompt. Après en avoir testé plusieurs, j&#39;en retiens un qui est simple, complet et directement applicable : le <strong>RCTF</strong> — Rôle, Contexte, Tâche, Format.</p>
+    <p>Voici ce que chaque élément signifie en pratique.</p>
+    <p><strong>Rôle</strong> : tu dis à l&#39;IA qui elle est pour cette conversation. &quot;Tu es un consultant en stratégie marketing spécialisé dans les PME françaises.&quot; Ce n&#39;est pas un détail cosmétique. Assigner un rôle précis active un vocabulaire, un ton et des réflexes professionnels qui améliorent la profondeur de la réponse. L&#39;IA ne joue pas un personnage — elle calibre son registre.</p>
+    <p><strong>Contexte</strong> : tu expliques ta situation. Ton activité, ta cible, tes contraintes, ton positionnement. C&#39;est l&#39;élément le plus souvent oublié — et le plus important. L&#39;IA ne peut pas deviner qui tu es, ce que tu vends, à qui tu t&#39;adresses. Sans contexte, elle produit quelque chose de générique qui pourrait s&#39;appliquer à n&#39;importe qui. Avec un contexte précis, elle produit quelque chose qui ressemble à ta réalité.</p>
+    <p><strong>Tâche</strong> : tu décris ce que tu veux obtenir. De façon claire, avec un verbe d&#39;action. &quot;Rédige&quot;, &quot;Analyse&quot;, &quot;Liste&quot;, &quot;Compare&quot;. Évite les formulations floues comme &quot;parle-moi de&quot; ou &quot;dis-moi quelque chose sur&quot;.</p>
+    <p><strong>Format</strong> : tu précises comment tu veux recevoir la réponse. Un tableau, une liste à puces, trois paragraphes, un email en 150 mots. Le format guide la mise en forme et la longueur. Sans lui, l&#39;IA choisit pour toi — et ce n&#39;est pas toujours ce dont tu as besoin.</p>
+    <p>Un prompt RCTF complet ressemble à ça :</p>
+    <blockquote>
+    <p><em>&quot;Tu es un consultant en acquisition client pour les entreprises de services B2B. Je dirige une agence de conseil en organisation, 12 collaborateurs, clients PME industrielles entre 50 et 200 salariés. Rédige 5 objets d&#39;email de prospection pour une campagne de rentrée de septembre. Format : liste numérotée, chaque objet fait moins de 50 caractères.&quot;</em></p>
+    </blockquote>
+    <p>C&#39;est plus long qu&#39;un prompt habituel. C&#39;est aussi infiniment plus efficace.</p>
+    <div class="callout tip"><h4>Mon conseil</h4><p>Commence par écrire ton prompt normalement, comme tu le ferais. Puis relis-le en te demandant : est-ce que j'ai donné un rôle ? Un contexte ? Une tâche précise ? Un format ? Si une case est vide, complète-la avant d'envoyer. Ce réflexe prend trente secondes et change tout.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Maîtriser le contexte et les contraintes : les secrets pour des réponses ultra-pertinentes</h2>
+    <p>Le contexte est la partie du prompt que les entrepreneurs sous-estiment le plus. Et c&#39;est compréhensible : on a l&#39;impression que l&#39;IA &quot;sait déjà&quot; beaucoup de choses. Elle sait beaucoup de choses sur le monde en général. Elle ne sait rien sur toi en particulier.</p>
+    <p>Voici les éléments de contexte qui font la différence dans un prompt professionnel :</p>
+    <ul>
+    <li><strong>Ton activité</strong> : ce que tu fais, comment tu le fais, depuis combien de temps.</li>
+    <li><strong>Ta cible</strong> : qui sont tes clients, leurs profils, leurs problèmes, leur vocabulaire.</li>
+    <li><strong>Tes contraintes</strong> : budget, délai, canal de diffusion, longueur maximale, ton éditorial.</li>
+    <li><strong>Ton positionnement</strong> : ce qui te différencie, ce que tu ne veux surtout pas dire, les mots à éviter.</li>
+    </ul>
+    <p>Plus tu es précis sur ces quatre points, plus la réponse sera proche de ce dont tu as besoin. Ce n&#39;est pas de la magie — c&#39;est simplement que tu réduis l&#39;espace d&#39;interprétation de l&#39;IA.</p>
+    <p>Les contraintes méritent une attention particulière. Elles sont souvent perçues comme des limitations. En réalité, elles sont des guides. &quot;Ne mentionne pas les prix&quot;, &quot;évite le jargon technique&quot;, &quot;le ton doit rester sobre et factuel&quot;, &quot;la réponse ne doit pas dépasser 200 mots&quot; — chacune de ces instructions rend la réponse plus exploitable.</p>
+    <p>Il y a aussi un type de prompt que tu peux configurer en amont, avant même de commencer une conversation : le <a href="/lexique/system-prompt">system prompt</a>. C&#39;est une instruction de fond qui cadre le comportement de l&#39;IA pour toute la session. Si tu travailles régulièrement sur un même sujet ou avec un même persona, le system prompt te fait gagner un temps considérable.</p>
+    <p>Un autre point souvent négligé : les contraintes sur ce que tu ne veux <em>pas</em>. &quot;Ne propose pas de solutions qui nécessitent une équipe de plus de 3 personnes.&quot; &quot;N&#39;utilise pas le mot &#39;innovant&#39;.&quot; &quot;Ne commence pas par une question rhétorique.&quot; Ces exclusions semblent anodines. Elles évitent des aller-retours inutiles.</p>
+    <h2>Techniques avancées de prompting accessibles : du few-shot à l&#39;itération</h2>
+    <p>Une fois que tu maîtrises RCTF, il y a deux techniques supplémentaires qui changent la donne. Elles ne sont pas réservées aux experts. Elles demandent juste un peu de pratique.</p>
+    <p><strong>Le few-shot prompting</strong> (littéralement : &quot;quelques exemples&quot;). Le principe est simple : tu montres à l&#39;IA des exemples de ce que tu veux obtenir, avant de lui demander de le produire. Si tu veux un email dans ton style, tu lui fournis deux ou trois emails que tu as écrits. Si tu veux des titres dans un certain registre, tu lui donnes des titres existants que tu aimes. L&#39;IA s&#39;aligne sur le modèle que tu lui montres.</p>
+    <p>C&#39;est une des techniques les plus puissantes pour obtenir quelque chose qui ressemble à ton travail plutôt qu&#39;à un contenu générique.</p>
+    <p><strong>L&#39;itération consciente</strong>. Un premier prompt est rarement parfait. Ce n&#39;est pas un échec — c&#39;est le processus normal. Ce qui compte, c&#39;est de savoir comment affiner. Trois cycles d&#39;affinage peuvent transformer une réponse correcte en quelque chose de vraiment utile. À chaque cycle, identifie ce qui ne correspond pas et reformule cette partie précisément. &quot;La réponse est trop longue, résume en 5 points.&quot; &quot;Le ton est trop formel, rends-le plus direct.&quot; &quot;Tu n&#39;as pas pris en compte la contrainte de budget, recommence en intégrant un plafond de 500 €.&quot;</p>
+    <p>Il y a aussi la <strong>Chain-of-Thought</strong> — une technique qui consiste à demander à l&#39;IA de raisonner étape par étape avant de répondre. Tu peux l&#39;activer simplement en ajoutant &quot;Réfléchis étape par étape avant de répondre&quot; dans ton prompt. Elle améliore la précision sur les tâches complexes. Pour en savoir plus sur cette approche, j&#39;ai détaillé le concept dans le <a href="/lexique/chain-of-thought">lexique Chain-of-Thought</a>.</p>
+    <p>Enfin, un point pratique sur les outils eux-mêmes : ChatGPT, Claude et Gemini n&#39;ont pas les mêmes points forts. Tester le même prompt sur deux ou trois modèles différents prend quelques minutes et peut révéler des différences significatives selon la nature de ta tâche. Si tu veux aller plus loin sur ce sujet, j&#39;ai aussi exploré la question du <a href="/lexique/choisir-modele-2026">choix de modèle en 2026</a>.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur l'itération</h4><p>Je n'envoie presque jamais un prompt une seule fois. Ma routine : je lis la première réponse, je note ce qui manque ou ce qui ne convient pas, je reformule ce point précis dans un message de suivi. Trois échanges bien ciblés valent mieux qu'un prompt parfait que je passerais vingt minutes à rédiger.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Éviter les pièges courants : hallucinations, prompts vagues et attentes irréalistes</h2>
+    <p>L&#39;IA produit parfois des informations fausses avec une assurance déconcertante. On appelle ça une <a href="/lexique/hallucination">hallucination</a>. Ce n&#39;est pas un bug ponctuel — c&#39;est une limite structurelle des modèles actuels. Comprendre ce phénomène change la façon dont tu utilises ces outils.</p>
+    <p>La bonne nouvelle : un prompt bien structuré réduit le risque d&#39;hallucination. Quand tu fournis un contexte précis et que tu demandes un format délimité, l&#39;IA a moins d&#39;espace pour inventer. Mais elle n&#39;est pas infaillible. Sur tout ce qui touche aux chiffres, aux dates, aux noms propres ou aux sources, vérifie toujours avant d&#39;utiliser.</p>
+    <p>Les autres pièges courants :</p>
+    <p><strong>Le prompt trop vague</strong>. &quot;Aide-moi avec ma stratégie marketing.&quot; C&#39;est trop large. L&#39;IA va produire quelque chose de générique parce qu&#39;elle n&#39;t a aucun point d&#39;ancrage. Plus tu es précis, plus la réponse est utile.</p>
+    <p><strong>La question fermée</strong>. &quot;Est-ce que cette approche est bonne ?&quot; appelle une réponse binaire. Préfère : &quot;Quelles sont les forces et les limites de cette approche pour une PME de services B2B ?&quot; Tu obtiens une analyse, pas un verdict.</p>
+    <p><strong>L&#39;attente d&#39;une réponse définitive</strong>. L&#39;IA est un outil de travail, pas un oracle. Elle produit une matière première que tu dois évaluer, affiner, valider. Les entrepreneurs qui en tirent le plus de valeur sont ceux qui la traitent comme un collaborateur compétent mais faillible — pas comme une autorité.</p>
+    <p><strong>Oublier de relire avec tes propres yeux</strong>. L&#39;IA peut produire quelque chose de fluide et de convaincant qui est pourtant inexact ou inadapté à ta situation. La fluidité du texte n&#39;est pas un indicateur de justesse.</p>
+    <h2>Transformer l&#39;IA en copilote stratégique : exemples de prompts business</h2>
+    <p>Voici des exemples concrets de prompts structurés pour des situations d&#39;entrepreneur. Chacun applique le framework RCTF.</p>
+    <hr>
+    <p><strong>Préparer une réunion client</strong></p>
+    <blockquote>
+    <p><em>&quot;Tu es un consultant en développement commercial. Je suis dirigeant d&#39;une entreprise de formation professionnelle continue, 8 salariés. Je rencontre demain un prospect : directeur RH d&#39;une ETI industrielle de 400 personnes, qui a exprimé un besoin de formation au management intermédiaire. Prépare une liste de 10 questions ouvertes pour découvrir ses enjeux réels. Format : liste numérotée, une phrase par question.&quot;</em></p>
+    </blockquote>
+    <hr>
+    <p><strong>Rédiger un email de relance</strong></p>
+    <blockquote>
+    <p><em>&quot;Tu es un expert en communication écrite B2B. Je dirige un cabinet de conseil en stratégie, mes clients sont des dirigeants de PME. Je relance un prospect que j&#39;ai rencontré il y a 3 semaines lors d&#39;un événement. Il avait montré de l&#39;intérêt mais ne m&#39;a pas recontacté. Rédige un email de relance sobre et direct, sans insistance. Longueur : 80 à 100 mots. Ton : professionnel, chaleureux, pas commercial.&quot;</em></p>
+    </blockquote>
+    <hr>
+    <p><strong>Analyser un retour client</strong></p>
+    <blockquote>
+    <p><em>&quot;Tu es un consultant en expérience client. Voici un verbatim de retour client reçu après une prestation de conseil : [coller le texte]. Identifie les 3 points de satisfaction principaux, les 2 points d&#39;insatisfaction et propose une action corrective concrète pour chacun. Format : tableau à 3 colonnes.&quot;</em></p>
+    </blockquote>
+    <hr>
+    <p>Ces exemples ne sont pas des templates à copier-coller. Ils sont des structures à adapter à ta réalité. Le plus important est de garder les quatre blocs RCTF, quel que soit le sujet.</p>
+    <p>Pour aller plus loin sur l&#39;usage des modèles de langage dans un contexte non-technique, j&#39;ai aussi exploré la question des <a href="/articles/llm-local-pour-non-dev">LLM pour les non-développeurs</a> — une lecture complémentaire utile si tu veux comprendre les outils en profondeur.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Questions fréquentes</h2>
+    <h3>Faut-il être développeur pour écrire de bons prompts ?</h3>
+    <p>Non. Le prompt engineering n&#39;a rien à voir avec le code. C&#39;est une compétence de communication structurée. Ce que tu dois maîtriser, c&#39;est la clarté de ta demande, pas la logique informatique. Les frameworks comme RCTF sont accessibles à n&#39;importe quel entrepreneur qui sait formuler un brief.</p>
+    <h3>Quelle est la différence entre un prompt simple et un prompt &quot;engineered&quot; ?</h3>
+    <p>Un prompt simple, c&#39;est une question directe : &quot;Rédige un email de prospection.&quot; Un prompt engineered, c&#39;est la même demande enrichie d&#39;un rôle, d&#39;un contexte, d&#39;une tâche précise et d&#39;un format attendu. Le résultat n&#39;a pas la même valeur. L&#39;un produit quelque chose de générique. L&#39;autre produit quelque chose d&#39;exploitable.</p>
+    <h3>Comment éviter que l&#39;IA ne &quot;hallucine&quot; ou ne donne des informations fausses ?</h3>
+    <p>Plusieurs pratiques réduisent le risque. Donne un contexte précis pour limiter l&#39;espace d&#39;interprétation. Demande à l&#39;IA d&#39;indiquer quand elle n&#39;est pas certaine. Vérifie systématiquement les chiffres, dates et noms propres avant de les utiliser. Et traite toujours la réponse comme une matière première à valider, pas comme une vérité établie. Pour comprendre ce phénomène en profondeur, le <a href="/lexique/hallucination">lexique hallucination</a> détaille les mécanismes en jeu.</p>
+    <h3>Puis-je utiliser les mêmes prompts sur ChatGPT, Claude et Gemini ?</h3>
+    <p>Oui, tu peux utiliser le même prompt sur plusieurs modèles. Et c&#39;est même conseillé : ChatGPT, Claude et Gemini ont des points forts différents selon le type de tâche. Tester le même prompt sur deux ou trois modèles prend quelques minutes et peut révéler des différences de qualité significatives selon ce que tu cherches à obtenir.</p>
+    <h3>Combien de temps faut-il pour apprendre à écrire des prompts efficaces ?</h3>
+    <p>Quelques heures de pratique consciente suffisent pour maîtriser les bases. Si tu appliques le framework RCTF dès aujourd&#39;hui sur tes vraies tâches — pas sur des exercices abstraits — tu verras une différence concrète très rapidement. L&#39;itération fait le reste : chaque échange t&#39;apprend quelque chose sur la façon dont l&#39;outil réagit à tes formulations.</p>
+    <h3>Existe-t-il des outils pour m&#39;aider à créer de meilleurs prompts ?</h3>
+    <p>Certains outils proposent des bibliothèques de prompts ou des interfaces guidées. Mais la vérité, c&#39;est que la meilleure façon de progresser reste de pratiquer avec un outil que tu utilises déjà au quotidien. Construire tes propres prompts à partir du framework RCTF te donne une compréhension que nul template préfabriqué ne peut remplacer.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA n&#39;est pas difficile à utiliser. Elle est difficile à bien utiliser. Et cette nuance, elle se joue entièrement dans la qualité de ce que tu lui demandes.</p>
+    <p>Ce que j&#39;ai appris à force de tester : un prompt bien structuré n&#39;est pas une prouesse technique. C&#39;est un brief clair. Exactement comme tu en écrirais un pour un prestataire ou un collaborateur. Tu lui donnes un rôle, tu lui expliques ta situation, tu lui décris ce que tu attends, tu lui précises comment tu veux recevoir le résultat.</p>
+    <p>Le reste — l&#39;itération, les ajustements, les reformulations — c&#39;est le travail normal de quelqu&#39;un qui cherche à obtenir quelque chose de précis. Ce n&#39;est pas un signe que tu t&#39;y prends mal. C&#39;est le processus.</p>
+    <p>La compétence de prompt engineering n&#39;est pas réservée à une élite technique. Elle appartient à quiconque accepte de structurer sa pensée avant d&#39;envoyer sa demande. Et ça, c&#39;est à la portée de tout entrepreneur qui a l&#39;habitude de formuler des objectifs clairs.</p>
+    
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
+    <p>
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
+    </p>
+    <a href="../index#newsletters" class="back-btn">
+      Voir les newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+</body>
+</html>

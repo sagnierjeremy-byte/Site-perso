@@ -1,0 +1,107 @@
+name: Blog autopilot (brouillon)
+
+# MODE 1 : génère un brouillon + ouvre une issue de relecture. NE PUBLIE PAS.
+# Publication = action humaine 1-clic (npm run publish <slug> en local, ou workflow dédié).
+
+on:
+  schedule:
+    - cron: '0 5 * * 1,4'   # lun + jeu, 5h UTC = 7h Paris
+  workflow_dispatch:         # déclenchement manuel depuis l'onglet Actions
+
+# jamais 2 runs en parallèle (anti-emballement)
+concurrency:
+  group: blog-autopilot
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    # KILL SWITCH : régler la variable repo BLOG_AUTOPILOT sur 'off' pour mettre en pause
+    if: ${{ vars.BLOG_AUTOPILOT != 'off' }}
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install deps
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'   # le cron ne génère pas d'OG (publication = manuelle)
+        run: npm ci
+
+      - name: Génère le brouillon
+        id: gen
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          node scripts/blog/autopilot.mjs
+          {
+            echo "status=$(sed -n '1p' /tmp/autopilot-status.txt)"
+            echo "slug=$(sed -n '2p' /tmp/autopilot-status.txt)"
+            echo "type=$(sed -n '3p' /tmp/autopilot-status.txt)"
+            echo "topic=$(sed -n '4p' /tmp/autopilot-status.txt)"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit le brouillon + la file
+        if: steps.gen.outputs.status == 'publishable' || steps.gen.outputs.status == 'review'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add drafts/ data/topic-queue.json
+          if git diff --cached --quiet; then echo "Rien à committer."; exit 0; fi
+          git commit -m "chore(blog): brouillon auto '${{ steps.gen.outputs.slug }}' ($(date -u +%Y-%m-%d))"
+          git push
+
+      - name: Ouvre l'issue de relecture
+        if: steps.gen.outputs.status == 'publishable' || steps.gen.outputs.status == 'review'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          slug='${{ steps.gen.outputs.slug }}'
+          st='${{ steps.gen.outputs.status }}'
+          badge=$([ "$st" = "publishable" ] && echo "✅ passe la gate" || echo "🟡 à relire de près")
+          title="📝 Brouillon prêt : $slug ($badge)"
+          body="Un nouvel article a été généré automatiquement et attend ta validation.
+
+          **Sujet** : ${{ steps.gen.outputs.topic }}
+          **Statut gate** : $st
+          **Brouillon** : \`drafts/$slug.md\` (committé sur main)
+
+          ### Pour publier (1 commande, en local)
+          \`\`\`
+          git pull
+          npm run publish $slug
+          npm run articles:link && npm run lexique:link
+          node scripts/generate-og-batch.mjs   # ajoute le slug dans og-batch.html avant
+          git add -A && git commit -m \"feat(article): $slug\" && git push
+          npm run indexnow https://jerwis.fr/articles/$slug
+          \`\`\`
+
+          ### Pour refuser
+          Supprime \`drafts/$slug.md\` et repasse le sujet en 'pending' dans \`data/topic-queue.json\`.
+
+          Run : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          gh issue create --title "$title" --body "$body" --label "blog-auto" 2>/dev/null \
+            || gh issue create --title "$title" --body "$body"
+
+      - name: Alerte si échec
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="⚠️ Blog autopilot en échec"
+          body="Le cron a échoué le $(date -u +%Y-%m-%dT%H:%MZ).
+          Run : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          Causes probables : secret GEMINI_API_KEY ou ANTHROPIC_API_KEY manquant/expiré, ou file de sujets vide."
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi

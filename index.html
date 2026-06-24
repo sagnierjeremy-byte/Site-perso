@@ -90,47 +90,6 @@
 <script src="assets/meta-tracking.js" defer></script>
 
 <style>
-  /* === Pulse bar (vie du site · sous triple-stripe top) === */
-  .pulse-bar {
-    background: #0A0A0A;
-    color: #F4EFE6;
-    padding: 9px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .14em;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  .pulse-bar-inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px 22px;
-    align-items: center;
-  }
-  .pulse-bar-item { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap }
-  .pulse-bar-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--teal);
-    box-shadow: 0 0 0 0 rgba(0,178,169,.7);
-    animation: pulse-bar-dot 2s infinite;
-  }
-  @keyframes pulse-bar-dot {
-    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.7) }
-    70%  { box-shadow: 0 0 0 10px rgba(0,178,169,0) }
-    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
-  }
-  .pulse-bar-sep { color: rgba(255,255,255,.28); font-weight: 400 }
-  .pulse-bar strong { color: var(--fuchsia); font-weight: 700 }
-  .pulse-bar em { color: var(--orange); font-style: normal; font-weight: 700 }
-  @media (max-width: 760px) {
-    .pulse-bar { font-size: 10px; letter-spacing: .1em }
-    .pulse-bar-inner { gap: 6px 14px }
-    .pulse-bar-sep { display: none }
-  }
-
   /* === Badge NOUVEAU (auto si data-published < 7j) === */
   .new-badge {
     position: absolute;
@@ -2084,21 +2043,6 @@
   <span style="background:#00B2A9"></span>
   <span style="background:#EF426F"></span>
   <span style="background:#FF8200"></span>
-</div>
-
-<!-- Pulse bar (vie du site) -->
-<div class="pulse-bar" aria-label="État du site">
-  <div class="container">
-    <div class="pulse-bar-inner">
-      <span class="pulse-bar-item"><span class="pulse-bar-dot"></span>En direct</span>
-      <span class="pulse-bar-sep">·</span>
-      <span class="pulse-bar-item"><strong id="pulse-new-count">—</strong> <span id="pulse-new-label">nouveautés</span> cette semaine</span>
-      <span class="pulse-bar-sep">·</span>
-      <span class="pulse-bar-item">Dernière MAJ · <strong id="pulse-maj">—</strong></span>
-      <span class="pulse-bar-sep">·</span>
-      <span class="pulse-bar-item">Newsletter <em id="pulse-next-friday">vendredi 9h</em></span>
-    </div>
-  </div>
 </div>
 
 <!-- Mini-nav Jerwis (remplace l'ancien header) -->

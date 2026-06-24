@@ -1518,7 +1518,7 @@
     document.getElementById('featRead').textContent = f.read;
     document.getElementById('featNum').textContent = `N° ${String(ALL_ARTICLES.length).padStart(2, '0')}`;
     const scene = document.getElementById('featScene');
-    scene.insertAdjacentHTML('afterbegin', `<img src="photos/og/${f.slug}.jpg" alt="${f.title}" loading="eager">`);
+    scene.insertAdjacentHTML('afterbegin', `<img src="photos/og/${f.slug}.jpg?v=20260624" alt="${f.title}" loading="eager">`);
 
     // Glow tracking
     a.addEventListener('mousemove', e => {
@@ -1578,7 +1578,7 @@
     return `
       <a class="art art-${a.type} size-${a.size}" href="articles/${a.slug}"
          style="--d:${0.08 + (index % 6) * 0.08}s">
-        <div class="art-scene"><img src="photos/og/${a.slug}.jpg" alt="${a.title}" loading="lazy"></div>
+        <div class="art-scene"><img src="photos/og/${a.slug}.jpg?v=20260624" alt="${a.title}" loading="lazy"></div>
         <div class="art-body">
           <div class="art-tagrow">
             <span class="art-tag">${meta.label}</span>

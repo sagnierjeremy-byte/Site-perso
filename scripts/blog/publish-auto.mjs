@@ -4,12 +4,13 @@
  *
  * Enchaîne ce que `publish.js` ne couvre pas, pour une vraie auto-publication :
  *   1. node scripts/publish.js <slug>     → articles/<slug>.html + sitemap.xml + feed/articles.xml
- *   2. image OG : copie photos/og/default.jpg|webp → photos/og/<slug>.jpg|webp (visuel unique, décision actée)
- *   3. node scripts/blog/inject-card.mjs  → carte dans le listing articles.html
+ *   2. image OG : cover de la bibliothèque (pick par thème) recadrée → photos/og/<slug>.jpg|webp
+ *   3. node scripts/blog/inject-card.mjs       → carte dans le listing articles.html
+ *   4. node scripts/blog/inject-home-alaune.mjs → carte en tête de "À la une" (home), garde 8 max (non-bloquant)
  *
  * Volontairement HORS périmètre (blast radius maîtrisé en non-supervisé) :
  *   - pas de re-maillage sitewide (articles:link/lexique:link réécrivent des dizaines de fichiers)
- *   - pas de modif index.html / apprendre.html (placements éditoriaux curés à la main)
+ *   - pas de modif apprendre.html (placement éditorial curé à la main)
  *
  * Usage : node scripts/blog/publish-auto.mjs <slug> [--type=A|B] [--date=YYYY-MM-DD]
  * Sortie : "PUBLISHED <url>" sur stdout, exit 0. Toute étape critique en échec → exit 1.
@@ -59,5 +60,11 @@ try {
 
 // 3) carte dans le listing (idempotent)
 run('inject-card.mjs', ['scripts/blog/inject-card.mjs', slug, `--type=${TYPE}`, `--date=${DATE}`]);
+
+// 4) "À la une" de la home (non-bloquant : si ça échoue, l'article reste publié)
+{
+  const r = spawnSync('node', ['scripts/blog/inject-home-alaune.mjs', slug, `--date=${DATE}`], { cwd: ROOT, stdio: 'inherit' });
+  if (r.status !== 0) console.error('⚠️ "À la une" home non mise à jour (non bloquant)');
+}
 
 console.log(`PUBLISHED https://jerwis.fr/articles/${slug}`);

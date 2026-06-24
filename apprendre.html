@@ -115,6 +115,16 @@
 }
 </script>
 
+<!-- Schema.org : FAQPage (parcours · GEO) -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Faut-il savoir coder pour apprendre l'IA ?","acceptedAnswer":{"@type":"Answer","text":"Non. Pour la quasi-totalité de ce que tu feras, tu n'écris pas une ligne de code : tu écris en français et l'IA fait le reste. Les outils plus avancés comme Claude Code arrivent tard dans le parcours, et même là, tout est expliqué pas à pas."}},
+{"@type":"Question","name":"C'est trop tard pour s'y mettre en 2026 ?","acceptedAnswer":{"@type":"Answer","text":"Non, c'est même le bon moment. La majorité des gens ont commencé cette année : tu n'es pas en retard, tu arrives pile au moment où les outils sont enfin simples à prendre en main."}},
+{"@type":"Question","name":"L'IA va-t-elle remplacer mon métier ?","acceptedAnswer":{"@type":"Answer","text":"Ce qui remplace les gens, c'est rarement l'IA elle-même : c'est quelqu'un qui sait s'en servir. Apprendre à l'utiliser, c'est exactement la façon de rester dans le coup plutôt que de la subir."}},
+{"@type":"Question","name":"Combien de temps avant d'être à l'aise avec l'IA ?","acceptedAnswer":{"@type":"Answer","text":"Quelques heures suffisent pour les bases et un week-end pour être vraiment à l'aise. Pas six mois. Tu peux obtenir ton premier résultat utile dès aujourd'hui."}},
+{"@type":"Question","name":"Et si c'est trop technique pour moi ?","acceptedAnswer":{"@type":"Answer","text":"Tout le parcours est pensé pour ça : zéro jargon, chaque terme expliqué, et un glossaire A-Z sous la main quand un mot bloque. C'est rangé dans l'ordre où on l'apprend vraiment, pas dans l'ordre des experts."}}
+]}
+</script>
 <!-- Preload critical resources (perf · LCP/CWV) -->
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-black.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo.woff2" crossorigin>
@@ -527,6 +537,146 @@
 <link rel="stylesheet" href="assets/mobile-fixes.css">
 <script src="assets/nav-dropdown.js?v=20260520-unified" defer></script>
 <link rel="preload" href="assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/lexique-tooltip.css"></noscript>
+
+<!-- Enrichissement parcours : quick-win + progression + Tes peurs -->
+<style>
+  /* --- Bloc "Tes peurs" --- */
+  .parcours-fears { padding: 56px 0 8px }
+  .parcours-fears .fears-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--fuchsia);
+    background: rgba(239,66,111,.10); padding: 6px 12px; border-radius: 999px;
+  }
+  .parcours-fears h2 {
+    font-size: clamp(26px, 4vw, 40px); line-height: 1.05; margin: 16px 0 10px;
+    letter-spacing: -.02em; color: var(--ink);
+  }
+  .parcours-fears h2 em { font-style: normal; color: var(--fuchsia) }
+  .parcours-fears .fears-intro { color: var(--ink-muted); max-width: 60ch; margin: 0 0 28px; font-size: 16px }
+  .fears-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px }
+  @media (max-width: 760px) { .fears-grid { grid-template-columns: 1fr } }
+  details.fear {
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px;
+    padding: 4px 20px; transition: border-color .2s, background .2s;
+  }
+  details.fear[open] { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 6%, var(--bg-2)) }
+  details.fear summary {
+    list-style: none; cursor: pointer; padding: 18px 0; display: flex;
+    align-items: center; justify-content: space-between; gap: 14px;
+    font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -.01em;
+  }
+  details.fear summary::-webkit-details-marker { display: none }
+  .fear-sign {
+    flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid var(--line); display: grid; place-items: center;
+    color: var(--teal); font-weight: 700; font-size: 18px; line-height: 1;
+    transition: transform .25s, background .2s, color .2s, border-color .2s;
+  }
+  details.fear[open] .fear-sign { transform: rotate(45deg); background: var(--teal); color: #fff; border-color: var(--teal) }
+  .fear-a { color: var(--ink-muted); font-size: 15.5px; line-height: 1.6; padding: 0 0 20px; max-width: 64ch }
+  .fear-a strong { color: var(--ink) }
+
+  /* --- Barre de progression (localStorage) --- */
+  .parcours-progress { border-bottom: 1px solid var(--line); background: var(--bg) }
+  .parcours-progress .pp-inner {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    padding: 16px 0;
+  }
+  .pp-track { flex: 1 1 220px; height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; min-width: 160px }
+  .pp-fill {
+    height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia) 60%, var(--orange));
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+  }
+  .pp-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 700;
+    letter-spacing: .04em; color: var(--ink); white-space: nowrap;
+  }
+  .pp-label #pp-count { color: var(--teal) }
+  .pp-sub { font-size: 12px; color: var(--ink-muted); letter-spacing: 0; font-weight: 500 }
+  #pp-reset {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted);
+    border: none; background: none; cursor: pointer; padding: 4px; text-decoration: underline;
+  }
+  #pp-reset:hover { color: var(--fuchsia) }
+  .parcours-progress.complete .pp-label #pp-count { color: var(--orange) }
+  /* rail : étape cochée terminée */
+  .progress-step.done .progress-step-num::after {
+    content: "✓"; position: absolute; margin-left: 4px; color: var(--teal); font-weight: 700;
+  }
+  .progress-step.done { opacity: .72 }
+  .progress-step { position: relative }
+
+  /* --- Quick win "Fais-le maintenant" --- */
+  .quickwin {
+    margin: 8px 0 34px; border: 1.5px solid var(--teal); border-radius: 20px;
+    background: color-mix(in srgb, var(--teal) 6%, var(--bg-2)); overflow: hidden;
+  }
+  .quickwin-head { padding: 22px 26px 0 }
+  .quickwin-kicker {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--teal);
+  }
+  .quickwin h3 { font-size: 22px; line-height: 1.1; margin: 12px 0 6px; color: var(--ink); letter-spacing: -.02em }
+  .quickwin h3 em { font-style: normal; color: var(--teal) }
+  .quickwin .quickwin-intro { color: var(--ink-muted); font-size: 15px; margin: 0; max-width: 60ch }
+  .quickwin-box { margin: 18px 26px; border-radius: 14px; background: var(--ink); overflow: hidden }
+  [data-theme="dark"] .quickwin-box { background: #060606; border: 1px solid var(--line) }
+  .quickwin-box-top {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .quickwin-box-top span {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55);
+  }
+  .copy-btn {
+    padding: 6px 13px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22);
+    background: transparent; color: #fff;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
+    cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+  }
+  .copy-btn:hover { background: var(--fuchsia); border-color: var(--fuchsia) }
+  .copy-btn.ok { background: var(--teal); border-color: var(--teal) }
+  pre.quickwin-prompt {
+    margin: 0; padding: 16px 18px; white-space: pre-wrap; word-break: break-word;
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.65;
+    color: #F4EFE6;
+  }
+  pre.quickwin-prompt .qw-fill { color: var(--orange); font-style: italic }
+  .quickwin-result {
+    margin: 0 26px 22px; padding: 14px 16px; border-radius: 12px;
+    background: var(--bg); border: 1px dashed var(--line);
+  }
+  .quickwin-result-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px;
+  }
+  .quickwin-result p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-muted) }
+  .quickwin-result p strong { color: var(--ink) }
+
+  /* --- Bouton "marquer l'étape terminée" --- */
+  .step-done { margin: 30px 0 6px; display: flex; justify-content: center }
+  .step-done-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 22px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--line); background: var(--bg-2); color: var(--ink);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    transition: background .2s, color .2s, border-color .2s, transform .15s;
+  }
+  .step-done-btn::before {
+    content: ""; width: 18px; height: 18px; border-radius: 50%;
+    border: 1.5px solid var(--ink-muted); flex: 0 0 auto; transition: all .2s;
+  }
+  .step-done-btn:hover { border-color: var(--teal); transform: translateY(-1px) }
+  .step-done-btn.is-done { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .step-done-btn.is-done::before { content: "✓"; border-color: #fff; color: #fff; display: grid; place-items: center; font-size: 13px; line-height: 1 }
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Aller au contenu</a>
@@ -665,6 +815,37 @@
   </div>
 </section>
 
+<!-- Tes peurs : lever les freins avant de démarrer -->
+<section class="parcours-fears">
+  <div class="container">
+    <span class="fears-kicker">Avant de te lancer</span>
+    <h2>Tes vraies questions.<br><em>Les réponses cash.</em></h2>
+    <p class="fears-intro">Tout le monde se pose les mêmes. On les règle maintenant, comme ça tu démarres l'esprit tranquille.</p>
+    <div class="fears-grid">
+      <details class="fear">
+        <summary>Il faut savoir coder ? <span class="fear-sign" aria-hidden="true">+</span></summary>
+        <p class="fear-a"><strong>Non, et c'est tout l'intérêt.</strong> Pour 90 % de ce que tu vas faire, zéro ligne de code : tu écris en français, l'IA fait le boulot. Claude Code, l'outil le plus « technique », arrive en étape 02 — et là encore je te tiens la main du début à la fin.</p>
+      </details>
+      <details class="fear">
+        <summary>C'est pas trop tard ? <span class="fear-sign" aria-hidden="true">+</span></summary>
+        <p class="fear-a"><strong>Non, t'arrives pile au bon moment.</strong> La moitié des gens s'y est mise cette année. Tu n'es pas en retard — tu débarques juste quand les outils sont enfin devenus simples. Ceux qui ont commencé il y a deux ans, comme moi, ont galéré pour rien.</p>
+      </details>
+      <details class="fear">
+        <summary>L'IA va remplacer mon métier ? <span class="fear-sign" aria-hidden="true">+</span></summary>
+        <p class="fear-a"><strong>Ce qui te remplace, c'est quelqu'un qui sait s'en servir, pas la machine.</strong> Apprendre à l'utiliser, c'est exactement comme ça que tu restes dans le coup. C'est le but de ce parcours : que tu sois du bon côté.</p>
+      </details>
+      <details class="fear">
+        <summary>Combien de temps avant d'être à l'aise ? <span class="fear-sign" aria-hidden="true">+</span></summary>
+        <p class="fear-a"><strong>Quelques heures pour les bases, un week-end pour être autonome.</strong> Pas six mois. Tu peux même faire ton premier truc vraiment utile aujourd'hui — le bloc juste en dessous est là pour ça.</p>
+      </details>
+      <details class="fear">
+        <summary>Je vais rien comprendre, c'est trop technique ? <span class="fear-sign" aria-hidden="true">+</span></summary>
+        <p class="fear-a"><strong>C'est exactement ce que ce parcours évite.</strong> Zéro jargon, chaque mot expliqué, un glossaire si un terme te bloque. C'est rangé dans l'ordre où on l'apprend pour de vrai. Si une phrase te perd quand même, écris-moi : je la réécris.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- Progress rail sticky -->
 <nav class="progress-rail" aria-label="Progression du parcours">
   <div class="container">
@@ -701,6 +882,18 @@
   </div>
 </nav>
 
+<!-- Progression du parcours (sauvegardée en local) -->
+<div class="parcours-progress" id="parcours-progress">
+  <div class="container">
+    <div class="pp-inner">
+      <span class="pp-label"><span id="pp-count">0</span> / 4 étapes terminées</span>
+      <div class="pp-track" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-label="Progression du parcours"><div class="pp-fill" id="pp-fill"></div></div>
+      <span class="pp-sub">Coche tes étapes au fur et à mesure — c'est gardé sur cet appareil.</span>
+      <button type="button" id="pp-reset">Réinitialiser</button>
+    </div>
+  </div>
+</div>
+
 <!-- ========== ÉTAPE 01 — Poser les bases ========== -->
 <section class="step s-teal" id="etape-01">
   <div class="container">
@@ -721,7 +914,28 @@
       </div>
     </header>
 
-    <div class="step-cards">
+        <div class="quickwin">
+      <div class="quickwin-head">
+        <span class="quickwin-kicker">⚡ Fais-le maintenant · 2 min</span>
+        <h3>Ton premier vrai prompt, <em>tout de suite.</em></h3>
+        <p class="quickwin-intro">Avant même de lire quoi que ce soit : ouvre <strong>ChatGPT</strong>, <strong>Claude</strong> ou <strong>Le Chat</strong> (tous gratuits), colle ça, et remplace le passage en orange par ce que tu veux comprendre.</p>
+      </div>
+      <div class="quickwin-box">
+        <div class="quickwin-box-top">
+          <span>Le prompt</span>
+          <button type="button" class="copy-btn" data-copy="qw-prompt">Copier</button>
+        </div>
+        <pre class="quickwin-prompt" id="qw-prompt">Tu es un prof patient qui explique sans jargon.
+Explique-moi simplement <span class="qw-fill">[ce que tu veux comprendre — ex : le RGPD, une facture d'électricité, ce qu'est l'IA]</span>.
+Donne-moi : 1) une définition en une phrase, 2) un exemple tiré de la vie courante, 3) la seule chose à retenir.</pre>
+      </div>
+      <div class="quickwin-result">
+        <div class="quickwin-result-label">Ce que tu vas voir</div>
+        <p>Une réponse en 3 points clairs, sans blabla. Et surtout : tu viens d'écrire un <strong>vrai</strong> prompt — un rôle (« prof patient »), une demande précise, un format imposé. <strong>C'est tout le métier.</strong> Le reste du parcours, c'est juste affiner ça.</p>
+      </div>
+    </div>
+
+<div class="step-cards">
 
       <a class="article-card c-teal-fuchsia" href="debutant">
         <svg class="article-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
@@ -780,6 +994,8 @@
       </a>
 
     </div>
+
+    <div class="step-done"><button type="button" class="step-done-btn" data-step="01">Marquer l'étape 01 comme terminée</button></div>
 
     <a href="#etape-02" class="step-next">
       <div>
@@ -905,6 +1121,8 @@
       </a>
 
     </div>
+
+    <div class="step-done"><button type="button" class="step-done-btn" data-step="02">Marquer l'étape 02 comme terminée</button></div>
 
     <a href="#etape-03" class="step-next">
       <div>
@@ -1033,6 +1251,8 @@
       </a>
 
     </div>
+
+    <div class="step-done"><button type="button" class="step-done-btn" data-step="03">Marquer l'étape 03 comme terminée</button></div>
 
     <a href="#etape-04" class="step-next">
       <div>
@@ -1214,6 +1434,8 @@
       </a>
 
     </div>
+
+    <div class="step-done"><button type="button" class="step-done-btn" data-step="04">Marquer l'étape 04 comme terminée</button></div>
 
     <!-- Fin de parcours : CTA newsletter -->
     <div class="parcours-end">
@@ -1428,5 +1650,60 @@
 
 <script src="assets/nav-v2.js" defer></script>
   <script src="assets/lexique-tooltip.js" defer></script>
+<script>
+(function(){
+  // --- Copier le prompt ---
+  function showCopied(c){
+    var old = c.getAttribute('data-label') || c.textContent;
+    c.setAttribute('data-label', old);
+    c.textContent = 'Copié ✓'; c.classList.add('ok');
+    setTimeout(function(){ c.textContent = old; c.classList.remove('ok'); }, 1800);
+  }
+  function fallbackCopy(txt){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly','');
+      ta.style.position = 'absolute'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand('copy'); document.body.removeChild(ta); return ok;
+    } catch(e){ return false; }
+  }
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('.copy-btn[data-copy]'); if(!c) return;
+    var t = document.getElementById(c.getAttribute('data-copy')); if(!t) return;
+    var txt = t.innerText.replace(/\u00a0/g,' ').trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function(){ showCopied(c); }, function(){ if(fallbackCopy(txt)) showCopied(c); });
+    } else if (fallbackCopy(txt)) { showCopied(c); }
+  });
+  // --- Progression (localStorage) ---
+  var KEY = 'jerwis_parcours_done';
+  function get(){ try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
+  function set(a){ try { localStorage.setItem(KEY, JSON.stringify(a)); } catch(e){} }
+  function render(){
+    var done = get();
+    var btns = document.querySelectorAll('.step-done-btn');
+    for (var i=0;i<btns.length;i++){
+      var s = btns[i].getAttribute('data-step'); var is = done.indexOf(s) !== -1;
+      btns[i].classList.toggle('is-done', is);
+      btns[i].textContent = is ? 'Étape ' + s + ' terminée' : "Marquer l'étape " + s + ' comme terminée';
+    }
+    var rail = document.querySelectorAll('.progress-step');
+    for (var k=0;k<rail.length;k++){ rail[k].classList.toggle('done', done.indexOf(rail[k].getAttribute('data-step')) !== -1); }
+    var n = done.length;
+    var c = document.getElementById('pp-count'); if(c) c.textContent = n;
+    var f = document.getElementById('pp-fill'); if(f) f.style.width = (n/4*100) + '%';
+    var bar = document.getElementById('parcours-progress'); if(bar) bar.classList.toggle('complete', n===4);
+    var tr = document.querySelector('.pp-track'); if(tr) tr.setAttribute('aria-valuenow', n);
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.step-done-btn');
+    if(b){ var s=b.getAttribute('data-step'); var d=get(); var i=d.indexOf(s); if(i===-1){d.push(s);}else{d.splice(i,1);} set(d); render(); return; }
+    var r = e.target.closest('#pp-reset');
+    if(r){ e.preventDefault(); set([]); render(); }
+  });
+  render();
+})();
+</script>
 </body>
 </html>

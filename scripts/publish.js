@@ -125,6 +125,10 @@ function fillTemplate(template, data, body) {
 
   let html = template;
 
+  // {{SLUG}} → slug réel partout (canonical, og:url, og:image, twitter:image, JSON-LD).
+  // Sans ça, le placeholder survit en prod → canonical + aperçu social cassés.
+  html = html.split('{{SLUG}}').join(data.slug);
+
   // ---- HEAD ----
   // Title
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(data.titre_seo || `${data.titre} — par Jérémy Sagnier`)}</title>`);

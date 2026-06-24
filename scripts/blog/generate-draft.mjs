@@ -15,8 +15,50 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import matter from 'gray-matter';
 import { generate } from './llm.mjs';
 import { TON_LEO, SEO_RULES } from './config.mjs';
+
+/**
+ * Garantit un frontmatter YAML TOUJOURS valide, peu importe comment le LLM a cité.
+ * Les LLM mettent souvent des " non échappés dans lead:/description: → YAML cassé →
+ * crash de gray-matter en aval (gate, publish, inject-card). On parse en tolérant
+ * puis on re-sérialise proprement (js-yaml échappe ce qu'il faut).
+ */
+function normalizeDraft(md) {
+  const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/);
+  if (!m) return null;
+  const [, fmText, body] = m;
+
+  // chemin strict d'abord (frontmatter déjà valide → meilleure fidélité).
+  // On se base sur le RÉSULTAT, pas sur le throw : gray-matter peut renvoyer {} sans throw.
+  let data = null;
+  try { const d = matter(md).data; if (d && Object.keys(d).length) data = d; } catch { /* tolérant ci-dessous */ }
+  if (!data) {
+    // chemin tolérant : 1 paire clé/valeur par ligne, listes via "  - "
+    data = {};
+    let curKey = null;
+    const strip = (s) => {
+      s = s.trim();
+      const q = s.match(/^"([\s\S]*)"$/) || s.match(/^'([\s\S]*)'$/);
+      return q ? q[1] : s;
+    };
+    for (const raw of fmText.split('\n')) {
+      const li = raw.match(/^\s*-\s+(.*)$/);
+      if (li && curKey) { (data[curKey] ||= []).push(strip(li[1])); continue; }
+      const kv = raw.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
+      if (!kv) continue;
+      const [, k, rest] = kv;
+      if (rest.trim() === '') { curKey = k; data[k] = []; }
+      else { data[k] = strip(rest); curKey = null; }
+    }
+    for (const k of Object.keys(data)) if (Array.isArray(data[k]) && !data[k].length) delete data[k];
+  }
+
+  // re-sérialise via gray-matter (moteur js-yaml interne) → YAML toujours valide,
+  // sans dépendre directement de js-yaml (dépendance non déclarée).
+  return matter.stringify('\n' + body.trim() + '\n', data, { lineWidth: -1, noRefs: true });
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..');
@@ -131,7 +173,16 @@ if (fmStart === -1) {
 }
 md = md.slice(fmStart);  // tout préambule éventuel ("Voici l'article :", "yaml", etc.) supprimé
 
+// frontmatter YAML toujours valide en aval (échappe les " que le LLM laisse traîner)
+const normalized = normalizeDraft(md);
+if (!normalized) {
+  console.error('⚠️ Frontmatter non délimité (--- … ---) introuvable. Dump :');
+  console.error(md.slice(0, 400));
+  process.exit(1);
+}
+md = normalized;
+
 const outPath = path.join(ROOT, 'drafts', `${slug}.md`);
-await writeFile(outPath, md + '\n', 'utf8');
+await writeFile(outPath, md, 'utf8');
 console.error(`✓ Draft écrit : drafts/${slug}.md (${Buffer.byteLength(md, 'utf8')} octets)`);
 console.log(outPath);

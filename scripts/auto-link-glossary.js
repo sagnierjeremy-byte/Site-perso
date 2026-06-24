@@ -26,7 +26,7 @@ const ROOT = path.resolve(__dirname, '..');
 const DRY_RUN = process.argv.includes('--dry-run');
 
 // Tags dont le contenu textuel ne doit JAMAIS être linké.
-const PROTECTED_TAGS = new Set(['a', 'code', 'pre', 'script', 'style', 'h1', 'h2', 'h3']);
+const PROTECTED_TAGS = new Set(['a', 'code', 'pre', 'script', 'style', 'h1', 'h2', 'h3', 'head', 'title']);
 
 // Tokenize en alternant tags HTML / segments de texte.
 // L'ordre des alternatives importe :

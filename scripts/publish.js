@@ -35,7 +35,7 @@ const PATHS = {
   apprendre:path.join(ROOT, 'apprendre.html'),
 };
 
-const SITE_URL = 'https://jeremysagnier.com';
+const SITE_URL = 'https://jerwis.fr';
 
 // --- Utils ---
 const log = {
@@ -204,7 +204,7 @@ function fillTemplate(template, data, body) {
 
 async function updateSitemap(data) {
   const xml = await readFile(PATHS.sitemap, 'utf8');
-  const articleUrl = `${SITE_URL}/articles/${data.slug}.html`;
+  const articleUrl = `${SITE_URL}/articles/${data.slug}`;
   const lastmod = data.published;
   const priority = '0.8';
 

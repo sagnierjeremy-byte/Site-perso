@@ -1,8 +1,8 @@
 ---
 slug: ecrire-bon-prompt-non-dev
 titre: "Écrire un bon prompt quand on n'est pas développeur"
-titre_seo: "Écrire un bon prompt sans être développeur (2026)"
-description: "Méthodes concrètes pour rédiger des prompts IA efficaces en 2026. Frameworks RCTF, exemples business, pièges à éviter — sans jargon technique."
+titre_seo: "Écrire un bon prompt sans être développeur"
+description: "Comment rédiger des prompts IA vraiment efficaces sans coder. La méthode RCTF, des exemples business prêts à l'emploi et les pièges à éviter."
 numero: "59"
 categorie: "Décryptage"
 hero_ligne_1: "Écrire un prompt"
@@ -22,11 +22,11 @@ tldr:
 
 <!-- section k-fuchsia -->
 
-## Pourquoi le prompt engineering est la nouvelle compétence clé pour les entrepreneurs en 2026
+## Pourquoi bien demander change tout
 
-En 2025, 75 % des salariés utilisaient déjà l'IA dans leur travail. Ce chiffre dit une chose simple : l'IA n'est plus un sujet réservé aux équipes techniques. Elle est sur le bureau de tout le monde. Y compris le tien.
+En 2025, près de 3 travailleurs sur 4 dans le monde utilisaient déjà l'IA dans leur travail. Ce chiffre dit une chose simple : l'IA n'est plus un sujet réservé aux équipes techniques. Elle est sur le bureau de tout le monde. Y compris le tien.
 
-Mais il y a un écart énorme entre utiliser l'IA et bien l'utiliser. Cet écart, c'est la qualité du prompt — c'est-à-dire l'instruction que tu donnes à l'outil. En 2026, le [prompt engineering](/lexique/prompt-engineering) est devenu une compétence professionnelle à part entière. Pas parce que c'est à la mode. Parce qu'il impacte directement ce que tu produis et la vitesse à laquelle tu le produis.
+Mais il y a un écart énorme entre utiliser l'IA et bien l'utiliser. Cet écart, c'est la qualité du prompt — c'est-à-dire l'instruction que tu donnes à l'outil. En 2026, le [prompt engineering](/lexique/prompt-engineering) — l'art de bien formuler ce que tu demandes à l'IA — est devenu une compétence professionnelle à part entière. Pas parce que c'est à la mode. Parce qu'il impacte directement ce que tu produis et la vitesse à laquelle tu le produis.
 
 Voilà ce que j'observe concrètement : deux personnes utilisent le même outil, la même version, la même interface. L'une obtient un contenu exploitable en deux échanges. L'autre passe vingt minutes à corriger, reformuler, recommencer. La différence ? La façon dont chacune a formulé sa demande.
 
@@ -34,13 +34,13 @@ Ce n'est pas une question de talent. C'est une question de méthode.
 
 Et cette méthode, elle s'apprend. Rapidement. Sans avoir besoin de comprendre comment fonctionne un modèle de langage sous le capot. Ce qui compte, c'est de savoir quoi mettre dans ton prompt — et dans quel ordre.
 
-En 2026, 91 % des PME qui utilisent l'IA constatent une augmentation de leur chiffre d'affaires. Ce chiffre ne signifie pas que l'IA est magique. Il signifie que celles qui ont structuré leur approche en tirent quelque chose de réel. La structure commence par le prompt.
+91 % des entreprises qui utilisent l'IA constatent un impact positif sur leur chiffre d'affaires. Ce chiffre ne signifie pas que l'IA est magique. Il signifie que celles qui ont structuré leur approche en tirent quelque chose de réel. La structure commence par le prompt.
 
 Je fais tout ça d'abord pour moi. Cet article, c'est la synthèse de ce que j'ai appris à force de tester, rater, affiner.
 
 <!-- section k-teal -->
 
-## Les fondations d'un prompt efficace : le framework RCTF
+## La méthode RCTF, en clair
 
 Il existe plusieurs frameworks pour structurer un prompt. Après en avoir testé plusieurs, j'en retiens un qui est simple, complet et directement applicable : le **RCTF** — Rôle, Contexte, Tâche, Format.
 
@@ -64,7 +64,7 @@ C'est plus long qu'un prompt habituel. C'est aussi infiniment plus efficace.
 
 <!-- section k-orange -->
 
-## Maîtriser le contexte et les contraintes : les secrets pour des réponses ultra-pertinentes
+## Le contexte, ce qu'on oublie tous
 
 Le contexte est la partie du prompt que les entrepreneurs sous-estiment le plus. Et c'est compréhensible : on a l'impression que l'IA "sait déjà" beaucoup de choses. Elle sait beaucoup de choses sur le monde en général. Elle ne sait rien sur toi en particulier.
 
@@ -83,7 +83,7 @@ Il y a aussi un type de prompt que tu peux configurer en amont, avant même de c
 
 Un autre point souvent négligé : les contraintes sur ce que tu ne veux *pas*. "Ne propose pas de solutions qui nécessitent une équipe de plus de 3 personnes." "N'utilise pas le mot 'innovant'." "Ne commence pas par une question rhétorique." Ces exclusions semblent anodines. Elles évitent des aller-retours inutiles.
 
-## Techniques avancées de prompting accessibles : du few-shot à l'itération
+## Deux gestes qui changent la donne
 
 Une fois que tu maîtrises RCTF, il y a deux techniques supplémentaires qui changent la donne. Elles ne sont pas réservées aux experts. Elles demandent juste un peu de pratique.
 
@@ -93,7 +93,7 @@ C'est une des techniques les plus puissantes pour obtenir quelque chose qui ress
 
 **L'itération consciente**. Un premier prompt est rarement parfait. Ce n'est pas un échec — c'est le processus normal. Ce qui compte, c'est de savoir comment affiner. Trois cycles d'affinage peuvent transformer une réponse correcte en quelque chose de vraiment utile. À chaque cycle, identifie ce qui ne correspond pas et reformule cette partie précisément. "La réponse est trop longue, résume en 5 points." "Le ton est trop formel, rends-le plus direct." "Tu n'as pas pris en compte la contrainte de budget, recommence en intégrant un plafond de 500 €."
 
-Il y a aussi la **Chain-of-Thought** — une technique qui consiste à demander à l'IA de raisonner étape par étape avant de répondre. Tu peux l'activer simplement en ajoutant "Réfléchis étape par étape avant de répondre" dans ton prompt. Elle améliore la précision sur les tâches complexes. Pour en savoir plus sur cette approche, j'ai détaillé le concept dans le [lexique Chain-of-Thought](/lexique/chain-of-thought).
+Il y a aussi la **Chain-of-Thought** — une technique qui consiste à demander à l'IA de raisonner étape par étape avant de répondre. Tu peux l'activer simplement en ajoutant "Réfléchis étape par étape avant de répondre" dans ton prompt. Sur les modèles classiques, ça améliore la précision des tâches complexes. Les modèles de raisonnement récents le font déjà tout seuls — pas besoin de le demander. Pour en savoir plus sur cette approche, j'ai détaillé le concept dans le [lexique Chain-of-Thought](/lexique/chain-of-thought).
 
 Enfin, un point pratique sur les outils eux-mêmes : ChatGPT, Claude et Gemini n'ont pas les mêmes points forts. Tester le même prompt sur deux ou trois modèles différents prend quelques minutes et peut révéler des différences significatives selon la nature de ta tâche. Si tu veux aller plus loin sur ce sujet, j'ai aussi exploré la question du [choix de modèle en 2026](/lexique/choisir-modele-2026).
 
@@ -101,7 +101,7 @@ Enfin, un point pratique sur les outils eux-mêmes : ChatGPT, Claude et Gemini n
 
 <!-- section k-fuchsia -->
 
-## Éviter les pièges courants : hallucinations, prompts vagues et attentes irréalistes
+## Les pièges où tout le monde tombe
 
 L'IA produit parfois des informations fausses avec une assurance déconcertante. On appelle ça une [hallucination](/lexique/hallucination). Ce n'est pas un bug ponctuel — c'est une limite structurelle des modèles actuels. Comprendre ce phénomène change la façon dont tu utilises ces outils.
 
@@ -109,7 +109,7 @@ La bonne nouvelle : un prompt bien structuré réduit le risque d'hallucination.
 
 Les autres pièges courants :
 
-**Le prompt trop vague**. "Aide-moi avec ma stratégie marketing." C'est trop large. L'IA va produire quelque chose de générique parce qu'elle n't a aucun point d'ancrage. Plus tu es précis, plus la réponse est utile.
+**Le prompt trop vague**. "Aide-moi avec ma stratégie marketing." C'est trop large. L'IA va produire quelque chose de générique parce qu'elle n'a aucun point d'ancrage. Plus tu es précis, plus la réponse est utile.
 
 **La question fermée**. "Est-ce que cette approche est bonne ?" appelle une réponse binaire. Préfère : "Quelles sont les forces et les limites de cette approche pour une PME de services B2B ?" Tu obtiens une analyse, pas un verdict.
 
@@ -117,7 +117,7 @@ Les autres pièges courants :
 
 **Oublier de relire avec tes propres yeux**. L'IA peut produire quelque chose de fluide et de convaincant qui est pourtant inexact ou inadapté à ta situation. La fluidité du texte n'est pas un indicateur de justesse.
 
-## Transformer l'IA en copilote stratégique : exemples de prompts business
+## Trois prompts que tu peux réutiliser
 
 Voici des exemples concrets de prompts structurés pour des situations d'entrepreneur. Chacun applique le framework RCTF.
 

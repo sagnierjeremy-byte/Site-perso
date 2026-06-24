@@ -1,8 +1,8 @@
 ---
 slug: mcp-explique-simplement
 titre: "C'est quoi le MCP, expliqué simplement"
-titre_seo: "C'est quoi le MCP ? Le guide simple (2026)"
-description: "Le MCP, c'est la prise universelle qui branche ton IA sur tes outils (Gmail, Notion, ta base de données). Je t'explique à quoi ça sert, sans jargon."
+titre_seo: "C'est quoi le MCP ? L'explication simple et claire"
+description: "Le MCP, c'est la prise universelle qui branche ton IA sur tes outils (Gmail, Notion, ta base de données). Je t'explique à quoi ça sert et comment démarrer, sans jargon."
 numero: "28"
 categorie: "Décryptage"
 hero_ligne_1: "C'est quoi"
@@ -16,7 +16,7 @@ published: "2026-05-27"
 tldr:
   - "<strong>MCP = Model Context Protocol</strong> : une prise universelle entre une IA et tes outils (Gmail, agenda, base de données)."
   - "Avant, chaque connexion IA↔outil devait être bricolée à la main. Le MCP standardise tout, comme l'USB a standardisé les câbles."
-  - "C'est devenu un <strong>standard ouvert</strong> en 2026, adopté par les grands acteurs de l'IA."
+  - "Standard ouvert depuis son lancement, désormais gouverné par une fondation indépendante (Linux Foundation) et adopté par les grands acteurs de l'IA."
   - "Pour toi : ton assistant IA peut enfin lire tes vrais documents et agir dans tes vrais outils, sans que tu codes quoi que ce soit."
   - "Je te montre 3 cas concrets et comment démarrer en 10 minutes."
 ---
@@ -40,7 +40,7 @@ Le MCP, c'est l'USB de l'IA.
 
 <!-- section k-teal -->
 
-## MCP, ça veut dire quoi concrètement
+## MCP, ça veut dire quoi au juste
 
 MCP, c'est l'abréviation de **Model Context Protocol**. En français : un protocole qui donne du contexte au modèle.
 
@@ -52,7 +52,7 @@ Décortiquons sans jargon :
 
 Mis bout à bout : le MCP est **la manière standard de brancher une IA sur tes outils et tes données**. Une fois qu'un outil parle « MCP », n'importe quelle IA compatible peut s'y connecter. Tu ne refais plus le pont à chaque fois.
 
-Et c'est là que ça devient sérieux : en 2026, le MCP est devenu un **standard ouvert** gouverné par une fondation indépendante (l'Agentic AI Foundation, sous l'égide de la Linux Foundation depuis [fin 2025](https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/)). Traduction : ce n'est pas le jouet privé d'une seule entreprise. C'est un terrain neutre que tout le monde peut utiliser, ce qui explique pourquoi l'adoption a explosé.
+Et c'est là que ça devient sérieux : ouvert dès le départ (Anthropic l'a publié fin 2024), le MCP est depuis [fin 2025](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/) gouverné par une fondation indépendante, l'Agentic AI Foundation, sous l'égide de la Linux Foundation. Traduction : ce n'est pas le jouet privé d'une seule entreprise. C'est un terrain neutre que tout le monde peut utiliser, ce qui explique pourquoi l'adoption a explosé.
 
 <!-- section k-orange -->
 
@@ -103,7 +103,7 @@ Si tu veux aller plus loin et lui faire faire des actions concrètes, regarde mo
 ## Questions fréquentes
 
 ### Le MCP, c'est réservé à Claude ?
-Non. Le MCP a été lancé par Anthropic (les créateurs de Claude), mais c'est devenu un standard ouvert en 2026. D'autres IA et de plus en plus d'outils le supportent. C'est justement l'intérêt d'un standard : il n'appartient à personne.
+Non. Le MCP a été lancé par Anthropic (les créateurs de Claude) fin 2024, et il est ouvert depuis le départ. Fin 2025, il a été confié à une fondation indépendante pour que personne ne le contrôle seul. D'autres IA et de plus en plus d'outils le supportent. C'est justement l'intérêt d'un standard : il n'appartient à personne.
 
 ### Faut-il savoir coder pour utiliser le MCP ?
 Pour **utiliser** des connecteurs existants (Drive, Notion, agenda), non, c'est quelques clics. Pour **créer** ton propre connecteur sur un outil maison, il faut un peu de technique, ou un coup de main d'un outil comme Claude Code. Moi qui ne suis pas du métier, j'y arrive en me faisant guider.

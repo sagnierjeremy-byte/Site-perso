@@ -26,7 +26,7 @@ tldr:
 
 En 2025, près de 3 travailleurs sur 4 dans le monde utilisaient déjà l'IA dans leur travail. Ce chiffre dit une chose simple : l'IA n'est plus un sujet réservé aux équipes techniques. Elle est sur le bureau de tout le monde. Y compris le tien.
 
-Mais il y a un écart énorme entre utiliser l'IA et bien l'utiliser. Cet écart, c'est la qualité du prompt — c'est-à-dire l'instruction que tu donnes à l'outil. En 2026, le [prompt engineering](/lexique/prompt-engineering) — l'art de bien formuler ce que tu demandes à l'IA — est devenu une compétence professionnelle à part entière. Pas parce que c'est à la mode. Parce qu'il impacte directement ce que tu produis et la vitesse à laquelle tu le produis.
+Mais il y a un écart énorme entre utiliser l'IA et bien l'utiliser. Cet écart, c'est la qualité du prompt — c'est-à-dire l'instruction que tu donnes à l'outil. En 2026, le [prompt engineering](/lexique/prompt-engineering) — l'art de bien formuler ce que tu demandes à l'IA — est devenu une vraie compétence professionnelle. Pas parce que c'est à la mode. Parce qu'il impacte directement ce que tu produis et la vitesse à laquelle tu le produis.
 
 Voilà ce que j'observe concrètement : deux personnes utilisent le même outil, la même version, la même interface. L'une obtient un contenu exploitable en deux échanges. L'autre passe vingt minutes à corriger, reformuler, recommencer. La différence ? La façon dont chacune a formulé sa demande.
 

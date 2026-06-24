@@ -52,6 +52,18 @@ export const MOTS_BANNIS = [
   '\\bGMF\\b',
 ];
 
+// CLICHÉS SEO / consultant → PAS bloquant, mais pénalité douce (ton "fiche produit").
+// Ce sont les tics d'écriture qui font "contenu généré pour Google" plutôt que "blog perso".
+// Détectés mécaniquement (qa-gate C6) + bannis dans le prompt de génération.
+export const CLICHES = [
+  '\\bincontournables?\\b', '\\bpanorama\\b', "\\bà l'ère de\\b",
+  '\\bdans un monde où\\b', '\\bforce est de constater\\b',
+  '\\bil est important de (noter|souligner|rappeler|comprendre)\\b',
+  '\\bbénéfices concrets\\b', '\\bcompétence (professionnelle )?(clé|à part entière)\\b',
+  '\\bne sont pas abstraits?\\b', '\\bà ne pas (négliger|sous-estimer)\\b',
+  '\\bplongeons\\b', '\\bdécortiquons ensemble\\b', '\\bsans plus attendre\\b',
+];
+
 // Jérémy qualifié de dev/codeur = BLOQUANT. On cible le sens "il EST dev",
 // PAS les usages légitimes ("je ne suis pas développeur", "non-développeurs").
 // Le "pas" est exclu via le fait que "je suis" n'est pas contigu dans "je ne suis pas".

@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import {
-  TON_LEO, MOTS_BANNIS, DEV_PERSONNE, FRONTMATTER_REQUIRED,
+  TON_LEO, MOTS_BANNIS, DEV_PERSONNE, CLICHES, FRONTMATTER_REQUIRED,
   SEO_RULES, RUBRIC, SITE_URL,
 } from './config.mjs';
 
@@ -135,6 +135,15 @@ const scores = {};      // par critère
   // statistique sourcée + datée : présence d'un lien + d'une année 20xx à proximité d'un chiffre
   const hasSourcedStat = /\[[^\]]*\d[^\]]*\]\(https?:\/\/[^)]+\)/.test(body) || /\d+\s*%[^.\n]*\((20\d\d)\)/.test(body) || /\b20\d\d\b[^.\n]*https?:\/\//.test(body);
   if (SEO_RULES.require_stat_sourcee && !hasSourcedStat) { flag('aucune statistique sourcée + datée détectée (levier GEO)'); s -= 1; }
+
+  // clichés SEO/consultant (ton "fiche produit" → casse le ton Leo perso) — pénalité douce
+  const clicheHits = [...new Set(
+    CLICHES.flatMap(rx => (body.match(new RegExp(rx, 'gi')) || []).map(m => m.toLowerCase()))
+  )];
+  if (clicheHits.length) {
+    flag(`${clicheHits.length} cliché(s) SEO/consultant : ${clicheHits.slice(0, 4).join(', ')}${clicheHits.length > 4 ? '…' : ''}`);
+    s -= Math.min(2, clicheHits.length * 0.6); // plafonné à -2
+  }
 
   scores.C6_seo = Math.max(0, Math.round(s * 10) / 10);
 }

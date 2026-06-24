@@ -40,7 +40,7 @@ Pour un entrepreneur qui gère seul ou avec une petite équipe, chaque heure com
 
 ## Ce que tu y gagnes vraiment
 
-Les bénéfices de l'automatisation IA ne sont pas abstraits. Ils se mesurent.
+Les bénéfices de l'automatisation IA, tu peux les mesurer.
 
 **Le temps, d'abord.** L'automatisation IA peut libérer une part importante du temps passé sur des tâches administratives — audit de documents, vérification de conformité, saisie. Sur une semaine de travail, ça peut représenter une journée entière récupérée — sans embaucher, sans réorganiser.
 

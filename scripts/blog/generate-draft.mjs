@@ -98,8 +98,10 @@ ${statsBlock}
 
 RÈGLE ANTI-INVENTION ABSOLUE :
 - N'affirme AUCUN fait, chiffre, nom propre ou date qui ne soit pas dans la matière ci-dessus.
+- INTERDICTION FORMELLE d'inventer un chiffre précis pour faire "concret" : pas de "20 agents économisés", "10 000 tâches/mois", "30 % du temps", "70 % des clients" si ce chiffre exact n'est pas dans la matière. Un chiffre rond et impressionnant non sourcé = signal d'invention = REJET. Dans le doute, reste QUALITATIF ("une grande partie", "une bonne partie", "beaucoup de temps").
+- Ne colle JAMAIS un nom de source (Gartner, McKinsey, IBM…) à un chiffre si ce nom n'est pas dans la matière, même si tu "crois" le connaître.
 - Si un chiffre te semble douteux ou invraisemblable, NE L'UTILISE PAS (mieux vaut l'omettre qu'inventer).
-- Quand tu cites une stat, garde une formulation prudente et mentionne l'année.
+- Quand tu cites une stat présente dans la matière, garde une formulation prudente et mentionne l'année.
 - Tu n'es pas obligé d'utiliser tous les faits — choisis les plus solides.
 
 === LIENS INTERNES À PLACER (2 à 6, en markdown [texte](url), ancres variées) ===
@@ -157,6 +159,13 @@ RÈGLE DES TITRES H2/H3 (ton Leo — TRÈS IMPORTANT, c'est ce qui sonne "humain
 - Bons titres (à imiter) : « C'est quoi, concrètement ? » · « Pourquoi tout le monde en parle » · « Par où je commencerais » · « Les pièges que j'ai rencontrés » · « Mon outil préféré » · « Ça vaut le coup pour qui ? ».
 - Mauvais titres (STRICTEMENT INTERDITS) : « Panorama des outils IA no-code incontournables en 2025-2026 pour automatiser tes tâches » · « Les bénéfices concrets de l'IA no-code pour ton entreprise : gains de temps, réduction des coûts et innovation » · « Comment identifier et automatiser tes tâches répétitives avec l'IA — méthode simple pour non-codeurs ».
 - Place les mots-clés SEO dans le CORPS du paragraphe, jamais en les empilant dans le titre.
+
+TOURNURES "CONSULTANT/SEO" À BANNIR (elles font "contenu généré pour Google", pas "blog perso") :
+- N'écris JAMAIS : "panorama", "incontournable", "à l'ère de", "dans un monde où", "force est de constater", "il est important de noter/souligner", "les bénéfices concrets de", "une compétence clé/à part entière", "à ne pas négliger", "plongeons", "décortiquons ensemble", "sans plus attendre", "ne sont pas abstraits".
+- Pas d'intro creuse type "Dans cet article, nous allons voir…". Entre directement dans le vif, au vécu.
+- Préfère le verbe simple et l'exemple concret à l'adjectif marketing.
+
+LONGUEUR : respecte la cible (corps ${minW} mots minimum${maxW}). Ne gonfle pas l'article pour "faire long" : si tu as fait le tour, conclus.
 
 Écris maintenant l'article complet, en respectant le ton Leo À LA LETTRE. Pas de "dans cet article nous allons voir". Va au vécu, sois utile, sois chaleureux sans être familier. Termine l'article entièrement.`;
 

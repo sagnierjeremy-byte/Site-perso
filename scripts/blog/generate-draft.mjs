@@ -106,7 +106,8 @@ RÈGLE ANTI-INVENTION ABSOLUE :
 ${linksBlock}
 
 === STRUCTURE ATTENDUE ===
-- Sections H2 (##) inspirées de : ${(brief.outline || []).join(' / ')}
+- Sujets des sections, à traiter dans l'article : ${(brief.outline || []).join(' / ')}
+  ⚠️ Cet outline est une matière de TRAVAIL bourrée de mots-clés : NE RECOPIE JAMAIS ces formulations en titres H2. Reformule chaque section en titre court et humain (voir la RÈGLE DES TITRES ci-dessous).
 - Un H2 tous les 250-350 mots. Corps : ${minW} mots minimum${maxW}.
 - Inclure 1-2 encarts \`<div class="callout tip"><h4>Titre</h4><p>...</p></div>\` (ton avis perso). Titre d'encart court et chaleureux SANS être familier ni péremptoire (ex: "Mon conseil", "Le piège à éviter", "Ce que je retiens" — PAS "Mon avis tranché" ni "à mes dépens").
 - IMPÉRATIF : termine l'article complètement, ne le coupe jamais en milieu de phrase ou de mot.
@@ -149,6 +150,13 @@ RÈGLE TYPOGRAPHIQUE FRANÇAISE STRICTE (très important) :
 - Exemples corrects : "Les 4 piliers d'un bon prompt", "Comment itérer sur tes prompts", "Les erreurs qui plombent tes réponses".
 - Exemples INTERDITS : "Les 4 Piliers d'un Bon Prompt", "Comment Itérer Sur Tes Prompts".
 - Les noms propres gardent leur casse : Chain-of-Thought, Context Engineering, Claude, RCTF.
+
+RÈGLE DES TITRES H2/H3 (ton Leo — TRÈS IMPORTANT, c'est ce qui sonne "humain" vs "fiche SEO") :
+- Les H2 doivent être COURTS (7 mots maximum) et chaleureux, comme une question ou une phrase qu'on lâcherait à un ami. C'est un blog perso, pas une fiche produit.
+- INTERDIT dans un titre : empilement de mots-clés, deux-points suivi d'une énumération, années ou plages d'années (2025-2026), et les mots "incontournable", "essentiel", "concret", "panorama", "guide complet".
+- Bons titres (à imiter) : « C'est quoi, concrètement ? » · « Pourquoi tout le monde en parle » · « Par où je commencerais » · « Les pièges que j'ai rencontrés » · « Mon outil préféré » · « Ça vaut le coup pour qui ? ».
+- Mauvais titres (STRICTEMENT INTERDITS) : « Panorama des outils IA no-code incontournables en 2025-2026 pour automatiser tes tâches » · « Les bénéfices concrets de l'IA no-code pour ton entreprise : gains de temps, réduction des coûts et innovation » · « Comment identifier et automatiser tes tâches répétitives avec l'IA — méthode simple pour non-codeurs ».
+- Place les mots-clés SEO dans le CORPS du paragraphe, jamais en les empilant dans le titre.
 
 Écris maintenant l'article complet, en respectant le ton Leo À LA LETTRE. Pas de "dans cet article nous allons voir". Va au vécu, sois utile, sois chaleureux sans être familier. Termine l'article entièrement.`;
 

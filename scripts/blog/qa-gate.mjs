@@ -105,6 +105,20 @@ const scores = {};      // par critère
   if (typeArg === 'A' && bodyW > SEO_RULES.body_words_max_A) { flag(`corps ${bodyW} mots (> max ${SEO_RULES.body_words_max_A} pour Type A)`); s -= 0.5; }
   if (h2 > 0 && bodyW / h2 > SEO_RULES.words_per_h2_max) { flag(`~${Math.round(bodyW/h2)} mots/H2 (max ${SEO_RULES.words_per_h2_max})`); s -= 0.5; }
 
+  // H2 courts + chaleureux (ton Leo) : pénalise les titres longs ou bourrés de mots-clés SEO
+  const h2titles = (body.match(/^##\s+(.+?)\s*$/gm) || [])
+    .map(t => t.replace(/^##\s+/, '').trim())
+    .filter(t => !/^\s*(faq|questions)/i.test(t)); // le H2 FAQ est exempté
+  const badH2 = h2titles.filter(t =>
+    words(t) > 9 ||                                                       // trop long (signal principal)
+    /\b(incontournables?|essentiels?|concrets?|panorama|guide complet)\b/i.test(t) || // remplisseurs SEO
+    /\b20\d\d\s*[–-]\s*20\d\d\b/.test(t)                                  // plage d'années dans le titre
+  );
+  if (badH2.length) {
+    flag(`${badH2.length}/${h2titles.length} titre(s) H2 trop long(s)/bourré(s) de mots-clés (ton Leo = H2 courts ≤9 mots) — ex : « ${badH2[0].slice(0, 60)}… »`);
+    s -= Math.min(2.5, badH2.length * 0.8); // pénalité proportionnelle, plafonnée
+  }
+
   // maillage interne (liens vers /articles/, /lexique/, pages internes)
   const internal = (body.match(/\]\((?:\.?\/)?(?:articles|lexique|modeles|apprendre|claude-code|outils|podcast|index)[^)]*\)/gi) || []).length
                  + (body.match(/href="(?:\.?\/)?(?:articles|lexique|modeles|apprendre)[^"]*"/gi) || []).length;
@@ -202,7 +216,7 @@ Note 3 critères de 0 à 10 (entiers) et liste les défauts concrets. Réponds U
 Règles de notation :
 - C1 FACTUALITÉ — ne pénalise QUE les faits VÉRIFIABLES inventés : chiffres/statistiques/pourcentages/dates absents de la matière OU invraisemblables (ex: 98% d'adoption), noms propres/citations/événements fabriqués. Un chiffre inventé ou invraisemblable = claim_refute, score ≤ 5.
 - NE PÉNALISE PAS l'explication de concepts généraux bien connus (RAG, agent, prompt, LLM, fine-tuning, etc.) même s'ils ne sont pas dans la matière : ce sont des connaissances communes, pas des hallucinations. Un article a le droit d'expliquer un concept sans source. Si l'article ne contient AUCUN chiffre/nom inventé, C1 ≥ 8.
-- C2 : "(source: ...)" en clair dans le texte, Title Case sur les titres, ou ton "fiche produit" = violations, score ≤ 6.
+- C2 : "(source: ...)" en clair dans le texte, Title Case sur les titres, ou ton "fiche produit" = violations, score ≤ 6. AUSSI : des titres H2 longs ou bourrés de mots-clés SEO (ex INTERDIT : "Panorama des outils IA no-code incontournables en 2025-2026 pour automatiser tes tâches", "Les bénéfices concrets de l'IA no-code : gains de temps, réduction des coûts et innovation") cassent le ton Leo — les H2 doivent être courts et chaleureux ("C'est quoi, concrètement ?", "Par où commencer"). Plusieurs H2 ainsi = violation, score ≤ 7.
 - C5 : si deux chiffres se contredisent = score ≤ 5.`;
 
   try {

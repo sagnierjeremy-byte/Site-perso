@@ -125,9 +125,28 @@ function fillTemplate(template, data, body) {
 
   let html = template;
 
-  // {{SLUG}} → slug réel partout (canonical, og:url, og:image, twitter:image, JSON-LD).
-  // Sans ça, le placeholder survit en prod → canonical + aperçu social cassés.
-  html = html.split('{{SLUG}}').join(data.slug);
+  // ---- Substitution de TOUS les placeholders {{…}} du template ----
+  // Sans ça ils survivent en prod : canonical, og:title/description, twitter:*, JSON-LD
+  // (headline/description/dates) affichaient littéralement "{{TITRE_OG_60_CHARS_MAX}}", etc.
+  // escapeAttr suffit pour les attributs HTML ET les chaînes JSON-LD (valeurs sans guillemets).
+  const today = new Date().toISOString().slice(0, 10);
+  const seoTitle = data.titre_seo || data.titre;
+  const tokens = {
+    '{{SLUG}}': data.slug,
+    '{{TITRE}}': data.titre_seo || `${data.titre} — par Jérémy Sagnier`,
+    '{{TITRE_OG_60_CHARS_MAX}}': seoTitle,
+    '{{META_DESCRIPTION_140_155_CHARS}}': data.description || '',
+    '{{OG_DESCRIPTION_110_CHARS_MAX}}': data.description || '',
+    '{{CATEGORIE}}': data.categorie || 'Article',
+    '{{NUMERO}}': data.numero || '',
+    '{{HERO_LEAD}}': data.lead || '',
+    '{{TITRE_HERO_LIGNE_1}}': data.hero_ligne_1 || data.titre,
+    '{{TITRE_HERO_LIGNE_2}}': data.hero_ligne_2 || '',
+    '{{TITRE_HERO_LIGNE_3}}': data.hero_ligne_3 || '',
+    '{{DATE_PUBLI_AAAA-MM-JJ}}': data.published || today,
+    '{{DATE_MAJ_AAAA-MM-JJ}}': data.published || today,
+  };
+  for (const [k, v] of Object.entries(tokens)) html = html.split(k).join(escapeAttr(String(v)));
 
   // ---- HEAD ----
   // Title

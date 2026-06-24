@@ -15,9 +15,12 @@
  * Sortie : "PUBLISHED <url>" sur stdout, exit 0. Toute étape critique en échec → exit 1.
  */
 import { spawnSync } from 'node:child_process';
-import { copyFile, access } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+import matter from 'gray-matter';
+import { pickCover } from './pick-cover.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
@@ -36,15 +39,22 @@ const run = (label, argv) => {
 // 1) publication de base (article HTML + sitemap + RSS)
 run('publish.js', ['scripts/publish.js', slug]);
 
-// 2) image OG par défaut → copiée au nom du slug (le <meta og:image> pointe sur /photos/og/<slug>.jpg)
+// 2) image OG = cover de la bibliothèque (style rétro FIESTA) choisie par thème,
+//    recadrée en 1200×630 → photos/og/<slug>.jpg|webp (le <meta og:image> y pointe).
 const og = path.join(ROOT, 'photos', 'og');
+const covers = path.join(ROOT, 'photos', 'covers');
 try {
-  await access(path.join(og, 'default.jpg'));
-  await copyFile(path.join(og, 'default.jpg'), path.join(og, `${slug}.jpg`));
-  await copyFile(path.join(og, 'default.webp'), path.join(og, `${slug}.webp`)).catch(() => {});
-  console.error(`✓ OG : default → ${slug}.jpg/.webp`);
-} catch {
-  console.error('⚠️ photos/og/default.jpg absente — aperçu social non généré (article OK quand même)');
+  let categorie = '', titre = '';
+  try { const fm = matter(await readFile(path.join(ROOT, 'drafts', `${slug}.md`), 'utf8')).data || {}; categorie = fm.categorie || ''; titre = fm.titre || ''; } catch {}
+  const theme = pickCover(slug, categorie, titre);
+  let src = path.join(covers, `${theme}.jpg`);
+  try { await access(src); } catch { src = path.join(covers, 'default.jpg'); }
+  const buf = await sharp(src).resize(1200, 630, { fit: 'cover', position: 'centre' }).toBuffer();
+  await sharp(buf).jpeg({ quality: 88, mozjpeg: true }).toFile(path.join(og, `${slug}.jpg`));
+  await sharp(buf).webp({ quality: 82 }).toFile(path.join(og, `${slug}.webp`));
+  console.error(`✓ OG : cover "${theme}" → ${slug}.jpg/.webp (1200×630)`);
+} catch (e) {
+  console.error(`⚠️ OG non générée (${e.message}) — article OK quand même`);
 }
 
 // 3) carte dans le listing (idempotent)

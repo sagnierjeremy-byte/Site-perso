@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/choisir-ia-ecrire-coder-images.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Quelle IA choisir en 2026 : écriture, code et images</title>
+<meta name="description" content="Écriture, code sans coder, images IA : je compare les meilleurs outils de 2026 pour les entrepreneurs non-développeurs. Choix concrets, coûts et cas d'usage.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Quelle IA choisir en 2026 : écriture, code et images">
+<meta property="og:description" content="Écriture, code sans coder, images IA : je compare les meilleurs outils de 2026 pour les entrepreneurs non-développeurs. Choix concrets, coûts et cas d'usage.">
+<meta property="og:url" content="https://jerwis.fr/articles/choisir-ia-ecrire-coder-images">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/choisir-ia-ecrire-coder-images.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-06-25">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Quelle IA choisir en 2026 : écriture, code et images">
+<meta name="twitter:description" content="Écriture, code sans coder, images IA : je compare les meilleurs outils de 2026 pour les entrepreneurs non-développeurs. Choix concrets, coûts et cas d'usage.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/choisir-ia-ecrire-coder-images.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/choisir-ia-ecrire-coder-images">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Quelle IA choisir en 2026 : écriture, code et images",
+  "description": "Écriture, code sans coder, images IA : je compare les meilleurs outils de 2026 pour les entrepreneurs non-développeurs. Choix concrets, coûts et cas d'usage.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/choisir-ia-ecrire-coder-images",
+  "datePublished": "2026-06-25",
+  "dateModified": "2026-06-25",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/choisir-ia-ecrire-coder-images.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 20</div>
+    <h1>Quelle IA<br>pour quoi faire<br><em>en 2026 ?</em></h1>
+    <p class="hero-lead">
+      Tu veux utiliser l'IA pour ton business, mais l'offre a explosé et tu ne sais plus par où commencer. GPT-5, Gemini 3.1, Midjourney V7, Mistral… chaque semaine, un nouveau modèle sort. Je fais le tri pour toi. Dans cet article, je passe en revue les outils les plus solides de 2026 pour écrire du contenu, générer du code sans toucher une ligne, et créer des visuels. Sans jargon inutile, avec des critères clairs.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Midjourney, Gemini</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Pour écrire : <strong>GPT-5.5 Instant</strong> pour le quotidien, GPT-5.4 Thinking pour les projets complexes</li>
+      <li>Pour coder sans coder : <strong>Gemini 3.1 Pro</strong> et ses workflows agentiques, ou Qwen Coder si tu veux du gratuit et du local</li>
+      <li>Pour les images : <strong>ChatGPT Image 2</strong> est numéro 1 en juin 2026, Ideogram v3 si tu as du texte à intégrer</li>
+      <li>Mistral reste la référence si la <strong>confidentialité des données</strong> (RGPD, hébergement Europe) est une priorité</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+    <pre><code>
+    </code></pre>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Le paysage a changé plus vite que prévu</h2>
+    <p>Il y a dix-huit mois, on parlait encore d&#39;&quot;expérimenter l&#39;IA&quot;. En 2026, la question n&#39;est plus de savoir si tu dois l&#39;utiliser, mais laquelle choisir selon ce que tu veux accomplir aujourd&#39;hui.</p>
+    <p>Le problème, c&#39;est que l&#39;offre est devenue vertigineuse. OpenAI, Google, Mistral, Midjourney, Adobe… chacun sort des versions numérotées à un rythme qui donne le tournis. Et si tu n&#39;es pas développeur, le risque c&#39;est de passer plus de temps à comparer les outils qu&#39;à les utiliser.</p>
+    <p>Ce que je propose ici, c&#39;est une lecture simple : un besoin, un outil principal, une alternative. Pas d&#39;exhaustivité pour l&#39;exhaustivité. Je choisis les outils que je recommanderais si quelqu&#39;un me posait la question en face à face.</p>
+    <p>Avant d&#39;entrer dans le détail, une donnée qui donne la mesure du changement : d&#39;ici fin 2026, 40 % des applications d&#39;entreprise devraient inclure des agents IA, contre moins de 5 % en 2025. Ce n&#39;est pas une projection lointaine. C&#39;est maintenant. Si tu veux comprendre ce que recouvre le mot &quot;agent IA&quot;, j&#39;ai rédigé une explication dans le <a href="/lexique/agentic-workflow">lexique des workflows agentiques</a>.</p>
+    <hr>
+    <h2>Écrire du contenu : quel outil pour qui</h2>
+    <p>Pour la rédaction, deux modèles d&#39;OpenAI dominent en 2026, et ils ne servent pas au même usage.</p>
+    <p><strong>GPT-5.5 Instant</strong> (mis à jour en mai 2026) est conçu pour les tâches du quotidien : rédiger un email, reformuler un paragraphe, générer une première version d&#39;article. OpenAI l&#39;a amélioré sur le style et la qualité des réponses — les textes se lisent de façon plus naturelle, avec un meilleur rythme. C&#39;est l&#39;outil que j&#39;utilise pour tout ce qui demande de la fluidité et de la réactivité.</p>
+    <p><strong>GPT-5.4 Thinking</strong> (mars 2026) est une autre bête. C&#39;est le modèle le plus avancé d&#39;OpenAI pour le travail professionnel. Il génère un plan de travail avant de répondre aux requêtes complexes. Utile quand tu veux structurer une stratégie de contenu, analyser un document dense ou rédiger quelque chose qui demande de la cohérence sur plusieurs milliers de mots.</p>
+    <p>Si tu travailles sur du contenu SEO et que tu utilises WordPress ou Shopify, <strong>Wisewand</strong> mérite ton attention. C&#39;est un outil conçu par des éditeurs de sites, optimisé pour le référencement naturel, avec une intégration native sur ces deux plateformes. Il ne remplace pas GPT-5 pour la créativité, mais il est taillé pour produire du contenu de blog ou de fiche produit à grande échelle.</p>
+    <p>Pour les entrepreneurs dont les données clients sont sensibles ou dont l&#39;activité est soumise au RGPD, <strong>Mistral AI</strong> propose une alternative européenne sérieuse. Ses modèles sont open-weight (tu peux les adapter à ton contexte), et les données sont hébergées en Europe. Ce n&#39;est pas le modèle le plus spectaculaire, mais c&#39;est celui qui coche la case conformité sans compromis.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>GPT-5.5 Instant pour le quotidien, GPT-5.4 Thinking quand le sujet est complexe. Si tu veux écrire un bon prompt pour en tirer le meilleur, j'ai détaillé la méthode dans cet article : <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n'est pas développeur</a>.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Coder sans coder : c&#39;est vraiment possible</h2>
+    <p>&quot;Coder sans coder&quot; n&#39;est pas un oxymore en 2026. C&#39;est une réalité que 85 % des développeurs eux-mêmes ont intégrée : ils utilisent l&#39;IA au quotidien pour générer du code, pas pour le remplacer. Pour un entrepreneur non-développeur, ça veut dire une chose : tu peux désormais décrire ce que tu veux, et obtenir quelque chose de fonctionnel.</p>
+    <p><strong>Gemini 3.1 Pro</strong>, lancé le 19 février 2026, est l&#39;outil le plus avancé pour ça. Sa fenêtre contextuelle d&#39;un million de tokens lui permet de lire et comprendre des projets entiers en une seule fois. Sa capacité de génération de code est multimodale et native — il peut partir d&#39;une image, d&#39;un texte, d&#39;un schéma. Et ses workflows agentiques à long terme signifient qu&#39;il peut enchaîner des étapes complexes avec peu de supervision. Si tu veux automatiser un processus dans ton business sans écrire une ligne de code, Gemini 3.1 Pro est l&#39;outil que j&#39;examinerais en premier.</p>
+    <p>Pour ceux qui veulent une option 100 % gratuite, locale et privée, <strong>Qwen Coder</strong> est une surprise solide. C&#39;est un modèle open source qui génère du code dans plus de 40 langages de programmation et qui tourne directement sur ton ordinateur — sans envoyer tes données à un serveur externe. Si la confidentialité est une priorité ou si tu veux tester sans abonnement, c&#39;est une piste sérieuse. J&#39;ai consacré une page du lexique à ce type d&#39;approche : <a href="/lexique/llm-local-pour-non-dev">les modèles locaux pour non-développeurs</a>.</p>
+    <p>Ce que tu peux faire concrètement avec ces outils : générer un script d&#39;automatisation, créer un formulaire web, connecter deux outils entre eux via une API, ou construire un tableau de bord simple. Pas besoin de comprendre le code ligne par ligne. Tu décris, tu testes, tu itères. J&#39;ai documenté cette approche plus en détail dans cet article sur <a href="/articles/automatiser-taches-ia-sans-coder">l&#39;automatisation de tâches sans coder</a>.</p>
+    <hr>
+    <h2>Les images : trois outils pour trois besoins</h2>
+    <p>La génération d&#39;images est le domaine où la spécialisation est la plus marquée. Il n&#39;y a pas un seul outil qui gagne sur tous les tableaux. Voici comment je découpe les usages.</p>
+    <p><strong>ChatGPT Image 2</strong> est classé numéro 1 des générateurs d&#39;images IA par Artificial Analysis en juin 2026. Ce qui le distingue : la simplicité d&#39;utilisation, la rapidité, les options de personnalisation, et surtout la cohérence entre les images générées. Si tu veux créer des visuels pour tes réseaux sociaux, ton site ou tes présentations, c&#39;est le point de départ le plus accessible. L&#39;interface est la même que ChatGPT — tu n&#39;as pas à apprendre un nouvel outil.</p>
+    <p><strong>Midjourney V7</strong> est la référence pour la qualité artistique. Cette version intègre une fonctionnalité appelée Omni Reference, qui améliore la cohérence visuelle entre plusieurs générations. Elle est aussi plus rapide, et son &quot;Draft Mode&quot; — dix fois plus rapide que le mode standard — permet d&#39;explorer des concepts à moindre coût avant de valider une direction. Si tu travailles sur une identité visuelle ou des visuels qui doivent avoir une vraie personnalité graphique, Midjourney reste difficile à battre. Pour aller plus loin sur la création d&#39;images personnalisées avec l&#39;IA, j&#39;ai écrit un article spécifique sur <a href="/articles/photos-perso-ia">les photos personnelles générées par IA</a>.</p>
+    <p><strong>Ideogram v3</strong> occupe une niche précise : le rendu de texte dans les images. C&#39;est le leader incontesté sur ce point en juin 2026. Si tu crées des étiquettes produits, des visuels avec des slogans, de la signalétique ou tout contenu où le texte doit être lisible à l&#39;intérieur de l&#39;image, Ideogram v3 surpasse tous les autres modèles. C&#39;est un cas d&#39;usage souvent sous-estimé, mais très concret pour les e-commerçants ou les créateurs de contenu de marque.</p>
+    <p>Si tu es déjà dans l&#39;écosystème Adobe, <strong>Adobe Firefly</strong> mérite une mention. Il est intégré directement dans Photoshop, Illustrator et Express, et il est conçu pour un usage commercial — ce qui règle d&#39;emblée les questions de droits sur les images générées. Pratique si tu utilises déjà ces outils au quotidien.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Vouloir un seul outil pour tout. ChatGPT Image 2 pour le quotidien, Midjourney V7 pour les projets visuels exigeants, Ideogram v3 quand il y a du texte dans l'image. Ces trois outils ne se remplacent pas, ils se complètent.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que j&#39;observe sur les tendances de fond</h2>
+    <p>Au-delà des outils pris un par un, il y a un mouvement de fond qui change la donne pour les entrepreneurs : les agents IA.</p>
+    <p>Un agent IA, c&#39;est un système capable d&#39;exécuter des workflows en plusieurs étapes avec une supervision minimale. Ce n&#39;est plus un chatbot qui répond à une question : c&#39;est un programme qui peut enchaîner des actions, vérifier des résultats, et recommencer si quelque chose ne va pas. Le marché des agents IA était estimé à 7,63 milliards de dollars en 2025. Les projections pour 2033 parlent de 182,97 milliards de dollars, avec un taux de croissance annuel de 49,6 % entre 2026 et 2033.</p>
+    <p>Ces chiffres sont vertigineux, mais ce qui m&#39;intéresse davantage, c&#39;est l&#39;usage pratique. Gemini 3.1 Pro est conçu pour ces workflows agentiques. Mistral propose des modèles open-weight que tu peux configurer pour automatiser des processus internes. Et des plateformes comme celle d&#39;Alibaba montrent que cette approche passe déjà en production dans les entreprises.</p>
+    <p>Pour un entrepreneur, ça veut dire une chose concrète : les outils que tu utilises aujourd&#39;hui pour &quot;générer du texte&quot; vont progressivement devenir des outils capables de &quot;faire des choses&quot; à ta place. La frontière entre l&#39;assistant et l&#39;exécutant s&#39;efface. Pour bien choisir ton modèle dans cette transition, j&#39;ai rédigé un guide dans le lexique : <a href="/lexique/choisir-modele-2026">comment choisir son modèle IA en 2026</a>.</p>
+    <hr>
+    <h2>Comment choisir selon ton cas</h2>
+    <p>Plutôt que de te donner une liste générique, voici une grille simple.</p>
+    <p><strong>Tu veux écrire du contenu régulièrement</strong> → GPT-5.5 Instant. Si tu as besoin de SEO intégré et d&#39;une connexion WordPress ou Shopify, regarde Wisewand en complément.</p>
+    <p><strong>Tu as un projet complexe à structurer</strong> → GPT-5.4 Thinking. Il prend le temps de raisonner avant de produire.</p>
+    <p><strong>Tu veux automatiser un processus sans coder</strong> → Gemini 3.1 Pro pour la puissance, Qwen Coder si tu veux du gratuit et du local.</p>
+    <p><strong>Tu crées des visuels pour ta marque</strong> → ChatGPT Image 2 pour la simplicité et la cohérence, Midjourney V7 pour la qualité artistique, Ideogram v3 si du texte doit apparaître dans l&#39;image.</p>
+    <p><strong>La confidentialité est une contrainte forte</strong> → Mistral AI pour le texte (hébergement Europe, RGPD), Qwen Coder pour le code (local, aucune donnée envoyée).</p>
+    <p><strong>Tu travailles déjà dans Adobe</strong> → Adobe Firefly pour les images, avec les droits commerciaux intégrés.</p>
+    <p>Ce n&#39;est pas une science exacte. Le meilleur outil est souvent celui que tu vas réellement utiliser, pas celui qui est objectivement le plus puissant sur un benchmark. Je te recommande d&#39;en tester un ou deux sérieusement plutôt que d&#39;en installer six à moitié.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Est-il vraiment possible de créer des applications fonctionnelles avec l&#39;IA sans savoir coder en 2026 ?</h3>
+    <p>Oui, et c&#39;est l&#39;un des changements les plus significatifs de 2026. Des outils comme Gemini 3.1 Pro permettent de générer du code multimodal à partir d&#39;une description en langage naturel, d&#39;une image ou d&#39;un schéma. Qwen Coder supporte plus de 40 langages de programmation et tourne localement. Tu n&#39;écris pas le code toi-même, mais tu dois être capable de décrire précisément ce que tu veux et de tester le résultat. La compétence qui compte, c&#39;est la clarté de ta demande, pas la syntaxe.</p>
+    <h3>Quelles sont les meilleures IA pour générer du contenu écrit optimisé pour le SEO et le marketing ?</h3>
+    <p>GPT-5.5 Instant est le choix le plus polyvalent pour le contenu marketing au quotidien. Pour du contenu SEO structuré sur WordPress ou Shopify, Wisewand est conçu spécifiquement pour ça — il a été développé par des éditeurs de sites, ce qui se ressent dans la logique de production. Pour les projets longs ou complexes, GPT-5.4 Thinking ajoute une couche de raisonnement qui améliore la cohérence sur des formats denses.</p>
+    <h3>Comment puis-je assurer une cohérence de marque lors de la création d&#39;images avec différentes IA ?</h3>
+    <p>C&#39;est la vraie difficulté de la génération d&#39;images. Midjourney V7 a précisément travaillé sur ce point avec sa fonctionnalité Omni Reference, qui améliore la cohérence visuelle entre plusieurs générations. ChatGPT Image 2 est aussi reconnu pour la cohérence entre les images produites. En pratique, la cohérence de marque passe surtout par la qualité de ton prompt de référence : si tu décris précisément le style, les couleurs et l&#39;ambiance que tu veux, les résultats sont beaucoup plus stables.</p>
+    <h3>Les modèles d&#39;IA open source sont-ils suffisamment performants et sécurisés pour un usage professionnel en 2026 ?</h3>
+    <p>Oui, à condition de choisir le bon outil pour le bon usage. Qwen Coder, open source et local, est capable de générer du code dans plus de 40 langages — c&#39;est une performance solide. Mistral AI propose des modèles open-weight avec un hébergement européen et une conformité RGPD. Ce que tu gagnes en open source : le contrôle de tes données et, souvent, le coût. Ce que tu perds parfois : la facilité d&#39;accès et les fonctionnalités d&#39;interface que proposent les outils propriétaires.</p>
+    <h3>Quel est le coût moyen d&#39;utilisation des IA génératives pour un entrepreneur en 2026 ?</h3>
+    <p>Je ne dispose pas de données tarifaires précises et comparables pour tous les outils cités ici, donc je ne vais pas inventer un chiffre. Ce que je peux dire : les modèles open source comme Qwen Coder sont gratuits à l&#39;usage une fois installés. Les outils propriétaires (ChatGPT, Gemini, Midjourney) fonctionnent généralement sur abonnement mensuel ou à la consommation. La plupart proposent un accès gratuit limité pour tester. Mon conseil : commence par les versions gratuites, identifie l&#39;outil qui te fait vraiment gagner du temps, puis investis dans l&#39;abonnement correspondant.</p>
+    <h3>Comment les agents IA autonomes peuvent-ils concrètement automatiser des tâches complexes dans mon business ?</h3>
+    <p>Un agent IA peut enchaîner des actions sans que tu aies à superviser chaque étape. Par exemple : lire des emails entrants, classer les demandes, générer une réponse adaptée, et la soumettre pour validation. Ou encore : surveiller un tableau de données, détecter une anomalie, et déclencher une alerte. Gemini 3.1 Pro est conçu pour ces workflows à long terme. La clé, c&#39;est de bien définir les étapes et les conditions d&#39;arrêt — l&#39;agent ne fait que ce que tu lui as décrit. Pour aller plus loin sur ce sujet, j&#39;ai écrit un article pratique sur <a href="/articles/automatiser-taches-ia-sans-coder">l&#39;automatisation de tâches complexes sans coder</a>.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Je fais tout ça d&#39;abord pour moi. Et ce que j&#39;observe en 2026, c&#39;est que la vraie difficulté n&#39;est plus d&#39;accéder à des outils puissants — ils sont partout. La difficulté, c&#39;est de ne pas se disperser.</p>
+    <p>Mon approche : un outil principal par usage, testé sérieusement pendant quelques semaines avant d&#39;en adopter un autre. GPT-5.5 Instant pour l&#39;écriture quotidienne. Gemini 3.1 Pro quand je veux automatiser quelque chose. ChatGPT Image 2 pour les visuels rapides, Midjourney V7 quand la qualité compte vraiment.</p>
+    <p>Le reste — les tendances, les benchmarks, les nouvelles versions — je les surveille, mais je ne laisse pas ça me distraire de ce qui compte : produire quelque chose d&#39;utile avec ce que j&#39;ai déjà.</p>
+    
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
+    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
+    <p>
+      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma newsletter AI Playbook. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
+    </p>
+    <a href="../index#newsletters" class="back-btn">
+      Voir les newsletters →
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+</body>
+</html>

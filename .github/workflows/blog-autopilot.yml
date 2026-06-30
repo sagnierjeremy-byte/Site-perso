@@ -72,6 +72,14 @@ jobs:
         continue-on-error: true
         run: node scripts/indexnow-ping.js "${{ steps.gen.outputs.url }}"
 
+      - name: Notifie la publication (email)
+        if: steps.gen.outputs.status == 'published'
+        continue-on-error: true
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL: ${{ vars.NOTIFY_EMAIL }}
+        run: node scripts/blog/notify-publish.mjs "${{ steps.gen.outputs.slug }}" "${{ steps.gen.outputs.url }}"
+
       - name: Alerte si panne
         if: failure()
         env:

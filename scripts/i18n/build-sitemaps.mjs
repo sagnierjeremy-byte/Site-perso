@@ -26,7 +26,7 @@ function walk(d) {
 function enUrl(file) {
   const rel = file.replace(/^en\//, '');
   const clean = rel === 'index.html' ? '' : rel.replace(/\.html$/, '');
-  return `${SITE}/en/${clean}`;
+  return clean === '' ? `${SITE}/en` : `${SITE}/en/${clean}`;
 }
 
 const enFiles = walk('en').sort();

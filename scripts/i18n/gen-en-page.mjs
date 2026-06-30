@@ -36,7 +36,7 @@ if (!fs.existsSync(enFile)) { console.error(`✗ ${enFile} introuvable (l'agent 
 function cleanPath(r) { return r === 'index.html' ? '' : r.replace(/\/index\.html$/, '/').replace(/\.html$/, ''); }
 const cp = cleanPath(rel);
 const frUrl = SITE + '/' + cp;
-const enUrl = SITE + '/en/' + cp;
+const enUrl = cp === '' ? SITE + '/en' : SITE + '/en/' + cp;
 
 let h = fs.readFileSync(enFile, 'utf8');
 const warn = [];
@@ -60,7 +60,7 @@ function enExists(resolved) {
 }
 // préfixe la cible en /en/ si la page EN existe, sinon en / (FR) — lancement progressif sans 404
 function langPrefix(resolved, anchor) {
-  if (resolved === '' || resolved === 'index') return enExists('') ? `/en/${anchor}` : `/${anchor}`;
+  if (resolved === '' || resolved === 'index') return enExists('') ? `/en${anchor}` : `/${anchor}`;
   return enExists(resolved) ? `/en/${resolved}${anchor}` : `/${resolved}${anchor}`;
 }
 

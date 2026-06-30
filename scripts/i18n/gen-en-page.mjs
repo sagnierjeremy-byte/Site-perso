@@ -53,25 +53,38 @@ h = h.replace(/(<meta property="og:url" content=")[^"]*(")/i, `$1${enUrl}$2`);
 // dossier de la page courante (pour résoudre les liens relatifs : "" pour la racine, "lexique", "articles"…)
 const pageDir = (() => { const d = path.dirname(rel); return d === '.' ? '' : d; })();
 
+// la page EN <resolved> existe-t-elle ? (fallback progressif : sinon on lie vers le FR)
+function enExists(resolved) {
+  const f = (resolved === '' || resolved === 'index') ? 'en/index.html' : 'en/' + resolved + '.html';
+  return fs.existsSync(f);
+}
+// préfixe la cible en /en/ si la page EN existe, sinon en / (FR) — lancement progressif sans 404
+function langPrefix(resolved, anchor) {
+  if (resolved === '' || resolved === 'index') return enExists('') ? `/en/${anchor}` : `/${anchor}`;
+  return enExists(resolved) ? `/en/${resolved}${anchor}` : `/${resolved}${anchor}`;
+}
+
 function rewriteAttr(url) {
-  if (/^(https?:|mailto:|tel:|#|data:|javascript:)/i.test(url)) {
-    // lien absolu vers jerwis.fr interne ? → /en/ (rare dans href, mais possible)
+  if (/^(mailto:|tel:|data:|javascript:)/i.test(url)) return url;
+  if (/^#/.test(url)) return url; // ancre pure
+  // lien absolu http(s)
+  if (/^https?:/i.test(url)) {
     const m = url.match(/^https?:\/\/(www\.)?jerwis\.fr\/(.*)$/i);
-    if (m && !/^en\//.test(m[2])) return SITE + '/en/' + m[2];
-    return url;
+    if (!m) return url; // externe
+    let p = m[2].replace(/^en\//, '').split('#'); const anc = p[1] ? '#' + p[1] : '';
+    let r = p[0].replace(/\.html$/, '').replace(/\/$/, '');
+    return SITE + langPrefix(r, anc).replace(/^\//, '/'); // garde absolu
   }
-  // déjà absolu /en/ ou /assets… ? idempotent : ne pas re-préfixer
-  if (/^\/en\//.test(url)) return url;
   // asset (par extension ou dossier connu) → chemin absolu /assets|/photos|/data…
-  const noDots = url.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '');
+  const noDots = url.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '').replace(/^\/en\//, '/').replace(/^en\//, '');
   const isAsset = ASSET_EXT.test(noDots.split('#')[0]) || ASSET_DIRS.some(d => new RegExp(`(^|/)${d}/`).test(noDots));
   if (isAsset) return '/' + noDots.replace(/^\//, '');
-  // lien de page interne → résolution relative au dossier de la page, puis préfixe /en/
+  // lien de page interne → résolution (strip /en/ éventuel, relatif vs dossier de la page), puis /en/ ou /FR selon existence
   let anchor = ''; let u = url;
   const hi = u.indexOf('#'); if (hi >= 0) { anchor = u.slice(hi); u = u.slice(0, hi); }
   let resolved;
   if (u.startsWith('/')) {
-    resolved = u.replace(/^\//, '');
+    resolved = u.replace(/^\//, '').replace(/^en\//, '');
   } else {
     const stack = pageDir ? pageDir.split('/').filter(Boolean) : [];
     for (const part of u.split('/')) {
@@ -82,8 +95,7 @@ function rewriteAttr(url) {
     resolved = stack.join('/');
   }
   resolved = resolved.replace(/\.html$/, '');
-  if (resolved === '' || resolved === 'index') return `/en/${anchor}`;
-  return `/en/${resolved}${anchor}`;
+  return langPrefix(resolved, anchor);
 }
 h = h.replace(/\b(href|src)="([^"]*)"/g, (m, attr, url) => `${attr}="${rewriteAttr(url)}"`);
 // srcset (images responsive)
@@ -124,13 +136,12 @@ for (const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/sc
 // 6b placeholders
 const ph = h.match(/\{\{[A-Z_]+\}\}/g);
 if (ph) { console.error(`✗ placeholders résiduels: ${[...new Set(ph)].join(', ')}`); process.exit(1); }
-// 6c liens de page non-/en/ résiduels (href vers une page interne FR)
-const badLinks = [];
-for (const m of h.matchAll(/\bhref="(\/(?:articles|lexique|apprendre|outils|podcast|news|videos|workflows|modeles-ia|modeles-image-ia|modeles-ia-monde|github|claude-code|debutant|jeremy-sagnier|lexique-essentiels|mcp|agents-ia|quiz|presse|preferences|mentions-legales|cgv|politique-confidentialite|suppression-donnees)[^"]*)"/g)) {
-  if (!m[1].startsWith('/en/')) badLinks.push(m[1]);
+// 6c info : liens en fallback FR (pages EN pas encore traduites) — VOULU (lancement progressif), pas une erreur
+const frFallback = new Set();
+for (const m of h.matchAll(/\bhref="(\/(?:articles|lexique|apprendre|outils|podcast|news|videos|workflows|modeles-ia|modeles-image-ia|modeles-ia-monde|github|claude-code|debutant|jeremy-sagnier|lexique-essentiels|mcp|agents-ia|quiz|presse|preferences|mentions-legales|cgv|politique-confidentialite|suppression-donnees)(?:\/[^"]*)?)"/g)) {
+  if (!m[1].startsWith('/en/')) frFallback.add(m[1].split('#')[0]);
 }
-if (badLinks.length) { warn.push(`liens FR résiduels (${badLinks.length}): ${[...new Set(badLinks)].slice(0, 8).join(', ')}`); }
 
 fs.writeFileSync(enFile, h);
-console.log(`✓ ${enFile} normalisé → ${enUrl}`);
-if (warn.length) { console.log('  ⚠️ ' + warn.join('\n  ⚠️ ')); process.exit(1); }
+console.log(`✓ ${enFile} → ${enUrl}` + (frFallback.size ? ` · ${frFallback.size} liens fallback FR (pages EN à venir)` : ''));
+if (warn.length) { console.log('  ⚠️ ' + warn.join('\n  ⚠️ ')); }

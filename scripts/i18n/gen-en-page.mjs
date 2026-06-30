@@ -50,6 +50,9 @@ h = h.replace(/(<link rel="canonical" href=")[^"]*(")/i, `$1${enUrl}$2`);
 h = h.replace(/(<meta property="og:url" content=")[^"]*(")/i, `$1${enUrl}$2`);
 
 // 3. réécriture href/src (hors JSON-LD : les attributs HTML)
+// dossier de la page courante (pour résoudre les liens relatifs : "" pour la racine, "lexique", "articles"…)
+const pageDir = (() => { const d = path.dirname(rel); return d === '.' ? '' : d; })();
+
 function rewriteAttr(url) {
   if (/^(https?:|mailto:|tel:|#|data:|javascript:)/i.test(url)) {
     // lien absolu vers jerwis.fr interne ? → /en/ (rare dans href, mais possible)
@@ -57,20 +60,30 @@ function rewriteAttr(url) {
     if (m && !/^en\//.test(m[2])) return SITE + '/en/' + m[2];
     return url;
   }
-  // normalise les ../ et ./
-  let u = url.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '');
-  const isAsset = ASSET_EXT.test(u) || ASSET_DIRS.some(d => new RegExp(`(^|/)${d}/`).test(u));
-  if (isAsset) {
-    if (!u.startsWith('/')) u = '/' + u;
-    return u;
-  }
-  // lien de page interne → /en/...
-  let anchor = '';
+  // déjà absolu /en/ ou /assets… ? idempotent : ne pas re-préfixer
+  if (/^\/en\//.test(url)) return url;
+  // asset (par extension ou dossier connu) → chemin absolu /assets|/photos|/data…
+  const noDots = url.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '');
+  const isAsset = ASSET_EXT.test(noDots.split('#')[0]) || ASSET_DIRS.some(d => new RegExp(`(^|/)${d}/`).test(noDots));
+  if (isAsset) return '/' + noDots.replace(/^\//, '');
+  // lien de page interne → résolution relative au dossier de la page, puis préfixe /en/
+  let anchor = ''; let u = url;
   const hi = u.indexOf('#'); if (hi >= 0) { anchor = u.slice(hi); u = u.slice(0, hi); }
-  u = u.replace(/^\//, '');
-  if (u === '' || u === 'index' || u === 'index.html') return `/en/${anchor}`;
-  u = u.replace(/\.html$/, '');
-  return `/en/${u}${anchor}`;
+  let resolved;
+  if (u.startsWith('/')) {
+    resolved = u.replace(/^\//, '');
+  } else {
+    const stack = pageDir ? pageDir.split('/').filter(Boolean) : [];
+    for (const part of u.split('/')) {
+      if (part === '..') stack.pop();
+      else if (part === '.' || part === '') continue;
+      else stack.push(part);
+    }
+    resolved = stack.join('/');
+  }
+  resolved = resolved.replace(/\.html$/, '');
+  if (resolved === '' || resolved === 'index') return `/en/${anchor}`;
+  return `/en/${resolved}${anchor}`;
 }
 h = h.replace(/\b(href|src)="([^"]*)"/g, (m, attr, url) => `${attr}="${rewriteAttr(url)}"`);
 // srcset (images responsive)

@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP · Model Context Protocol explained in plain English (2026) · Jérémy Sagnier</title>
+<meta name="description" content="MCP, Model Context Protocol: Anthropic's open standard for connecting LLMs to your tools and your data. Definition, architecture, popular servers, vs function calling, real use cases, FAQ. The reference guide.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="MCP · Model Context Protocol explained in plain English (2026)">
+<meta property="og:description" content="The complete guide to MCP, the open standard Anthropic launched in November 2024 to connect AI to external tools and data. Architecture, popular servers, vs function calling, FAQ.">
+<meta property="og:url" content="https://jerwis.fr/en/mcp">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="MCP · Model Context Protocol explained in plain English (2026)">
+<meta name="twitter:description" content="Everything about MCP: architecture, popular servers, vs function calling, real use cases, a thorough FAQ. The reference guide.">
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/mcp">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/mcp">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/mcp">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/mcp">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "MCP", "item": "https://jerwis.fr/en/mcp" }
+  ]
+}
+</script>
+
+<!-- Schema.org : Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "MCP · Model Context Protocol explained in plain English",
+  "description": "The complete guide to MCP, the open standard Anthropic launched in November 2024 to connect AI to external tools and data.",
+  "image": "https://jerwis.fr/en/photos/og-jerwis.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "@id": "https://jerwis.fr/en/#jeremy"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/"
+  },
+  "datePublished": "2026-05-22",
+  "dateModified": "2026-05-22",
+  "inLanguage": "en-US",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jerwis.fr/en/mcp"
+  }
+}
+</script>
+
+<!-- Schema.org : TechArticle (plus précis pour ce sujet technique) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "MCP · Model Context Protocol explained in plain English",
+  "description": "Definition, architecture (JSON-RPC clients/servers), popular MCP servers in 2026, vs function calling, real use cases, first steps to build your own MCP server.",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "datePublished": "2026-05-22",
+  "dateModified": "2026-05-22",
+  "inLanguage": "en-US",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Claude Code, Claude Desktop, Cursor or any MCP-compatible client",
+  "about": {
+    "@type": "Thing",
+    "name": "Model Context Protocol"
+  }
+}
+</script>
+
+<!-- Schema.org : FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is MCP in one sentence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MCP, short for Model Context Protocol, is an open standard launched by Anthropic in November 2024 that lets any language model connect in a uniform way to external tools, databases and services. Think of it as USB-C for AI: one port to plug everything in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who invented MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MCP was designed and released by Anthropic, the company behind Claude. The protocol was announced in November 2024 and the code is published as open source in the modelcontextprotocol GitHub repo. Since then, other players (OpenAI, the Cursor community, IDE makers) have started adopting it, which makes it a de facto standard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is everyone talking about it in 2025-2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because it's the first credible attempt to standardize the connections between AI and tools. Before MCP, every AI maker had its own tools format (OpenAI function calling, Anthropic Tools API, Google function declarations). The result: developers rewrote the same integrations three times. MCP unifies all of it, and the adoption by Cursor, Claude Code and Windsurf in 2025 accelerated the whole thing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is MCP open source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The spec, the official SDKs (Python and TypeScript) and most of the reference servers are published under the MIT license on GitHub, in the modelcontextprotocol organization. Anyone can write a server, publish it, fork it. Anthropic maintains the standard but doesn't have exclusive control over it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "MCP vs Function Calling: what's the difference?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Function calling is a feature specific to each model (OpenAI has its format, Anthropic its own, Google its own). MCP is an open protocol that sits on top. In practice: with function calling, you write one integration per LLM; with MCP, you write a server once and any compatible client can use it. MCP is the standard; function calling is the model's internal implementation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you install an MCP server with Claude Code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You add an entry to your ~/.claude/settings.json config file, specifying the command that launches the server (often an npx or a python -m), the arguments and the environment variables. You restart Claude Code, and the server shows up in the list of available tools. For the official servers, install helpers exist that do this for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which LLMs support MCP in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On the Anthropic side, Claude Desktop and Claude Code support MCP natively. Cursor supports it too. On the OpenAI side, ChatGPT desktop announced support in 2025. On the open-source side, Continue, Cline and Zed have integrated it. The list moves fast: most serious AI clients have switched or plan to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is MCP secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The protocol itself is secure by design: each server runs in its own process, capabilities are explicitly declared, and the client can filter which tools are exposed. The real risk is what you install. A poorly written or malicious MCP server can read your files or expose your secrets. Golden rule: only install servers maintained by trusted sources, and read the code before plugging it in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you write your own MCP server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You pick your language (Python or TypeScript, the official SDKs cover both), you install the official template, you declare the capabilities (tools, resources, prompts) your server exposes, you implement their handlers, then you connect your client. The modelcontextprotocol.io docs have a full tutorial. For a simple first server, count on one to two hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "MCP vs LangChain Tools: what's the difference?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LangChain Tools is an abstraction layer on the framework side (you use LangChain to orchestrate your agent and its tools). MCP is a communication protocol between client and server. The two can coexist: you can expose an MCP server that's then consumed by a LangChain agent, or the other way around. MCP is lower level and more universal; LangChain is higher level and tied to its own ecosystem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the known limitations of MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three limits I see in 2026: documentation is still uneven across servers (some are very well documented, others not at all), security rests on your own vigilance (no central marketplace that audits), and the install experience is still technical (manually editing a JSON file). Anthropic and the community are working to fix all three, but we're not there yet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the MCP roadmap in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three directions announced by Anthropic and the community: an official MCP server registry (an npm equivalent for MCP), better permission handling (a client can allow one tool but not another), and extending HTTP transport for remote servers (beyond local stdio). The public roadmap lives on the modelcontextprotocol GitHub."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:          #FBF7F0;
+    --bg-2:        #F2EDE2;
+    --surface:     #FFFFFF;
+    --ink:         #0A0A0A;
+    --ink-soft:    #3A3A3A;
+    --ink-muted:   #6E6E6E;
+    --line:        rgba(10,10,10,.10);
+    --line-strong: rgba(10,10,10,.18);
+    --code-bg:     #F4EFE6;
+    --code-ink:    #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:          #0A0A0A;
+    --bg-2:        #141414;
+    --surface:     #141414;
+    --ink:         #F4EFE6;
+    --ink-soft:    #D4D4D4;
+    --ink-muted:   #9A9A9A;
+    --line:        rgba(255,255,255,.10);
+    --line-strong: rgba(255,255,255,.22);
+    --code-bg:     #1A1A1A;
+    --code-ink:    #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .3;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute; left: -9999px;
+    background: var(--ink); color: var(--bg);
+    padding: 8px 12px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; z-index: 999;
+  }
+  .skip-link:focus { left: 12px; top: 12px }
+
+  /* Hero */
+  .hero {
+    padding: 72px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.22), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.22), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,130,0,.12), transparent 60%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6;
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4);
+    border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: .94;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    color: #F4EFE6;
+    margin-bottom: 28px;
+    max-width: 820px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--fuchsia);
+  }
+  .hero p.hero-lead {
+    font-size: 17.5px;
+    color: #C4CED4;
+    max-width: 640px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .hero-ctas {
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .btn-primary, .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary {
+    background: var(--fuchsia);
+    color: #fff;
+    box-shadow: 0 12px 28px -10px rgba(239,66,111,.5);
+  }
+  .btn-primary:hover { transform: translateY(-2px); color: #fff }
+  .btn-ghost {
+    background: rgba(255,255,255,.08);
+    color: #F4EFE6;
+    border: 1px solid rgba(255,255,255,.22);
+  }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--fuchsia); color: #F4EFE6 }
+
+  /* Sections */
+  section.block { padding: 80px 0; border-top: 1px solid var(--line) }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .2em;
+    font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: .98;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 2.5vw, 28px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin: 32px 0 16px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Code blocks */
+  pre, .code-block {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 14px 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  pre.ascii-schema {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 22px 26px;
+    background: var(--bg-2);
+    color: var(--ink);
+    text-align: center;
+    white-space: pre;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Definition card */
+  .definition-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-left: 4px solid var(--fuchsia);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 24px 0 32px;
+  }
+  .definition-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink-muted);
+    margin: 0 0 10px;
+  }
+  .definition-card p {
+    margin: 0;
+    font-size: 16.5px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .definition-card p strong { color: var(--ink); font-weight: 800 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px;
+    border-radius: 14px;
+    margin: 20px 0;
+    position: relative;
+    padding-left: 52px;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 14px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Comparison table */
+  .compare-wrap {
+    margin: 28px 0 32px;
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    -webkit-overflow-scrolling: touch;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+  .compare-table thead th {
+    background: var(--bg-2);
+    text-align: left;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--line-strong);
+    white-space: nowrap;
+  }
+  .compare-table tbody tr { border-bottom: 1px solid var(--line) }
+  .compare-table tbody tr:last-child { border-bottom: none }
+  .compare-table td {
+    padding: 16px;
+    vertical-align: top;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .compare-table td.tool-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .compare-table td.tool-name .tool-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .compare-table td.tool-name .dot-teal    { background: var(--teal) }
+  .compare-table td.tool-name .dot-fuchsia { background: var(--fuchsia) }
+  .compare-table td.tool-name .dot-orange  { background: var(--orange) }
+  .compare-table td.tool-name .dot-ink     { background: var(--ink) }
+
+  /* Profile cards (use cases) */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin: 28px 0 12px;
+  }
+  @media (min-width: 800px) { .profile-grid { grid-template-columns: 1fr 1fr } }
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 24px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .profile-card.p-teal::before    { background: var(--teal) }
+  .profile-card.p-fuchsia::before { background: var(--fuchsia) }
+  .profile-card.p-orange::before  { background: var(--orange) }
+  .profile-card.p-ink::before     { background: var(--ink) }
+  .profile-card .profile-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .profile-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .profile-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .profile-card p:last-child { margin: 0 }
+  .profile-card code {
+    font-size: 12.5px;
+    background: var(--bg-2);
+  }
+
+  /* Steps */
+  .step {
+    display: flex; gap: 20px;
+    padding: 28px 32px;
+    border-radius: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 20px;
+    transition: box-shadow .2s;
+  }
+  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.2) }
+  .step-num {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 10px }
+  .step-body p { margin-bottom: 14px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* FAQ */
+  .faq-list { margin: 28px 0 }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .faq-item[open] { border-color: var(--fuchsia) }
+  .faq-item summary {
+    cursor: pointer;
+    padding: 18px 22px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none }
+  .faq-item summary::after {
+    content: "+";
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: var(--fuchsia);
+    transition: transform .2s;
+    line-height: 1;
+  }
+  .faq-item[open] summary::after { content: "−" }
+  .faq-item .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .faq-item .faq-answer p { margin: 0 0 10px; font-size: 15px }
+  .faq-item .faq-answer p:last-child { margin: 0 }
+
+  /* Resources */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+  @media (min-width: 720px) { .resources-grid { grid-template-columns: 1fr 1fr } }
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s, transform .2s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .resource-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+  .resource-card .res-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .resource-card h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .resource-card p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+
+  /* Footer */
+  .footer {
+    background: var(--bg);
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-newsletter {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 36px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  @media (min-width: 880px) {
+    .footer-newsletter { grid-template-columns: 1.2fr 1fr; gap: 48px }
+  }
+  .footer-newsletter h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 8px 0 12px;
+  }
+  .footer-newsletter h3 em { font-style: normal; color: var(--fuchsia) }
+  .footer-newsletter p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1; min-width: 220px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+  }
+  .newsletter-form input[type="email"]:focus { outline: none; border-color: var(--fuchsia) }
+  .newsletter-form button {
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: none;
+    background: var(--fuchsia);
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  @media (min-width: 720px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr } }
+  .footer-brand h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .footer-brand p { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin: 0 }
+  .footer-col h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .footer-col ul { list-style: none; margin: 0; padding: 0 }
+  .footer-col li { margin-bottom: 6px }
+  .footer-col a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: color .2s;
+  }
+  .footer-col a:hover { color: var(--fuchsia) }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* Mini-marquee divider */
+  .mini-marquee {
+    overflow: hidden;
+    padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,.18);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: mini-marquee-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆";
+    color: rgba(10,10,10,.5);
+    font-size: 11px;
+  }
+  @keyframes mini-marquee-scroll {
+    to { transform: translateX(-50%) }
+  }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<script src="/assets/nav-dropdown.js?v=20260520-unified" defer></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en/" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/en/articles">Articles</a>
+    <a href="/en/podcast">Podcast</a>
+    <a href="/en/#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/en/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/en/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/en/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/en/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/en/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="pulse"></span>Pillar guide · MCP in 2026</div>
+    <h1>MCP · Model<br>Context Protocol<br><em>explained.</em></h1>
+    <p class="hero-lead">
+      MCP is the open standard Anthropic launched in November 2024 to connect AI to external tools and data. One port, everywhere. Here's where I pull together everything you need to know: the definition, the architecture, the popular servers in 2026, the real use cases, and how to build your first server.
+    </p>
+    <div class="hero-ctas">
+      <a href="#c-est-quoi" class="btn-primary">Get MCP in 5 min →</a>
+      <a href="#serveurs" class="btn-ghost">See the popular MCP servers</a>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 01 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Open standard</span><span>Anthropic 2024</span><span>USB-C for AI</span><span>Clients and servers</span><span>JSON-RPC</span><span>Open source</span>
+    <span>Open standard</span><span>Anthropic 2024</span><span>USB-C for AI</span><span>Clients and servers</span><span>JSON-RPC</span><span>Open source</span>
+  </div>
+</div>
+
+<!-- Section : C'est quoi exactement ? -->
+<section class="block" id="c-est-quoi">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Definition</span>
+    <h2>So what is MCP,<br><em class="fuchsia">exactly?</em></h2>
+
+    <div class="definition-card">
+      <h4>In one sentence</h4>
+      <p><strong>MCP, short for Model Context Protocol, is an open standard released by Anthropic in November 2024 that lets any language model connect in a uniform way to external tools, databases and services.</strong> Instead of writing a custom integration between each AI and each tool, you write one MCP server once, and every compatible client can use it.</p>
+    </div>
+
+    <p>
+      The analogy you'll see everywhere is USB-C. <strong>MCP is to AI what USB-C is to hardware: a universal, standard port.</strong> Before USB-C, every brand had its own proprietary cable — one for Apple, one for Samsung, one for Sony, not counting all those old round jacks. Today you plug a USB-C cable into any modern phone and it just works. MCP does the same thing for AI and its tools.
+    </p>
+
+    <h3>Why MCP was created</h3>
+    <p>
+      Before MCP, every AI maker had its own format for plugging in tools. <strong>OpenAI had its function calling, Anthropic had its Tools API, Google had its function declarations, Cohere its connectors.</strong> What that meant in practice: if you wanted an assistant to read your Postgres database and write to your Notion, you wrote the integration three times — once for ChatGPT, once for Claude, once for Gemini. Three codebases to maintain, three different formats, three learning curves.
+    </p>
+
+    <p>
+      Anthropic open-sourced the code and the spec in the <code>modelcontextprotocol</code> GitHub repo, under the MIT license. <strong>Anyone can write a server, publish it, use it, fork it.</strong> And the bet paid off: within a few months, Cursor, Claude Code, Continue, Cline, Windsurf and others had adopted the standard. In 2025, OpenAI announced that ChatGPT Desktop supports it too. MCP has become a de facto standard for AI agents.
+    </p>
+
+    <h3>What MCP is not</h3>
+    <p>
+      MCP is not an AI model. <strong>It's not a competitor to Claude, GPT or Gemini.</strong> It's a layer on top, independent of the model. You can use MCP with Claude, GPT, Gemini, Mistral, or a local model through Ollama — as long as your client supports the protocol.
+    </p>
+
+    <p>
+      It's not an agent framework either. <strong>MCP doesn't plan actions, doesn't decide what to do next.</strong> It defines how an agent can discover and call tools. The orchestration logic stays with the model (or with the framework driving the model, like LangChain, LlamaIndex or Mastra).
+    </p>
+
+    <p>
+      To go deeper on the definition, I also wrote a short entry in the glossary: <a href="/en/lexique/mcp">MCP, the simple definition</a>. And the parent concept to understand is <a href="/en/lexique/tool-use">tool use / function calling</a>, which describes a model's ability to call a tool instead of only replying with text.
+    </p>
+  </div>
+</section>
+
+<!-- Section : Comment fonctionne MCP techniquement -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Architecture</span>
+    <h2>How MCP works<br><em class="teal">under the hood.</em></h2>
+
+    <p>
+      MCP runs on a classic client-server architecture, carried over JSON-RPC. <strong>On the client side, you have the app that hosts the model</strong> (Claude Desktop, Claude Code, Cursor, and so on). <strong>On the server side, you have a standalone process that exposes capabilities</strong> to the client. The two talk to each other in JSON-RPC, either locally through stdio or remotely through HTTP.
+    </p>
+
+    <h3>The simplified diagram</h3>
+    <pre class="ascii-schema" aria-label="Diagram of the MCP architecture">
+   ┌────────────────────┐       JSON-RPC        ┌────────────────────┐
+   │   MCP CLIENT       │ ◄────────────────────► │   MCP SERVER       │
+   │  (Claude Code,     │   stdio  OR  HTTP      │  (filesystem,      │
+   │   Claude Desktop,  │                        │   GitHub, Postgres,│
+   │   Cursor, Cline)   │                        │   Notion, custom)  │
+   └────────┬───────────┘                        └─────────┬──────────┘
+            │                                              │
+            │ uses                                         │ exposes
+            ▼                                              ▼
+   ┌────────────────────┐                        ┌────────────────────┐
+   │   LLM MODEL        │                        │   3 capabilities   │
+   │  Claude · GPT      │                        │   • Resources      │
+   │  Gemini · Local    │                        │   • Tools          │
+   └────────────────────┘                        │   • Prompts        │
+                                                 └────────────────────┘
+</pre>
+
+    <h3>The 3 kinds of capabilities</h3>
+    <p>
+      An MCP server exposes three broad categories of capabilities — that is, three kinds of things it makes available to the client.
+    </p>
+    <ul>
+      <li><strong>Resources (data)</strong> · content the server exposes for reading: files, database rows, web pages, the contents of a CRM. The client can list them and load them into the model's context.</li>
+      <li><strong>Tools (actions)</strong> · functions the model can call to take action: write a file, create a GitHub issue, send a Slack message, run a SQL query. It's the equivalent of function calling, but standardized.</li>
+      <li><strong>Prompts (templates)</strong> · pre-written prompt templates the user or the model can invoke like a shortcut. Handy for repetitive workflows.</li>
+    </ul>
+
+    <h3>Stdio vs HTTP: two transports</h3>
+    <p>
+      The protocol supports two transport modes depending on the context.
+    </p>
+    <p>
+      <strong>Stdio (standard input/output)</strong> is the local mode. The client launches the server as a sub-process and the two communicate through stdin/stdout. It's the default mode for servers running on your machine — filesystem, a local database, personal scripts. Upside: no network, maximum security, zero latency.
+    </p>
+    <p>
+      <strong>HTTP (with Server-Sent Events or WebSocket)</strong> is the remote mode. The server runs on another machine and the client connects over the network. It's what you use for services that need to stay centralized — an MCP shared across a team, a SaaS integration, a cloud connector.
+    </p>
+
+    <div class="callout tip">
+      <h4>The detail that changes everything: automatic discovery</h4>
+      <p>When an MCP client connects to a server, it starts by asking for the list of its capabilities. The model then gets a structured description of every available tool, resource and prompt. <strong>No need to hard-code the tools into the system prompt</strong> — the AI discovers what it can do, dynamically, at each startup. That's what makes MCP genuinely portable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mini-marquee 02 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Filesystem</span><span>GitHub</span><span>Notion</span><span>Slack</span><span>Postgres</span><span>Brave Search</span><span>Custom</span>
+    <span>Filesystem</span><span>GitHub</span><span>Notion</span><span>Slack</span><span>Postgres</span><span>Brave Search</span><span>Custom</span>
+  </div>
+</div>
+
+<!-- Section : Les serveurs MCP populaires en 2026 -->
+<section class="block" id="serveurs">
+  <div class="container">
+    <span class="section-kicker k-orange">— Ecosystem</span>
+    <h2>The popular MCP<br>servers in <em class="orange">2026.</em></h2>
+
+    <p>
+      The MCP ecosystem filled out fast. <strong>The <code>modelcontextprotocol</code> GitHub organization maintains around twenty official servers</strong>, and the community has published several hundred more. Here are the servers people use most day to day — the ones I see come up in every serious conversation about AI agents.
+    </p>
+
+    <h3>The essentials I install on every setup</h3>
+    <ul>
+      <li><strong>Filesystem</strong> · read, write, list local files. The most useful one day to day, especially with Claude Code and Claude Desktop. You give access to a specific folder, and the AI can work with your notes, your code, your documents.</li>
+      <li><strong>GitHub</strong> · manage issues, pull requests, branches, repos. You can ask Claude to open an issue, comment on a PR or read the code of a public repo. Handy for automated code reviews.</li>
+      <li><strong>Google Drive / Notion / Slack</strong> · read and write in your collaborative work tools. Notion is especially useful for knowledge bases. Slack to wire the AI into your team's messages.</li>
+      <li><strong>PostgreSQL / SQLite</strong> · run read SQL queries (and sometimes write ones, depending on the config) against a database. Heavily used for data analysis and BI.</li>
+      <li><strong>Puppeteer / Playwright</strong> · drive a browser. The AI can open pages, click, scrape, take screenshots. It's the server I use to automate UI tests or deep web research.</li>
+      <li><strong>Brave Search / Tavily / Exa</strong> · run web searches from the agent. Brave Search is free up to 2,000 requests/month; Tavily and Exa are paid but return content that's better structured for AI.</li>
+    </ul>
+
+    <h3>Comparison table</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Server</th>
+            <th>Language</th>
+            <th>Maintainer</th>
+            <th>Typical use</th>
+            <th>Complexity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Filesystem</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Read/write local files</td>
+            <td>Easy</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-teal"></span>GitHub</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Issues, PRs, repos</td>
+            <td>Easy</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-orange"></span>Notion</td>
+            <td>TypeScript</td>
+            <td>Notion + community</td>
+            <td>Knowledge base, notes</td>
+            <td>Medium (OAuth auth)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-ink"></span>Slack</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Read / send messages</td>
+            <td>Medium (workspace auth)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>PostgreSQL</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Read SQL queries</td>
+            <td>Easy</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-teal"></span>Puppeteer</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Browser control</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-orange"></span>Brave Search</td>
+            <td>TypeScript</td>
+            <td>Anthropic (official)</td>
+            <td>Web search</td>
+            <td>Easy (free API key)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-ink"></span>Tavily / Exa</td>
+            <td>TypeScript / Python</td>
+            <td>Community + vendors</td>
+            <td>Web search for AI</td>
+            <td>Easy (paid API key)</td>
+          </tr>
+          <tr>
+            <td class="tool-name"><span class="tool-dot dot-fuchsia"></span>Custom (your own)</td>
+            <td>Python or TS</td>
+            <td>You</td>
+            <td>Specific to your work</td>
+            <td>Varies</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The custom servers I see popping up</h3>
+    <p>
+      Beyond the official servers, the community publishes MCP servers for just about everything. <strong>Linear, Jira, Trello on the project-management side. Stripe, PayPal on payments. HubSpot, Pipedrive on CRM.</strong> If a service has a public API, odds are good a community MCP server already exists. The reflex before coding one yourself: search the <code>modelcontextprotocol/servers</code> GitHub repo and community lists like <code>awesome-mcp-servers</code>.
+    </p>
+
+    <p>
+      And of course, you can always write your own. For my own workflows — agents that drive my site, that interact with my newsletter, that watch my builds — I've written a few minimalist MCP servers in TypeScript. We'll see how to do that a bit further down, in the dedicated section.
+    </p>
+
+    <div class="callout warn">
+      <h4>Be careful which servers you install</h4>
+      <p>An MCP server is code that runs on your machine with access to whatever you hand it. <strong>A poorly written or malicious server can read your files, exfiltrate your secrets or post in your name.</strong> Golden rule: never install a server whose source you haven't checked. For Anthropic's official servers, it's safe. For community ones, look at the repo, the star count, who maintains it, and the last update.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section : MCP vs Function Calling vs Tools API -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Comparison</span>
+    <h2>MCP vs Function Calling<br><em class="fuchsia">vs Tools API.</em></h2>
+
+    <p>
+      When you first come across MCP, the first question that comes up is: how is this different from function calling? And it's a good question, because the three concepts look superficially alike. Here's how I tell them apart.
+    </p>
+
+    <h3>Function Calling (OpenAI, 2023)</h3>
+    <p>
+      <strong>Function calling is a model's ability to choose to call a function</strong> instead of generating text. OpenAI popularized the concept in June 2023 with GPT-3.5 and then GPT-4. You describe your functions to the model in a JSON format specific to OpenAI, and the model can decide to call them with arguments.
+    </p>
+
+    <p>
+      The limit: <strong>the format is OpenAI's own</strong>. If you want to do the same thing with Claude or Gemini, you rewrite your integration.
+    </p>
+
+    <h3>Tools API (Anthropic, 2024)</h3>
+    <p>
+      <strong>Tools API is the function-calling equivalent on the Anthropic side</strong>, launched in early 2024. Same idea, slightly different format, supported natively by the Claude models. It's the same paradigm as function calling, but with its own spec.
+    </p>
+
+    <p>
+      Same limit: <strong>the format is Anthropic's own</strong>. Not portable to other models.
+    </p>
+
+    <h3>MCP (Anthropic, November 2024)</h3>
+    <p>
+      <strong>MCP is an open standard on top of all that.</strong> In concrete terms: your MCP server exposes tools (which look a lot like function calls), resources and prompts. The MCP client takes care of translating those tools into the specific format of the model it's using. If you switch models tomorrow, your server doesn't change.
+    </p>
+
+    <p>
+      So, concretely: <strong>function calling and Tools API are low-level features, specific to each model. MCP is a higher-level protocol that sits on top.</strong> The two coexist, they don't replace each other. Under the hood, an MCP client always uses function calling or Tools API to talk to its model.
+    </p>
+
+    <h3>Recap table</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Function Calling</th>
+            <th>Tools API</th>
+            <th>MCP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tool-name">Maker</td>
+            <td>OpenAI</td>
+            <td>Anthropic</td>
+            <td>Anthropic (open standard)</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Year</td>
+            <td>2023</td>
+            <td>2024</td>
+            <td>Nov 2024</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Portability</td>
+            <td>OpenAI only</td>
+            <td>Anthropic only</td>
+            <td>Any compatible client</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Ecosystem</td>
+            <td>Vertically integrated</td>
+            <td>Vertically integrated</td>
+            <td>Open, community-driven</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Level</td>
+            <td>Low (per model)</td>
+            <td>Low (per model)</td>
+            <td>High (on top)</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Learning curve</td>
+            <td>Easy</td>
+            <td>Easy</td>
+            <td>Medium (server setup)</td>
+          </tr>
+          <tr>
+            <td class="tool-name">Pick it if…</td>
+            <td>You're coding a quick vertical OpenAI integration</td>
+            <td>You're coding a quick vertical Claude integration</td>
+            <td>You want portability + a shared ecosystem</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      To dig into the tool-use layer, read the <a href="/en/lexique/tool-use">tool use / function calling</a> entry. And to understand how MCP fits into a full agent, look at the definition of <a href="/en/lexique/agentic-workflow">agentic workflow</a>.
+    </p>
+  </div>
+</section>
+
+<!-- Mini-marquee 03 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Real use cases</span><span>Local files</span><span>Personal Notion</span><span>Calendar</span><span>Web search</span><span>From real life</span>
+    <span>Real use cases</span><span>Local files</span><span>Personal Notion</span><span>Calendar</span><span>Web search</span><span>From real life</span>
+  </div>
+</div>
+
+<!-- Section : Mes use cases MCP concrets -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Use cases</span>
+    <h2>My real-world MCP<br><em class="teal">use cases.</em></h2>
+
+    <p>
+      I'm not a developer or a coder. And yet I use several MCP servers every day. Here are the use cases that actually serve me, with a sample prompt for each and what I expect back.
+    </p>
+
+    <div class="profile-grid">
+      <article class="profile-card p-fuchsia">
+        <div class="profile-tag">Filesystem MCP</div>
+        <h3>Wiring Claude Code to my project files</h3>
+        <p><strong>Setup</strong> · official filesystem server, scope limited to <code>~/Projets</code>.</p>
+        <p><strong>Sample prompt</strong> · "Open my site's folder, find the articles that talk about MCP, and suggest a plan to improve the internal linking."</p>
+        <p><strong>Expected result</strong> · Claude reads the real content of my files, doesn't rely on a copy-paste, and gives me an analysis grounded in the actual material. It's the most natural and most useful use.</p>
+      </article>
+
+      <article class="profile-card p-teal">
+        <div class="profile-tag">Notion MCP</div>
+        <h3>Wiring Claude to my Notion</h3>
+        <p><strong>Setup</strong> · community Notion server + Notion integration token.</p>
+        <p><strong>Sample prompt</strong> · "Read my 'Article ideas' database in Notion, spot the topics I've already published on, and list the ideas worth digging into this week."</p>
+        <p><strong>Expected result</strong> · the AI cross-references my Notion with my existing articles and gives me a prioritized to-do list. Handy for editorial curation.</p>
+      </article>
+
+      <article class="profile-card p-orange">
+        <div class="profile-tag">Calendar MCP</div>
+        <h3>Connecting Claude to my calendar</h3>
+        <p><strong>Setup</strong> · community calendar server (iCloud or Google Calendar) + OAuth.</p>
+        <p><strong>Sample prompt</strong> · "Look at my calendar this week, find the free slots longer than 2 hours, and suggest a schedule to finish the MCP pillar."</p>
+        <p><strong>Expected result</strong> · the AI sees my real openings and gives me a realistic plan. No more copy-pasting my schedule.</p>
+      </article>
+
+      <article class="profile-card p-ink">
+        <div class="profile-tag">Brave Search MCP</div>
+        <h3>Web research agent</h3>
+        <p><strong>Setup</strong> · official Brave Search server + free API key (2,000 requests/month).</p>
+        <p><strong>Sample prompt</strong> · "Give me a state of the art of MCP as of May 2026. Look up the recent announcements, the benchmarks, and the serious comparisons."</p>
+        <p><strong>Expected result</strong> · Claude fires off several searches in parallel, aggregates the results, and gives me a synthesis with sources. Ideal for not settling for the model's frozen knowledge.</p>
+      </article>
+    </div>
+
+    <p>
+      All of these use cases run in Claude Code or Claude Desktop. The same logic works in Cursor or Cline for those who prefer an editor. To go further on the agentic workflows I build, read my article <a href="/en/articles/superpowers">Superpowers · Claude Code skills</a> — where I also talk about how skills + MCP complement each other.
+    </p>
+  </div>
+</section>
+
+<!-- Section : Construire ton premier serveur MCP -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Building</span>
+    <h2>How to build your<br>first <em class="orange">MCP server.</em></h2>
+
+    <p>
+      I'm not going to give you the exhaustive tutorial here — the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">official docs at modelcontextprotocol.io</a> do it very well, and the tech moves too fast for a static article to be reliable on the details. <strong>But here's the general outline to get started.</strong>
+    </p>
+
+    <h3>Pick your language: Python or TypeScript</h3>
+    <p>
+      Anthropic maintains two official SDKs: <strong>Python and TypeScript</strong>. Both are at the same level of maturity.
+    </p>
+    <p>
+      You pick based on your stack. If you live in the Node/JavaScript ecosystem, go with TypeScript. If you do data science or AI in Python, go with Python. For a first server, both work just as well, and the code is of similar complexity.
+    </p>
+
+    <h3>The 4 steps to your first server</h3>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Initialize your project</h3>
+        <p>The official SDK ships a starter template. In TypeScript, you can run <code>npx @modelcontextprotocol/create-server my-server</code> to generate a ready-made tree. In Python, you use the <code>mcp</code> package via <code>uvx</code> or <code>pip</code>.</p>
+        <p>You get a folder with the server skeleton, the dependencies installed, and a startup script ready to run.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Define your capabilities</h3>
+        <p>You decide what your server exposes. The three categories: <strong>tools (actions), resources (data), prompts (templates)</strong>. For a first server, start with one or two simple tools — for example, a tool that returns the weather for a city, or that lists the files in a folder.</p>
+        <p>For each capability, you declare a name, a description (the AI uses it to understand when to call it), and an argument schema in JSON.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Test locally with MCP Inspector</h3>
+        <p>Anthropic ships a debug tool called <strong>MCP Inspector</strong> that lets you launch your server and inspect it through a web interface. You see the list of capabilities, you can call your tools by hand, check the responses.</p>
+        <p>It's the highest-return step. Testing before plugging into a real client saves you a ton of time finding bugs.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Deploy into your client</h3>
+        <p>You add an entry to your client's config. In Claude Code, it's a block in <code>~/.claude/settings.json</code>. In Claude Desktop, it's in <code>~/Library/Application Support/Claude/claude_desktop_config.json</code> on Mac. You specify the command that launches the server, the arguments and the environment variables.</p>
+        <p>You restart the client. If everything is set up right, your server shows up in the list of available tools and the AI can call it. You ask it, in plain language, to use your tool, and you see whether the magic happens.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>To go further on the code</h4>
+      <p>The <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">modelcontextprotocol/servers</a> repo holds around twenty reference servers in TypeScript. <strong>The best way to learn is to read the code of the filesystem server or the GitHub server</strong> — they're simple, well commented, and you can fork them for your own server.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section : Pour qui c'est utile -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Who it's for</span>
+    <h2>Who it's useful for<br><em class="fuchsia">(and who not).</em></h2>
+
+    <div class="profile-grid">
+      <article class="profile-card p-teal">
+        <div class="profile-tag">Case #1</div>
+        <h3>Developer building agents</h3>
+        <p><strong>Yes, all the way.</strong> MCP is built for you. You write your own servers, you plug in the official ones, you build portable agents that can live in Claude Code, Cursor or Cline without rewriting your integration. It's the protocol's original target.</p>
+      </article>
+
+      <article class="profile-card p-fuchsia">
+        <div class="profile-tag">Case #2</div>
+        <h3>Founder driving Claude Code</h3>
+        <p><strong>Yes, but not for coding servers.</strong> You use the existing MCP servers — filesystem, GitHub, Notion, Brave Search — to give your AI context. Combined with Claude Code skills, it turns your terminal into a universal assistant. That's my current use.</p>
+      </article>
+
+      <article class="profile-card p-orange">
+        <div class="profile-tag">Case #3</div>
+        <h3>Everyday Claude.ai user</h3>
+        <p><strong>Not really yet.</strong> As of May 2026, Claude.ai (the consumer web app) doesn't yet support custom MCP servers. Claude Desktop and Claude Code get it first. One to watch — the feature will eventually land on Claude.ai, but we're not there.</p>
+      </article>
+
+      <article class="profile-card p-ink">
+        <div class="profile-tag">Case #4</div>
+        <h3>SMB running a chatbot</h3>
+        <p><strong>Worth monitoring, not mature for 2026.</strong> If you're looking to wire your customer chatbot to your CRM or your product catalog through MCP, it's technically possible but the ecosystem isn't production-ready yet. The vertical solutions (Voiceflow, Botpress, specialized platforms) are still sturdier for now. MCP becomes relevant once you go beyond the consumer chatbot and build a custom agent.</p>
+      </article>
+    </div>
+
+    <p>
+      My honest take after several months of use: <strong>MCP isn't a revolution for the general public, it's a revolution for builders</strong>. If you build agents, integrations, automations, it's a gift. If you only use AI in chat mode, you probably don't need to learn MCP — you benefit from it indirectly when the tools you use (Cursor, Claude Code) integrate it.
+    </p>
+  </div>
+</section>
+
+<!-- Mini-marquee 04 -->
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>MCP FAQ</span><span>Clear questions</span><span>Straight answers</span><span>No jargon</span><span>Honest about the limits</span>
+    <span>MCP FAQ</span><span>Clear questions</span><span>Straight answers</span><span>No jargon</span><span>Honest about the limits</span>
+  </div>
+</div>
+
+<!-- Section : FAQ -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>MCP <em class="fuchsia">FAQ.</em></h2>
+
+    <p>
+      The 12 questions I asked myself when I was getting into MCP, and that people still ask me today. Short, straight answers, honest about what I don't know.
+    </p>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What is MCP in one sentence?</summary>
+        <div class="faq-answer">
+          <p>MCP, short for Model Context Protocol, is an open standard launched by Anthropic in November 2024 that lets any language model connect in a uniform way to external tools, databases and services. Think of it as USB-C for AI: one port to plug everything in.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Who invented MCP?</summary>
+        <div class="faq-answer">
+          <p>MCP was designed and released by Anthropic, the company behind Claude. The protocol was announced in November 2024 and the code is published as open source in the <code>modelcontextprotocol</code> GitHub repo. Since then, other players (OpenAI, the Cursor community, IDE makers) have started adopting it, which makes it a de facto standard.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why is everyone talking about it in 2025-2026?</summary>
+        <div class="faq-answer">
+          <p>Because it's the first credible attempt to standardize the connections between AI and tools. Before MCP, every AI maker had its own tools format — OpenAI function calling, Anthropic Tools API, Google function declarations. The result: developers rewrote the same integrations three times. MCP unifies all of it, and the adoption by Cursor, Claude Code and Windsurf in 2025 accelerated the whole thing.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is MCP open source?</summary>
+        <div class="faq-answer">
+          <p>Yes. The spec, the official SDKs (Python and TypeScript) and most of the reference servers are published under the MIT license on GitHub, in the <code>modelcontextprotocol</code> organization. Anyone can write a server, publish it, fork it. Anthropic maintains the standard but doesn't have exclusive control over it.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>MCP vs Function Calling: what's the difference?</summary>
+        <div class="faq-answer">
+          <p>Function calling is a feature specific to each model (OpenAI has its format, Anthropic its own, Google its own). MCP is an open protocol that sits on top. In practice: with function calling, you write one integration per LLM; with MCP, you write a server once and any compatible client can use it. MCP is the standard; function calling is the model's internal implementation.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do you install an MCP server with Claude Code?</summary>
+        <div class="faq-answer">
+          <p>You add an entry to your <code>~/.claude/settings.json</code> config file, specifying the command that launches the server (often an <code>npx</code> or a <code>python -m</code>), the arguments and the environment variables. You restart Claude Code, and the server shows up in the list of available tools. For the official servers, install helpers exist that do this for you.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Which LLMs support MCP in 2026?</summary>
+        <div class="faq-answer">
+          <p>On the Anthropic side, Claude Desktop and Claude Code support MCP natively. Cursor supports it too. On the OpenAI side, ChatGPT desktop announced support in 2025. On the open-source side, Continue, Cline and Zed have integrated it. The list moves fast — most serious AI clients have switched or plan to.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is MCP secure?</summary>
+        <div class="faq-answer">
+          <p>The protocol itself is secure by design: each server runs in its own process, capabilities are explicitly declared, and the client can filter which tools are exposed. The real risk is what you install. A poorly written or malicious MCP server can read your files or expose your secrets. Golden rule: only install servers maintained by trusted sources, and read the code before plugging it in.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do you write your own MCP server?</summary>
+        <div class="faq-answer">
+          <p>You pick your language (Python or TypeScript, the official SDKs cover both), you install the official template, you declare the capabilities (tools, resources, prompts) your server exposes, you implement their handlers, then you connect your client. The <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">modelcontextprotocol.io</a> docs have a full tutorial. For a simple first server, count on one to two hours.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>MCP vs LangChain Tools: what's the difference?</summary>
+        <div class="faq-answer">
+          <p>LangChain Tools is an abstraction layer on the framework side (you use LangChain to orchestrate your agent and its tools). MCP is a communication protocol between client and server. The two can coexist: you can expose an MCP server that's then consumed by a LangChain agent, or the other way around. MCP is lower level and more universal; LangChain is higher level and tied to its own ecosystem.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What are the known limitations of MCP?</summary>
+        <div class="faq-answer">
+          <p>Three limits I see in 2026: documentation is still uneven across servers (some are very well documented, others not at all), security rests on your own vigilance (no central marketplace that audits), and the install experience is still technical (manually editing a JSON file). Anthropic and the community are working to fix all three, but we're not there yet.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What's the MCP roadmap in 2026?</summary>
+        <div class="faq-answer">
+          <p>Three directions announced by Anthropic and the community: an official MCP server registry (an npm equivalent for MCP), better permission handling (a client can allow one tool but not another), and extending HTTP transport for remote servers (beyond local stdio). The public roadmap lives on the <code>modelcontextprotocol</code> GitHub.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Section : Ressources externes -->
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Resources</span>
+    <h2>External <em class="teal">resources.</em></h2>
+
+    <p>
+      To dig into MCP beyond what I cover here, these are the sources I check regularly. The spec and the ecosystem move fast, so I'd rather point to the reference sources than freeze everything into a static article.
+    </p>
+
+    <div class="resources-grid">
+      <a class="resource-card" href="https://modelcontextprotocol.io" target="_blank" rel="noopener">
+        <span class="res-kicker">Official docs</span>
+        <h4>modelcontextprotocol.io</h4>
+        <p>Anthropic's official site dedicated to MCP. Full spec, tutorials, examples, getting-started guide. The source of truth, updated with every release.</p>
+      </a>
+
+      <a class="resource-card" href="https://github.com/modelcontextprotocol" target="_blank" rel="noopener">
+        <span class="res-kicker">GitHub</span>
+        <h4>modelcontextprotocol GitHub org</h4>
+        <p>The official organization. You'll find the spec, the Python and TypeScript SDKs, the reference-servers repo and the clients repo. The best place to see the real code.</p>
+      </a>
+
+      <a class="resource-card" href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">
+        <span class="res-kicker">Servers</span>
+        <h4>Reference servers repo</h4>
+        <p>Around twenty official MCP servers, ready to use or to fork. Filesystem, GitHub, Slack, PostgreSQL, Puppeteer, Brave Search. The code is readable and well commented.</p>
+      </a>
+
+      <a class="resource-card" href="https://discord.gg/anthropic" target="_blank" rel="noopener">
+        <span class="res-kicker">Community</span>
+        <h4>Anthropic Discord</h4>
+        <p>Anthropic's official Discord hosts a channel dedicated to MCP. Announcements, support, conversations with the MCP team. Handy for following the news live.</p>
+      </a>
+
+      <a class="resource-card" href="https://www.youtube.com/c/AnthropicAI" target="_blank" rel="noopener">
+        <span class="res-kicker">Official video</span>
+        <h4>Anthropic YouTube channel</h4>
+        <p>MCP talks and tutorials by the Anthropic teams. Handy for watching a server get built live and understanding the philosophy behind the protocol.</p>
+      </a>
+
+      <a class="resource-card" href="https://www.latent.space" target="_blank" rel="noopener">
+        <span class="res-kicker">Podcast (EN)</span>
+        <h4>Latent Space</h4>
+        <p>One of the best AI podcasts in English. They've done several episodes dedicated to MCP, with interviews of Anthropic's founders and maintainers of popular MCP servers.</p>
+      </a>
+
+      <a class="resource-card" href="/en/claude-code">
+        <span class="res-kicker">My guide</span>
+        <h4>Claude Code pillar</h4>
+        <p>My complete guide to Claude Code, the MCP client that got me into all of this. Install, workflows, skills, and of course the section dedicated to MCP on the Claude Code side.</p>
+      </a>
+
+      <a class="resource-card" href="/en/articles/superpowers">
+        <span class="res-kicker">My article</span>
+        <h4>Superpowers · Claude Code skills</h4>
+        <p>The article where I tell how I combine Claude Code skills and MCP servers to build my own agents. Concrete, with examples.</p>
+      </a>
+    </div>
+
+    <p>
+      And if you want me to keep you posted on how MCP evolves — interesting new servers, spec releases, integrations that actually work — my AI Playbook newsletter drops every Friday morning at 9. Sign up in the footer below.
+    </p>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-kicker k-teal" style="justify-content:center; display:inline-flex">— What now?</span>
+    <h2>Stay <em class="fuchsia">ahead.</em></h2>
+    <p>
+      MCP moves fast. New servers, new clients adopting it, new versions of the spec. If you want to follow what actually deserves your attention — without reading 80 tech newsletters a week — mine, AI Playbook, drops Friday morning. I sum up my real tests, I give the commands that work, and I flag the dead ends.
+    </p>
+    <a href="/en/#newsletters" class="back-btn">
+      See my newsletters →
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually</em> test.</h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en/#newsletters">Newsletters</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  // Theme toggle + localStorage (sync with main site)
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+<script src="/assets/nav-v2.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

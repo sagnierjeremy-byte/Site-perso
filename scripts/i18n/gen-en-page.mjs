@@ -49,6 +49,11 @@ h = h.replace(/(og:locale" content=")fr_FR(")/i, '$1en_US$2');
 h = h.replace(/(<link rel="canonical" href=")[^"]*(")/i, `$1${enUrl}$2`);
 h = h.replace(/(<meta property="og:url" content=")[^"]*(")/i, `$1${enUrl}$2`);
 
+// 2b. on retire tout bloc hreflang existant AVANT la réécriture des href :
+// sinon rewriteAttr (étape 3) prend le href FR du hreflang pour un lien interne
+// et le préfixe en /en (casse le hreflang fr/x-default au re-run). Réinjecté propre à l'étape 5.
+h = h.replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*">/gi, '');
+
 // 3. réécriture href/src (hors JSON-LD : les attributs HTML)
 // dossier de la page courante (pour résoudre les liens relatifs : "" pour la racine, "lexique", "articles"…)
 const pageDir = (() => { const d = path.dirname(rel); return d === '.' ? '' : d; })();

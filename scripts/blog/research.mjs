@@ -65,6 +65,7 @@ Réponds UNIQUEMENT en JSON valide, sans texte autour, au format :
 
 Règles :
 - 6 à 12 "facts" solides, chacun avec une source web réelle. Si tu n'es pas sûr d'un fait, ne l'inclus PAS.
+- FRAÎCHEUR — pour CHAQUE outil, modèle ou app que l'article devra citer (ChatGPT, Gemini, Midjourney, Claude, etc.), inclus un "fact" dédié donnant sa DERNIÈRE version connue à ce jour + sa date de sortie (ex. {"claim":"Midjourney V8.1 est la version par défaut depuis juin 2026","source_url":"...","date":"2026-06"}). Vérifie via la recherche, ne te fie pas à ta mémoire : c'est ce qui évite de recommander une version périmée.
 - Au moins 2 "stats" chiffrées + sourcées + datées (levier de citation par les IA).
 - "internal_links" : choisis 3-6 URLs PERTINENTES parmi cette liste de pages existantes du site (ne les invente pas) :
 ${internal.slice(0, 120).join(', ')}

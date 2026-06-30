@@ -101,7 +101,8 @@ RÈGLE ANTI-INVENTION ABSOLUE :
 - INTERDICTION FORMELLE d'inventer un chiffre précis pour faire "concret" : pas de "20 agents économisés", "10 000 tâches/mois", "30 % du temps", "70 % des clients" si ce chiffre exact n'est pas dans la matière. Un chiffre rond et impressionnant non sourcé = signal d'invention = REJET. Dans le doute, reste QUALITATIF ("une grande partie", "une bonne partie", "beaucoup de temps").
 - Ne colle JAMAIS un nom de source (Gartner, McKinsey, IBM…) à un chiffre si ce nom n'est pas dans la matière, même si tu "crois" le connaître.
 - Si un chiffre te semble douteux ou invraisemblable, NE L'UTILISE PAS (mieux vaut l'omettre qu'inventer).
-- Quand tu cites une stat présente dans la matière, garde une formulation prudente et mentionne l'année.
+- STATISTIQUES — SOURCE OBLIGATOIRE DANS LA PHRASE : quand tu cites un chiffre, nomme la source dans la phrase ("selon Grand View Research", "d'après l'étude X") SI elle figure dans la matière, et mentionne l'année. Un chiffre orphelin (sans source nommée ni année) = à NE PAS utiliser : si la matière ne fournit pas de source, reste qualitatif.
+- FRAÎCHEUR / ANTI-SUPERLATIF (l'IA évolue très vite) : ne qualifie JAMAIS une version d'outil ou de modèle de "la dernière", "la référence", "la plus récente", "difficile à battre" ou "incontesté" SAUF si un FAIT daté ci-dessus le confirme à ~30 jours près de la date de publication de l'article. Sinon écris "à la date de cet article" et évite le superlatif — un superlatif périmé (recommander une vieille version) décrédibilise tout l'article. Un outil ne peut être "n°1" que sur UNE dimension précise et seulement si la matière le dit ; en cas de doute, formule en relatif ("réputé fort sur X") plutôt qu'en absolu ("leader incontesté").
 - Tu n'es pas obligé d'utiliser tous les faits — choisis les plus solides.
 
 === LIENS INTERNES À PLACER (2 à 6, en markdown [texte](url), ancres variées) ===

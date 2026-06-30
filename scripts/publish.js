@@ -109,7 +109,9 @@ function renderBody(mdContent) {
 }
 
 function renderSection(cls, mdBody) {
-  const html = marked.parse(mdBody.trim());
+  let html = marked.parse(mdBody.trim());
+  // Retire les blocs de code vides (fence ``` orpheline dans le draft → <pre><code></code></pre> vide)
+  html = html.replace(/<pre><code[^>]*>\s*<\/code><\/pre>\s*/g, '');
   return `
 <section class="block">
   <div class="container">

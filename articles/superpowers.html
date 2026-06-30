@@ -462,27 +462,28 @@
   }
   .usecase h4 { margin-top: 0 }
 
-  /* Final CTA */
-  .final-cta {
-    padding: 72px 0 96px;
-    background:
-      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.1), transparent 55%),
-      radial-gradient(ellipse at 100% 100%, rgba(255,130,0,.12), transparent 55%),
-      var(--bg);
-    border-top: 1px solid var(--line);
-    text-align: center;
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
   }
-  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
-  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 24px; border-radius: 999px;
-    background: var(--ink); color: var(--bg);
-    font-family: 'Archivo', sans-serif; font-weight: 700;
-    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
-    text-decoration: none; transition: transform .2s;
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
   }
-  .back-btn:hover { transform: translateY(-2px); color: var(--bg) }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
 
   /* Mini-marquees (charte FIESTA, obligatoire entre grandes sections) */
   .mini-marquee {
@@ -1108,17 +1109,21 @@
   </div>
 </section>
 
-<!-- Final CTA -->
-<section class="final-cta">
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
   <div class="container">
-    <span class="section-kicker k-fuchsia" style="display:inline-flex">— Et maintenant ?</span>
-    <h2>Tu veux <em class="fuchsia">les prochains ?</em></h2>
-    <p>
-      Chaque fois que je publie un nouveau tuto Claude Code / IA, je l'envoie dans ma <a class="cross-link" href="/articles/veille-pour-demain" title="veille IA pour demain — lire l'article">newsletter AI Playbook</a>. Si tu ne veux pas manquer le prochain, laisse-moi ton email sur la home.
-    </p>
-    <a href="../index#newsletters" class="back-btn">
-      Voir les newsletters →
-    </a>
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 

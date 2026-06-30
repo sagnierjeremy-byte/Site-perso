@@ -98,6 +98,11 @@ if (!/hreflang=/.test(h)) {
   else h = h.replace(/<\/head>/i, `${block}\n</head>`);
 }
 
+// 5b. sélecteur de langue (idempotent)
+if (!/assets\/lang-toggle\.js/.test(h)) {
+  h = h.replace(/<\/body>/i, '<script src="/assets/lang-toggle.js" defer></script>\n</body>');
+}
+
 // 6. validation
 // 6a JSON-LD parse
 for (const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {

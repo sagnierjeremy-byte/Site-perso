@@ -460,8 +460,8 @@
   </button>
   <div class="links" id="mini-nav-links">
     <a href="/en/apprendre">Learn</a>
-    <a href="/articles">Articles</a>
-    <a href="/podcast">Podcast</a>
+    <a href="/en/articles">Articles</a>
+    <a href="/en/podcast">Podcast</a>
     <a href="/en#newsletters">Newsletter</a>
     <div class="more-wrap">
       <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
@@ -471,15 +471,15 @@
         </svg>
       </button>
       <div class="more-menu" role="menu">
-        <a href="/modeles-ia" role="menuitem">
+        <a href="/en/modeles-ia" role="menuitem">
           <span class="more-icon">🧠</span>
           <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
         </a>
-        <a href="/modeles-image-ia" role="menuitem">
+        <a href="/en/modeles-image-ia" role="menuitem">
           <span class="more-icon">🎨</span>
           <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
         </a>
-        <a href="/lexique" role="menuitem">
+        <a href="/en/lexique" role="menuitem">
           <span class="more-icon">📚</span>
           <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
         </a>
@@ -499,7 +499,7 @@
           <span class="more-icon">📡</span>
           <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
         </a>
-        <a href="/videos" role="menuitem">
+        <a href="/en/videos" role="menuitem">
           <span class="more-icon">▶</span>
           <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
         </a>
@@ -509,7 +509,7 @@
           <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
         </a>
         <div class="more-separator"></div>
-        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+        <a href="/en/precommande-photos-personal-branding" class="more-cta" role="menuitem">
           <span class="more-icon">💳</span>
           <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
         </a>
@@ -635,7 +635,7 @@
 
     <div class="callout warn">
       <h4>What you take away from this story</h4>
-      <p>An agent does <strong>exactly</strong> what you tell it, with no common sense. If you give it the power to send, it'll send. If you give it the power to delete, it'll delete. Until you're 100% sure, keep it in "suggest, I click" mode. Active mode only on truly reversible <a class="lex-link" href="/lexique/github-actions" title="GitHub Actions — see the definition">actions</a>, like labeling or archiving.</p>
+      <p>An agent does <strong>exactly</strong> what you tell it, with no common sense. If you give it the power to send, it'll send. If you give it the power to delete, it'll delete. Until you're 100% sure, keep it in "suggest, I click" mode. Active mode only on truly reversible <a class="lex-link" href="/en/lexique/github-actions" title="GitHub Actions — see the definition">actions</a>, like labeling or archiving.</p>
     </div>
   </div>
 </section>
@@ -703,7 +703,7 @@
       The next day, your assistant shows up at 7am, opens your inbox, applies your rules. When they're unsure, they set the email aside for you to decide. After a week, you correct two or three things ("no, that client isn't actually urgent"), and it's dialed in.
     </p>
     <p>
-      <strong>Hermes is exactly that.</strong> Except your "assistant" is an AI. And you don't talk to it, you write its rules in a piece of text we call <strong>"the <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — see the definition">system prompt</a>"</strong> (the equivalent of the assistant's employment contract — the list of rules it must follow all the time, in every case).
+      <strong>Hermes is exactly that.</strong> Except your "assistant" is an AI. And you don't talk to it, you write its rules in a piece of text we call <strong>"the <a class="lex-link" href="/en/lexique/prompt-engineering" title="Prompt engineering — see the definition">system prompt</a>"</strong> (the equivalent of the assistant's employment contract — the list of rules it must follow all the time, in every case).
     </p>
 
     <h3>The three ingredients (and that's it)</h3>
@@ -786,7 +786,7 @@
       <div class="step-body">
         <h4>Connect Gmail (5 minutes, Route A as the example)</h4>
         <p>In Make, you create a new "scenario". The first block is <strong>"Gmail · Watch Emails"</strong>. You click, you authorize Make to connect to your Gmail (Google shows you a permission screen, you accept). You pick "Inbox" as the folder to watch. You set "every 15 minutes" as the frequency.</p>
-        <p>The second block is <strong>"Anthropic · Send Message"</strong>. You paste your <a class="lex-link" href="/lexique/cle-api" title="API key — see the definition">API key</a>, you pick the <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> model (the fastest and cheapest for this kind of task). The third block is <strong>"Gmail · Add Label"</strong>, which takes Claude's reply and applies the matching label.</p>
+        <p>The second block is <strong>"Anthropic · Send Message"</strong>. You paste your <a class="lex-link" href="/en/lexique/cle-api" title="API key — see the definition">API key</a>, you pick the <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> model (the fastest and cheapest for this kind of task). The third block is <strong>"Gmail · Add Label"</strong>, which takes Claude's reply and applies the matching label.</p>
         <span class="os-note">Make has a "test" mode: you click "Run once" to see how it behaves on a single email before turning everything on. Essential for the next step.</span>
       </div>
     </div>
@@ -831,7 +831,7 @@ IMPORTANT RULES:
 
 REPLY FORMAT: return just the label word,
 in lowercase. Nothing else. No explanation sentence.</pre>
-        <p>You replace the <strong>[list...]</strong> placeholders with your real info. You copy all of this text into Make's Anthropic block (the "<a class="lex-link" href="/lexique/system-prompt" title="System prompt — see the definition">system prompt</a>" field). The email to analyze arrives as a "user message" block via the Gmail variable.</p>
+        <p>You replace the <strong>[list...]</strong> placeholders with your real info. You copy all of this text into Make's Anthropic block (the "<a class="lex-link" href="/en/lexique/system-prompt" title="System prompt — see the definition">system prompt</a>" field). The email to analyze arrives as a "user message" block via the Gmail variable.</p>
         <span class="os-note">The secret is precision. "Urgent if paying client AND request within 48h" gives 91% accuracy. "Urgent based on your gut" gives 80% of emails labeled urgent. The simple rule: no vague adjectives ("important", "relevant", "for you"), measurable criteria instead.</span>
       </div>
     </div>
@@ -852,7 +852,7 @@ in lowercase. Nothing else. No explanation sentence.</pre>
         <h4>Turn it on for real (labeling-only mode)</h4>
         <p>When your 10-email test looks good, you turn the scenario on in Make (big green "ON" button at the top). From now on, every 15 minutes, Make reads your new emails, asks Claude to label them, and applies the label in Gmail. You have nothing left to do.</p>
         <p><strong>Keep it in labeling-only mode</strong> for at least two weeks. Meaning: it labels only, it archives nothing, it deletes nothing, it sends nothing. You confirm each day that the labels it applies suit you. If they do, you can move on to the more active features afterward.</p>
-        <span class="os-note">Watch your Anthropic credits the first week. You'll see exactly how much it consumes. For 200 emails a day with <a class="lex-link" href="/lexique/modele" title="AI model — see the definition">Haiku</a> 4, I spend about €0.25 a day. No nasty surprises.</span>
+        <span class="os-note">Watch your Anthropic credits the first week. You'll see exactly how much it consumes. For 200 emails a day with <a class="lex-link" href="/en/lexique/modele" title="AI model — see the definition">Haiku</a> 4, I spend about €0.25 a day. No nasty surprises.</span>
       </div>
     </div>
 
@@ -1035,11 +1035,11 @@ Reply with a single line per email:
     </ul>
 
     <p>
-      If you haven't yet read my article that lays the foundations of running AI on your own machine (Ollama, models, how it works locally), it's right here: <a href="/en/articles/llm-local-pour-non-dev">Running a real AI on your own machine</a>. It's the natural companion to this article if you want a 100%-private Hermes. And if the idea of agents in general interests you, my article <a href="/articles/loops-claude">Claude Code loops</a> explains the deep principle behind all the mechanics.
+      If you haven't yet read my article that lays the foundations of running AI on your own machine (Ollama, models, how it works locally), it's right here: <a href="/en/articles/llm-local-pour-non-dev">Running a real AI on your own machine</a>. It's the natural companion to this article if you want a 100%-private Hermes. And if the idea of agents in general interests you, my article <a href="/en/articles/loops-claude">Claude Code loops</a> explains the deep principle behind all the mechanics.
     </p>
 
     <p>
-      To go further on agents: <a href="/en/articles/agents-ia-guide">The complete guide to AI agents</a> sets out the theory, <a href="/articles/tuto-agent-gmail">Build a Gmail agent</a> reuses the same mechanics on another use case, and <a href="/articles/tuto-agent-contrats">The agent that reads my contracts</a> shows how to apply Hermes to work PDFs. You can read them in any order.
+      To go further on agents: <a href="/en/articles/agents-ia-guide">The complete guide to AI agents</a> sets out the theory, <a href="/en/articles/tuto-agent-gmail">Build a Gmail agent</a> reuses the same mechanics on another use case, and <a href="/en/articles/tuto-agent-contrats">The agent that reads my contracts</a> shows how to apply Hermes to work PDFs. You can read them in any order.
     </p>
 
     <h3>Three things to do this weekend</h3>
@@ -1123,7 +1123,7 @@ Reply with a single line per email:
         <p>I test AI for real and share what works, with no jargon and no hype. If this article was useful to you, the simplest way to never miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
         <div class="article-end-actions">
           <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
-          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
         </div>
       </div>
     </div>
@@ -1184,17 +1184,17 @@ Reply with a single line per email:
         <ul>
           <li><a href="/en/apprendre">Beginner path</a></li>
           <li><a href="/en/claude-code">Claude Code guide</a></li>
-          <li><a href="/articles">All the articles</a></li>
-          <li><a href="/lexique">AI glossary</a></li>
+          <li><a href="/en/articles">All the articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h5>Products &amp; tools</h5>
         <ul>
-          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
           <li><a href="/en/outils">My tool stack</a></li>
-          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
           <li><a href="/en/github">My GitHub</a></li>
         </ul>
       </div>
@@ -1214,7 +1214,7 @@ Reply with a single line per email:
         <ul>
           <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
           <li><a href="/en#newsletters">Newsletters</a></li>
-          <li><a href="/preferences">Preferences</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
         </ul>
       </div>
 

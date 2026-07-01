@@ -7,6 +7,14 @@
 (function() {
   if (typeof window === 'undefined') return;
 
+  // Libellés lang-aware (page EN sous /en/ → <html lang="en">)
+  const isEN = document.documentElement.lang === 'en';
+  const L = {
+    play: isEN ? 'Play episode' : "Lire l'épisode",
+    progress: isEN ? 'Progress' : 'Progression',
+    speed: isEN ? 'Playback speed' : 'Vitesse de lecture',
+  };
+
   // Singleton pour garantir 1 player actif à la fois
   let currentPlaying = null;
 
@@ -29,15 +37,15 @@
 
     // HTML structure
     container.innerHTML = `
-      <button class="pp-play" aria-label="Lire l'épisode" type="button">
+      <button class="pp-play" aria-label="${L.play}" type="button">
         <svg class="pp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         <svg class="pp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
       </button>
-      <div class="pp-timeline" role="slider" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+      <div class="pp-timeline" role="slider" aria-label="${L.progress}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
         <div class="pp-timeline-fill"></div>
       </div>
       <div class="pp-time"><span class="pp-current">0:00</span> / <span class="pp-total">--:--</span></div>
-      <button class="pp-speed" aria-label="Vitesse de lecture" type="button">1×</button>
+      <button class="pp-speed" aria-label="${L.speed}" type="button">1×</button>
       <audio preload="metadata" src="${src}"></audio>
     `;
 

@@ -3,6 +3,18 @@
 (function () {
   'use strict';
 
+  // Libellés lang-aware (page EN sous /en/ → <html lang="en">)
+  const isEN = document.documentElement.lang === 'en';
+  const T = {
+    count: (n) => isEN ? `${n} video${n > 1 ? 's' : ''}` : `${n} vidéo${n > 1 ? 's' : ''}`,
+    empty: isEN
+      ? 'No video matches your search. Try another keyword or category.'
+      : 'Aucune vidéo ne correspond à ta recherche. Essaye un autre mot-clé ou une autre catégorie.',
+    error: isEN
+      ? "Can't load the videos right now. Reload the page in a few minutes."
+      : "Impossible de charger les vidéos pour l'instant. Recharge la page dans quelques minutes.",
+  };
+
   const state = {
     videos: [],
     filtered: [],
@@ -82,10 +94,10 @@
     grid.classList.remove('skeleton-grid');
 
     const count = document.getElementById('videosCount');
-    if (count) count.textContent = `${state.filtered.length} vidéo${state.filtered.length > 1 ? 's' : ''}`;
+    if (count) count.textContent = T.count(state.filtered.length);
 
     if (!state.filtered.length) {
-      grid.innerHTML = '<div class="videos-empty">Aucune vidéo ne correspond à ta recherche. Essaye un autre mot-clé ou une autre catégorie.</div>';
+      grid.innerHTML = `<div class="videos-empty">${T.empty}</div>`;
       return;
     }
 
@@ -174,7 +186,7 @@
       const count = document.getElementById('videosCount');
       if (grid) {
         grid.classList.remove('skeleton-grid');
-        grid.innerHTML = '<div class="videos-empty">Impossible de charger les vidéos pour l\'instant. Recharge la page dans quelques minutes.</div>';
+        grid.innerHTML = `<div class="videos-empty">${T.error}</div>`;
       }
       if (count) count.textContent = '';
     }

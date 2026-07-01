@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karpathy's LLM Wiki: your AI second brain</title>
+<meta name="description" content="The Karpathy pattern for building a personal knowledge base with an LLM. Not a RAG — a real second brain that grows richer with every source.">
+
+<!-- seo:jsonld-article -->
+
+<!-- /seo:jsonld-article -->
+
+<!-- Open Graph -->
+<meta property="og:title" content="Karpathy's LLM Wiki: your AI second brain">
+<meta property="og:description" content="The Karpathy pattern for building a personal knowledge base with an LLM. Not a RAG — a real second brain that grows richer with every source.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/llm-wiki-karpathy">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/llm-wiki-karpathy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/llm-wiki-karpathy.jpg">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-04-20">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Karpathy's LLM Wiki: your AI second brain">
+<meta name="twitter:description" content="The Karpathy pattern for building a personal knowledge base with an LLM. Not a RAG — a real second brain that grows richer with every source.">
+
+<!-- Canonical -->
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/llm-wiki-karpathy">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/llm-wiki-karpathy">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/llm-wiki-karpathy">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/llm-wiki-karpathy">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "Karpathy's LLM Wiki: your AI second brain", "item": "https://jerwis.fr/en/articles/llm-wiki-karpathy" }
+  ]
+}
+</script>
+
+<!-- Schema.org : TechArticle -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Karpathy's LLM Wiki: your AI second brain",
+  "description": "The Karpathy pattern for building a personal knowledge base with an LLM. Not a RAG — a real second brain that grows richer with every source.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/en/articles/llm-wiki-karpathy",
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-20",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/llm-wiki-karpathy.jpg"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an LLM Wiki in Karpathy's sense?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The LLM Wiki is a pattern Andrej Karpathy shared in 2026: instead of a classic RAG that goes and fetches the answer from your documents on every question, the AI builds and maintains a real markdown wiki that grows richer with every source you feed it. It's a second brain that a human can actually read (not opaque embeddings) where each ingest creates summaries, updates entity pages, and weaves links between concepts. The accumulation is explicit and auditable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between an LLM Wiki and Notion AI or plain Obsidian?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Notion AI searches your existing pages but doesn't enrich them automatically. Plain Obsidian is an excellent markdown editor but has no intelligence: you create the pages, make the links, and keep everything consistent. The LLM Wiki combines the two: Obsidian as the IDE (graph view + editing) and the LLM as the programmer that ingests, updates, and lints. The big difference vs a RAG: you can see (and correct) what the AI understood."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does an LLM Wiki cost per month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Budget $0.50 to $1 per source ingested with Sonnet ($15/M tokens), so $50-100 to build a 100-source wiki over 30 days. After that, the cost drops: you only ingest new sources, plus a few lint and query operations. For personal use at 5-10 sources/month, budget $5-10/month. Obsidian is free. You don't need anything other than Claude Code (Pro at €20/month or the API pay-as-you-go)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you need to be a developer to set up an LLM Wiki?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. If you can open a terminal, create three folders, and paste in a CLAUDE.md schema, you can set up a wiki. The difficulty isn't technical, it's conceptual: defining the right schema, staying involved early on to shape the style, not trying to automate everything. If you're really not comfortable with the terminal, start with Claude Projects or NotebookLM: you'll get 80% of the benefits without building the full machinery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long before an LLM Wiki delivers its first value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The setup takes 30 minutes (create the structure + the schema + ingest 5 sources). The first real value shows up between 20 and 50 sources ingested: that's when unexpected connections start to emerge during queries. Below 10 sources, the LLM Wiki is overkill and Claude Projects does just as well. Above 50 sources, the compound effect of accumulation becomes obvious."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between an LLM Wiki and Cursor or Claude Projects?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cursor is an IDE for coding that uses an LLM in real time on your codebase — close in spirit (the AI and the editor live together), but focused on code. Claude Projects gathers documents and shared instructions inside claude.ai: you upload your 5-10 docs, you chat, perfect up to 20-30 sources but nothing accumulates between conversations. The LLM Wiki keeps the accumulation explicit in markdown on your disk, which changes everything past 50 sources."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the LLM Wiki replace a RAG?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For personal or semi-pro use: yes, in most cases. For multi-user, multi-GB bases running in production with latency and governance constraints: no, modern RAGs (Microsoft's GraphRAG, Mem0, Zep) are still needed. The real difference: the LLM Wiki's accumulation is readable (markdown), while a RAG's lives in opaque embeddings. The wiki wins on transparency and maintainability, the RAG wins on scale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I migrate from Notion to an LLM Wiki?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You export your Notion pages as markdown (Notion's native export → Markdown & CSV), drop them into the wiki's sources/ folder, and run the ingest operation. The AI will generate the summaries, create the entity pages, and weave the links. Budget 1 to 2 days for 200 Notion pages. Keep Notion for anything collaborative (team, client project) and switch to a wiki for your personal watch and your work knowledge base — the two can coexist."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How secure is personal data in an LLM Wiki?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your sources and the wiki live locally in a folder on your Mac. The requests sent to Claude for ingest/query/lint go through the Anthropic API, so they're covered by the same guarantees as Claude Pro (no training by default, ZDR on Enterprise). For truly sensitive data (health, client legal matters, confidential IP), consider a local model via Ollama or Mistral 7B as the wiki's backend — the pattern mechanics stay identical, only the LLM engine changes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the LLM Wiki work for content in several languages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Claude Sonnet is multilingual and handles ingest and query in French, English, German, Spanish, Italian, and more without a hitch. Best practice: in your CLAUDE.md schema, force the wiki's output language (for example, all entity pages in English even if the sources are in French), to avoid an inconsistent bilingual wiki. You can also keep one wiki per language if you work across distinct markets."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200 }
+  [data-theme="light"] {
+    --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg: #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--fuchsia) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--fuchsia); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--fuchsia); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover { box-shadow: 0 20px 40px -20px rgba(0,0,0,.15); border-color: var(--fuchsia) }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code { font-family: 'JetBrains Mono', monospace; font-size: .88em; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; color: var(--code-ink) }
+  pre code { background: transparent; padding: 0 }
+
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  .quote {
+    margin: 28px 0; padding: 24px 32px;
+    border-left: 4px solid var(--fuchsia);
+    background: rgba(239,66,111,.05);
+    border-radius: 0 14px 14px 0;
+    font-size: 17px; line-height: 1.6; font-style: italic;
+    color: var(--ink);
+  }
+  .quote cite {
+    display: block; margin-top: 10px; font-style: normal; font-size: 13px;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: .1em;
+    color: var(--ink-muted); text-transform: uppercase;
+  }
+
+  .compare {
+    display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0;
+  }
+  @media (min-width: 640px) { .compare { grid-template-columns: 1fr 1fr } }
+  .compare-card {
+    padding: 22px 24px; border-radius: 16px;
+    border: 1px solid var(--line-strong);
+  }
+  .compare-card.old { background: rgba(255,130,0,.05); border-color: rgba(255,130,0,.25) }
+  .compare-card.new { background: rgba(0,178,169,.05); border-color: rgba(0,178,169,.25) }
+  .compare-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: .18em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .compare-card.old .compare-label { color: var(--orange) }
+  .compare-card.new .compare-label { color: var(--teal) }
+  .compare-card h4 { margin-top: 0; margin-bottom: 8px; font-size: 16px }
+  .compare-card p { font-size: 14.5px; margin-bottom: 0 }
+
+  .layer-card {
+    padding: 22px 26px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    margin-bottom: 12px;
+    border-left: 4px solid;
+  }
+  .layer-card.l-1 { border-left-color: var(--teal) }
+  .layer-card.l-2 { border-left-color: var(--fuchsia) }
+  .layer-card.l-3 { border-left-color: var(--orange) }
+  .layer-card-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 17px;
+    letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .layer-card-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: .18em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 10px;
+  }
+  .layer-card p { margin: 0; font-size: 14.5px }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  /* === Composant Share (universel) === */
+  .share-block {
+    max-width: 820px;
+    margin: 72px auto 32px;
+    padding: 32px 32px 28px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    text-align: center;
+  }
+  .share-block-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .share-block h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(22px, 3vw, 28px);
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0 0 22px;
+    line-height: 1.15;
+  }
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s, border-color .2s, background .2s, color .2s;
+  }
+  .share-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .share-btn:hover {
+    transform: translateY(-2px);
+    border-color: currentColor;
+  }
+  .share-btn-x:hover       { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
+  .share-btn-linkedin:hover { background: #0A66C2; color: #fff; border-color: #0A66C2 }
+  .share-btn-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366 }
+  .share-btn-email:hover    { background: var(--orange); color: #fff; border-color: var(--orange) }
+  .share-btn-copy:hover     { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .share-btn.copied {
+    background: var(--teal) !important;
+    color: #fff !important;
+    border-color: var(--teal) !important;
+  }
+
+  /* Mini-bouton share pour op-card (index.html) */
+  .op-share {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(10,10,10,.45);
+    border: 1px solid rgba(255,255,255,.22);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: transform .2s, background .2s;
+  }
+  .op-share svg { width: 14px; height: 14px }
+  .op-share:hover {
+    transform: scale(1.1);
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .op-share.copied {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .op-share.copied::after {
+    content: "Copied!";
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    padding: 4px 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .14em;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Bouton Instagram dans bloc share + sidebar sticky */
+  .share-btn-instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    border-color: #cc2366;
+  }
+  .share-btn-instagram.copied {
+    background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%) !important;
+    color: #fff !important;
+    border-color: #cc2366 !important;
+  }
+
+  /* Sticky sidebar verticale (desktop uniquement) */
+  .share-rail {
+    display: none;
+  }
+  @media (min-width: 1200px) {
+    .share-rail {
+      display: flex;
+      position: fixed;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 8px;
+      z-index: 40;
+      padding: 12px 10px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,.2);
+    }
+  }
+  .share-rail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: center;
+    padding: 6px 0 4px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: center;
+    max-height: 70px;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+    padding: 0 0 0 4px;
+    margin-bottom: 4px;
+    display: none; /* masqué par défaut, trop encombrant */
+  }
+  .share-rail-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--bg-2);
+    border: 1px solid transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .15s;
+    padding: 0;
+  }
+  .share-rail-btn svg { width: 15px; height: 15px }
+  .share-rail-btn:hover { transform: scale(1.1) }
+  .share-rail-btn-x:hover        { background: #0A0A0A; color: #fff }
+  .share-rail-btn-linkedin:hover { background: #0A66C2; color: #fff }
+  .share-rail-btn-instagram:hover{ background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff }
+  .share-rail-btn-whatsapp:hover { background: #25D366; color: #fff }
+  .share-rail-btn-copy:hover     { background: var(--teal); color: #fff }
+  .share-rail-btn.copied {
+    background: var(--teal) !important;
+    color: #fff !important;
+  }
+
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- Sidebar share sticky (desktop uniquement) -->
+<aside class="share-rail" aria-label="Share">
+  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=LLM%20Wiki%20de%20Karpathy%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jerwis.fr/articles/llm-wiki-karpathy.html" data-share-title="Karpathy's LLM Wiki" aria-label="Share on Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
+  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=LLM%20Wiki%20de%20Karpathy%0Ahttps%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jerwis.fr/articles/llm-wiki-karpathy.html" aria-label="Copy the link" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+</aside>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Tutorial · 05 · AI &amp; Tools</div>
+    <h1>The LLM Wiki,<br>your <em>second<br>brain.</em></h1>
+    <p class="hero-lead">
+      <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a> <a href="https://x.com/karpathy/status/1859068624336351436" target="_blank" rel="noopener">shared a pattern in 2026</a> (a reusable design blueprint) that's simple but powerful: instead of a classic <a class="lex-link" href="/lexique/rag" title="RAG — see the definition">RAG</a> (Retrieval Augmented Generation, in plain English: the AI goes and fetches the answer from your documents on every question), <strong>the AI builds and maintains a real wiki</strong> that grows richer with every new source. A true second brain that compiles and sharpens itself. Let me walk you through the concept and how to set it up.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>12 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Curious</span>
+      <span class="hero-meta-item"><strong>Idea</strong> Not a tool</span>
+    </div>
+  </div>
+</section>
+
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="/en#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
+    <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img src="/photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>I test AI every day · I share what actually helped me</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Published <time datetime="2026-04-11">April 11, 2026</time> · Updated April 20, 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll learn</h2>
+    <ul>
+      <li><strong>Why RAG isn't enough</strong> — the AI "rediscovers" your knowledge on every query, nothing accumulates</li>
+      <li><strong>The LLM Wiki pattern</strong> — 3 layers (raw sources / wiki / <a class="lex-link" href="/lexique/structured-output" title="Structured output — see the definition">schema</a> = structure rules), 3 operations (ingest = add a source / query = ask a question / lint = clean up)</li>
+      <li><strong>5 concrete use cases</strong>: personal, research, reading a book, business, competitive analysis</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Brand new to AI?</h4>
+    <p>If some terms lose you (<a class="lex-link" href="/lexique/claude-code" title="Claude Code — see the definition">Claude Code</a>, terminal, <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — see the definition">agent</a>, <a class="lex-link" href="/lexique/mcp" title="MCP — see the definition">MCP</a>, skill…), start with <a href="/en/debutant">the beginner guide</a> first and keep <a href="/lexique">the glossary</a> open in another tab. You'll come back here with the basics.</p>
+  </div>
+  <div class="callout tip" style="margin: 0 0 32px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--orange); border-radius:14px;">
+    <h4 style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-.01em; margin-bottom:8px; color:var(--ink)">Status of this article — first version</h4>
+    <p style="font-size:14.5px; line-height:1.6; margin:0; color:var(--ink-soft)">This is an explainer + getting-started guide for the pattern. <strong>I'm launching my own wiki this month</strong> and I'll publish a numbers-backed field report <strong>in May 2026</strong> (real measurements: ingest, query, lint, total cost, Obsidian screenshots, concrete pitfalls). In the meantime, the content here is conceptual and drawn from the Karpathy gist + 4 months of scattered tests on Claude Projects and <a class="lex-link" href="/lexique/notebooklm" title="NotebookLM — see the definition">NotebookLM</a>. <a href="mailto:sagnier.jeremy@gmail.com">Write to me</a> if you want me to ping you when the field report drops.</p>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Before you dive in</span>
+    <h2>When it's <em class="orange">actually worth it.</em></h2>
+    <p>
+      Be honest with yourself: this pattern isn't for everyone. Here's my personal threshold, based on the volume of sources you plan to accumulate.
+    </p>
+
+    <div class="step">
+      <div class="step-num" style="width:auto; min-width:64px; padding:0 14px; font-size:15px">&lt; 10</div>
+      <div class="step-body">
+        <h3>Fewer than 10 sources · No</h3>
+        <p>It's overkill. Use <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener"><strong>Projects in Claude.ai</strong></a> (Claude's "Projects" feature that bundles docs + shared instructions) — you upload your 5-10 documents, you chat, done in 2 minutes. No schema needed, no <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> (a very popular markdown note-taking app) needed, no Claude Code needed. No need to build complex machinery.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num" style="width:auto; min-width:64px; padding:0 14px; font-size:15px">10-50</div>
+      <div class="step-body">
+        <h3>10 to 50 sources · Yes if you query it every week</h3>
+        <p>The sweet spot arrives when you come back to it <strong>regularly</strong>. AI watch, product R&D, competitive analysis, industry press review. If you open the wiki at least once a week, it's worth setting up. Otherwise, still too early.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num" style="width:auto; min-width:64px; padding:0 14px; font-size:15px">50+</div>
+      <div class="step-body">
+        <h3>50 sources and up · Yes, clearly</h3>
+        <p>At that volume, <strong>you can no longer find what you've accumulated</strong> without a wiki. You reread the same articles three times. You forget the connections you'd made. The wiki becomes your only way to build on what you've learned. Past 100 sources, it's non-negotiable.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:44px;">LLM Wiki vs the alternatives — which one to pick?</h3>
+    <p>
+      The LLM Wiki isn't the only tool that runs a personal knowledge base with an AI. Here's the honest comparison to help you decide.
+    </p>
+
+    <div class="comparison-table" style="overflow-x:auto; margin:24px 0;">
+      <table style="width:100%; border-collapse:collapse; font-size:13.5px;">
+        <thead>
+          <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Tool</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Useful volume</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Skill level</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Accumulates?</th>
+            <th style="padding:12px 14px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;">Who it's for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>Claude Projects</strong></td>
+            <td style="padding:12px 14px;">~50 documents</td>
+            <td style="padding:12px 14px;">Zero (web)</td>
+            <td style="padding:12px 14px;">No — retrieval on every question</td>
+            <td style="padding:12px 14px;">Non-devs, occasional use, just starting out</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong><a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a></strong></td>
+            <td style="padding:12px 14px;">Up to 300 sources</td>
+            <td style="padding:12px 14px;">Zero (web)</td>
+            <td style="padding:12px 14px;">No</td>
+            <td style="padding:12px 14px;">Studying, researching one specific topic, free</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong><a href="https://www.notion.com/product/ai" target="_blank" rel="noopener">Notion AI</a> + agents</strong></td>
+            <td style="padding:12px 14px;">Unlimited</td>
+            <td style="padding:12px 14px;">Low (no-code)</td>
+            <td style="padding:12px 14px;">Partial</td>
+            <td style="padding:12px 14px;">A team already on Notion</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:12px 14px;"><strong>LLM Wiki (<a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy</a>)</strong></td>
+            <td style="padding:12px 14px;">100 to 500 pages</td>
+            <td style="padding:12px 14px;">Basic Claude Code</td>
+            <td style="padding:12px 14px;"><strong>Yes, explicitly</strong></td>
+            <td style="padding:12px 14px;">Patient curious minds, one topic that keeps growing</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;"><strong><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG (Microsoft)</a></strong></td>
+            <td style="padding:12px 14px;">10,000+ documents</td>
+            <td style="padding:12px 14px;">Serious Python dev</td>
+            <td style="padding:12px 14px;">Yes (entity graph — each concept becomes a node linked to the others)</td>
+            <td style="padding:12px 14px;">Tech teams, very large corpus</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>Not comfortable with the command line?</h4>
+      <p>Start with <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener"><strong>Claude Projects</strong></a> or <a href="https://notebooklm.google.com" target="_blank" rel="noopener"><strong>NotebookLM</strong></a>. You'll get 80% of an LLM Wiki's benefits without touching Claude Code. A similar logic also exists in <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> on the code side. When you hit the limit (volume, accumulation, maintenance), you migrate to the real Karpathy pattern. Not the other way around.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The problem</span>
+    <h2>Why <em class="fuchsia">RAG isn't enough.</em></h2>
+    <p>
+      You know how the classic setup works: you upload your documents to NotebookLM / ChatGPT / any RAG. You ask a question. The AI finds the relevant excerpts and answers you. It works.
+    </p>
+    <p>
+      But there's a fundamental problem Karpathy points out: <strong>nothing accumulates</strong>. The AI starts from scratch on every question. If you ask a subtle question that requires synthesizing 5 docs, it has to find them and stitch them back together every single time. No trace of what you've already discovered. No synthesis that improves. No connection that builds up.
+    </p>
+
+    <div class="compare">
+      <div class="compare-card old">
+        <div class="compare-label">Classic RAG</div>
+        <h4>Retrieves every time</h4>
+        <p>The AI starts from the raw documents on every question. It rebuilds the synthesis from scratch. Nothing sharpens. You're 100% dependent on how good the search happens to be in that moment.</p>
+      </div>
+      <div class="compare-card new">
+        <div class="compare-label">LLM Wiki</div>
+        <h4>Compiled accumulation</h4>
+        <p>The AI builds a persistent wiki that grows richer with every source. The connections are already made. The contradictions are already flagged. The synthesis is already ready.</p>
+      </div>
+    </div>
+
+    <div class="quote">
+      "The wiki is a persistent asset that keeps growing. The cross-references are already there. The contradictions have already been flagged. The synthesis already reflects everything you've read."
+      <cite>— Phrasing derived from the Karpathy gist (April 2026)</cite>
+    </div>
+
+    <div class="callout tip">
+      <h4>The metaphor that clicks</h4>
+      <p>A classic RAG is like having a librarian who doesn't know the books, only reads them when you ask a question, then forgets them. <strong>An LLM Wiki is a librarian who has read every book</strong>, taken notes, made index cards, linked the concepts together. When you ask a question, they answer from their own already-built understanding.</p>
+      <p style="margin-top:10px;"><strong>Important nuance:</strong> modern RAGs (Microsoft's <a class="lex-link" href="/lexique/graphrag" title="GraphRAG — see the definition">GraphRAG</a>, Mem0, Zep) do accumulate too. The real difference with the LLM Wiki is that the accumulation is <strong>explicit and human-readable</strong> (markdown — a text format that's readable with a few simple markers, which you can open in Obsidian), whereas modern RAGs store everything in opaque vector embeddings (mathematical representations of meaning, unreadable to the eye).</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The architecture</span>
+    <h2>The <em class="teal">3 layers.</em></h2>
+    <p>The system rests on a clean separation between what's fixed, what the AI writes, and what guides it.</p>
+
+    <div class="layer-card l-1">
+      <div class="layer-card-tag">Layer 01 · Immutable</div>
+      <div class="layer-card-title">Raw sources</div>
+      <p>Your original documents: articles, papers, transcripts, screenshots, PDFs. <strong>The AI reads them but never modifies them.</strong> This is your source of truth. You curate this layer yourself.</p>
+    </div>
+
+    <div class="layer-card l-2">
+      <div class="layer-card-tag">Layer 02 · LLM-owned</div>
+      <div class="layer-card-title">The wiki</div>
+      <p>A folder of markdown files that <strong>the AI owns entirely</strong>. Entity pages, concept pages, comparisons, index, syntheses. It creates, updates, and maintains the cross-references. <em>You read, it writes.</em></p>
+    </div>
+
+    <div class="layer-card l-3">
+      <div class="layer-card-tag">Layer 03 · Co-evolving</div>
+      <div class="layer-card-title">The schema</div>
+      <p>A file like <code>CLAUDE.md</code> or <code>AGENTS.md</code> that defines <strong>how the wiki is organized</strong>, the conventions, the workflows (the step-by-step sequences to follow). This is what turns your LLM from a generic chatbot into a disciplined wiki maintainer. You tune it over time.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>The combination Karpathy recommends</h4>
+      <p><strong>The AI on one side, Obsidian on the other.</strong> The AI makes the edits through conversation, and you watch the results in Obsidian in real time (follow links, graph view — the visual view that connects your notes to each other, updated pages). Analogy: "Obsidian is the IDE (the code editor, here the note editor), the LLM is the programmer, the wiki is the codebase (all of the content)."</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— How it works</span>
+    <h2>The <em class="orange">3 operations.</em></h2>
+    <p>Three <a class="lex-link" href="/lexique/github-actions" title="GitHub Actions — see the definition">actions</a> to master — everything else follows from them.</p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Ingest · You add a source</h3>
+        <p>You drop in an article, a paper, a transcript. You tell the AI: "process this source." It:</p>
+        <ul>
+          <li>Reads the document</li>
+          <li>Talks through the key points with you</li>
+          <li>Writes a <strong>summary page</strong> in the wiki</li>
+          <li>Updates the index</li>
+          <li>Updates the relevant <strong>entity and concept pages</strong> across the whole wiki</li>
+          <li>Adds an entry to the log</li>
+        </ul>
+        <p>A single source can touch <strong>10-15 wiki pages</strong>. That's the compound effect (in plain English: the snowball effect — each addition enriches everything else).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Query · You ask a question</h3>
+        <p>The AI searches the wiki (not the raw documents — the wiki), reads the relevant pages, and synthesizes an answer with citations. The answer can take several forms: markdown, comparison table, slide deck, chart.</p>
+        <p><strong>The key detail:</strong> a good answer can be folded back into the wiki as a new page. An interesting comparison, an analysis, a connection you found — it no longer disappears into the conversation history. <em>It becomes a permanent asset.</em></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Lint · You keep quality up (monthly)</h3>
+        <p>This is the operation that a lot of spin-off articles forget — yet Karpathy insists on it. You ask the AI to check the wiki's health: broken links, duplicates, contradictions between pages, misnamed entities, style inconsistencies.</p>
+        <p>Without this pass, the wiki drifts silently. With it, it stays clean even at 100 or 200 pages. Once a month is enough if you ingest ~1 source a day.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <h4>The 3 pitfalls you're not warned about enough</h4>
+      <ol>
+        <li><strong>Epistemic drift</strong> — if the AI hallucinates (technical term: generates content that's plausible but false) at ingest time (a misspelled name, a wrong date, an inaccurate summary), the error becomes permanent and contaminates every subsequent ingest. Always reread the summary page right after it's created.</li>
+        <li><strong>Silent duplication</strong> — 3 sources on the same topic often create 3 nearly identical pages. Without an explicit <em>merge</em> rule in your schema, you quickly end up with a polluted wiki. The monthly lint pass is there for exactly that.</li>
+        <li><strong>Real <a href="/lexique#token">token</a> cost</strong> — an ingest touches 5 to 15 pages = 20,000 to 50,000 <a class="lex-link" href="/lexique/token" title="Token — see the definition">tokens</a> of output. At $15 per million tokens (Claude <a href="/lexique#modele">Sonnet</a>), budget <strong>$0.50 to $1 per source</strong>. 100 sources = $50 to $100. Not catastrophic, but good to know before you jump in.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— What to use it for</span>
+    <h2>5 concrete <em class="fuchsia">use cases.</em></h2>
+
+    <h3>1. Personal · Track your life</h3>
+    <p>Journal, articles you loved, podcasts you listened to, health progress, goals. The AI archives each entry and builds a <strong>structured picture of who you are and where you're headed</strong>. In 2 years you can ask "what changed the most in how I see work?" and get a real answer.</p>
+
+    <h3>2. Research · Dig deep into a topic</h3>
+    <p>You want to master a field (AI, EU tax, quantum physics). You add 50 research papers, 30 news articles, 10 podcasts over several weeks. Your wiki becomes an <strong>exhaustive, personal reference</strong> on the subject. Your thesis evolves with every source.</p>
+
+    <h3>3. Reading a book · Personal fan wiki</h3>
+    <p>You're reading The Lord of the Rings. With each chapter, you add the text. The AI builds pages for the characters, places, events, and themes. By the end, you have <strong>your own Tolkien Gateway</strong> — rich, interconnected, personal.</p>
+
+    <h3>4. Business/team · A living wiki</h3>
+    <p>An internal wiki fed by your Slack, meeting transcripts, product docs, client calls. The AI maintains, the humans validate. <strong>The wiki stays up to date because nobody has to maintain it by hand</strong>.</p>
+
+    <h3>5. Competitive watch / due diligence</h3>
+    <p>You're pitching investors. You want to know your competitors. Ingest their sites, articles, founder interviews. Your wiki becomes <strong>a competitive-intelligence weapon</strong>.</p>
+
+    <h3>6. Agency client wiki · The most telling case</h3>
+    <p>Take Julie, a 5-person comms agency. <strong>Each client = 1 folder.</strong> Inside you put: briefs, meeting notes, Zoom transcripts, mood boards, past deliverables. When a client calls you 6 months later for a follow-up, you ask Claude Code <em>"summarize where we left off with [client]"</em> → it hands you a brief in 20 seconds, without rereading 40 documents. That's what turns your meetings into "I'm prepared" instead of "I don't quite remember."</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— How to get started</span>
+    <h2>Minimal <em class="teal">setup.</em></h2>
+    <p>
+      It's a <strong>pattern, not a tool</strong>. No <code>pip install</code>. You build it together with your AI <a href="/lexique#skill-agent">agent</a>. Here's the minimal recipe:
+    </p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Create your project folder</h3>
+        <pre>mkdir mon-wiki
+cd mon-wiki
+mkdir sources wiki</pre>
+        <p><code>sources/</code> = your raw docs. <code>wiki/</code> = what the AI will maintain.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Create the schema (CLAUDE.md)</h3>
+        <p>A file that tells the AI how to work. Minimal example:</p>
+        <pre># Wiki Schema
+
+You are the maintainer of a personal wiki about [TOPIC].
+
+## Structure
+- wiki/index.md — overview
+- wiki/entities/ — people, companies, tools
+- wiki/concepts/ — ideas, frameworks
+- wiki/summaries/ — source summaries
+
+## Ingest workflow
+1. Read the source
+2. Talk it through with me
+3. Create a summary in wiki/summaries/
+4. Update the entities/concepts touched
+5. Update the index</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Launch Claude Code in the folder</h3>
+        <pre>claude</pre>
+        <p>Say: <em>"Read <a class="lex-link" href="/lexique/claude-md" title="CLAUDE.md — see the definition">CLAUDE.md</a>. I'm going to give you my first source, process it according to the workflow."</em> Drop in your first document. The AI starts building your wiki.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Install Obsidian (optional but recommended)</h3>
+        <p>Open <code>wiki/</code> as an Obsidian vault (a vault = a chest, i.e. a folder of notes that Obsidian knows how to display). You can navigate your second brain in real time: graph view, links, search.</p>
+        <p><a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a></p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>What your wiki looks like when it's running</h4>
+      <p>Claude Code shows you the files it reads (<code>wiki/sujets/ia-entreprise.md</code>), the contradictions it detects (it creates a <code>contradictions.md</code> file if it finds any), and the new topics it proposes. You approve them or you say <em>"no, not that topic"</em> — it learns your criteria in the schema. On every ingest, you see it spelled out plainly: <em>"I read your source, I created summaries/2026-04-podcast-hormozi.md, I updated entities/hormozi.md and concepts/offer-stack.md, I added 1 log entry."</em> Nothing magical — everything is traceable.</p>
+    </div>
+
+    <div class="callout warn">
+      <h4>The pitfall to avoid</h4>
+      <p>Don't try to automate everything from the start. Karpathy insists: <strong>stay involved early on</strong>. Read the AI's summaries, correct it, guide it on what matters. It learns your style. Your schema evolves. Later you'll be able to batch things. First you set the frame.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— What it changes</span>
+    <h2>Why it's a <em class="orange">step above</em> a RAG.</h2>
+
+    <p>After a few weeks of use, here's what you notice:</p>
+
+    <ul>
+      <li><strong>Your questions get more subtle</strong> — you can ask "where do my sources contradict each other?" and get a real answer</li>
+      <li><strong>Connections emerge</strong> — the AI tells you when a new source is in tension with something you'd noted before</li>
+      <li><strong>You accumulate</strong> — you're no longer afraid of "losing" a discovery, everything is archived</li>
+      <li><strong>You can share</strong> — a wiki is a concrete artifact, not an ephemeral ChatGPT conversation</li>
+      <li><strong>You know yourself better</strong> — rereading the AI's syntheses about you, you see the patterns you couldn't see before</li>
+    </ul>
+
+    <div class="callout tip">
+      <h4>My personal plan</h4>
+      <p>I'm launching my first LLM Wiki this month on "AI applied to business." The goal: in 3 months, to have the most complete wiki I can consult or share. I'll do a dedicated tutorial with my exact setup — subscribe to the newsletter if you want to follow along.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Resources</span>
+    <h2>To dig in <em class="fuchsia">directly.</em></h2>
+    <ul>
+      <li><strong><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy's original gist</a></strong> — 3 pages, it's all there</li>
+      <li><a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> — To explore your wiki in graph view</li>
+      <li><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">GraphRAG (Microsoft)</a> — the modern RAG alternative for very large corpora</li>
+      <li><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> — the same IDE + LLM logic on the code side</li>
+      <li>My article <a href="/en/articles/karpathy">Karpathy's work, made simple</a> — <a class="lex-link" href="/lexique/context-window" title="Context window — see the definition">context</a> on the man himself</li>
+      <li>My article <a href="/en/articles/autoresearch-karpathy">Self-improving agents</a> — Karpathy's other key project in 2026</li>
+      <li>My article <a href="/articles/veille-pour-demain">Build your AI watch for tomorrow</a> — a practical pipeline to feed the wiki</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>LLM Wiki <em class="fuchsia">FAQ.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What is an LLM Wiki in Karpathy's sense?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">A pattern shared by <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy in 2026</a>: instead of a classic RAG, the AI builds and maintains a <strong>real markdown wiki</strong> that grows richer with every source. A readable second brain (not opaque embeddings) where each ingest creates summaries, updates entity pages, and weaves links. The accumulation is explicit and auditable.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference vs Notion AI or plain Obsidian?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><a href="https://www.notion.com/product/ai" target="_blank" rel="noopener">Notion AI</a> searches your pages but doesn't enrich them automatically. <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> is an excellent markdown editor with no intelligence: you create the pages and make the links. The LLM Wiki combines the two: <strong>Obsidian as the IDE</strong> (graph + editing) and <strong>the LLM as the programmer</strong> that ingests, updates, and lints. Key difference vs a RAG: you can see (and correct) what the AI understood.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much does it cost per month?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Budget <strong>$0.50 to $1 per source ingested</strong> with <a class="lex-link" href="/lexique/modele" title="AI model — see the definition">Sonnet</a> ($15/M tokens), so $50-100 to build a 100-source wiki over 30 days. After that, the cost drops: you only ingest the new sources, plus a few lint and query operations. For personal use at 5-10 sources/month, budget <strong>$5-10/month</strong>. Obsidian is free. You only need Claude Code (Pro at €20/month or the API pay-as-you-go).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do you need to be a developer?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. If you can open a terminal, create three folders, and paste in a <code>CLAUDE.md</code> schema, you can set up a wiki. The difficulty isn't technical but conceptual: <strong>defining the right schema</strong>, staying involved early on to shape the style, not trying to automate everything. If you're really not comfortable with the terminal, start with <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener">Claude Projects</a> or <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a>: 80% of the benefits without the machinery.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How long before the first value?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Setup in <strong>30 minutes</strong> (structure + schema + 5 sources ingested). The first real value arrives between <strong>20 and 50 sources</strong> ingested: that's when unexpected connections emerge during queries. Below 10 sources, the wiki is overkill (Claude Projects does just as well). Above 50 sources, the compound effect of accumulation becomes obvious.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Difference with Cursor or Claude Projects?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> is an IDE for coding that uses an LLM in real time on your codebase — close in spirit (AI + editor live together), focused on code. <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener">Claude Projects</a> gathers documents and shared instructions on claude.ai: 5-10 docs, conversation, perfect up to 20-30 sources but <strong>nothing accumulates between conversations</strong>. The LLM Wiki keeps the accumulation explicit in markdown on your disk, which changes everything past 50 sources.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does the LLM Wiki replace a RAG?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">For personal or semi-pro use: <strong>yes</strong> in most cases. For multi-user, multi-GB bases running in production with <a class="lex-link" href="/lexique/latence" title="Latency — see the definition">latency</a>/governance constraints: no, modern RAGs (<a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">Microsoft GraphRAG</a>, Mem0, Zep) are still needed. Real difference: the wiki's accumulation is <strong>readable</strong> (markdown), a RAG's lives in <strong>opaque</strong> embeddings. Wiki = transparency + maintainability, RAG = scale.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do you migrate from Notion to an LLM Wiki?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">You export your Notion pages as markdown (Notion's native export → <em>Markdown &amp; CSV</em>), you drop them into the wiki's <code>sources/</code> folder, and you run the <em>ingest</em> operation. The AI generates the summaries, creates the entity pages, and weaves the links. Budget <strong>1 to 2 days</strong> for 200 Notion pages. Keep Notion for anything collaborative and switch to a wiki for your personal watch and your work knowledge base — the two can coexist.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How secure is personal data?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Your sources and the wiki live <strong>locally</strong> in a folder on your Mac. The requests sent to Claude for ingest/query/lint go through the <a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener">Anthropic API</a>, so they're covered by the same guarantees as Claude Pro (no training by default, ZDR on Enterprise). For truly sensitive data (health, client legal matters, IP), consider <a href="/en/articles/llm-local-pour-non-dev">a local model via Ollama</a> as the wiki's backend — the pattern mechanics stay identical, only the LLM engine changes.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does it work in several languages?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Yes. Claude Sonnet is multilingual and handles ingest and query in French, English, German, Spanish, Italian, and more without a hitch. Best practice: <strong>force the output language</strong> in the <code>CLAUDE.md</code> schema (for example, all entity pages in English even if the sources are in French), to avoid an inconsistent bilingual wiki. You can also keep one wiki per language if you work across distinct markets.</p>
+    </details>
+  </div>
+</section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Spot a mistake?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          Outdated info, a number that moved, a stale source? <strong style="color:var(--ink)">Write to me at <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · I fix it within 48h max and note the update date at the top of the article. Field feedback is worth a thousand times more than the articles — I read everything, I reply.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and I share what works, without jargon or hype. If this article helped you, the easiest way to never miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partage sur les réseaux -->
+<div class="share-block">
+  <div class="share-block-label">Share</div>
+  <h3>Did this article help you? Say so.</h3>
+  <div class="share-buttons">
+    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=LLM%20Wiki%20de%20Karpathy%20%E2%80%94%20ton%20deuxi%C3%A8me%20cerveau%20maintenu%20par%20l%27IA%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on X">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="share-label">X</span>
+    </a>
+    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="share-label">LinkedIn</span>
+    </a>
+    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=LLM%20Wiki%20de%20Karpathy%20%E2%80%94%20ton%20deuxi%C3%A8me%20cerveau%20maintenu%20par%20l%27IA%0Ahttps%3A//jerwis.fr/articles/llm-wiki-karpathy.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="share-label">WhatsApp</span>
+    </a>
+    <button class="share-btn share-btn-instagram" data-url="https://jerwis.fr/articles/llm-wiki-karpathy.html" data-share-title="Karpathy's LLM Wiki" aria-label="Share on Instagram" type="button">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg><span class="share-label">Instagram</span>
+    </button>
+    <a class="share-btn share-btn-email" href="mailto:?subject=LLM%20Wiki%20de%20Karpathy%20%E2%80%94%20ton%20deuxi%C3%A8me%20cerveau%20maintenu%20par%20l%27IA&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0ALLM%20Wiki%20de%20Karpathy%20%E2%80%94%20ton%20deuxi%C3%A8me%20cerveau%20maintenu%20par%20l%27IA%0Ahttps%3A//jerwis.fr/articles/llm-wiki-karpathy.html" aria-label="Share by email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="share-label">Email</span>
+    </a>
+    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/llm-wiki-karpathy.html" aria-label="Copy the link" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copy the link</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// Copy-to-clipboard pour les boutons .share-btn-copy
+document.querySelectorAll('.share-btn-copy').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const url = btn.dataset.url || window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      const original = btn.querySelector('.share-label').textContent;
+      btn.querySelector('.share-label').textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.querySelector('.share-label').textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    } catch (err) {
+      prompt('Copy the link:', url);
+    }
+  });
+});
+</script>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually</em> test.</h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All the articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<!-- JS partage Instagram (mobile : navigator.share, desktop : copy + toast) -->
+<script>
+document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const shareUrl = btn.dataset.url || window.location.href;
+    const shareTitle = btn.dataset.shareTitle || document.title;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: shareTitle, text: shareTitle, url: shareUrl });
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+    }
+    // Desktop fallback : copie + toast
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      const label = btn.querySelector('.share-label');
+      if (label) {
+        const original = label.textContent;
+        label.textContent = 'Copied! (paste into IG)';
+        btn.classList.add('copied');
+        setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
+      } else {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      }
+    } catch (err) {
+      prompt('Copy this link to paste into Instagram:', shareUrl);
+    }
+  });
+});
+// Rail-btn-copy : copy classique
+document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const url = btn.dataset.url || window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1800);
+    } catch (err) {
+      prompt('Copy the link:', url);
+    }
+  });
+});
+</script>
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

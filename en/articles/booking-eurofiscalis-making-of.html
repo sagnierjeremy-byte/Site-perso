@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We dropped Calendly and Letsignit · The making-of</title>
+<meta name="description" content="We replaced Calendly and Letsignit with an in-house tool built in one week with Claude Code. ~€345/month saved. The making-of, no filter.">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/booking-eurofiscalis-making-of">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/booking-eurofiscalis-making-of">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/booking-eurofiscalis-making-of">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/booking-eurofiscalis-making-of">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "We dropped Calendly AND Letsignit. Here's how we built our own in one week.", "item": "https://jerwis.fr/en/articles/booking-eurofiscalis-making-of" }
+  ]
+}
+</script>
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/en/articles/booking-eurofiscalis-making-of">
+<meta property="og:title" content="We dropped Calendly AND Letsignit. Here's how we built our own in one week.">
+<meta property="og:description" content="The making-of of booking.eurofiscalis.app · 2 SaaS replaced (booking + email signature), 1 week, 20 users today, ~€345/month saved.">
+<meta property="og:image" content="https://jerwis.fr/photos/og/booking-eurofiscalis-making-of.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/booking-eurofiscalis-making-of.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "We dropped Calendly AND Letsignit. Here's how we built our own in one week.",
+  "description": "The story of building Eurofiscalis's in-house booking tool that replaces Calendly and Letsignit · Next.js + Supabase + Outlook + Resend, 1 week, 20 users.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/en/jeremy-sagnier"},
+  "datePublished": "2026-04-24",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/en/photos/og/booking-eurofiscalis-making-of.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/en/articles/booking-eurofiscalis-making-of"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why did you leave Calendly and Letsignit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The real trigger wasn't the price but the inability to properly customize the booking pages and email signatures to match our Eurofiscalis brand. Calendly only let you change one accent color, and our 20 advisors had mismatched pages. Since we were rebuilding anyway, we killed Letsignit at the same time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much did Calendly and Letsignit cost before?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calendly Teams at 16 dollars per user per month, roughly 295 euros for 20 people. Letsignit around 80 euros a month on the standard plan. A combined total of about 375 euros a month, or roughly 4,500 euros a year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long did it take to build the tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Five days for the core, from Sunday night (the spark) to Friday night (going live). Then two extra weeks to build the full back office (self-service onboarding, signatures, video backgrounds) that I hadn't anticipated at the start."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tech stack did you use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Next.js for the site engine, Supabase for the database, Microsoft Graph for the Outlook sync, Resend for the confirmation emails, Vercel for hosting and Sentry for monitoring. Nothing exotic — it's a standard set of tools that any web startup uses in 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the 2-advisor booking feature work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An advisor generates a special link that books a slot for them AND a chosen colleague. The tool automatically figures out the slots where both are free in Outlook. Super handy for handoffs between a salesperson and a technical advisor: one slot, two people on the call, the client no longer has to tell their story twice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many people use the tool today?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 advisors at Eurofiscalis use it every day. More than 500 appointments have been booked since it went live in April 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does the in-house tool cost per month now?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About 30 euros a month combined for Vercel, Supabase and Resend. That's around 360 euros a year, versus 4,500 euros before. A saving of roughly 4,140 euros a year. That cost doesn't include the build time (5 days + 2 weeks) or the maintenance (1 to 2 days a month)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did you switch from Microsoft Graph to Resend for emails?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sends through Microsoft Graph failed silently about one time in ten, with no error and no feedback, and clients never got their confirmation. Resend, a dedicated email service, worked on the first try and hasn't had a single miss in four weeks of production. Specialization won out over integration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have to be a developer to build this kind of tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. I'm not a developer, I'm an entrepreneur, and everything was built with Claude Code in pair-programming (the AI types, I steer). Max, our developer, only stepped in at the end for the security audit before launch. The bar to building your own internal tool has become accessible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What technical traps did you run into?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Four main traps: handling time zones (solved with date-fns-tz), double bookings on the same slot (fixed with a unique index in the database), Microsoft Graph emails failing silently (switched to Resend), and Outlook tokens expiring every hour (an automatic refresh system)."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,178,169,.5) } 70% { box-shadow: 0 0 0 12px rgba(0,178,169,0) } 100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
+  h2 em { font-style: normal }
+  h2 em.teal { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
+
+  /* Pieges (numbered list) */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Showcase image */
+  .showcase { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 18px; margin: 28px 0 8px; position: relative; overflow: hidden }
+  .showcase::before { content: ""; position: absolute; top: 0; left: 18px; right: 18px; height: 4px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 0 0 4px 4px }
+  .showcase img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line) }
+  .showcase .caption { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-top: 14px; text-align: center }
+  .showcase .caption a { color: var(--fuchsia); text-decoration: none }
+
+  /* Timeline */
+  .timeline { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 26px 0 8px }
+  @media (min-width: 720px) { .timeline { grid-template-columns: 1fr 1fr } }
+  .tl-item { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 18px 22px; position: relative; overflow: hidden }
+  .tl-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px }
+  .tl-item:nth-child(7n+1)::before { background: var(--teal) }
+  .tl-item:nth-child(7n+2)::before { background: var(--fuchsia) }
+  .tl-item:nth-child(7n+3)::before { background: var(--orange) }
+  .tl-item:nth-child(7n+4)::before { background: var(--ink) }
+  .tl-item:nth-child(7n+5)::before { background: var(--teal) }
+  .tl-item:nth-child(7n+6)::before { background: var(--fuchsia) }
+  .tl-item:nth-child(7n+7)::before { background: var(--orange) }
+  .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--ink-muted) }
+  .tl-item h4 { margin: 4px 0 8px; font-size: 16px }
+  .tl-item p { font-size: 14.5px; line-height: 1.55; margin: 0 }
+
+  /* Outils grid (features 3 colonnes) */
+  .feature-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .feature-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .feature { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 24px }
+  .feature-emoji { font-size: 28px; margin-bottom: 10px; line-height: 1 }
+  .feature h4 { margin: 0 0 8px; font-size: 16px }
+  .feature p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Navigation principale">
+  <a class="brand brand-stamp" href="/en" aria-label="Accueil Jerwis">
+    <span class="stamp">
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Making-of · Internal project · Eurofiscalis</div>
+    <h1>We dropped <em class="fuchsia">Calendly</em> and <em>Letsignit.</em><br>Here's how we<br>built <em>our own.</em></h1>
+    <p class="hero-lead">
+      One Sunday night in March, I'd had enough of paying for two subscriptions (Calendly for appointments, Letsignit for email signatures) with so-so results and zero control over the brand. A week later, we had our own in-house tool that did both. On-brand, hosted by us, with a full back office where every advisor manages their own page and signature. Today 20 people use it daily. The honest, no-filter story of how we did it.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>15 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> All audiences</span>
+      <span class="hero-meta-item"><strong>Date</strong> April 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="/en#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
+    <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img src="/photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>I test AI every day · I share what actually helped me</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Published <time datetime="2026-04-24">April 24, 2026</time> · Updated April 24, 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll find inside</h2>
+    <ul>
+      <li><strong>The trigger</strong>: it wasn't Calendly's price. The real problem was being unable to apply our visual identity and our customer reviews. And since we were rebuilding a tool anyway, we might as well kill Letsignit in the process.</li>
+      <li><strong>The team</strong>: just me from Sunday to Friday night, with <a class="lex-link" href="/lexique/claude-code" title="Claude Code — see the definition">Claude Code</a> as my co-pilot. Max, our dev, came in at the end for security and the launch.</li>
+      <li><strong>The result</strong>: a tool we control 100%, plugged into the team's Outlook calendars, with automatic reminders, harmonized email signatures, and a back office where everyone manages their own page on their own.</li>
+      <li><strong>Today</strong>: <strong>20 people</strong> at Eurofiscalis use it every day. More than 500 appointments booked since launch.</li>
+      <li><strong>The cost</strong>: we went from <strong>~€375 a month</strong> (Calendly + Letsignit combined) to <strong>about €30 a month</strong> in servers. <strong>~€4,140 saved per year</strong>, and we're no longer dependent on two third-party tools.</li>
+      <li><strong>Transparency</strong>: article written with Claude (reviewed and approved by me), the booking tool built with Claude Code in pair-programming. If you spot an error, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>, I'll fix it.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The trigger</span>
+    <h2>The day Calendly <em class="fuchsia">stopped being fun.</em></h2>
+    <p>
+      To set the scene: Eurofiscalis is an international tax firm founded by my brother Kevin in 2017. We help e-commerce sellers all over Europe with VAT, the reverse charge, and online filings. And like any consulting firm, we book a lot of appointments. First contact, client follow-up, audit, sales pitch. Several hundred a month, across 20 people.
+    </p>
+    <p>
+      For a long time, we did this with <strong><a href="https://calendly.com/" target="_blank" rel="noopener nofollow">Calendly</a></strong>. Perfect tool on paper: you share your link, the client picks a slot, the event lands in your calendar. It's become a market standard. Team plan at <strong>16 dollars per user per month</strong> (see <a href="https://calendly.com/pricing" target="_blank" rel="noopener nofollow">Calendly pricing</a>). Multiplied by 20 salespeople and advisors, it cost us <strong>around 320 dollars every month</strong>. Not the end of the world.
+    </p>
+    <p>
+      In parallel, we were also paying for <strong><a href="https://www.letsignit.com/" target="_blank" rel="noopener nofollow">Letsignit</a></strong>, another French software specialized in email signatures. The idea · that all advisors would have a uniform signature in Outlook (photo, title, phone, booking link, Eurofiscalis logo), maintained from a central console. Account around <strong>€80 a month</strong> for 20 users on the standard plan. Again, not the end of the world, but it ended up being <strong>~€375 every month</strong> across the two tools, just to manage appointments and signatures.
+    </p>
+    <p>
+      But one Sunday night in March, while looking at the booking page of an advisor who'd just joined, I froze. The photo wasn't the right format. The title was off-center. The colors weren't ours. No customer review at the bottom. Nothing that said "you're about to meet someone from Eurofiscalis." It was just one more Calendly page, like the millions out there. And that same advisor's email signature wasn't displaying correctly for half her recipients (the classic Letsignit issue with older-generation Outlook on Windows).
+    </p>
+
+    <div class="callout warn">
+      <h4>The real problem wasn't the price</h4>
+      <p>The money, I could have lived with. The issue was the <strong>inability to customize things properly</strong>. Calendly lets you change one accent color and that's it · no layout, no testimonials section, no logo built into the confirmations, no email template in your own colors. Letsignit is more flexible on the visuals, but it's still a third-party piece of software that makes your signature dependent on an outside service. And each advisor was doing their own thing · the result, 20 mismatched pages on one side, signatures breaking in Outlook on the other.</p>
+    </div>
+
+    <p>
+      I made myself a list of what we'd want if we started from a blank page. And to my surprise, it wasn't that long.
+    </p>
+
+    <ol>
+      <li><strong>Our full visual identity</strong> · Eurofiscalis green, the INTERNATIONAL FIRM logo, fonts identical to the rest of the site.</li>
+      <li><strong>An identical page for every advisor</strong> · same structure, same feel, just the photo and the pitch changing.</li>
+      <li><strong>Verified customer reviews</strong> at the bottom of the page, to reassure people before they book.</li>
+      <li><strong>A native connection to Outlook</strong> · the team's main tool. We wanted unavailability calculated in real time, with no manual syncing.</li>
+      <li><strong>Confirmation emails in our brand</strong> · not an impersonal Calendly template.</li>
+      <li><strong>An embeddable widget</strong> on the main Eurofiscalis site, so the visitor never leaves the domain.</li>
+    </ol>
+
+    <p>
+      I read it three times. I thought: "if I hand this list to Claude Code on Monday morning, how long until we have it? And while we're at it, we might as well fold the email signature into the same tool to kill Letsignit too." I took 5 minutes to check that nobody was already selling this as white-label · the existing tools were either even more expensive, even more rigid, or only covered half the need. I was good to go. Monday morning, I'd dive in.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>1 fed-up Sunday night</span><span>20 mismatched pages</span><span>2 SaaS at €375/month</span><span>Brand impossible</span><span>Calendly and Letsignit out</span>
+    <span>1 fed-up Sunday night</span><span>20 mismatched pages</span><span>2 SaaS at €375/month</span><span>Brand impossible</span><span>Calendly and Letsignit out</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Here's the result</span>
+    <h2>Before I explain how, <em class="teal">take a look.</em></h2>
+    <p>
+      So you can picture it before the rest: here's what my own booking page looks like today, exactly the way a client sees it. This is what we built in one week. The brand is respected, the photo is nicely integrated, the badges (duration, price, scope) are aligned, the Trustpilot reviews show at the bottom, and the calendar displays the real available slots from my Outlook in real time.
+    </p>
+
+    <div class="showcase">
+      <a href="https://booking.eurofiscalis.app/jeremy-sagnier" target="_blank" rel="noopener">
+        <picture><source srcset="/photos/booking/booking-full.webp" type="image/webp"><img src="/photos/booking/booking-full.png" width="1280" height="1322" alt="Eurofiscalis booking page · Talk with Jérémy Sagnier" loading="lazy"></picture>
+      </a>
+      <div class="caption">↗ Live page · <a href="https://booking.eurofiscalis.app/jeremy-sagnier" target="_blank" rel="noopener">booking.eurofiscalis.app/jeremy-sagnier</a></div>
+    </div>
+
+    <p>
+      On April 24 (the day highlighted in green in the screenshot), I have 4 slots open in the afternoon. If I block one of those slots in Outlook, it disappears from the page within 60 seconds. If someone books, the event shows up in my calendar before I even close the tab. And the client gets a confirmation email in the Eurofiscalis brand right after, followed by a reminder the day before and another 15 minutes before the appointment.
+    </p>
+
+    <p>
+      What pleased me most at launch is that the 20 advisors have a version EXACTLY identical to mine. Same structure, same buttons, same colors. Just the photo, the pitch, and the availability changing. The team harmony I was after, we got it.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Monday morning · D1</span><span>Friday night · D5</span><span>20 advisors live</span><span>Outlook synced</span><span>One single week</span>
+    <span>Monday morning · D1</span><span>Friday night · D5</span><span>20 advisors live</span><span>Outlook synced</span><span>One single week</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Day by day</span>
+    <h2>The <em class="orange">build week.</em></h2>
+    <p>
+      Here's how it actually played out, from the spark on Sunday night to going live on Friday. For context: I'm not a developer. I'm an entrepreneur, I know how to use Claude Code (the AI tool that writes the code for me while I steer), and that's it. Everything that follows, I did with Claude Code in pair-programming (two of us on the same project, the AI types, I steer).
+    </p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">Sunday night · D0</div>
+        <h4>The spark</h4>
+        <p>I list on paper the 6 features to reproduce (brand, identical page, reviews, Outlook, emails, widget). I check that nobody's already selling this properly. I sleep on it.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Monday · D1</div>
+        <h4>The site skeleton</h4>
+        <p>I open Claude Code in a fresh folder. I ask for a Next.js project (the modern website engine), with one booking page per advisor at <code>/[slug]</code>. By evening, I have a calendar displaying, with no real data, but properly on the Eurofiscalis brand.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Tuesday · D2</div>
+        <h4>The database</h4>
+        <p>I plug in Supabase (the cloud database, the open-source equivalent of Firebase). I create 4 tables · users, appointment types, availability, appointments. By evening, an advisor can log in, configure their hours, and receive a real booking saved in the database.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Wednesday · D3</div>
+        <h4>The Outlook sync (and the all-nighter)</h4>
+        <p>The big step · plugging in Microsoft Graph (the bridge that talks to Outlook). I struggle for 6 hours on time zones (an event happening at 2pm Paris time, Microsoft sends it back to me in UTC, and my site was showing it at 12pm). Once that was solved, magic · the advisors' Outlook calendars automatically feed the booking pages.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Thursday · D4</div>
+        <h4>The confirmation emails</h4>
+        <p>First attempt · send the emails via Microsoft Graph (since we're already connected). Bad idea, it fails one time in ten for no reason. I switch to <strong>Resend</strong> (a dedicated email service that works on the first try). I design 3 templates · confirmation, day-before reminder, 15-minutes-before reminder. All in the Eurofiscalis brand.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Friday morning · D5</div>
+        <h4>Max comes in to help</h4>
+        <p>I hand the project to <strong>Max</strong>, our developer. Mission · security audit before launch (checking the safeguards, the database permissions, the classic attacks). He finds 3 things to fix in 2 hours, and we fix them together.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Friday night · D5</div>
+        <h4>Going live</h4>
+        <p>We deploy on Vercel (the host that runs Next.js sites in a few clicks). We point a domain name · <code>booking.eurofiscalis.app</code>. The first 20 advisors are created, photo + pitch loaded. At 7pm, the first appointment is booked by a real client.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Weeks 2-3</div>
+        <h4>The back office (the real, unanticipated slog)</h4>
+        <p>I'd assumed we'd just have 20 public pages + Outlook synced. Wrong. Without an admin interface, I had to go into the database by hand to add an advisor, change their pitch, update their photo. Unmanageable. Over two weeks, we built a real, full back office · self-service onboarding, personal page setup, availability management, an email-signature generator, downloadable virtual video backgrounds.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">April · 4 weeks later</div>
+        <h4>Polish + 2-person booking + security audit</h4>
+        <p>We iterate continuously on the team's feedback. Max goes back over it for a full audit (5 phases · XSS holes, database permissions, monitoring, accessibility). We add the <strong>2-person booking</strong> feature (two advisors present at the same time), a debug mode, reminders 15 minutes before. It's become the everyday tool for the whole company.</p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>What this week taught me</h4>
+      <p>The interesting tool is no longer the one that can do everything (Calendly does 100 things, of which I use 5). It's the one that does <strong>exactly what you need, in YOUR image</strong>. And with Claude Code, the bar to building your own has become ridiculously low. You no longer need a dev team, you need to know what you want and how to steer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The 3 features that change everything</span>
+    <h2>What makes <em class="fuchsia">the team love it.</em></h2>
+    <p>
+      Beyond the brand (which was the spark), three features made the 20 advisors adopt the tool without grumbling. None of them existed on Calendly in the same way.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-emoji">👥</div>
+        <h4>The 2-person booking</h4>
+        <p>An advisor can generate a special link that books a slot for <strong>them AND a colleague</strong>. The tool automatically figures out the slots where both are free. Super handy for client onboarding where you want to pass the client to your successor.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-emoji">✉️</div>
+        <h4>Harmonized email signatures</h4>
+        <p>The tool also generates each advisor's email signature from the same info (photo, title, pitch). One click, you copy-paste into Outlook. Every salesperson has the same flawless signature, with zero <a class="lex-link" href="/lexique/reasoning-effort" title="Reasoning effort — see the definition">effort</a>. No more cobbled-together signatures with 4 different fonts.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-emoji">🧩</div>
+        <h4>The embeddable widget</h4>
+        <p>One line of code to paste on the main Eurofiscalis site, and any page can display a booking calendar directly, without sending the visitor elsewhere. The client never sees that they're leaving our world.</p>
+      </div>
+    </div>
+
+    <p>
+      The 2-person booking in particular completely unlocked a tension we'd had for a long time · the handoffs between salespeople and technical advisors. Before, we'd run two separate appointments, and the client felt like they were repeating their story twice. Now it's a single slot, two people on the call, a real sense of continuity.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>The back office</span><span>Run by the team</span><span>Self-service onboarding</span><span>Harmonized signatures</span><span>Virtual video backgrounds</span>
+    <span>The back office</span><span>Run by the team</span><span>Self-service onboarding</span><span>Harmonized signatures</span><span>Virtual video backgrounds</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Behind the curtain</span>
+    <h2>The back office <em class="orange">the team runs.</em></h2>
+    <p>
+      What I hadn't anticipated when I started: <strong>the public tool is only half the work</strong>. The other half is everything the team needs to be able to run themselves · configure their page, open and close their slots, edit their pitch, update their photo, manage their time off, generate their email signature. At first, I did all of it by hand in the database. By the 5th advisor, it was unmanageable. We built a real back office in two more weeks.
+    </p>
+
+    <h3>Configuring your booking page</h3>
+    <p>
+      This is the page each advisor sees to manage their own profile. A single URL (<code>/ma-page-rdv</code>), everything's in there · the public link to share, the appointment types (30-min consultation, VAT consultation, whatever you want), availability week by week with a lunch break, the booking settings (how many days in advance, how many hours' notice minimum). And the famous <strong>2-person booking</strong> feature · you click, you pick a colleague, the tool generates a special link that only offers the slots where you're both free.
+    </p>
+
+    <div class="showcase">
+      <picture><source srcset="/photos/booking/ma-page-rdv.webp" type="image/webp"><img src="/photos/booking/ma-page-rdv.webp" width="2575" height="1697" alt="Eurofiscalis Booking back office · My booking page screen with type setup and availability" loading="lazy"></picture>
+      <div class="caption">↗ The <code>/ma-page-rdv</code> page · each advisor runs their own, on their own</div>
+    </div>
+
+    <p>
+      What made the difference on the team's side was <strong>total autonomy</strong>. Before the back office, an advisor who wanted to change her pitch would email me, I'd open Supabase, edit it by hand, and it was live that evening. Now she goes to <code>/ma-page-rdv</code>, edits the field, and it's live in 10 seconds. For her, a sense of control. For me, the end of 50 requests a week.
+    </p>
+
+    <h3>The harmonized email signature (which killed Letsignit)</h3>
+    <p>
+      On the <code>/mes-outils</code> page, you'll find a generator that builds each advisor's official email signature from the same data (photo, title, phone, booking link, Eurofiscalis websites). You click "Copy," you paste into Outlook, done. The whole team has the same flawless signature. With the VML code (an old format Microsoft forces so circular images display in legacy Outlook on Windows) · it took me 4 iterations to figure out, but once in place, it works everywhere.
+    </p>
+
+    <div class="callout tip">
+      <h4>Bye bye Letsignit</h4>
+      <p>This <code>/mes-outils</code> page is what let us cancel <strong>Letsignit</strong>, the email-signature tool we were paying <strong>about €80 a month</strong> for. The feature is simpler (no fancy visual editor, no promotional campaigns built into the signature) but it does the essentials · a unified signature for the 20 advisors, on-brand, that displays correctly in Outlook. That's all we needed. €80 more saved every month.</p>
+    </div>
+
+    <div class="showcase">
+      <picture><source srcset="/photos/booking/mes-outils.webp" type="image/webp"><img src="/photos/booking/mes-outils.webp" width="1600" height="1052" alt="Eurofiscalis Booking back office · My tools screen with email signature, time-off management and virtual video backgrounds" loading="lazy"></picture>
+      <div class="caption">↗ The <code>/mes-outils</code> page · email signature · time off · Eurofiscalis virtual backgrounds</div>
+    </div>
+
+    <p>
+      On that same page, two tools I hadn't planned but that quickly became indispensable:
+    </p>
+
+    <ul>
+      <li><strong>Time-off / vacation management</strong> · you set a period, the tool automatically blocks your booking slots and redirects to a colleague of your choice. No more appointments booked while a salesperson is on vacation.</li>
+      <li><strong>Virtual video backgrounds</strong> · 4 downloadable Eurofiscalis backdrops (office day, office night, office roof, tech background). To put behind you on Teams or Zoom calls. Everyone has the same brand image, effortlessly.</li>
+    </ul>
+
+    <h3>The other back-office pages</h3>
+    <p>
+      For the full tour, here are the 5 pages every advisor sees in the left sidebar:
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>For whom</th><th>What it's for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>/mon-compte</code></td><td>Everyone</td><td>Email, password, time zone, profile photo with circular cropping.</td></tr>
+          <tr><td><code>/ma-page-rdv</code></td><td>Everyone</td><td>Public page: title, pitch, appointment types, availability, settings, 2-person booking.</td></tr>
+          <tr><td><code>/mes-outils</code></td><td>Everyone</td><td>Email signature, time-off management, virtual video backgrounds, Teams instructions.</td></tr>
+          <tr><td><code>/equipe</code></td><td>Admins only</td><td>Overview of the 20 advisors, who's connected Outlook and who hasn't. Creating / deactivating accounts.</td></tr>
+          <tr><td><code>/templates</code></td><td>Admins only</td><td>Editing the email templates (confirmation, day-before reminder, 15-min reminder). Live preview.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h4>Self-service onboarding (the feature that changed everything)</h4>
+      <p>When a new advisor joins Eurofiscalis, they get an invitation link. They click, create their account, configure their personal page (title, pitch, photo, appointment types, availability) in 10 minutes, and it's live. <strong>Zero involvement from me</strong>. This dead-simple feature is what got all 20 advisors deployed in under a day, whereas signing them up manually one by one would have taken me a week.</p>
+    </div>
+
+    <h3>What I learned building the back office</h3>
+    <p>
+      Three lessons that hold for any internal tool, not just an in-house Calendly:
+    </p>
+    <ol>
+      <li><strong>The public side is 50% of the job. The back office is the other 50%.</strong> Don't underestimate it in your planning. If you want 20 self-sufficient users, budget as much time on the admin as on the visible part.</li>
+      <li><strong>User autonomy changes everything.</strong> If the team can edit things themselves, they adopt it. If they have to ask you for every change, they give up.</li>
+      <li><strong>The small extra details (email signature, video backgrounds) pay off big.</strong> They're not "core" features, but they're what makes salespeople tell you "honestly, you did the right thing, it saves us time every day."</li>
+    </ol>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Next.js · The engine</span><span>Supabase · The database</span><span>Outlook · The calendar</span><span>Resend · The emails</span><span>Vercel · The hosting</span>
+    <span>Next.js · The engine</span><span>Supabase · The database</span><span>Outlook · The calendar</span><span>Resend · The emails</span><span>Vercel · The hosting</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Under the hood</span>
+    <h2>The tech choices, <em class="teal">explained simply.</em></h2>
+    <p>
+      If you've never coded, you can skip this section without missing anything. But a lot of people asked me "what did you build it with?" · here's the answer, with a word of explanation for each tool.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>What it's for</th><th>Why this one</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong><a href="https://nextjs.org/" target="_blank" rel="noopener nofollow">Next.js</a></strong></td><td>The site engine (the equivalent of the engine in a car)</td><td>It's the modern standard for building a fast site, and Claude Code knows it really well.</td></tr>
+          <tr><td><strong><a href="https://supabase.com/" target="_blank" rel="noopener nofollow">Supabase</a></strong></td><td>The cloud database (where the advisors, appointments, and availability are stored)</td><td>Free up to a certain volume, simple to plug in, and it also handles user accounts.</td></tr>
+          <tr><td><strong><a href="https://learn.microsoft.com/graph/" target="_blank" rel="noopener nofollow">Microsoft Graph</a></strong></td><td>The bridge that lets our site talk to Outlook (read the calendar, create an event)</td><td>Mandatory since we're in a Microsoft 365 environment. Not the most pleasant, but it's the only one.</td></tr>
+          <tr><td><strong><a href="https://resend.com/" target="_blank" rel="noopener nofollow">Resend</a></strong></td><td>The service that sends the confirmation and reminder emails</td><td>More reliable than sending via Microsoft Graph. Works on the first try and has a clear interface.</td></tr>
+          <tr><td><strong><a href="https://vercel.com/" target="_blank" rel="noopener nofollow">Vercel</a></strong></td><td>The host that keeps the site running 24/7</td><td>Perfect pairing with Next.js · you push your code to GitHub, it's live in 30 seconds.</td></tr>
+          <tr><td><strong><a href="https://sentry.io/" target="_blank" rel="noopener nofollow">Sentry</a></strong></td><td>The system that alerts you when something breaks in production</td><td>Essential when 20 people use the tool and you can't test every booking by hand.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      If you know these tools, you'll see that nothing is exotic. It's a standard set that any web startup uses in 2026. What changes the game is <strong>Claude Code</strong>, which let me orchestrate all of this without being a developer. It too has become a standard.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— The honest math</span>
+    <h2>What it <em class="orange">really costs us.</em></h2>
+    <p>
+      Lots of people asked me "OK but what's the final price?" Here's the frank comparison.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Solution</th><th>Monthly cost</th><th>Annual cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Calendly Teams</strong> · $16/user × 20 people</td><td>~$320 (~€295)</td><td>~€3,540</td></tr>
+          <tr><td><strong>Letsignit</strong> · standard plan, 20 users</td><td>~€80</td><td>~€960</td></tr>
+          <tr><td><strong>Total of the two SaaS</strong></td><td><strong>~€375</strong></td><td><strong>~€4,500</strong></td></tr>
+          <tr><td><strong>Our in-house booking tool</strong> · Vercel + Supabase + Resend combined</td><td>~€30</td><td>~€360</td></tr>
+          <tr><td colspan="2"><strong>Annual saving</strong></td><td><strong>~€4,140</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Monthly saving</div>
+        <div class="num">~€345</div>
+        <div class="desc">The difference each month between Calendly + Letsignit combined and our in-house solution.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Build time</div>
+        <div class="num">5 days</div>
+        <div class="desc">From the Sunday-night spark to going live Friday night, with Max on the last day.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Active users</div>
+        <div class="num">20</div>
+        <div class="desc">The whole Eurofiscalis team uses the tool every day. More than 500 appointments booked since.</div>
+      </div>
+    </div>
+
+    <p>
+      Of course, there's a caveat. Our cost doesn't include my time (5 days on the core + 2 weeks on the back office) or Max's (1 day). If you value those days at a freelance developer's rate (~€600 a day), you add €9,000 of "hidden cost" in the first year. So in the first year, we're still in investment mode.
+    </p>
+    <p>
+      <strong>The saving becomes massive from the second year on</strong>. And above all, we're no longer dependent on two suppliers · if Calendly or Letsignit triple their prices tomorrow, shut down a feature we loved, or change product direction, it's no longer our problem.
+    </p>
+
+    <div class="callout tip">
+      <h4>What to know before you dive in</h4>
+      <p>An internal tool isn't free over time. You have to <strong>maintain it</strong> · fix bugs, update libraries, handle new use cases. Count on 1-2 days a month of light maintenance. If you have neither Claude Code nor a dev available for that, you're better off sticking with the subscription.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The flip side</span>
+    <h2>The <em class="fuchsia">4 traps</em> we didn't see coming.</h2>
+    <p>
+      I'm not going to tell you everything went off without a hitch. Here are the 4 real pitfalls we discovered along the way, and how we handled them.
+    </p>
+
+    <div class="piege">
+      <div class="piege-icon">🌍</div>
+      <div class="piege-body">
+        <h4>Trap 1 — Time zones (Wednesday's all-nighter)</h4>
+        <p>You create an event at 2pm Paris time. Outlook sends it back to you in UTC (the universal reference time, i.e. 12pm). If you don't convert correctly, your site shows slots at times that don't exist. I spent 6 hours on it with Claude Code, and we ended up using a dedicated library (<strong>date-fns-tz</strong>) that does the conversion cleanly. Golden rule · never hack the conversion together by hand, use a battle-tested library.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">⚡</div>
+      <div class="piege-body">
+        <h4>Trap 2 — Double booking the same moment</h4>
+        <p>Two clients clicking the same slot at the exact same second · both can book, and your advisor ends up with two parallel appointments. It's rare but it happens. The fix is called a "unique index in the database" · you force Supabase to refuse the second identical slot. Once in place, problem solved for good.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">📧</div>
+      <div class="piege-body">
+        <h4>Trap 3 — Microsoft Graph emails failing silently</h4>
+        <p>First attempt at sending the confirmations · we go through Microsoft Graph (since we're already connected). One time in ten, the send fails, with no error, no feedback. The client never gets their confirmation. Disaster. We switched to <strong>Resend</strong> (a dedicated email service). Simpler, more reliable, not a single miss in 4 weeks of production.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🔑</div>
+      <div class="piege-body">
+        <h4>Trap 4 — Outlook login tokens expiring</h4>
+        <p>When an advisor connects their Outlook, they get a "token" (a temporary password used to talk to Microsoft). That token expires every hour. If you don't refresh it in time, their page stops working until they reconnect. We ended up putting in a system that refreshes the token automatically before it expires. Invisible to the user, but without it the tool would have been unusable.</p>
+      </div>
+    </div>
+
+    <p>
+      None of these traps are exotic. You'll find them in any project that syncs with a calendar. The difference is that we discovered them while building, and learned to handle them properly before launch. That all-nighter Wednesday is still a fond memory.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The verdict</span>
+    <h2>What I'd <em class="teal">do again</em> (and what I wouldn't).</h2>
+
+    <h3>What I'd do again without hesitation</h3>
+    <ul>
+      <li><strong>Start with Claude Code from day 1</strong>, without trying to do it "by hand." The AI speeds up laying the foundations so much that waiting would be a mistake.</li>
+      <li><strong>Plug in the Outlook sync very early</strong> (D3 for us). It's the feature that made the 20 advisors adopt the tool without grumbling · they have nothing to do, their calendar is the single source of truth.</li>
+      <li><strong>Use Resend for the emails</strong>, not Microsoft Graph. Specialization = reliability.</li>
+      <li><strong>Have a dev do the security audit before launch</strong>. Max found 3 vulnerabilities in 2 hours that I'd have missed. Essential.</li>
+    </ul>
+
+    <h3>What I wouldn't do again</h3>
+    <ul>
+      <li><strong>Trying to send the emails via Microsoft Graph first</strong>. I lost a day. Resend from the start would have been simpler.</li>
+      <li><strong>Hacking time-zone handling together by hand</strong>. Always use a dedicated library (<strong>date-fns-tz</strong>) from the very first line of code.</li>
+      <li><strong>Underestimating the maintenance after launch</strong>. Count on 1-2 days a month for small bugs and improvements. If you don't have that resource, stick with the subscription.</li>
+    </ul>
+
+    <h3>Who this makes sense for</h3>
+    <p>Honestly, building an in-house Calendly only makes sense if you tick at least <strong>two</strong> of these boxes:</p>
+    <ul>
+      <li>You have a team of <strong>10 people or more</strong> taking appointments (below that, the saving doesn't cover the maintenance)</li>
+      <li>Your <strong>visual identity is non-negotiable</strong> and the lack of customization blocks you</li>
+      <li>You want to <strong>own the data</strong> (GDPR, regulated sector, sensitive clients)</li>
+      <li>You already have <strong>a dev available</strong> or you know Claude Code in pair-programming</li>
+    </ul>
+    <p>
+      If you tick zero or one, stick with Calendly. It's very well made, and your time is probably worth more than the €200 a month you'd save.
+    </p>
+
+    <div class="callout warn">
+      <h4>My personal take, in one sentence</h4>
+      <p>Generative AI has flipped the classic "buy or build" equation. For specific internal tools, <strong>building it in YOUR brand has become realistic for 20-person companies</strong>. Three years ago, that was reserved for startups with a tech team. Not anymore.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>€375/month → €30/month</span><span>2 SaaS canceled</span><span>20 advisors harmonized</span><span>Brand respected 100%</span><span>€4,140 saved per year</span>
+    <span>€375/month → €30/month</span><span>2 SaaS canceled</span><span>20 advisors harmonized</span><span>Brand respected 100%</span><span>€4,140 saved per year</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Going further</span>
+    <h2>If you want to <em class="orange">do the same.</em></h2>
+    <p>
+      I didn't open-source the code (it's Eurofiscalis's internal tool), but I can tell you <strong>where to start</strong> if you want to take on a similar project or another one · rebuilding your CRM, your quoting tool, your project management on-brand.
+    </p>
+
+    <ol>
+      <li><strong>Install Claude Code</strong> · it's the companion that makes all of this possible. My full guide is <a href="/en/claude-code">here</a>.</li>
+      <li><strong>Read my 6-month report</strong> of using Claude Code daily · what works, what doesn't, how I use it to run my projects. <a href="/articles/claude-code-workflow-tips">The article is right here</a>. And for another similar making-of (a field <a class="cross-link" href="/articles/outil-vente-claude-code" title="Claude Code sales tool — read the article">sales tool</a> built in two weeks with Claude Code), it's <a href="/articles/outil-vente-claude-code">over here</a>.</li>
+      <li><strong>Test with a small project first</strong>. Don't take on a Calendly straight away. Start with a mini internal tool (a form, a simple dashboard) to get your hands dirty. You'll quickly see whether Claude Code suits you.</li>
+      <li><strong>Find a Max</strong>. Having a trusted developer who can take 1-2 days for security and the launch is priceless. Without Max, I'd never have dared put this tool in the hands of 20 people.</li>
+    </ol>
+
+    <p>
+      If you're reading this article and wondering "could I do it where I work?", the honest answer is <strong>probably yes, if you have 5 days ahead of you and a bit of patience</strong>. The bar has never been this low. And the satisfaction of seeing 20 people use a tool you built every day is well worth the 5 short nights.
+    </p>
+
+    <p>
+      If you'd like me to tell you about other internal projects we build this way (right now I'm working on an <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — see the definition">agent</a> that qualifies our leads on WhatsApp), <a href="/en#newsletters">sign up for AI Playbook</a> · my weekly watch. And if you launch a similar project, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>, I love reading what other entrepreneurs who try are getting up to. I reply to everything.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>FAQ <em class="fuchsia">Eurofiscalis booking.</em></h2>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Why did you leave Calendly and Letsignit?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">The real trigger wasn't the price but the inability to properly customize the booking pages and email signatures to match our Eurofiscalis brand. Calendly only let you change one accent color, and the 20 advisors had mismatched pages. Since we were rebuilding anyway, we killed Letsignit in the process.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much did Calendly and Letsignit cost before?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Calendly Teams at 16 dollars per user per month, roughly €295 for 20 people. Letsignit around €80 a month on the standard plan. A combined total of about <strong>€375 a month</strong>, or roughly €4,500 a year.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How long did it take to build the tool?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Five days for the core, from Sunday night (the spark) to Friday night (going live). Then two extra weeks to build the full back office (self-service onboarding, signatures, video backgrounds) that I hadn't anticipated at the start.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What tech stack did you use?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Next.js</strong> for the site engine, <strong>Supabase</strong> for the database, <strong>Microsoft Graph</strong> for the Outlook sync, <strong>Resend</strong> for the emails, <strong>Vercel</strong> for hosting and <strong>Sentry</strong> for monitoring. Nothing exotic — it's a standard set of tools that any web startup uses in 2026.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How does the 2-advisor booking feature work?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">An advisor generates a special link that books a slot for them AND a chosen colleague. The tool automatically figures out the slots where both are free in Outlook. Super handy for handoffs between a salesperson and a technical advisor: one slot, two people on the call, the client no longer has to tell their story twice.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How many people use the tool today?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>20 advisors</strong> at Eurofiscalis use it every day. More than 500 appointments have been booked since it went live in April 2026.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much does the in-house tool cost per month now?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">About <strong>€30 a month</strong> combined for Vercel, Supabase and Resend. That's around €360 a year, versus €4,500 before. A saving of roughly €4,140 a year. That cost doesn't include the build time (5 days + 2 weeks) or the maintenance (1 to 2 days a month).</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Why did you switch from Microsoft Graph to Resend for emails?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Sends through Microsoft Graph failed silently about one time in ten, with no error and no feedback, and clients never got their confirmation. Resend, a dedicated email service, works on the first try and hasn't had a single miss in four weeks of production. Specialization won out over integration.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do you have to be a developer to build this kind of tool?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. I'm not a developer, I'm an entrepreneur, and everything was built with <strong>Claude Code</strong> in pair-programming (the AI types, I steer). Max, our developer, only stepped in at the end for the security audit before launch. The bar to building your own internal tool has become accessible.</p>
+    </details>
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What technical traps did you run into?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Four main traps: handling time zones (solved with <strong><a href="https://github.com/marnusw/date-fns-tz" target="_blank" rel="noopener nofollow">date-fns-tz</a></strong>), double bookings on the same slot (fixed with a unique index in the database), Microsoft Graph emails failing silently (switched to Resend), and Outlook tokens expiring every hour (an automatic refresh system).</p>
+    </details>
+  </div>
+</section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Spot an error?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          Outdated info, a number that's moved, a technical detail that's wrong? <strong style="color:var(--ink)">Write to me at <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · I fix it within 48h max and note the update date at the top of the article. Field feedback is worth a thousand times more than the articles — I read everything, I reply.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, with no jargon and no hype. If this article helped you, the easiest way not to miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually</em> test.</h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

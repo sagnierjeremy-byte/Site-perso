@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I let an AI improve itself overnight</title>
+<meta name="description" content="Karpathy showed it: let an AI edit its own work, test it, keep what works. I tried it at home on my email sorting. Here's the story.">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/autoresearch-karpathy">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/autoresearch-karpathy">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/autoresearch-karpathy">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/autoresearch-karpathy">
+
+<meta property="article:published_time" content="2026-04-24">
+<meta property="article:modified_time" content="2026-04-24">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "I let an AI improve itself overnight", "item": "https://jerwis.fr/en/articles/autoresearch-karpathy" }
+  ]
+}
+</script>
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/en/articles/autoresearch-karpathy">
+<meta property="og:title" content="I let an AI improve itself overnight">
+<meta property="og:description" content="Karpathy's wild idea: an agent that edits its own work, tests it, keeps it if it's better, repeats. I tried it on my email sorting. The story.">
+<meta property="og:image" content="https://jerwis.fr/photos/og/autoresearch-karpathy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/autoresearch-karpathy.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "I let an AI improve itself overnight",
+  "description": "The story of a night when I let Claude test 14 versions of an email-sorting script. The idea comes from Karpathy. I tell you what happened, what I took away, and how you can try it too — even if you're not a dev.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/en/jeremy-sagnier"},
+  "datePublished": "2026-04-24",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/en/photos/og/autoresearch-karpathy.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/en/articles/autoresearch-karpathy"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is autoresearch according to Karpathy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The core idea behind Andrej Karpathy's autoresearch project: you put an AI to work on a problem, you ask it to edit its own work, it tests whether the new version is better, keeps it if so, throws it out if not, and loops. It's the simplest idea in the world dressed up in a fancy name."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you let an AI improve its own code overnight?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You prepare a reference list (200 examples scored by hand), you hand the current program to Claude Code with a plain-English brief, you set a cap on AI-token cost, and you launch it in the evening. In the morning, the AI shows you the best version it found and the list of everything it tried."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost to test 14 versions of an agent overnight?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My overnight experiment on email sorting cost me €8.40 in AI tokens for 9 hours of work and 14 versions tested, against a cap set at €15. Budget €10 to €15 for a first try — that's plenty to find out whether it works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are some non-dev use cases for autoresearch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Four concrete cases tested: finding the best newsletter subject lines (8 to 18 % more opens), testing 50 cold-email variants, improving the clarity of blog posts by learning from your best past ones, and optimizing e-commerce product pages. The common thread: you have to be able to objectively measure whether a version is better."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What pitfalls should you avoid before launching a self-improvement loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Four main pitfalls: launching without a cost cap (a planned €5 can turn into €80), not keeping a secret control list (the AI memorizes your reference list), letting it run on anything critical (never your CRM or your billing), and believing that more versions tested necessarily means a better result (the gains plateau fast after 20–30 changes)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tools let you actually do autoresearch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code (the app that lets you chat with Claude in a terminal and have it edit files) or OpenAI's Codex CLI are the two main tools today. Budget 30 minutes of setup the first time. Within 18 months, this will probably be a built-in button inside Notion, Zapier or Make."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you need to be a developer to do AI autoresearch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. I'm not a dev and I never studied computer science. The whole experiment was done by asking Claude to explain each step like I was a total beginner and having it write the code. The golden rule: until you've understood what the AI changed, don't ship it to production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What realistic results can you expect from a self-improvement loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 to 30 % improvement per loop in my tests, with a quick plateau (the second loop gains less than the first). On the email sorting, I got 23 % fewer important emails missed. The marketing promises of 200 or 300 % are noise: Karpathy himself dials it back and talks about micro-improvements on narrow problems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between autoresearch and classic fine-tuning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fine-tuning changes the weights of the AI model itself with a dataset; it takes infrastructure and data. Autoresearch changes the code, the prompt or the configuration around the model, without touching the model. It's more accessible, cheaper, and applicable to anything you can measure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to get a first usable result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Budget two to three hours the first time, mostly to prepare the reference list (the longest but most important step). The loop itself runs overnight while you sleep. In the morning, you've got your best version. Then count on two to five tries before you really save time: the first one is always for learning."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,178,169,.5) } 70% { box-shadow: 0 0 0 12px rgba(0,178,169,0) } 100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
+  h2 em { font-style: normal }
+  h2 em.teal { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
+
+  /* Pieges */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Outils grid */
+  .outils { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 8px }
+  @media (min-width: 600px) { .outils { grid-template-columns: 1fr 1fr } }
+  .outil { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 16px 18px }
+  .outil h4 { margin: 0 0 4px; font-size: 15px }
+  .outil .lic { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .outil p { font-size: 14px; margin: 0; line-height: 1.55 }
+
+  /* Cas d'usage cards */
+  .cas { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 16px 0; display: grid; grid-template-columns: 1fr; gap: 8px }
+  @media (min-width: 720px) { .cas { grid-template-columns: 130px 1fr } }
+  .cas-head { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--fuchsia); font-weight: 700 }
+  .cas h4 { margin: 0 0 6px; font-size: 17px }
+  .cas p { font-size: 14.5px; line-height: 1.6; margin: 0 }
+  .cas p + p { margin-top: 8px }
+  .cas .who { display: inline-block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); letter-spacing: .1em }
+
+  /* Checklist / Quick boxes */
+  .checklist { background: linear-gradient(135deg, rgba(0,178,169,.06), rgba(239,66,111,.04)); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 22px 0 }
+  .checklist h4 { margin: 0 0 14px; font-size: 16px }
+  .checklist ul { list-style: none; padding: 0; margin: 0 }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft) }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+  .checklist li strong { color: var(--ink) }
+
+  /* Quick start (tuto box) */
+  .quick { background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%); color: #F4EFE6; border-radius: 22px; padding: 32px; margin: 22px 0 }
+  .quick .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px }
+  .quick h3 { color: #F4EFE6; margin: 0 0 14px }
+  .quick p { color: #C4CED4; font-size: 15px; margin-bottom: 12px }
+  .quick ol { color: #C4CED4; margin: 14px 0 14px 22px }
+  .quick li { margin-bottom: 10px }
+  .quick code { background: rgba(255,255,255,.08); color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .quick .note { background: rgba(0,178,169,.08); border-left: 3px solid var(--teal); padding: 12px 16px; border-radius: 4px; margin-top: 14px; font-size: 14px }
+
+  /* Step blocks (tuto pas à pas) */
+  .step { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 26px; margin: 14px 0; display: flex; gap: 22px; align-items: flex-start }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 18px; color: #F4EFE6 }
+  .step:nth-child(3n+1) .step-num { background: var(--teal) }
+  .step:nth-child(3n+2) .step-num { background: var(--fuchsia) }
+  .step:nth-child(3n+3) .step-num { background: var(--orange) }
+  .step-body h4 { margin: 4px 0 8px; font-size: 17px }
+  .step-body p { font-size: 14.5px; line-height: 1.65; margin: 0 0 10px }
+  .step-body code { background: var(--code-bg); color: var(--code-ink); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .step-body .os-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: .1em; margin-top: 8px; display: block }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<!-- Schema.org : HowTo -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Set up your first AI autoresearch try",
+  "description": "Five steps to let an AI improve your work on its own overnight, Karpathy style.",
+  "totalTime": "PT30M",
+  "image": "https://jerwis.fr/en/photos/og/autoresearch-karpathy.jpg",
+  "inLanguage": "fr-FR",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Pick something to improve that is NOT critical",
+      "text": "For your first try, definitely not a system that sends your invoices or touches money. Pick something where a mistake has no consequence: a prompt you use often, the subject line of your prospecting emails, a small personal script. My advice: start with a project that…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Prepare a reference list by hand",
+      "text": "This is the longest step but it's the most important one. You need between 50 and 200 examples with, for each, what the 'right' answer would be. My 200 emails labeled 'important / not important', for example. Without this list, the AI has no way to measure whether it's improving or not. You…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Install Claude Code (or Codex CLI)",
+      "text": "Claude Code is the tool I used. It's an app that lets you chat with Claude directly in a window where you can ask it to edit files and test things. Codex CLI (OpenAI's competitor) does the same. I've got a dedicated tutorial for Claude Code if you're starting from…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Give the brief in plain English, set a budget",
+      "text": "You write out what you want in plain words: here's my current program, here's my reference list, here's the metric ('count how many important emails you miss'), here's how much I'm willing to spend. The AI-token budget is crucial: without a cap, the AI can run for days and cost you a fortune…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Launch it, go to sleep, check in the morning",
+      "text": "Start it in the evening, let it run. In the morning, look at what the AI suggests. Important: never ship straight to production. Read what the AI changed, understand why, test it yourself on 5 or 10 new examples the AI has never seen. If it holds up, you can replace your program…"
+    }
+  ]
+}
+</script>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Story · Self-improving agents · Beginner level</div>
+    <h1>I let an AI<br>improve itself<br><em class="fuchsia">overnight.</em></h1>
+    <p class="hero-lead">
+      An idea that came out of a project by <a href="https://x.com/karpathy" target="_blank" rel="noopener">Andrej Karpathy</a> (a former <a href="https://openai.com/" target="_blank" rel="noopener">OpenAI</a> and Tesla guy, one of the most respected researchers in the field): you can ask <a href="https://arxiv.org/abs/2401.10020" target="_blank" rel="noopener">an AI to edit its own work</a>, test whether it's better, keep what works, throw out what fails. And start over. All night long. I tried it at home on a script that was a pain to tune. Here's what happened.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>14 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Anyone</span>
+      <span class="hero-meta-item"><strong>Date</strong> April 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll understand</h2>
+    <ul>
+      <li><strong><a class="cross-link" href="/articles/karpathy" title="Andrej Karpathy — read the article">Karpathy</a>'s wild idea</strong>: let an <a href="https://www.anthropic.com/research/agents" target="_blank" rel="noopener">AI agent</a> edit its own work, test it, keep what works, throw out the rest. On a loop, without you, for hours.</li>
+      <li><strong>My real experience</strong>: I let Claude work on my email-sorting script from 10 p.m. to 7 a.m. When I woke up, it had tried 14 versions and found a recipe that missed fewer important emails.</li>
+      <li><strong>The result in numbers</strong>: 23 % fewer important emails missed, €8 in AI-token cost, zero input from me overnight.</li>
+      <li><strong>Why it's worth it even if you're not a dev</strong>: it works just as well on newsletter subject lines, product pages, prompts — anything you can test and score.</li>
+      <li><strong>My blunt advice</strong>: start with a case that isn't critical, that's easy to measure, and set yourself a budget in euros before you launch. No magic, just automated patience.</li>
+      <li><strong>Transparency</strong>: this article was written with Claude (Anthropic), reviewed and approved by me. The overnight experiment itself ran on Claude. If you spot a mistake, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a> — I'll fix it.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The trigger</span>
+    <h2>The idea that <em class="fuchsia">kept me up at night.</em></h2>
+    <p>
+      It was a Sunday evening in March 2026. I was poking around on <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a> (the platform where developers share their code, kind of the YouTube of software) and I stumbled on a <a href="https://github.com/karpathy" target="_blank" rel="noopener">project by Andrej Karpathy</a> called <em>autoresearch</em>. I won't pretend half the project isn't gibberish to me — there are charts, researcher terms, metrics that mean nothing to me at all. But the core idea hit me right between the eyes.
+    </p>
+    <p>
+      The idea fits in one sentence: <strong>you put an AI to work on a problem, you ask it to edit its own work, you let it test whether the new version is better, and if it is, it keeps going from there — otherwise it rolls back and tries something else</strong>. And you repeat. All night long. Without you.
+    </p>
+    <p>
+      What made it click for me was that I happened to have one thing that had been driving me crazy for three months: <strong>my email-sorting script</strong>. Not some sophisticated program, just a little script Claude had written for me (Claude is <a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>'s AI, one of the big conversational models like ChatGPT) to scan my inbox in the morning and surface the 10 most important emails to deal with first. The problem: it kept missing some. A quote request lost in the newsletters, an email from my accountant buried in the LinkedIn ads. Not catastrophic, but annoying.
+    </p>
+    <p>
+      And then I think: <strong>"What if I let the AI improve its own script? On its own, while I sleep?"</strong> I close the laptop. I sleep badly. The next morning I get up, make the coffee, and decide to give it a shot that very evening.
+    </p>
+
+    <div class="callout tip">
+      <h4>A quick honesty note</h4>
+      <p>I'm not a dev. I never studied computer science. Everything I did in this article, I did by asking Claude to explain each step like I was a beginner, and by having it write the code for me. If I can do it, you can do it too.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>An AI that improves itself</span><span>While you sleep</span><span>You test, you keep, you toss</span><span>No input from you</span><span>Automated patience</span><span>The Karpathy idea</span>
+    <span>An AI that improves itself</span><span>While you sleep</span><span>You test, you keep, you toss</span><span>No input from you</span><span>Automated patience</span><span>The Karpathy idea</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The story</span>
+    <h2>My night with <em class="teal">Claude at the wheel.</em></h2>
+    <p>
+      Monday night. 9:45 p.m. My son is asleep. My wife is watching a show. I settle in at my desk. I open <a href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a> (a tool that lets you chat with Claude right inside your terminal — I've got a <a href="/articles/loops-claude">dedicated tutorial on it</a>). I explain to it in plain English, no jargon, what I want to do:
+    </p>
+
+    <div class="callout ok">
+      <h4>My brief, written in plain English</h4>
+      <p>"I've got a little program that looks at my morning emails and pulls out the 10 most important ones. It misses too many. I've prepared a list of 200 emails from last week where I marked by hand which ones really mattered. I want you to edit the program, test it against my list, measure how many important emails it dropped, and start over trying other approaches. You've got all night. Keep the version that misses the fewest emails. In the morning, show me the top 3 versions and explain what you changed."</p>
+    </div>
+
+    <p>
+      I prepared my list of 200 emails in a plain spreadsheet, with an "important: yes/no" column. Three hours of work on Sunday morning to build it — the least fun part of the whole thing, but that's where everything else is decided. Without that reference list, the AI can't measure anything.
+    </p>
+    <p>
+      10:12 p.m. I launch Claude. I tell it "go ahead." It tells me it'll start by reading the current program, that it'll propose a first change, then ping me if anything trips it up. I set a <strong>cost cap at €15</strong> in the settings (more on that later) and I go to bed.
+    </p>
+    <p>
+      6:47 a.m. the next morning. My alarm goes off. I dash into the office before even the coffee. <strong>The screen is waiting for me.</strong> Here's what I find.
+    </p>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Versions tested</div>
+        <div class="num">14</div>
+        <div class="desc">Of the 14 changes tried, 5 were better than the original version, 9 were worse (and automatically thrown out).</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Fewer emails missed</div>
+        <div class="num">23 %</div>
+        <div class="desc">The best version misses 23 % fewer important emails than my original program. Measured on my list of 200 emails.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Total cost</div>
+        <div class="num">€8.40</div>
+        <div class="desc">9 hours of overnight work billed in AI tokens (think of them as an AI's fuel). Well under my €15 cap.</div>
+      </div>
+    </div>
+
+    <h3>What the AI changed (that I'd never have found)</h3>
+    <p>
+      Here's what really surprised me. The changes Claude kept were three things I'd never thought of:
+    </p>
+    <ul>
+      <li><strong>It looked at the conversation history.</strong> If someone had already replied to me three times that week, it figured a new email from that person was more likely to be important. Obvious once it's said. Not obvious to code yourself.</li>
+      <li><strong>It learned to recognize professional attachments.</strong> A 2 MB PDF in a short email is often a quote or a contract — so it's important. A meme image in a long email is rarely urgent.</li>
+      <li><strong>It learned to be wary of "urgent" subject lines.</strong> Statistically in my list, emails screaming "URGENT!!!" in the subject were actually 4 times less important than emails that calmly announced a topic in two words. Marketing taught me to distrust the shouters.</li>
+    </ul>
+    <p>
+      Honestly? It would have taken me three months to find those three tweaks on my own, tuning my program bit by bit, every time an email slipped through. Claude did it in 9 hours while I slept.
+    </p>
+    <p>
+      The funniest part of the story: the final version is <em>simpler</em> than the original. Not longer, not more complicated — smarter. That's exactly what Karpathy said in his project: good improvements often remove code, they don't add it.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>14 versions tried</span><span>5 kept</span><span>9 tossed</span><span>23 % of emails saved</span><span>€8.40 a night</span><span>Without you</span>
+    <span>14 versions tried</span><span>5 kept</span><span>9 tossed</span><span>23 % of emails saved</span><span>€8.40 a night</span><span>Without you</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The Karpathy concept, explained simply</span>
+    <h2>An AI that <em class="fuchsia">cooks, tastes, repeats.</em></h2>
+    <p>
+      Now that we've seen my concrete case, let's take two minutes to understand the idea behind it. It's <strong>the simplest idea in the world</strong> dressed up in a fancy name ("autoresearch," automatic research). Here's the analogy that made it click for me.
+    </p>
+    <p>
+      Picture a cook who wants to perfect his pizza recipe. He has a base recipe. He tries a variant: a bit more salt. He has 10 people taste it. If more people prefer it, he keeps it. If not, he goes back to the previous recipe. Then he tries something else: less cheese. He has them taste again. He keeps it or tosses it. And so on, 50 times, 100 times.
+    </p>
+    <p>
+      The AI does exactly the same thing, except it doesn't cook pizzas — it cooks <em>code</em>, <em>prompts</em>, <em>email subject lines</em>, <em>product pages</em>. And it doesn't have 10 people taste it — it tests against a <strong>reference list</strong> you've prepared in advance (my 200 emails scored by hand, for example).
+    </p>
+
+    <figure style="margin: 32px auto; max-width: 720px;">
+      <svg viewBox="0 0 800 440" role="img" aria-labelledby="schema-loop-title schema-loop-desc" style="width: 100%; height: auto; display: block;">
+        <title id="schema-loop-title">Three-step self-improvement loop</title>
+        <desc id="schema-loop-desc">Circular diagram showing the Karpathy cycle: generate 14 variants, test on 200 emails, keep the best one and restart the loop for 6 hours.</desc>
+        <text x="400" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" letter-spacing="3" fill="#0A0A0A">ZERO-SHOT  →  14 ITERATIONS  →  BEST</text>
+        <line x1="180" y1="58" x2="620" y2="58" stroke="#0A0A0A" stroke-width="1.5"/>
+
+        <g>
+          <circle cx="180" cy="220" r="78" fill="#00B2A9"/>
+          <circle cx="180" cy="220" r="78" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+          <text x="180" y="200" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="34" fill="#0A0A0A">1</text>
+          <text x="180" y="232" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#0A0A0A">Generate</text>
+          <text x="180" y="250" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#0A0A0A">14 variants</text>
+        </g>
+
+        <g>
+          <circle cx="400" cy="220" r="78" fill="#EF426F"/>
+          <circle cx="400" cy="220" r="78" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+          <text x="400" y="200" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="34" fill="#FBF7F0">2</text>
+          <text x="400" y="232" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#FBF7F0">Test on</text>
+          <text x="400" y="250" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#FBF7F0">200 emails</text>
+        </g>
+
+        <g>
+          <circle cx="620" cy="220" r="78" fill="#FF8200"/>
+          <circle cx="620" cy="220" r="78" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+          <text x="620" y="200" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="34" fill="#0A0A0A">3</text>
+          <text x="620" y="232" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#0A0A0A">Keep</text>
+          <text x="620" y="250" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="700" fill="#0A0A0A">the best one</text>
+        </g>
+
+        <path d="M 258 220 L 322 220" stroke="#0A0A0A" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <path d="M 478 220 L 542 220" stroke="#0A0A0A" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+
+        <path d="M 620 298 Q 620 380 400 380 Q 180 380 180 298" stroke="#0A0A0A" stroke-width="3" fill="none" stroke-dasharray="8 5" marker-end="url(#arrowhead)"/>
+        <text x="400" y="404" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="2.5" fill="#0A0A0A">RESTART — 6 H WITH NO HUMAN</text>
+
+        <defs>
+          <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0A0A0A"/>
+          </marker>
+        </defs></svg>
+      <figcaption style="text-align: center; font-style: italic; color: var(--ink-muted); font-size: 14.5px; margin-top: 12px;">
+        The loop diagram: generate, test, keep, restart — for 6 hours with no human involved.
+      </figcaption>
+    </figure>
+
+    <h3>The loop, in four beats</h3>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>The AI proposes a change</h4>
+        <p>It looks at the current version of whatever it's working on (your script, your <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — see the definition">prompt</a>, your email subject line) and proposes a specific change. Something like: "What if we added a rule saying that heavy PDF attachments are a sign of importance?"</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>It tests the new version against your reference</h4>
+        <p>It takes your reference list (the 200 scored emails, or the 50 newsletter subject lines with their open rates, whatever) and runs the new version on it. It counts how many times it works.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>It compares against the best version so far</h4>
+        <p>If the new version does better (or just as well) as the previous best, it keeps it and that becomes the new starting point. If it does worse, it goes back to the previous best and tries something else. That's it. No magic.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>It starts over — as many times as you tell it to</h4>
+        <p>The loop runs until you say stop, or until your AI-token budget runs out. In the morning, it shows you the best version it found and the list of everything it tried.</p>
+      </div>
+    </div>
+
+    <p>
+      That's it. Seriously, that's it. And that's what makes the idea so powerful: you can apply it to <strong>anything you can measure</strong>. As long as you can say "this version is better than that one because…", the AI can test on a loop for you.
+    </p>
+
+    <div class="callout warn">
+      <h4>The pitfall Karpathy himself warns about</h4>
+      <p>The AI will sometimes find "improvements" that only work on your reference list and not in real life. It's a classic pitfall. To avoid it, always keep <strong>a second control list</strong> the AI has never seen — like a pop quiz. If the final version works just as well on your secret list, you're good. If not, it just learned to pass the test.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— How you can try it</span>
+    <h2>Five steps to <em class="orange">set up your first try.</em></h2>
+    <p>
+      If you want to give it a go this weekend, here's how to do it. I'll describe what I did, without assuming you've already installed anything. Budget two to three hours the first time, mostly to prepare the reference list.
+    </p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Pick something to improve that is NOT critical</h4>
+        <p>For your first try, definitely not a system that sends your invoices or touches money. Pick something where a mistake has no consequence: a prompt you use often, the subject line of your prospecting emails, a small personal script. My advice: start with a project <strong>that only you use</strong>, not one for a client.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Prepare a reference list by hand</h4>
+        <p>This is the longest step but it's the most important one. You need between 50 and 200 examples with, for each, what the "right" answer would be. My 200 emails labeled "important / not important", for example. Without this list, the AI has no way to measure whether it's improving or not. You can put it together in a plain Google Sheets or Excel spreadsheet.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Install <a class="lex-link" href="/lexique/claude-code" title="Claude Code — see the definition">Claude Code</a> (or Codex CLI)</h4>
+        <p>Claude Code is the tool I used. It's an app that lets you chat with Claude directly in a window where you can ask it to edit files and test things. <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex CLI</a> (OpenAI's competitor) does the same. I've got a <a href="/articles/loops-claude">dedicated tutorial</a> for Claude Code if you're starting from scratch. 30 minutes of setup the first time, then you don't touch it again.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Give the brief in plain English, set a budget</h4>
+        <p>You write out what you want in plain words: here's my current program, here's my reference list, here's the metric ("count how many important emails you miss"), here's how much I'm willing to spend. <strong>The AI-token budget is crucial</strong>: without a cap, the AI can run for days and cost you a fortune. Put €10–15 for your first try — that's plenty to find out whether it works.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Launch it, go to sleep, check in the morning</h4>
+        <p>Start it in the evening, let it run. In the morning, look at what the AI suggests. <strong>Important</strong>: never ship straight to production. Read what the AI changed, understand why, test it yourself on 5 or 10 new examples the AI has never seen. If it holds up, you can replace your program. If not, you open up another loop.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <h4>The trick that changes everything for non-devs</h4>
+      <p>Don't fight with the code. Ask Claude to explain in plain English what it changed, and why. If you don't understand an explanation, ask it to simplify it even more. If I can keep up, anyone can. The golden rule: <strong>until you've understood what the AI changed, don't ship it to production</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Pick a non-critical topic</span><span>Prepare your list</span><span>Give the brief</span><span>Set a budget</span><span>Launch it overnight</span><span>Check in the morning</span>
+    <span>Pick a non-critical topic</span><span>Prepare your list</span><span>Give the brief</span><span>Set a budget</span><span>Launch it overnight</span><span>Check in the morning</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Where it shines for non-devs</span>
+    <h2>Four <em class="teal">concrete cases</em> that don't require being a coder.</h2>
+    <p>
+      Email sorting is my case. But the idea transfers anywhere you can measure whether one version is better than another. Here are four examples I've tested or that entrepreneurs around me have tested since.
+    </p>
+
+    <div class="cas">
+      <div class="cas-head">CASE 01 · Newsletter</div>
+      <div>
+        <h4>Finding the best email subject lines</h4>
+        <p>You've got 50 newsletters sent in the past with their open rates. You ask the AI to propose 30 new subject lines for your next email, to score them based on the rules it infers from your best past performances, and to keep the top 3. Typical cost: €3 to €5. Typical gain observed with two contacts: between 8 and 18 % more opens over the following weeks.</p>
+        <span class="who">For: every newsletter creator</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CASE 02 · Cold email</div>
+      <div>
+        <h4>Testing 50 variants of your first message</h4>
+        <p>You've got a list of 100 prospects. You prepare 50 variants of your first message. You send 2 to each prospect (alternating). The AI measures the reply rates, identifies what works best (length, tone, hook), proposes 10 new variants inspired by the winners, and you start over. Very powerful, but respect the anti-spam rules — don't send just anything to just anyone.</p>
+        <span class="who">For: salespeople, freelancers, founders</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CASE 03 · Blog post</div>
+      <div>
+        <h4>Improving the clarity of your writing</h4>
+        <p>You give the AI your 20 best past articles (the ones that were shared or commented on the most). You tell it: "Rewrite my new draft in the style of those 20. Measure readability, sentence length, the hook. Keep the clearest version." It's not exactly the same scheme as Karpathy's, but the idea is the same: test, measure, keep, repeat.</p>
+        <span class="who">For: writers, freelancers, content creators</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">CASE 04 · Product page</div>
+      <div>
+        <h4>Optimizing your sales pages</h4>
+        <p>You've got 30 product pages on your online store with their conversion rates. The AI infers the rules that set the best ones apart (length, photos, text structure, price placement) and proposes rewrites. You approve, you publish, you measure. It's A/B testing (the practice of comparing two versions of a page to see which works best), but driven by the AI instead of you.</p>
+        <span class="who">For: e-commerce sellers, SaaS, service sites</span>
+      </div>
+    </div>
+
+    <p>
+      The common thread across these four cases: <strong>you can measure the result</strong>. Without an objective measure, the Karpathy idea doesn't work. That's the one limit, but it's a real one. If you can't say "this version is measurably better than that one," switch methods.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— The pitfalls</span>
+    <h2>Four <em class="orange">gaps in the net</em> to know about.</h2>
+    <p>
+      I'd rather tell you now than have you discover them while losing €50. Here they are, the four things that can frustrate you if you don't know them from the start.
+    </p>
+
+    <div class="piege">
+      <div class="piege-icon">💸</div>
+      <div class="piege-body">
+        <h4>Pitfall 1 — Launching with no cost cap</h4>
+        <p>An AI running on a loop can burn through a lot of tokens. With no limit, your planned €5 can turn into €80 in one night (it happened to me once on another test). <strong>Always set a cap before you launch</strong>. For Claude Code, you set it in the settings in two clicks. For other tools, ask the AI itself how to do it — it'll walk you through it.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🎯</div>
+      <div class="piege-body">
+        <h4>Pitfall 2 — Not keeping a secret list</h4>
+        <p>The AI can "memorize" your reference list and hand you a version that works great on it but flops in real life. To avoid this: prepare a <strong>second list of 30–50 examples you don't give the AI</strong>. In the morning, test the final version on it. If it works just as well, you're good. If it falls apart, the AI cheated — start over with a tighter brief.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🚨</div>
+      <div class="piege-body">
+        <h4>Pitfall 3 — Letting it run on anything critical</h4>
+        <p>Never on your client CRM. Never on your billing. Never on your live site. <strong>Always on a copy</strong>. The AI can easily break things while trying to improve them. For your first try, pick a case where the worst thing that can happen is that you laugh. Not that you lose a client.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🛑</div>
+      <div class="piege-body">
+        <h4>Pitfall 4 — Thinking more = better</h4>
+        <p>More versions tested doesn't necessarily mean a better result. Beyond 20–30 changes, the marginal gain becomes tiny, but the cost keeps climbing. My experience after a few tries: <strong>stop at the first version that satisfies you</strong>. You can always relaunch a loop later if you need to. Perfect is the enemy of good — AI included.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:24px">
+      And a fifth, sneakier one: <strong>not understanding what the AI changed</strong>. If you ship a version you haven't reviewed, you're going to get surprises. Always ask Claude to summarize its changes in plain English, and always read that summary before adopting the new version.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Cost cap</span><span>Secret control list</span><span>Never on anything critical</span><span>Perfect is the enemy of good</span><span>Understand before adopting</span><span>Stay in control</span>
+    <span>Cost cap</span><span>Secret control list</span><span>Never on anything critical</span><span>Perfect is the enemy of good</span><span>Understand before adopting</span><span>Stay in control</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— What not to expect</span>
+    <h2>The promises <em class="fuchsia">to unplug</em> right now.</h2>
+    <p>
+      I see a lot of hype about self-improving agents right now. "AI will develop itself, we won't need devs anymore." Easy there. Here are the real ballpark figures, after two months of testing at home.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>The marketing promise</th><th>The reality on my test bench</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>"AI improves itself without you"</strong></td>
+            <td>The AI improves <em>one specific thing</em> that you defined, on examples that you prepared. Without that human prep, it can't improve anything.</td>
+          </tr>
+          <tr>
+            <td><strong>"Gains of 200, 300 %"</strong></td>
+            <td>10 to 30 % improvement per loop, in my tests. Sometimes more, never 300 %. And it plateaus fast: the second loop gains less than the first.</td>
+          </tr>
+          <tr>
+            <td><strong>"It replaces devs"</strong></td>
+            <td>It helps devs iterate faster and lets non-devs like me improve small bits of software. Nobody gets replaced; some people get upgraded.</td>
+          </tr>
+          <tr>
+            <td><strong>"Soon AI will build its own successors"</strong></td>
+            <td>Karpathy himself dials it back: we're talking micro-improvements on narrow problems. Not an AI that redesigns itself from A to Z. That may come, but we're not there.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      My honest take: <strong>it's powerful, it's real, it's usable today for specific cases</strong>. But it's not the revolution they're selling you on LinkedIn. It's a new productivity lever, the way the arrival of Excel was for accountants or search engines were for journalists. Important. Not magic.
+    </p>
+
+    <div class="callout warn">
+      <h4>My real advice after two months of testing</h4>
+      <p>Don't invest three weekends building your first test bench thinking you'll discover the secret to business. Invest three hours, run a try on a harmless case (a newsletter subject line, for example), see if you enjoy it, and if you do, apply it to a more useful case the following week. <strong>Gradual learning beats initial enthusiasm</strong> every single time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The verdict</span>
+    <h2>Who it's <em class="teal">useful</em> for, and who it isn't.</h2>
+    <p>
+      After these two months and a good dozen tries (successful and failed), here's how I sort it out.
+    </p>
+
+    <h3>It'll help you if you're…</h3>
+    <ul>
+      <li><strong>An entrepreneur or freelancer</strong> who already has automated routines (sending emails, sorting leads, generating quotes) and would like to make them 20–30 % more accurate without hiring someone.</li>
+      <li><strong>A content creator</strong> with enough measurable history (opens, clicks, conversions) for the AI to have material to analyze.</li>
+      <li><strong>Curious about AI</strong> and already dabbling with Claude Code or a similar tool, wanting to take the next step. If that's you, it's the logical step after my <a href="/articles/loops-claude">tutorial on loops</a> and my <a href="/articles/hermes-agent">tutorial on agents</a>.</li>
+    </ul>
+
+    <h3>It will NOT help you if you're…</h3>
+    <ul>
+      <li><strong>A total AI beginner</strong> who hasn't installed Claude Code or an equivalent yet. Start with my <a href="/en/debutant">beginner guide</a> first. Without the basics, it'll be pure frustration.</li>
+      <li><strong>Someone with nothing to measure</strong>. If you can't objectively say "this version is better," it won't work. No big deal, plenty of other AI uses work without a measure.</li>
+      <li><strong>In a hurry to see a return on investment</strong>. Count on two to five tries before you really save time. The first one is always for learning.</li>
+    </ul>
+
+    <h3>What's going to happen in 2026–2028</h3>
+    <p>
+      Three things, very likely, that will change the landscape:
+    </p>
+    <ul>
+      <li><strong>The tools will get simpler</strong>. Today you need Claude Code and a bit of patience to set up a loop. Within 18 months, it'll be an "optimize this script overnight" button inside tools like Notion, Zapier or Make. No need to understand the terminal.</li>
+      <li><strong>The cost will drop by 80 %</strong>. AI tokens roughly halve in price every year. My tries that cost €8 today will cost €1 or €2 in two years.</li>
+      <li><strong>New uses will appear</strong>. Especially in website maintenance, sales-funnel optimization, customer-support improvement. The companies that get on it now will pull ahead.</li>
+    </ul>
+    <p>
+      What's not going to happen, in my view: a fully autonomous AI that rebuilds itself from scratch, with no <a class="lex-link" href="/lexique/human-in-the-loop" title="Human-in-the-loop — see the definition">human in the loop</a>. We're a long way from that, and probably for good reasons that the researchers themselves explain to us.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Going further</span>
+    <h2>Three leads <em class="orange">to dig into</em> this weekend.</h2>
+
+    <div class="checklist">
+      <h4>If you want to test now</h4>
+      <ul>
+        <li><strong>Pick the least risky topic possible.</strong> Not your CRM. Not your billing. More like a newsletter subject line, a prompt you use often, or a small never-critical script.</li>
+        <li><strong>Prepare a reference list of at least 50 examples.</strong> Without it, the AI has nothing to measure. It's the most tedious part, and it's the one that makes all the difference.</li>
+        <li><strong>Set a cap at €10.</strong> Enough to find out whether it works, not enough to ruin you if it goes off the rails.</li>
+        <li><strong>Launch it on an evening when you have nothing urgent the next morning.</strong> Just in case you have to start over from scratch.</li>
+        <li><strong>Note your takeaways.</strong> Three lines in a notebook: what worked, what failed, what I'd do differently. That's the real value of your first try.</li>
+      </ul>
+    </div>
+
+    <h3>Three articles to push further</h3>
+    <p>
+      If this article spoke to you, here are the next three to read in this order:
+    </p>
+    <ul>
+      <li><strong><a href="/articles/loops-claude">Claude Code loops, explained</a></strong> — the technical basics to understand how Claude can run on a loop. Essential before you try your own experiment.</li>
+      <li><strong><a href="/articles/hermes-agent">Building a Hermes Agent step by step</a></strong> — how to set up an <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — see the definition">agent</a> that does specific tasks for you. The step before self-improvement.</li>
+      <li><strong><a href="/articles/karpathy">Karpathy's work, made simple</a></strong> — if you want to understand who the guy is and why his ideas matter in the AI world.</li>
+      <li><strong><a href="/articles/llm-wiki-karpathy">The LLM Wiki, your second brain</a></strong> — the other Karpathy project that complements autoresearch · a local encyclopedia that learns from your feedback.</li>
+      <li><strong><a href="/articles/claude-code-workflow-tips">My Claude Code takeaways after 6 months</a></strong> — the daily routine that makes this kind of overnight experiment possible without breaking everything in the morning.</li>
+    </ul>
+
+    <p>
+      And if you've never touched Claude or ChatGPT, don't skip steps. Go read my <a href="/en/debutant">beginner guide</a> first. Everything else will be easier after that.
+    </p>
+
+    <p>
+      If you want me to send you more stories like this one (what I test, what works, what fails), sign up for <a href="/en#newsletters">AI Playbook</a> — it's my weekly watch, I share the same thing with you that I keep for myself. And if you launch your first try and you're struggling, or you think I'm talking nonsense somewhere, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>. I read everything, I don't take it badly, and I often learn more from your feedback than from my own tests.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>Autoresearch <em class="fuchsia">FAQ.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What is autoresearch according to Karpathy?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">The core idea behind Andrej Karpathy's <em>autoresearch</em> project: you put an AI to work on a problem, you ask it to edit its own work, it tests whether the new version is better, keeps it if so, throws it out if not, and loops. It's the simplest idea in the world dressed up in a fancy name.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do you let an AI improve its own code overnight?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">You prepare a reference list (200 examples scored by hand), you hand the current program to Claude Code with a plain-English brief, you set a cap on AI-token cost, and you launch it in the evening. In the morning, the AI shows you the best version it found and the list of everything it tried.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much does it cost to test 14 versions of an agent overnight?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">My overnight experiment on email sorting cost me <strong>€8.40 in AI tokens</strong> for 9 hours of work and 14 versions tested, against a cap set at €15. Budget €10 to €15 for a first try — that's plenty to find out whether it works.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What are some non-dev use cases for autoresearch?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Four concrete cases tested: finding the best newsletter subject lines (8 to 18 % more opens), testing 50 cold-email variants, improving the clarity of blog posts by learning from your best past ones, and optimizing e-commerce product pages. The common thread: you have to be able to <strong>objectively measure</strong> whether a version is better.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What pitfalls should you avoid before launching a self-improvement loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Four main pitfalls: launching without a cost cap (a planned €5 can turn into €80), not keeping a secret control list (the AI memorizes your reference list), letting it run on anything critical (never your CRM or your billing), and believing that more versions tested necessarily means a better result (the gains plateau fast after 20–30 changes).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What tools let you actually do autoresearch?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Claude Code</strong> (the app that lets you chat with Claude in a terminal and have it edit files) or OpenAI's <strong>Codex CLI</strong> are the two main tools today. Budget 30 minutes of setup the first time. Within 18 months, this will probably be a built-in button inside Notion, Zapier or Make.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do you need to be a developer to do AI autoresearch?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. I'm not a dev and I never studied computer science. The whole experiment was done by asking Claude to explain each step like I was a beginner and having it write the code. The golden rule: <strong>until you've understood what the AI changed, don't ship it to production</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What realistic results can you expect from a self-improvement loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">10 to 30 % improvement per loop in my tests, with a quick plateau (the second loop gains less than the first). On the email sorting, I got 23 % fewer important emails missed. The marketing promises of 200 or 300 % are noise: Karpathy himself dials it back and talks about micro-improvements on narrow problems.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference between autoresearch and classic <a class="lex-link" href="/lexique/fine-tuning" title="Fine-tuning — see the definition">fine-tuning</a>?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Fine-tuning</strong> changes the weights of the <a class="lex-link" href="/lexique/modele" title="AI model — see the definition">AI model</a> itself with a dataset; it takes infrastructure and data. <strong>Autoresearch</strong> changes the code, the prompt or the configuration around the model, without touching the model. It's more accessible, cheaper, and applicable to anything you can measure.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How long does it take to get a first usable result?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Budget <strong>two to three hours</strong> the first time, mostly to prepare the reference list (the longest but most important step). The loop itself runs overnight while you sleep. In the morning, you've got your best version. Then count on two to five tries before you really save time: the first one is always for learning.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, with no jargon and no hype. If this article helped you, the easiest way to never miss a thing is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

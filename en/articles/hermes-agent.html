@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The agent that reads my 200 emails for me every morning</title>
+<meta name="description" content="I built an AI agent that sorts my 200 emails a day at 7am with Make and Claude. 4 hours saved a week, 91% accuracy, no code. The full tutorial.">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/hermes-agent">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/hermes-agent">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/hermes-agent">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/hermes-agent">
+
+<meta property="article:published_time" content="2026-04-10">
+<meta property="article:modified_time" content="2026-04-24">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "The agent that reads my 200 emails for me every morning", "item": "https://jerwis.fr/en/articles/hermes-agent" }
+  ]
+}
+</script>
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/en/articles/hermes-agent">
+<meta property="og:title" content="The agent that reads my 200 emails for me every morning">
+<meta property="og:description" content="I built an AI agent that sorts my 200 emails a day at 7am with Make and Claude. 4 hours saved a week, 91% accuracy, no code. The tutorial.">
+<meta property="og:image" content="https://jerwis.fr/photos/og/hermes-agent.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/hermes-agent.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="The agent that reads my 200 emails for me every morning">
+<meta name="twitter:description" content="I built an AI agent that sorts my 200 emails a day at 7am with Make and Claude. 4 hours saved a week, 91% accuracy, no code.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "The agent that reads my 200 emails for me every morning",
+  "description": "I built an AI agent that sorts my 200 emails a day at 7am with Make and Claude. 4 hours saved a week, 91% accuracy, no code. The tutorial.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/en/jeremy-sagnier"},
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/en/photos/og/hermes-agent.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/en/articles/hermes-agent"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Exactly how much does an email-sorting agent like Hermes cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About 8 euros a month to process 6,000 emails (200 a day) with Anthropic's claude-haiku-4 model. That's 0.25 euro a day. Make is free up to 1,000 actions a month, more than enough to get started. No other hidden cost: no subscription, no license to buy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do my emails go through Anthropic when Hermes sorts them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Hermes sends Claude the subject line and a snippet of the body of each email to classify. Anthropic has a default no-retention commitment on the API, but your data does pass through their servers. For ultra-sensitive data (lawyer, medical, professional secrecy), you need to switch to the local route with Ollama and a model that runs 100% on your own machine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Hermes work with Outlook or only with Gmail?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make and Zapier both have official Outlook and Microsoft 365 connectors. The tutorial follows exactly the same logic: you swap the Gmail block for the Outlook block, the rest is identical. If you're already on Microsoft 365, Microsoft Copilot for Outlook (~ €22/month) covers part of the need with nothing to install."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does the full tutorial setup take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Plan on a Saturday afternoon for the first working version (creating the Anthropic and Make accounts, connecting Gmail, writing the system prompt, testing on 10 emails). Plus an hour of tweaking the following week to fine-tune the rules. In total: 4 to 6 hours to go from zero to a working Hermes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if the Anthropic API goes down in the middle of the night?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make emails you the moment a scenario fails. Your emails stay in your inbox, simply unsorted until the service comes back. Over 4 months of use, I had 2 incidents (Make down or Anthropic's API overloaded), both fixed in under an hour without me lifting a finger. No email lost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How secure is Make for my email data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Make stores processed data for 30 days by default for debugging. You can lower that to 7 days in the scenario settings, or turn on \"Data structures\" mode to store only the variables and not the body of the emails. Make is ISO 27001 certified and GDPR-compliant, hosted in the EU. For anything sensitive, the local route is a must."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many tweaks does the system prompt need before it works well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Plan on 5 to 10 iterations over the first two weeks. For 14 days I logged every mistake Hermes made in an Apple note, I spotted the patterns, and I added 3 precise rules to the prompt. Accuracy went from 78% to 91% in one afternoon of tweaking. After that, 1 change a month at most."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Hermes handle 1,000 emails a day without crashing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, easily. Make absorbs it with room to spare (10,000+ actions/month on a paid plan starting at €9/month), claude-haiku-4 processes each email in under a second. You'll pay around €40 a month on the Anthropic side for 30,000 emails. The limiting factor isn't technical but the accuracy of the sorting once the volume gets too varied."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Hermes and SaneBox or Superhuman?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SaneBox (~ €7/month) automatically sorts unimportant emails into a folder, with no deep customization. Superhuman (~ €30/month) offers a premium interface with pre-wired AI features. Hermes is custom-built, written with your own real rules, plugged into Gmail/Outlook, and costs €8/month. Sharper but it takes a Saturday to set up."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you need to know how to code to build your own Hermes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Route A of the tutorial (Make + Anthropic + Gmail) doesn't write a single line of code: it's drag-and-drop in a visual interface. If you can copy-paste a piece of text and create 2 online accounts, you can do it. Route B (a Python script) is for the curious who want to understand how it works under the hood — and it's still just 50 lines of code ready to paste."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(239,66,111,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(0,178,169,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,66,111,.5) } 70% { box-shadow: 0 0 0 12px rgba(239,66,111,0) } 100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
+  .hero h1 em { font-style: normal; color: var(--fuchsia) }
+  .hero h1 em.teal { color: var(--teal) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
+  .hero-meta-item strong { color: var(--fuchsia); margin-right: 6px }
+
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--fuchsia); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
+  h2 em { font-style: normal }
+  h2 em.teal { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 4.5vw, 46px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
+
+  /* Pieges */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Outils grid */
+  .outils { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 8px }
+  @media (min-width: 600px) { .outils { grid-template-columns: 1fr 1fr } }
+  .outil { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 16px 18px }
+  .outil h4 { margin: 0 0 4px; font-size: 15px }
+  .outil .lic { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .outil p { font-size: 14px; margin: 0; line-height: 1.55 }
+
+  /* Cas d'usage cards */
+  .cas { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 16px 0; display: grid; grid-template-columns: 1fr; gap: 8px }
+  @media (min-width: 720px) { .cas { grid-template-columns: 130px 1fr } }
+  .cas-head { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--fuchsia); font-weight: 700 }
+  .cas h4 { margin: 0 0 6px; font-size: 17px }
+  .cas p { font-size: 14.5px; line-height: 1.6; margin: 0 }
+  .cas p + p { margin-top: 8px }
+  .cas .who { display: inline-block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); letter-spacing: .1em }
+
+  /* Checklist / Quick boxes */
+  .checklist { background: linear-gradient(135deg, rgba(0,178,169,.06), rgba(239,66,111,.04)); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 22px 0 }
+  .checklist h4 { margin: 0 0 14px; font-size: 16px }
+  .checklist ul { list-style: none; padding: 0; margin: 0 }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft) }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+  .checklist li strong { color: var(--ink) }
+
+  /* Quick start (tuto box) */
+  .quick { background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%); color: #F4EFE6; border-radius: 22px; padding: 32px; margin: 22px 0 }
+  .quick .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px }
+  .quick h3 { color: #F4EFE6; margin: 0 0 14px }
+  .quick p { color: #C4CED4; font-size: 15px; margin-bottom: 12px }
+  .quick ol { color: #C4CED4; margin: 14px 0 14px 22px }
+  .quick li { margin-bottom: 10px }
+  .quick code { background: rgba(255,255,255,.08); color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .quick .note { background: rgba(0,178,169,.08); border-left: 3px solid var(--teal); padding: 12px 16px; border-radius: 4px; margin-top: 14px; font-size: 14px }
+
+  /* Step blocks (tuto pas à pas) */
+  .step { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 22px 26px; margin: 14px 0; display: flex; gap: 22px; align-items: flex-start }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 18px; color: #F4EFE6 }
+  .step:nth-child(3n+1) .step-num { background: var(--teal) }
+  .step:nth-child(3n+2) .step-num { background: var(--fuchsia) }
+  .step:nth-child(3n+3) .step-num { background: var(--orange) }
+  .step-body h4 { margin: 4px 0 8px; font-size: 17px }
+  .step-body p { font-size: 14.5px; line-height: 1.65; margin: 0 0 10px }
+  .step-body code { background: var(--code-bg); color: var(--code-ink); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+  .step-body .os-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: .1em; margin-top: 8px; display: block }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p { margin: 0; font-size: 14.5px }
+  .callout ul { margin: 8px 0 0 22px; font-size: 14.5px }
+  .callout ul li { margin-bottom: 4px }
+
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+
+  /* Share block (universel, repris du site) */
+  .share-block { max-width: 820px; margin: 72px auto 32px; padding: 32px 32px 28px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; text-align: center }
+  .share-block-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .22em; font-weight: 700; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .share-block h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(22px, 3vw, 28px); letter-spacing: -.02em; color: var(--ink); margin: 0 0 22px; line-height: 1.15 }
+  .share-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px }
+  .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--bg-2); border: 1px solid var(--line-strong); color: var(--ink); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13.5px; text-decoration: none; cursor: pointer; transition: transform .2s, border-color .2s, background .2s, color .2s }
+  .share-btn svg { width: 16px; height: 16px; flex-shrink: 0 }
+  .share-btn:hover { transform: translateY(-2px); border-color: currentColor }
+  .share-btn-x:hover { background: #0A0A0A; color: #fff; border-color: #0A0A0A }
+  .share-btn-linkedin:hover { background: #0A66C2; color: #fff; border-color: #0A66C2 }
+  .share-btn-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366 }
+  .share-btn-email:hover { background: var(--orange); color: #fff; border-color: var(--orange) }
+  .share-btn-copy:hover { background: var(--teal); color: #fff; border-color: var(--teal) }
+  .share-btn.copied { background: var(--teal) !important; color: #fff !important; border-color: var(--teal) !important }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<!-- Schema.org : HowTo -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Build Hermes, the agent that sorts my inbox",
+  "description": "Step-by-step tutorial to build an AI agent that sorts 200 emails a day with Make and Claude, no code.",
+  "totalTime": "PT120M",
+  "image": "https://jerwis.fr/en/photos/og/hermes-agent.jpg",
+  "inLanguage": "fr-FR",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Create an account at Anthropic (the maker of Claude)",
+      "text": "The AI that's going to do the work is Claude. It's the one that gives me the best results on this kind of sorting (I also tried ChatGPT, it's great too, pick whichever you already know). Go to console.anthropic.com . Click \"Sign up\", enter your email, verify via the link you receive."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Choose how you connect Gmail",
+      "text": "You have two routes, to pick based on your comfort level. Here's the honest comparison, no spin."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Connect Gmail (5 minutes, Route A as the example)",
+      "text": "In Make, you create a new \"scenario\". The first block is \"Gmail · Watch Emails\". You click, you authorize Make to connect to your Gmail (Google shows you a permission screen, you accept). You pick \"Inbox\" as the folder to watch. You set \"every…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Write the instructions (the system prompt) — the part that changes everything",
+      "text": "This is where you teach your agent who you are, what you expect, and how you work. Your 91% sorting accuracy is 80% down to this text. Take 30 minutes to write it carefully. Here's the template I use, to adapt to your case."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Test on 10 emails in \"watch\" mode",
+      "text": "Before letting Hermes label your inbox for real, you're going to run it in test mode. In Make, you click \"Run once\" ten times in a row, on your 10 most recent emails. For each email, you look at: which label does Hermes suggest? You compare it with what you'd have picked yourself."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Turn it on for real (labeling-only mode)",
+      "text": "When your 10-email test looks good, you turn the scenario on in Make (big green \"ON\" button at the top). From now on, every 15 minutes, Make reads your new emails, asks Claude to label them, and applies the label in Gmail. You have nothing left to do."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 7,
+      "name": "Add reply drafts (only after 2 stable weeks)",
+      "text": "If after 2 weeks you're happy with the sorting, you can move up a level: let Hermes prepare drafts for simple emails. You add a new block to your Make scenario: \"Gmail · Create Draft\" . The draft shows up in Gmail with a little \"Draft\" tag — you…"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 8,
+      "name": "Keep an eye on it during the first month",
+      "text": "Block 5 minutes every Friday to open Make's history and look: how many emails were processed this week? How many visible mistakes? Is there a type of email that systematically lands in the wrong category?"
+    }
+  ]
+}
+</script>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Tutorial · Agent that sorts your email · Beginner level</div>
+    <h1>The agent that reads my <em>200 emails</em><br>for me,<br><em class="teal">every morning.</em></h1>
+    <p class="hero-lead">
+      I named it Hermes. It's a little assistant I built to open my inbox every morning at 7am, spot the three or four genuinely urgent messages, and file the rest away. Four months of use, 91% accuracy, around 4 hours saved a week. And yes, I'll also tell you about the day it replied to my mom like she was a sales prospect. Step-by-step tutorial for someone who has never written a line of code.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>18 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Anyone</span>
+      <span class="hero-meta-item"><strong>Date</strong> April 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI Overviews · réponse directe -->
+<div class="container">
+  <aside class="answer-card" aria-label="Quick answer" style="margin:20px 0 30px; padding:16px 20px; background:var(--bg-2,#F4EFE6); border-left:4px solid var(--teal,#00B2A9); border-radius:6px; font-size:15px; line-height:1.55; color:var(--ink-soft,#3A3A3A)">
+    <p style="margin:0"><strong style="color:var(--ink,#0A0A0A); margin-right:6px">Quick answer.</strong>A Hermes Agent is a personalized AI assistant that reads an inbox, classifies messages by rules you define, and drafts reply messages. Built with Claude connected to Gmail via OAuth, it runs on plain-language instructions. Plan on an afternoon for the first version, with no line of code to write yourself.</p>
+  </aside>
+</div>
+<!-- /AI Overviews -->
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll learn</h2>
+    <ul>
+      <li><strong>What Hermes does</strong> — it opens my inbox, spots the genuinely urgent messages, files the rest into three or four folders, and writes reply drafts for the easy cases. I read them over, I click, I send.</li>
+      <li><strong>The measured payoff</strong> — over four months of use, roughly 200 emails a day processed, 91% filed correctly, 4 hours saved a week on sorting. Not a marketing promise, my real numbers.</li>
+      <li><strong>How to build it</strong> — an account with the AI (Claude or ChatGPT), a connection to Gmail, a piece of text that explains your rules to the agent. Plan on a Saturday afternoon for the first version.</li>
+      <li><strong>Who it's useful for</strong> — an inbox under siege (50+ emails/day), wanting your mornings back, comfortable copy-pasting. If you get 10 emails a day, don't waste your time.</li>
+      <li><strong>My honest take</strong> — it's the tool that saved me the most time in 2026. But I had three serious mishaps along the way, and I'll tell you all of them so you don't repeat them.</li>
+      <li><strong>Transparency</strong>: article written with Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), reviewed and approved by me. Hermes itself runs on Claude. If you spot a mistake, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>, I'll fix it.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The honest story</span>
+    <h2>Four months <em class="fuchsia">with Hermes.</em></h2>
+    <p>
+      Before I sell you the magic, I want to tell you how it actually went. Not the "everything's great" version from the YouTube videos. The version where I struggle, where I break things, and where I eventually figure out what works.
+    </p>
+    <p>
+      December 2025. I'm averaging 200 emails a day — between the notifications I let pile up, the newsletters I never really read, the actual clients writing to me, the cold-email pitches (prospecting emails you get without ever asking for them). I spend about 1 hour each morning sorting. Times 5 days, that's 5 hours a week. Over a year, that's the equivalent of six full-time weeks of work. To sort emails. Help.
+    </p>
+    <p>
+      I decide to build a little assistant. I'd never done this before. I'm an entrepreneur, not a developer. But in 2026, you can build this kind of tool with an AI holding your hand (I used Claude, the AI from Anthropic, to help me write every line — I'll explain how further down). The first prototype takes one Saturday afternoon.
+    </p>
+
+    <h3>The real numbers after four months</h3>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label">Accuracy</div>
+        <div class="num">91%</div>
+        <div class="desc">Out of 200 emails tested blind, the agent filed 182 correctly. Eleven mislabels, eight false "not important" calls that would have deserved a look. Not perfect, but very much usable.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Time saved</div>
+        <div class="num">4 h / wk</div>
+        <div class="desc">Measured over two weeks with and without the agent, actually timing it. I now spend 12 minutes in the morning instead of 60. Times 50 working weeks in the year.</div>
+      </div>
+      <div class="bignum">
+        <div class="label">Monthly cost</div>
+        <div class="num">~ €8</div>
+        <div class="desc">The AI charges me about 8 euros a month to process my 6,000 emails. That's less than a coffee a day. For 4 hours saved a week, the return on investment is laughable.</div>
+      </div>
+    </div>
+
+    <h3>The three instructions that actually worked</h3>
+    <p>
+      The agent doesn't do magic. It does exactly what you tell it, as long as you tell it well. Here are the three rules I ended up locking in after plenty of failed attempts. Keep them in mind, we'll come back to them in the tutorial.
+    </p>
+
+    <div class="callout ok">
+      <h4>Rule 1 — "Urgent" only if it's genuinely urgent</h4>
+      <p>Label as <strong>"urgent"</strong> only if the sender asks me for a concrete action within 48 hours <strong>AND</strong> it's a paying client. The "AND" is crucial — without it, the agent was labeling 80% of emails as urgent. With it, we dropped to 5%, which matches the reality of my inbox.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>Rule 2 — "Later" for newsletters I never open</h4>
+      <p>Label as <strong>"read later"</strong> any newsletter I've opened fewer than 2 times out of the last 5 sends. That's honest sorting: if you haven't bothered to open it 3 out of 5 times, it isn't a priority. I unsubscribe in batches once a month.</p>
+    </div>
+
+    <div class="callout ok">
+      <h4>Rule 3 — "Soft spam" for disguised cold pitches</h4>
+      <p>Label as <strong>"soft spam"</strong> any email whose subject line has more than 2 emojis OR a discount percentage. Surprisingly accurate. These are the pitches that slip past the usual spam filters but have no business being in your main inbox.</p>
+    </div>
+
+    <h3>And then the day Hermes replied to my mom</h3>
+    <p>
+      I have to tell you this one. After two months, I think it's doing such a good job sorting my email that I decide to give it a new power: <strong>writing and sending the simple replies on its own</strong>. Not just preparing a draft — actually sending. For cases where it's just "ok thanks", "got it", "let's talk again next week". You know the kind.
+    </p>
+    <p>
+      Day one. All good. Day two, I see an email from my mom go by in the history. She writes to me: "Hi sweetheart, are we doing lunch on Sunday with your brother? Love, Mom." Hermes's reply: "Dear Ms. Sagnier, thank you for your proposal. Could you let me know your more precise availability so we can lock in a slot? Best regards, Jérémy."
+    </p>
+    <p>
+      <strong>The full tone of a salesperson talking to a hot lead.</strong> To his own mom. I shut off the auto-send feature within the minute. I called my mom to laugh about it, but she didn't laugh all that much. And I added a new rule: <strong>the agent prepares drafts, it never sends on its own</strong>. Ever. Unless I click. That's my scar. Learn from mine, not from yours.
+    </p>
+
+    <div class="callout warn">
+      <h4>What you take away from this story</h4>
+      <p>An agent does <strong>exactly</strong> what you tell it, with no common sense. If you give it the power to send, it'll send. If you give it the power to delete, it'll delete. Until you're 100% sure, keep it in "suggest, I click" mode. Active mode only on truly reversible <a class="lex-link" href="/lexique/github-actions" title="GitHub Actions — see the definition">actions</a>, like labeling or archiving.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>200 emails a day</span><span>91% filed right</span><span>4h saved a week</span><span>Four months of use</span><span>A story about my mom</span><span>My real take</span>
+    <span>200 emails a day</span><span>91% filed right</span><span>4h saved a week</span><span>Four months of use</span><span>A story about my mom</span><span>My real take</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— What it actually does for me</span>
+    <h2>Three useful things <em class="orange">it does for me.</em></h2>
+    <p>
+      When I say "agent that sorts my email", that stays vague. Here are the three concrete cases Hermes solves for me every day. If one of them resonates with your day-to-day, it's probably worth your Saturday afternoon.
+    </p>
+
+    <div class="cas">
+      <div class="cas-head">Case 01<br>The morning sort</div>
+      <div>
+        <h4>Separating the genuinely urgent from the noise</h4>
+        <p>Before: I open Gmail, I see 47 unread emails, I skim them all, I decide on the fly, sometimes I miss an important email buried in the noise. After: Hermes has already labeled everything by 7am. I open the "urgent" view, I see 3 or 4 emails, I handle them in 10 minutes. The rest waits for the afternoon or the next day.</p>
+        <p><strong>Measured payoff</strong>: 45 minutes every morning. That's the equivalent of a free lie-in every week. Over four months, that's exactly 60 hours of my life I didn't spend sorting email. That's a long weekend won back.</p>
+        <span class="who">Setup cost: a Saturday afternoon</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">Case 02<br>The easy drafts</div>
+      <div>
+        <h4>Writing the "ok thanks, got it" replies</h4>
+        <p>For simple confirmation emails (a client saying thanks, a supplier sending an invoice, a partner acknowledging receipt), Hermes prepares a draft in Gmail. I open it, I read it over, I send. Three seconds instead of thirty. For 20 emails a day of this kind, that's 9 minutes saved every single day.</p>
+        <p><strong>The key point</strong>: it <strong>prepares</strong>, it never sends. See the incident with my mom above. Always confirm with a click, never auto-send. This rule is non-negotiable.</p>
+        <span class="who">Volume handled: ~ 20 drafts / day</span>
+      </div>
+    </div>
+
+    <div class="cas">
+      <div class="cas-head">Case 03<br>The big tidy-up</div>
+      <div>
+        <h4>Filing incoming emails into themed folders</h4>
+        <p>I have three big active folders: <strong>"clients"</strong>, <strong>"suppliers"</strong>, <strong>"watch"</strong>. Hermes files each incoming email into the right one. When I'm looking for something three months later ("what was the designer's invoice from March?"), I go straight to "suppliers" instead of digging through the whole inbox.</p>
+        <p><strong>The hidden benefit</strong>: my inbox now only holds recent, untreated stuff. No more of that feeling of never seeing the bottom of the ocean. It's mental, it's invisible in the numbers, but it's probably the most valuable part.</p>
+        <span class="who">Average accuracy: 91%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— No jargon</span>
+    <h2>How it works, <em class="teal">really.</em></h2>
+    <p>
+      You'll see, it isn't magic. If you understand how a human assistant works, you'll understand Hermes. It's exactly the same logic, just with a computer in place of the brain.
+    </p>
+
+    <h3>The analogy that clicks</h3>
+    <p>
+      Imagine you hire a new assistant. On day one, you tell them: <em>"Here's my inbox. Here are my rules: an email from this client is urgent. A newsletter goes in 'later'. A cold pitch, you archive. "</em> You take 30 minutes to explain it, you show them ten concrete examples, you tell them what you expect.
+    </p>
+    <p>
+      The next day, your assistant shows up at 7am, opens your inbox, applies your rules. When they're unsure, they set the email aside for you to decide. After a week, you correct two or three things ("no, that client isn't actually urgent"), and it's dialed in.
+    </p>
+    <p>
+      <strong>Hermes is exactly that.</strong> Except your "assistant" is an AI. And you don't talk to it, you write its rules in a piece of text we call <strong>"the <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — see the definition">system prompt</a>"</strong> (the equivalent of the assistant's employment contract — the list of rules it must follow all the time, in every case).
+    </p>
+
+    <h3>The three ingredients (and that's it)</h3>
+
+    <div class="checklist">
+      <h4>What Hermes needs to run</h4>
+      <ul>
+        <li><strong>A brain</strong> — the AI itself. You pick one (Claude, ChatGPT, or a free AI installed on your own machine). It's the one that reads each email and decides.</li>
+        <li><strong>Tools</strong> — the connection to Gmail. That's what lets the AI read emails, add labels, prepare drafts. Without it, the AI is blind.</li>
+        <li><strong>Clear instructions</strong> — the system prompt. The 20-to-50-line text that explains your rules to the AI. That's where everything is won or lost.</li>
+      </ul>
+    </div>
+
+    <p>
+      When you start Hermes up, here's what actually happens behind the scenes:
+    </p>
+
+    <ol>
+      <li>The agent opens your inbox (via the <strong>Gmail connection</strong>) and grabs the unread emails.</li>
+      <li>For each email, it sends it to the AI saying: <em>"Here's this email, here are my rules, tell me which label to stick on it."</em></li>
+      <li>The AI replies: <em>"Label = urgent"</em> (or read later, or watch, etc.).</li>
+      <li>The agent applies the label in Gmail (via the same connection).</li>
+      <li>If it's an email that deserves a reply draft, the AI writes it, the agent drops it into Gmail as a draft. You see the little "draft" tag appear in Gmail in the morning.</li>
+    </ol>
+
+    <p>
+      That's it. No magic. No advanced robotics. Just an AI that reads text, applies your rules, and ticks boxes in Gmail for you.
+    </p>
+
+    <div class="callout tip">
+      <h4>Why I named it Hermes</h4>
+      <p>Hermes, in mythology, is the messenger of the gods. The one who carries the news between worlds. It was an obvious fit for an agent that spends its life in my inbox. You can rename it whatever you want — Jeeves, Alfred, Stuart, Postman Pat — it changes nothing about what it does. It's just nicer to say "Hermes did its sort" than "the Python script ran overnight".</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Step 1 · AI account</span><span>Step 2 · Connect Gmail</span><span>Step 3 · Write the rules</span><span>Step 4 · Test on 10 emails</span><span>Step 5 · Active mode</span><span>One afternoon, start to finish</span>
+    <span>Step 1 · AI account</span><span>Step 2 · Connect Gmail</span><span>Step 3 · Write the rules</span><span>Step 4 · Test on 10 emails</span><span>Step 5 · Active mode</span><span>One afternoon, start to finish</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The step-by-step tutorial</span>
+    <h2>Let's build <em class="fuchsia">your Hermes.</em></h2>
+    <p>
+      Here's the path to follow, exactly how I'd redo it today in 2026. <strong>Plan on a Saturday afternoon for the first version</strong>, plus an hour of tweaking the following week to fine-tune the rules. I'll use Mac as the running example because that's what I have. On Windows or Linux, it's exactly the same logic, I'll flag it whenever it changes.
+    </p>
+
+    <div class="callout warn">
+      <h4>Before you start — the honest version</h4>
+      <p>This tutorial asks you to copy-paste, create 2 accounts, and fill in a text file. If you've never done that, it's doable. If you're not at all comfortable with a computer, you're better off reading the <strong>"Without installing anything"</strong> block right at the bottom — you'll get 70% of the result in 2 minutes, and you'll come back here when you're ready to push further. No shame in that.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h4>Create an account at Anthropic (the maker of Claude)</h4>
+        <p>The AI that's going to do the work is Claude. It's the one that gives me the best results on this kind of sorting (I also tried ChatGPT, it's great too, pick whichever you already know). Go to <strong><a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a></strong>. Click "Sign up", enter your email, verify via the link you receive.</p>
+        <p>Once logged in, you go to <strong>"<a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener">API Keys</a>"</strong> in the left-hand menu. Click "Create Key". Give it a name (for example "Hermes mail"). You get a long key that starts with <code>sk-ant-...</code>. <strong>Copy it and keep it somewhere safe</strong> — you'll never be able to see it again afterward. Paste it into a local note on your computer, never in an email.</p>
+        <span class="os-note">It's free to create the account. You pay as you go: about €8 a month for 6,000 emails in my case. Put €5 of credit in at the start, that's plenty to test for two weeks.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h4>Choose how you connect Gmail</h4>
+        <p>You have two routes, to pick based on your comfort level. Here's the honest comparison, no spin.</p>
+        <p><strong>Route A — Make or Zapier (the "no-code" option).</strong> You create an account on <strong><a href="https://www.make.com/" target="_blank" rel="noopener">make.com</a></strong> (or <a href="https://zapier.com/" target="_blank" rel="noopener">zapier.com</a>). These tools are for wiring services together by drag-and-drop, without writing a single line of code. You connect Gmail inside (a click, a <a href="https://developers.google.com/gmail/api/auth/scopes" target="_blank" rel="noopener">Google authorization</a>), then you connect Anthropic (by pasting your key). Plan on 30 minutes to get the hang of the interface. Free up to 1,000 actions a month — more than enough to get started.</p>
+        <p><strong>Route B — A little Python script (the "I like to understand" option).</strong> You install <strong>Python</strong> on your Mac (it's already there, actually), you copy-paste a 50-line script I give you below, you run it every hour with a system command (cron on Mac/Linux, Task Scheduler on Windows — the equivalent of an alarm clock telling your computer: "every hour, run this script"). More control, but it means diving into a terminal.</p>
+        <span class="os-note">My advice for your first Hermes: Route A. You'll have something that works in 2 hours. You can always migrate to Route B in 6 months if you want more finesse.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h4>Connect Gmail (5 minutes, Route A as the example)</h4>
+        <p>In Make, you create a new "scenario". The first block is <strong>"Gmail · Watch Emails"</strong>. You click, you authorize Make to connect to your Gmail (Google shows you a permission screen, you accept). You pick "Inbox" as the folder to watch. You set "every 15 minutes" as the frequency.</p>
+        <p>The second block is <strong>"Anthropic · Send Message"</strong>. You paste your <a class="lex-link" href="/lexique/cle-api" title="API key — see the definition">API key</a>, you pick the <code><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener">claude-haiku-4</a></code> model (the fastest and cheapest for this kind of task). The third block is <strong>"Gmail · Add Label"</strong>, which takes Claude's reply and applies the matching label.</p>
+        <span class="os-note">Make has a "test" mode: you click "Run once" to see how it behaves on a single email before turning everything on. Essential for the next step.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h4>Write the instructions (the system prompt) — the part that changes everything</h4>
+        <p>This is where you teach your agent who you are, what you expect, and how you work. Your 91% sorting accuracy is 80% down to this text. Take 30 minutes to write it carefully. Here's the template I use, to adapt to your case.</p>
+        <pre style="background:var(--code-bg); padding:16px 20px; border-radius:10px; font-family:'JetBrains Mono', monospace; font-size:13px; overflow-x:auto; line-height:1.6; margin:14px 0; border:1px solid var(--line-strong); color:var(--code-ink); white-space:pre-wrap;">You are Hermes, my assistant who sorts my inbox.
+
+WHO I AM: Jérémy Sagnier, an entrepreneur based in Nice.
+My real clients are: [list 3-5 names or email domains].
+My close family uses these emails: [list].
+My usual suppliers: [list 3-5 domains].
+
+FOR EACH EMAIL, ASSIGN A SINGLE LABEL:
+
+- "urgent": action requested within 48h AND the sender is
+  a paying client. Otherwise no.
+- "client": email from one of my clients listed above,
+  not urgent.
+- "family": email from a family member listed above.
+- "supplier": invoice, quote, or exchange with
+  a listed supplier.
+- "watch": newsletter or useful AI / business news.
+- "later": newsletter I rarely read, non-priority
+  information.
+- "soft spam": commercial cold pitch, more than 2 emojis
+  in the subject, or a discount percentage.
+
+IMPORTANT RULES:
+1. If you're torn between two labels, pick the lower-priority
+   one ("later" rather than "urgent").
+2. You NEVER reply to emails automatically. You
+   prepare drafts only for: simple confirmations
+   ("ok thanks"), acknowledgments, polite declines
+   of cold pitches.
+3. If the email is from my mom, my sister, or my brother,
+   you write NO draft. I always reply to them
+   by hand. (Little inside joke: you know why.)
+
+REPLY FORMAT: return just the label word,
+in lowercase. Nothing else. No explanation sentence.</pre>
+        <p>You replace the <strong>[list...]</strong> placeholders with your real info. You copy all of this text into Make's Anthropic block (the "<a class="lex-link" href="/lexique/system-prompt" title="System prompt — see the definition">system prompt</a>" field). The email to analyze arrives as a "user message" block via the Gmail variable.</p>
+        <span class="os-note">The secret is precision. "Urgent if paying client AND request within 48h" gives 91% accuracy. "Urgent based on your gut" gives 80% of emails labeled urgent. The simple rule: no vague adjectives ("important", "relevant", "for you"), measurable criteria instead.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h4>Test on 10 emails in "watch" mode</h4>
+        <p>Before letting Hermes label your inbox for real, you're going to run it in test mode. In Make, you click "Run once" ten times in a row, on your 10 most recent emails. For each email, you look at: <strong>which label does Hermes suggest?</strong> You compare it with what you'd have picked yourself.</p>
+        <p>If Hermes gets it wrong on 1 or 2 emails out of 10, that's normal and acceptable, you'll refine the rules next week. If Hermes gets it wrong on 5 out of 10, don't turn on active mode — go back to step 4, your system prompt isn't precise enough. Add concrete examples: <em>"example: an email from support@stripe.com saying 'your payment has arrived' → label = supplier"</em>.</p>
+        <span class="os-note">Keeping an error log helps. For 2 weeks I logged every mistake Hermes made in an Apple note. After 14 days, I spotted the patterns and added 3 precise rules to the prompt. Accuracy went from 78% to 91% in one afternoon of tweaking.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h4>Turn it on for real (labeling-only mode)</h4>
+        <p>When your 10-email test looks good, you turn the scenario on in Make (big green "ON" button at the top). From now on, every 15 minutes, Make reads your new emails, asks Claude to label them, and applies the label in Gmail. You have nothing left to do.</p>
+        <p><strong>Keep it in labeling-only mode</strong> for at least two weeks. Meaning: it labels only, it archives nothing, it deletes nothing, it sends nothing. You confirm each day that the labels it applies suit you. If they do, you can move on to the more active features afterward.</p>
+        <span class="os-note">Watch your Anthropic credits the first week. You'll see exactly how much it consumes. For 200 emails a day with <a class="lex-link" href="/lexique/modele" title="AI model — see the definition">Haiku</a> 4, I spend about €0.25 a day. No nasty surprises.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <h4>Add reply drafts (only after 2 stable weeks)</h4>
+        <p>If after 2 weeks you're happy with the sorting, you can move up a level: let Hermes <strong>prepare drafts</strong> for simple emails. You add a new block to your Make scenario: <strong>"Gmail · Create Draft"</strong>. The draft shows up in Gmail with a little "Draft" tag — you open it, you read it over, you send (or you bin it).</p>
+        <p>You tweak your system prompt to add an instruction: <em>"For emails labeled 'supplier' with a simple confirmation, write a short draft: 'Hi, got it, thanks. Have a good day. Jérémy.'"</em>. Hermes prepares the text, Make drops it into Gmail as a draft. No auto-send. Ever.</p>
+        <span class="os-note">Remember the incident with my mom. Draft mode = OK. Auto-send mode = NEVER. The rule holds even when you push your agent to 6 months of use and trust it completely.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">08</div>
+      <div class="step-body">
+        <h4>Keep an eye on it during the first month</h4>
+        <p>Block 5 minutes every Friday to open Make's history and look: how many emails were processed this week? How many visible mistakes? Is there a type of email that systematically lands in the wrong category?</p>
+        <p>After a month, you'll have sorting that holds at 90%+ accuracy, and you'll have your mornings back. After that, the tool runs quietly for months, with nothing to touch. Maintenance is 5 minutes a month at the very most.</p>
+        <span class="os-note">On the evenings when Hermes goes down (Make is having an outage, Anthropic's API is overloaded), you get an email from Make warning you. It's rare — over 4 months I had 2 incidents, both fixed in an hour without me lifting a finger.</span>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>And there you go, you've got your Hermes</h4>
+      <p>If all went well, you now have an agent that opens your inbox every 15 minutes, labels automatically, prepares a few drafts, and gives you 45 extra minutes in the morning. You can do the same for your calendar ("book a slot for this request"), your client contracts ("read and summarize them for me"), your invoices ("file them by month"). But start with a single case. Master it. Then you add more.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Privacy first</span><span>Start small</span><span>Test before you turn it on</span><span>Don't forget Mom</span><span>Watch it for a month</span><span>Then, let go</span>
+    <span>Privacy first</span><span>Start small</span><span>Test before you turn it on</span><span>Don't forget Mom</span><span>Watch it for a month</span><span>Then, let go</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— The pitfalls to avoid</span>
+    <h2>The <em class="orange">four mistakes</em> I made.</h2>
+    <p>
+      I'll list them in the order I lived through them. None is catastrophic, but each cost me time you can avoid. The general rule: <strong>start small, watch a lot, only turn on a new feature after two stable weeks on the previous one</strong>.
+    </p>
+
+    <div class="piege">
+      <div class="piege-icon">🔒</div>
+      <div class="piege-body">
+        <h4>Pitfall 1 — Sending your email history to an AI without thinking</h4>
+        <p>You might be tempted to send your last 5,000 emails to the AI so it can "learn your style". Stop. When you send an email to Claude or ChatGPT, that data goes through their servers. Your contracts, your client info, your sensitive exchanges — all of it. For Hermes, I only send one email at a time, just the subject line and a small snippet of the body, only for the sorting. Never the full history. If you want to do better, run locally with <a class="cross-link" href="/en/articles/llm-local-pour-non-dev" title="Local LLM — read the article">Ollama</a> (I talk about it in <a href="/en/articles/llm-local-pour-non-dev">the article on running AI on your own machine</a>) — nothing leaves your computer.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🎯</div>
+      <div class="piege-body">
+        <h4>Pitfall 2 — Wanting 10 email categories from the start</h4>
+        <p>At first, you'll want to sort finely: "urgent client A", "urgent client B", "easy draft", "medium draft", "forward to Sophie", "invoices over €500", and so on. That's a guaranteed disaster. The AI hesitates, gets it wrong, your accuracy drops to 60%. Start with <strong>3 categories max</strong> (for example: urgent / later / archive). Once you hit 95% accuracy on 3, add a 4th. Then a 5th. My current Hermes has 7 labels, but it took me 3 months to get there, in stages.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🚀</div>
+      <div class="piege-body">
+        <h4>Pitfall 3 — Turning on active mode without testing on real emails</h4>
+        <p>The temptation is strong: you write your system prompt, it works on 3 examples you made up, you click "ON" in Make. The next day, your agent has archived an important email from a client, you never see it, you lose the client. Three weeks later, you take everything apart to figure out why. Never skip step 5 (test on 10 real emails) of the tutorial. And keep labeling-only mode on for at least two weeks. It's the only rule that protects you from silent disasters.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">👵</div>
+      <div class="piege-body">
+        <h4>Pitfall 4 — Forgetting Mom (and every human case)</h4>
+        <p>My famous incident. The rule: <strong>never auto-send, even for cases that seem trivial</strong>. You can prepare drafts, that's great. But the human must always be the last link. An AI has no common sense — it can't tell the difference between "my mom inviting me to lunch" and "a partner asking for a meeting". List explicitly in your system prompt the cases where Hermes must never reply on its own (family, close friends, sensitive topics). And even then, keep draft mode. No auto-send. Ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The honest verdict</span>
+    <h2>Who it's really useful for, <em class="teal">who it isn't.</em></h2>
+    <p>
+      I don't like articles that sell you a tool by saying "everyone should try it". Here's my decision matrix, based on 4 months of use and feedback from a dozen friends who built their own Hermes.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Your profile</th><th>Verdict</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>You get 50+ emails / day</strong></td><td>Go for it</td><td>The return on investment is immediate. You'll save 1 to 4 hours a week depending on your volume.</td></tr>
+          <tr><td><strong>You get 10-50 emails / day</strong></td><td>If it's fun for you</td><td>The time saved is marginal (15-30 min/week). But it's a great first project for understanding how AI agents work. Build it to learn, not to save time.</td></tr>
+          <tr><td><strong>You get fewer than 10 emails / day</strong></td><td>Don't bother</td><td>You'll spend more time building it than it'll ever save you. It isn't for you, it's for inboxes under siege.</td></tr>
+          <tr><td><strong>You work with ultra-sensitive data</strong> (lawyer, medical, professional secrecy)</td><td>Local route required</td><td>Not the Claude API. You install Ollama and a free model on your own machine, as explained in <a href="/en/articles/llm-local-pour-non-dev">the AI-at-home article</a>. Hermes exists in a 100%-local version, it's just a bit more technical to set up.</td></tr>
+          <tr><td><strong>You're really not comfortable with a computer</strong></td><td>No-code route</td><td>Go read the <strong>"Without installing anything"</strong> block at the bottom of this article. You won't get full automation, but you'll get 70% of the result with a copy-paste into Claude.ai.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>If you really don't want to code: three ready-made alternatives</h3>
+    <p>
+      If you read this article and think "okay, this is too much for me, I just want my email sorted", there are off-the-shelf tools that do part of the job. Honestly, they're less powerful than a homemade Hermes, but they work out of the box.
+    </p>
+
+    <div class="outils">
+      <div class="outil">
+        <h4>SaneBox</h4>
+        <div class="lic">~ €7/month · Gmail/Outlook/iCloud</div>
+        <p>The classic. Automatic sorting of unimportant emails into a "SaneLater" folder you read whenever you want. Accurate, simple, but not very customizable. A good starting point.</p>
+      </div>
+      <div class="outil">
+        <h4>Superhuman</h4>
+        <div class="lic">~ €30/month · Gmail/Outlook</div>
+        <p>The premium option. Ultra-fast interface, AI features to write drafts, smart sorting. Pricey, but loved by people who spend their lives in their inbox.</p>
+      </div>
+      <div class="outil">
+        <h4>Spark Mail</h4>
+        <div class="lic">Free · iOS/Mac/Win/Android</div>
+        <p>Automatic inbox sorting into 3 sections: Personal / Notifications / Newsletters. No personalized AI, but a default sort that's often good enough. And it's free.</p>
+      </div>
+      <div class="outil">
+        <h4><a href="https://www.microsoft.com/microsoft-365/copilot" target="_blank" rel="noopener">Microsoft Copilot</a> in Outlook</h4>
+        <div class="lic">~ €22/month · Outlook</div>
+        <p>If you're on <a href="https://www.microsoft.com/microsoft-365/outlook/" target="_blank" rel="noopener">Outlook</a> (and therefore Microsoft 365), the built-in Copilot summarizes long threads, suggests replies, and sorts. Less sharp than a homemade Hermes, but zero installation.</p>
+      </div>
+    </div>
+
+    <p>
+      <strong>My blunt take</strong>: if you just want to "stop being at your inbox's mercy", start with SaneBox (€7/month, 5 minutes to turn on). If you genuinely want to learn how to <a class="cross-link" href="/en/articles/agents-ia-guide" title="AI agent guide — read the article">build an agent</a> and the idea of a custom tool appeals to you, build your Hermes — it's 100 times more instructive and 50 times cheaper in the long run.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Without installing anything</span>
+    <h2>The <em class="fuchsia">2-minute version.</em></h2>
+    <p>
+      If everything above feels like too much, here's the express version that gets you 70% of the result with nothing to install, no API account to create, no touching Make. It's what I recommend for the very first try.
+    </p>
+
+    <div class="quick">
+      <div class="label">Express test · 2 minutes flat</div>
+      <h3>Sort 10 emails in Claude.ai</h3>
+      <p>1. Go to <strong>claude.ai</strong>. Create a free account if you don't have one.</p>
+      <p>2. Create a new "project" (button in the left-hand menu). Call it <strong>"Email sort"</strong>.</p>
+      <p>3. In the project, put these instructions in the <em>"Custom instructions"</em> field:</p>
+      <pre style="background:rgba(255,255,255,.08); color:#F4EFE6; padding:14px 18px; border-radius:6px; font-size:12.5px; margin:14px 0; line-height:1.6;">You are Hermes, my assistant who sorts my inbox.
+For each email I show you, classify it as:
+- urgent (action within 48h, paying client)
+- later (newsletter, non-urgent info)
+- archive (cold pitch, already handled)
+Reply with a single line per email:
+"Email 1: urgent, because [short reason]"</pre>
+        <p>4. Open Gmail. Copy the contents of your 10 most recent emails into the Claude chat (subject + first lines). Send.</p>
+        <p>5. Claude sends you back a sorted list. You do the sorting by hand in Gmail following its recommendations.</p>
+        <div class="note">
+          It's manual, it's repetitive, but it gives you a sense of the result without installing anything. If after 3 days of use you find it useful, you know your full Hermes will be worth the Saturday-afternoon investment.
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Going further</span>
+    <h2>And <em class="teal">what's next?</em></h2>
+    <p>
+      Once you've mastered your first Hermes, you've unlocked a transferable skill. You can run it again for all sorts of repetitive tasks in your life. Here are my ideas for what's next, in order of difficulty.
+    </p>
+
+    <ul>
+      <li><strong>Hermes-calendar</strong> — an agent that reads meeting requests in your email, cross-checks with your Google Calendar, and proposes 3 slots in the draft reply. 2 more hours a week saved for me.</li>
+      <li><strong>Hermes-invoices</strong> — an agent that reads the attachments in "supplier" emails, extracts the amount, the date, the name, and files it all into a Google Sheet. No more Sunday-night bookkeeping.</li>
+      <li><strong>Hermes-watch</strong> — an agent that reads 15 business/AI newsletters every morning, pulls out the 3 real bits of news, and sends them to you in a single digest email. That's exactly what I do for <a href="/en#newsletters">AI Playbook</a>.</li>
+      <li><strong>Hermes-local</strong> — the same thing but without sending a single email to Anthropic. You install Ollama (free) and a model that runs on your own machine, and you plug Make into that local AI via a technical connection. For pros who can't send their data elsewhere. That's my next step.</li>
+    </ul>
+
+    <p>
+      If you haven't yet read my article that lays the foundations of running AI on your own machine (Ollama, models, how it works locally), it's right here: <a href="/en/articles/llm-local-pour-non-dev">Running a real AI on your own machine</a>. It's the natural companion to this article if you want a 100%-private Hermes. And if the idea of agents in general interests you, my article <a href="/articles/loops-claude">Claude Code loops</a> explains the deep principle behind all the mechanics.
+    </p>
+
+    <p>
+      To go further on agents: <a href="/en/articles/agents-ia-guide">The complete guide to AI agents</a> sets out the theory, <a href="/articles/tuto-agent-gmail">Build a Gmail agent</a> reuses the same mechanics on another use case, and <a href="/articles/tuto-agent-contrats">The agent that reads my contracts</a> shows how to apply Hermes to work PDFs. You can read them in any order.
+    </p>
+
+    <h3>Three things to do this weekend</h3>
+    <ol>
+      <li><strong>Test the 2-minute version in Claude.ai</strong> on your 10 most recent emails. Without installing anything. You'll know in 5 minutes whether the idea speaks to you.</li>
+      <li><strong>If yes, build your first Hermes</strong> with Make and Route A of the tutorial. Plan on a Saturday afternoon for the first working version.</li>
+      <li><strong>Keep it in labeling-only mode for two weeks</strong> before touching anything else. Watch it, log the mistakes, adjust the rules. That's what takes accuracy from 78% to 91%.</li>
+    </ol>
+
+    <p>
+      And if you're stuck on a step, or you think I've got something wrong somewhere, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>. I read everything, I reply. That's exactly the kind of feedback that made me improve my own Hermes over the months — and it's probably what'll get me to ship you a new tutorial in 6 months.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>Hermes <em class="fuchsia">FAQ.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Exactly how much does an agent like Hermes cost?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">About <strong>€8 a month</strong> to process 6,000 emails (200 a day) with the <code>claude-haiku-4</code> model. That's <strong>€0.25 a day</strong>. <a href="https://www.make.com/" target="_blank" rel="noopener">Make</a> is free up to 1,000 actions a month, more than enough to get started. No other hidden cost: no subscription, no license to buy.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do my emails go through Anthropic when Hermes sorts them?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Yes — Hermes sends Claude the subject line and a snippet of the body of each email to classify. Anthropic has a default no-retention commitment on the API, but your data does pass through their servers. For ultra-sensitive data (lawyer, medical, professional secrecy), you need to switch to the <strong>local route</strong> with Ollama and a model that runs 100% on your own machine (see <a href="/en/articles/llm-local-pour-non-dev">the AI-at-home article</a>).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does Hermes work with Outlook or only with Gmail?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make and Zapier both have official Outlook and Microsoft 365 connectors. The tutorial follows exactly the same logic: you swap the Gmail block for the Outlook block, the rest is identical. If you're already on Microsoft 365, <strong>Microsoft Copilot for Outlook</strong> (~ €22/month) covers part of the need with nothing to install.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How long does the full tutorial setup take?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Plan on <strong>a Saturday afternoon</strong> for the first working version (creating the Anthropic and Make accounts, connecting Gmail, writing the system prompt, testing on 10 emails). Plus an hour of tweaking the following week to fine-tune the rules. In total: <strong>4 to 6 hours</strong> to go from zero to a working Hermes.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What happens if the Anthropic API goes down in the middle of the night?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make emails you the moment a scenario fails. Your emails stay in your inbox, simply unsorted until the service comes back. Over 4 months of use, I had <strong>2 incidents</strong> (Make down or Anthropic API overloaded), both fixed in under an hour without me lifting a finger. No email lost.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How secure is Make for my email data?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Make stores processed data for <strong>30 days by default</strong> for debugging. You can lower that to 7 days in the scenario settings, or turn on <em>Data structures</em> mode to store only the variables and not the body of the emails. Make is <strong>ISO 27001</strong> certified and GDPR-compliant, hosted in the EU. For anything sensitive, the local route is a must.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How many tweaks does the system prompt need before it works well?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Plan on <strong>5 to 10 iterations</strong> over the first two weeks. For 14 days I logged every mistake Hermes made in an Apple note, I spotted the patterns, and I added 3 precise rules to the prompt. Accuracy went from <strong>78% to 91%</strong> in one afternoon of tweaking. After that, 1 change a month at most.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Can Hermes handle 1,000 emails a day without crashing?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Yes, easily. Make absorbs it with room to spare (10,000+ actions/month on a paid plan starting at €9/month), <code>claude-haiku-4</code> processes each email in under a second. You'll pay around <strong>€40 a month</strong> on the Anthropic side for 30,000 emails. The limiting factor isn't technical but the accuracy of the sorting once the volume gets too varied.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference between Hermes and SaneBox or Superhuman?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>SaneBox</strong> (~ €7/month) automatically sorts unimportant emails into a folder, with no deep customization. <strong>Superhuman</strong> (~ €30/month) offers a premium interface with pre-wired AI features. <strong>Hermes</strong> is custom-built, written with your own real rules, plugged into Gmail/Outlook, and costs €8/month. Sharper but it takes a Saturday to set up.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do you need to know how to code to build your own Hermes?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. <strong>Route A</strong> of the tutorial (Make + Anthropic + Gmail) doesn't write a single line of code: it's drag-and-drop in a visual interface. If you can copy-paste a piece of text and create 2 online accounts, you can do it. <strong>Route B</strong> (a Python script) is for the curious who want to understand how it works — and it's still just 50 lines of code ready to paste.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, with no jargon and no hype. If this article was useful to you, the simplest way to never miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="share-block">
+  <div class="share-block-label">Share</div>
+  <h3>Did this article help you? Say so.</h3>
+  <div class="share-buttons">
+    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Share on X">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="share-label">X</span>
+    </a>
+    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="share-label">LinkedIn</span>
+    </a>
+    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%0Ahttps%3A//jerwis.fr/articles/hermes-agent" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="share-label">WhatsApp</span>
+    </a>
+    <a class="share-btn share-btn-email" href="mailto:?subject=L%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0AL%27agent%20qui%20lit%20mes%20200%20mails%20%C3%A0%20ma%20place%20chaque%20matin%0Ahttps%3A//jerwis.fr/articles/hermes-agent" aria-label="Share by email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="share-label">Email</span>
+    </a>
+    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/hermes-agent" aria-label="Copy the link" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copy the link</span>
+    </button>
+  </div>
+</div>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All the articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = saved || (systemDark ? 'dark' : 'light');
+  html.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Copy-to-clipboard pour les boutons .share-btn-copy
+  document.querySelectorAll('.share-btn-copy').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const url = btn.dataset.url || window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        const label = btn.querySelector('.share-label');
+        if (label) {
+          const original = label.textContent;
+          label.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = original;
+            btn.classList.remove('copied');
+          }, 1800);
+        }
+      } catch (err) {
+        prompt('Copy the link:', url);
+      }
+    });
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

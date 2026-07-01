@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choosing your AI model in 2026 · decide in 5 min · Jerwis</title>
+<meta name="description" content="Not a catalog, a decision tree. 6 steps to pick THE right AI model in 2026 based on your use case, your budget and your data constraints. Built for non-dev founders.">
+<meta property="og:title" content="Choosing your AI model in 2026 · decide in 5 min · Jerwis">
+<meta property="og:description" content="A 6-step decision tree to pick the right AI model based on your use case and your budget.">
+<meta property="og:url" content="https://jerwis.fr/en/lexique/choisir-modele-2026">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Choosing your AI model in 2026 · Jerwis">
+<meta name="twitter:description" content="A 6-step decision tree to pick the right AI model based on your use case and your budget.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og-jerwis.jpg">
+<link rel="canonical" href="https://jerwis.fr/en/lexique/choisir-modele-2026">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/lexique/choisir-modele-2026">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/lexique/choisir-modele-2026">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/lexique/choisir-modele-2026">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/lexique-pages.css">
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+        { "@type": "ListItem", "position": 2, "name": "AI glossary", "item": "https://jerwis.fr/en/lexique" },
+        { "@type": "ListItem", "position": 3, "name": "Choosing your model 2026", "item": "https://jerwis.fr/en/lexique/choisir-modele-2026" }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://jerwis.fr/en/lexique/choisir-modele-2026#webpage",
+      "url": "https://jerwis.fr/en/lexique/choisir-modele-2026",
+      "name": "Choosing your AI model in 2026",
+      "description": "A 6-step decision tree to pick the right AI model based on your use case, your budget and your data constraints.",
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": "https://jerwis.fr/en/lexique#termset" }
+    }
+  ]
+}
+</script>
+<style>
+  .step-block {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .step-block .step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .step-block .step-num {
+    flex: 0 0 auto;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .step-block[data-accent="teal"] .step-num { background: var(--teal) }
+  .step-block[data-accent="fuchsia"] .step-num { background: var(--fuchsia) }
+  .step-block[data-accent="orange"] .step-num { background: var(--orange) }
+  .step-block h2 {
+    color: var(--ink);
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: .95;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+  }
+  .step-block p.step-intro {
+    max-width: 760px;
+    margin-bottom: 28px;
+    color: var(--ink-soft);
+    font-size: 17.5px;
+    line-height: 1.65;
+  }
+  .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .choice {
+    padding: 22px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .choice h3 {
+    color: var(--ink);
+    font-family: "Archivo Black", sans-serif;
+    font-size: 19px;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+  }
+  .choice .choice-label {
+    align-self: flex-start;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .choice p {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .choice .choice-pick {
+    margin-top: auto;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    border-top: 1px dashed var(--line-strong);
+    padding-top: 12px;
+  }
+  .choice .choice-pick strong {
+    color: var(--fuchsia);
+    font-weight: 900;
+  }
+  .usecase-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+    margin-top: 6px;
+  }
+  .usecase-table caption {
+    text-align: left;
+    padding: 14px 18px;
+    background: #0A0A0A;
+    color: #FBF7F0;
+    font-family: "Archivo Black", sans-serif;
+    font-size: 16px;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+  }
+  .usecase-table th,
+  .usecase-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .usecase-table th {
+    background: var(--bg-2);
+    color: var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .usecase-table tr:last-child th,
+  .usecase-table tr:last-child td {
+    border-bottom: 0;
+  }
+  .usecase-table strong {
+    color: var(--ink);
+    font-weight: 900;
+  }
+  .usecase-stack {
+    display: grid;
+    gap: 22px;
+  }
+  .perso-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .perso-card {
+    padding: 22px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  .perso-card .perso-kicker {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    border-radius: 999px;
+    color: #FBF7F0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .perso-card[data-accent="teal"] .perso-kicker { background: var(--teal) }
+  .perso-card[data-accent="fuchsia"] .perso-kicker { background: var(--fuchsia) }
+  .perso-card[data-accent="orange"] .perso-kicker { background: var(--orange) }
+  .perso-card[data-accent="ink"] .perso-kicker { background: #0A0A0A }
+  .perso-card h3 {
+    color: var(--ink);
+    font-family: "Archivo Black", sans-serif;
+    font-size: 22px;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .perso-card p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .perso-card p + p { margin-top: 10px }
+  @media (max-width: 860px) {
+    .choice-grid,
+    .perso-grid { grid-template-columns: 1fr }
+    .usecase-table th,
+    .usecase-table td { font-size: 13.5px; padding: 11px 12px }
+  }
+  @media (max-width: 620px) {
+    .step-block { padding: 40px 0 }
+    .step-block .step-head { flex-wrap: wrap; gap: 10px }
+  }
+</style>
+<script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+</head>
+<body>
+<div class="triple-stripe" aria-hidden="true"><span style="background:#00B2A9"></span><span style="background:#EF426F"></span><span style="background:#FF8200"></span></div>
+<header class="term-header">
+  <a class="term-logo" href="/en"><span></span>Jerwis</a>
+  <nav aria-label="Navigation">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/en/lexique">AI glossary</a>
+    <a href="/en#newsletters">Newsletters</a>
+  </nav>
+</header>
+
+<main>
+  <section class="term-hero">
+    <div class="term-container">
+      <a class="term-back" href="/en/lexique">← Back to the A-Z glossary</a>
+      <div class="term-kicker">Decision tree · 5 min</div>
+      <h1>Choosing your model in 2026 · decide in 5 minutes</h1>
+      <p class="term-lead">You&#39;ve got the list of models in the catalog. Good. Now the real question: which one for you? I&#39;ve laid out the decision tree I use myself whenever someone asks me for advice. 6 steps. No tech-fetishism. Just your use case, your budget, your data. By the end you walk away with a model name and you get to work.</p>
+      <div class="term-meta">
+        <span>6 steps</span>
+        <span>5 min</span>
+        <span>Decision-making</span>
+        <span>Updated 2026-05-25</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Not a catalog</span><span>A decision tree</span><span>Use case · Budget · Data</span><span>You walk away with a name</span><span>You get to work</span><span>Promise</span>
+      <span>Not a catalog</span><span>A decision tree</span><span>Use case · Budget · Data</span><span>You walk away with a name</span><span>You get to work</span><span>Promise</span>
+    </div>
+  </div>
+
+  <section class="term-definition">
+    <div class="term-container">
+      <span class="section-kicker">— How to read this page</span>
+      <h2>You answer 4 questions, I hand you the right model</h2>
+      <p>Steps 1 to 4: in each card you pick the answer that sounds like you. Step 5: you look at the tables based on your real use case. Step 6: you see what I use myself in 2026 and why. If you&#39;re torn between two options at a step, take the cheaper one. You can always move up to the pricier one later.</p>
+      <p>You can also go check out the <a href="/en/modeles-ia-monde" style="color: var(--fuchsia); font-weight: 700;">full 2026 model catalog</a> for the detailed specs. Here we decide. Over there we compare.</p>
+    </div>
+  </section>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="teal">
+      <div class="step-head">
+        <span class="step-num">Step 01</span>
+        <h2>Why do you want a model?</h2>
+      </div>
+      <p class="step-intro">The most common mistake is grabbing "the best model of 2026" for a task where the best model is actually specialized in something else. Pick your main use case first — not the 12 hypothetical scenarios.</p>
+      <div class="choice-grid">
+        <div class="choice">
+          <span class="choice-label">Case A</span>
+          <h3>General everyday assistant</h3>
+          <p>Writing emails, summarizing PDFs, brainstorming, building tables, translating. 80% of real-world uses.</p>
+          <p class="choice-pick">→ <strong>Claude Sonnet 4.6, ChatGPT 5, Gemini 2.5 Pro</strong> all do the job really well.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case B</span>
+          <h3>Code, or have it code for you</h3>
+          <p>Building a website, automating a workflow, writing scripts. Even if you&#39;re not a dev, AI can code for you.</p>
+          <p class="choice-pick">→ <strong>Claude Sonnet 4.6 + Claude Code</strong> is the combo that dominates 2026 among non-devs.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case C</span>
+          <h3>Read very large documents</h3>
+          <p>Swallowing a 200-page report, analyzing a contract, comparing 10 PDFs at once.</p>
+          <p class="choice-pick">→ <strong>Gemini 2.5 Pro</strong> (1M-token context) or <strong>Claude Sonnet 4.6 (1M)</strong>.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case D</span>
+          <h3>Create images</h3>
+          <p>Marketing visuals, illustrations, product photos, retouching.</p>
+          <p class="choice-pick">→ <strong>Nano Banana (Gemini Image)</strong>, <strong>Midjourney v7</strong>, <strong>Flux 2 Pro</strong>.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case E</span>
+          <h3>Create videos</h3>
+          <p>Short ad videos, animated product demos, content for social media.</p>
+          <p class="choice-pick">→ <strong>Veo 3</strong> (Google), <strong>Sora 2</strong> (OpenAI), <strong>Runway Gen-4</strong>.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case F</span>
+          <h3>Create audio · clone your voice</h3>
+          <p>Voice-over, podcast, narration, a voice agent that talks.</p>
+          <p class="choice-pick">→ <strong>ElevenLabs v3</strong> is still the benchmark. <strong>Hume EVI 3</strong> for real-time conversation.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Case G</span>
+          <h3>Autonomous agent that works on its own</h3>
+          <p>You give it a mission, it chains the steps for 30 min without you approving every click.</p>
+          <p class="choice-pick">→ <strong>Claude Sonnet 4.6</strong> (native tool use) or <strong>GPT-5</strong> with the Responses API.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Use case · ok</span><span>Now the wallet</span><span>Free · €50 · €200</span><span>No shame in being cheap</span><span>Free covers 80%</span>
+      <span>Use case · ok</span><span>Now the wallet</span><span>Free · €50 · €200</span><span>No shame in being cheap</span><span>Free covers 80%</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="fuchsia">
+      <div class="step-head">
+        <span class="step-num">Step 02</span>
+        <h2>How much do you want to spend?</h2>
+      </div>
+      <p class="step-intro">Be honest. If you&#39;re just starting out, the free tier is more than enough. If you live inside it 4 hours a day, the €20-30 subscription pays for itself in the first week. The €200 pro plan is for people who genuinely need the frontier every day.</p>
+      <div class="choice-grid">
+        <div class="choice">
+          <span class="choice-label">Budget €0</span>
+          <h3>You want free</h3>
+          <p>To get started, or for occasional use.</p>
+          <p class="choice-pick">→ <strong>ChatGPT free</strong> (GPT-5 limited), <strong>Claude free</strong> (Sonnet limited), <strong>Le Chat by Mistral</strong> (free and unlimited, made in France), <strong>Gemini free</strong> (2.5 Flash).</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Budget €20-50/month</span>
+          <h3>You want the normal pro version</h3>
+          <p>The sweet spot for 95% of founders. Comfortable limits, access to the best models.</p>
+          <p class="choice-pick">→ <strong>Claude Pro</strong> (€22), <strong>ChatGPT Plus</strong> (€23), <strong>Gemini Advanced</strong> (€22). One subscription is usually enough.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Budget €100-200/month</span>
+          <h3>You want the frontier with no ceiling</h3>
+          <p>You use AI 4+ hours a day. Huge limits, Claude Code Max, ChatGPT Pro with o1.</p>
+          <p class="choice-pick">→ <strong>Claude Max</strong> (€110 or €220), <strong>ChatGPT Pro</strong> (€220). Drop it if you&#39;re not hitting the ceilings regularly.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">API budget</span>
+          <h3>You pay as you go (to build)</h3>
+          <p>You&#39;re building a tool for your business, not chatting every day. You pay per token consumed.</p>
+          <p class="choice-pick">→ <strong>Anthropic / OpenAI / Google API</strong> directly, or <strong>OpenRouter</strong> to switch models without changing your code.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Budget · ok</span><span>Now the data</span><span>Cloud or local</span><span>GDPR · trade secrets</span><span>Serious question</span>
+      <span>Budget · ok</span><span>Now the data</span><span>Cloud or local</span><span>GDPR · trade secrets</span><span>Serious question</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="orange">
+      <div class="step-head">
+        <span class="step-num">Step 03</span>
+        <h2>Does your data have to stay with you?</h2>
+      </div>
+      <p class="step-intro">A question that didn&#39;t come up before. Today, if you&#39;re handling trade secrets, sensitive client data, medical or legal files, you have to ask it. The good news: 2026&#39;s open-weight models are good enough to do 90% of the work locally.</p>
+      <div class="choice-grid">
+        <div class="choice">
+          <span class="choice-label">Answer A</span>
+          <h3>No, the cloud is fine</h3>
+          <p>You do marketing, brainstorming, summarizing public articles. Anthropic/OpenAI/Google&#39;s terms work for you.</p>
+          <p class="choice-pick">→ <strong>Claude · ChatGPT · Gemini · Le Chat</strong> in the cloud, paid plans for "no training on your data."</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Answer B</span>
+          <h3>Yes, the data stays with me</h3>
+          <p>Trade secrets, strict GDPR, medical/legal data, or just on principle.</p>
+          <p class="choice-pick">→ <strong>Mistral Small 4</strong> (24B, runs on a decent MacBook), <strong>Llama 4</strong>, <strong>Qwen 3</strong>. Served through <strong>Ollama</strong> or <strong>LM Studio</strong> locally.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Data · ok</span><span>Now frontier or everyday</span><span>The best · or the reliable</span><span>Not the same answer</span><span>Spoiler · often the reliable one</span>
+      <span>Data · ok</span><span>Now frontier or everyday</span><span>The best · or the reliable</span><span>Not the same answer</span><span>Spoiler · often the reliable one</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="teal">
+      <div class="step-head">
+        <span class="step-num">Step 04</span>
+        <h2>Do you want frontier or reliable everyday?</h2>
+      </div>
+      <p class="step-intro">The frontier model is the best thing to drop this quarter. Jaw-dropping in a demo, sometimes shaky in production. The reliable everyday model is the one that&#39;s 6 months old, that doesn&#39;t crash anymore, costs less, and does 95% of what the frontier does.</p>
+      <div class="choice-grid">
+        <div class="choice">
+          <span class="choice-label">Profile A</span>
+          <h3>Frontier · "I want the best right now"</h3>
+          <p>You follow AI closely, you accept bugs and high prices in exchange for the latest and greatest.</p>
+          <p class="choice-pick">→ <strong>Claude Opus 4.7</strong>, <strong>GPT-5 Pro</strong>, <strong>Gemini 2.5 Ultra</strong>. Price per token 5x to 10x vs everyday.</p>
+        </div>
+        <div class="choice">
+          <span class="choice-label">Profile B</span>
+          <h3>Reliable everyday · "I just want it to work"</h3>
+          <p>You want a predictable tool, not a demo. 95% of the frontier&#39;s job, 20% of the price.</p>
+          <p class="choice-pick">→ <strong>Claude Sonnet 4.6</strong>, <strong>GPT-5 mini</strong>, <strong>Gemini 2.5 Pro</strong>. This is where I spend my life.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>4 questions · done</span><span>Now the concrete cases</span><span>CRM · Writing · Code · Photos · Podcast · Research</span><span>You recognize your line of work</span>
+      <span>4 questions · done</span><span>Now the concrete cases</span><span>CRM · Writing · Code · Photos · Podcast · Research</span><span>You recognize your line of work</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="fuchsia">
+      <div class="step-head">
+        <span class="step-num">Step 05</span>
+        <h2>Final recommendations by use case</h2>
+      </div>
+      <p class="step-intro">6 concrete tables. You find your case, you grab the model listed, you get to work. I put "top pick" (what I&#39;d grab today) and "alternative" (if you don&#39;t like the first one or if your budget is different).</p>
+
+      <div class="usecase-stack">
+
+        <table class="usecase-table">
+          <caption>Case 01 · CRM, sales follow-up, automation</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>Claude Sonnet 4.6</strong></td><td>GPT-5 mini via API</td></tr>
+            <tr><th>Why</th><td>Excellent at tool use and professional English writing. Reliable on repeated prompts.</td><td>Faster latency if you make 1000+ calls/day.</td></tr>
+            <tr><th>Budget</th><td>API · ~$3/M input tokens, $15/M output</td><td>API · ~$0.25/M input, $2/M output</td></tr>
+            <tr><th>Risk</th><td>Cost climbs if you process large volumes without caching.</td><td>Weaker on nuanced English.</td></tr>
+          </tbody>
+        </table>
+
+        <table class="usecase-table">
+          <caption>Case 02 · Writing, blog, newsletter</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>Claude Sonnet 4.6</strong></td><td>ChatGPT Plus (GPT-5)</td></tr>
+            <tr><th>Why</th><td>The most natural voice, and it knows not to write "it&#39;s important to note."</td><td>More stylistic variety, built-in web search.</td></tr>
+            <tr><th>Budget</th><td>Claude Pro · €22/month</td><td>ChatGPT Plus · €23/month</td></tr>
+            <tr><th>Risk</th><td>Stays a bit flat without a good prompt and examples.</td><td>GPT writing tics (em-dashes, lists).</td></tr>
+          </tbody>
+        </table>
+
+        <table class="usecase-table">
+          <caption>Case 03 · Personal coding (you&#39;re not a dev)</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>Claude Sonnet 4.6 + Claude Code</strong></td><td>Cursor with GPT-5</td></tr>
+            <tr><th>Why</th><td>The most beginner-friendly CLI combo. It gets your intent even when you describe it vaguely.</td><td>A more complete IDE if you want to see the code visually.</td></tr>
+            <tr><th>Budget</th><td>Claude Max · €110/month (recommended)</td><td>Cursor Pro · €20/month + a GPT-5 API key</td></tr>
+            <tr><th>Risk</th><td>You can hit the limit if you code 6h/day.</td><td>More technical setup to get going.</td></tr>
+          </tbody>
+        </table>
+
+        <table class="usecase-table">
+          <caption>Case 04 · Personal branding photos · LinkedIn</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>Nano Banana (Gemini Image)</strong></td><td>Midjourney v7</td></tr>
+            <tr><th>Why</th><td>Exceptional face consistency across 10 photos, English prompts work fine.</td><td>More polished aesthetic, more artistic control.</td></tr>
+            <tr><th>Budget</th><td>Gemini Advanced · €22/month included</td><td>Midjourney · $30/month</td></tr>
+            <tr><th>Risk</th><td>Still a few weird hands on tight close-ups.</td><td>Learning the Midjourney syntax takes longer.</td></tr>
+          </tbody>
+        </table>
+
+        <table class="usecase-table">
+          <caption>Case 05 · Podcast, voice-over, audio</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>ElevenLabs v3</strong></td><td>Hume EVI 3 (for real time)</td></tr>
+            <tr><th>Why</th><td>The most convincing voice cloning. Emotional intonation nailed.</td><td>Smooth voice conversation for a phone voice agent.</td></tr>
+            <tr><th>Budget</th><td>Creator · $22/month (10h audio)</td><td>Pay-as-you-go API · ~$0.18/min</td></tr>
+            <tr><th>Risk</th><td>Cost climbs fast if you do more than 10h/month.</td><td>Not built to produce audio files, built to have a conversation.</td></tr>
+          </tbody>
+        </table>
+
+        <table class="usecase-table">
+          <caption>Case 06 · Research, curation, deep search</caption>
+          <thead>
+            <tr><th>Criterion</th><th>Top pick</th><th>Alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Model</th><td><strong>Perplexity Pro</strong></td><td>ChatGPT Plus with "Deep Research" mode</td></tr>
+            <tr><th>Why</th><td>Clean citations, real sources, no hallucinations on recent figures.</td><td>Deeper syntheses, but it takes more generation time.</td></tr>
+            <tr><th>Budget</th><td>Perplexity Pro · €20/month</td><td>ChatGPT Plus · €23/month</td></tr>
+            <tr><th>Risk</th><td>Lacks depth on very technical subjects.</td><td>Deep Research mode is quota-limited.</td></tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>Recommendations · done</span><span>Now my personal stack</span><span>What I actually use</span><span>And why</span><span>No showing off</span>
+      <span>Recommendations · done</span><span>Now my personal stack</span><span>What I actually use</span><span>And why</span><span>No showing off</span>
+    </div>
+  </div>
+
+  <div class="term-container">
+    <section class="step-block" data-accent="orange" style="border-bottom: 0;">
+      <div class="step-head">
+        <span class="step-num">Step 06</span>
+        <h2>My personal picks in 2026</h2>
+      </div>
+      <p class="step-intro">To wrap up: here&#39;s what I actually use in a typical week. Not the ideal list, the real one. With the why spelled out. If you copy my setup, all that&#39;s left is to get to work.</p>
+      <div class="perso-grid">
+
+        <div class="perso-card" data-accent="fuchsia">
+          <span class="perso-kicker">Text · writing · code</span>
+          <h3>Claude Sonnet 4.6</h3>
+          <p>My everyday model. Claude Max plan at €110/month so I can use Claude Code without limits. It&#39;s the one that drafts my articles, codes my scripts, helps me structure my ideas.</p>
+          <p>Why not GPT-5? Claude&#39;s writing is more natural, and Claude Code is the best CLI on the market. For a non-dev, it&#39;s a game-changer.</p>
+        </div>
+
+        <div class="perso-card" data-accent="teal">
+          <span class="perso-kicker">Images · personal branding</span>
+          <h3>Nano Banana (Gemini Image)</h3>
+          <p>For generating my LinkedIn photos and article illustrations. Face consistency across several photos is the criterion that made me switch.</p>
+          <p>Included in my Gemini Advanced subscription (€22/month), which I keep for this feature and for the 1M-token context when I need to swallow a big report.</p>
+        </div>
+
+        <div class="perso-card" data-accent="orange">
+          <span class="perso-kicker">Audio · voice · podcast</span>
+          <h3>ElevenLabs v3</h3>
+          <p>For the Jerwis Productions podcast. My cloned voice for the narrations, and generic voices for scripted episodes with several characters.</p>
+          <p>Creator plan at $22/month, enough for 10h of audio a month. If I moved to 4 episodes/week, I&#39;d bump up to Pro.</p>
+        </div>
+
+        <div class="perso-card" data-accent="ink">
+          <span class="perso-kicker">Local · sensitive data</span>
+          <h3>Mistral Small 4 via Ollama</h3>
+          <p>For the work where I don&#39;t want to send data to the cloud (draft sales replies, client info, ideas in progress). Runs on my MacBook Pro M3 without flinching.</p>
+          <p>Free, made in France, and surprisingly good for 80% of everyday tasks. The perfect privacy/quality trade-off for 2026.</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="mini-marquee" aria-hidden="true">
+    <div class="mini-marquee-track">
+      <span>You&#39;ve got your model</span><span>You&#39;ve got your budget</span><span>You&#39;ve got your use case</span><span>Now you get to work</span><span>Reply if you&#39;re unsure</span>
+      <span>You&#39;ve got your model</span><span>You&#39;ve got your budget</span><span>You&#39;ve got your use case</span><span>Now you get to work</span><span>Reply if you&#39;re unsure</span>
+    </div>
+  </div>
+
+  <section class="term-final">
+    <div class="term-container">
+      <h2>Want me to send you this kind of breakdown every Friday?</h2>
+      <p>I run a weekly AI watch ("AI Playbook") where I decode what&#39;s actually changing on the model, tool and usage side. Unsubscribe in 1 click, never any ads, just what I use myself.</p>
+      <a href="/en#newsletters">Subscribe to AI Playbook</a>
+    </div>
+  </section>
+</main>
+
+<footer class="term-footer">
+  <p>© 2026 · Jérémy Sagnier · Jerwis</p>
+</footer>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

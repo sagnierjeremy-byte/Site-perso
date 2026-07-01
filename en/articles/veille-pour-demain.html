@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I wanted a newsletter, I built a tool instead</title>
+<meta name="description" content="I wanted to launch a newsletter, the sub-agents told me no. Pivoted four times. I ended up building a personal watch tool for €5 a month.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="I wanted a newsletter, I built a tool instead">
+<meta property="og:description" content="The sub-agents told me no. Pivoted four times. I built a personal watch tool for €5 a month.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/veille-pour-demain">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/veille-pour-demain.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/veille-pour-demain.jpg">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-04-14">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="I wanted a newsletter, I built a tool instead">
+<meta name="twitter:description" content="The sub-agents told me no. Pivoted four times. I built a personal watch tool for €5 a month.">
+
+<!-- Canonical -->
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/veille-pour-demain">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/veille-pour-demain">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/veille-pour-demain">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/veille-pour-demain">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "I wanted a newsletter, I built a tool instead", "item": "https://jerwis.fr/en/articles/veille-pour-demain" }
+  ]
+}
+</script>
+
+<!-- seo:jsonld-article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "I wanted to launch a newsletter. I ended up building a tool just for me.",
+  "description": "I wanted to launch a general-interest newsletter, the sub-agents told me no. I pivoted four times. I ended up building, in a single day, a watch tool that runs at home, on my Mac, for €5 a month.",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-20",
+  "image": "https://jerwis.fr/en/photos/og/veille-pour-demain.jpg",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jerwis.fr/en/articles/veille-pour-demain"
+  },
+  "inLanguage": "fr-FR"
+}
+</script>
+<!-- /seo:jsonld-article -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the 5-axis scoring the watch tool uses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Five weighted axes: Demand (raw engagement, votes, comments), Relevance (match with my favorite topics), Evergreen (how long the topic lasts, not just fresh news), Lived experience (how well it maps to my own use) and Gap (rare topic versus ones I've already covered). The raw score is multiplied by a cluster coefficient (1.0 to 1.25 depending on the editorial category) and a YouTube boost (1.0 to 1.15 for the flagship channels)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does the watch pipeline cost per month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About €5 a month, sometimes up to €10 in the months when I run a lot of long-form analyses. It's the calls to Claude Sonnet (the 30 topics proposed each day) and to Claude Opus (the analyses) that make up almost all of that amount. The rest — ingesting the 96 sources, the Ollama embeddings, the SQLite database — runs for free on my Mac."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many ideas does the tool produce per run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A typical run: 476 items ingested from 96 sources, 310 clusters after deduplication by Jaccard similarity, 60 items after signal/noise filtering, 15 items in the active backlog, 10 items I actually keep for deep analysis. That's a 2% retention rate between the raw ingestion and what deserves my attention, which matches my daily reading capacity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which sources does the tool scan every morning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "96 sources split into four families. Eleven subreddits (r/ClaudeAI, r/ChatGPTCoding, r/LocalLLaMA, r/MachineLearning, r/Entrepreneur, etc.). Seven Hacker News + GitHub sources via the Algolia API. Eight official RSS feeds (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best). Sixteen YouTube channels via Atom feeds (Underscore_, Silicon Carne, Vision IA, Hormozi, GaryVee, Iman Gadzhi, etc.). Plus ten dynamic Google News feeds on my keywords. Real total: 96 to 110 active sources depending on the week."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you need to be a developer to reproduce this pipeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. For level 3 (the full Claude Code pipeline), you need to know how to install Claude Code, create an Anthropic account, and be willing to spend a full day or a month on the side building-testing-tuning. But 70 to 80% of the value comes at level 1 (Feedly + 5 official RSS feeds, 5 minutes to set up) or level 2 (self-hosted n8n + Reddit/HN scraping, one weekend). Start at level 1, move up if you feel the need."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between this tool and Feedly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Feedly is an RSS aggregator that lists the latest published articles for you. This tool goes three notches further: it also scrapes Reddit, Hacker News and YouTube (which Feedly doesn't), it deduplicates by Jaccard similarity to group the variants of a single topic, it scores each cluster on five axes weighted to my obsessions, and it calls Claude Opus to produce a 1,000-word French analysis per chosen topic. Feedly gives you the raw feed, this tool gives you something digested and prioritized."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use an LLM to score instead of a math formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I deliberately gave up on using an LLM to score. Three reasons. Too expensive: on 476 items a day, that would be tens of thousands of calls a month. Too opaque: impossible to understand why an item moves up or down. Too slow: each call adds two to ten seconds, which is hours of latency across the whole pipeline. The math formula with cluster multipliers is fast, readable and auditable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you add a new source to the tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three steps depending on the source type. For a subreddit or an official RSS feed, I add the URL to the config table and rerun. For a YouTube channel, I resolve the channelId once (cached for 90 days), then add it to the youtube-channels.js file with its boost. For a dynamic Google News search, I add the keywords to the worker. Budget 5 to 15 minutes to integrate a source cleanly, test it on one run and adjust the signal/noise filters if needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Ollama rather than OpenAI embeddings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ollama runs locally on my Mac with a multilingual embedding model, for free, without sending a single line over the Internet. OpenAI text-embedding-3-small costs $0.02 per million tokens — cheap but paid, and my data goes to OpenAI. On 476 items a day the financial gap is tiny, but the data control is total with Ollama. And I avoid one more dependency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the pipeline work on Windows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The code is Node.js with SQLite, two cross-platform building blocks. Ollama has run on Windows since 2024, and so has Claude Code. The only friction: the worker currently runs on my Mac via launchctl for the fixed-time trigger. On Windows you'd go through the Windows Task Scheduler or WSL2. For 99% of the code, zero changes needed."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero {
+    padding: 64px 0 88px;
+    background: #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('screenshots/veille-dashboard-full.webp') right center / auto 140% no-repeat;
+    filter: blur(3px) brightness(.55) saturate(1.2) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
+    opacity: .75;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(0,178,169,.45), transparent 45%),
+      radial-gradient(ellipse at 10% 85%, rgba(239,66,111,.42), transparent 52%),
+      radial-gradient(ellipse at 60% 100%, rgba(255,130,0,.2), transparent 55%),
+      linear-gradient(90deg, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 80%, rgba(10,10,10,.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > .container {
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--fuchsia); box-shadow: 0 0 10px var(--fuchsia);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,66,111,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(239,66,111,0) }
+    100% { box-shadow: 0 0 0 0 rgba(239,66,111,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(32px, 5.4vw, 64px);
+    line-height: .98; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 860px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px; padding: 28px 32px;
+    position: relative; z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  blockquote {
+    margin: 28px 0; padding: 22px 26px 22px 32px;
+    border-left: 4px solid var(--teal);
+    background: rgba(0,178,169,.06);
+    border-radius: 0 14px 14px 0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 19px; line-height: 1.55;
+    font-style: italic; color: var(--ink);
+    font-weight: 500;
+  }
+  blockquote p { font-size: 19px; line-height: 1.55; color: var(--ink); margin: 0 }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 24px 0; font-size: 15.5px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px; overflow: hidden;
+  }
+  table th, table td {
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5; vertical-align: top;
+  }
+  table th {
+    background: var(--bg-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  table tr:last-child td { border-bottom: none }
+  table td:first-child {
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--fuchsia);
+    width: 52px; text-align: center;
+  }
+  table td strong { color: var(--ink) }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  .final-cta {
+    padding: 72px 0 96px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(0,178,169,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(239,66,111,.1), transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .final-cta h2 { max-width: 760px; margin: 0 auto 18px }
+  .final-cta p  { max-width: 580px; margin: 0 auto 28px; font-size: 17px }
+
+  .newsletter-form {
+    max-width: 520px; margin: 0 auto;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1; min-width: 240px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-size: 15px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-form input[type="email"]:focus { border-color: var(--teal) }
+  .newsletter-form button {
+    padding: 14px 24px;
+    border-radius: 999px; border: none;
+    background: var(--ink); color: var(--bg);
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: transform .2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px) }
+  .newsletter-form button:disabled { opacity: .6; cursor: not-allowed }
+  .newsletter-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 16px;
+  }
+  .newsletter-success {
+    display: none; margin-top: 16px;
+    font-size: 15px; color: var(--teal); font-weight: 600;
+  }
+
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Mini-marquee divider entre sections */
+  .mini-marquee {
+    overflow: hidden; padding: 14px 0;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%);
+    color: #fff; position: relative; margin: 48px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .mini-marquee::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mini-marquee-track {
+    display: flex; gap: 40px; white-space: nowrap;
+    animation: mm-scroll 50s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -.01em; position: relative; z-index: 1;
+  }
+  .mini-marquee-track span {
+    display: inline-flex; align-items: center; gap: 40px;
+  }
+  .mini-marquee-track span::after {
+    content: "◆"; color: rgba(10,10,10,.5); font-size: 11px;
+  }
+  @keyframes mm-scroll {
+    0% { transform: translateX(0) }
+    100% { transform: translateX(-50%) }
+  }
+
+  /* Sidebar SCOREBOARD Spurs 89 — roster style */
+  .article-sidebar {
+    position: fixed;
+    top: 110px;
+    right: 24px;
+    width: 260px;
+    max-height: calc(100vh - 140px);
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    font-size: 13px;
+    z-index: 40;
+    display: none;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  [data-theme="dark"] .article-sidebar {
+    border-color: var(--ink-soft);
+    box-shadow: 6px 6px 0 rgba(244,239,230,.12);
+  }
+  @media (min-width: 1240px) { .article-sidebar { display: flex; flex-direction: column; } }
+
+  .sidebar-head {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar-head::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg,
+      var(--teal) 0%, var(--teal) 33.33%,
+      var(--fuchsia) 33.33%, var(--fuchsia) 66.66%,
+      var(--orange) 66.66%, var(--orange) 100%);
+  }
+  .sidebar-head-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .sidebar-head-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: rgba(244,239,230,.7);
+  }
+  .sidebar-head-count {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: .05em;
+  }
+  .sidebar-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; letter-spacing: -.02em;
+    line-height: 1; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .sidebar-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+  }
+  .article-sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .article-sidebar li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18px 44px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .article-sidebar li:last-child { border-bottom: none; }
+  .article-sidebar li:hover { background: var(--bg-2); }
+
+  .ss-rowel {
+    width: 14px; height: 14px;
+    color: var(--ink-muted);
+    transition: color .2s, transform .3s;
+    flex-shrink: 0;
+  }
+  .article-sidebar li:hover .ss-rowel { transform: rotate(45deg); }
+  .article-sidebar li:nth-child(3n+1):hover .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2):hover .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3):hover .ss-rowel { color: var(--orange); }
+
+  .ss-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; font-weight: 900;
+    letter-spacing: -.02em; line-height: 1;
+    color: var(--ink);
+  }
+  .ss-num .hash {
+    font-size: 9px;
+    color: var(--ink-muted);
+    margin-right: 2px;
+    vertical-align: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .article-sidebar li:nth-child(3n+1) .ss-num { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2) .ss-num { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3) .ss-num { color: var(--orange); }
+
+  .ss-title {
+    color: var(--ink-soft); text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    line-height: 1.25;
+    transition: color .15s, transform .15s;
+  }
+  .article-sidebar li:hover .ss-title {
+    color: var(--ink); transform: translateX(2px);
+  }
+
+  .article-sidebar li.is-active { background: var(--bg-2); }
+  .article-sidebar li.is-active::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .article-sidebar li:nth-child(3n+1).is-active::before { background: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active::before { background: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active::before { background: var(--orange); }
+  .article-sidebar li.is-active .ss-title { color: var(--ink); }
+  .article-sidebar li.is-active .ss-rowel { color: inherit; }
+  .article-sidebar li:nth-child(3n+1).is-active .ss-rowel { color: var(--teal); }
+  .article-sidebar li:nth-child(3n+2).is-active .ss-rowel { color: var(--fuchsia); }
+  .article-sidebar li:nth-child(3n+3).is-active .ss-rowel { color: var(--orange); }
+
+  .sidebar-cta {
+    padding: 14px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    border-top: 3px solid var(--orange);
+  }
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .sidebar-cta-lead {
+    font-size: 12px; line-height: 1.35;
+    margin: 0 0 10px;
+    color: rgba(244,239,230,.85);
+    font-weight: 500;
+  }
+  .sidebar-cta-btn {
+    display: block; text-align: center;
+    background: var(--orange); color: var(--ink);
+    padding: 10px 12px; border-radius: 0;
+    text-decoration: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: .08em; line-height: 1;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .sidebar-cta-btn:hover {
+    background: var(--fuchsia); color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 rgba(244,239,230,.3);
+  }
+  .callout {
+    position: relative; padding: 14px 16px 14px 22px;
+    border-radius: 10px; margin: 16px 0;
+  }
+  .callout::before {
+    content: ""; position: absolute; left: 8px; top: 14px;
+    width: 4px; height: calc(100% - 28px); border-radius: 2px;
+  }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card { max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start; background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px; padding: 30px 32px; position: relative; overflow: hidden; }
+  .article-end-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange)); }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<!-- Rowel SVG symbol (réutilisable dans la sidebar) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rowel" viewBox="0 0 100 100">
+    <g fill="currentColor">
+      <circle cx="50" cy="50" r="14"/>
+      <polygon points="50,0 55,40 45,40"/>
+      <polygon points="100,50 60,55 60,45"/>
+      <polygon points="50,100 45,60 55,60"/>
+      <polygon points="0,50 40,45 40,55"/>
+      <polygon points="85,15 62,42 58,38"/>
+      <polygon points="85,85 58,62 62,58"/>
+      <polygon points="15,85 38,58 42,62"/>
+      <polygon points="15,15 42,38 38,42"/>
+    </g>
+  </symbol>
+</svg>
+
+<aside class="article-sidebar" aria-label="Article contents">
+  <header class="sidebar-head">
+    <div class="sidebar-head-top">
+      <span class="sidebar-head-label">Roster</span>
+      <span class="sidebar-head-count">13 / 13</span>
+    </div>
+    <div class="sidebar-head-title">Contents</div>
+  </header>
+
+  <nav class="sidebar-list" aria-label="Article sections">
+    <ul>
+      <li data-section="idee">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>01</span>
+        <a class="ss-title" href="#idee">The idea in my head</a>
+      </li>
+      <li data-section="verdict">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>02</span>
+        <a class="ss-title" href="#verdict">The verdict</a>
+      </li>
+      <li data-section="pivots">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>03</span>
+        <a class="ss-title" href="#pivots">The four pivots</a>
+      </li>
+      <li data-section="pivot-final">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>04</span>
+        <a class="ss-title" href="#pivot-final">The final pivot</a>
+      </li>
+      <li data-section="construction">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>05</span>
+        <a class="ss-title" href="#construction">Built in one day</a>
+      </li>
+      <li data-section="pipeline">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>06</span>
+        <a class="ss-title" href="#pipeline">How it works</a>
+      </li>
+      <li data-section="sources">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>07</span>
+        <a class="ss-title" href="#sources">The real sources</a>
+      </li>
+      <li data-section="scoring">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>08</span>
+        <a class="ss-title" href="#scoring">The 5-axis scoring</a>
+      </li>
+      <li data-section="faire-pareil">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>09</span>
+        <a class="ss-title" href="#faire-pareil">Want to do the same?</a>
+      </li>
+      <li data-section="avant-apres">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>10</span>
+        <a class="ss-title" href="#avant-apres">Before, now</a>
+      </li>
+      <li data-section="prix">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>11</span>
+        <a class="ss-title" href="#prix">What it costs me</a>
+      </li>
+      <li data-section="lecon">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>12</span>
+        <a class="ss-title" href="#lecon">My takeaways</a>
+      </li>
+      <li data-section="et-toi">
+        <svg class="ss-rowel"><use href="#rowel"/></svg>
+        <span class="ss-num"><span class="hash">№</span>13</span>
+        <a class="ss-title" href="#et-toi">And you?</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-cta">
+    <div class="sidebar-cta-label">★ Newsletter</div>
+    <p class="sidebar-cta-lead">My case studies, every Friday morning. No ads, unsubscribe in one click.</p>
+    <a href="#cta-newsletter" class="sidebar-cta-btn">Subscribe →</a>
+  </div>
+</aside>
+
+<script>
+  // Scrollspy sidebar — met à jour la section active
+  (function() {
+    const items = document.querySelectorAll('.article-sidebar li[data-section]');
+    if (!items.length) return;
+    const sections = Array.from(items).map(li => ({
+      li: li,
+      el: document.getElementById(li.dataset.section)
+    })).filter(s => s.el);
+
+    function update() {
+      const y = window.scrollY + 160;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.el.offsetTop <= y) active = s;
+      }
+      items.forEach(i => i.classList.remove('is-active'));
+      if (active) active.li.classList.add('is-active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Case study · Built with <a class="lex-link" href="/en/lexique/claude-code" title="Claude Code — see the definition">Claude Code</a></div>
+    <h1>I wanted to launch a newsletter.<br>I ended up building<br><em>a tool just for me.</em></h1>
+    <p class="hero-lead">
+      I'd had the idea for months. A site where I'd share my watch on AI, business, sports, everything that interests me. Before writing the first line of code, I asked Claude Code to do the market research. It told me no. So I built something else.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Case</strong> study</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Claude Code</span>
+    </div>
+  </div>
+</section>
+
+<!-- seo:byline -->
+<div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
+  <a href="/en#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
+    <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img src="/photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
+    Jérémy Sagnier
+  </a>
+  <span style="color:var(--ink-muted)">·</span>
+  <span>I test AI every day · I share what helped me</span>
+  <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
+    Published <time datetime="2026-04-14">April 14, 2026</time> · Updated April 20, 2026
+  </span>
+</div>
+<!-- /seo:byline -->
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">What you'll read, in 30 seconds</div>
+    <h2>The story in three points</h2>
+    <ul>
+      <li>I wanted to launch a general-interest newsletter. The research sub-agents handed me a brutal verdict: saturated market, huge opportunity cost, less than <strong>5% odds of making a living from it in 24 months</strong>.</li>
+      <li>I pivoted <strong>four times</strong> before making a call. The last pivot: stop aiming for a public product and build the watch tool I actually needed for myself.</li>
+      <li>In <strong>a single day of building</strong> with Claude Code, I shipped a tool that ingests <strong>96 sources every morning at 7 a.m.</strong>, proposes 30 topics in French, and generates 1,000-word long-form analyses. It all runs locally on my Mac. Real cost: about <strong>€5 a month</strong>.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="callout warn" style="margin: 24px 0 32px;">
+    <h4>Brand new to AI?</h4>
+    <p>If some of the terms lose you (Claude Code, terminal, <a class="lex-link" href="/en/lexique/skill-agent" title="Skill &amp; Agent — see the definition">agent</a>, <a class="lex-link" href="/en/lexique/mcp" title="MCP — see the definition">MCP</a>, skill…), start with <a href="/en/debutant">the beginner's guide</a> first and keep <a href="/lexique">the glossary</a> open in another tab. You'll come back here with the basics.</p>
+  </div>
+</div>
+
+<section class="block" id="idee">
+  <div class="container">
+    <span class="section-kicker k-teal">— The starting point</span>
+    <h2>The idea I'd had <em class="teal">in my head for a long time.</em></h2>
+    <p>
+      I wanted to launch a site. A personal hub where I'd share what I read, what I watch, what I test. Not just about AI: also about business, sports, fatherhood, geopolitics. The urge had been there for months. I told myself that after piling up so much watch, I had something worth passing on.
+    </p>
+    <p>
+      Before writing the first line of code, I did what I always do now: I asked Claude Code to check whether the idea held up. I had no desire to spend six months on a project only to discover along the way that there was no audience. This logic of <a href="/en/articles/autoresearch-karpathy">putting agents to work in parallel</a> before coding, I learned it by reading the work of <a class="cross-link" href="/en/articles/karpathy" title="Andrej Karpathy — read the article">Karpathy</a>.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="verdict">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The diagnosis</span>
+    <h2>What the sub-agents <em class="fuchsia">told me.</em></h2>
+    <p>
+      I fired up three research sub-agents in parallel (specialized mini-AIs that work alongside the main conversation). Their mission: dig into the market for newsletters and "public second brains" in French, quantify the potential, benchmark the existing players.
+    </p>
+    <p>
+      A brutal verdict I didn't see coming:
+    </p>
+    <ul>
+      <li><strong>The format already exists.</strong> Internationally, it's saturated.</li>
+      <li><strong>The median Substack newsletter makes €4,000 a year</strong> after 24 months of work.</li>
+      <li><strong>The free-to-paid conversion rate hovers around 1 to 3%.</strong></li>
+      <li>To stand out, count on <strong>8 to 14 hours a week</strong> for a year and a half, minimum.</li>
+      <li>And above all: <strong>less than 5% odds of clearing €4,000 a year.</strong> A huge opportunity cost against time invested elsewhere.</li>
+    </ul>
+    <p>
+      The sub-agents were very direct: <strong>"Drop the general-interest, multi-topic newsletter. Put those hours into something else."</strong>
+    </p>
+  </div>
+</section>
+
+<section class="block" id="pivots">
+  <div class="container">
+    <span class="section-kicker k-orange">— The attempts</span>
+    <h2>The four pivots <em class="orange">before making a call.</em></h2>
+    <p>
+      Instead of giving up, I tried to find the angle that might work. I explored four successive tracks with Claude Code:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Angle</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>A general-interest site, "a founder reads the world"</td>
+          <td>Requires ten years of public track record I don't have yet</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>A pure curation newsletter</td>
+          <td>Already occupied by established French players (Snowball, Flint, Marie Dollé)</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>A journal of an entrepreneur dad</td>
+          <td>Empty editorial slot, but low demand (fewer than 5,000 reachable subscribers)</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Multi-project "build in public"</td>
+          <td>Good fit with my profile, but exposes my companies too much</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      By the end of that exploration, I was stuck. Each angle had a blocking flaw. I was ready to shelve the project.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Stop wanting a product</span><span>Ask what you'd have loved to have</span><span>Build for yourself first</span><span>No promise to sell</span>
+    <span>Stop wanting a product</span><span>Ask what you'd have loved to have</span><span>Build for yourself first</span><span>No promise to sell</span>
+  </div>
+</div>
+
+<section class="block" id="pivot-final">
+  <div class="container">
+    <span class="section-kicker k-teal">— The click</span>
+    <h2>The moment I changed <em class="teal">my goal.</em></h2>
+    <p>
+      The click came when I stopped wanting a product and asked myself what I, concretely, would have loved to have in my day.
+    </p>
+    <p>
+      Here's what I wrote to Claude Code that morning:
+    </p>
+
+    <blockquote>
+      <p>"This will be my own watch first. Build a tool to do my watch on every topic. Be able to add sources. The goal: have the data I need."</p>
+    </blockquote>
+
+    <p>
+      Everything changed with that sentence. We went from a public product to sell to a private tool to build. The constraints fell away one by one:
+    </p>
+    <ul>
+      <li>No need to find a marketing angle</li>
+      <li>No need for a sellable promise</li>
+      <li>No need for 8 to 14 hours a week publishing</li>
+      <li>No need for an acquisition strategy</li>
+    </ul>
+    <p>
+      Just a tool. For me. That runs at my place.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="construction">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The story</span>
+    <h2>What I built <em class="fuchsia">in one day.</em></h2>
+    <p>
+      On April 16, 2026, in a single day of building with Claude Code, I shipped the full v1 of the tool. Ten phases, from the database to the generated analyses, by way of the automatic ingestion.
+    </p>
+    <p>
+      Here's what's inside:
+    </p>
+    <ul>
+      <li><strong>96 sources</strong> on AI and business, multilingual — English, French, Spanish, German and Japanese — Ethan Mollick, Stratechery, a16z, McKinsey, podcasts, YouTube channels, GitHub, Hacker News, Reddit, Product Hunt.</li>
+      <li><strong>A worker that runs at 7 a.m.</strong> (a little program that runs on its own in the background), triggered by my Mac's scheduler. It ingests everything new from overnight while I sleep. It's the same loop pattern I describe in <a href="/en/articles/loops-claude">Claude Code loops</a> — an agent that runs unattended to produce a deliverable by the time you wake up.</li>
+      <li><strong>A SQLite database</strong> (a mini database stored in a single file) that lives entirely on my disk. No cloud. One portable file.</li>
+      <li><strong>A <a class="lex-link" href="/en/lexique/recherche-semantique" title="Semantic search — see the definition">semantic search</a> engine</strong> that runs locally thanks to <a class="cross-link" href="/en/articles/llm-local-pour-non-dev" title="Local LLM — read the article">Ollama</a> — a multilingual embedding model (in plain terms: it turns text into numbers to compare their meaning, not just their words) that understands the 96 sources even when they speak different languages. If <a href="/en/articles/open-source-pour-non-dev">open source</a> sounds like a dev topic to you, it's less and less so — Ollama and SQLite are accessible without a technical background.</li>
+      <li><strong>Two Claude models</strong> used at different stages: Claude <a class="lex-link" href="/en/lexique/modele" title="AI model — see the definition">Sonnet</a> to propose 30 topics of the day, Claude Opus to write the long-form analyses when I pick a topic.</li>
+    </ul>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <picture><source srcset="/screenshots/veille-dashboard.webp" type="image/webp"><img src="/screenshots/veille-dashboard.webp" width="1440" height="900" alt="The watch tool dashboard with a sidebar on the left and topics ranked by score on the right" style="width: 100%; height: auto; display: block;" loading="lazy" decoding="async"></picture>
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        The tool's dashboard — navigation on the left, the day's topics ranked by score on the right
+      </figcaption>
+    </figure>
+
+    <p>
+      All of it, in a single day of design and coding. With Claude Code. If you want to understand the "second brain" philosophy behind this kind of tool, I've written at length about <a href="/en/articles/llm-wiki-karpathy">Karpathy's LLM Wiki</a>, which is one of the big inspirations for this approach.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>96 sources</span><span>Digested while I sleep</span><span>30 French topics</span><span>Long-form analyses</span><span>On my Mac</span><span>Zero cloud</span>
+    <span>96 sources</span><span>Digested while I sleep</span><span>30 French topics</span><span>Long-form analyses</span><span>On my Mac</span><span>Zero cloud</span>
+  </div>
+</div>
+
+<section class="block" id="pipeline">
+  <div class="container">
+    <span class="section-kicker k-teal">— Under the hood</span>
+    <h2>How it works, <em class="teal">step by step.</em></h2>
+    <p>
+      When I say "the tool ingests 96 sources and hands me 30 topics," that stays vague. Here's what actually happens, in five steps, every morning while I sleep. By the end of the last step, my dashboard holds the topics I'll spend my day on.
+    </p>
+
+    <p>
+      The big picture, in one line:
+    </p>
+    <pre><code>Reddit + HN + GitHub + RSS + YouTube  →  Bot  →  5-axis score  →  Top 60  →  My hands  →  10 kept</code></pre>
+
+    <figure style="margin: 32px auto; max-width: 720px;">
+      <svg viewBox="0 0 800 500" role="img" aria-labelledby="schema-funnel-title schema-funnel-desc" style="width: 100%; height: auto; display: block;">
+        <title id="schema-funnel-title">Watch pipeline funnel — 5 steps</title>
+        <desc id="schema-funnel-desc">Vertical funnel showing the drop from raw feed to signal: 96 sources, 476 items, 310 clusters, 60 scored, 10 kept, a 2 percent retention rate.</desc>
+
+        <text x="400" y="32" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" letter-spacing="2.5" fill="#0A0A0A">FROM RAW TO SIGNAL · RATE 2 %</text>
+
+        <polygon points="120,68 680,68 620,138 180,138" fill="#00B2A9" stroke="#0A0A0A" stroke-width="2.5"/>
+        <text x="400" y="100" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#0A0A0A">96 SOURCES</text>
+        <text x="400" y="123" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="#0A0A0A">Reddit · HN · RSS · YouTube</text>
+
+        <polygon points="180,148 620,148 575,218 225,218" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="2.5"/>
+        <text x="400" y="180" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#0A0A0A">476 ITEMS</text>
+        <text x="400" y="203" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="#0A0A0A">ingested in parallel</text>
+
+        <polygon points="225,228 575,228 535,298 265,298" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="2.5"/>
+        <text x="400" y="260" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#0A0A0A">310 CLUSTERS</text>
+        <text x="400" y="283" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="#0A0A0A">after Jaccard dedup</text>
+
+        <polygon points="265,308 535,308 490,378 310,378" fill="#FF8200" stroke="#0A0A0A" stroke-width="2.5"/>
+        <text x="400" y="340" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#0A0A0A">60 ITEMS</text>
+        <text x="400" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="#0A0A0A">after 5-axis scoring</text>
+
+        <polygon points="310,388 490,388 460,458 340,458" fill="#EF426F" stroke="#0A0A0A" stroke-width="3"/>
+        <text x="400" y="422" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="26" fill="#FBF7F0">10 KEPT</text>
+        <text x="400" y="445" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#FBF7F0">today's reading</text>
+
+        <g>
+          <line x1="500" y1="423" x2="620" y2="423" stroke="#0A0A0A" stroke-width="2"/>
+          <line x1="620" y1="423" x2="620" y2="395" stroke="#0A0A0A" stroke-width="2"/>
+          <line x1="600" y1="395" x2="780" y2="395" stroke="#0A0A0A" stroke-width="2"/>
+          <text x="690" y="384" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#EF426F">RATE 2 %</text>
+          <text x="690" y="412" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10.5" font-style="italic" fill="#0A0A0A">my daily reading</text>
+          <text x="690" y="425" text-anchor="middle" font-family="Archivo, sans-serif" font-size="10.5" font-style="italic" fill="#0A0A0A">capacity</text>
+        </g>
+
+        <text x="60" y="103" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#00B2A9">IN</text>
+        <text x="60" y="425" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#EF426F">OUT</text>
+        <line x1="60" y1="115" x2="60" y2="415" stroke="#0A0A0A" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <polygon points="60,415 56,407 64,407" fill="#0A0A0A"/>
+      </svg>
+      <figcaption style="text-align: center; font-style: italic; color: var(--ink-muted); font-size: 14.5px; margin-top: 12px;">
+        From raw to signal: 476 items become 10 reads of the day. Rate 2%.
+      </figcaption>
+    </figure>
+
+    <p>
+      And the detail of the five steps, with the real numbers from a typical <strong>Friday morning</strong> run:
+    </p>
+
+    <h3>1. Parallel source collection <span style="color:var(--ink-muted); font-weight:400">— ~476 items fetched</span></h3>
+    <p>
+      The worker fires off around thirty requests in parallel: 11 Reddit subreddits, 5 Hacker News searches, 2 GitHub searches, 8 official RSS feeds (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best), around ten dynamic Google News feeds on keywords I want to follow, and 16 YouTube channels via their Atom feed (free, no <a class="lex-link" href="/en/lexique/cle-api" title="API key — see the definition">API key</a>).
+    </p>
+    <p>
+      All of it in parallel so there's no waiting. In 30 to 60 seconds, I have <strong>about 476 raw items</strong> in an in-memory array. Many are duplicates, many are noise. But it's the wide net you have to cast first.
+    </p>
+
+    <h3>2. Deduplication by title similarity <span style="color:var(--ink-muted); font-weight:400">— ~310 clusters left</span></h3>
+    <p>
+      When OpenAI announces a new model, I get the news 5 times: on the OpenAI Blog, on HN, on Reddit r/OpenAI, on Google News, and on a YouTube video talking about it. It's useful information <strong>once</strong>.
+    </p>
+    <p>
+      The tool measures the similarity between titles (a dead-simple calculation that compares the words they share, what's called a "Jaccard") and groups everything that clears 50% resemblance. The 476 items become <strong>about 310 clusters</strong>. Total engagement accumulates within the cluster, so a piece of news seen everywhere mechanically rises.
+    </p>
+
+    <h3>3. Scoring on 5 axes <span style="color:var(--ink-muted); font-weight:400">— score of 0 to 10 per item</span></h3>
+    <p>
+      Each cluster takes an exam on five criteria: how many people are talking about it, is it in my topics, does it age well, have I tested it myself, is there already a clear article on it. Details in the section right after — I devote a whole block to it because it's the heart of the system.
+    </p>
+    <p>
+      The final score is a weighted average multiplied by a coefficient tied to the editorial cluster (Claude Code = ×1.25, frontier = ×1.0, off-cluster = ×0.5) and by a YouTube channel boost when the item comes from a channel right in my universe (1.0 to 1.15).
+    </p>
+
+    <h3>4. Anti-noise filtering + minimum threshold <span style="color:var(--ink-muted); font-weight:400">— ~60 items kept</span></h3>
+    <p>
+      The filtering is what changes everything. I built two keyword lists over the weeks:
+    </p>
+    <ul>
+      <li><strong>Noise list</strong> (KEYWORDS_NOISE): memes, drama, "we're cooked" doomerism, jailbreaks, NSFW, low-value questions like "am I the only one." Any title containing one of these words takes a massive markdown.</li>
+      <li><strong>YouTube signal list</strong> (YT_SIGNAL_KEYWORDS): for business channels like Silicon Carne or Underscore_, I only accept videos whose title or description contains an AI / entrepreneurship / workflow keyword. Otherwise Silicon Carne would surface episodes about French rap, which is great but not the topic of the day.</li>
+    </ul>
+    <p>
+      After the filter + a minimum score threshold (5 if the item is in a cluster, 7 otherwise), <strong>about 60 qualified items</strong> remain.
+    </p>
+
+    <h3>5. Final sort + human judgment <span style="color:var(--ink-muted); font-weight:400">— top 15 in the backlog, 10 kept by hand</span></h3>
+    <p>
+      The top 15 is written into <code>BACKLOG.md</code> with, for each idea, the score, the cluster, the clickable sources and a spot for my personal angle. Ideas older than 60 days that haven't been chosen automatically move to "rejected." The active backlog never exceeds 40 entries, which keeps me from choice paralysis.
+    </p>
+    <p>
+      In the morning, I look at the top 15. I spend about 10 minutes making calls. I keep a dozen topics I really want to dig into, I move 5 to "chosen," and I ask Claude Opus for the long-form version. It's the only <strong>truly manual</strong> step of the pipeline. And that's on purpose: this is where my voice and my angle enter the chain.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="sources">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The detail</span>
+    <h2>The real sources <em class="fuchsia">scanned every day.</em></h2>
+    <p>
+      When I say "96 sources," I want you to be able to check. Here's the precise detail of what the worker digs through every morning, grouped by family. Every link works.
+    </p>
+
+    <h3>Reddit — 11 subreddits</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Subreddit</th><th>Targeted cluster</th><th>Items / day</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td><a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener">r/ClaudeAI</a></td><td>Claude Code</td><td>~25</td></tr>
+        <tr><td>02</td><td><a href="https://www.reddit.com/r/ChatGPTCoding/" target="_blank" rel="noopener">r/ChatGPTCoding</a></td><td>Claude Code + agents</td><td>~25</td></tr>
+        <tr><td>03</td><td><a href="https://www.reddit.com/r/Cursor/" target="_blank" rel="noopener">r/Cursor</a></td><td>AI tools</td><td>~25</td></tr>
+        <tr><td>04</td><td><a href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">r/LocalLLaMA</a></td><td>Frontier</td><td>~25</td></tr>
+        <tr><td>05</td><td><a href="https://www.reddit.com/r/MachineLearning/" target="_blank" rel="noopener">r/MachineLearning</a></td><td>Frontier</td><td>~25</td></tr>
+        <tr><td>06</td><td><a href="https://www.reddit.com/r/artificial/" target="_blank" rel="noopener">r/artificial</a></td><td>General frontier</td><td>~25</td></tr>
+        <tr><td>07</td><td><a href="https://www.reddit.com/r/Entrepreneur/" target="_blank" rel="noopener">r/Entrepreneur</a></td><td>Entrepreneurship</td><td>~25</td></tr>
+        <tr><td>08</td><td><a href="https://www.reddit.com/r/SaaS/" target="_blank" rel="noopener">r/SaaS</a></td><td>AI entrepreneurship</td><td>~25</td></tr>
+        <tr><td>09</td><td><a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener">r/ChatGPT</a></td><td>AI tools</td><td>~25</td></tr>
+        <tr><td>10</td><td><a href="https://www.reddit.com/r/OpenAI/" target="_blank" rel="noopener">r/OpenAI</a></td><td>AI tools</td><td>~25</td></tr>
+        <tr><td>11</td><td><a href="https://www.reddit.com/r/singularity/" target="_blank" rel="noopener">r/singularity</a></td><td>Frontier (reinforced filter)</td><td>~25</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Hacker News + GitHub — targeted searches</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Source</th><th>Query</th><th>Items / day</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>12</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>"claude code"</td><td>~30</td></tr>
+        <tr><td>13</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>"anthropic"</td><td>~30</td></tr>
+        <tr><td>14</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>"ai agent"</td><td>~30</td></tr>
+        <tr><td>15</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>"mcp"</td><td>~30</td></tr>
+        <tr><td>16</td><td><a href="https://hn.algolia.com" target="_blank" rel="noopener">HN Algolia</a></td><td>"<a class="lex-link" href="/en/lexique/llm" title="LLM — see the definition">llm</a> tutorial"</td><td>~30</td></tr>
+        <tr><td>17</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>"claude code"</td><td>~15</td></tr>
+        <tr><td>18</td><td><a href="https://github.com/search" target="_blank" rel="noopener">GitHub Search API</a></td><td>"mcp server"</td><td>~15</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Official RSS feeds — 8 sources</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Source</th><th>Type</th><th>Items / day</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>19</td><td><a href="https://openai.com/blog/" target="_blank" rel="noopener">OpenAI Blog</a></td><td>Official announcements</td><td>~3</td></tr>
+        <tr><td>20</td><td><a href="https://blog.google/technology/ai/" target="_blank" rel="noopener">Google AI Blog</a></td><td>Official announcements</td><td>~3</td></tr>
+        <tr><td>21</td><td><a href="https://huggingface.co/blog" target="_blank" rel="noopener">Hugging Face Blog</a></td><td>Open source models</td><td>~5</td></tr>
+        <tr><td>22</td><td><a href="https://simonwillison.net" target="_blank" rel="noopener">Simon Willison</a></td><td>Reference personal blog</td><td>~10</td></tr>
+        <tr><td>23</td><td><a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">TechCrunch AI</a></td><td>Tech media</td><td>~15</td></tr>
+        <tr><td>24</td><td><a href="https://www.theverge.com/ai-artificial-intelligence" target="_blank" rel="noopener">The Verge AI</a></td><td>Tech media</td><td>~10</td></tr>
+        <tr><td>25</td><td><a href="https://www.technologyreview.com" target="_blank" rel="noopener">MIT Tech Review</a></td><td>Tech media</td><td>~5</td></tr>
+        <tr><td>26</td><td><a href="https://news.ycombinator.com/best" target="_blank" rel="noopener">HN Best</a></td><td>HN curation</td><td>~30</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      On top of that come <strong>10 dynamic Google News feeds</strong> generated on the keywords I want to follow (Claude Code, Anthropic, AI agents, AI skills, the <a class="cross-link" href="/en/articles/superpowers" title="Superpowers Claude Code — read the article">Superpowers plugin</a>), in French and English. That's what brings me the business media announcements before they hit the blogs.
+    </p>
+
+    <h3>YouTube — 16 channels scanned via Atom feeds</h3>
+    <p>
+      For each channel, the worker fetches the Atom feed (free, no API key), filters videos less than 45 days old, applies the AI / business signal filter and keeps at most 10 videos per channel. The flagship channels (Underscore_, Silicon Carne, Vision IA, Grand Angle, IA et Stratégie) get a score boost of ×1.15 because they're the core of my universe.
+    </p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Channel</th><th>Category</th><th>Boost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>27</td><td><a href="https://www.youtube.com/@siliconcarnepod" target="_blank" rel="noopener">Silicon Carne</a></td><td>AI &amp; Tech</td><td>×1.15</td></tr>
+        <tr><td>28</td><td><a href="https://www.youtube.com/@SamouraiDansant" target="_blank" rel="noopener">IA et Stratégie</a></td><td>AI &amp; Tech</td><td>×1.15</td></tr>
+        <tr><td>29</td><td><a href="https://www.youtube.com/@VisionIA-FR" target="_blank" rel="noopener">Vision IA</a></td><td>AI &amp; Tech</td><td>×1.15</td></tr>
+        <tr><td>30</td><td><a href="https://www.youtube.com/@Underscore_" target="_blank" rel="noopener">Underscore_</a></td><td>AI &amp; Tech</td><td>×1.15</td></tr>
+        <tr><td>31</td><td><a href="https://www.youtube.com/@melvynxdev" target="_blank" rel="noopener">Melvynx</a></td><td>AI &amp; Tech</td><td>×1.10</td></tr>
+        <tr><td>32</td><td><a href="https://www.youtube.com/@GrandAnglePodcast" target="_blank" rel="noopener">Grand Angle</a></td><td>AI &amp; Tech</td><td>×1.10</td></tr>
+        <tr><td>33</td><td><a href="https://www.youtube.com/@grandanglenova" target="_blank" rel="noopener">Grand Angle Nova</a></td><td>AI &amp; Tech</td><td>×1.10</td></tr>
+        <tr><td>34</td><td><a href="https://www.youtube.com/@AlexHormozi" target="_blank" rel="noopener">Alex Hormozi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>35</td><td><a href="https://www.youtube.com/@leilahormozi" target="_blank" rel="noopener">Leila Hormozi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>36</td><td><a href="https://www.youtube.com/@garyvee" target="_blank" rel="noopener">GaryVee</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>37</td><td><a href="https://www.youtube.com/@ImanGadzhi" target="_blank" rel="noopener">Iman Gadzhi</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>38</td><td><a href="https://www.youtube.com/@GrantCardone" target="_blank" rel="noopener">Grant Cardone</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>39</td><td><a href="https://www.youtube.com/@legendmedia" target="_blank" rel="noopener">LEGEND</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>40</td><td><a href="https://www.youtube.com/@oussamaammaroff" target="_blank" rel="noopener">Oussama Ammar</a></td><td>Business</td><td>×1.05</td></tr>
+        <tr><td>41</td><td><a href="https://www.youtube.com/@PodcastLeD%C3%A9clic" target="_blank" rel="noopener">Le Déclic</a></td><td>Business</td><td>×1.0</td></tr>
+        <tr><td>42</td><td><a href="https://www.youtube.com/@antoineblanco99" target="_blank" rel="noopener">Antoine Blanco</a></td><td>Business</td><td>×1.0</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      The total runs between <strong>96 and 110 active sources</strong> depending on the week (the Google News feeds vary with the keywords I tweak). It's deliberately capped: beyond that, I bury myself under the noise. Below it, I miss things.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="scoring">
+  <div class="container">
+    <span class="section-kicker k-orange">— The heart of the system</span>
+    <h2>The 5-axis scoring, <em class="orange">demystified.</em></h2>
+    <p>
+      The whole point of the pipeline sits here. Without scoring, I'd surface 60 items at random. With scoring, I surface the 60 items that match <strong>my own editorial angle</strong>. That's what turns an aggregator into a personal tool.
+    </p>
+    <p>
+      I deliberately gave up on using an LLM to score. Too expensive (×476 items × 4 runs / day = way too much), too opaque (impossible to debug why an item is at the top), too slow. Instead, simple rules on the title. Five axes, each scored out of 10. Here's what each one measures.
+    </p>
+
+    <h3>1. Demand — how many people are talking about it</h3>
+    <p>
+      This is raw engagement: Reddit upvotes + comments × 2, HN points + comments × 2, YouTube views / 100 + likes × 10, GitHub stars + forks × 3. All of it normalized to a scale of 0 to 10.
+    </p>
+    <p>
+      <strong>Concrete example.</strong> An r/ClaudeAI post at 2,000 upvotes and 300 comments makes a raw engagement of 2,600. Demand score: 10. An official OpenAI release on their blog starts at 5 (official baseline) and rises if HN picks it up.
+    </p>
+
+    <h3>2. Relevance — is it in my domain</h3>
+    <p>
+      The title runs through a sieve of positive keywords (claude, agent, mcp, skill, automation, <a class="lex-link" href="/en/lexique/prompt-engineering" title="Prompt engineering — see the definition">prompt</a>, llm, solopreneur…) and an anti-noise list (memes, drama, doomerism, jailbreaks). Each positive match adds 1.5 points, each anti-noise match subtracts 4 points.
+    </p>
+    <p>
+      <strong>Concrete example.</strong> "How I built an agent with Claude Code MCP" → +1.5 (built) +1.5 (agent) +1.5 (claude code) +1.5 (mcp) = 9 out of 10. "Anyone else feel AGI is coming?" → -4 (anyone else) -4 (agi coming) = 0 out of 10, eliminated.
+    </p>
+
+    <h3>3. Evergreen — will it still matter in 6 months?</h3>
+    <p>
+      Same logic on the title: tutorial words boost ("how to," "tutorial," "guide," "pattern," "lessons learned," "my config"), announcement words mark down ("released," "announce," "new version," "coming soon").
+    </p>
+    <p>
+      <strong>Concrete example.</strong> "Lessons learned building 10 Claude Code agents" → +1.5 = 6.5/10, will last over time. "Anthropic announces Claude 5" → -1.5 = 3.5/10, will be stale in 3 weeks (but can still clear the threshold thanks to the other axes).
+    </p>
+
+    <h3>4. Lived experience — have I tested it myself?</h3>
+    <p>
+      This axis is neutral by default (5/10). I adjust it by hand when I enter the idea into the backlog. If I've already spent a day on the topic, I bump it to 9. If it's a topic I've just heard about, I leave it at 5. If it's a topic where I have no experience to add, I drop it to 2.
+    </p>
+    <p>
+      <strong>Why this axis exists.</strong> My best articles are the ones where I have real lived experience. This filter keeps me from getting swept up by sellable topics I have nothing specific to say about.
+    </p>
+
+    <h3>5. Gap — is a clear article on the topic missing?</h3>
+    <p>
+      The tool compares the proposed title to every article already published on the site (a Jaccard measure on the title's words). The lower the similarity, the higher the gap. If I've already published "<a class="cross-link" href="/en/articles/loops-claude" title="Claude Code loops — read the article">The loops</a> of Claude Code explained," a new item "Understanding Claude Code loops" scores 0.6 similarity and drops to 1/10. If nothing matches, score 10.
+    </p>
+    <p>
+      <strong>Why this axis is crucial.</strong> Without it, I'd rewrite the same article on sub-agents 5 times. The gap forces me to explore topics that are genuinely new for my collection.
+    </p>
+
+    <h3>The final formula</h3>
+    <p>
+      The title's score is a weighted average:
+    </p>
+    <pre><code>base_score = (demand × 0.25) + (relevance × 0.30) + (evergreen × 0.15) + (lived × 0.10) + (gap × 0.20)
+
+final_score = base_score × cluster_multiplier × youtube_channel_boost</code></pre>
+
+    <p>
+      The <strong>6 editorial clusters</strong> with their multiplier:
+    </p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Cluster</th><th>Multiplier</th><th>Typical keywords</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td>Claude Code tutorials</td><td><strong>×1.25</strong></td><td>claude code, mcp, skill, <a class="lex-link" href="/en/lexique/hook" title="Hook — see the definition">hook</a>, <a class="lex-link" href="/en/lexique/sous-agent" title="Sub-agent — see the definition">sub-agent</a></td></tr>
+        <tr><td>02</td><td>Concrete AI agents</td><td><strong>×1.25</strong></td><td>built an agent, gmail agent, n8n, langgraph</td></tr>
+        <tr><td>03</td><td>Sharp opinions</td><td>×1.10</td><td>vs, overrated, i tried, lessons learned</td></tr>
+        <tr><td>04</td><td>AI tools of the moment</td><td>×1.10</td><td>chatgpt, gemini, cursor, perplexity, comparison</td></tr>
+        <tr><td>05</td><td>Entrepreneurship + AI</td><td>×1.0</td><td>solopreneur, mrr, my saas, indiehacker</td></tr>
+        <tr><td>06</td><td>Frontier made simple</td><td>×1.0</td><td>karpathy, paper, transformer, scaling laws</td></tr>
+        <tr><td>—</td><td>Off-cluster</td><td>×0.5</td><td>(massive markdown if nothing matches)</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      And for items that come from YouTube, an extra channel boost (1.0 to 1.15) depending on how close I am to the channel's voice. Underscore_ dropping a Claude Code video at ×1.15 + Claude Code cluster at ×1.25 = a score inflated by +44% vs the raw value. On purpose.
+    </p>
+    <p>
+      This formula has evolved. At first, I just had raw engagement. The result: Reddit drama at the top, interesting topics at the bottom. I added relevance. Better, but too much fresh news with no interest to me. I added evergreen and cluster. That's when I started getting genuinely relevant ideas. The gap came last, because I'd written the same article twice.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>5 minutes</span><span>1 weekend</span><span>1 month</span><span>Three levels to do the same</span><span>Pick yours</span>
+    <span>5 minutes</span><span>1 weekend</span><span>1 month</span><span>Three levels to do the same</span><span>Pick yours</span>
+  </div>
+</div>
+
+<section class="block" id="faire-pareil">
+  <div class="container">
+    <span class="section-kicker k-teal">— Your turn</span>
+    <h2>Want to do the same? <em class="teal">Three levels.</em></h2>
+    <p>
+      The tool I describe here isn't magic, and it's certainly not the only path. Depending on the time you can invest in it, here are the three levels of setup. Each level gives you back 70 to 80% of the value of the next one. No need to go to level 3 to have a real watch that changes your day.
+    </p>
+
+    <h3>Level 1 — Feedly + 5 official RSS feeds + a paper checklist <span style="color:var(--ink-muted); font-weight:400">(5 minutes)</span></h3>
+    <p>
+      The bare minimum. You create a free account on <a href="https://feedly.com" target="_blank" rel="noopener">Feedly</a>, add 5 official RSS feeds to it (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI). You install the app on your phone. You sit down for 10 minutes in the morning with a coffee and read what came up.
+    </p>
+    <p>
+      <strong>What you gain.</strong> You stop missing official announcements. You stop scrolling X to discover a release you could have had firsthand 3 days earlier. <strong>Cost: €0</strong>. <strong>Setup time: 5 minutes</strong>. <strong>Daily time: 10 to 15 minutes</strong>.
+    </p>
+    <p>
+      <strong>The paper checklist as a bonus.</strong> 3 questions on a sticky note next to the keyboard: (1) "Does this touch my work?" (2) "Will I remember it in 3 months?" (3) "Do I have a reason to share it?" If the answer is no to all three, you close the tab. It sounds dumb but it changes everything: you stop hoarding noise.
+    </p>
+    <p>
+      <strong>A few extra sources worth wiring in as early as level 1</strong> depending on your angle: <a href="https://korben.info" target="_blank" rel="noopener">Korben.info</a> for mainstream French tech watch, <a href="https://console.dev" target="_blank" rel="noopener">Console.dev</a> for new, well-filtered dev tools, and <a href="https://news.ycombinator.com" target="_blank" rel="noopener">Hacker News</a> directly (or via <a href="https://hn.algolia.com" target="_blank" rel="noopener">its Algolia</a>) for the conversations that fall outside the official circuit.
+    </p>
+
+    <h3>Level 2 — n8n or Make + Reddit/HN scraping + manual scoring <span style="color:var(--ink-muted); font-weight:400">(1 weekend)</span></h3>
+    <p>
+      You move up a level when Feedly is no longer enough. You install <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> in self-hosted mode (free) or you get a <a href="https://make.com" target="_blank" rel="noopener">Make</a> account (lightly paid). You set up a workflow that fetches Reddit (free API), Hacker News (free Algolia API), your RSS feeds, and drops all of it into a Google Sheet or a Notion database every morning.
+    </p>
+    <p>
+      The scoring is done by hand: you add a "rate 1 to 5" column and you sort. It's less automatic than my tool but it's <strong>10 times more powerful than Feedly</strong> because you choose exactly which sources come in and you can filter by keyword.
+    </p>
+    <p>
+      <strong>What you gain.</strong> You see Reddit and HN go by without having to go there. You build your own view. <strong>Cost: €0 to €20 / month</strong>. <strong>Setup time: one weekend</strong>. <strong>Daily time: 15 to 20 minutes</strong>.
+    </p>
+
+    <h3>Level 3 — Your own Claude Code pipeline <span style="color:var(--ink-muted); font-weight:400">(1 month)</span></h3>
+    <p>
+      This is what I did. You build your own with Claude Code, starting from scratch or drawing on mine (the <code>brainstorm.js</code> code is public on my site's repo). You get: custom sources, custom scoring, custom filters, a dashboard integrated into your work tool, total control over your data.
+    </p>
+    <p>
+      <strong>What you gain.</strong> A tool that becomes an extension of your head. <strong>Cost: €5 to €10 / month in API</strong>. <strong>Setup time: 1 month on the side in the evenings</strong>, or one full day if you can free up a whole Saturday like I did. <strong>Daily time: 5 minutes to judge the top 15</strong>.
+    </p>
+    <p>
+      Honestly: start at level 1. If in 3 weeks you find yourself thinking "I'm missing Reddit and HN," move to level 2. If in 3 months you think "I want scoring that matches my obsessions exactly," move to level 3. The worst mistake is to aim for level 3 from the start and never begin because it's too big to tackle.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="avant-apres">
+  <div class="container">
+    <span class="section-kicker k-orange">— The contrast</span>
+    <h2>My watch before, <em class="orange">my watch now.</em></h2>
+    <p>
+      <strong>Before.</strong> I did my watch like a lot of people: I scrolled X, I checked Google News, I hung around YouTube. It was time-consuming. I'd sometimes spend an hour scrolling only to end up with three pieces of information in my head, two of them badly explained. I missed important announcements because they were drowned in the noise. And when I did stumble on something interesting, I didn't have the time to really dig in.
+    </p>
+    <p>
+      <strong>Now.</strong> I get up, grab my coffee, open my tool. The worker has already digested the 96 sources from overnight. I click "Run the watch." Thirty topics in French appear, ranked by score. I read the titles, I check the ones that interest me. Claude Opus hands me a 1,000-word analysis per topic, in French, with the sources cross-referenced.
+    </p>
+
+    <figure style="margin: 32px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+      <picture><source srcset="/screenshots/veille-dashboard-full.webp" type="image/webp"><img src="/screenshots/veille-dashboard-full.webp" width="1440" height="1593" alt="Full view of the list of topics proposed by the watch tool each morning" style="width: 100%; height: auto; display: block;" loading="lazy" decoding="async"></picture>
+      <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); padding: 12px 16px; background: var(--bg-2); border-top: 1px solid var(--line);">
+        The topics proposed each morning after digesting the 96 sources — scored impact, category, excerpt
+      </figcaption>
+    </figure>
+
+    <p>
+      Right now, the tool surfaces precise topics for me that I wouldn't have seen by scrolling:
+    </p>
+    <ul>
+      <li>The latest on Gemma, Google's open-source model</li>
+      <li>Anthropic's announcements as the weeks go by</li>
+      <li>American investment funds' analyses of AI use in the enterprise</li>
+    </ul>
+    <p>
+      These are topics I wouldn't have found on my own, or wouldn't have understood in depth if I'd seen them go by on X.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="prix">
+  <div class="container">
+    <span class="section-kicker k-teal">— The numbers</span>
+    <h2>What it costs me, <em class="teal">what it brings me.</em></h2>
+    <p>
+      <strong>The monthly cost runs around €5 a month</strong>, sometimes a bit more depending on how often I use it. Max €10 in the months when I run a lot of analyses. It's the calls to Claude Sonnet (the 30 topics proposed each day) and to Claude Opus (the long-form analyses) that make up almost all of that amount. The rest — ingesting the 96 sources, the Ollama embeddings, the SQLite database — runs for free on my Mac.
+    </p>
+    <p>
+      For €5 a month, here's what I get:
+    </p>
+    <ul>
+      <li>My watch digested every morning</li>
+      <li>French analyses on the topics I select</li>
+      <li>The raw material to write my newsletter</li>
+      <li>The raw material to produce content (articles, posts, shares)</li>
+      <li>My data staying with me, on my disk</li>
+    </ul>
+    <p>
+      It's probably the best value-for-money I've gotten from building a tool myself.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="lecon">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— My takeaways</span>
+    <h2>What I take away <em class="fuchsia">from this story.</em></h2>
+    <p>
+      Three lessons I've been repeating to myself since:
+    </p>
+
+    <h3>1. Before you build a product, ask Claude Code to check the market.</h3>
+    <p>
+      I nearly invested months in a newsletter that had only a 5% chance of taking off. Three sub-agents in two hours spared me that mistake. It's not a guarantee, but it's a huge filter.
+    </p>
+
+    <h3>2. The tool you build for yourself is sometimes worth more than the product you dream of selling.</h3>
+    <p>
+      I no longer need to chase a thousand paying subscribers. I need a tool that runs every morning. And one feeds the other, by the way: the watch I do with this tool fuels the content I publish. The public product came out as a consequence, not as a goal.
+    </p>
+
+    <h3>3. In a single day, with Claude Code, you can build something that really runs.</h3>
+    <p>
+      Not a prototype. A complete tool, with automatic ingestion, clustering, long analyses, a polished interface. When I was alone with my idea, I'd have told myself it was a six-month project. With Claude Code, it's a single day of building, and four days later you tweak the visual identity so it looks nice.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>And you?</span><span>How do you do your watch?</span><span>Write to me</span><span>I read everything</span>
+    <span>And you?</span><span>How do you do your watch?</span><span>Write to me</span><span>I read everything</span>
+  </div>
+</div>
+
+<section class="block" id="et-toi">
+  <div class="container">
+    <span class="section-kicker k-orange">— Over to you</span>
+    <h2>And you, <em class="orange">what's your watch like?</em></h2>
+    <p>
+      If you do your watch the way I used to — scrolling X, Google News, YouTube, LinkedIn, with the feeling of missing the essentials — I'm curious what your days look like.
+    </p>
+    <p>
+      Reply to this email with:
+    </p>
+    <ul>
+      <li>The three sources you check most often</li>
+      <li>How much time you spend on watch per day</li>
+      <li>What you'd like to see improved</li>
+    </ul>
+    <p>
+      I read everything. I'm not selling anything. I'm just trying to understand how others go about it.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>FAQ <em class="fuchsia">on the AI watch pipeline.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What is the 5-axis scoring?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Five weighted axes: <strong>Demand</strong> (raw engagement, votes, comments), <strong>Relevance</strong> (match with my topics), <strong>Evergreen</strong> (longevity, not just fresh news), <strong>Lived experience</strong> (match with my own use) and <strong>Gap</strong> (rare topic versus already covered). The raw score is multiplied by a cluster coefficient (1.0 to 1.25 depending on the editorial category) and a YouTube boost (1.0 to 1.15 for the flagship channels).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much does it cost per month?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>About €5 a month</strong>, sometimes up to €10 in the months when I run a lot of long-form analyses. It's the calls to Claude Sonnet (the 30 topics a day) and to Claude Opus (the analyses) that make up almost all of it. The rest — ingesting the 96 sources, Ollama embeddings, SQLite database — runs <strong>for free</strong> on my Mac.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How many ideas per run?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">A typical run: <strong>476 items ingested</strong> from 96 sources, <strong>310 clusters</strong> after deduplication by Jaccard similarity, <strong>60 items</strong> after signal/noise filtering, <strong>15 items</strong> in the active backlog, <strong>10 items</strong> I actually keep for deep analysis. That's a 2% retention rate between the raw ingestion and what deserves my attention.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Which sources does the tool scan?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>96 sources</strong> in four families. <strong>Eleven subreddits</strong> (r/ClaudeAI, r/ChatGPTCoding, r/LocalLLaMA, r/MachineLearning, r/Entrepreneur, etc.). <strong>Seven HN + GitHub sources</strong> via the Algolia API. <strong>Eight official RSS feeds</strong> (OpenAI, Google AI, Hugging Face, Simon Willison, TechCrunch AI, The Verge AI, MIT Tech Review, HN Best). <strong>Sixteen YouTube channels</strong> via Atom feeds. Plus ten dynamic Google News feeds. Real total: 96 to 110 active sources depending on the week.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do you need to be a developer to reproduce this pipeline?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. For <strong>level 3</strong> (the full Claude Code pipeline), you need to know how to install Claude Code, create an Anthropic account and be willing to spend a full day or a month on the side building-testing-tuning. But <strong>70 to 80% of the value</strong> comes at level 1 (Feedly + 5 official RSS feeds, 5 minutes) or level 2 (self-hosted n8n + Reddit/HN scraping, one weekend). Start at level 1, move up if you feel the need.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference between this tool and Feedly?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Feedly</strong> is an RSS aggregator that lists the latest published articles for you. This tool goes three notches further: it also scrapes <strong>Reddit, Hacker News and YouTube</strong>, it <strong>deduplicates by Jaccard similarity</strong> to group the variants of a single topic, it <strong>scores on five weighted axes</strong> tuned to my obsessions, and it calls <strong>Claude Opus to produce a 1,000-word French analysis</strong> per chosen topic. Feedly gives you the raw feed, this tool gives you something digested and prioritized.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Why not use an LLM to score instead of a formula?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">I deliberately gave up on using an LLM to score. <strong>Too expensive</strong>: on 476 items a day, that would be tens of thousands of calls a month. <strong>Too opaque</strong>: impossible to understand why an item moves up or down. <strong>Too slow</strong>: each call adds 2 to 10 seconds, which is hours of <a class="lex-link" href="/en/lexique/latence" title="Latency — see the definition">latency</a> across the whole thing. The math formula with cluster multipliers is fast, readable and auditable.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do you add a new source?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Three steps depending on the type. For a <strong>subreddit or an official RSS feed</strong>: add the URL to the config table and rerun. For a <strong>YouTube channel</strong>: resolve the channelId once (cached for 90 days), add it to the youtube-channels.js file with its boost. For a <strong>dynamic Google News search</strong>: add the keywords to the worker. Budget 5 to 15 minutes to integrate a source cleanly, test it on one run and adjust the signal/noise filters if needed.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Why Ollama rather than OpenAI embeddings?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>Ollama runs locally</strong> on my Mac with a multilingual <a class="lex-link" href="/en/lexique/embedding" title="Embedding — see the definition">embedding</a> model, for free, without sending a single line over the Internet. <strong>OpenAI text-embedding-3-small</strong> costs $0.02 per million <a class="lex-link" href="/en/lexique/token" title="Token — see the definition">tokens</a> — cheap but paid, and my data goes to OpenAI. On 476 items a day the financial gap is tiny, but the data control is total with Ollama. And I avoid one more dependency.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does the pipeline work on Windows?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Yes. The code is <strong>Node.js + SQLite</strong>, two cross-platform building blocks. Ollama has run on Windows since 2024, and so has Claude Code. The only friction: the worker currently runs on my Mac via launchctl for the fixed-time trigger. On Windows you'd go through the <strong>Windows Task Scheduler or WSL2</strong>. For 99% of the code, zero changes needed.</p>
+    </details>
+  </div>
+</section>
+
+<!-- seo:corrections -->
+<section class="seo-corrections" style="padding:36px 0; border-top:1px solid var(--line); background:var(--bg-2)">
+  <div class="container" style="max-width:880px; margin:0 auto; padding:0 28px">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
+      <span style="font-size:22px; flex-shrink:0">✉</span>
+      <div>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Spot a mistake?</h4>
+        <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
+          A piece of outdated info, a number that has moved, a stale source? <strong style="color:var(--ink)">Write to me at <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · I fix it within 48h max and note the update date at the top of the article. Field feedback is worth a thousand times more than the articles — I read everything, I reply.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /seo:corrections -->
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, no jargon and no hype. If this article helped you, the easiest way to not miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  const form = document.getElementById('newsletterForm');
+  const submitBtn = document.getElementById('newsletterSubmit');
+  const successMsg = document.getElementById('newsletterSuccess');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'article-veille' })
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Try again →';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Try again →';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

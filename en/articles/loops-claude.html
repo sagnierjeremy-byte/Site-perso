@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Les loops Claude Code, expliqués</title>
-<meta name="description" content="Automatise tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets (dont 1 non-dev), coûts chiffrés et pièges à éviter.">
+<title>Claude Code loops, explained</title>
+<meta name="description" content="Automate your recurring tasks with Claude Code loops: timed + dynamic, 4 real examples (one for non-devs), hard cost numbers, and the traps to avoid.">
 
 <!-- seo:jsonld-article -->
 
 <!-- /seo:jsonld-article -->
 
 <!-- Open Graph -->
-<meta property="og:title" content="Les loops Claude Code, expliqués">
-<meta property="og:description" content="Automatiser tes tâches récurrentes avec les loops Claude Code. 4 exemples concrets, coûts chiffrés, pièges à éviter.">
-<meta property="og:url" content="https://jerwis.fr/articles/loops-claude">
+<meta property="og:title" content="Claude Code loops, explained">
+<meta property="og:description" content="Automate your recurring tasks with Claude Code loops. 4 real examples, hard cost numbers, traps to avoid.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/loops-claude">
 <meta property="og:type" content="article">
-<meta property="og:locale" content="fr_FR">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jerwis.fr/photos/og/loops-claude.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -27,8 +27,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@JeremySagnier">
 <meta name="twitter:creator" content="@JeremySagnier">
-<meta name="twitter:title" content="Les loops Claude Code, expliqués">
-<meta name="twitter:description" content="Automatiser tes tâches récurrentes avec les loops Claude Code. 4 exemples concrets, coûts chiffrés.">
+<meta name="twitter:title" content="Claude Code loops, explained">
+<meta name="twitter:description" content="Automate your recurring tasks with Claude Code loops. 4 real examples, hard cost numbers.">
 
 <!-- Canonical -->
 
@@ -39,7 +39,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0A0A0A">
 
-<link rel="canonical" href="https://jerwis.fr/articles/loops-claude">
+<link rel="canonical" href="https://jerwis.fr/en/articles/loops-claude">
 <link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/loops-claude">
 <link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/loops-claude">
 <link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/loops-claude">
@@ -50,9 +50,9 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/" },
-    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/articles" },
-    { "@type": "ListItem", "position": 3, "name": "Les loops Claude Code, expliqués", "item": "https://jerwis.fr/articles/loops-claude" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "Claude Code loops, explained", "item": "https://jerwis.fr/en/articles/loops-claude" }
   ]
 }
 </script>
@@ -62,23 +62,23 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Les loops Claude Code, expliqués",
-  "description": "Comment automatiser tes tâches récurrentes avec les loops Claude Code : timed + dynamic, 4 exemples concrets, coûts chiffrés et pièges à éviter.",
+  "headline": "Claude Code loops, explained",
+  "description": "How to automate your recurring tasks with Claude Code loops: timed + dynamic, 4 real examples, hard cost numbers, and the traps to avoid.",
   "inLanguage": "fr-FR",
-  "url": "https://jerwis.fr/articles/loops-claude",
+  "url": "https://jerwis.fr/en/articles/loops-claude",
   "datePublished": "2026-04-05",
   "dateModified": "2026-04-24",
   "author": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/jeremy-sagnier"
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
   },
   "publisher": {
     "@type": "Person",
     "name": "Jérémy Sagnier",
-    "url": "https://jerwis.fr/jeremy-sagnier"
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
   },
-  "image": "https://jerwis.fr/photos/og/loops-claude.jpg"
+  "image": "https://jerwis.fr/en/photos/og/loops-claude.jpg"
 }
 </script>
 
@@ -90,82 +90,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Quelle différence entre un loop Claude Code et un cron ?",
+      "name": "What's the difference between a Claude Code loop and a cron?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Un cron lance bêtement un script à heure fixe sans comprendre le résultat. Un loop Claude Code peut décider s'il relance, s'il change d'approche ou s'il t'alerte selon ce qu'il observe. Le loop est intelligent, le cron est mécanique."
+        "text": "A cron blindly runs a script at a fixed time without understanding the result. A Claude Code loop can decide whether to re-run, whether to change its approach, or whether to alert you based on what it sees. The loop is smart; the cron is mechanical."
       }
     },
     {
       "@type": "Question",
-      "name": "Un loop Claude Code fonctionne-t-il quand mon Mac est éteint ?",
+      "name": "Does a Claude Code loop keep working when my Mac is off?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. Un /loop dans une session Claude Code s'arrête dès que tu fermes ton terminal ou ton Mac. Pour qu'une tâche tourne vraiment 24/7 (la nuit, le weekend, en vacances), il faut passer par les Routines cloud d'Anthropic, sorties en avril 2026."
+        "text": "No. A /loop inside a Claude Code session stops the moment you close your terminal or your Mac. For a task to truly run 24/7 (overnight, on weekends, on vacation), you need Anthropic's cloud Routines, released in April 2026."
       }
     },
     {
       "@type": "Question",
-      "name": "Comment arrêter un loop Claude Code en cours ?",
+      "name": "How do I stop a running Claude Code loop?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trois options : appuie sur Esc dans ta session pour stopper le run en cours, dis simplement à Claude « stoppe le loop en cours », ou attends 7 jours — chaque loop expire automatiquement passé ce délai (garde-fou natif Anthropic)."
+        "text": "Three options: press Esc in your session to stop the current run, just tell Claude \"stop the running loop,\" or wait 7 days — every loop expires automatically after that (a native Anthropic guardrail)."
       }
     },
     {
       "@type": "Question",
-      "name": "Combien coûte un loop Claude Code par mois ?",
+      "name": "How much does a Claude Code loop cost per month?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trois ordres de grandeur : 1 à 2 €/mois pour un loop léger (3 000 tokens, 4 runs/jour), 8 à 15 €/mois pour 3 loops actifs (mon setup), et jusqu'à 50-80 €/jour si tu lances /loop 1m sur un prompt lourd et que tu oublies. Active le plafond de dépense Anthropic à 20 €/mois pour démarrer."
+        "text": "Three ballparks: €1 to €2/month for a light loop (3,000 tokens, 4 runs/day), €8 to €15/month for 3 active loops (my setup), and up to €50-80/day if you fire off /loop 1m on a heavy prompt and forget about it. Turn on the Anthropic spending cap at €20/month to start."
       }
     },
     {
       "@type": "Question",
-      "name": "Le loop Claude Code marche-t-il avec l'API gratuite ?",
+      "name": "Do Claude Code loops work with the free API?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Les loops sont une commande de Claude Code (le CLI), pas de l'API web. Tu y accèdes avec ton abonnement Claude Code (gratuit avec limites strictes, ou Pro/Max payant). L'API Anthropic permet de bricoler ton propre système de boucles, mais ce n'est pas le même produit que /loop."
+        "text": "Loops are a command inside Claude Code (the CLI), not the web API. You get to them with your Claude Code subscription (free with strict limits, or paid Pro/Max). The Anthropic API lets you hack together your own looping system, but that's not the same product as /loop."
       }
     },
     {
       "@type": "Question",
-      "name": "Quel est l'intervalle minimum d'un loop Claude Code ?",
+      "name": "What's the minimum interval for a Claude Code loop?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "1 minute. Les intervalles en secondes (30s par exemple) sont arrondis à la minute supérieure. Ma règle perso : jamais en dessous de 2 minutes sauf urgence vraie, sinon tu fais 60 appels/heure inutiles et ta facture explose."
+        "text": "1 minute. Intervals in seconds (30s, for example) are rounded up to the next minute. My personal rule: never go below 2 minutes unless it's a real emergency, otherwise you rack up 60 pointless calls an hour and your bill blows up."
       }
     },
     {
       "@type": "Question",
-      "name": "Comment fonctionne le cache prompt Anthropic dans un loop ?",
+      "name": "How does Anthropic's prompt cache work inside a loop?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Le cache prompt garde ton prompt en mémoire 5 minutes, rafraîchi à chaque appel réussi. Tant que tes loops tournent à moins de 5 minutes d'écart, tu paies les tokens en cache à environ -90 %. Au-delà, le cache tombe et tu repaies plein tarif. Reste sous 5 minutes pour optimiser."
+        "text": "The prompt cache keeps your prompt in memory for 5 minutes, refreshed on every successful call. As long as your loops run less than 5 minutes apart, you pay for the cached tokens at roughly -90%. Beyond that, the cache drops and you pay full price again. Stay under 5 minutes to optimize."
       }
     },
     {
       "@type": "Question",
-      "name": "Les Routines Anthropic remplacent-elles complètement /loop ?",
+      "name": "Do Anthropic Routines fully replace /loop?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non, elles complètent. /loop reste idéal quand tu travailles avec Claude et veux une vérif en fond. Routines (cloud) sert quand il faut tourner sans Mac allumé : veille de nuit, monitoring weekend. Quotas Routines : 5/jour sur Pro, 15 sur Max, 25 sur Team."
+        "text": "No, they complement it. /loop is still ideal when you're working with Claude and want a check running in the background. Routines (cloud) is for when things need to run without your Mac on: overnight watching, weekend monitoring. Routine quotas: 5/day on Pro, 15 on Max, 25 on Team."
       }
     },
     {
       "@type": "Question",
-      "name": "Peut-on lancer un loop sur autre chose que Claude Code (ChatGPT, Cursor) ?",
+      "name": "Can you run a loop on something other than Claude Code (ChatGPT, Cursor)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Le /loop natif est spécifique à Claude Code. Sur Cursor ou ChatGPT, tu n'as pas l'équivalent intégré, mais tu peux reproduire le pattern via un cron + appel à l'API du modèle, ou via un workflow n8n qui appelle l'API à intervalles. Plus de boilerplate, même résultat."
+        "text": "The native /loop is specific to Claude Code. On Cursor or ChatGPT there's no built-in equivalent, but you can reproduce the pattern with a cron + a call to the model's API, or with an n8n workflow that calls the API on a schedule. More boilerplate, same result."
       }
     },
     {
       "@type": "Question",
-      "name": "Comment recevoir une notification quand un loop trouve quelque chose ?",
+      "name": "How do I get a notification when a loop finds something?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trois canaux que j'utilise : message dans la console Claude Code (par défaut), email via l'API Resend (pour les alertes calmes), notification Slack via webhook (pour les alertes urgentes). Tu demandes à Claude « si tu trouves X, ping-moi sur Slack #veille » et il intègre l'appel webhook dans le loop."
+        "text": "Three channels I use: a message in the Claude Code console (the default), email via the Resend API (for calm alerts), and a Slack notification via webhook (for urgent alerts). You tell Claude \"if you find X, ping me on Slack #watch\" and it wires the webhook call into the loop."
       }
     }
   ]
@@ -173,10 +173,10 @@
 </script>
 
 <!-- Preload critical resources (perf · LCP/CWV) -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="/assets/fonts.css">
 
 <style>
   :root {
@@ -607,7 +607,7 @@
     border-color: var(--teal);
   }
   .op-share.copied::after {
-    content: "Copié !";
+    content: "Copied!";
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
@@ -702,29 +702,29 @@
   }
 
 </style>
-<link rel="stylesheet" href="../assets/nav-v2.css?v=20260520-dropdown">
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
   <script>
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
     plausible.init()
   </script>
-<link rel="stylesheet" href="../assets/mobile-fixes.css">
-<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
-<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
-<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
-<link rel="stylesheet" href="../assets/footer.css">
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
 </head>
 <body>
-<a href="#main-content" class="skip-link">Aller au contenu</a>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <!-- Sidebar share sticky (desktop uniquement) -->
-<aside class="share-rail" aria-label="Partager">
-  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=Les%20loops%20Claude%20Code%2C%20expliqu%C3%A9s%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jerwis.fr/articles/loops-claude.html" data-share-title="Les loops Claude Code, expliqués" aria-label="Partager sur Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
-  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=Les%20loops%20Claude%20Code%2C%20expliqu%C3%A9s%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jerwis.fr/articles/loops-claude.html" aria-label="Copier le lien" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+<aside class="share-rail" aria-label="Share">
+  <a class="share-rail-btn share-rail-btn-x" href="https://twitter.com/intent/tweet?text=Claude%20Code%20loops%2C%20explained%20%E2%80%94%20by%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  <a class="share-rail-btn share-rail-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-instagram" data-url="https://jerwis.fr/articles/loops-claude.html" data-share-title="Claude Code loops, explained" aria-label="Share on Instagram" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
+  <a class="share-rail-btn share-rail-btn-whatsapp" href="https://wa.me/?text=Claude%20Code%20loops%2C%20explained%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  <button class="share-rail-btn share-rail-btn-copy" data-url="https://jerwis.fr/articles/loops-claude.html" aria-label="Copy link" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
 </aside>
 
 <!-- Top stripe -->
@@ -736,25 +736,25 @@
 
 <!-- Mini-nav Jerwis v2 -->
 <!-- NAV-UNIFIED-START -->
-<nav class="mini-nav" aria-label="Navigation principale">
-  <a class="brand brand-stamp" href="/" aria-label="Accueil Jerwis">
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
     <span class="stamp">
-      <span class="stamp-kicker">PAR JEREMY SAGNIER</span>
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
       <span class="stamp-word">JERWIS</span>
       <span class="stamp-bar"><span></span><span></span><span></span></span>
     </span>
   </a>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Ouvrir le menu">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
     <span class="burger-icon" aria-hidden="true"></span>
   </button>
   <div class="links" id="mini-nav-links">
-    <a href="/apprendre">Apprendre</a>
+    <a href="/en/apprendre">Learn</a>
     <a href="/articles">Articles</a>
     <a href="/podcast">Podcast</a>
-    <a href="/#newsletters">Newsletter</a>
+    <a href="/en#newsletters">Newsletter</a>
     <div class="more-wrap">
-      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Plus de pages">
-        Plus
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
         <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <path d="M1 1l4 4 4-4"/>
         </svg>
@@ -762,50 +762,50 @@
       <div class="more-menu" role="menu">
         <a href="/modeles-ia" role="menuitem">
           <span class="more-icon">🧠</span>
-          <span class="more-text"><strong>Modèles IA</strong><span>Comparatif Claude, GPT, Gemini…</span></span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
         </a>
         <a href="/modeles-image-ia" role="menuitem">
           <span class="more-icon">🎨</span>
-          <span class="more-text"><strong>Modèles image IA</strong><span>Génération d'images, audio, vidéo</span></span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
         </a>
         <a href="/lexique" role="menuitem">
           <span class="more-icon">📚</span>
-          <span class="more-text"><strong>Lexique IA</strong><span>40 termes expliqués</span></span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
         </a>
-        <a href="/workflows" role="menuitem">
+        <a href="/en/workflows" role="menuitem">
           <span class="more-icon">🔁</span>
-          <span class="more-text"><strong>Workflows</strong><span>Claude Code par métier</span></span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
         </a>
-        <a href="/outils" role="menuitem">
+        <a href="/en/outils" role="menuitem">
           <span class="more-icon">🛠</span>
-          <span class="more-text"><strong>Mes outils</strong><span>Ma stack IA et web</span></span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
         </a>
-        <a href="/github" role="menuitem">
+        <a href="/en/github" role="menuitem">
           <span class="more-icon">⚡</span>
-          <span class="more-text"><strong>GitHub</strong><span>Pour non-devs · guide complet</span></span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
         </a>
         <a href="/news" role="menuitem">
           <span class="more-icon">📡</span>
-          <span class="more-text"><strong>News</strong><span>Actus IA et Business</span></span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
         </a>
         <a href="/videos" role="menuitem">
           <span class="more-icon">▶</span>
-          <span class="more-text"><strong>Vidéos</strong><span>Mes chaînes YouTube</span></span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
         </a>
         <div class="more-separator"></div>
-        <a href="/jeremy-sagnier" role="menuitem">
+        <a href="/en/jeremy-sagnier" role="menuitem">
           <span class="more-icon">👤</span>
-          <span class="more-text"><strong>Qui je suis</strong><span>Bio + parcours + contact</span></span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
         </a>
         <div class="more-separator"></div>
         <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
           <span class="more-icon">💳</span>
-          <span class="more-text"><strong>Photos perso · 39 €</strong><span>Générateur de photos IA</span></span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
         </a>
       </div>
     </div>
   </div>
-  <button class="theme-toggle-v2" id="themeToggle" aria-label="Changer de thème">
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
       <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
     </svg>
@@ -823,29 +823,29 @@
 <!-- Hero -->
 <section class="hero">
   <div class="container">
-    <div class="kicker"><span class="dot"></span>Tuto · 01 · IA &amp; Outils</div>
-    <h1>Les loops<br>Claude Code,<br><em>expliqués.</em></h1>
+    <div class="kicker"><span class="dot"></span>Tutorial · 01 · AI &amp; Tools</div>
+    <h1>Claude Code<br>loops,<br><em>explained.</em></h1>
     <p class="hero-lead">
-      Les loops, c'est ce qui m'a fait passer Claude Code du statut "assistant" à "<a href="../lexique#skill-agent">agent</a> qui travaille pour moi 24/7". Je t'explique comment ça fonctionne, quand les utiliser, 4 cas d'usage concrets (dont un pour les non-devs) et combien ça coûte vraiment.
+      Loops are what took Claude Code from "assistant" to "<a href="/lexique#skill-agent">agent</a> that works for me 24/7." I'll walk you through how they work, when to use them, 4 real use cases (one of them for non-devs), and what they actually cost.
     </p>
     <div class="hero-meta">
-      <span class="hero-meta-item"><strong>7 min</strong> de lecture</span>
-      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
-      <span class="hero-meta-item"><strong>Outils</strong> Claude Code</span>
+      <span class="hero-meta-item"><strong>7 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Claude Code</span>
     </div>
   </div>
 </section>
 
 <!-- seo:byline -->
 <div class="seo-byline" style="max-width:880px; margin:24px auto 0; padding:12px 18px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; font-size:13.5px; color:var(--ink-soft)">
-  <a href="../index#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
-    <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img src="../photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
+  <a href="/en#story" style="display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); font-weight:700">
+    <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img src="/photos/jeremy-avatar.jpg" alt="Jérémy Sagnier" width="56" height="56" loading="lazy" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--line-strong); flex-shrink:0"></picture>
     Jérémy Sagnier
   </a>
   <span style="color:var(--ink-muted)">·</span>
-  <span>Je teste l’IA tous les jours · Je partage ce qui m’a servi</span>
+  <span>I test AI every day · I share what actually helped me</span>
   <span style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-muted)">
-    Publié <time datetime="2026-04-05">5 avril 2026</time> · MAJ 20 avril 2026
+    Published <time datetime="2026-04-05">April 5, 2026</time> · Updated April 20, 2026
   </span>
 </div>
 <!-- /seo:byline -->
@@ -853,52 +853,52 @@
 <!-- TL;DR -->
 <!-- AI Overviews · réponse directe -->
 <div class="container">
-  <aside class="answer-card" aria-label="Réponse directe" style="margin:20px 0 30px; padding:16px 20px; background:var(--bg-2,#F4EFE6); border-left:4px solid var(--teal,#00B2A9); border-radius:6px; font-size:15px; line-height:1.55; color:var(--ink-soft,#3A3A3A)">
-    <p style="margin:0"><strong style="color:var(--ink,#0A0A0A); margin-right:6px">Réponse rapide.</strong>Une loop Claude Code est une boucle d'exécution autonome où Claude relance une commande à intervalles réguliers ou décide lui-même du moment de réitérer. Deux modes existent : timed loop (intervalles fixes, coût prévisible) et dynamic loop (Claude choisit, coût variable). La loop nécessite une session ouverte ; pour un fonctionnement persistant, Anthropic propose Routines.</p>
+  <aside class="answer-card" aria-label="Quick answer" style="margin:20px 0 30px; padding:16px 20px; background:var(--bg-2,#F4EFE6); border-left:4px solid var(--teal,#00B2A9); border-radius:6px; font-size:15px; line-height:1.55; color:var(--ink-soft,#3A3A3A)">
+    <p style="margin:0"><strong style="color:var(--ink,#0A0A0A); margin-right:6px">Quick answer.</strong>A Claude Code loop is an autonomous execution loop where Claude re-runs a command at regular intervals or decides for itself when to repeat. There are two modes: a timed loop (fixed intervals, predictable cost) and a dynamic loop (Claude decides, variable cost). A loop requires an open session; for persistent operation, Anthropic offers Routines.</p>
   </aside>
 </div>
 <!-- /AI Overviews -->
 
 <div class="container">
   <div class="tldr">
-    <div class="tldr-label">En 30 secondes</div>
-    <h2>Ce que tu vas apprendre</h2>
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll learn</h2>
     <ul>
-      <li>Ce qu'est un <strong>loop Claude Code</strong> — et pourquoi ce n'est pas un cron classique</li>
-      <li>La différence entre <strong>timed loop</strong> (toutes les X minutes) et <strong>dynamic loop</strong> (Claude décide)</li>
-      <li>4 cas d'usage réels (dont 1 pour les non-devs) que tu peux appliquer <strong>aujourd'hui</strong></li>
-      <li><strong>Combien ça coûte</strong> : 3 scénarios chiffrés et le piège à 50 $/jour à éviter</li>
+      <li>What a <strong>Claude Code loop</strong> is — and why it's not a plain old cron</li>
+      <li>The difference between a <strong>timed loop</strong> (every X minutes) and a <strong>dynamic loop</strong> (Claude decides)</li>
+      <li>4 real use cases (one of them for non-devs) that you can put to work <strong>today</strong></li>
+      <li><strong>What it costs</strong>: 3 scenarios with real numbers, and the $50/day trap to avoid</li>
     </ul>
   </div>
 </div>
 
 <div class="container">
   <div class="callout warn" style="margin: 24px 0 32px;">
-    <h4>Tu débutes complet en IA ?</h4>
-    <p>Si certains termes te perdent (Claude Code, terminal, <a class="lex-link" href="/lexique/skill-agent" title="Skill &amp; Agent — voir la définition">agent</a>, <a class="lex-link" href="/lexique/mcp" title="MCP — voir la définition">MCP</a>, skill…), commence d'abord par <a href="../debutant">le guide débutant</a> et garde <a href="../lexique">le lexique</a> ouvert dans un autre onglet. Tu reviendras ici avec les bases.</p>
+    <h4>Brand new to AI?</h4>
+    <p>If some of the terms lose you (Claude Code, terminal, <a class="lex-link" href="/en/lexique/skill-agent" title="Skill &amp; Agent — see the definition">agent</a>, <a class="lex-link" href="/en/lexique/mcp" title="MCP — see the definition">MCP</a>, skill…), start with <a href="/en/debutant">the beginner guide</a> first and keep <a href="/lexique">the glossary</a> open in another tab. You'll come back here with the basics down.</p>
   </div>
 </div>
 
 <!-- Intro -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Avant de commencer</span>
-    <h2>C'est quoi <em class="fuchsia">un loop ?</em></h2>
+    <span class="section-kicker k-fuchsia">— Before we start</span>
+    <h2>What's <em class="fuchsia">a loop?</em></h2>
     <p>
-      Un loop, c'est une commande qui dit à Claude Code : <em>"Relance-moi cette action à intervalles réguliers."</em> Tu lances un loop, Claude relance tout seul la commande pendant que tu fais autre chose.
+      A loop is a command that tells Claude Code: <em>"Re-run this action for me at regular intervals."</em> You start a loop, and Claude re-runs the command on its own while you do something else.
     </p>
     <p>
-      Pense à un cron job (une tâche planifiée qui se relance toute seule à heure fixe sur ton ordi), mais beaucoup plus intelligent. Un cron te lance un script bête. Un loop Claude peut <strong>décider s'il relance, s'il change d'approche, s'il t'alerte</strong> — il comprend ce qu'il fait.
+      Think of a cron job (a scheduled task that re-runs itself at a fixed time on your computer), but way smarter. A cron fires off a dumb script. A Claude loop can <strong>decide whether to re-run, whether to change its approach, whether to alert you</strong> — it understands what it's doing.
     </p>
 
     <div class="callout warn">
-      <h4>Important : le loop tourne tant que ta session est ouverte</h4>
-      <p>Un <code>/loop</code> est attaché à ta session Claude Code. Si tu fermes ton <a href="../lexique#cli">terminal</a> ou ton Mac, le loop s'arrête. Pour que ça tourne vraiment la nuit (Mac éteint), il faut <strong>Routines</strong> (la feature cloud d'Anthropic — autrement dit, une tâche qui tourne sur les serveurs d'Anthropic et plus sur ton ordi, sortie avril 2026) — j'y reviens plus bas.</p>
+      <h4>Important: the loop runs as long as your session is open</h4>
+      <p>A <code>/loop</code> is tied to your Claude Code session. If you close your <a href="/lexique#cli">terminal</a> or your Mac, the loop stops. To have it genuinely run overnight (Mac off), you need <strong>Routines</strong> (Anthropic's cloud feature — in other words, a task that runs on Anthropic's servers instead of your computer, released in April 2026) — more on that below.</p>
     </div>
 
     <div class="callout tip">
-      <h4>Pourquoi ça change tout pour moi</h4>
-      <p>Avant, je checkais manuellement mes veilles 3 fois par jour. Maintenant, un loop tourne, me ping quand il trouve quelque chose d'intéressant, et je ne perds plus une seconde. C'est l'automatisation IA la plus simple et la plus puissante que je connaisse.</p>
+      <h4>Why this changes everything for me</h4>
+      <p>I used to manually check my watch feeds 3 times a day. Now a loop runs, pings me when it finds something interesting, and I don't lose a single second. It's the simplest, most powerful AI automation I know.</p>
     </div>
   </div>
 </section>
@@ -906,16 +906,16 @@
 <!-- Les deux modes -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— Les deux modes</span>
+    <span class="section-kicker k-teal">— The two modes</span>
     <h2>Timed vs <em class="teal">Dynamic.</em></h2>
     <p>
-      Claude Code propose deux types de loops. C'est important de comprendre la différence — ça change tout selon ton cas d'usage.
+      Claude Code offers two kinds of loops. It matters that you understand the difference — it changes everything depending on your use case.
     </p>
 
     <figure style="margin: 32px auto; max-width: 760px;">
       <svg viewBox="0 0 800 420" role="img" aria-labelledby="schema-loops-title schema-loops-desc" style="width: 100%; height: auto; display: block;">
         <title id="schema-loops-title">Timed loop versus Dynamic loop</title>
-        <desc id="schema-loops-desc">Comparaison côte à côte : Timed loop (intervalles réguliers de 5 minutes, coût fixe 0,4 euro par heure) versus Dynamic loop (intervalles irréguliers décidés par Claude, coût variable 0,1 à 0,8 euro par heure).</desc>
+        <desc id="schema-loops-desc">Side-by-side comparison: Timed loop (regular 5-minute intervals, fixed cost of 0.4 euros per hour) versus Dynamic loop (irregular intervals decided by Claude, variable cost of 0.1 to 0.8 euros per hour).</desc>
 
         <g>
           <rect x="30" y="40" width="360" height="340" rx="14" fill="#FBF7F0" stroke="#00B2A9" stroke-width="3"/>
@@ -923,7 +923,7 @@
           <rect x="30" y="74" width="360" height="14" fill="#00B2A9"/>
           <text x="210" y="71" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="18" letter-spacing="2" fill="#0A0A0A">TIMED LOOP</text>
 
-          <text x="210" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Intervalles réguliers · prévisibles</text>
+          <text x="210" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Regular intervals · predictable</text>
 
           <line x1="65" y1="180" x2="355" y2="180" stroke="#0A0A0A" stroke-width="2.5"/>
           <polygon points="355,180 345,174 345,186" fill="#0A0A0A"/>
@@ -944,9 +944,9 @@
           <text x="210" y="245" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">/loop 5m /veille-ia</text>
 
           <rect x="80" y="275" width="260" height="74" rx="8" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="1.5"/>
-          <text x="210" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">COÛT FIXE</text>
-          <text x="210" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#00B2A9">0,4 €</text>
-          <text x="210" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">par heure</text>
+          <text x="210" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">FIXED COST</text>
+          <text x="210" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#00B2A9">€0.4</text>
+          <text x="210" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">per hour</text>
         </g>
 
         <g>
@@ -955,7 +955,7 @@
           <rect x="410" y="74" width="360" height="14" fill="#EF426F"/>
           <text x="590" y="71" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="18" letter-spacing="2" fill="#FBF7F0">DYNAMIC LOOP</text>
 
-          <text x="590" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Claude décide quand relancer</text>
+          <text x="590" y="120" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">Claude decides when to re-run</text>
 
           <line x1="445" y1="180" x2="735" y2="180" stroke="#0A0A0A" stroke-width="2.5"/>
           <polygon points="735,180 725,174 725,186" fill="#0A0A0A"/>
@@ -976,41 +976,41 @@
           <text x="590" y="245" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">/loop /monitor-deploy</text>
 
           <rect x="460" y="275" width="260" height="74" rx="8" fill="#FBF7F0" stroke="#0A0A0A" stroke-width="1.5"/>
-          <text x="590" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">COÛT VARIABLE</text>
-          <text x="590" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#EF426F">0,1 – 0,8 €</text>
-          <text x="590" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">par heure · selon <a class="lex-link" href="/lexique/context-window" title="Fenêtre de contexte — voir la définition">contexte</a></text>
+          <text x="590" y="299" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1.5" fill="#0A0A0A">VARIABLE COST</text>
+          <text x="590" y="326" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="22" fill="#EF426F">€0.1 – €0.8</text>
+          <text x="590" y="343" text-anchor="middle" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">per hour · by <a class="lex-link" href="/en/lexique/context-window" title="Context window — see the definition">context</a></text>
         </g>
 
-        <text x="400" y="404" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="2" fill="#0A0A0A">RÉGULIER + PRÉVISIBLE          vs          ADAPTATIF + CONTEXTUEL</text>
+        <text x="400" y="404" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="2" fill="#0A0A0A">REGULAR + PREDICTABLE          vs          ADAPTIVE + CONTEXTUAL</text>
       </svg>
       <figcaption style="text-align: center; font-style: italic; color: var(--ink-muted); font-size: 14.5px; margin-top: 12px;">
-        Timed = régulier, prévisible. Dynamic = Claude décide quand relancer. Le coût suit le pattern.
+        Timed = regular, predictable. Dynamic = Claude decides when to re-run. The cost follows the pattern.
       </figcaption>
     </figure>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
-        <h3>Timed loop · Intervalle fixe</h3>
-        <p>Tu fixes une durée. Claude relance à chaque fois. Simple, prévisible, parfait quand tu veux vérifier un statut à cadence régulière.</p>
+        <h3>Timed loop · Fixed interval</h3>
+        <p>You set a duration. Claude re-runs each time. Simple, predictable, perfect when you want to check a status on a steady cadence.</p>
         <pre>/loop 5m /veille-ia</pre>
-        <p>Ici, toutes les 5 minutes, Claude relance ta commande <code>/veille-ia</code>. Tu peux mettre <code>2m</code>, <code>1h</code>, <code>6h</code>, etc. <strong>Note :</strong> les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure — le minimum réel est <strong>1 minute</strong>. Et chaque loop expire automatiquement au bout de <strong>7 jours</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">doc officielle Anthropic · scheduled tasks</a>) — un <a class="lex-link" href="/lexique/guardrail" title="Guardrail — voir la définition">garde-fou</a> contre les loops oubliés.</p>
+        <p>Here, every 5 minutes, Claude re-runs your <code>/veille-ia</code> command. You can set <code>2m</code>, <code>1h</code>, <code>6h</code>, and so on. <strong>Note:</strong> intervals in seconds (<code>30s</code>) are rounded up to the next minute — the real minimum is <strong>1 minute</strong>. And every loop expires automatically after <strong>7 days</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">official Anthropic docs · scheduled tasks</a>) — a <a class="lex-link" href="/en/lexique/guardrail" title="Guardrail — see the definition">guardrail</a> against forgotten loops.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3>Dynamic loop · Claude décide</h3>
-        <p>Tu lances le loop <strong>sans préciser d'intervalle</strong>. Claude lit le contexte et choisit lui-même quand relancer. Plus intelligent, moins prédictible.</p>
+        <h3>Dynamic loop · Claude decides</h3>
+        <p>You start the loop <strong>without specifying an interval</strong>. Claude reads the context and picks for itself when to re-run. Smarter, less predictable.</p>
         <pre>/loop /monitor-deploy</pre>
-        <p>Si ton déploiement vient de partir, Claude relancera toutes les 30 secondes. S'il est terminé depuis 20 minutes, il peut attendre 20 minutes la prochaine fois. Il auto-adapte.</p>
+        <p>If your deployment just kicked off, Claude will re-run every 30 seconds. If it finished 20 minutes ago, it might wait 20 minutes before the next check. It self-adjusts.</p>
       </div>
     </div>
 
     <div class="callout warn">
-      <h4>Attention au cache <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — voir la définition">prompt</a> (5 min)</h4>
-      <p>Le <a class="lex-link" href="/lexique/prompt-caching" title="Prompt caching — voir la définition">cache prompt</a> Anthropic (un mécanisme qui « met en mémoire » ton prompt pour ne pas le repayer à chaque appel) a une durée de vie de 5 minutes, <strong>rafraîchie à chaque appel réussi</strong>. Tant que tes loops tournent à moins de 5 minutes d'écart entre deux appels, le cache reste chaud et tu paies les <a class="lex-link" href="/lexique/token" title="Token — voir la définition">tokens</a> (les « briques » de texte facturées par l'IA · environ 0,75 mot chacun) mis en cache à environ <strong>−90%</strong>. Au-delà, le cache tombe et tu repaies le plein tarif. Reste <strong>en-dessous de 5 minutes</strong> (4m30s, 3m, etc.) si tu veux le bénéfice du cache, ou accepte le cache miss (le « cache raté » qui te fait repayer plein tarif) au-delà. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Détails officiels · doc Anthropic prompt caching</a>.</p>
+      <h4>Mind the <a class="lex-link" href="/en/lexique/prompt-engineering" title="Prompt engineering — see the definition">prompt</a> cache (5 min)</h4>
+      <p>Anthropic's <a class="lex-link" href="/en/lexique/prompt-caching" title="Prompt caching — see the definition">prompt cache</a> (a mechanism that "holds your prompt in memory" so you don't pay for it on every call) has a 5-minute lifespan, <strong>refreshed on every successful call</strong>. As long as your loops run less than 5 minutes apart between two calls, the cache stays warm and you pay for the cached <a class="lex-link" href="/en/lexique/token" title="Token — see the definition">tokens</a> (the "text bricks" the AI bills you for · roughly 0.75 words each) at about <strong>-90%</strong>. Beyond that, the cache drops and you pay full price again. Stay <strong>under 5 minutes</strong> (4m30s, 3m, etc.) if you want the cache benefit, or accept the cache miss (the "missed cache" that makes you pay full price again) beyond that. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Official details · Anthropic prompt caching docs</a>.</p>
     </div>
   </div>
 </section>
@@ -1018,48 +1018,48 @@
 <!-- 3 façons d'automatiser -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Session, machine, ou cloud</span>
-    <h2>3 façons <em class="fuchsia">d'automatiser.</em></h2>
+    <span class="section-kicker k-fuchsia">— Session, machine, or cloud</span>
+    <h2>3 ways <em class="fuchsia">to automate.</em></h2>
     <p>
-      Tous les loops ne se valent pas. Selon ce que tu veux (ordi allumé ou non, vraiment la nuit ou pas), Claude Code propose trois mécanismes. Le plus souvent, les gens utilisent <code>/loop</code> par défaut alors qu'ils auraient besoin d'une Routine cloud. Voici la différence. Si tu veux comparer avec d'autres approches d'agents IA en boucle hors écosystème Anthropic, regarde aussi du côté de <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> (chat agent in-IDE) ou de <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> (workflows visuels self-hosted) — chacun a ses tradeoffs.
+      Not all loops are created equal. Depending on what you want (computer on or off, truly overnight or not), Claude Code offers three mechanisms. Most of the time, people reach for <code>/loop</code> by default when they actually need a cloud Routine. Here's the difference. If you want to compare with other looping AI-agent approaches outside the Anthropic ecosystem, also look at <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> (an in-IDE chat agent) or <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> (self-hosted visual workflows) — each has its trade-offs.
     </p>
 
     <div class="comparison-table" style="overflow-x:auto; margin:32px 0;">
       <table style="width:100%; border-collapse:collapse; font-size:14.5px;">
         <thead>
           <tr style="background:var(--surface); border-bottom:2px solid var(--ink);">
-            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mécanisme</th>
-            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Session ouverte ?</th>
-            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mac allumé ?</th>
-            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Idéal pour</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mechanism</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Session open?</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Mac on?</th>
+            <th style="padding:14px 16px; text-align:left; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.08em; text-transform:uppercase;">Best for</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid var(--line);">
             <td style="padding:14px 16px;"><strong><code>/loop</code></strong> (session)</td>
-            <td style="padding:14px 16px;">Oui, obligatoire</td>
-            <td style="padding:14px 16px;">Oui</td>
-            <td style="padding:14px 16px;">Tu travailles avec Claude, tu veux qu'il vérifie un statut en fond</td>
+            <td style="padding:14px 16px;">Yes, required</td>
+            <td style="padding:14px 16px;">Yes</td>
+            <td style="padding:14px 16px;">You're working with Claude and want it to check a status in the background</td>
           </tr>
           <tr style="border-bottom:1px solid var(--line);">
             <td style="padding:14px 16px;"><strong>Desktop scheduled tasks</strong></td>
-            <td style="padding:14px 16px;">Non</td>
-            <td style="padding:14px 16px;">Oui</td>
-            <td style="padding:14px 16px;">Tu veux que ton Mac travaille la journée pendant que tu es en réunion</td>
+            <td style="padding:14px 16px;">No</td>
+            <td style="padding:14px 16px;">Yes</td>
+            <td style="padding:14px 16px;">You want your Mac to work during the day while you're in a meeting</td>
           </tr>
           <tr>
             <td style="padding:14px 16px;"><strong>Routines</strong> (cloud)</td>
-            <td style="padding:14px 16px;">Non</td>
-            <td style="padding:14px 16px;"><strong>Non</strong></td>
-            <td style="padding:14px 16px;">Veille qui tourne la nuit, le weekend, pendant tes vacances</td>
+            <td style="padding:14px 16px;">No</td>
+            <td style="padding:14px 16px;"><strong>No</strong></td>
+            <td style="padding:14px 16px;">Watching that runs overnight, on weekends, while you're on vacation</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="callout ok">
-      <h4>Mon conseil</h4>
-      <p>Pour une veille ou un monitoring qui doit vraiment tourner 24/7, utilise les <strong>Routines</strong> (sorties en avril 2026). Quotas : 5 routines/jour sur Pro, 15 sur Max, 25 sur Team. Pour tout ce qui est "pendant que je travaille sur autre chose", <code>/loop</code> suffit largement.</p>
+      <h4>My advice</h4>
+      <p>For a watch or a monitor that truly needs to run 24/7, use <strong>Routines</strong> (released in April 2026). Quotas: 5 routines/day on Pro, 15 on Max, 25 on Team. For anything that's "while I'm working on something else," <code>/loop</code> is plenty.</p>
     </div>
   </div>
 </section>
@@ -1067,47 +1067,47 @@
 <!-- 4 cas d'usage -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— Mes 4 cas d'usage</span>
-    <h2>Ce que <em class="orange">j'en fais</em> vraiment.</h2>
+    <span class="section-kicker k-orange">— My 4 use cases</span>
+    <h2>What I <em class="orange">actually do</em> with them.</h2>
     <p>
-      Je te partage les 4 loops que je tourne au quotidien. Copie-colle, adapte à ton cas.
+      I'll share the 4 loops I run day to day. Copy-paste, adapt to your case.
     </p>
 
     <div class="usecase">
-      <div class="usecase-label">Cas 00 · Pour les non-devs</div>
-      <h4>Un bêta-lecteur qui relit ta page de vente toute la journée</h4>
-      <p>Tu n'as pas de code, pas de build, pas de déploiement à surveiller ? Pas grave, les loops servent aussi à toi. Tu lances un loop qui relit ta landing page (ou ton email, ta séquence, ton script de vidéo) toutes les heures, et tu reçois un mini-audit à chaque passage. À toi de garder ou de zapper.</p>
-      <pre>/loop 1h "Relis ma landing page landing.md
-et donne-moi 3 améliorations prioritaires
-selon les règles de copywriting Hormozi."</pre>
-      <p>Coût : environ 0,5 $/jour si tu laisses tourner 8 h de journée. Parfait pour itérer pendant que tu fais autre chose.</p>
+      <div class="usecase-label">Case 00 · For non-devs</div>
+      <h4>A beta reader that rereads your sales page all day long</h4>
+      <p>No code, no build, no deployment to watch? No problem — loops are for you too. You start a loop that rereads your landing page (or your email, your sequence, your video script) every hour, and you get a mini-audit on each pass. Keep it or skip it, your call.</p>
+      <pre>/loop 1h "Reread my landing page landing.md
+and give me 3 priority improvements
+based on Hormozi copywriting rules."</pre>
+      <p>Cost: about $0.5/day if you let it run over an 8-hour workday. Perfect for iterating while you do something else.</p>
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Cas 01 · Ma veille IA auto</div>
-      <h4>Un brief IA qui m'arrive pendant que je dors</h4>
-      <p>Chaque matin, je veux un résumé des 10 publications IA les plus importantes de la nuit. J'écris un prompt (l'instruction que tu donnes à l'IA en mots) de veille, je le lance en loop toutes les 4 heures, et je reçois la synthèse dès que je suis dispo.</p>
-      <pre>/loop 4h "Scanne les 50 dernières pubs sur mes 10 sources IA.
-Résume les 5 plus importantes. Format bullet + liens."</pre>
-      <p>Tips : je stocke le résultat dans un fichier avec timestamp pour avoir un historique.</p>
+      <div class="usecase-label">Case 01 · My auto AI watch</div>
+      <h4>An AI brief that lands while I sleep</h4>
+      <p>Every morning, I want a summary of the 10 most important AI releases from overnight. I write a watch prompt (the instruction you give the AI in words), run it in a loop every 4 hours, and get the digest the moment I'm free.</p>
+      <pre>/loop 4h "Scan the last 50 releases across my 10 AI sources.
+Summarize the 5 most important. Bullet format + links."</pre>
+      <p>Tip: I store the result in a file with a timestamp so I have a history.</p>
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Cas 02 · Monitoring de build/déploy</div>
-      <h4>Je déploie, Claude surveille, je reviens quand c'est prêt</h4>
-      <p>Après un push, je lance un loop qui check le statut du déploiement toutes les 2 minutes. Quand c'est ready (ou si ça crashe), Claude m'alerte dans la console.</p>
-      <pre>/loop 2m "Check le statut du dernier deploy Vercel.
-Si succeeded, dis-moi OK. Si failed, montre l'erreur."</pre>
-      <p>Avantage : je peux fermer l'onglet Vercel et revenir à mon code — Claude me tient au courant.</p>
+      <div class="usecase-label">Case 02 · Build/deploy monitoring</div>
+      <h4>I deploy, Claude watches, I come back when it's ready</h4>
+      <p>After a push, I start a loop that checks the deployment status every 2 minutes. When it's ready (or if it crashes), Claude alerts me in the console.</p>
+      <pre>/loop 2m "Check the status of the latest Vercel deploy.
+If succeeded, tell me OK. If failed, show the error."</pre>
+      <p>The upside: I can close the Vercel tab and go back to my code — Claude keeps me posted.</p>
     </div>
 
     <div class="usecase">
-      <div class="usecase-label">Cas 03 · Relecture auto d'un article long</div>
-      <h4>Un bêta-lecteur qui me relit toutes les heures</h4>
-      <p>Quand j'écris un article long sur plusieurs jours, je lance un loop qui me fait une relecture critique toutes les heures. Il me pointe les redondances, les passages flous, les tournures IA-ish.</p>
-      <pre>/loop 1h "Relis /tmp/article-en-cours.md.
-Signale-moi les 3 passages à retravailler en priorité."</pre>
-      <p>Utilisation combinée avec le <a href="../lexique#skill-agent">skill</a> <code>humanizer</code> pour éviter que mon texte sonne trop "ChatGPT".</p>
+      <div class="usecase-label">Case 03 · Auto proofreading a long article</div>
+      <h4>A beta reader that rereads me every hour</h4>
+      <p>When I write a long article over several days, I start a loop that gives me a critical reread every hour. It flags the redundancies, the fuzzy passages, the AI-ish phrasing.</p>
+      <pre>/loop 1h "Reread /tmp/article-en-cours.md.
+Flag the 3 passages I should rework first."</pre>
+      <p>Used together with the <a href="/lexique#skill-agent">skill</a> <code>humanizer</code> to keep my text from sounding too "ChatGPT."</p>
     </div>
   </div>
 </section>
@@ -1115,21 +1115,21 @@ Signale-moi les 3 passages à retravailler en priorité."</pre>
 <!-- À quoi ça ressemble -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— En vrai, concrètement</span>
-    <h2>À quoi ressemble <em class="teal">un loop qui tourne ?</em></h2>
+    <span class="section-kicker k-teal">— In real life, concretely</span>
+    <h2>What does <em class="teal">a running loop look like?</em></h2>
     <p>
-      C'est la question que tout le monde me pose. "OK mais je vois rien, il se passe quoi pendant que ça tourne ?" Voici un exemple type de ce que je reçois dans ma console quand mon loop de veille fait son 7ᵉ passage de la journée :
+      That's the question everyone asks me. "OK, but I can't see anything — what's happening while it runs?" Here's a typical example of what I get in my console when my watch loop does its 7th pass of the day:
     </p>
 
     <pre>[14:32] Loop #veille-ia — run 7
-Scanné : 42 articles, 5 threads X, 3 repos GitHub
-Nouveauté notable : Anthropic publie "Claude Projects API"
-  → pourrait remplacer 3 workflows internes
-Aucun changement sur les 4 autres sujets suivis
-→ ping envoyé sur Slack #veille</pre>
+Scanned: 42 articles, 5 X threads, 3 GitHub repos
+Notable news: Anthropic ships "Claude Projects API"
+  → could replace 3 internal workflows
+No change on the other 4 topics tracked
+→ ping sent to Slack #veille</pre>
 
     <p>
-      Quand il n'y a <strong>rien de neuf</strong>, le loop tourne quand même, te dit juste "rien à signaler" et repart. Quand il <strong>trouve quelque chose</strong>, il t'alerte (Slack, email, console, ce que tu veux). C'est là que c'est puissant : 95 % des runs sont silencieux, mais les 5 % qui comptent arrivent sans que tu aies rien à faire.
+      When there's <strong>nothing new</strong>, the loop still runs, just tells you "nothing to report," and moves on. When it <strong>finds something</strong>, it alerts you (Slack, email, console, whatever you want). That's where the power is: 95% of runs are silent, but the 5% that matter show up without you having to lift a finger.
     </p>
   </div>
 </section>
@@ -1137,40 +1137,40 @@ Aucun changement sur les 4 autres sujets suivis
 <!-- Combien ça coûte -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-orange">— La question qui fâche</span>
-    <h2>Combien <em class="orange">ça coûte ?</em></h2>
+    <span class="section-kicker k-orange">— The awkward question</span>
+    <h2>How much <em class="orange">does it cost?</em></h2>
     <p>
-      C'est la deuxième question qu'on me pose tout le temps — et honnêtement, c'est la bonne. Un loop mal configuré peut faire exploser ta facture en une nuit. Voici 3 scénarios chiffrés pour que tu saches ce que tu paies.
+      That's the second question I get asked all the time — and honestly, it's the right one. A badly configured loop can blow up your bill overnight. Here are 3 scenarios with real numbers so you know what you're paying.
     </p>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
-        <h3>1 loop léger · ~1 à 2 $/mois</h3>
-        <p>Une veille qui tourne 4 fois par jour, environ 3 000 <a href="../lexique#token">tokens</a> par run (un prompt court + un résumé). Tu ne sens pas passer la facture. C'est mon premier conseil quand tu débutes : commence par UN seul loop, sur un sujet qui te sert vraiment.</p>
+        <h3>1 light loop · ~$1 to $2/month</h3>
+        <p>A watch that runs 4 times a day, roughly 3,000 <a href="/lexique#token">tokens</a> per run (a short prompt + a summary). You won't feel the bill. That's my first piece of advice when you're starting out: begin with ONE loop, on a topic that genuinely helps you.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3>3 loops actifs · ~8 à 15 $/mois</h3>
-        <p>Veille IA + monitoring déploy + relecture article. 3 loops avec des prompts moyens (5 à 8k tokens par run). C'est mon setup actuel. À ce niveau, tu commences à sentir le ROI (Return On Investment, ou en clair : le retour sur investissement) — tu économises 30 min à 1 h par jour, largement rentabilisé.</p>
+        <h3>3 active loops · ~$8 to $15/month</h3>
+        <p>AI watch + deploy monitoring + article proofreading. 3 loops with medium prompts (5 to 8k tokens per run). That's my current setup. At this level, you start to feel the ROI (Return On Investment — in plain terms, what you get back for what you put in) — you save 30 min to 1 hour a day, more than paid for.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-body">
-        <h3>Piège à éviter · 50 à 80 $/jour</h3>
-        <p>Tu mets <code>/loop 1m "fais X"</code> pour "voir ce que ça donne", tu laisses ta session ouverte, tu oublies. 1 440 runs en 24 h. Si ton prompt fait 10k tokens, tu peux atteindre 50 à 80 $/jour selon le modèle utilisé. Lis le "Piège 1" plus bas avant de lancer quoi que ce soit.</p>
+        <h3>The trap to avoid · $50 to $80/day</h3>
+        <p>You set <code>/loop 1m "do X"</code> just to "see what happens," you leave your session open, you forget about it. 1,440 runs in 24 hours. If your prompt is 10k tokens, you can hit $50 to $80/day depending on the model. Read "Trap 1" below before you launch anything.</p>
       </div>
     </div>
 
     <div class="callout tip">
-      <h4>Mon conseil direct</h4>
-      <p>Active le plafond de dépense sur ton compte Anthropic (Settings → Billing → Usage limits). Mets 20 $/mois au départ. Tu sauras vite si tu dois l'augmenter — et tu ne te réveilleras pas avec une facture à 300 $.</p>
-      <p style="margin-top:12px;"><strong>Deux commandes que j'utilise tout le temps :</strong> <code>/cost</code> dans ta session te montre en direct combien tu as dépensé depuis le début. Et <code>/model haiku</code> bascule sur le modèle le moins cher d'Anthropic : parfait pour les loops simples (vérifier un statut, lire un mail), ça divise la facture par 10 environ.</p>
+      <h4>My straight advice</h4>
+      <p>Turn on the spending cap on your Anthropic account (Settings → Billing → Usage limits). Set $20/month to start. You'll quickly know whether you need to raise it — and you won't wake up to a $300 bill.</p>
+      <p style="margin-top:12px;"><strong>Two commands I use all the time:</strong> <code>/cost</code> in your session shows you live how much you've spent since the start. And <code>/model haiku</code> switches to Anthropic's cheapest model: perfect for simple loops (checking a status, reading an email), it cuts the bill by about 10x.</p>
     </div>
   </div>
 </section>
@@ -1178,21 +1178,21 @@ Aucun changement sur les 4 autres sujets suivis
 <!-- Pièges -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Ce que j'ai appris</span>
-    <h2>Les 3 pièges <em class="fuchsia">à éviter.</em></h2>
+    <span class="section-kicker k-fuchsia">— What I've learned</span>
+    <h2>The 3 traps <em class="fuchsia">to avoid.</em></h2>
 
-    <h4>Piège 1 · Mettre un intervalle trop court</h4>
-    <p>Tentation du débutant : <code>/loop 1m</code> (le minimum autorisé). Résultat : 60 appels (chaque appel = une question envoyée à l'IA, donc facturée) à l'heure, facture qui explose, et 95% des appels n'apportent rien de neuf. <strong>Ma règle personnelle :</strong> jamais en-dessous de 2 minutes, sauf urgence vraie.</p>
+    <h4>Trap 1 · Setting the interval too short</h4>
+    <p>Beginner's temptation: <code>/loop 1m</code> (the allowed minimum). Result: 60 calls (each call = a question sent to the AI, so a billed one) an hour, a bill that blows up, and 95% of the calls bringing nothing new. <strong>My personal rule:</strong> never below 2 minutes, unless it's a real emergency.</p>
 
-    <h4>Piège 2 · Oublier les états d'échec</h4>
-    <p>Si ton loop surveille un build et que ton filtre ne capte que le succès, tu rates tous les crashes. Toujours écrire : <em>"Si succeeded → OK · Si failed → error · Si cancelled → annulé · Si autre → alerte"</em>. Couvre les 4 cas.</p>
+    <h4>Trap 2 · Forgetting the failure states</h4>
+    <p>If your loop watches a build and your filter only catches success, you miss every crash. Always write: <em>"If succeeded → OK · If failed → error · If cancelled → canceled · If anything else → alert"</em>. Cover all 4 cases.</p>
 
-    <h4>Piège 3 · Lancer un loop et l'oublier</h4>
-    <p>Un loop oublié = facture qui tourne en silence. Je garde un petit fichier <code>~/loops-actifs.md</code> où je note chaque loop lancé avec son objectif. Pour stopper un loop : appuie sur <code>Esc</code> dans ta session, ou dis simplement à Claude <em>"stoppe le loop en cours"</em>. Bonne nouvelle : chaque loop expire aussi tout seul au bout de <strong>7 jours</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">doc officielle Anthropic</a>), donc tu ne peux pas le laisser tourner à vie par accident.</p>
+    <h4>Trap 3 · Starting a loop and forgetting it</h4>
+    <p>A forgotten loop = a bill running silently. I keep a little <code>~/loops-actifs.md</code> file where I note every loop I launch along with its goal. To stop a loop: press <code>Esc</code> in your session, or just tell Claude <em>"stop the running loop."</em> Good news: every loop also expires on its own after <strong>7 days</strong> (<a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">official Anthropic docs</a>), so you can't leave it running forever by accident.</p>
 
     <div class="callout ok">
-      <h4>Ma check-list avant de lancer un loop</h4>
-      <p>(1) L'intervalle est-il raisonnable ? (2) Mon filtre couvre-t-il tous les cas d'échec ? (3) Ai-je noté le loop quelque part pour ne pas l'oublier ? → Si oui aux 3, GO.</p>
+      <h4>My checklist before starting a loop</h4>
+      <p>(1) Is the interval reasonable? (2) Does my filter cover every failure case? (3) Did I note the loop somewhere so I don't forget it? → If yes to all 3, GO.</p>
     </div>
   </div>
 </section>
@@ -1200,108 +1200,108 @@ Aucun changement sur les 4 autres sujets suivis
 <!-- Pour aller plus loin -->
 <section class="block">
   <div class="container">
-    <span class="section-kicker k-teal">— Pour aller plus loin</span>
-    <h2>Tu veux <em class="teal">maîtriser.</em></h2>
+    <span class="section-kicker k-teal">— Going further</span>
+    <h2>You want to <em class="teal">master this.</em></h2>
 
-    <p>Les loops sont le début. Si tu veux vraiment exploiter Claude Code en agent, voici mes prochaines étapes :</p>
+    <p>Loops are just the beginning. If you really want to run Claude Code as an agent, here are my next steps:</p>
 
     <ol>
-      <li><strong><a href="claude-code-workflow-tips">Les workflow tips Claude Code</a></strong> — comment je structure mes sessions et mes prompts pour que Claude bosse vraiment pour moi (et pas l'inverse).</li>
-      <li><strong><a href="superpowers">Le plugin Superpowers</a></strong> — l'add-on qui débloque les sous-agents parallèles, le TDD piloté et les patterns avancés.</li>
-      <li><strong><a href="dev-browser">Dev-browser, navigateur piloté par l'IA</a></strong> — l'outil que je couple souvent à un loop pour qu'il vérifie, scrape ou screenshote pendant que je fais autre chose.</li>
-      <li><strong>Les skills custom</strong> — créer ton propre "métier" réutilisable (comme <code>veille-ia</code>, <code>cold-email</code>). Voir mon <a href="../claude-code">pack Claude Code</a>.</li>
-      <li><strong>Les hooks settings.json</strong> (les « déclencheurs » que tu configures dans le fichier de réglages de Claude Code) — faire que Claude déclenche automatiquement une action à chaque fin de session (log, commit, notif Telegram).</li>
+      <li><strong><a href="/en/articles/claude-code-workflow-tips">Claude Code workflow tips</a></strong> — how I structure my sessions and prompts so Claude really works for me (and not the other way around).</li>
+      <li><strong><a href="/en/articles/superpowers">The Superpowers plugin</a></strong> — the add-on that unlocks parallel sub-agents, driven TDD, and advanced patterns.</li>
+      <li><strong><a href="/en/articles/dev-browser">Dev-browser, the AI-driven browser</a></strong> — the tool I often pair with a loop so it can verify, scrape, or screenshot while I do something else.</li>
+      <li><strong>Custom skills</strong> — building your own reusable "job" (like <code>veille-ia</code>, <code>cold-email</code>). See my <a href="/en/claude-code">Claude Code pack</a>.</li>
+      <li><strong>settings.json hooks</strong> (the "triggers" you configure in Claude Code's settings file) — making Claude automatically fire an action at the end of every session (log, commit, Telegram notification).</li>
     </ol>
 
     <div class="callout tip">
-      <h4>C'est quoi "sous-agents parallèles" ?</h4>
-      <p>Quand tu dis à Claude "lance ça en parallèle", il peut ouvrir plusieurs "mini-Claude" qui bossent en même temps sur des tâches différentes. Comme si tu embauchais 5 stagiaires pour la même heure, au lieu d'un seul pendant 5 h. Tu payes le même prix total, mais tu vas 5× plus vite.</p>
+      <h4>What are "parallel sub-agents"?</h4>
+      <p>When you tell Claude "run this in parallel," it can spin up several "mini-Claudes" that work at the same time on different tasks. Like hiring 5 interns for the same hour instead of one for 5 hours. You pay the same total, but you go 5x faster.</p>
     </div>
 
-    <p>Chaque sujet = un futur article ici. Si tu veux être prévenu quand je publie, l'inscription newsletter est en bas.</p>
+    <p>Each topic = a future article here. If you want a heads-up when I publish, the newsletter sign-up is at the bottom.</p>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="block" id="faq">
   <div class="container">
-    <span class="section-kicker k-fuchsia">— Questions fréquentes</span>
-    <h2>FAQ <em class="fuchsia">loops Claude Code.</em></h2>
+    <span class="section-kicker k-fuchsia">— Frequently asked questions</span>
+    <h2>FAQ <em class="fuchsia">Claude Code loops.</em></h2>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quelle différence entre un loop et un cron ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Un <strong>cron</strong> lance bêtement un script à heure fixe sans comprendre le résultat. Un <strong>loop Claude Code</strong> peut décider s'il relance, change d'approche ou t'alerte selon ce qu'il observe. Le loop est intelligent, le cron est mécanique.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference between a loop and a cron?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">A <strong>cron</strong> blindly runs a script at a fixed time without understanding the result. A <strong>Claude Code loop</strong> can decide whether to re-run, change its approach, or alert you based on what it sees. The loop is smart; the cron is mechanical.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Un loop fonctionne-t-il quand mon Mac est éteint ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non. Un <code>/loop</code> dans une session Claude Code <strong>s'arrête dès que tu fermes ton terminal ou ton Mac</strong>. Pour tourner vraiment 24/7 (la nuit, le weekend, en vacances), passe par les <strong>Routines cloud Anthropic</strong>, sorties en avril 2026.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does a loop work when my Mac is off?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. A <code>/loop</code> in a Claude Code session <strong>stops the moment you close your terminal or your Mac</strong>. To truly run 24/7 (overnight, on weekends, on vacation), go through Anthropic's <strong>cloud Routines</strong>, released in April 2026.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment arrêter un loop en cours ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois options : appuie sur <code>Esc</code> dans ta session pour stopper le run, dis simplement à Claude <em>« stoppe le loop en cours »</em>, ou attends 7 jours — chaque loop expire automatiquement passé ce délai (garde-fou natif Anthropic).</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do I stop a running loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Three options: press <code>Esc</code> in your session to stop the run, just tell Claude <em>"stop the running loop,"</em> or wait 7 days — every loop expires automatically after that (a native Anthropic guardrail).</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Combien ça coûte par mois ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois ordres de grandeur : <strong>1 à 2 €/mois</strong> pour un loop léger (3 000 tokens, 4 runs/jour), <strong>8 à 15 €/mois</strong> pour 3 loops actifs (mon setup), et jusqu'à <strong>50-80 €/jour</strong> si tu lances <code>/loop 1m</code> sur un prompt lourd et que tu oublies. Active le plafond Anthropic à 20 €/mois pour démarrer.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How much does it cost per month?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Three ballparks: <strong>€1 to €2/month</strong> for a light loop (3,000 tokens, 4 runs/day), <strong>€8 to €15/month</strong> for 3 active loops (my setup), and up to <strong>€50-80/day</strong> if you fire off <code>/loop 1m</code> on a heavy prompt and forget about it. Turn on the Anthropic cap at €20/month to start.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Le loop marche-t-il avec l'API gratuite ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Les loops sont une commande de <strong>Claude Code</strong> (le CLI), pas de l'API web. Tu y accèdes avec ton abonnement (gratuit limité, ou Pro/Max payant). L'API Anthropic permet de bricoler ton propre système de boucles, mais ce n'est pas le même produit que <code>/loop</code>.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does the loop work with the free API?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Loops are a command inside <strong>Claude Code</strong> (the CLI), not the web API. You get to them with your subscription (free with limits, or paid Pro/Max). The Anthropic API lets you hack together your own looping system, but that's not the same product as <code>/loop</code>.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Quel est l'intervalle minimum d'un loop ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>1 minute.</strong> Les intervalles en secondes (<code>30s</code>) sont arrondis à la minute supérieure. Ma règle perso : jamais en dessous de 2 minutes sauf urgence vraie, sinon tu fais 60 appels/heure inutiles.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the minimum interval for a loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;"><strong>1 minute.</strong> Intervals in seconds (<code>30s</code>) are rounded up to the next minute. My personal rule: never below 2 minutes unless it's a real emergency, otherwise you rack up 60 pointless calls an hour.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment fonctionne le cache prompt dans un loop ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le cache garde ton prompt en mémoire <strong>5 minutes</strong>, rafraîchi à chaque appel réussi. Tant que tes loops tournent à moins de 5 minutes d'écart, tu paies les tokens en cache à environ <strong>−90 %</strong>. Au-delà, le cache tombe et tu repaies plein tarif. Reste sous 5 minutes pour optimiser.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How does the prompt cache work inside a loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">The cache keeps your prompt in memory for <strong>5 minutes</strong>, refreshed on every successful call. As long as your loops run less than 5 minutes apart, you pay for the cached tokens at about <strong>-90%</strong>. Beyond that, the cache drops and you pay full price again. Stay under 5 minutes to optimize.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Les Routines remplacent-elles complètement /loop ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Non, elles complètent. <code>/loop</code> reste idéal quand tu travailles avec Claude et veux une vérif en fond. <strong>Routines (cloud)</strong> sert quand il faut tourner sans Mac allumé : veille de nuit, monitoring weekend. Quotas : 5/jour sur Pro, 15 sur Max, 25 sur Team.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Do Routines fully replace /loop?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No, they complement it. <code>/loop</code> is still ideal when you're working with Claude and want a check in the background. <strong>Routines (cloud)</strong> is for when things need to run without your Mac on: overnight watching, weekend monitoring. Quotas: 5/day on Pro, 15 on Max, 25 on Team.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Peut-on lancer un loop sur ChatGPT ou Cursor ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Le <code>/loop</code> natif est spécifique à Claude Code. Sur <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> ou ChatGPT, pas d'équivalent intégré — mais tu peux reproduire le pattern via un cron + appel à l'API du modèle, ou via un workflow <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> qui appelle l'API à intervalles. Plus de boilerplate, même résultat.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Can you run a loop on ChatGPT or Cursor?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">The native <code>/loop</code> is specific to Claude Code. On <a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> or ChatGPT, there's no built-in equivalent — but you can reproduce the pattern with a cron + a call to the model's API, or with an <a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> workflow that calls the API on a schedule. More boilerplate, same result.</p>
     </details>
 
     <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
-      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Comment recevoir une notif quand un loop trouve quelque chose ?</summary>
-      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Trois canaux : <strong>console</strong> Claude Code (par défaut), <strong>email</strong> via l'API <a href="https://resend.com/docs" target="_blank" rel="noopener">Resend</a> (pour les alertes calmes), <strong>Slack</strong> via webhook (pour les urgentes). Tu demandes à Claude <em>« si tu trouves X, ping-moi sur Slack #veille »</em> et il intègre l'appel webhook dans le loop.</p>
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do I get a notification when a loop finds something?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Three channels: the Claude Code <strong>console</strong> (the default), <strong>email</strong> via the <a href="https://resend.com/docs" target="_blank" rel="noopener">Resend</a> API (for calm alerts), <strong>Slack</strong> via webhook (for urgent ones). You tell Claude <em>"if you find X, ping me on Slack #watch"</em> and it wires the webhook call into the loop.</p>
     </details>
   </div>
 </section>
 
 <!-- Partage sur les réseaux -->
 <div class="share-block">
-  <div class="share-block-label">Partage</div>
-  <h3>Cet article t'a servi ? Dis-le.</h3>
+  <div class="share-block-label">Share</div>
+  <h3>Did this article help? Say so.</h3>
   <div class="share-buttons">
-    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=Les%20loops%20Claude%20Code%2C%20expliqu%C3%A9s%20%E2%80%94%20par%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur X">
+    <a class="share-btn share-btn-x" href="https://twitter.com/intent/tweet?text=Claude%20Code%20loops%2C%20explained%20%E2%80%94%20by%20%40JeremySagnier&url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on X">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="share-label">X</span>
     </a>
-    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">
+    <a class="share-btn share-btn-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="share-label">LinkedIn</span>
     </a>
-    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=Les%20loops%20Claude%20Code%2C%20expliqu%C3%A9s%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">
+    <a class="share-btn share-btn-whatsapp" href="https://wa.me/?text=Claude%20Code%20loops%2C%20explained%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="share-label">WhatsApp</span>
     </a>
-    <button class="share-btn share-btn-instagram" data-url="https://jerwis.fr/articles/loops-claude.html" data-share-title="Les loops Claude Code, expliqués" aria-label="Partager sur Instagram" type="button">
+    <button class="share-btn share-btn-instagram" data-url="https://jerwis.fr/articles/loops-claude.html" data-share-title="Claude Code loops, explained" aria-label="Share on Instagram" type="button">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg><span class="share-label">Instagram</span>
     </button>
-    <a class="share-btn share-btn-email" href="mailto:?subject=Les%20loops%20Claude%20Code%2C%20expliqu%C3%A9s&body=Je%20suis%20tomb%C3%A9%20sur%20cet%20article%20de%20J%C3%A9r%C3%A9my%20Sagnier%20%3A%0A%0ALes%20loops%20Claude%20Code%2C%20expliqu%C3%A9s%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" aria-label="Partager par email">
+    <a class="share-btn share-btn-email" href="mailto:?subject=Claude%20Code%20loops%2C%20explained&body=I%20came%20across%20this%20article%20by%20J%C3%A9r%C3%A9my%20Sagnier%3A%0A%0AClaude%20Code%20loops%2C%20explained%0Ahttps%3A//jerwis.fr/articles/loops-claude.html" aria-label="Share by email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="share-label">Email</span>
     </a>
-    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/loops-claude.html" aria-label="Copier le lien" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copier le lien</span>
+    <button class="share-btn share-btn-copy" data-url="https://jerwis.fr/articles/loops-claude.html" aria-label="Copy link" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="share-label">Copy link</span>
     </button>
   </div>
 </div>
@@ -1315,14 +1315,14 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     try {
       await navigator.clipboard.writeText(url);
       const original = btn.querySelector('.share-label').textContent;
-      btn.querySelector('.share-label').textContent = 'Copié !';
+      btn.querySelector('.share-label').textContent = 'Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.querySelector('.share-label').textContent = original;
         btn.classList.remove('copied');
       }, 1800);
     } catch (err) {
-      prompt('Copie le lien :', url);
+      prompt('Copy the link:', url);
     }
   });
 });
@@ -1335,9 +1335,9 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     <div style="display:flex; align-items:flex-start; gap:14px; padding:20px 24px; background:var(--surface); border:1px solid var(--line-strong); border-left:4px solid var(--teal); border-radius:14px">
       <span style="font-size:22px; flex-shrink:0">✉</span>
       <div>
-        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Tu repères une erreur ?</h4>
+        <h4 style="font-family:'Archivo Black', sans-serif; font-size:14px; letter-spacing:-.01em; text-transform:uppercase; margin-bottom:6px; color:var(--ink)">Spotted a mistake?</h4>
         <p style="font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0">
-          Une info obsolète, un chiffre qui a bougé, une source périmée ? <strong style="color:var(--ink)">Écris-moi à <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · je corrige en 48h max et je note la date de MAJ en haut de l'article. Les retours terrain valent mille fois les articles — je lis tout, je réponds.
+          Outdated info, a number that's moved, a stale source? <strong style="color:var(--ink)">Write to me at <a href="mailto:sagnier.jeremy@gmail.com" style="color:var(--fuchsia); text-decoration:none; font-weight:600">sagnier.jeremy@gmail.com</a></strong> · I fix it within 48h max and note the update date at the top of the article. Feedback from the field is worth a thousand times more than the articles — I read everything, I reply.
         </p>
       </div>
     </div>
@@ -1349,14 +1349,14 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
 <section class="article-end">
   <div class="container">
     <div class="article-end-card">
-      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
       <div class="article-end-body">
-        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
-        <h2 class="article-end-title">On continue ensemble ?</h2>
-        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, no jargon, no hype. If this article helped you, the easiest way not to miss anything is my Friday letter. And if you've got a question or a doubt: reply to me, I read everything.</p>
         <div class="article-end-actions">
-          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
-          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
         </div>
       </div>
     </div>
@@ -1372,13 +1372,13 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     <div class="footer-newsletter">
       <div>
         <div class="kicker"><span class="pulse"></span>— Newsletter</div>
-        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
-        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+        <h3>One email a week.<br>What I <em>actually</em> test.</h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
       </div>
       <form class="newsletter-form" data-source="footer">
-        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <button type="submit">M'inscrire</button>
+        <button type="submit">Subscribe</button>
       </form>
     </div>
 
@@ -1387,53 +1387,53 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
       <div class="footer-brand">
         <h3>Jérémy Sagnier</h3>
         <p>
-          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
         </p>
       </div>
 
       <div class="footer-col">
-        <h5>Apprendre</h5>
+        <h5>Learn</h5>
         <ul>
-          <li><a href="/apprendre">Parcours débutant</a></li>
-          <li><a href="/claude-code">Guide Claude Code</a></li>
-          <li><a href="/articles">Tous les articles</a></li>
-          <li><a href="/lexique">Lexique IA</a></li>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All the articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h5>Produits &amp; outils</h5>
+        <h5>Products &amp; tools</h5>
         <ul>
-          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
-          <li><a href="/outils">Ma stack outils</a></li>
-          <li><a href="/podcast">Podcast Guerres d'IA</a></li>
-          <li><a href="/github">Mon GitHub</a></li>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h5>Suivre</h5>
+        <h5>Follow</h5>
         <ul>
           <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
           <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
           <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h5>Direct</h5>
+        <h5>Connect</h5>
         <ul>
           <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
-          <li><a href="/index#newsletters">Newsletters</a></li>
-          <li><a href="/preferences">Préférences</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
         </ul>
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
       <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
         <span style="display:inline-flex; gap:3px">
           <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
@@ -1465,10 +1465,10 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
             body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          btn.textContent = '✓ Merci';
+          btn.textContent = '✓ Thanks';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
         } catch (err) {
-          btn.textContent = '× Erreur';
+          btn.textContent = '× Error';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
         }
       });
@@ -1512,7 +1512,7 @@ document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').for
       const label = btn.querySelector('.share-label');
       if (label) {
         const original = label.textContent;
-        label.textContent = 'Copié ! (colle dans IG)';
+        label.textContent = 'Copied! (paste into IG)';
         btn.classList.add('copied');
         setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
       } else {
@@ -1520,7 +1520,7 @@ document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').for
         setTimeout(() => btn.classList.remove('copied'), 1800);
       }
     } catch (err) {
-      prompt('Copie ce lien pour le coller dans Instagram :', shareUrl);
+      prompt('Copy this link to paste into Instagram:', shareUrl);
     }
   });
 });
@@ -1534,7 +1534,7 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
       btn.classList.add('copied');
       setTimeout(() => btn.classList.remove('copied'), 1800);
     } catch (err) {
-      prompt('Copie le lien :', url);
+      prompt('Copy the link:', url);
     }
   });
 });
@@ -1557,14 +1557,14 @@ document.querySelectorAll('.share-rail-btn-copy').forEach(btn => {
   })();
 </script>
 
-<script src="../assets/nav-v2.js" defer></script>
+<script src="/assets/nav-v2.js" defer></script>
 <!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
-<script src="../assets/article-toc.js" defer></script>
+<script src="/assets/article-toc.js" defer></script>
 <!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
-<script src="../assets/ai-summarize.js" defer></script>
+<script src="/assets/ai-summarize.js" defer></script>
 
-<script src="../assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
-  <script src="../assets/lexique-tooltip.js" defer></script>
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
 <script src="/assets/lang-toggle.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open source, explained for people who aren't developers</title>
+<meta name="description" content="Open source for non-devs: OSI, MIT, Apache, DeepSeek, 30 tools I tested. Definition, licenses, open AI, traps to dodge. The complete guide.">
+
+<!-- Favicon set -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0A0A0A">
+
+<link rel="canonical" href="https://jerwis.fr/en/articles/open-source-pour-non-dev">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/open-source-pour-non-dev">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/open-source-pour-non-dev">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/open-source-pour-non-dev">
+
+<meta property="article:published_time" content="2026-04-24">
+<meta property="article:modified_time" content="2026-04-24">
+
+<!-- Schema.org : BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jerwis.fr/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://jerwis.fr/en/articles" },
+    { "@type": "ListItem", "position": 3, "name": "Open source, explained for people who aren't developers", "item": "https://jerwis.fr/en/articles/open-source-pour-non-dev" }
+  ]
+}
+</script>
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jerwis.fr/en/articles/open-source-pour-non-dev">
+<meta property="og:title" content="Open source, explained for people who aren't developers">
+<meta property="og:description" content="Open source for non-devs: OSI, MIT, Apache, DeepSeek, 30 tools tested. The complete guide.">
+<meta property="og:image" content="https://jerwis.fr/photos/og/open-source-pour-non-dev.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/open-source-pour-non-dev.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Open source, explained for people who aren't developers",
+  "description": "Open source for non-devs: OSI, MIT, Apache, DeepSeek, 30 tools I tested. Definition, licenses, open AI, traps to dodge. The complete guide.",
+  "author": {"@type": "Person", "name": "Jérémy Sagnier", "url": "https://jerwis.fr/en/jeremy-sagnier"},
+  "datePublished": "2026-04-24",
+  "dateModified": "2026-04-24",
+  "publisher": {"@type": "Person", "name": "Jérémy Sagnier"},
+  "image": "https://jerwis.fr/en/photos/og/open-source-pour-non-dev.jpg",
+  "mainEntityOfPage": "https://jerwis.fr/en/articles/open-source-pour-non-dev"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is open source, really?", "acceptedAnswer": {"@type": "Answer", "text": "Open source is computer code you're allowed to read, modify and redistribute. To earn the label, a piece of software has to tick ten precise criteria set by the Open Source Initiative (OSI), a reference non-profit founded in 1998. Without those ten criteria, it's no longer open source, it's something else."}},
+    {"@type": "Question", "name": "Does open source mean free of charge?", "acceptedAnswer": {"@type": "Answer", "text": "No. Open source does not mean free of charge. Red Hat, bought by IBM for 34 billion dollars in 2019, sells Linux. The code is free, but support, hosting, enterprise features and legal guarantees all cost money."}},
+    {"@type": "Question", "name": "Which open source tools should I try first?", "acceptedAnswer": {"@type": "Answer", "text": "My top 5 to get started: Bitwarden (password manager, instant security), Firefox (a browser that's independent of Google), LibreOffice (95% of personal office needs), Joplin (encrypted Markdown notes) and Audacity (audio editing). No credit card, two-click install."}},
+    {"@type": "Question", "name": "How do companies make a living giving software away for free?", "acceptedAnswer": {"@type": "Answer", "text": "Five main business models: paid services and support (Red Hat), turnkey hosted SaaS (MongoDB Atlas generates 73% of revenue), open core with paid enterprise features (GitLab), commercial dual licensing (the old MySQL, Qt) and sponsorship via GitHub Sponsors. The code is free, but everything around it isn't."}},
+    {"@type": "Question", "name": "What's the difference between open source and open weights?", "acceptedAnswer": {"@type": "Answer", "text": "Open source in the strict sense means source code plus data plus the right to modify and redistribute. Open weights is AI-specific: you can download the model's parameters, but not the data used to train it. That's not really open source in the OSI sense. Llama and Mistral are open weights, while OLMo 3 from the Allen Institute is genuinely open source."}},
+    {"@type": "Question", "name": "Are the Mistral and Llama AI models really free and open?", "acceptedAnswer": {"@type": "Answer", "text": "Mistral Small 4 is under the Apache 2.0 license, genuinely free for commercial use. Llama 4 isn't: its Llama Community License includes an anti-competition clause at 700 million users, and the OSI ruled in 2024 that it isn't open source. Read the license before you invest dev time in a model."}},
+    {"@type": "Question", "name": "What traps should I avoid with open source?", "acceptedAnswer": {"@type": "Answer", "text": "Five major traps: GPL contamination that forces you to publish your proprietary code, the abandoned project or one sabotaged by its maintainer (the colors.js case in 2022), the unilateral license change (Elastic, Redis, HashiCorp), the free-but-not-open-source trap (Discord, Notion, Zoom) and fake open source in AI (open weights sold as if it were free and open)."}},
+    {"@type": "Question", "name": "How do I vet an open source tool before installing it?", "acceptedAnswer": {"@type": "Answer", "text": "Six things to check: a license recognized by the OSI (MIT, Apache 2.0, BSD, MPL), an active official repo with recent commits, identifiable maintainers with a track record, visible sponsors (GitHub Sponsors, a recognized foundation), at least 100 stars and forks, and zero unpatched CVE on cve.mitre.org. Also turn on GitHub Dependabot for your repos."}},
+    {"@type": "Question", "name": "What's the Elasticsearch, Redis and HashiCorp drama?", "acceptedAnswer": {"@type": "Answer", "text": "Between 2021 and 2024, these three vendors changed the license of their flagship product overnight to block Amazon Web Services. Elastic went from Apache 2.0 to SSPL in 2021, HashiCorp Terraform from MPL to BSL in 2023, Redis from BSD to SSPL in 2024. The community responded by creating forks under the old license: OpenSearch, OpenTofu, Valkey."}},
+    {"@type": "Question", "name": "Why did DeepSeek crash NVIDIA?", "acceptedAnswer": {"@type": "Answer", "text": "On January 27, 2025, the Chinese company DeepSeek released R1, an open source reasoning model comparable to OpenAI's GPT-o1, trained for 5.6 million dollars instead of the usual hundreds of millions. The next day, NVIDIA lost 589 billion in market cap in a single session, the biggest single-day loss for one company in financial history. The whole thesis that you need billions and 30,000-dollar GPUs to do AI collapsed."}}
+  ]
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root { --fuchsia: #EF426F; --teal: #00B2A9; --orange: #FF8200; }
+  [data-theme="light"] { --bg: #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF; --ink: #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E; --line: rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18); --code-bg: #F4EFE6; --code-ink: #0A0A0A; }
+  [data-theme="dark"] { --bg: #0A0A0A; --bg-2: #141414; --surface: #141414; --ink: #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A; --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22); --code-bg: #1A1A1A; --code-ink: #F4EFE6; }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body { font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; min-height: 100vh; transition: background .3s, color .3s }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line) }
+  .header-inner { max-width: 1320px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 10px }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color .2s }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .2s, border-color .2s; margin-left: 16px }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  .hero { padding: 64px 0 88px; background: radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%), #0A0A0A; color: #F4EFE6; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08) }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: #F4EFE6; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22); margin-bottom: 28px }
+  .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,178,169,.5) } 70% { box-shadow: 0 0 0 12px rgba(0,178,169,0) } 100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) } }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: #F4EFE6; margin-bottom: 24px; max-width: 820px }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero h1 em.fuchsia { color: var(--fuchsia) }
+  .hero p.hero-lead { font-size: 17.5px; color: #C4CED4; max-width: 640px; margin-bottom: 32px; line-height: 1.6 }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; color: #C4CED4 }
+  .hero-meta-item { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15) }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  .tldr { max-width: 880px; margin: -40px auto 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; padding: 28px 32px; position: relative; z-index: 2; box-shadow: 0 30px 60px -30px rgba(0,0,0,.3) }
+  .tldr::before { content: ""; position: absolute; top: 0; left: 32px; height: 4px; width: 80px; background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange)); border-radius: 4px }
+  .tldr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px }
+  .tldr h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 16px }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li { padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft) }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px }
+  .section-kicker.k-teal { background: rgba(0,178,169,.12); color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange { background: rgba(255,130,0,.12); color: var(--orange) }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: .98; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 20px }
+  h2 em { font-style: normal }
+  h2 em.teal { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange { color: var(--orange) }
+  h3 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 32px 0 14px }
+  h4 { font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: -.01em; text-transform: uppercase; margin: 24px 0 10px }
+  p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 18px }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface) }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px }
+  th { background: var(--bg-2); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--line-strong) }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  td strong { color: var(--ink) }
+
+  /* Timeline */
+  .timeline { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 26px 0 8px }
+  @media (min-width: 720px) { .timeline { grid-template-columns: 1fr 1fr } }
+  .tl-item { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 18px 22px; position: relative; overflow: hidden }
+  .tl-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px }
+  .tl-item:nth-child(5n+1)::before { background: var(--teal) }
+  .tl-item:nth-child(5n+2)::before { background: var(--fuchsia) }
+  .tl-item:nth-child(5n+3)::before { background: var(--orange) }
+  .tl-item:nth-child(5n+4)::before { background: var(--ink) }
+  .tl-item:nth-child(5n+5)::before { background: var(--teal) }
+  .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--ink-muted) }
+  .tl-item h4 { margin: 4px 0 8px; font-size: 16px }
+  .tl-item p { font-size: 14.5px; line-height: 1.55; margin: 0 }
+
+  /* Model cards (économique) */
+  .model { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 16px 0; display: grid; grid-template-columns: 1fr; gap: 8px }
+  @media (min-width: 720px) { .model { grid-template-columns: 130px 1fr } }
+  .model-head { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--fuchsia); font-weight: 700 }
+  .model h4 { margin: 0 0 6px; font-size: 17px }
+  .model p { font-size: 14.5px; line-height: 1.6; margin: 0 }
+  .model p + p { margin-top: 8px }
+  .model .who { display: inline-block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); letter-spacing: .1em }
+
+  /* Big number cards */
+  .bignum-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 22px 0 8px }
+  @media (min-width: 720px) { .bignum-grid { grid-template-columns: 1fr 1fr 1fr } }
+  .bignum { background: #0A0A0A; color: #F4EFE6; border-radius: 18px; padding: 22px; position: relative; overflow: hidden }
+  .bignum::before { content: ""; position: absolute; top: 0; left: 22px; height: 3px; width: 60px; background: linear-gradient(90deg, var(--teal), var(--fuchsia)); border-radius: 3px }
+  .bignum .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 12px 0 8px }
+  .bignum .num { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 5vw, 56px); line-height: 1; color: #F4EFE6; margin-bottom: 10px }
+  .bignum .desc { color: #C4CED4; font-size: 13.5px; line-height: 1.5 }
+
+  /* Pieges (numbered list) */
+  .piege { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px; margin: 14px 0; display: flex; gap: 18px; align-items: flex-start }
+  .piege-icon { flex-shrink: 0; font-size: 28px; line-height: 1 }
+  .piege-body h4 { margin: 0 0 6px; font-size: 16px }
+  .piege-body p { font-size: 14.5px; margin: 0; line-height: 1.6 }
+
+  /* Outils grid */
+  .outils { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 8px }
+  @media (min-width: 600px) { .outils { grid-template-columns: 1fr 1fr } }
+  .outil { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; padding: 16px 18px }
+  .outil h4 { margin: 0 0 4px; font-size: 15px }
+  .outil .lic { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px }
+  .outil p { font-size: 14px; margin: 0; line-height: 1.55 }
+
+  /* Checklist */
+  .checklist { background: linear-gradient(135deg, rgba(0,178,169,.06), rgba(239,66,111,.04)); border: 1px solid var(--line-strong); border-radius: 18px; padding: 22px 26px; margin: 22px 0 }
+  .checklist h4 { margin: 0 0 14px; font-size: 16px }
+  .checklist ul { list-style: none; padding: 0; margin: 0 }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft) }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700 }
+  .checklist li strong { color: var(--ink) }
+
+  /* Quick start (Mistral via Ollama) */
+  .quick { background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%); color: #F4EFE6; border-radius: 22px; padding: 32px; margin: 22px 0 }
+  .quick .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px }
+  .quick h3 { color: #F4EFE6; margin: 0 0 14px }
+  .quick p { color: #C4CED4; font-size: 15px; margin-bottom: 12px }
+  .quick ol { color: #C4CED4; margin: 14px 0 14px 22px }
+  .quick li { margin-bottom: 8px }
+  .quick code { background: rgba(255,255,255,.08); color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px }
+
+  /* Callouts */
+  .callout { padding: 20px 24px; border-radius: 14px; margin: 20px 0; position: relative; padding-left: 52px }
+  .callout::before { content: ""; position: absolute; left: 20px; top: 22px; width: 16px; height: 16px; border-radius: 50% }
+  .callout.ok { background: rgba(0,178,169,.08); border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before { background: var(--teal) }
+  .callout.warn { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before { background: var(--orange) }
+  .callout.tip { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p { margin: 0; font-size: 14.5px }
+
+  /* Mini-marquee */
+  .mini-marquee { overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, var(--teal) 0%, var(--fuchsia) 50%, var(--orange) 100%); color: #fff; position: relative; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(0,0,0,.15) }
+  .mini-marquee::before { content: ""; position: absolute; inset: 0; background: rgba(10,10,10,.18); mix-blend-mode: multiply; pointer-events: none }
+  .mini-marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: mini-marquee-scroll 50s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; position: relative; z-index: 1 }
+  .mini-marquee-track span { display: inline-flex; align-items: center; gap: 40px }
+  .mini-marquee-track span::after { content: "◆"; color: rgba(10,10,10,.5); font-size: 11px }
+  @keyframes mini-marquee-scroll { to { transform: translateX(-50%) } }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  .footer { background: var(--bg); padding: 48px 0 40px; border-top: 1px solid var(--line); position: relative }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%) }
+  .footer-bottom { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .15em; font-weight: 700; color: var(--ink-muted); text-transform: uppercase }
+</style>
+<link rel="stylesheet" href="/assets/nav-v2.css?v=20260520-dropdown">
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fI4EI6gKnoEOGy90TOjWF.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+<link rel="stylesheet" href="/assets/mobile-fixes.css">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Mini-nav Jerwis v2 -->
+<!-- NAV-UNIFIED-START -->
+<nav class="mini-nav" aria-label="Main navigation">
+  <a class="brand brand-stamp" href="/en" aria-label="Jerwis home">
+    <span class="stamp">
+      <span class="stamp-kicker">BY JEREMY SAGNIER</span>
+      <span class="stamp-word">JERWIS</span>
+      <span class="stamp-bar"><span></span><span></span><span></span></span>
+    </span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mini-nav-links" aria-label="Open menu">
+    <span class="burger-icon" aria-hidden="true"></span>
+  </button>
+  <div class="links" id="mini-nav-links">
+    <a href="/en/apprendre">Learn</a>
+    <a href="/articles">Articles</a>
+    <a href="/podcast">Podcast</a>
+    <a href="/en#newsletters">Newsletter</a>
+    <div class="more-wrap">
+      <button type="button" class="more-trigger" aria-haspopup="true" aria-expanded="false" aria-label="More pages">
+        More
+        <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M1 1l4 4 4-4"/>
+        </svg>
+      </button>
+      <div class="more-menu" role="menu">
+        <a href="/modeles-ia" role="menuitem">
+          <span class="more-icon">🧠</span>
+          <span class="more-text"><strong>AI models</strong><span>Claude, GPT, Gemini compared…</span></span>
+        </a>
+        <a href="/modeles-image-ia" role="menuitem">
+          <span class="more-icon">🎨</span>
+          <span class="more-text"><strong>AI image models</strong><span>Image, audio &amp; video generation</span></span>
+        </a>
+        <a href="/lexique" role="menuitem">
+          <span class="more-icon">📚</span>
+          <span class="more-text"><strong>AI glossary</strong><span>40 terms explained</span></span>
+        </a>
+        <a href="/en/workflows" role="menuitem">
+          <span class="more-icon">🔁</span>
+          <span class="more-text"><strong>Workflows</strong><span>Claude Code by profession</span></span>
+        </a>
+        <a href="/en/outils" role="menuitem">
+          <span class="more-icon">🛠</span>
+          <span class="more-text"><strong>My tools</strong><span>My AI &amp; web stack</span></span>
+        </a>
+        <a href="/en/github" role="menuitem">
+          <span class="more-icon">⚡</span>
+          <span class="more-text"><strong>GitHub</strong><span>For non-devs · full guide</span></span>
+        </a>
+        <a href="/news" role="menuitem">
+          <span class="more-icon">📡</span>
+          <span class="more-text"><strong>News</strong><span>AI &amp; business news</span></span>
+        </a>
+        <a href="/videos" role="menuitem">
+          <span class="more-icon">▶</span>
+          <span class="more-text"><strong>Videos</strong><span>My YouTube channels</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/en/jeremy-sagnier" role="menuitem">
+          <span class="more-icon">👤</span>
+          <span class="more-text"><strong>About me</strong><span>Bio + journey + contact</span></span>
+        </a>
+        <div class="more-separator"></div>
+        <a href="/precommande-photos-personal-branding" class="more-cta" role="menuitem">
+          <span class="more-icon">💳</span>
+          <span class="more-text"><strong>Personal photos · €39</strong><span>AI photo generator</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="theme-toggle-v2" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+</nav>
+<!-- NAV-UNIFIED-END -->
+<a id="main-content" tabindex="-1"></a>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="kicker"><span class="dot"></span>Guide · Open source · Beginner level</div>
+    <h1>Open source,<br>explained for people<br>who aren't <em class="fuchsia">developers</em>.</h1>
+    <p class="hero-lead">
+      What is it, really? What's it good for? How do companies make a living giving software away for free? Why does AI change everything? Which tools should you try? How do you avoid getting burned? The complete guide, jargon-free, written on the assumption that you've never once opened a terminal.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>15 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Anyone</span>
+      <span class="hero-meta-item"><strong>Date</strong> April 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll understand</h2>
+    <ul>
+      <li><strong>Open source</strong> is code you're allowed to read, modify and redistribute — it does not automatically mean "free of charge"</li>
+      <li>There are <strong>four terms you shouldn't mix up</strong>: open source, free software, source available, <a class="lex-link" href="/lexique/open-weight" title="Open source vs open weight — see the definition">open weights</a></li>
+      <li>Companies that do open source <strong>make their money</strong> on service, hosting, or enterprise features — not on the code itself</li>
+      <li><strong>AI in 2026</strong> is in the middle of a split: Mistral, Llama, DeepSeek (open) versus GPT-5, Claude, Gemini (closed). You can test an open model on your own machine in five minutes</li>
+      <li>Top 5 tools to try tomorrow: <strong>Bitwarden, Firefox, LibreOffice, Joplin, Audacity</strong>. No credit card, and you take back control of a lot of your data</li>
+      <li><strong>Full transparency</strong>: this article was written with Claude (<a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a>), then reviewed and signed off by me. If you spot an error or something that rings false, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a> and I'll fix it.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Before we start</span>
+    <h2>What is it, <em class="fuchsia">exactly?</em></h2>
+    <p>
+      Open source is computer code you're allowed to <strong>read</strong>, <strong>modify</strong> and <strong>redistribute</strong>. Picture a recipe published in full, with the ingredient list and every step: you can cook it, tweak it to your taste, and share your version. For a piece of software to genuinely earn the "open source" label, it has to tick <a href="https://opensource.org/osd" target="_blank" rel="noopener">ten very precise criteria</a> laid out by the <strong><a href="https://opensource.org/" target="_blank" rel="noopener">Open Source Initiative</a></strong> (the OSI), a reference non-profit founded in 1998.
+    </p>
+    <p>
+      No fine print, no exclusion by profession, no "free for individuals only." Without those ten criteria, it's not open source anymore. It's something else. And the distinction matters a lot, as you're about to see.
+    </p>
+
+    <h3>Four terms you shouldn't mix up</h3>
+    <p>Before we go further, let's pin down the vocabulary. Four words you hear everywhere and that nobody tells apart clearly.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Term</th><th>What it means</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Open source</strong></td><td>Code that's readable, modifiable, redistributable, with no usage restriction. Validated against the ten OSI criteria.</td><td>Linux, Firefox, VS Code</td></tr>
+          <tr><td><strong>Free software</strong></td><td>Basically the same thing as open source. Same camp, different vocabulary. "Free" here means "free as in freedom," not "free of charge."</td><td>GNU, GIMP, GPL</td></tr>
+          <tr><td><strong>Source available</strong></td><td>You can <em>read</em> the code, but your use is restricted (no reselling it as a service, no direct competition). This is NOT open source.</td><td>Elastic, Redis (since 2024), HashiCorp Terraform</td></tr>
+          <tr><td><strong>Open weights</strong></td><td>AI-specific. You can download the model's parameters, but not the data used to train it. Not really open source in the strict sense.</td><td>Llama (Meta), Mistral 7B</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <h4>Why you need to remember this</h4>
+      <p>Plenty of vendors play on these nuances to sell a product that isn't really open source. Meta's Llama is constantly presented as "open source" — it isn't, the OSI settled that in 2024. It's open weights, which means there are restrictions hidden in the license. Read before you sign.</p>
+    </div>
+
+    <h3>The story in five steps</h3>
+    <p>To understand where we are, you need to know where it came from. Forty years, five key moments.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">Before 1980</div>
+        <h4>Everyone shares</h4>
+        <p>Software isn't a product. IBM sells outrageously expensive machines, and the code comes with them, free of charge. Universities swap their programs on punch cards. That's the default culture.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1983-1985</div>
+        <h4>Stallman invents the movement</h4>
+        <p>Richard Stallman, a researcher at MIT, can no longer modify the drivers for his printer. He launches the GNU project and founds the Free Software Foundation. In 1989 he publishes the GPL: if you use my code, you have to publish yours.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1991</div>
+        <h4>Linus Torvalds releases Linux</h4>
+        <p>A 21-year-old Finnish student, Linus posts on Usenet: "I'm making a free OS, just a hobby." Thirty-five years later, his code runs 96% of the world's web servers and every supercomputer.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1998</div>
+        <h4>The term "open source" is born</h4>
+        <p>Netscape opens the source of its browser (the future Firefox). Eric Raymond, Bruce Perens and Christine Peterson coin the phrase "open source" to make it less scary for companies. The Open Source Initiative is created right after.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2000-2026</div>
+        <h4>Total explosion</h4>
+        <p>Android (2008), GitHub (2008), VS Code going open source (2016), Microsoft buying GitHub (2018, 7.5 billion), license flip-flops (2021-2024), the boom in open AI (Llama, Mistral, DeepSeek). Today, more than 90% of enterprise software contains at least one open source component.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Read the code</span><span>Modify it</span><span>Redistribute it</span><span>Not necessarily free</span><span>Not necessarily amateur</span>
+    <span>Read the code</span><span>Modify it</span><span>Redistribute it</span><span>Not necessarily free</span><span>Not necessarily amateur</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The legal contract</span>
+    <h2>The licenses you <em class="teal">need to know.</em></h2>
+    <p>
+      A license is the contract that says what you're allowed to do with the code. Not knowing how to read a license is like buying an apartment without reading the deed. Good news: there are only three families to understand.
+    </p>
+
+    <ul>
+      <li><strong>Permissive</strong> · "do whatever you want, just keep my name on it" → MIT, Apache 2.0, BSD</li>
+      <li><strong>Strong copyleft</strong> · "if you modify and redistribute, you have to publish your changes" → GPL, AGPL</li>
+      <li><strong>Weak copyleft</strong> · "copyleft only on my files, not on the product that uses them" → LGPL, MPL 2.0</li>
+    </ul>
+
+    <h3>If you want X, pick Y</h3>
+    <p>The table someone should have handed you straight away.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>You want...</th><th>Pick</th><th>Well-known examples</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Maximum adoption, code usable even inside closed proprietary software</td><td><strong>MIT</strong> or <strong>BSD</strong></td><td>React, Rails, Node.js, VS Code</td></tr>
+          <tr><td>Same, but with patent protection</td><td><strong>Apache 2.0</strong></td><td>Android, Kubernetes, TensorFlow, Mistral</td></tr>
+          <tr><td>To force anyone who modifies your code to publish their changes</td><td><strong>GPL v2</strong> or <strong>v3</strong></td><td>Linux, Git, WordPress, VLC</td></tr>
+          <tr><td>To force even online services (cloud, SaaS) to publish</td><td><strong>AGPL v3</strong></td><td>Mastodon, Nextcloud, Plausible</td></tr>
+          <tr><td>To ship a library usable in proprietary software without forcing everything to be freed</td><td><strong>LGPL</strong></td><td>FFmpeg, GTK, glibc</td></tr>
+          <tr><td>You're not sure</td><td><strong>choosealicense.com</strong></td><td>A GitHub site that asks you 3 questions and tells you what to pick</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <h4>Three false myths to break</h4>
+      <p><strong>Open source ≠ free of charge.</strong> Red Hat, bought by IBM for 34 billion, sells Linux. <strong>Open source ≠ amateur.</strong> 96% of the web runs on it. <strong>Open source ≠ nobody's responsible.</strong> Linux Foundation, Apache Foundation, Mozilla: tight governance, security audited by thousands of eyes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— The big question</span>
+    <h2>If it's free, how do <em class="orange">companies survive?</em></h2>
+    <p>
+      This is the first question that comes up, every single time. The one-sentence answer: <strong>the code is free, but everything around it isn't</strong>. Support, hosting, enterprise features, legal guarantees. Here are the three cases that prove it.
+    </p>
+
+    <div class="bignum-grid">
+      <div class="bignum">
+        <div class="label"><a href="https://www.redhat.com/" target="_blank" rel="noopener">Red Hat</a> · 1993</div>
+        <div class="num">$34B</div>
+        <div class="desc"><a href="https://www.reuters.com/article/business/ibm-closes-34-billion-deal-to-buy-red-hat-idUSKCN1UR0Y1/" target="_blank" rel="noopener">Bought by IBM in 2019</a>. The "services + support" model: Linux is free, but banks that want a phone number to call at 3 a.m. pay for a contract.</div>
+      </div>
+      <div class="bignum">
+        <div class="label"><a href="https://www.mongodb.com/" target="_blank" rel="noopener">MongoDB</a> · 2007</div>
+        <div class="num">$2B</div>
+        <div class="desc">Annual revenue. The database code is free, but 73% of revenue comes from <a href="https://www.mongodb.com/atlas" target="_blank" rel="noopener">Atlas</a>, their hosted service that handles backups, monitoring and security.</div>
+      </div>
+      <div class="bignum">
+        <div class="label"><a href="https://about.gitlab.com/" target="_blank" rel="noopener">GitLab</a> · 2011</div>
+        <div class="num">$750M</div>
+        <div class="desc">The "open core" model: a free Community edition (which covers a solo dev's needs), paid Premium and Ultimate editions for enterprise features.</div>
+      </div>
+    </div>
+
+    <h3>The five business models</h3>
+
+    <div class="model">
+      <div class="model-head">Model 01</div>
+      <div>
+        <h4>Services + support</h4>
+        <p>You give the code away for free and sell consulting, support and guarantees. <em>Reference: Red Hat, SUSE, Canonical (Ubuntu).</em></p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">Model 02</div>
+      <div>
+        <h4>Hosted SaaS</h4>
+        <p>The code is free, but the "turnkey" version that runs in the cloud with backups and auto-scaling, you pay for monthly. <em>Reference: MongoDB Atlas, Elastic Cloud, Confluent.</em></p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">Model 03</div>
+      <div>
+        <h4>Open core</h4>
+        <p>The community version is free. The features big companies need (directory sign-in, audit logs, advanced security) are paid. <em>Reference: GitLab, Sentry, Cal.com, Plausible.</em></p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">Model 04</div>
+      <div>
+        <h4>Dual license</h4>
+        <p>The code is under a viral license (GPL). If you want to embed it in your closed product without publishing your code, you pay for a commercial license. <em>Reference: the old MySQL, Qt.</em></p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">Model 05</div>
+      <div>
+        <h4>Sponsorship + donations</h4>
+        <p>The community voluntarily pays the maintainers through GitHub Sponsors or Open Collective. Works well for small projects, but never enough to build a real company. <em>Reference: Vue.js (Evan You), Sindre Sorhus.</em></p>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h4>The myth of the bearded volunteer in a sweater</h4>
+      <p>The romantic image of a contributor coding Linux on weekends for the sheer love of it is false. <strong>84% of Linux kernel commits in 2025 are <a href="https://www.linuxfoundation.org/research/world-of-open-source-2024" target="_blank" rel="noopener">made by full-time salaried employees at large companies</a></strong>: Intel, Google, Red Hat, IBM. Why? Because Intel needs Linux to support its processors perfectly, Google runs Android on it across three billion smartphones, and Red Hat sells support. Modern open source is shared industrial investment, not romantic volunteering. Governance is handled by the <a href="https://www.linuxfoundation.org/" target="_blank" rel="noopener">Linux Foundation</a>, the <a href="https://www.apache.org/" target="_blank" rel="noopener">Apache Software Foundation</a> and their equivalents.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— The drama of the year</span>
+    <h2>The 2024-2026 <em class="fuchsia">controversy.</em></h2>
+    <p>
+      Over the past three years, several big companies have changed the license of their flagship product overnight, to block Amazon Web Services and the other clouds that were reselling their software without contributing back. The immediate side effect: it's no longer open source. The community responded by creating copies under the old license, which we call "forks."
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>Date</th><th>Before → After</th><th>Reaction</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Elastic</strong></td><td>January 2021</td><td>Apache 2.0 → SSPL</td><td>AWS forks → <strong><a href="https://opensearch.org/" target="_blank" rel="noopener">OpenSearch</a></strong></td></tr>
+          <tr><td><strong><a href="https://www.hashicorp.com/blog/hashicorp-adopts-business-source-license" target="_blank" rel="noopener">HashiCorp Terraform</a></strong></td><td>August 2023</td><td>MPL → BSL</td><td>Linux Foundation forks → <strong><a href="https://opentofu.org/" target="_blank" rel="noopener">OpenTofu</a></strong></td></tr>
+          <tr><td><strong>Redis</strong></td><td>March 2024</td><td>BSD → SSPL</td><td>AWS, Google, Oracle fork → <strong><a href="https://valkey.io/" target="_blank" rel="noopener">Valkey</a></strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The founders' argument is always the same: "AWS takes our software, resells it as a managed service, makes hundreds of millions off it, and sends us nothing back. Without the pivot, we die." The opponents' argument: "You're hijacking the words 'open source' to sell a product that no longer is."
+    </p>
+    <p>
+      My personal take: both camps are right. But remember this: before you commit to a tool that's critical for your business, look at who controls the license. <strong>An independent foundation</strong> (Linux Foundation, Apache Software Foundation, Cloud Native Computing Foundation) = no pivot risk. <strong>A single company with shareholders</strong> = real risk.
+    </p>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>Mistral · Llama · DeepSeek</span><span>Three open models</span><span>You download them</span><span>You run them at home</span><span>Without sending your data</span>
+    <span>Mistral · Llama · DeepSeek</span><span>Three open models</span><span>You download them</span><span>You run them at home</span><span>Without sending your data</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— The 2026 angle</span>
+    <h2>Open source and AI: why <em class="teal">it changes everything.</em></h2>
+    <p>
+      You use ChatGPT, Claude, maybe Gemini. All closed: you can only use them through their website or their API, and your data always passes through their servers. But since 2024, another constellation has exploded in power: <strong>open models</strong>. You can download them and run them on your MacBook or PC, without sending a single byte of data to anyone.
+    </p>
+
+    <h3>Five open models worth knowing</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Model</th><th>Maker</th><th>License</th><th>Really open source?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Llama 4</strong></td><td>Meta</td><td>Llama Community License</td><td>No — commercial restrictions (anti-competition clause at 700M users)</td></tr>
+          <tr><td><strong>Mistral Small 4</strong></td><td><a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral AI</a> (France)</td><td>Apache 2.0</td><td>Freely open weights — usable commercially with no strings attached</td></tr>
+          <tr><td><strong>DeepSeek R1</strong></td><td>DeepSeek (China)</td><td>MIT</td><td>Freely open weights — the one that crashed the stock market</td></tr>
+          <tr><td><strong>Qwen 3</strong></td><td>Alibaba</td><td>Apache 2.0</td><td>Freely open weights — supports 119 languages</td></tr>
+          <tr><td><strong>OLMo 3</strong></td><td>Allen Institute (AI2)</td><td>Apache 2.0 + Dolma dataset</td><td><strong>Genuinely open source</strong> — weights + training code + data all published</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <h4>The DeepSeek moment</h4>
+      <p>On January 27, 2025, a nearly unknown Chinese company releases <a href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a> R1, a <a class="lex-link" href="/lexique/reasoning-model" title="Reasoning model — see the definition">reasoning model</a> comparable to OpenAI's GPT-o1. Announced training cost: <strong>5.6 million dollars</strong> instead of the usual hundreds of millions. Open source. The market rules on it the next day: <strong><a href="https://www.reuters.com/technology/chinas-deepseek-sets-off-ai-market-rout-2025-01-27/" target="_blank" rel="noopener">NVIDIA loses 589 billion in market cap in a single session</a></strong>, the biggest single-day loss for one company in all of financial history. The whole thesis that "you need billions and 30,000-dollar GPUs to do AI" collapses. If you want the full story of that day, I tell it in <a href="/en/articles/guerres-d-ia-podcast">episode 4 of my AI Wars podcast</a>.</p>
+    </div>
+
+    <h3>Why it changes everything for you</h3>
+    <p>Three concrete examples to make it click.</p>
+    <p>
+      <strong>You're a lawyer</strong> and you want an AI to analyze fifty client contracts. With ChatGPT, your documents go off to OpenAI and you breach attorney-client privilege. With Mistral installed locally via <a class="cross-link" href="/en/articles/llm-local-pour-non-dev" title="Local LLMs — read the article">Ollama</a>, the analysis happens on your own machine. Not a single byte leaves.
+    </p>
+    <p>
+      <strong>You're the CFO of a French SMB</strong>. IT won't approve ChatGPT for data-sovereignty reasons. Mistral, hosted in France, under the Apache 2.0 license, gives you clear guarantees.
+    </p>
+    <p>
+      <strong>You run an accounting firm</strong> and you want an AI that masters the French chart of accounts. With an open model, you can "fine-tune" it — feed it your own documents so it becomes an expert. With GPT-5, impossible.
+    </p>
+
+    <div class="quick">
+      <div class="label">To try this weekend · 5 minutes</div>
+      <h3>Run Mistral on your own machine</h3>
+      <p>Here's how to run a real AI model at home, no subscription, without sending out a single byte of data.</p>
+      <ol>
+        <li>Go to <code>ollama.com</code> and download the Mac, Windows or Linux version. Double-click the installer.</li>
+        <li>Open the Ollama app. In the bar, type <code>mistral</code> or <code>llama3</code>. The download takes five minutes the first time.</li>
+        <li>You end up with a chat interface just like ChatGPT. Except you can turn off your Wi-Fi and keep chatting. Magic.</li>
+      </ol>
+      <p>If you'd rather have a proper graphical interface, look at <strong>LM Studio</strong> (a clean, Discord-style interface) or <strong>Open WebUI</strong> (which mimics ChatGPT perfectly). With 16 GB of RAM (the standard on a modern MacBook), you can comfortably run Mistral 7B or Llama 3 8B. Quality comparable to GPT-3.5.</p>
+      <p style="margin-top:12px;">For the complete walkthrough — hardware choices, models, <a class="lex-link" href="/lexique/rag" title="RAG — see the definition">RAG</a>, cloud vs. local comparison, beginner traps — I've written the twin article to this one: <a href="/en/articles/llm-local-pour-non-dev">Run a real AI at home</a>. It's the natural next step when you want to go from "I download it in 5 min" to "I use it every day on my real documents."</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— Your toolbox</span>
+    <h2>Thirty tools <em class="orange">to try.</em></h2>
+    <p>
+      You don't need to code to enjoy open source. Most of these tools install in two clicks, like any regular app. Here's my pick, by category.
+    </p>
+
+    <h3>Office &amp; documents</h3>
+    <div class="outils">
+      <div class="outil"><h4>LibreOffice</h4><div class="lic">MPL 2.0 · 😊 easy</div><p>An alternative to Microsoft Office. Covers 95% of personal and small-business needs. Reads .docx, .xlsx and .pptx files natively.</p></div>
+      <div class="outil"><h4>Joplin</h4><div class="lic">MIT · 😊 easy</div><p>An alternative to Notion or Evernote. Encrypted Markdown notes synced across all your devices, without depending on a proprietary cloud.</p></div>
+      <div class="outil"><h4>OnlyOffice</h4><div class="lic">AGPL v3 · 😐 medium</div><p>Real-time collaboration on documents, without sending your files to Google. Excellent Microsoft compatibility.</p></div>
+      <div class="outil"><h4>CryptPad</h4><div class="lic">AGPL v3 · 😊 easy</div><p>Encrypted collaborative documents right in your browser. Nobody (not even CryptPad) can read what you write.</p></div>
+    </div>
+
+    <h3>Visual creation &amp; design</h3>
+    <div class="outils">
+      <div class="outil"><h4>GIMP</h4><div class="lic">GPL v3 · 😐 medium</div><p>An alternative to Photoshop. Photo retouching, compositing, cutouts. For 90% of amateur and freelance needs, it's plenty.</p></div>
+      <div class="outil"><h4>Inkscape</h4><div class="lic">GPL v2 · 😐 medium</div><p>An alternative to Illustrator. Logos, icons, vector illustrations. Native SVG format.</p></div>
+      <div class="outil"><h4>Krita</h4><div class="lic">GPL v3 · 😐 medium</div><p>Digital painting, illustration, comics. On a graphics tablet with a stylus, it's a real joy.</p></div>
+      <div class="outil"><h4>Penpot</h4><div class="lic">MPL 2.0 · 😐 medium</div><p>An alternative to Figma. Interface design (websites, apps). Penpot 2 supports CSS Grid natively.</p></div>
+    </div>
+
+    <h3>Audio &amp; video</h3>
+    <div class="outils">
+      <div class="outil"><h4>Audacity</h4><div class="lic">GPL v3 · 😊 easy</div><p>Record your voice for a podcast, clean up audio. The dated interface is a deliberate choice, but it's brutally effective.</p></div>
+      <div class="outil"><h4>OBS Studio</h4><div class="lic">GPL v2 · 😐 medium</div><p><a class="lex-link" href="/lexique/streaming" title="Streaming — see the definition">Streaming</a> to Twitch, YouTube, screen recording. The absolute standard among streamers.</p></div>
+      <div class="outil"><h4>Kdenlive</h4><div class="lic">GPL v2+ · 😐 medium</div><p>Video editing for YouTube or family use. Classic multi-track editing. Save often.</p></div>
+      <div class="outil"><h4>Shotcut</h4><div class="lic">GPL v3 · 😊 easy</div><p>An alternative to iMovie / Movie Maker. Simpler than Kdenlive, perfect to get started.</p></div>
+    </div>
+
+    <h3>Local generative AI</h3>
+    <div class="outils">
+      <div class="outil"><h4>Ollama</h4><div class="lic">MIT · 😊 easy</div><p>The tool that lets you run Mistral, Llama and DeepSeek locally on your own machine. Two-click install.</p></div>
+      <div class="outil"><h4>Mistral Small 4</h4><div class="lic">Apache 2.0 · via Ollama</div><p>A genuine open source license, a French model. Excellent on 16 GB of RAM.</p></div>
+      <div class="outil"><h4>FLUX.1 schnell</h4><div class="lic">Apache 2.0 · 😰 technical</div><p>Local image generation, an alternative to Midjourney. Needs a decent graphics card.</p></div>
+      <div class="outil"><h4>Whisper</h4><div class="lic">MIT · 😐 medium</div><p>Multilingual audio transcription (99 languages). The standard that a lot of paid tools use behind the scenes.</p></div>
+    </div>
+
+    <h3>Communication &amp; collaboration</h3>
+    <div class="outils">
+      <div class="outil"><h4>Mattermost</h4><div class="lic">MIT · 😐 medium</div><p>An alternative to Slack. Very similar interface, painless switch.</p></div>
+      <div class="outil"><h4>Jitsi Meet</h4><div class="lic">Apache 2.0 · 😊 easy</div><p>Quick video calls with 2-15 people, no account needed. Shareable link, instantly.</p></div>
+      <div class="outil"><h4>Element (Matrix)</h4><div class="lic">AGPL v3 · 😊 easy</div><p>Encrypted, federated messaging. Like email, your server can talk to another one.</p></div>
+      <div class="outil"><h4>Nextcloud</h4><div class="lic">AGPL v3 · 😐 medium</div><p>A complete collaboration suite: files, calendar, contacts, video. The open source Swiss Army knife.</p></div>
+    </div>
+
+    <h3>Productivity &amp; browsing</h3>
+    <div class="outils">
+      <div class="outil"><h4>Bitwarden</h4><div class="lic">GPL v3 · 😊 easy</div><p>A free password manager that works everywhere. If you're not using one yet, drop everything and install this today.</p></div>
+      <div class="outil"><h4>Firefox</h4><div class="lic">MPL 2.0 · 😊 easy</div><p>The only mainstream browser still genuinely independent of Google and Apple. Excellent privacy handling.</p></div>
+      <div class="outil"><h4>VS Code</h4><div class="lic">MIT · 😊 easy</div><p>An excellent, powerful text editor, even for Markdown or config files. Better than TextEdit.</p></div>
+      <div class="outil"><h4>Plausible</h4><div class="lic">AGPL v3 · 😐 medium</div><p>An alternative to Google Analytics. No GDPR cookie banner, no data sent to Google.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <h4>Top 5 to try first if you're just starting</h4>
+      <p><strong>Bitwarden</strong> (instant security, zero friction) → <strong>Firefox</strong> (one click, you replace Chrome without losing anything) → <strong>LibreOffice</strong> (95% of personal office needs) → <strong>Joplin</strong> (simple notes, your data stays yours) → <strong>Audacity</strong> (perfect for discovering open source hands-on).</p>
+    </div>
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true">
+  <div class="mini-marquee-track">
+    <span>5 minutes a day</span><span>Hacker News</span><span>Korben.info</span><span>Console.dev</span><span>No more, no less</span>
+    <span>5 minutes a day</span><span>Hacker News</span><span>Korben.info</span><span>Console.dev</span><span>No more, no less</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Stay current</span>
+    <h2>How to keep <em class="fuchsia">an eye on it.</em></h2>
+    <p>
+      The mistake beginners make is trying to follow everything. Unsustainable. The right approach: five minutes a day, thirty minutes a week, and sources that do the filtering for you.
+    </p>
+
+    <h3>Three go-to sources</h3>
+
+    <div class="model">
+      <div class="model-head">FR</div>
+      <div>
+        <h4>Korben.info</h4>
+        <p>The go-to for tech explainers in French. Korben tests the tools, explains what's at stake, and simplifies without being condescending. If an open source tool is worth attention in France, he writes about it.</p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">INTL</div>
+      <div>
+        <h4>Hacker News</h4>
+        <p>The absolute reference. A homepage updated continuously, an ultra-responsive community of devs and founders. Every open source tool that gains traction shows up there. Address: <code>news.ycombinator.com</code>.</p>
+      </div>
+    </div>
+    <div class="model">
+      <div class="model-head">EMAIL</div>
+      <div>
+        <h4>Console.dev</h4>
+        <p>A weekly newsletter dedicated to open source dev tools. Ultra-curated, never any noise. Ideal if you want the pick delivered to you without having to scroll.</p>
+      </div>
+    </div>
+
+    <p>
+      To automate it, add an "Open Source" folder in <strong>Feedly</strong> (free) with your RSS feeds. You open it five minutes a day, mark things as read, and save one or two articles to dig into over the weekend. That's it.
+    </p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-orange">— To avoid at all costs</span>
+    <h2>The five <em class="orange">major traps.</em></h2>
+
+    <div class="piege">
+      <div class="piege-icon">⚠️</div>
+      <div class="piege-body">
+        <h4>Trap 1 — License contamination (the GPL trap)</h4>
+        <p>If you embed GPL-licensed code in your closed proprietary product, you MUST publish your entire source code under the GPL. Not a part. All of it. Plenty of startups learned this the hard way. Fix: check the license of every dependency before you install it.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">💀</div>
+      <div class="piege-body">
+        <h4>Trap 2 — The project that dies (or that the maintainer sabotages)</h4>
+        <p>In January 2022, the maintainer of <code>colors.js</code> (pulled in by projects with 3.3 billion downloads) deliberately broke his own code, tired of maintaining it for free. Thousands of production apps went down overnight. What to anticipate: date of the last commit, number of active contributors, visible sponsors.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🔄</div>
+      <div class="piege-body">
+        <h4>Trap 3 — The unilateral license change</h4>
+        <p>HashiCorp Terraform, Redis and Elastic all changed their license overnight between 2021 and 2024. You were using something open source, and you end up with something that no longer is. Spot the risk upstream: who controls the license? A foundation = safe. A single company with shareholders = risk.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🎭</div>
+      <div class="piege-body">
+        <h4>Trap 4 — The "free" that isn't open source</h4>
+        <p>DaVinci Resolve, Discord, Notion, Skype, Zoom: all free, all proprietary. You can use them, but you have no rights over the code, no visibility, no guarantee. The day the vendor changes its mind (acquisition, pivot, bankruptcy), you lose everything.</p>
+      </div>
+    </div>
+
+    <div class="piege">
+      <div class="piege-icon">🤖</div>
+      <div class="piege-body">
+        <h4>Trap 5 — Fake open source in AI ("open weights")</h4>
+        <p>Llama and Mistral are consistently presented as open source. Llama isn't (a restrictive license with an anti-competition clause). Mistral is on its small models (Apache 2.0), but not on the big ones. Read the license before you invest dev time in a model.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-teal">— Before you click install</span>
+    <h2>Security: vet it <em class="teal">first.</em></h2>
+    <p>
+      Supply-chain attacks on open source are real. Three recent episodes that should serve as a lesson.
+    </p>
+
+    <p>
+      <strong>Log4Shell (December 2021)</strong>: a maximum-severity flaw in Log4j, a library used everywhere in the world. It let anyone execute code remotely on any vulnerable server. It had been sitting there silently since 2013.
+    </p>
+    <p>
+      <strong>XZ Utils (March 2024)</strong>: the most chilling attack of recent history. An attacker spent more than two years honestly contributing to a compression utility used by every Linux distribution. He earned trust, became a co-maintainer, then slipped in a backdoor. <a href="https://www.openwall.com/lists/oss-security/2024/03/29/4" target="_blank" rel="noopener">Caught by chance by a Microsoft engineer (Andres Freund)</a> who'd noticed his SSH connections were taking 500 ms instead of 100 ms.
+    </p>
+    <p>
+      <strong>Polyfill.io (June 2024)</strong>: a JavaScript service used on 100,000 sites is bought by a malicious actor. Starting in June, <a href="https://sansec.io/research/polyfill-supply-chain-attack" target="_blank" rel="noopener">the service injects malicious code that redirects mobile visitors to scam sites</a>.
+    </p>
+
+    <div class="checklist">
+      <h4>Checklist to vet a tool before installing</h4>
+      <ul>
+        <li><strong>License recognized by the OSI</strong>: MIT, Apache 2.0, BSD, MPL = fine for most uses. AGPL, SSPL, BSL = read the license first.</li>
+        <li><strong>Active official repo</strong>: recent commits (last month at most), issues that get replies.</li>
+        <li><strong>Identifiable maintainers</strong>: real profiles with a track record, not anonymous handles created last week.</li>
+        <li><strong>Visible sponsors</strong>: GitHub Sponsors, Open Collective, or a recognized foundation (Linux Foundation, Apache).</li>
+        <li><strong>More than 100 stars and forks</strong>: a sign of real use by the community.</li>
+        <li><strong>No unpatched CVEs</strong>: search on <code>cve.mitre.org</code>.</li>
+      </ul>
+    </div>
+
+    <div class="callout ok">
+      <h4>The free tool to turn on right now</h4>
+      <p><strong>GitHub Dependabot</strong> on your GitHub repos. Go to Settings → Security → Dependabot alerts. It's free, automatic, and it emails you every time a vulnerability is found in your dependencies. One click, and weeks of pain avoided.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— Going further</span>
+    <h2>If you want to <em class="fuchsia">start today.</em></h2>
+    <p>
+      The open source ecosystem in 2026 is mature, varied, accessible. You can replace 80% of your proprietary stack without losing any quality, just by investing a little learning time. The worst that can happen when you try: you uninstall it. The best: you save €200 a year in subscriptions and you take back control of your data.
+    </p>
+
+    <p>My three concrete suggestions to get started:</p>
+
+    <ol>
+      <li><strong>Install Bitwarden tonight.</strong> If you're not using a password manager yet, that's your one real cyber risk. Bitwarden is free, works everywhere, and you'll be set up in fifteen minutes.</li>
+      <li><strong>Try Mistral via Ollama this weekend.</strong> Download, install, first <a class="lex-link" href="/lexique/prompt-engineering" title="Prompt engineering — see the definition">prompt</a>: thirty minutes tops. You'll see with your own eyes that a powerful AI can run on your machine with no subscription.</li>
+      <li><strong>Sign up for Console.dev.</strong> A weekly newsletter dedicated to open source tools. Five minutes of reading, zero ads, and the end of the fear of missing out.</li>
+    </ol>
+
+    <p>
+      If you want me to send you more guides like this (on AI, open source, the tools I test), <a href="/en#newsletters">sign up for AI Playbook</a> — it's my weekly curation, I share exactly the same thing I keep for myself. And if you have a question, a comment, or you think I've got something wrong in this article, <a href="mailto:sagnier.jeremy@gmail.com">write to me</a>. I read everything, and I don't take it badly.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container">
+    <span class="section-kicker k-fuchsia">— FAQ</span>
+    <h2>Open source <em class="fuchsia">FAQ.</em></h2>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What is open source, really?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Open source is computer code you're allowed to read, modify and redistribute. To earn the label, a piece of software has to tick ten precise criteria set by the Open Source Initiative (OSI), a reference non-profit founded in 1998. Without those ten criteria, it's no longer open source, it's something else.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Does open source mean free of charge?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">No. Open source does not mean free of charge. Red Hat, bought by IBM for 34 billion dollars in 2019, sells Linux. The code is free, but support, hosting, enterprise features and legal guarantees all cost money.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Which open source tools should I try first?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">My top 5 to get started: <strong>Bitwarden</strong> (password manager, instant security), <strong>Firefox</strong> (a browser that's independent of Google), <strong>LibreOffice</strong> (95% of personal office needs), <strong>Joplin</strong> (encrypted Markdown notes) and <strong>Audacity</strong> (audio editing). No credit card, two-click install.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do companies make a living giving software away for free?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Five main business models: paid services and support (Red Hat), turnkey hosted SaaS (MongoDB Atlas generates 73% of revenue), open core with paid enterprise features (GitLab), commercial dual licensing (the old MySQL, Qt) and sponsorship via GitHub Sponsors. The code is free, but everything around it isn't.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the difference between open source and open weights?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Open source in the strict sense means source code plus data plus the right to modify and redistribute. Open weights is AI-specific: you can download the model's parameters, but not the data used to train it. That's not really open source in the OSI sense. Llama and Mistral are open weights, while OLMo 3 from the Allen Institute is genuinely open source.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Are the Mistral and Llama AI models really free and open?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Mistral Small 4 is under the Apache 2.0 license, genuinely free for commercial use. Llama 4 isn't: its Llama Community License includes an anti-competition clause at 700 million users, and the OSI ruled in 2024 that it isn't open source. Read the license before you invest dev time in a model.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What traps should I avoid with open source?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Five major traps: GPL contamination that forces you to publish your proprietary code, the abandoned project or one sabotaged by its maintainer (the <strong>colors.js</strong> case in 2022), the unilateral license change (Elastic, Redis, HashiCorp), the free-but-not-open-source trap (Discord, Notion, Zoom) and fake open source in AI (open weights sold as if it were free and open).</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">How do I vet an open source tool before installing it?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Six things to check: a license recognized by the OSI (MIT, Apache 2.0, BSD, MPL), an active official repo with recent commits, identifiable maintainers with a track record, visible sponsors (GitHub Sponsors, a recognized foundation), at least 100 stars and forks, and zero unpatched CVE on <code>cve.mitre.org</code>. Also turn on <strong>GitHub Dependabot</strong> for your repos.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">What's the Elasticsearch, Redis and HashiCorp drama?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">Between 2021 and 2024, these three vendors changed the license of their flagship product overnight to block Amazon Web Services. Elastic went from Apache 2.0 to SSPL in 2021, HashiCorp Terraform from MPL to BSL in 2023, Redis from BSD to SSPL in 2024. The community responded by creating forks under the old license: <strong>OpenSearch, OpenTofu, Valkey</strong>.</p>
+    </details>
+
+    <details style="margin-bottom:14px; padding:18px 22px; background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;">
+      <summary style="cursor:pointer; font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-.01em; color:var(--ink);">Why did DeepSeek crash NVIDIA?</summary>
+      <p style="margin-top:14px; font-size:15.5px; line-height:1.65;">On January 27, 2025, the Chinese company DeepSeek released R1, an open source reasoning model comparable to OpenAI's GPT-o1, trained for 5.6 million dollars instead of the usual hundreds of millions. The next day, <strong>NVIDIA lost 589 billion in market cap</strong> in a single session, the biggest single-day loss for one company in financial history. The thesis that "you need billions and 30,000-dollar GPUs to do AI" collapsed.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and I share what works, no jargon and no hype. If this article helped you, the simplest way to not miss anything is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually</em> test.</h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/articles">All the articles</a></li>
+          <li><a href="/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Products &amp; tools</h5>
+        <ul>
+          <li><a href="/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:jeremy.sagnier@jerwis.fr">Email</a></li>
+          <li><a href="/en#newsletters">Newsletters</a></li>
+          <li><a href="/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script>
+  // Theme toggle v2
+  (function initThemeV2() {
+    const toggle = document.getElementById('themeToggleV2');
+    if (!toggle) return;
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+
+<script src="/assets/nav-v2.js" defer></script>
+<!-- Sommaire sticky + bouton back-to-top (auto-généré depuis les H2) -->
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+
+<script src="/assets/nav-dropdown.js?v=20260520-dropdown" defer></script>
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

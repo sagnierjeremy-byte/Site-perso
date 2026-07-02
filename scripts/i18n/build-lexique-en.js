@@ -21,6 +21,7 @@ const ROOT = resolve(new URL("../..", import.meta.url).pathname);
 const SITE_URL = "https://jerwis.fr";
 const TODAY = "2026-05-22";
 const DATA_PATH = join(ROOT, "data", "lexique-en.json");
+const MODELS_PATH = join(ROOT, "data", "lexique-models-en.json");
 const HUB_PATH = join(ROOT, "en", "lexique.html");
 const OUT_DIR = join(ROOT, "en", "lexique");
 const HUB_START = "<!-- LEXIQUE_AZ_GENERATED_START -->";
@@ -492,19 +493,43 @@ async function writeTermPages(data) {
   return pageTerms;
 }
 
+// Fiches modèles IA (pages dédiées hand-made hors lexique.json) : incluses dans
+// l'A-Z + express du hub (badge "Detailed page", lien vers la fiche), mais PAS
+// générées par writeTermPages (elles existent déjà, traduites).
+async function loadModels() {
+  try {
+    const models = JSON.parse(await readFile(MODELS_PATH, "utf8"));
+    return models.map((m) => ({
+      slug: m.slug,
+      title: m.title,
+      summary: m.summary,
+      category: "AI model",
+      where: "",
+      aliases: [],
+      page: true, // → badge "Detailed page" + hubHref lexique/<slug>.html
+      groups: m.groups || [],
+    }));
+  } catch {
+    return [];
+  }
+}
+
 async function main() {
   const checkOnly = process.argv.includes("--check");
   const data = JSON.parse(await readFile(DATA_PATH, "utf8"));
   validate(data);
   const pageTerms = data.terms.filter((term) => term.page);
+  const modelTerms = await loadModels();
+  // Liste pour le HUB (A-Z + express + schema) = termes du glossaire + fiches modèles
+  const hubData = { ...data, terms: [...data.terms, ...modelTerms] };
 
   let hubDone = false;
   if (!checkOnly) {
-    await writeTermPages(data);
-    hubDone = await updateHub(data);
+    await writeTermPages(data); // fiches : uniquement les termes page:true du glossaire
+    hubDone = await updateHub(hubData); // hub : glossaire + modèles
   }
 
-  console.log(`Lexique EN OK · ${data.terms.length} termes · ${pageTerms.length} pages dédiées · hub ${hubDone ? "généré" : "en attente de shell"}${checkOnly ? " · check only" : ""}`);
+  console.log(`Lexique EN OK · ${data.terms.length} termes + ${modelTerms.length} modèles · ${pageTerms.length} fiches générées · hub ${hubDone ? "généré" : "en attente de shell"}${checkOnly ? " · check only" : ""}`);
 }
 
 main().catch((error) => {

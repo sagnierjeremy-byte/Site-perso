@@ -4113,7 +4113,7 @@
     border-color: var(--teal);
   }
   .op-share.copied::after {
-    content: "Copié !";
+    content: "Copied!";
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
@@ -8941,7 +8941,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     try {
       await navigator.clipboard.writeText(url);
       const original = btn.querySelector('.share-label').textContent;
-      btn.querySelector('.share-label').textContent = 'Copié !';
+      btn.querySelector('.share-label').textContent = 'Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.querySelector('.share-label').textContent = original;
@@ -9086,10 +9086,10 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
             body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          btn.textContent = '✓ Merci';
+          btn.textContent = '✓ Thanks';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
         } catch (err) {
-          btn.textContent = '× Erreur';
+          btn.textContent = '× Error';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
         }
       });
@@ -9176,7 +9176,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         group.hidden = !hasVisibleRow;
       });
 
-      if (count) count.textContent = visible + ' visible' + (visible > 1 ? 's' : '');
+      if (count) count.textContent = visible + ' visible';
       if (empty) empty.classList.toggle('is-visible', visible === 0);
       filterButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.lexFilter === activeFilter));
       filterButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.lexFilter === activeFilter)));
@@ -9297,7 +9297,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
       try {
         await navigator.clipboard.writeText(target.innerText);
         const original = btn.textContent;
-        btn.textContent = 'Copié ✓';
+        btn.textContent = 'Copied ✓';
         btn.classList.add('ok');
         setTimeout(() => {
           btn.textContent = original;
@@ -9343,14 +9343,14 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         const data = await res.json();
         if (status) {
           status.textContent = data.alreadySubscribed
-            ? '✓ Déjà inscrit. Merci !'
-            : '✓ Inscrit ! Rendez-vous vendredi matin dans ta boîte.';
+            ? '✓ Already subscribed. Thanks!'
+            : '✓ Subscribed! See you Friday morning in your inbox.';
           status.className = 'form-status ok';
         }
         form.reset();
       } catch (err) {
         if (status) {
-          status.textContent = '× Erreur · Réessaye ou écris-moi';
+          status.textContent = '× Error · Try again or email me';
           status.className = 'form-status err';
         }
       }
@@ -9384,7 +9384,7 @@ document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').for
       const label = btn.querySelector('.share-label');
       if (label) {
         const original = label.textContent;
-        label.textContent = 'Copié ! (colle dans IG)';
+        label.textContent = 'Copied! (paste in IG)';
         btn.classList.add('copied');
         setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
       } else {

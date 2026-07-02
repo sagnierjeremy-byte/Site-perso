@@ -11,6 +11,12 @@
 (function () {
   if (typeof window === 'undefined') return;
 
+  // Libellés lang-aware (page EN sous /en/ → <html lang="en">)
+  var isEN = document.documentElement.lang === 'en';
+  var TOC_OPEN = isEN ? 'Open the contents' : 'Ouvrir le sommaire';
+  var TOC_LABEL = isEN ? 'Contents' : 'Sommaire';
+  var TOC_CLOSE = isEN ? 'Close the contents' : 'Fermer le sommaire';
+
   // ------------ helpers ------------
 
   function slugify(str) {
@@ -154,8 +160,8 @@
     const fab = document.createElement('button');
     fab.className = 'article-toc-fab is-ready';
     fab.type = 'button';
-    fab.setAttribute('aria-label', 'Ouvrir le sommaire');
-    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Sommaire</span>';
+    fab.setAttribute('aria-label', TOC_OPEN);
+    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>' + TOC_LABEL + '</span>';
 
     // Drawer (bottom sheet)
     const drawer = document.createElement('div');
@@ -163,11 +169,11 @@
     drawer.setAttribute('aria-hidden', 'true');
     drawer.innerHTML = `
       <div class="article-toc-drawer-backdrop" data-toc-close></div>
-      <div class="article-toc-drawer-panel" role="dialog" aria-label="Sommaire">
+      <div class="article-toc-drawer-panel" role="dialog" aria-label="${TOC_LABEL}">
         <div class="article-toc-drawer-grab" aria-hidden="true"></div>
         <div class="article-toc-drawer-header">
-          <div class="article-toc-label">Sommaire</div>
-          <button class="article-toc-drawer-close" type="button" aria-label="Fermer le sommaire" data-toc-close>
+          <div class="article-toc-label">${TOC_LABEL}</div>
+          <button class="article-toc-drawer-close" type="button" aria-label="${TOC_CLOSE}" data-toc-close>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>

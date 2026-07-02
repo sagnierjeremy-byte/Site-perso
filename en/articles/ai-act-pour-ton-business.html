@@ -786,10 +786,10 @@
             body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          btn.textContent = '✓ Merci';
+          btn.textContent = '✓ Thanks';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
         } catch (err) {
-          btn.textContent = '× Erreur';
+          btn.textContent = '× Error';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
         }
       });

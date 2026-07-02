@@ -35,8 +35,8 @@
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Vidéos · les chaînes YouTube que je suis",
-  "description": "12 chaînes YouTube curées · IA et business · sélection serrée. Fil mis à jour automatiquement toutes les heures.",
+  "name": "Videos · the YouTube channels I follow",
+  "description": "12 curated YouTube channels · AI and business · a tight selection. Feed updated automatically every hour.",
   "url": "https://jerwis.fr/en/videos",
   "isPartOf": {
     "@type": "WebSite",
@@ -51,7 +51,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://jerwis.fr/en/" },
-    { "@type": "ListItem", "position": 2, "name": "Vidéos", "item": "https://jerwis.fr/en/videos" }
+    { "@type": "ListItem", "position": 2, "name": "Videos", "item": "https://jerwis.fr/en/videos" }
   ]
 }
 </script>
@@ -384,10 +384,10 @@
             body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          btn.textContent = '✓ Merci';
+          btn.textContent = '✓ Thanks';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
         } catch (err) {
-          btn.textContent = '× Erreur';
+          btn.textContent = '× Error';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
         }
       });

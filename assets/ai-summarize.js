@@ -25,12 +25,33 @@
     const articleUrl = canonical ? canonical.href : window.location.href;
     const title = document.title.replace(/ — par Jérémy Sagnier$/, '').trim();
 
-    // Construit le prompt
-    const prompt = 'Résume-moi cet article en 5 points clés, en français : ' + articleUrl;
-    const promptLong =
-      'Résume-moi cet article en 5 points clés, en français.\n' +
-      'Article : ' + articleUrl + '\n' +
-      (title ? 'Titre : ' + title : '');
+    // Libellés lang-aware (page EN sous /en/ → <html lang="en">)
+    const isEN = document.documentElement.lang === 'en';
+    const T = isEN ? {
+      aria: 'Ask an AI to summarize this article',
+      label: 'Too long? Ask an AI to summarize it for you:',
+      more: 'Other AIs',
+      claude: 'Copy &amp; open Claude', gemini: 'Copy &amp; open Gemini', mistral: 'Copy &amp; open Le Chat',
+      copilot: 'Copy &amp; open Copilot', copyOnly: 'Copy the prompt only',
+      hint: "The prompt is copied to your clipboard. Paste it into the AI's chat bar.",
+    } : {
+      aria: 'Demande à une IA de résumer cet article',
+      label: 'Trop long ? Demande à une IA de te le résumer :',
+      more: 'Autres IA',
+      claude: 'Copier &amp; ouvrir Claude', gemini: 'Copier &amp; ouvrir Gemini', mistral: 'Copier &amp; ouvrir Le Chat',
+      copilot: 'Copier &amp; ouvrir Copilot', copyOnly: 'Copier le prompt seul',
+      hint: "Le prompt est copié dans ton presse-papier. Colle-le dans la barre de chat de l'IA.",
+    };
+
+    // Construit le prompt (dans la langue de la page)
+    const prompt = (isEN
+      ? 'Summarize this article for me in 5 key points, in English: '
+      : 'Résume-moi cet article en 5 points clés, en français : ') + articleUrl;
+    const promptLong = isEN
+      ? 'Summarize this article for me in 5 key points, in English.\n' +
+        'Article: ' + articleUrl + '\n' + (title ? 'Title: ' + title : '')
+      : 'Résume-moi cet article en 5 points clés, en français.\n' +
+        'Article : ' + articleUrl + '\n' + (title ? 'Titre : ' + title : '');
 
     // SVGs des logos IA (monochrome, héritent currentColor)
     const SVG = {
@@ -46,9 +67,9 @@
 
     const bar = document.createElement('aside');
     bar.className = 'ai-summarize';
-    bar.setAttribute('aria-label', 'Demande à une IA de résumer cet article');
+    bar.setAttribute('aria-label', T.aria);
     bar.innerHTML = `
-      <div class="ai-summarize-label">Trop long ? Demande à une IA de te le résumer :</div>
+      <div class="ai-summarize-label">${T.label}</div>
       <div class="ai-summarize-actions">
         <a class="ai-summarize-btn" data-ai="perplexity" target="_blank" rel="noopener noreferrer"
            href="https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}">
@@ -60,15 +81,15 @@
         </a>
         <div class="ai-summarize-more">
           <button type="button" class="ai-summarize-btn" data-ai="more" aria-haspopup="true" aria-expanded="false">
-            ${SVG.copy}<span>Autres IA</span>
+            ${SVG.copy}<span>${T.more}</span>
           </button>
           <div class="ai-summarize-menu" role="menu">
-            <button type="button" data-ai="claude">${SVG.claude}<span>Copier &amp; ouvrir Claude</span></button>
-            <button type="button" data-ai="gemini">${SVG.gemini}<span>Copier &amp; ouvrir Gemini</span></button>
-            <button type="button" data-ai="mistral">${SVG.mistral}<span>Copier &amp; ouvrir Le Chat</span></button>
-            <button type="button" data-ai="copilot">${SVG.copilot}<span>Copier &amp; ouvrir Copilot</span></button>
-            <button type="button" data-ai="just-copy">${SVG.copy}<span>Copier le prompt seul</span></button>
-            <div class="ai-summarize-menu-hint">Le prompt est copié dans ton presse-papier. Colle-le dans la barre de chat de l'IA.</div>
+            <button type="button" data-ai="claude">${SVG.claude}<span>${T.claude}</span></button>
+            <button type="button" data-ai="gemini">${SVG.gemini}<span>${T.gemini}</span></button>
+            <button type="button" data-ai="mistral">${SVG.mistral}<span>${T.mistral}</span></button>
+            <button type="button" data-ai="copilot">${SVG.copilot}<span>${T.copilot}</span></button>
+            <button type="button" data-ai="just-copy">${SVG.copy}<span>${T.copyOnly}</span></button>
+            <div class="ai-summarize-menu-hint">${T.hint}</div>
           </div>
         </div>
       </div>
@@ -121,7 +142,9 @@
       btn.addEventListener('click', async () => {
         const ai = btn.getAttribute('data-ai');
         const ok = await copyToClipboard(promptLong);
-        showToast(ok ? 'Prompt copié — colle-le dans le chat' : 'Copie manuelle nécessaire');
+        showToast(document.documentElement.lang === 'en'
+          ? (ok ? 'Prompt copied — paste it in the chat' : 'Manual copy needed')
+          : (ok ? 'Prompt copié — colle-le dans le chat' : 'Copie manuelle nécessaire'));
         if (ai !== 'just-copy' && targets[ai]) {
           window.open(targets[ai], '_blank', 'noopener,noreferrer');
         }

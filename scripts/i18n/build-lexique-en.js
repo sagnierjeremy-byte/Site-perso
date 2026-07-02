@@ -313,13 +313,13 @@ function renderTermPage(term, allTerms) {
 <meta name="twitter:description" content="${escapeAttr(description)}">
 <meta name="twitter:image" content="${SITE_URL}/photos/og-jerwis.jpg">
 <link rel="canonical" href="${escapeAttr(canonical)}">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="icon" href="../favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="manifest" href="../site.webmanifest">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0A0A0A">
-<link rel="stylesheet" href="../assets/fonts.css">
-<link rel="stylesheet" href="../assets/lexique-pages.css">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/lexique-pages.css">
 <script type="application/ld+json">
 ${JSON.stringify(definedTerm, null, 2)}
 </script>

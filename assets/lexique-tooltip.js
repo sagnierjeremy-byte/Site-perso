@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var LEX_BASE = {
+  var LEX_FR = {
     'llm': { label: 'LLM', def: 'Un modèle qui a digéré beaucoup de texte et répond comme un assistant cultivé.' },
     'modèle': { label: 'Modèle', def: 'Le cerveau IA derrière ChatGPT, Claude, Gemini. Tu lui parles, il répond.' },
     'prompt': { label: 'Prompt', def: 'La demande que tu écris au modèle. Précise = bonne réponse, vague = mou.' },
@@ -21,6 +21,27 @@
     'workflow': { label: 'Workflow', def: 'Une recette fixe d’étapes IA prédéfinies. Plus fiable qu’un agent autonome.' },
     'chunk': { label: 'Chunk', def: 'Un morceau de document découpé pour que le modèle puisse l’avaler.' }
   };
+
+  var LEX_EN = {
+    'llm': { label: 'LLM', def: 'A model that has digested tons of text and answers like a well-read assistant.' },
+    'model': { label: 'Model', def: 'The AI brain behind ChatGPT, Claude, Gemini. You talk to it, it answers.' },
+    'prompt': { label: 'Prompt', def: 'The request you write to the model. Specific = good answer, vague = mushy.' },
+    'token': { label: 'Token', def: 'A chunk of a word (~3-4 characters). Everything is billed and measured in tokens.' },
+    'context': { label: 'Context', def: 'The model’s working memory during the current conversation.' },
+    'hallucination': { label: 'Hallucination', def: 'When the model confidently makes up a wrong answer. The #1 risk.' },
+    'embedding': { label: 'Embedding', def: 'The digital fingerprint of a text’s meaning. Lets you compare two ideas.' },
+    'vector': { label: 'Vector', def: 'A smart filing cabinet that sorts your documents by meaning, not alphabetically.' },
+    'rag': { label: 'RAG', def: 'The assistant that checks your archives before answering. The fix for hallucinations.' },
+    'agent': { label: 'Agent', def: 'An autonomous model that chains steps on its own, like an intern with a mission.' },
+    'mcp': { label: 'MCP', def: 'A universal jack to plug any tool into the model.' },
+    'workflow': { label: 'Workflow', def: 'A fixed recipe of predefined AI steps. More reliable than an autonomous agent.' },
+    'chunk': { label: 'Chunk', def: 'A piece of a document, cut up so the model can swallow it.' }
+  };
+
+  // Sélectionne le jeu selon la langue de la page (EN sous /en/ → <html lang="en">)
+  var isEN = document.documentElement.lang === 'en';
+  var LEX_BASE = isEN ? LEX_EN : LEX_FR;
+  var ARIA_SUFFIX = isEN ? ' — definition' : ' — définition';
 
   var TERMS = Object.keys(LEX_BASE);
   // Regex insensible à la casse, word boundaries Unicode-safe
@@ -62,7 +83,7 @@
     span.className = 'lex-tooltip';
     span.setAttribute('tabindex', '0');
     span.setAttribute('role', 'button');
-    span.setAttribute('aria-label', matched + ' — définition');
+    span.setAttribute('aria-label', matched + ARIA_SUFFIX);
     span.dataset.lexKey = key;
     span.textContent = matched;
 

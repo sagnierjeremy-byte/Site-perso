@@ -70,13 +70,20 @@
     var el = document.createElement("div");
     el.id = "jerwis-cookie-banner";
     el.setAttribute("role", "dialog");
-    el.setAttribute("aria-label", "Préférences cookies");
-    el.innerHTML =
-      '<p><strong>Cookies marketing</strong> · jerwis.fr utilise un pixel Meta pour mesurer l\'efficacité des pubs Facebook/Instagram. Tu peux refuser — ça ne change rien à ton expérience. <a href="/politique-confidentialite#cookies-traceurs">Détails</a>.</p>' +
-      '<div class="actions">' +
-      '<button class="decline" type="button">Refuser</button>' +
-      '<button class="accept" type="button">Accepter</button>' +
-      "</div>";
+    var isEN = document.documentElement.lang === "en";
+    var privacyUrl = (isEN ? "/en/politique-confidentialite" : "/politique-confidentialite") + "#cookies-traceurs";
+    el.setAttribute("aria-label", isEN ? "Cookie preferences" : "Préférences cookies");
+    el.innerHTML = isEN
+      ? '<p><strong>Marketing cookies</strong> · jerwis.fr uses a Meta pixel to measure how well Facebook/Instagram ads perform. You can decline — it won\'t change your experience. <a href="' + privacyUrl + '">Details</a>.</p>' +
+        '<div class="actions">' +
+        '<button class="decline" type="button">Decline</button>' +
+        '<button class="accept" type="button">Accept</button>' +
+        "</div>"
+      : '<p><strong>Cookies marketing</strong> · jerwis.fr utilise un pixel Meta pour mesurer l\'efficacité des pubs Facebook/Instagram. Tu peux refuser — ça ne change rien à ton expérience. <a href="' + privacyUrl + '">Détails</a>.</p>' +
+        '<div class="actions">' +
+        '<button class="decline" type="button">Refuser</button>' +
+        '<button class="accept" type="button">Accepter</button>' +
+        "</div>";
     document.body.appendChild(el);
 
     el.querySelector(".accept").addEventListener("click", function () {

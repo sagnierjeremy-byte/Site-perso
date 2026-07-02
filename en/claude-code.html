@@ -1284,7 +1284,7 @@
     border-color: var(--teal);
   }
   .op-share.copied::after {
-    content: "Copié !";
+    content: "Copied!";
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
@@ -2791,7 +2791,7 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
     try {
       await navigator.clipboard.writeText(url);
       const original = btn.querySelector('.share-label').textContent;
-      btn.querySelector('.share-label').textContent = 'Copié !';
+      btn.querySelector('.share-label').textContent = 'Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.querySelector('.share-label').textContent = original;
@@ -2920,10 +2920,10 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
             body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          btn.textContent = '✓ Merci';
+          btn.textContent = '✓ Thanks';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
         } catch (err) {
-          btn.textContent = '× Erreur';
+          btn.textContent = '× Error';
           setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
         }
       });
@@ -3002,11 +3002,11 @@ document.querySelectorAll('.share-btn-copy').forEach(btn => {
         link.click();
         link.remove();
 
-        status.textContent = '✓ Inscrit + téléchargement lancé';
+        status.textContent = '✓ Subscribed + download started';
         status.className = 'download-status ok';
         form.reset();
       } catch (err) {
-        status.textContent = '× Erreur · Réessaye plus tard';
+        status.textContent = '× Error · Try again later';
         status.className = 'download-status err';
       }
 
@@ -3039,7 +3039,7 @@ document.querySelectorAll('.share-btn-instagram, .share-rail-btn-instagram').for
       const label = btn.querySelector('.share-label');
       if (label) {
         const original = label.textContent;
-        label.textContent = 'Copié ! (colle dans IG)';
+        label.textContent = 'Copied! (paste in IG)';
         btn.classList.add('copied');
         setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 2400);
       } else {

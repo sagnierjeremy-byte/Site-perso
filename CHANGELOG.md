@@ -1,5 +1,113 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-03 · Assainissement doc agents (AGENTS.md + CLAUDE.md)
+
+### Pourquoi
+Audit doc : `AGENTS.md` (497 l.) était une copie d'avril corrompue par un sed « Claude Code→Codex » (domaine canonique inversé, 5 articles au lieu de 26, `npm run brainstorm` supprimé depuis) et contredisait le `CLAUDE.md`. Le `CLAUDE.md` (301 l.) dépassait la règle « max ~150 lignes ».
+
+### Livré
+- `AGENTS.md` remplacé par `@CLAUDE.md` (1 seule source de vérité). Deux infos uniques encore vraies sauvées avant suppression : classe `.download-form` (form subscribe de `claude-code.html`) et `downloads/README.md` (guide install) → reportées dans le CLAUDE.md.
+- Charte FIESTA / 89 + ton « Leo » (intégral) déplacés vers `docs/charte-fiesta-et-ton.md` (nouveau) ; le CLAUDE.md garde un résumé 4 lignes + pointeur.
+- CLAUDE.md élagué 301 → 97 lignes (style dense conservé, scripts npm cités vérifiés contre `package.json`).
+
+### Fichiers touchés
+`AGENTS.md`, `CLAUDE.md`, `docs/charte-fiesta-et-ton.md` (nouveau), `CHANGELOG.md`.
+
+### À venir
+- Rien — infos obsolètes d'AGENTS.md volontairement non reprises (liste YT hardcodée contraire à la règle source-de-vérité JSON, section brainstorm, TODOs périmés).
+
+## 2026-06-10 · Fixes SEO P1→P4 (exécution du plan d'audit, 5 agents)
+
+### Pourquoi
+Exécution des priorités 1 à 4 de l'audit SEO du 2026-06-09 (voir entrée suivante). Objectif n°1 : débloquer l'indexation (8/145 pages dans Bing).
+
+### Livré
+**P1 — Critique**
+- Auto-linker patché : `PROTECTED_TAGS` + `title` + `head` dans `auto-link-glossary.js` et `auto-link-articles.mjs`, + garde-fou anti-404 (skip + warning si la cible n'existe pas). Les 8 `<title>` pollués nettoyés (claude-code-workflow-tips, hermes-agent, llm-wiki-karpathy, loops-claude, outil-vente-claude-code, superpowers, tuto-agent-contrats, tuto-agent-gmail).
+- `/articles` désormais crawlable : 26 cartes statiques en HTML brut (markup identique au rendu JS, hrefs extensionless), JS converti en progressive enhancement (filtres/animations sur le DOM statique, plus de render). Nouveau `scripts/build-articles-page.mjs` (npm `articles:page`) branché dans `publish.js` → la liste se régénère à chaque publication. JSON-LD ItemList corrigé (25→26).
+- `downloads/CLAUDE.md` restauré (`git checkout` — la suppression locale non commitée aurait cassé le freebie référencé par 3 pages).
+- Bug latent corrigé dans `publish.js` : `updateSitemap()` et les messages de fin construisaient les URLs avec `.html` alors que le sitemap est extensionless → aurait créé des doublons à la prochaine publication (même famille que le bug SITE_URL).
+
+**P2 — Fort impact**
+- `favicon.ico` (16+32+48, 2 Ko, rendu via Chromium avec la vraie fonte Archivo Black) + `apple-touch-icon.png` (180×180 opaque) créés → fin des ~298 requêtes 404.
+- 21 liens cassés réparés : 14 "voir aussi" lexique remappés (prompt→prompt-engineering, agent→skill-agent, perplexity→perplexity-comet, gemini-3→gemini-3-1-pro, lovable retiré), 3 hrefs relatifs dans `articles/superpowers.html`, lien quiz → `articles/superpowers` (l'article skills jamais publié), script mort `tts-player.js` supprimé.
+- Sitemap 145→142 (3 pages légales noindex retirées) ; pages légales passées en `noindex,follow`.
+
+**P3 — Quick wins**
+- Suffixe lexique `· Lexique Jerwis` → `· Jerwis` (dans `build-lexique.js` + les 32 fiches manuelles) : titles >65 chars 15→0, >60 : 21→9.
+- 9 titles racine réécrits ≤60 chars (mcp, agents-ia, claude-code, podcast, apprendre, debutant, workflows, modeles-ia-monde, precommande-photos) + 20 descriptions >160 réécrites à 120-155 (ton Leo), og/JSON-LD synchronisés.
+- robots.txt : 2 Disallow obsolètes supprimés. `.vercelignore` : + `articles/_TEMPLATE.html` + `templates/`. `quiz.html` : JSON-LD WebPage+BreadcrumbList ajouté.
+
+**P4 — Long terme**
+- Images home : −915 Ko (−86 %). Héro LCP en variante 540px (158→43 Ko) avec srcset + preload `imagesrcset` ; vignettes webp 400w/800w dans `photos/thumbs/` (srcset sur les `<source>`, fallback jpg intact) ; avatars chaînes réencodés (les webp d'origine étaient PLUS LOURDS que les jpg). Originaux conservés (og:image).
+- CSP **enforcing** dans `vercel.json`, construite depuis l'inventaire réel (Plausible, Stripe embedded checkout, Clarity, Meta Pixel, audio R2) et validée en interceptant 9 pages prod checkout Stripe inclus (0 violation). ACAO `*` (défaut Vercel) restreint à `https://jerwis.fr`.
+
+**Build lexique sécurisé** (découvertes en route) : le rebuild détruisait les entrées A-Z des 32 fiches manuelles insérées dans la zone générée du hub → garde-fou ajouté (skip + warning, `--force-hub` pour outrepasser) ; le template n'avait pas le snippet Plausible (les rebuilds le supprimaient des 62 pages) → ajouté au template.
+
+### Vérifié
+0 `<title>` pollué sitewide · 26 liens statiques dans articles.html (0 doublon, filtres OK) · sitemap 142 entrées 0 .html · scripts `node --check` OK · vercel.json JSON valide · srcset 54/54 fichiers existants · rendu navigateur home + articles sans régression (héro 540w servi, 0 image cassée, seul 404 local = `/api/news`, normal hors Vercel).
+
+### Fichiers touchés
+`scripts/` (publish.js, build-articles-page.mjs nouveau, build-lexique.js, auto-link-glossary.js, auto-link-articles.mjs), `package.json`, `articles.html`, `index.html`, `quiz.html`, 8+2 articles, 9 pages racine, lexique (94 fiches + hub), 3 pages légales, `sitemap.xml`, `robots.txt`, `.vercelignore`, `vercel.json`, `favicon.ico` + `apple-touch-icon.png` (nouveaux), `photos/A7100670-540.webp` + `photos/thumbs/` (30 fichiers nouveaux).
+
+### À venir (actions Jérémy — bloquées côté agent)
+- [ ] **Commit + push pour déployer** (rien n'a été commité). Après deploy : surveiller la console du checkout Stripe (si blocage CSP → élargir `connect-src`/`frame-src` dans vercel.json).
+- [ ] Search Console : vérifier l'indexation Google réelle + demander la réindexation des 8 articles aux titles réparés et de `/articles`.
+- [ ] Statuer sur jeremysagnier.com (DNS mort, pas de 301 — re-pointer si encore possédé, sinon acter).
+- [ ] R2 custom domain (`audio.jerwis.fr`) pour sortir le podcast de `*.r2.dev` (rate-limité), puis `npm run podcast:rss`.
+- [ ] (Reco) Intégrer les 32 fiches lexique autonomes à `data/lexique.json` pour supprimer l'état hybride.
+
+## 2026-06-09 · Audit SEO complet (code local + live + indexation)
+
+### Pourquoi
+Audit demandé : 4 agents en parallèle (on-page 149 pages, technique sitemap/liens/config, live HTTP/perf, indexation SERP). Aucun fix appliqué — rapport seul.
+
+### Constat global
+Socle très sain : canonicals 100 % corrects (non-www), H1/alt/lang 100 %, JSON-LD 94,6 %, sitemap 145/145 mappées, redirects 308 propres, vrai 404, HSTS, TTFB 66-167 ms, perf mobile estimée 85-95. MAIS indexation Bing famélique : 8 pages sur 145 (~5,5 %).
+
+### À venir (findings priorisés)
+- [ ] **P1** : 8 articles avec balises `<a class="lex-link">` injectées DANS le `<title>` par l'auto-linker (titres SERP détruits). Root cause : `PROTECTED_TAGS` sans `title` dans `scripts/auto-link-glossary.js` (l.29) et `scripts/auto-link-articles.mjs`. Fichiers : claude-code-workflow-tips, hermes-agent, llm-wiki-karpathy, loops-claude, outil-vente-claude-code, superpowers, tuto-agent-contrats, tuto-agent-gmail.
+- [ ] **P1** : `/articles` rendu 100 % client-side (zéro `href` crawlable dans le HTML brut) → cause probable de l'indexation à 5,5 %. Générer la liste en HTML statique.
+- [ ] **P1** : `downloads/CLAUDE.md` supprimé localement (non commité) mais référencé par index/claude-code/quiz + `.vercelignore` → NE PAS commiter la suppression sans retirer les 4 références (freebie cassé sinon).
+- [ ] **P2** : `/favicon.ico` + `/apple-touch-icon.png` référencés par les 149 pages mais inexistants (404 partout, favicon absent des SERP). Les générer depuis `favicon.svg`.
+- [ ] **P2** : 21 liens internes cassés : 14 "voir aussi" lexique vers slugs inexistants (prompt, agent, perplexity, gemini-3, lovable), 3 liens relatifs faux dans `articles/superpowers.html`, lien quiz → article jamais publié (draft tuto-cours-skills), script mort `js/tts-player.js`.
+- [ ] **P2** : 3 pages légales noindex présentes dans le sitemap (signaux contradictoires GSC).
+- [ ] **P2** : images home = 83 % du poids (1 Mo), OG jpg jusqu'à 257 Ko en vignette, zéro srcset ; héro LCP 1078×1600 pour affichage ≤450px.
+- [ ] **P3** : 33 titles >60 chars (suffixe `· Lexique Jerwis`), 15 descriptions >160 chars (mcp 241 !), robots.txt 2 Disallow obsolètes, pas de CSP, podcast sur `*.r2.dev` (rate-limité), `articles/_TEMPLATE.html` + `templates/` déployés sans noindex, quiz.html sans JSON-LD.
+- [ ] **Stratégique** : jeremysagnier.com ne résout plus (DNS mort, pas de 301) — statuer : re-pointer si encore possédé, sinon acter la perte. Vérifier l'indexation Google réelle dans Search Console (scraping bloqué, chiffre indisponible).
+
+## 2026-06-09 · Fix SITE_URL au mauvais domaine dans les scripts
+
+### Pourquoi
+`scripts/publish.js` (ligne 38) et `scripts/seo-improve.js` (ligne 31) hardcodaient `SITE_URL = 'https://jeremysagnier.com'` alors que tout le site est sur `https://jerwis.fr` (145 entrées sitemap + canonicals). Conséquence : `updateSitemap()` insérait/cherchait des URLs au mauvais domaine (doublons au lieu de mise à jour de l'entrée jerwis.fr existante), et les messages de fin de publication (URL prod + commande indexnow) pointaient vers le mauvais domaine.
+
+### Livré
+- `SITE_URL` corrigé en `https://jerwis.fr` dans `publish.js` et `seo-improve.js`
+- `sitemap.xml` vérifié (grep) : **0** URL jeremysagnier.com résiduelle — aucun doublon à nettoyer
+- Bonus repéré au grep repo-wide : `downloads/install-plugins.sh` (fichier téléchargeable public) pointait vers `jeremysagnier.com/claude-code.html#plugins` → corrigé en jerwis.fr (lignes 3 et 79). Vérifié : ce fichier n'est pas dans `jeremy-claude-pack.zip`, pas de rebuild nécessaire.
+- Seule mention restante dans le repo : historique du CHANGELOG (normal)
+
+### Fichiers touchés
+- `scripts/publish.js` · `scripts/seo-improve.js` · `downloads/install-plugins.sh`
+
+## 2026-06-09 · Dégraissage CLAUDE.md (497 → 300 lignes)
+
+### Pourquoi
+Le CLAUDE.md accumulait de l'inventaire périmé (table de 5 articles alors qu'il y en a 26, ancien H1, ancienne nav, section Brainstorm dont les scripts ont été supprimés le 2026-05-05) et de la méta-doc hors-projet (plugins Claude Code). Audit + vérification de chaque point contre le code réel.
+
+### Livré
+- **Supprimé** : section Back-office détaillée (remplacée par 3 lignes → `~/Projets/jerwis-admin/` a son propre CLAUDE.md) · bloc "Plugins Claude Code installés" · section "Brainstorm d'idées" (scripts supprimés, cf. entrée 2026-05-05) · table des 5 articles (remplacée par pointeur `articles.html` + `feed/articles.xml`) · liste hardcodée des 34 chaînes YouTube (source de vérité : `data/youtube-channels.json`) · bloc CSS mini-marquee (désormais dans `assets/main.css`) · JSON `vercel.json` inline (gotchas conservés)
+- **TODOs purgés** (vérifiés faits/obsolètes) : Plausible installé · CHANGELOG.md existe · scraper X bloqué par l'API · LinkedIn en prod · 26 articles publiés · kill ancien projet Vercel (suppression du TODO actée dans une entrée précédente). Reste : séquence cours 5 jours Resend.
+- **Ajouté** : section "Publication d'articles (drafts → articles)" (flux `npm run publish`, frontmatter requis, règle slug court corrigée : `publish.js` prend le nom de fichier comme slug, pas le frontmatter) · section "Data stores" (`data/*.json` + scripts qui les alimentent) · env vars complètes (Stripe, GitHub, Blob, Meta, R2, news build — noms uniquement)
+- **Corrigé** : H1 home ("L'IA, c'est aussi pour nous.") · nav v2 (`Apprendre · Articles · Podcast · Newsletter · Plus`) · `main.css` ~3 900 lignes / 21 pages · outils internes déplacés dans `_internal/`
+- **Faux positif d'audit** : `templates/podcast-cover.html` existe bel et bien (chemin correct dans `build-podcast-covers.js`) — non touché.
+
+### Fichiers touchés
+- `CLAUDE.md` (réécriture complète, 497 → 300 lignes)
+
+### À venir
+- [x] Bug repéré : `scripts/publish.js` ligne 38 → `SITE_URL` au mauvais domaine → corrigé (cf. entrée 2026-06-09 "Fix SITE_URL").
+
 ## 2026-05-26 · Réparation cron news + couverture sitemap + RSS du blog
 
 ### Pourquoi

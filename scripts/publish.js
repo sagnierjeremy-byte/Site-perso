@@ -49,6 +49,17 @@ const log = {
 const escapeAttr = (s) => String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// --- Mini-marquees (signature FIESTA, §4 du plan design v2) ---
+// publish.js ne génère que des articles/*.html (FR) : les versions EN sont
+// produites par scripts/i18n/gen-en-page.mjs, hors périmètre de cette fonction.
+const MARQUEE_FR_START = ['Zéro jargon', "Testé d'abord pour moi", 'Sources dans le texte', 'Prompts à copier', "Réponds si tu n'es pas d'accord"];
+const MARQUEE_FR_END = ["Comprendre avant d'appliquer", 'À ton rythme', 'Pas de pub', 'Désinscription en 1 clic', 'Je lis toutes les réponses'];
+
+function renderMarquee(items) {
+  const spans = items.map((t) => `<span>${escapeHtml(t)}</span>`).join('');
+  return `<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">\n  ${spans}\n  ${spans}\n</div></div>`;
+}
+
 // --- Core ---
 
 async function readDraft(slug) {
@@ -105,7 +116,13 @@ function renderBody(mdContent) {
     const body = parts[i + 1] || '';
     html += renderSection(cls, body);
   }
-  return html;
+  // Corps encadré par des ancres explicites (garde-fou §3 du plan design v2) :
+  // le remplacement dans fillTemplate() cible ces ancres en priorité, avant de
+  // retomber sur bodyZoneRegex. Les marquees vivent DANS la zone remplacée —
+  // régénérées à chaque publication, jamais insérées hors zone.
+  const marquee1 = renderMarquee(MARQUEE_FR_START);
+  const marquee2 = renderMarquee(MARQUEE_FR_END);
+  return `<!-- ARTICLE_BODY:START -->\n${marquee1}\n${html}\n${marquee2}\n<!-- ARTICLE_BODY:END -->`;
 }
 
 function renderSection(cls, mdBody) {
@@ -187,16 +204,28 @@ function fillTemplate(template, data, body) {
 
   // ---- BODY : supprime toutes les sections block entre fin TL;DR et Final CTA, injecte nouveau body ----
   const bodyBlock = renderBody(body);
-  // Utilise le marqueur `<!-- Final CTA -->` comme ancre stable
-  // Stratégie : on capture toute la zone entre la fin du bloc TL;DR et "<!-- Final CTA -->",
-  // puis on la remplace par notre bodyBlock.
-  // La TL;DR est maintenant insérée (nouvelle), puis on remplace ce qui suit jusqu'à Final CTA.
-  // Borne finale tolérante : « <!-- Final CTA --> » (ancre historique) OU « <!-- Fin d'article » (refonte 2026-07).
-  const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--[\s\S]*?-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->|<!-- Fin d'article)/;
-  // Replace via callback to avoid String.prototype.replace interpreting $&, $1, $`, $' etc.
-  // (le body markdown peut contenir "X $&quot;" → $& serait remplacé par le match capturé, ce qui
-  // ré-injecterait le contenu fantôme du template. Ticket bouclé : 2026-05-11.)
-  html = html.replace(bodyZoneRegex, (_match, p1, _p2, p3) => `${p1}\n${bodyBlock}\n${p3}`);
+  // Ancres explicites (garde-fou §3, plan design v2) : si le HTML cible contient déjà
+  // ARTICLE_BODY:START/END, on remplace tout ce qui est entre elles (ancres incluses,
+  // ré-émises par bodyBlock). Sinon, fallback sur l'ancienne bodyZoneRegex (rétro-compatibilité
+  // avec _TEMPLATE.html qui ne porte pas encore ces ancres dans son corps d'exemple).
+  const ANCHOR_START = '<!-- ARTICLE_BODY:START -->';
+  const ANCHOR_END = '<!-- ARTICLE_BODY:END -->';
+  if (html.includes(ANCHOR_START) && html.includes(ANCHOR_END)) {
+    const anchorZoneRegex = new RegExp(`${ANCHOR_START}[\\s\\S]*?${ANCHOR_END}`);
+    // Replace via callback (voir note plus bas sur $&, $1, etc.)
+    html = html.replace(anchorZoneRegex, () => bodyBlock);
+  } else {
+    // Utilise le marqueur `<!-- Final CTA -->` comme ancre stable
+    // Stratégie : on capture toute la zone entre la fin du bloc TL;DR et "<!-- Final CTA -->",
+    // puis on la remplace par notre bodyBlock.
+    // La TL;DR est maintenant insérée (nouvelle), puis on remplace ce qui suit jusqu'à Final CTA.
+    // Borne finale tolérante : « <!-- Final CTA --> » (ancre historique) OU « <!-- Fin d'article » (refonte 2026-07).
+    const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--[\s\S]*?-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->|<!-- Fin d'article)/;
+    // Replace via callback to avoid String.prototype.replace interpreting $&, $1, $`, $' etc.
+    // (le body markdown peut contenir "X $&quot;" → $& serait remplacé par le match capturé, ce qui
+    // ré-injecterait le contenu fantôme du template. Ticket bouclé : 2026-05-11.)
+    html = html.replace(bodyZoneRegex, (_match, p1, _p2, p3) => `${p1}\n${bodyBlock}\n${p3}`);
+  }
 
   // FAIL-LOUD : si l'ancre a disparu du template, replace() ne fait rien en silence et
   // l'article partirait en prod avec le corps d'exemple du template (incident 2026-07-02→06 :

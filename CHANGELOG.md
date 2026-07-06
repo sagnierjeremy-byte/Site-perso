@@ -1,5 +1,24 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-06 · Design v2 des articles (migration + pipeline publish)
+
+### Pourquoi
+Exécution du plan `docs/design-articles-v2.md` (design déjà validé visuellement) : mesure de lecture 700px, H3 sentence-case `//` teal, prompt-cards (blockquote), tableaux stylés, hr signature, mini-marquees, barre de progression de lecture — jusqu'ici absents des articles (`<style>` inline dupliqué par fichier).
+
+### Livré
+- `articles/_TEMPLATE.html` : `<style>` inline (~330 lignes) remplacé par `assets/article.css?v=20260706` (partagé) + `assets/article-reading.js` (progress bar + bouton Copier sur les prompts).
+- `scripts/publish.js` : `renderBody()` encadre désormais le corps par les ancres `<!-- ARTICLE_BODY:START/END -->` + 2 mini-marquees FR (signature FIESTA). `fillTemplate()` remplace en priorité entre ces ancres si présentes, sinon fallback sur l'ancien `bodyZoneRegex` (rétro-compatibilité, fail-loud conservé).
+- `scripts/migrate-article-design.mjs` (nouveau) : migration idempotente des articles déjà publiés. Détection de conformité réelle par diff CSS (LCS) contre le baseline du template — le critère littéral du plan (`--fuchsia` + `.tldr {`) ne discriminait aucun fichier, y compris les hand-made à exclure. 17 articles FR + 17 EN migrés ; le CSS custom au-delà du template (share buttons, FAQ, tableaux comparatifs, TOC) est préservé pour `dev-browser`, `photos-perso-ia`, `superpowers`, `claude-code-workflow-tips`, `loops-claude` ; les mini-marquees déjà présentes (`superpowers`, `claude-code-workflow-tips`) ne sont pas dupliquées. 18 articles hand-made (CSS non issu du template : `karpathy`, `jerwis-finance-tracker`, etc.) restent inchangés, listés par le script.
+- Bug trouvé et corrigé en QC : les pages `en/articles/*.html` utilisent des chemins d'assets absolus (`/assets/...`) contrairement aux FR (`../assets/...`) — le script en tenait compte de façon incorrecte pour l'injection de `article.css`/`article-reading.js` ; corrigé + revérifié sur les 17 fichiers EN.
+- QC : greps (résidu CSS, ancres, marquees x2), JSON-LD valide, 0 placeholder, `npm run publish creer-images-ia-gratuit` stable (diff vide), spot-check visuel (proto + 5 articles FR/EN, light/dark/375px, 0 erreur console).
+
+### Fichiers touchés
+`articles/_TEMPLATE.html`, `scripts/publish.js`, `scripts/migrate-article-design.mjs` (nouveau), 17 `articles/*.html` + 17 `en/articles/*.html` migrés, `feed/articles.xml`.
+
+### À venir
+- Les 18 articles hand-made (karpathy, jerwis-finance-tracker, agents-ia-guide, etc.) restent sur leur CSS custom historique — migration manuelle au cas par cas si besoin un jour.
+- Section empty pré-existante repérée dans `creer-images-ia-gratuit.html` (fence ``` orphelin dans le draft, avant le premier `<!-- section -->`) — hors scope de cette migration, déjà présente avant.
+
 ## 2026-07-03 · Assainissement doc agents (AGENTS.md + CLAUDE.md)
 
 ### Pourquoi

@@ -28,7 +28,8 @@ jobs:
 
       - name: Build summary
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # secret repo = CLAUDE (pas ANTHROPIC_API_KEY) ; fallback pour rester robuste
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY || secrets.CLAUDE }}
         run: npm run news:build
 
       - name: Commit and push

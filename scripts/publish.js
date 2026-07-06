@@ -191,11 +191,19 @@ function fillTemplate(template, data, body) {
   // Stratégie : on capture toute la zone entre la fin du bloc TL;DR et "<!-- Final CTA -->",
   // puis on la remplace par notre bodyBlock.
   // La TL;DR est maintenant insérée (nouvelle), puis on remplace ce qui suit jusqu'à Final CTA.
-  const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--[\s\S]*?-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->)/;
+  // Borne finale tolérante : « <!-- Final CTA --> » (ancre historique) OU « <!-- Fin d'article » (refonte 2026-07).
+  const bodyZoneRegex = /(<\/div>\s*<\/div>\s*)((?:<!--[\s\S]*?-->\s*<section class="block">[\s\S]*?<\/section>\s*)+)(<!-- Final CTA -->|<!-- Fin d'article)/;
   // Replace via callback to avoid String.prototype.replace interpreting $&, $1, $`, $' etc.
   // (le body markdown peut contenir "X $&quot;" → $& serait remplacé par le match capturé, ce qui
   // ré-injecterait le contenu fantôme du template. Ticket bouclé : 2026-05-11.)
   html = html.replace(bodyZoneRegex, (_match, p1, _p2, p3) => `${p1}\n${bodyBlock}\n${p3}`);
+
+  // FAIL-LOUD : si l'ancre a disparu du template, replace() ne fait rien en silence et
+  // l'article partirait en prod avec le corps d'exemple du template (incident 2026-07-02→06 :
+  // 2 articles publiés avec le contenu « loops »). On vérifie que le corps injecté est bien là.
+  if (!html.includes(bodyBlock.slice(0, 200))) {
+    throw new Error('BODY NON INJECTÉ : ancre « <!-- Final CTA --> » introuvable dans _TEMPLATE.html — publication annulée (le corps d\'exemple du template serait parti en prod).');
+  }
 
   // Final CTA — adapter le titre
   html = html.replace(/<h2>Tu reçois mes <em class="fuchsia">prochains tutos\.<\/em><\/h2>/,

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ia-cv-lettre-entretien.jpg (généré via scripts/og-batch.html)
+-->
+
+<meta name="robots" content="noindex,nofollow">
+<title>[PROTO design v2] IA pour CV — ne pas indexer</title>
+<meta name="description" content="CV optimisé, lettre personnalisée, entretien simulé à l'oral : la méthode complète pour utiliser ChatGPT, Claude ou Gemini sans produire une candidature générique.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="IA pour CV, lettre de motivation et entretien en 2026">
+<meta property="og:description" content="CV optimisé, lettre personnalisée, entretien simulé à l'oral : la méthode complète pour utiliser ChatGPT, Claude ou Gemini sans produire une candidature générique.">
+<meta property="og:url" content="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ia-cv-lettre-entretien.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-02">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="IA pour CV, lettre de motivation et entretien en 2026">
+<meta name="twitter:description" content="CV optimisé, lettre personnalisée, entretien simulé à l'oral : la méthode complète pour utiliser ChatGPT, Claude ou Gemini sans produire une candidature générique.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ia-cv-lettre-entretien.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "IA pour CV, lettre de motivation et entretien en 2026",
+  "description": "CV optimisé, lettre personnalisée, entretien simulé à l'oral : la méthode complète pour utiliser ChatGPT, Claude ou Gemini sans produire une candidature générique.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/ia-cv-lettre-entretien",
+  "datePublished": "2026-07-02",
+  "dateModified": "2026-07-02",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/ia-cv-lettre-entretien.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=proto">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 56</div>
+    <h1>Chercher un emploi<br>avec l'IA<br><em>sans perdre ta voix</em></h1>
+    <p class="hero-lead">
+      Tu regardes une offre d'emploi et tu ne sais pas par où commencer. Le CV est à refaire, la lettre de motivation te paralyse, et l'entretien te stresse avant même d'avoir décroché. J'ai creusé ce que les outils IA font vraiment bien dans ce processus — et ce qu'en disent les études côté recruteurs. Spoiler : le danger n'est pas d'utiliser l'IA, c'est de l'utiliser comme tout le monde. Voici la méthode, les prompts, et les pièges qui grillent une candidature.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>11 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Selon l'APEC, <strong>31 % des cadres en recherche d'emploi utilisent déjà l'IA</strong> — d'abord pour la lettre de motivation (84 %) et le CV (75 %)</li>
+      <li>Le « 75 % des CV rejetés par les robots » est un <strong>mythe marketing de 2012</strong> : le vrai enjeu n'est pas le rejet automatique, c'est le classement</li>
+      <li>Ce qui est sanctionné, ce n'est pas l'IA, c'est le générique : <strong>62 % des employeurs écartent les candidatures IA non personnalisées</strong> (Resume Now)</li>
+      <li>La simulation d'entretien <strong>à l'oral</strong> est le meilleur usage méconnu : Gemini Live et Copilot Voice le font gratuitement</li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track"><span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span><span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span></div></div>
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qui a vraiment changé en 2026</h2>
+    <p>Commençons par les faits, parce que ce sujet charrie beaucoup de fantasmes.</p>
+    <p>L&#39;IA est devenue l&#39;outil normal du candidat. Selon l&#39;APEC (étude « Les cadres et l&#39;IA », mai 2026), 31 % des cadres en recherche d&#39;emploi l&#39;utilisent — deux fois plus que fin 2024 — d&#39;abord pour la lettre de motivation (84 % d&#39;entre eux) et le CV (75 %). Et 72 % estiment avoir envoyé de meilleures candidatures grâce à elle. Côté recruteurs, difficile de te le reprocher : d&#39;après l&#39;enquête HelloWork publiée en novembre 2025, 78 % utilisent eux-mêmes l&#39;IA générative, notamment pour rédiger leurs offres.</p>
+    <p>Maintenant, le mythe à déboulonner : <strong>« 75 % des CV sont rejetés par les robots avant d&#39;être lus »</strong>. Ce chiffre vient d&#39;un argumentaire commercial de 2012 d&#39;une société qui vendait… de l&#39;optimisation de CV. Aucune étude derrière. Dans une enquête Enhancv menée fin 2025 auprès de recruteurs utilisant ces logiciels, 92 % affirment que leur outil ne rejette aucun CV automatiquement — les seuls rejets automatiques sont des questions éliminatoires configurées par un humain (permis, localisation, visa).</p>
+    <p>Le vrai enjeu est ailleurs : <strong>le classement</strong>. Sur une offre qui reçoit des centaines de candidatures, le recruteur lit les premières dizaines — souvent dans l&#39;ordre d&#39;arrivée. Ton CV n&#39;a pas besoin de « battre un robot », il a besoin d&#39;être lisible, pertinent, et d&#39;arriver tôt.</p>
+    <p>Et en France, gardons les proportions : selon l&#39;APEC (Pratiques de recrutement de cadres, mai 2025), 50 % des entreprises de 250 salariés et plus utilisent un logiciel de recrutement, mais seulement 17 % des PME. La même étude note que 4 % seulement des entreprises ayant recruté un cadre en 2024 avaient intégré l&#39;IA dans leur processus. L&#39;algorithme tout-puissant qui trie les candidatures, en France, c&#39;est surtout une histoire qu&#39;on se raconte.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>L'IA ne remplace pas ton parcours, et le « robot qui rejette les CV » est largement un mythe. Ce qui compte : une candidature lisible, adaptée à l'offre, envoyée tôt — trois choses pour lesquelles l'IA te fait gagner un temps réel.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ton CV, revu et corrigé par l&#39;IA</h2>
+    <p>Le premier usage, c&#39;est de sortir du syndrome de la page blanche. Tu donnes à l&#39;IA tes expériences en vrac, elle structure. Mais la vraie valeur est dans la <strong>reformulation</strong> : transformer « j&#39;ai géré l&#39;équipe commerciale » en « j&#39;ai piloté une équipe de 6 commerciaux et augmenté le chiffre d&#39;affaires de 15 % en un an ». L&#39;IA ne connaît pas tes chiffres — c&#39;est toi qui les apportes — mais elle sait les mettre en valeur avec des verbes d&#39;action.</p>
+    <p>Voici le prompt que je recommande, à copier tel quel :</p>
+    <blockquote>
+    <p><em>« Voici mon CV actuel : [colle ton CV]. Voici l&#39;offre d&#39;emploi que je vise : [colle le texte intégral de l&#39;offre]. Identifie les 8 compétences et mots-clés les plus importants de l&#39;offre, dis-moi lesquels manquent dans mon CV, et propose une reformulation de mes expériences qui les intègre — uniquement quand c&#39;est vrai pour mon parcours. Ne m&#39;invente aucune compétence. »</em></p>
+    </blockquote>
+    <p>La dernière phrase n&#39;est pas décorative : l&#39;IA comble volontiers les trous avec des compétences plausibles que tu n&#39;as pas. Or, toujours selon l&#39;APEC, 69 % des entreprises font une présélection téléphonique — tout ce qui figure sur ton CV doit être défendable de vive voix, sans préparation.</p>
+    <p>Pour le format, les conseils officiels de France Travail sur les logiciels de recrutement tiennent en trois lignes : reprends l&#39;intitulé exact du poste, garde une mise en page à une colonne sans tableaux ni logos, exporte en PDF texte (pas une image scannée). C&#39;est tout. Et surtout pas de « white fonting » — cette astuce qui consiste à cacher des mots-clés en police blanche : les cabinets comme Robert Half la citent désormais comme fraude détectée.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La lettre de motivation sans le supplice</h2>
+    <p>Deux chiffres pour cadrer l&#39;effort à y mettre. Selon l&#39;APEC, une entreprise sur deux demande encore une lettre de motivation — contre près de 70 % avant 2022. Et d&#39;après HelloWork (novembre 2025), seul un chargé de recrutement sur cinq lui accorde du crédit. Traduction : elle reste souvent exigée, rarement lue attentivement. L&#39;objectif est donc de la faire <strong>vite et bien</strong> — pas d&#39;y passer ta soirée, pas non plus d&#39;envoyer du générique.</p>
+    <p>Parce que le générique, lui, coûte cher : selon le rapport Resume Now 2025, 62 % des employeurs écartent les candidatures générées par IA sans personnalisation. Ce n&#39;est pas l&#39;outil qui est sanctionné — dès 2023, une étude ResumeBuilder montrait que 82 % des recruteurs ne distinguent pas une lettre ChatGPT d&#39;une lettre humaine. C&#39;est l&#39;uniformité.</p>
+    <p>Ma méthode en trois temps :</p>
+    <ol>
+    <li><strong>Écris d&#39;abord 5 à 10 lignes brutes</strong>, sans style : pourquoi cette boîte précisément, quel moment de ton parcours fait le lien, une réalisation datée et chiffrée.</li>
+    <li><strong>Donne cette matière à l&#39;IA</strong> avec l&#39;offre, et un cadre strict :</li>
+    </ol>
+    <blockquote>
+    <p><em>« Voici mes notes brutes : [colle-les]. Voici l&#39;offre : [colle-la]. Rédige une lettre de motivation courte (250 mots max) qui garde mes formulations et mon niveau de langue. Interdits : &quot;c&#39;est avec un vif intérêt&quot;, &quot;je suis ravi(e) de&quot;, &quot;relever de nouveaux défis&quot;, &quot;mon profil correspond parfaitement&quot;, les tirets cadratins, et les énumérations de trois qualités. Une seule idée par paragraphe. »</em></p>
+    </blockquote>
+    <ol start="3">
+    <li><strong>Relis à voix haute.</strong> Si une phrase ne sonne pas comme toi, coupe-la ou réécris-la. Tu signes, c&#39;est ta voix.</li>
+    </ol>
+    <p>La liste de mots interdits du prompt n&#39;est pas une coquetterie : « vif intérêt », « ravi de », le triptyque « rigueur, autonomie et esprit d&#39;équipe », les phrases qui répètent l&#39;offre mot pour mot — ce sont exactement les tics que les guides recruteurs (Reed, Coursera) listent comme signatures d&#39;une lettre IA. Les interdire dès le prompt, c&#39;est régler le problème à la source.</p>
+    <h2>Simuler l&#39;entretien, à l&#39;oral</h2>
+    <p>C&#39;est l&#39;usage qui m&#39;a le plus bluffé, et le moins connu. Tout le monde pense « rédaction » ; le vrai game changer, c&#39;est la <strong>simulation orale</strong>.</p>
+    <p>Les modes vocaux des IA sont devenus assez bons pour jouer un recruteur crédible, en direct, à voix haute. Et deux sont gratuits sans vraie limite : <strong>Gemini Live</strong> (Google) et <strong>Copilot Voice</strong> (Microsoft a rendu son mode vocal gratuit et illimité début 2025 — et documente lui-même le cas d&#39;usage « préparation d&#39;entretien »). Le mode vocal de ChatGPT marche bien aussi, mais son quota gratuit se compte en minutes par jour — de quoi faire une session courte.</p>
+    <p>Le prompt qui marche, inspiré des guides HelloWork, à lancer à l&#39;oral ou à l&#39;écrit :</p>
+    <blockquote>
+    <p><em>« Joue le rôle d&#39;un recruteur exigeant pour le poste de [intitulé], dans le secteur [secteur]. Voici mon CV : [colle-le]. Voici l&#39;offre : [colle-la]. Pose-moi une question à la fois, en commençant par les classiques puis en durcissant. Après chaque réponse : note-moi sur 10, donne-moi un retour bref, et propose une meilleure formulation en méthode STAR (Situation, Tâche, Action, Résultat). »</em></p>
+    </blockquote>
+    <p>À l&#39;oral, tu travailles ce que l&#39;écrit ne montre pas : ton débit, tes tics de langage, tes réponses à rallonge. Trois sessions de vingt minutes changent réellement ta prestation.</p>
+    <p>Pense aussi à la <strong>négociation salariale</strong> : donne le poste, la région, ton expérience, et demande une simulation de la discussion. Bonus de contexte 2026 : depuis juin, la directive européenne sur la transparence salariale impose l&#39;affichage d&#39;une fourchette de rémunération sur les offres — tu arrives donc en entretien avec une base objective. Sers-t&#39;en.</p>
+    <div class="callout warn"><h4>Le piège à éviter</h4><p>L'IA peut inventer des informations sur une entreprise ou un secteur — c'est ce qu'on appelle une <a href="/lexique/hallucination">hallucination</a>. Ne cite jamais en entretien un chiffre ou un fait sur la boîte que tu n'as pas vérifié toi-même : site officiel, LinkedIn, presse récente. La simulation entraîne ta forme ; le fond, tu le vérifies à la main.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Quel outil gratuit pour quoi</h2>
+    <p>À la date où j&#39;écris (juillet 2026), voici comment je répartirais les rôles — tous en version gratuite :</p>
+    <ul>
+    <li><strong>ChatGPT</strong> (OpenAI) : le généraliste. Bon partout, avec un quota gratuit d&#39;une dizaine de messages toutes les cinq heures sur le meilleur modèle. Point d&#39;entrée naturel si tu pars de zéro.</li>
+    <li><strong>Claude</strong> (Anthropic) : le plus naturel en rédaction française — son texte « sonne » moins IA, ce qui est précisément ce que tu cherches pour une lettre. Il lit bien les PDF (ton CV, l&#39;offre). Mon choix pour l&#39;écrit.</li>
+    <li><strong>Gemini</strong> (Google) : son atout unique est <strong>Gemini Live</strong>, la conversation vocale, quasi illimitée en gratuit. Mon choix pour la simulation d&#39;entretien.</li>
+    <li><strong>Copilot</strong> (Microsoft) : mode vocal gratuit et illimité, alternative solide à Gemini Live pour l&#39;oral.</li>
+    <li><strong>Vibe</strong> (ex-Le Chat, de Mistral) : l&#39;option française, hébergée en Europe. Il avale des PDF de 200 pages en gratuit — pratique pour analyser un rapport annuel avant l&#39;entretien. Si la confidentialité de tes données te préoccupe, c&#39;est l&#39;argument souveraineté.</li>
+    </ul>
+    <p>Et ne néglige pas les dispositifs publics, gratuits et pensés pour le marché français : <strong>France Travail</strong> déploie ChatFT, un assistant développé avec le français Mistral AI, et propose une trentaine de modules courts pour apprendre à utiliser l&#39;IA dans sa recherche d&#39;emploi — y compris générer CV et lettre. L&#39;<strong>APEC</strong> offre aux cadres un simulateur d&#39;entretien en ligne et, mieux, des simulations personnalisées avec un vrai consultant, en visio ou en présentiel. C&#39;est gratuit, autant cumuler : l&#39;IA pour l&#39;entraînement quotidien, le consultant pour le regard humain.</p>
+    <p>Pour comparer ces outils plus largement (écrire, coder, créer), va voir <a href="/articles/choisir-ia-ecrire-coder-images">choisir son IA en 2026</a>.</p>
+<h3>Comparatif express (démo table)</h3>
+<table><thead><tr><th>Outil</th><th>Point fort emploi</th><th>Limite du gratuit</th></tr></thead><tbody><tr><td>ChatGPT</td><td>généraliste solide, bon partout</td><td>~10 messages / 5 h</td></tr><tr><td>Claude</td><td>rédaction FR la plus naturelle</td><td>~15-40 messages / 5 h</td></tr><tr><td>Gemini</td><td>Gemini Live : simulation vocale</td><td>quotas dynamiques</td></tr><tr><td>Copilot</td><td>mode vocal illimité</td><td>3 fichiers / 24 h</td></tr></tbody></table>
+
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qu&#39;il ne faut pas faire</h2>
+    <p><strong>Envoyer le premier jet.</strong> L&#39;IA produit vite, trop vite. Un texte non relu contient des formulations qui ne te ressemblent pas — et parfois des faits inexacts si ta matière était imprécise.</p>
+    <p><strong>Utiliser le même CV partout.</strong> L&#39;intérêt de l&#39;IA est justement de personnaliser en dix minutes par offre : les mots-clés de l&#39;annonce, l&#39;angle de la lettre. Le gain de temps doit se transformer en gain de pertinence, pas en volume d&#39;envois identiques.</p>
+    <p><strong>Sur-optimiser pour un robot fantasmé.</strong> Bourrer le CV de mots-clés le rend illisible pour l&#39;humain qui, dans l&#39;immense majorité des cas en France, le lira directement. Lisibilité d&#39;abord.</p>
+    <p><strong>Laisser les tics IA en place.</strong> Tirets cadratins en série, « vif intérêt », trois qualités par phrase, paragraphes parfaitement équilibrés : chaque tic est un indice. La relecture à voix haute les attrape presque tous.</p>
+    <p><strong>Mentir, même un peu.</strong> Une compétence gonflée par l&#39;IA se dégonfle en présélection téléphonique — que 69 % des entreprises pratiquent (APEC). La règle simple : l&#39;IA prépare le terrain, toi tu signes le travail.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA peut-elle rédiger un CV et une lettre entièrement à ta place ?</h3>
+    <p>Techniquement oui, et c&#39;est exactement ce qu&#39;il ne faut pas faire : sans ta matière première, le résultat est générique — et 62 % des employeurs écartent les candidatures IA non personnalisées (Resume Now, 2025). L&#39;IA structure et reformule ; les faits, les chiffres et le « pourquoi cette boîte », c&#39;est toi.</p>
+    <h3>Les recruteurs voient-ils que tu as utilisé l&#39;IA ?</h3>
+    <p>Pas quand c&#39;est bien fait : dès 2023, 82 % des recruteurs ne distinguaient pas une lettre ChatGPT d&#39;une lettre humaine (ResumeBuilder). Ce qui se voit, ce sont les tics — tournures creuses, tirets cadratins, structure type — et l&#39;absence d&#39;exemples personnels. D&#39;où la liste de mots interdits dans le prompt et la relecture à voix haute.</p>
+    <h3>Faut-il encore écrire une lettre de motivation en 2026 ?</h3>
+    <p>Une entreprise sur deux la demande (APEC), donc oui, il en faut une sous le coude — mais un recruteur sur cinq seulement la lit avec attention (HelloWork). Fais-la courte (250 mots), personnalisée, rapide à produire avec la méthode brouillon → IA → relecture. L&#39;énergie économisée, mets-la dans la préparation d&#39;entretien.</p>
+    <h3>Comment passer les filtres ATS avec un CV optimisé par l&#39;IA ?</h3>
+    <p>D&#39;abord, dédramatise : les rejets automatiques sont un mythe largement documenté, et en France seules 17 % des PME utilisent un logiciel de recrutement (APEC). Ce qui marche : reprendre l&#39;intitulé exact du poste et les compétences de l&#39;offre quand c&#39;est vrai pour toi, une mise en page simple à une colonne, un PDF texte. Colle l&#39;offre dans l&#39;IA et demande-lui les mots-clés manquants — c&#39;est dix minutes.</p>
+    <h3>Quel est le meilleur outil gratuit pour simuler un entretien d&#39;embauche ?</h3>
+    <p>À l&#39;oral : Gemini Live ou Copilot Voice, tous deux gratuits et sans vraie limite de durée. Donne le poste, ton CV et l&#39;offre, demande une question à la fois avec une note sur 10 et un retour. Les cadres ont en plus accès gratuitement aux simulations avec un consultant APEC — le combo des deux est imbattable.</p>
+    <h3>L&#39;IA peut-elle t&#39;aider à négocier ton salaire ?</h3>
+    <p>Oui : simulation de la discussion, réponses aux objections, formulation de ta fourchette. Et depuis juin 2026, la directive européenne sur la transparence salariale impose une fourchette de rémunération sur les offres — demande à l&#39;IA de t&#39;aider à te positionner dans cette fourchette avec des arguments factuels tirés de ton parcours.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Je fais tout ça d&#39;abord pour moi. Et ce que j&#39;observe, c&#39;est que l&#39;IA ne rend pas la recherche d&#39;emploi facile — elle rend certaines étapes moins paralysantes. Le CV qu&#39;on repousse, la lettre qu&#39;on remet au lendemain, l&#39;entretien qu&#39;on redoute : sur chacun, l&#39;outil enlève la friction du démarrage.</p>
+    <p>Mais la hiérarchie reste claire : ta matière d&#39;abord, l&#39;outil ensuite. Les études convergent — ce qui est sanctionné n&#39;est pas l&#39;usage de l&#39;IA, massivement adopté des deux côtés de la table, c&#39;est la candidature interchangeable.</p>
+    <p>Commence par un seul geste : prends une offre qui t&#39;intéresse, colle-la avec ton CV dans l&#39;outil de ton choix, et demande les mots-clés manquants. Dix minutes. Puis, si l&#39;offre devient un entretien, lance Gemini Live un soir et fais-toi cuisiner. Tu me remercieras après.</p>
+    
+  </div>
+</section>
+
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+<script src="../assets/article-reading.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - DO NOT REMOVE THE BLOCKS BELOW
+     · TITLE ≤ 60 characters (without the " — par Jérémy Sagnier" suffix)
+     · META DESCRIPTION: 140-155 characters
+     · OG/TWITTER: titles ≤ 60, descriptions ≤ 110
+     · CANONICAL: absolute URL with exact slug
+     · ONE SINGLE JSON-LD (TechArticle for tutorials, OpinionPiece for opinions)
+     · OG:IMAGE: point to photos/og/ia-cv-lettre-entretien.jpg (generated via scripts/og-batch.html)
+-->
+
+<title>AI for your resume, cover letter and interview in 2026</title>
+<meta name="description" content="An optimized resume, a personalized cover letter, a spoken interview simulation: the full method to use ChatGPT, Claude or Gemini without sounding generic.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI for your resume, cover letter and interview in 2026">
+<meta property="og:description" content="Resume, cover letter, spoken interview practice: use ChatGPT, Claude or Gemini without sounding generic.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/ia-cv-lettre-entretien">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ia-cv-lettre-entretien.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-02">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="AI for your resume, cover letter and interview in 2026">
+<meta name="twitter:description" content="Resume, cover letter, spoken interview practice: use ChatGPT, Claude or Gemini without sounding generic.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ia-cv-lettre-entretien.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ia-cv-lettre-entretien">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ia-cv-lettre-entretien">
+
+<!-- Schema.org · ONE SINGLE JSON-LD: TechArticle (tutorials) or OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "AI for your resume, cover letter and interview in 2026",
+  "description": "An optimized resume, a personalized cover letter, a spoken interview simulation: the full method to use ChatGPT, Claude or Gemini without sounding generic.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/ia-cv-lettre-entretien",
+  "datePublished": "2026-07-02",
+  "dateModified": "2026-07-02",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/ia-cv-lettre-entretien.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<style>
+  :root {
+    --fuchsia: #EF426F;
+    --teal:    #00B2A9;
+    --orange:  #FF8200;
+  }
+  [data-theme="light"] {
+    --bg:      #FBF7F0; --bg-2: #F2EDE2; --surface: #FFFFFF;
+    --ink:     #0A0A0A; --ink-soft: #3A3A3A; --ink-muted: #6E6E6E;
+    --line:    rgba(10,10,10,.10); --line-strong: rgba(10,10,10,.18);
+    --code-bg: #F4EFE6; --code-ink: #0A0A0A;
+  }
+  [data-theme="dark"] {
+    --bg:      #0A0A0A; --bg-2: #141414; --surface: #141414;
+    --ink:     #F4EFE6; --ink-soft: #D4D4D4; --ink-muted: #9A9A9A;
+    --line:    rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.22);
+    --code-bg: #1A1A1A; --code-ink: #F4EFE6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { scroll-behavior: smooth }
+  body {
+    font-family: 'Archivo', sans-serif; background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 16px; min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    opacity: .3; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .08 }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container { padding: 0 48px } }
+  .container-wide { max-width: 1320px; margin: 0 auto; padding: 0 28px }
+  @media (min-width: 900px) { .container-wide { padding: 0 48px } }
+
+  /* Top stripe */
+  .triple-stripe { display: flex; height: 6px; width: 100% }
+  .triple-stripe span { flex: 1 }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1320px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (min-width: 900px) { .header-inner { padding: 16px 48px } }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; letter-spacing: -.02em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia) }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--fuchsia) }
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, border-color .2s; margin-left: 16px;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); border-color: var(--fuchsia) }
+  .theme-toggle svg { width: 16px; height: 16px }
+  [data-theme="light"] .theme-toggle .icon-moon { display: block }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 88px;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(0,178,169,.25), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(239,66,111,.2), transparent 55%),
+      #0A0A0A;
+    color: #F4EFE6;
+    position: relative; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: #F4EFE6; padding: 8px 14px; border-radius: 999px;
+    background: rgba(10,10,10,.4); border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,178,169,.5) }
+    70%  { box-shadow: 0 0 0 12px rgba(0,178,169,0) }
+    100% { box-shadow: 0 0 0 0 rgba(0,178,169,0) }
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: .95; letter-spacing: -.03em;
+    text-transform: uppercase; color: #F4EFE6;
+    margin-bottom: 24px; max-width: 820px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal) }
+  .hero p.hero-lead {
+    font-size: 17.5px; color: #C4CED4;
+    max-width: 640px; margin-bottom: 32px; line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: #C4CED4;
+  }
+  .hero-meta-item {
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item strong { color: var(--teal); margin-right: 6px }
+
+  /* TL;DR */
+  .tldr {
+    max-width: 880px; margin: -40px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.3);
+  }
+  .tldr::before {
+    content: ""; position: absolute; top: 0; left: 32px;
+    height: 4px; width: 80px;
+    background: linear-gradient(90deg, var(--teal), var(--fuchsia), var(--orange));
+    border-radius: 4px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px; margin-top: 8px;
+  }
+  .tldr h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; letter-spacing: -.02em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tldr ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px }
+  .tldr li {
+    padding-left: 28px; position: relative; font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tldr li strong { color: var(--ink) }
+  .tldr li::before {
+    content: "→"; position: absolute; left: 0; top: 0;
+    color: var(--teal); font-weight: 700;
+  }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line) }
+  section.block:first-of-type { border-top: none }
+  .section-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 20px; padding: 6px 14px; border-radius: 999px;
+  }
+  .section-kicker.k-teal    { background: rgba(0,178,169,.12);  color: var(--teal) }
+  .section-kicker.k-fuchsia { background: rgba(239,66,111,.12); color: var(--fuchsia) }
+  .section-kicker.k-orange  { background: rgba(255,130,0,.12);  color: var(--orange) }
+  h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: .98; letter-spacing: -.03em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: normal }
+  h2 em.teal    { color: var(--teal) }
+  h2 em.fuchsia { color: var(--fuchsia) }
+  h2 em.orange  { color: var(--orange) }
+  h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+    margin: 32px 0 14px;
+  }
+  h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; letter-spacing: -.01em; text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 16.5px; line-height: 1.75; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  p strong { color: var(--ink); font-weight: 700 }
+  ul, ol { margin: 0 0 18px 22px; color: var(--ink-soft) }
+  li { margin-bottom: 8px; line-height: 1.7 }
+  a { color: var(--fuchsia); text-decoration: underline; text-underline-offset: 3px }
+  a:hover { color: var(--orange) }
+
+  /* Step cards */
+  .step {
+    display: flex; gap: 20px; padding: 26px 30px;
+    border-radius: 20px; background: var(--surface);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 18px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .step:hover {
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,.15);
+    border-color: var(--fuchsia);
+  }
+  .step-num {
+    flex-shrink: 0; width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: -.02em;
+  }
+  .step:nth-of-type(3n+1) .step-num { background: rgba(0,178,169,.14);  color: var(--teal) }
+  .step:nth-of-type(3n+2) .step-num { background: rgba(239,66,111,.14); color: var(--fuchsia) }
+  .step:nth-of-type(3n+3) .step-num { background: rgba(255,130,0,.14);  color: var(--orange) }
+  .step-body { flex: 1; min-width: 0 }
+  .step-body h3 { margin-top: 0; margin-bottom: 8px }
+  .step-body p:last-child { margin-bottom: 0 }
+
+  /* Code blocks */
+  pre {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 14px 18px; border-radius: 10px;
+    overflow-x: auto; line-height: 1.5;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line-strong);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: .88em;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    color: var(--code-ink);
+  }
+  pre code { background: transparent; padding: 0 }
+
+  /* Callouts */
+  .callout {
+    padding: 20px 24px; border-radius: 14px;
+    margin: 20px 0; position: relative; padding-left: 52px;
+  }
+  .callout::before {
+    content: ""; position: absolute;
+    left: 20px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+  }
+  .callout.ok    { background: rgba(0,178,169,.08);  border: 1px solid rgba(0,178,169,.25) }
+  .callout.ok::before    { background: var(--teal) }
+  .callout.warn  { background: rgba(255,130,0,.08); border: 1px solid rgba(255,130,0,.25) }
+  .callout.warn::before  { background: var(--orange) }
+  .callout.tip   { background: rgba(239,66,111,.08); border: 1px solid rgba(239,66,111,.25) }
+  .callout.tip::before   { background: var(--fuchsia) }
+  .callout h4 { margin: 0 0 6px; font-size: 15px }
+  .callout p  { margin: 0; font-size: 14.5px }
+
+  /* Use case box */
+  .usecase {
+    background: linear-gradient(135deg, rgba(0,178,169,.05), rgba(239,66,111,.05));
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .usecase-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+    color: var(--fuchsia); margin-bottom: 12px;
+  }
+  .usecase h4 { margin-top: 0 }
+
+  /* Fin d'article (signature auteur) */
+  .article-end { padding: 60px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+  .article-end-card {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px 32px; position: relative; overflow: hidden;
+  }
+  .article-end-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: linear-gradient(180deg, var(--teal), var(--fuchsia) 55%, var(--orange));
+  }
+  .article-end-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line-strong); flex-shrink: 0; }
+  .article-end-kicker { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); margin-bottom: 6px; }
+  .article-end-title { font-size: clamp(20px,3vw,25px); line-height:1.12; margin: 0 0 10px; letter-spacing:-.02em; color: var(--ink); }
+  .article-end-body p { color: var(--ink-muted); font-size: 15.5px; line-height:1.65; margin: 0 0 20px; max-width: 54ch; }
+  .article-end-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .article-end-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; text-decoration:none; transition:transform .15s, background .2s, color .2s, border-color .2s; }
+  .article-end-btn.primary { background: var(--fuchsia); color:#fff; }
+  .article-end-btn.primary:hover { transform:translateY(-2px); }
+  .article-end-btn.ghost { background:transparent; color: var(--ink); border:1.5px solid var(--line-strong); }
+  .article-end-btn.ghost:hover { border-color: var(--ink); transform:translateY(-2px); }
+  @media (max-width:600px){ .article-end-card{ flex-direction:column; gap:18px; padding:24px; } .article-end-avatar{ width:60px; height:60px; } }
+
+  /* Footer */
+  .footer {
+    background: var(--bg); padding: 48px 0 40px;
+    border-top: 1px solid var(--line); position: relative;
+  }
+  .footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0% 33.33%, var(--fuchsia) 33.33% 66.66%, var(--orange) 66.66% 100%);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: .15em; font-weight: 700; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+</style>
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+
+    <div class="kicker"><span class="dot"></span>Breakdown · 56</div>
+    <h1>Job hunting<br>with AI<br><em>without losing your voice</em></h1>
+    <p class="hero-lead">
+      You're staring at a job posting and you don't know where to start. The resume needs a rewrite, the cover letter has you paralyzed, and the interview stresses you out before you've even landed one. I dug into what AI tools actually do well in this process — and what the studies say on the recruiter side. Spoiler: the danger isn't using AI, it's using it like everyone else. Here's the method, the prompts, and the traps that get an application burned.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>11 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>According to APEC (France's job association for executives), <strong>31% of executives on the job hunt already use AI</strong> — first for the cover letter (84%) and the resume (75%)</li>
+      <li>The "75% of resumes get rejected by robots" line is a <strong>marketing myth from 2012</strong>: the real issue isn't automatic rejection, it's ranking</li>
+      <li>What gets punished isn't AI, it's generic: <strong>62% of employers toss non-personalized AI applications</strong> (Resume Now)</li>
+      <li><strong>Spoken</strong> interview practice is the best little-known use: Gemini Live and Copilot Voice do it for free</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<section class="block">
+  <div class="container">
+
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What actually changed in 2026</h2>
+    <p>Let's start with the facts, because this topic drags a lot of fantasy along with it.</p>
+    <p>AI has become the job seeker's normal tool. According to APEC — the French association for executive employment — in its May 2026 study "Les cadres et l'IA", 31% of executives looking for a job use it — twice as many as at the end of 2024 — first for the cover letter (84% of them) and the resume (75%). And 72% feel they've sent out stronger applications thanks to it. On the recruiter side, it would be hard to hold it against you: per the HelloWork survey published in November 2025, 78% use generative AI themselves, notably to write their job postings.</p>
+    <p>Now, the myth to take down: <strong>"75% of resumes are rejected by robots before anyone reads them."</strong> That number comes from a 2012 sales pitch by a company that sold… resume optimization. No study behind it. In an Enhancv survey of recruiters who use this software, run in late 2025, 92% say their tool doesn't automatically reject a single resume — the only automatic rejections are knockout questions configured by a human (driver's license, location, visa).</p>
+    <p>The real issue is elsewhere: <strong>ranking</strong>. On a posting that gets hundreds of applications, the recruiter reads the first few dozen — often in order of arrival. Your resume doesn't need to "beat a robot"; it needs to be readable, relevant, and early.</p>
+    <p>And in France, where this article is written from, let's keep a sense of proportion: according to APEC ("Pratiques de recrutement de cadres" study, May 2025), 50% of companies with 250 or more employees use recruiting software, but only 17% of small and mid-sized businesses. The same study notes that only 4% of companies that hired an executive in 2024 had brought AI into their process. The all-powerful algorithm sorting applications is, in France at least, mostly a story we tell ourselves.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>AI doesn't replace your track record, and the "robot that rejects resumes" is largely a myth. What matters: an application that's readable, tailored to the posting, and sent early — three things AI saves you real time on.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Your resume, revised and edited by AI</h2>
+    <p>The first use is getting past the blank page. You hand the AI your experience in bulk, it gives it structure. But the real value is in <strong>rephrasing</strong>: turning "I managed the sales team" into "I led a team of 6 sales reps and grew revenue 15% in one year." The AI doesn't know your numbers — you bring those — but it knows how to showcase them with action verbs.</p>
+    <p>Here's the prompt I recommend, to copy as is:</p>
+    <blockquote>
+    <p><em>"Here is my current resume: [paste your resume]. Here is the job posting I'm targeting: [paste the full text of the posting]. Identify the 8 most important skills and keywords in the posting, tell me which ones are missing from my resume, and suggest a rewrite of my experience that works them in — only where it's actually true for my background. Do not invent any skills for me."</em></p>
+    </blockquote>
+    <p>That last sentence isn't decorative: AI happily fills the gaps with plausible skills you don't have. And, again per APEC, 69% of companies run a phone screening — everything on your resume has to be defensible out loud, with no time to prepare.</p>
+    <p>As for format, the official advice from France Travail (the French national employment agency) on recruiting software fits in three lines: use the exact job title from the posting, keep a single-column layout with no tables or logos, export as a text-based PDF (not a scanned image). That's it. And absolutely no "white fonting" — the trick of hiding keywords in white text: firms like Robert Half now cite it as detected fraud.</p>
+
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The cover letter without the agony</h2>
+    <p>Two numbers to size the effort it deserves. According to APEC, one company in two still asks for a cover letter — down from nearly 70% before 2022. And per HelloWork (November 2025), only one recruiter in five gives it any real weight. Translation: it's still often required, rarely read closely. So the goal is to do it <strong>fast and well</strong> — don't spend your evening on it, and don't send generic filler either.</p>
+    <p>Because generic is what costs you: according to the Resume Now 2025 report, 62% of employers toss AI-generated applications with no personalization. It's not the tool that gets punished — as early as 2023, a ResumeBuilder study showed that 82% of recruiters can't tell a ChatGPT letter from a human one. It's the sameness.</p>
+    <p>My method, in three steps:</p>
+    <ol>
+    <li><strong>First, write 5 to 10 raw lines</strong>, no style: why this company specifically, which moment in your background makes the connection, one dated, quantified achievement.</li>
+    <li><strong>Give that material to the AI</strong> along with the posting, and a strict frame:</li>
+    </ol>
+    <blockquote>
+    <p><em>"Here are my raw notes: [paste them]. Here is the posting: [paste it]. Write a short cover letter (250 words max) that keeps my phrasing and my register. Banned: "I am writing to express my keen interest", "I am thrilled to", "take on new challenges", "my profile is a perfect match", em dashes, and lists of three qualities. One idea per paragraph."</em></p>
+    </blockquote>
+    <ol start="3">
+    <li><strong>Read it out loud.</strong> If a sentence doesn't sound like you, cut it or rewrite it. You're the one signing — it's your voice.</li>
+    </ol>
+    <p>The banned-words list in the prompt isn't a stylistic whim: "keen interest", "thrilled to", the classic trio of "rigor, autonomy and team spirit", sentences that repeat the posting word for word — these are exactly the tics that recruiter guides (Reed, Coursera) list as signatures of an AI letter. Banning them in the prompt fixes the problem at the source.</p>
+    <h2>Practice the interview, out loud</h2>
+    <p>This is the use that blew me away the most, and the least known. Everyone thinks "writing"; the real game changer is <strong>spoken simulation</strong>.</p>
+    <p>AI voice modes have gotten good enough to play a credible recruiter, live, out loud. And two are free with no real limit: <strong>Gemini Live</strong> (Google) and <strong>Copilot Voice</strong> (Microsoft made its voice mode free and unlimited in early 2025 — and documents the "interview prep" use case itself). ChatGPT's voice mode works well too, but its free quota is counted in minutes per day — enough for a short session.</p>
+    <p>The prompt that works, inspired by HelloWork's guides, to run out loud or in writing:</p>
+    <blockquote>
+    <p><em>"Play the role of a demanding recruiter for the position of [job title], in the [industry] sector. Here is my resume: [paste it]. Here is the posting: [paste it]. Ask me one question at a time, starting with the classics and then getting tougher. After each answer: score me out of 10, give me brief feedback, and suggest a stronger phrasing using the STAR method (Situation, Task, Action, Result)."</em></p>
+    </blockquote>
+    <p>Out loud, you work on what writing never shows: your pace, your verbal tics, your rambling answers. Three twenty-minute sessions genuinely change your performance.</p>
+    <p>Think about <strong>salary negotiation</strong> too: give it the role, the region, your experience, and ask for a simulation of the conversation. Bonus 2026 context: since June, the EU pay transparency directive requires job postings to display a salary range — so you walk into the interview with an objective baseline. Use it.</p>
+    <div class="callout warn"><h4>The trap to avoid</h4><p>AI can make up information about a company or an industry — that's what's called a <a href="/en/lexique/hallucination">hallucination</a>. Never quote a number or a fact about the company in an interview that you haven't verified yourself: official website, LinkedIn, recent press. The simulation trains your delivery; the substance, you check by hand.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Which free tool for what</h2>
+    <p>As I write this (July 2026), here's how I would split the roles — all on free plans:</p>
+    <ul>
+    <li><strong>ChatGPT</strong> (OpenAI): the generalist. Good everywhere, with a free quota of about ten messages every five hours on the best model. The natural entry point if you're starting from zero.</li>
+    <li><strong>Claude</strong> (Anthropic): the most natural writer — its text "sounds" the least AI, which is precisely what you're after in a letter. It reads PDFs well (your resume, the posting). My pick for writing.</li>
+    <li><strong>Gemini</strong> (Google): its unique asset is <strong>Gemini Live</strong>, voice conversation, nearly unlimited for free. My pick for interview practice.</li>
+    <li><strong>Copilot</strong> (Microsoft): free, unlimited voice mode — a solid alternative to Gemini Live for speaking practice.</li>
+    <li><strong>Vibe</strong> (formerly Le Chat, by Mistral): the French option, hosted in Europe. It swallows 200-page PDFs on the free plan — handy for digesting an annual report before the interview. If the privacy of your data worries you, that's the sovereignty argument.</li>
+    </ul>
+    <p>And don't overlook the public programs, free and built for the French job market: <strong>France Travail</strong>, France's national employment agency, is rolling out ChatFT, an assistant built with the French company Mistral AI, and offers some thirty short modules on using AI in your job search — including generating resumes and cover letters. <strong>APEC</strong> gives executives a free online interview simulator and, better still, personalized mock interviews with a real consultant, over video or in person. It's free, so stack them: AI for daily practice, the consultant for the human eye.</p>
+    <p>To compare these tools more broadly (writing, coding, creating), go read <a href="/en/articles/choisir-ia-ecrire-coder-images">choosing your AI in 2026</a>.</p>
+
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What not to do</h2>
+    <p><strong>Sending the first draft.</strong> AI produces fast — too fast. Unedited text contains phrasing that doesn't sound like you — and sometimes inaccurate facts if your raw material was fuzzy.</p>
+    <p><strong>Using the same resume everywhere.</strong> The whole point of AI is personalizing in ten minutes per posting: the ad's keywords, the letter's angle. The time saved should turn into relevance gained, not a higher volume of identical applications.</p>
+    <p><strong>Over-optimizing for an imaginary robot.</strong> Stuffing the resume with keywords makes it unreadable for the human who, in the vast majority of cases in France, will read it directly. Readability first.</p>
+    <p><strong>Leaving the AI tics in place.</strong> Strings of em dashes, "keen interest", three qualities per sentence, perfectly balanced paragraphs: every tic is a clue. Reading out loud catches almost all of them.</p>
+    <p><strong>Lying, even a little.</strong> A skill inflated by AI deflates in the phone screening — which 69% of companies use (APEC). The simple rule: AI preps the ground, you sign the work.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Can AI write your resume and cover letter entirely for you?</h3>
+    <p>Technically yes, and that's exactly what you shouldn't do: without your raw material, the result is generic — and 62% of employers toss non-personalized AI applications (Resume Now, 2025). AI structures and rephrases; the facts, the numbers and the "why this company" are on you.</p>
+    <h3>Can recruiters tell you used AI?</h3>
+    <p>Not when it's done well: as early as 2023, 82% of recruiters couldn't tell a ChatGPT letter from a human one (ResumeBuilder). What shows are the tics — hollow phrasing, em dashes, cookie-cutter structure — and the absence of personal examples. Hence the banned-words list in the prompt and the read-it-out-loud pass.</p>
+    <h3>Do you still need a cover letter in 2026?</h3>
+    <p>In France, one company in two asks for one (APEC), so yes, keep one at the ready — but only one recruiter in five reads it closely (HelloWork). Make it short (250 words), personalized, quick to produce with the draft → AI → reread method. Put the energy you save into interview prep.</p>
+    <h3>How do you get past ATS filters with an AI-optimized resume?</h3>
+    <p>First, take a breath: automatic rejections are a well-documented myth, and in France only 17% of small and mid-sized businesses use recruiting software (APEC). What works: using the exact job title and the posting's skills when they're true for you, a simple single-column layout, a text-based PDF. Paste the posting into the AI and ask for the missing keywords — it's ten minutes.</p>
+    <h3>What's the best free tool to simulate a job interview?</h3>
+    <p>Out loud: Gemini Live or Copilot Voice, both free with no real time limit. Give it the role, your resume and the posting, and ask for one question at a time with a score out of 10 and feedback. In France, executives also get free mock interviews with an APEC consultant — the combination of the two is unbeatable.</p>
+    <h3>Can AI help you negotiate your salary?</h3>
+    <p>Yes: simulating the conversation, answering objections, phrasing your range. And since June 2026, the EU pay transparency directive requires a salary range on job postings — ask the AI to help you position yourself within that range with factual arguments drawn from your background.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I do all of this for myself first. And what I see is that AI doesn't make job hunting easy — it makes certain steps less paralyzing. The resume you keep pushing back, the letter you put off until tomorrow, the interview you dread: on each one, the tool removes the friction of getting started.</p>
+    <p>But the hierarchy stays clear: your material first, the tool second. The studies converge — what gets punished isn't using AI, which is massively adopted on both sides of the table, it's the interchangeable application.</p>
+    <p>Start with a single move: take a posting you care about, paste it with your resume into the tool of your choice, and ask for the missing keywords. Ten minutes. Then, if the posting turns into an interview, fire up Gemini Live one evening and let it grill you. You can thank me later.</p>
+
+  </div>
+</section>
+
+<!-- Final CTA -->
+<!-- ⚠️ CRITICAL ANCHOR: publish.js replaces the whole body between the end of the TL;DR and this
+     "Final CTA" comment. DO NOT delete/rename it, otherwise published articles
+     keep the template's sample body (incident of 2026-07-02→06). -->
+<!-- End of article: author signature -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, no jargon, no hype. If this article helped you, the easiest way to miss nothing is my Friday letter. And if you have a question or a doubt: write back, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unified) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I <em>actually test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Sagnier Brothers</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, anti-double-attach guard -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Thanks';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Error';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- "Summarize with an AI" bar (auto-inserted after the TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

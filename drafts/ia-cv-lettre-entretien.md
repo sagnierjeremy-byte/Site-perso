@@ -2,146 +2,155 @@
 slug: ia-cv-lettre-entretien
 titre: 'IA pour ton CV, ta lettre et ton entretien'
 titre_seo: 'IA pour CV, lettre de motivation et entretien en 2026'
-description: 'Comment utiliser ChatGPT, Gemini ou Claude pour créer un CV percutant, une lettre convaincante et préparer ton entretien d''embauche.'
+description: 'CV optimisé, lettre personnalisée, entretien simulé à l''oral : la méthode complète pour utiliser ChatGPT, Claude ou Gemini sans produire une candidature générique.'
 numero: '56'
 categorie: Décryptage
 hero_ligne_1: Chercher un emploi
 hero_ligne_2: avec l'IA
 hero_ligne_3: sans perdre ta voix
-lead: 'Tu regardes une offre d''emploi et tu ne sais pas par où commencer. Le CV est à refaire, la lettre de motivation te paralyse, et l''entretien te stresse avant même d''avoir décroché. J''ai testé ce que les outils IA comme ChatGPT, Gemini et Claude peuvent faire concrètement dans ce processus. Pas pour remplacer ce que tu as vécu et construit, mais pour t''aider à le mettre en forme plus vite, plus clairement, et avec plus de chances de passer les filtres automatiques qui trient les candidatures avant même qu''un humain les lise.'
-duree: 9 min
+lead: 'Tu regardes une offre d''emploi et tu ne sais pas par où commencer. Le CV est à refaire, la lettre de motivation te paralyse, et l''entretien te stresse avant même d''avoir décroché. J''ai creusé ce que les outils IA font vraiment bien dans ce processus — et ce qu''en disent les études côté recruteurs. Spoiler : le danger n''est pas d''utiliser l''IA, c''est de l''utiliser comme tout le monde. Voici la méthode, les prompts, et les pièges qui grillent une candidature.'
+duree: 11 min
 niveau: Débutant
 outils: ChatGPT
 published: '2026-07-02'
 tldr:
-  - 'L''IA génère une <strong>base de CV et de lettre de motivation</strong> en quelques minutes — tu fournis le contexte, elle structure.'
-  - 'Les <strong>systèmes ATS</strong> filtrent les CV automatiquement : l''IA t''aide à intégrer les bons mots-clés de l''offre.'
-  - 'Tu peux simuler un <strong>entretien complet</strong> avec un outil IA, y compris les questions pièges et la négociation salariale.'
-  - La qualité du résultat dépend directement de la <strong>précision de tes instructions</strong> (tes prompts).
+  - 'Selon l''APEC, <strong>31 % des cadres en recherche d''emploi utilisent déjà l''IA</strong> — d''abord pour la lettre de motivation (84 %) et le CV (75 %)'
+  - 'Le « 75 % des CV rejetés par les robots » est un <strong>mythe marketing de 2012</strong> : le vrai enjeu n''est pas le rejet automatique, c''est le classement'
+  - 'Ce qui est sanctionné, ce n''est pas l''IA, c''est le générique : <strong>62 % des employeurs écartent les candidatures IA non personnalisées</strong> (Resume Now)'
+  - 'La simulation d''entretien <strong>à l''oral</strong> est le meilleur usage méconnu : Gemini Live et Copilot Voice le font gratuitement'
 ---
 
 ```
 
 <!-- section k-fuchsia -->
 
-## Pourquoi la recherche d'emploi a changé
+## Ce qui a vraiment changé en 2026
 
-Selon une étude LinkedIn de novembre 2025, 65 % des candidats affirment que l'IA a modifié la façon dont ils cherchent un emploi. Et du côté des recruteurs, la même étude indique que 50 % d'entre eux estiment que l'IA a changé la manière dont leur entreprise recrute.
+Commençons par les faits, parce que ce sujet charrie beaucoup de fantasmes.
 
-Ce n'est pas un phénomène marginal. En 2025, 78 % des recruteurs utilisaient l'IA dans leur processus de sélection, contre 39 % en 2024. En un an, le chiffre a presque doublé.
+L'IA est devenue l'outil normal du candidat. Selon l'APEC (étude « Les cadres et l'IA », mai 2026), 31 % des cadres en recherche d'emploi l'utilisent — deux fois plus que fin 2024 — d'abord pour la lettre de motivation (84 % d'entre eux) et le CV (75 %). Et 72 % estiment avoir envoyé de meilleures candidatures grâce à elle. Côté recruteurs, difficile de te le reprocher : d'après l'enquête HelloWork publiée en novembre 2025, 78 % utilisent eux-mêmes l'IA générative, notamment pour rédiger leurs offres.
 
-Ce que ça signifie concrètement : ta candidature est souvent lue par un algorithme avant d'atterrir sur le bureau d'un humain. Ces systèmes s'appellent des ATS — pour *Applicant Tracking System*, soit un logiciel de suivi des candidatures. Ils scannent ton CV à la recherche de mots-clés précis. Si ces mots ne sont pas là, ton dossier ne passe pas, même si ton profil est excellent.
+Maintenant, le mythe à déboulonner : **« 75 % des CV sont rejetés par les robots avant d'être lus »**. Ce chiffre vient d'un argumentaire commercial de 2012 d'une société qui vendait… de l'optimisation de CV. Aucune étude derrière. Dans une enquête Enhancv menée fin 2025 auprès de recruteurs utilisant ces logiciels, 92 % affirment que leur outil ne rejette aucun CV automatiquement — les seuls rejets automatiques sont des questions éliminatoires configurées par un humain (permis, localisation, visa).
 
-Et une fois que ton CV atteint un recruteur humain, il passe en moyenne moins de 10 secondes dessus (source : étude datée du 20 mars 2026). 10 secondes. Pas le temps de lire une belle histoire. Le temps de capter une structure claire et des résultats visibles.
+Le vrai enjeu est ailleurs : **le classement**. Sur une offre qui reçoit des centaines de candidatures, le recruteur lit les premières dizaines — souvent dans l'ordre d'arrivée. Ton CV n'a pas besoin de « battre un robot », il a besoin d'être lisible, pertinent, et d'arriver tôt.
 
-C'est là que l'IA devient utile. Pas pour écrire à ta place. Pour t'aider à être lisible, pertinent et rapide.
+Et en France, gardons les proportions : selon l'APEC (Pratiques de recrutement de cadres, mai 2025), 50 % des entreprises de 250 salariés et plus utilisent un logiciel de recrutement, mais seulement 17 % des PME. La même étude note que 4 % seulement des entreprises ayant recruté un cadre en 2024 avaient intégré l'IA dans leur processus. L'algorithme tout-puissant qui trie les candidatures, en France, c'est surtout une histoire qu'on se raconte.
 
-<div class="callout tip"><h4>Ce que je retiens</h4><p>L'IA ne remplace pas ton parcours. Elle t'aide à le présenter de façon à ce qu'il survive aux filtres automatiques et capte l'attention en moins de 10 secondes. C'est un accélérateur de mise en forme, pas un générateur d'identité.</p></div>
+<div class="callout tip"><h4>Ce que je retiens</h4><p>L'IA ne remplace pas ton parcours, et le « robot qui rejette les CV » est largement un mythe. Ce qui compte : une candidature lisible, adaptée à l'offre, envoyée tôt — trois choses pour lesquelles l'IA te fait gagner un temps réel.</p></div>
 
 <!-- section k-teal -->
 
 ## Ton CV, revu et corrigé par l'IA
 
-La première chose que l'IA peut faire pour toi, c'est t'aider à surmonter le syndrome de la page blanche. Tu lui donnes ta liste d'expériences, même en vrac, et elle structure tout ça en quelques minutes (fait documenté en février 2026).
+Le premier usage, c'est de sortir du syndrome de la page blanche. Tu donnes à l'IA tes expériences en vrac, elle structure. Mais la vraie valeur est dans la **reformulation** : transformer « j'ai géré l'équipe commerciale » en « j'ai piloté une équipe de 6 commerciaux et augmenté le chiffre d'affaires de 15 % en un an ». L'IA ne connaît pas tes chiffres — c'est toi qui les apportes — mais elle sait les mettre en valeur avec des verbes d'action.
 
-Mais l'usage le plus puissant, c'est la reformulation. L'IA peut transformer une phrase comme "j'ai géré l'équipe commerciale" en quelque chose de beaucoup plus percutant, avec des verbes d'action forts et, si tu lui fournis les chiffres, des résultats quantifiés. "J'ai piloté une équipe de 6 commerciaux et augmenté le chiffre d'affaires de X % en 12 mois" frappe différemment. L'IA ne connaît pas tes chiffres — tu dois les lui donner — mais elle sait les mettre en valeur.
+Voici le prompt que je recommande, à copier tel quel :
 
-L'autre usage clé : l'optimisation pour les ATS. Tu colles le texte de l'offre d'emploi dans l'outil IA, tu lui demandes d'identifier les mots-clés importants, puis de vérifier si ton CV les contient. C'est simple, rapide, et ça fait une vraie différence sur les candidatures en ligne.
+> *« Voici mon CV actuel : [colle ton CV]. Voici l'offre d'emploi que je vise : [colle le texte intégral de l'offre]. Identifie les 8 compétences et mots-clés les plus importants de l'offre, dis-moi lesquels manquent dans mon CV, et propose une reformulation de mes expériences qui les intègre — uniquement quand c'est vrai pour mon parcours. Ne m'invente aucune compétence. »*
 
-Pour que ça fonctionne, tu dois donner du contexte précis dans tes instructions. L'IA ne devine pas ton secteur, ton niveau d'expérience ou le type de poste que tu vises. Plus tu es précis dans ce que tu lui demandes, meilleur est le résultat. C'est ce qu'on appelle un prompt — une instruction donnée à l'IA. Si tu veux approfondir cette mécanique, j'ai écrit un article complet sur [comment écrire un bon prompt quand on n'est pas développeur](/articles/ecrire-bon-prompt-non-dev).
+La dernière phrase n'est pas décorative : l'IA comble volontiers les trous avec des compétences plausibles que tu n'as pas. Or, toujours selon l'APEC, 69 % des entreprises font une présélection téléphonique — tout ce qui figure sur ton CV doit être défendable de vive voix, sans préparation.
 
-Des plateformes comme LaunchMe et JobCopilot proposent également des fonctionnalités intégrées pour générer et optimiser un CV directement pour les ATS, sans avoir à gérer les prompts manuellement.
+Pour le format, les conseils officiels de France Travail sur les logiciels de recrutement tiennent en trois lignes : reprends l'intitulé exact du poste, garde une mise en page à une colonne sans tableaux ni logos, exporte en PDF texte (pas une image scannée). C'est tout. Et surtout pas de « white fonting » — cette astuce qui consiste à cacher des mots-clés en police blanche : les cabinets comme Robert Half la citent désormais comme fraude détectée.
 
 <!-- section k-orange -->
 
 ## La lettre de motivation sans le supplice
 
-La lettre de motivation est souvent l'étape la plus redoutée. On ne sait pas quoi dire, on répète le CV, on tombe dans les formules creuses. L'IA aide à sortir de ce blocage.
+Deux chiffres pour cadrer l'effort à y mettre. Selon l'APEC, une entreprise sur deux demande encore une lettre de motivation — contre près de 70 % avant 2022. Et d'après HelloWork (novembre 2025), seul un chargé de recrutement sur cinq lui accorde du crédit. Traduction : elle reste souvent exigée, rarement lue attentivement. L'objectif est donc de la faire **vite et bien** — pas d'y passer ta soirée, pas non plus d'envoyer du générique.
 
-Le principe est le même qu'pour le CV : tu lui donnes du contexte. Le poste visé, l'entreprise, ce qui t'attire dans cette offre précisément, et deux ou trois éléments de ton parcours qui font le lien. Elle construit une structure cohérente à partir de ça.
+Parce que le générique, lui, coûte cher : selon le rapport Resume Now 2025, 62 % des employeurs écartent les candidatures générées par IA sans personnalisation. Ce n'est pas l'outil qui est sanctionné — dès 2023, une étude ResumeBuilder montrait que 82 % des recruteurs ne distinguent pas une lettre ChatGPT d'une lettre humaine. C'est l'uniformité.
 
-Ce que l'IA fait bien ici, c'est identifier l'angle. Plutôt que de commencer par "Je me permets de vous adresser ma candidature pour le poste de…", elle peut t'aider à ouvrir sur ce qui te distingue vraiment. Une transition que tu as vécue. Un projet concret. Une compétence acquise dans un contexte inhabituel.
+Ma méthode en trois temps :
 
-Mais — et c'est important — le contenu généré par l'IA sans ta matière première sera générique. Plat. Interchangeable. L'IA est un accélérateur de qualité, pas un inventeur de personnalité (source datée du 20 mars 2026). Si tu lui donnes du vide, elle te rend du vide bien formaté.
+1. **Écris d'abord 5 à 10 lignes brutes**, sans style : pourquoi cette boîte précisément, quel moment de ton parcours fait le lien, une réalisation datée et chiffrée.
+2. **Donne cette matière à l'IA** avec l'offre, et un cadre strict :
 
-La méthode que je recommande : écris d'abord 5 à 10 lignes brutes de ce que tu veux dire, sans te préoccuper du style. Puis demande à l'IA de restructurer, d'améliorer le ton et de vérifier la cohérence avec l'offre. Tu gardes ta voix, elle affine la forme.
+> *« Voici mes notes brutes : [colle-les]. Voici l'offre : [colle-la]. Rédige une lettre de motivation courte (250 mots max) qui garde mes formulations et mon niveau de langue. Interdits : "c'est avec un vif intérêt", "je suis ravi(e) de", "relever de nouveaux défis", "mon profil correspond parfaitement", les tirets cadratins, et les énumérations de trois qualités. Une seule idée par paragraphe. »*
 
-Pour choisir quel outil utiliser selon ton objectif, l'article [choisir son IA pour écrire, coder ou créer des images](/articles/choisir-ia-ecrire-coder-images) peut t'aider à y voir plus clair.
+3. **Relis à voix haute.** Si une phrase ne sonne pas comme toi, coupe-la ou réécris-la. Tu signes, c'est ta voix.
 
-## Simuler l'entretien avant de le vivre
+La liste de mots interdits du prompt n'est pas une coquetterie : « vif intérêt », « ravi de », le triptyque « rigueur, autonomie et esprit d'équipe », les phrases qui répètent l'offre mot pour mot — ce sont exactement les tics que les guides recruteurs (Reed, Coursera) listent comme signatures d'une lettre IA. Les interdire dès le prompt, c'est régler le problème à la source.
 
-C'est l'usage qui m'a le plus surpris. L'IA peut jouer le rôle du recruteur et te poser des questions d'entretien, y compris les questions pièges. Tu lui donnes le poste, le secteur, et tu lui demandes de simuler un entretien de 20 minutes. Elle joue le jeu.
+## Simuler l'entretien, à l'oral
 
-L'avantage, c'est l'environnement à faible stress. Tu peux t'entraîner autant de fois que tu veux, à n'importe quelle heure, sans te sentir jugé. Et après chaque réponse, tu peux lui demander un retour : est-ce que ta réponse était claire ? Trop longue ? Est-ce que tu as bien mis en avant ta valeur ajoutée ?
+C'est l'usage qui m'a le plus bluffé, et le moins connu. Tout le monde pense « rédaction » ; le vrai game changer, c'est la **simulation orale**.
 
-Elle peut aussi t'aider à structurer tes réponses avec des méthodes comme la méthode STAR (Situation, Tâche, Action, Résultat), qui est souvent attendue pour les questions comportementales du type "Raconte-moi une situation difficile que tu as gérée".
+Les modes vocaux des IA sont devenus assez bons pour jouer un recruteur crédible, en direct, à voix haute. Et deux sont gratuits sans vraie limite : **Gemini Live** (Google) et **Copilot Voice** (Microsoft a rendu son mode vocal gratuit et illimité début 2025 — et documente lui-même le cas d'usage « préparation d'entretien »). Le mode vocal de ChatGPT marche bien aussi, mais son quota gratuit se compte en minutes par jour — de quoi faire une session courte.
 
-Et pour la négociation salariale — souvent le moment le plus inconfortable — l'IA peut te coacher. Tu lui donnes le poste, la zone géographique, ton niveau d'expérience, et tu lui demandes de simuler la discussion. Elle peut t'aider à formuler ta demande, à répondre aux objections, à ne pas te dévaloriser sous la pression.
+Le prompt qui marche, inspiré des guides HelloWork, à lancer à l'oral ou à l'écrit :
 
-<div class="callout tip"><h4>Le piège à éviter</h4><p>L'IA peut parfois inventer des informations sur une entreprise ou un secteur — c'est ce qu'on appelle une <a href="/lexique/hallucination">hallucination</a>. Pour préparer un entretien, vérifie toujours les faits qu'elle te donne sur l'entreprise avec des sources directes : site officiel, LinkedIn, presse récente. Ne cite jamais en entretien un chiffre ou une info que tu n'as pas vérifié toi-même.</p></div>
+> *« Joue le rôle d'un recruteur exigeant pour le poste de [intitulé], dans le secteur [secteur]. Voici mon CV : [colle-le]. Voici l'offre : [colle-la]. Pose-moi une question à la fois, en commençant par les classiques puis en durcissant. Après chaque réponse : note-moi sur 10, donne-moi un retour bref, et propose une meilleure formulation en méthode STAR (Situation, Tâche, Action, Résultat). »*
 
-## ChatGPT, Gemini, Claude : lequel choisir ?
+À l'oral, tu travailles ce que l'écrit ne montre pas : ton débit, tes tics de langage, tes réponses à rallonge. Trois sessions de vingt minutes changent réellement ta prestation.
 
-Les trois outils majeurs ont chacun leurs forces. À la date de cet article, voici où ils en sont.
+Pense aussi à la **négociation salariale** : donne le poste, la région, ton expérience, et demande une simulation de la discussion. Bonus de contexte 2026 : depuis juin, la directive européenne sur la transparence salariale impose l'affichage d'une fourchette de rémunération sur les offres — tu arrives donc en entretien avec une base objective. Sers-t'en.
 
-**ChatGPT** (OpenAI) a mis à jour sa version GPT-5.5 Instant le 1er juillet 2026, avec des améliorations notables sur le style et la qualité des réponses, notamment pour les conversations quotidiennes et les textes lisibles. C'est souvent le point d'entrée naturel pour qui commence. Tu peux en apprendre plus sur ses capacités dans la [fiche ChatGPT du lexique](/lexique/chatgpt-atlas).
+<div class="callout warn"><h4>Le piège à éviter</h4><p>L'IA peut inventer des informations sur une entreprise ou un secteur — c'est ce qu'on appelle une <a href="/lexique/hallucination">hallucination</a>. Ne cite jamais en entretien un chiffre ou un fait sur la boîte que tu n'as pas vérifié toi-même : site officiel, LinkedIn, presse récente. La simulation entraîne ta forme ; le fond, tu le vérifies à la main.</p></div>
 
-**Gemini** (Google) a lancé sa version 3.5 Flash le 19 mai 2026. Elle est conçue pour des performances continues sur des tâches complexes. Si tu es déjà dans l'écosystème Google (Gmail, Docs), l'intégration est fluide. La [fiche Gemini du lexique](/lexique/gemini-3-1-pro) donne des détails sur ses capacités avancées.
+<!-- section k-teal -->
 
-**Claude** (Anthropic) a lancé Claude Sonnet 5 le 30 juin 2026, présenté comme leur modèle Sonnet le plus autonome à ce jour. Claude est réputé fort sur les tâches de rédaction longue et nuancée — ce qui en fait un bon choix pour travailler une lettre de motivation ou structurer un argumentaire d'entretien. La [fiche Claude du lexique](/lexique/claude-opus-4-7) te donnera un aperçu des modèles disponibles.
+## Quel outil gratuit pour quoi
 
-Mon conseil pratique : commence avec celui que tu connais déjà, ou avec ChatGPT si tu pars de zéro. La différence entre les outils est moins importante que la qualité de ce que tu leur donnes comme contexte.
+À la date où j'écris (juillet 2026), voici comment je répartirais les rôles — tous en version gratuite :
+
+- **ChatGPT** (OpenAI) : le généraliste. Bon partout, avec un quota gratuit d'une dizaine de messages toutes les cinq heures sur le meilleur modèle. Point d'entrée naturel si tu pars de zéro.
+- **Claude** (Anthropic) : le plus naturel en rédaction française — son texte « sonne » moins IA, ce qui est précisément ce que tu cherches pour une lettre. Il lit bien les PDF (ton CV, l'offre). Mon choix pour l'écrit.
+- **Gemini** (Google) : son atout unique est **Gemini Live**, la conversation vocale, quasi illimitée en gratuit. Mon choix pour la simulation d'entretien.
+- **Copilot** (Microsoft) : mode vocal gratuit et illimité, alternative solide à Gemini Live pour l'oral.
+- **Vibe** (ex-Le Chat, de Mistral) : l'option française, hébergée en Europe. Il avale des PDF de 200 pages en gratuit — pratique pour analyser un rapport annuel avant l'entretien. Si la confidentialité de tes données te préoccupe, c'est l'argument souveraineté.
+
+Et ne néglige pas les dispositifs publics, gratuits et pensés pour le marché français : **France Travail** déploie ChatFT, un assistant développé avec le français Mistral AI, et propose une trentaine de modules courts pour apprendre à utiliser l'IA dans sa recherche d'emploi — y compris générer CV et lettre. L'**APEC** offre aux cadres un simulateur d'entretien en ligne et, mieux, des simulations personnalisées avec un vrai consultant, en visio ou en présentiel. C'est gratuit, autant cumuler : l'IA pour l'entraînement quotidien, le consultant pour le regard humain.
+
+Pour comparer ces outils plus largement (écrire, coder, créer), va voir [choisir son IA en 2026](/articles/choisir-ia-ecrire-coder-images).
 
 <!-- section k-fuchsia -->
 
 ## Ce qu'il ne faut pas faire
 
-Quelques erreurs reviennent souvent quand on utilise l'IA pour candidater.
+**Envoyer le premier jet.** L'IA produit vite, trop vite. Un texte non relu contient des formulations qui ne te ressemblent pas — et parfois des faits inexacts si ta matière était imprécise.
 
-**Envoyer le premier jet sans relire.** L'IA produit vite. Trop vite parfois. Un CV ou une lettre générés sans ta relecture peuvent contenir des formulations qui ne te ressemblent pas, ou pire, des informations inexactes si tu lui as donné des données imprécises.
+**Utiliser le même CV partout.** L'intérêt de l'IA est justement de personnaliser en dix minutes par offre : les mots-clés de l'annonce, l'angle de la lettre. Le gain de temps doit se transformer en gain de pertinence, pas en volume d'envois identiques.
 
-**Utiliser le même CV pour toutes les offres.** L'IA te permet justement de personnaliser rapidement. Prends 10 minutes par candidature pour adapter les mots-clés et l'angle de ta lettre à chaque offre. C'est là que le gain de temps se transforme en gain de pertinence.
+**Sur-optimiser pour un robot fantasmé.** Bourrer le CV de mots-clés le rend illisible pour l'humain qui, dans l'immense majorité des cas en France, le lira directement. Lisibilité d'abord.
 
-**Oublier que le recruteur cherche une personne.** Un CV optimisé pour les ATS peut passer les filtres et tomber à plat devant un humain s'il est trop lisse. L'IA t'aide à franchir la première barrière. Ensuite, c'est ton histoire qui doit parler.
+**Laisser les tics IA en place.** Tirets cadratins en série, « vif intérêt », trois qualités par phrase, paragraphes parfaitement équilibrés : chaque tic est un indice. La relecture à voix haute les attrape presque tous.
 
-**Ne pas vérifier les informations sur l'entreprise.** Comme mentionné plus haut, l'IA peut halluciner des faits. Pour la préparation d'entretien, toujours croiser avec des sources directes.
-
-La règle simple : l'IA prépare le terrain, toi tu signes le travail.
+**Mentir, même un peu.** Une compétence gonflée par l'IA se dégonfle en présélection téléphonique — que 69 % des entreprises pratiquent (APEC). La règle simple : l'IA prépare le terrain, toi tu signes le travail.
 
 ---
 
 ## Questions fréquentes
 
-### L'IA peut-elle rédiger un CV et une lettre de motivation entièrement à ta place sans intervention humaine ?
+### L'IA peut-elle rédiger un CV et une lettre entièrement à ta place ?
 
-Techniquement, oui. En pratique, le résultat sera générique si tu ne lui fournis pas de matière. L'IA a besoin de tes expériences, de tes chiffres, de ce qui te distingue. Elle structure et reformule — elle n'invente pas ton parcours. Un CV entièrement délégué sans relecture risque de sonner creux ou de contenir des inexactitudes.
+Techniquement oui, et c'est exactement ce qu'il ne faut pas faire : sans ta matière première, le résultat est générique — et 62 % des employeurs écartent les candidatures IA non personnalisées (Resume Now, 2025). L'IA structure et reformule ; les faits, les chiffres et le « pourquoi cette boîte », c'est toi.
 
-### Comment s'assurer que ton CV généré par IA passe les filtres des systèmes de suivi des candidatures (ATS) ?
+### Les recruteurs voient-ils que tu as utilisé l'IA ?
 
-Colle le texte de l'offre d'emploi dans l'outil IA et demande-lui d'identifier les mots-clés importants. Puis demande-lui de vérifier si ton CV les contient et de suggérer des reformulations si nécessaire. Les outils comme LaunchMe et JobCopilot font ça de façon semi-automatique.
+Pas quand c'est bien fait : dès 2023, 82 % des recruteurs ne distinguaient pas une lettre ChatGPT d'une lettre humaine (ResumeBuilder). Ce qui se voit, ce sont les tics — tournures creuses, tirets cadratins, structure type — et l'absence d'exemples personnels. D'où la liste de mots interdits dans le prompt et la relecture à voix haute.
 
-### Quels sont les risques et les inconvénients d'utiliser l'IA pour ta candidature et ta préparation d'entretien ?
+### Faut-il encore écrire une lettre de motivation en 2026 ?
 
-Le risque principal est le contenu générique : si tout le monde utilise les mêmes outils avec les mêmes instructions, les candidatures se ressemblent. L'autre risque est l'hallucination — l'IA peut inventer des informations sur une entreprise ou un secteur. Vérifie toujours les faits avant de les utiliser en entretien. Pour comprendre ce phénomène, consulte la [fiche sur les hallucinations](/lexique/hallucination).
+Une entreprise sur deux la demande (APEC), donc oui, il en faut une sous le coude — mais un recruteur sur cinq seulement la lit avec attention (HelloWork). Fais-la courte (250 mots), personnalisée, rapide à produire avec la méthode brouillon → IA → relecture. L'énergie économisée, mets-la dans la préparation d'entretien.
 
-### L'IA peut-elle t'aider à négocier ton salaire ou à répondre aux questions comportementales ?
+### Comment passer les filtres ATS avec un CV optimisé par l'IA ?
 
-Oui. Tu peux lui demander de simuler une négociation salariale ou de jouer le rôle d'un recruteur posant des questions comportementales. Elle peut aussi t'aider à structurer tes réponses selon la méthode STAR. C'est un entraînement à faible stress, disponible à n'importe quelle heure.
+D'abord, dédramatise : les rejets automatiques sont un mythe largement documenté, et en France seules 17 % des PME utilisent un logiciel de recrutement (APEC). Ce qui marche : reprendre l'intitulé exact du poste et les compétences de l'offre quand c'est vrai pour toi, une mise en page simple à une colonne, un PDF texte. Colle l'offre dans l'IA et demande-lui les mots-clés manquants — c'est dix minutes.
 
-### Comment personnaliser un contenu généré par IA pour qu'il reste authentique et reflète ta personnalité ?
+### Quel est le meilleur outil gratuit pour simuler un entretien d'embauche ?
 
-La méthode la plus efficace : écris d'abord tes idées en vrac, sans te préoccuper du style. Donne ce brouillon à l'IA et demande-lui de le restructurer en conservant ta voix. Tu restes l'auteur du fond, elle améliore la forme. Relis toujours à voix haute — si une phrase ne sonne pas comme toi, reformule-la.
+À l'oral : Gemini Live ou Copilot Voice, tous deux gratuits et sans vraie limite de durée. Donne le poste, ton CV et l'offre, demande une question à la fois avec une note sur 10 et un retour. Les cadres ont en plus accès gratuitement aux simulations avec un consultant APEC — le combo des deux est imbattable.
 
-### Quelles sont les dernières versions des IA comme ChatGPT, Gemini ou Claude à privilégier pour ta recherche d'emploi en 2026 ?
+### L'IA peut-elle t'aider à négocier ton salaire ?
 
-À la date de cet article : ChatGPT a mis à jour GPT-5.5 Instant le 1er juillet 2026 avec des améliorations de style. Gemini 3.5 Flash est disponible depuis le 19 mai 2026. Claude Sonnet 5 a été lancé le 30 juin 2026. Ces trois outils sont solides pour les usages liés à la candidature. Le plus important reste la qualité de tes instructions — un bon prompt sur n'importe lequel de ces outils donnera de meilleurs résultats qu'un prompt vague sur le meilleur modèle du marché.
+Oui : simulation de la discussion, réponses aux objections, formulation de ta fourchette. Et depuis juin 2026, la directive européenne sur la transparence salariale impose une fourchette de rémunération sur les offres — demande à l'IA de t'aider à te positionner dans cette fourchette avec des arguments factuels tirés de ton parcours.
 
 ---
 
 ## Ce que je retiens
 
-Je fais tout ça d'abord pour moi. Et ce que j'observe, c'est que l'IA ne rend pas la recherche d'emploi facile — elle rend certaines étapes moins paralysantes. Le syndrome de la page blanche devant un CV à refaire, la lettre de motivation qu'on remet au lendemain, la peur des questions pièges en entretien : l'IA peut débloquer tout ça.
+Je fais tout ça d'abord pour moi. Et ce que j'observe, c'est que l'IA ne rend pas la recherche d'emploi facile — elle rend certaines étapes moins paralysantes. Le CV qu'on repousse, la lettre qu'on remet au lendemain, l'entretien qu'on redoute : sur chacun, l'outil enlève la friction du démarrage.
 
-Mais elle ne remplace pas ce que tu as construit. Ton parcours d'entrepreneur, tes décisions, tes erreurs et ce que tu en as appris — aucun outil ne peut générer ça. Ce qu'il peut faire, c'est t'aider à le présenter de façon à ce qu'il soit vu, lu et retenu.
+Mais la hiérarchie reste claire : ta matière d'abord, l'outil ensuite. Les études convergent — ce qui est sanctionné n'est pas l'usage de l'IA, massivement adopté des deux côtés de la table, c'est la candidature interchangeable.
 
-Commence par un seul usage. Prends une offre d'emploi qui t'intéresse, colle-la dans ChatGPT ou Claude, et demande-lui d'identifier les mots-clés importants. Puis compare avec ton CV actuel. C'est 10 minutes de travail qui peuvent changer le résultat.
+Commence par un seul geste : prends une offre qui t'intéresse, colle-la avec ton CV dans l'outil de ton choix, et demande les mots-clés manquants. Dix minutes. Puis, si l'offre devient un entretien, lance Gemini Live un soir et fais-toi cuisiner. Tu me remercieras après.

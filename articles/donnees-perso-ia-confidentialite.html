@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/donnees-perso-ia-confidentialite.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Données personnelles et IA : ce qu'elles font vraiment</title>
+<meta name="description" content="ChatGPT, Claude, Gemini : que font-ils de tes données ? Je décrypte les pratiques réelles et les actions concrètes pour te protéger en 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Données personnelles et IA : ce qu'elles font vraiment">
+<meta property="og:description" content="ChatGPT, Claude, Gemini : que font-ils de tes données ? Je décrypte les pratiques réelles et les actions concrètes pour te protéger en 2026.">
+<meta property="og:url" content="https://jerwis.fr/articles/donnees-perso-ia-confidentialite">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/donnees-perso-ia-confidentialite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-13">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Données personnelles et IA : ce qu'elles font vraiment">
+<meta name="twitter:description" content="ChatGPT, Claude, Gemini : que font-ils de tes données ? Je décrypte les pratiques réelles et les actions concrètes pour te protéger en 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/donnees-perso-ia-confidentialite.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/donnees-perso-ia-confidentialite">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Données personnelles et IA : ce qu'elles font vraiment",
+  "description": "ChatGPT, Claude, Gemini : que font-ils de tes données ? Je décrypte les pratiques réelles et les actions concrètes pour te protéger en 2026.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/donnees-perso-ia-confidentialite",
+  "datePublished": "2026-07-13",
+  "dateModified": "2026-07-13",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/donnees-perso-ia-confidentialite.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 35</div>
+    <h1>Tes données<br>dans les IA<br><em>ce qui se passe vraiment</em></h1>
+    <p class="hero-lead">
+      Tu tapes un prompt, tu obtiens une réponse. Mais qu'est-ce que l'IA fait de ce que tu lui as écrit ? Et si tu avais glissé sans le savoir le nom d'un client, un chiffre d'affaires, une stratégie confidentielle ? Je me suis posé cette question sérieusement. Voici ce que j'ai trouvé sur ChatGPT, Claude, Gemini, Midjourney et Mistral — et surtout, ce que tu peux faire pour garder le contrôle.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Claude, Gemini, Mistral, Midjourney</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Par défaut, <strong>ChatGPT (versions gratuites et Plus) utilise tes conversations pour entraîner ses modèles</strong> — tu peux le désactiver dans les paramètres.</li>
+      <li>Claude a mis à jour sa politique en juin 2026 : il peut partager tes données avec les forces de l'ordre <strong>sans ordonnance judiciaire</strong> pour les abonnés Free, Pro et Max.</li>
+      <li>Midjourney n'offre <strong>pas d'option de désinscription</strong> standard pour les comptes grand public : tes prompts et images servent à entraîner le modèle.</li>
+      <li>RGPD et AI Act s'appliquent à toi aussi : <strong>67 % des entreprises françaises utilisent ChatGPT sans AIPD</strong> — c'est un risque réel, pas théorique.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que tu risques sans le savoir</h2>
+    <p>Selon une étude européenne de 2024, 63 % des données saisies dans ChatGPT contiennent des informations personnelles identifiables. Noms, adresses e-mail, coordonnées de clients, données financières. Des informations qui arrivent dans un prompt parce que c&#39;est plus rapide de copier-coller un e-mail entier que d&#39;en extraire l&#39;essentiel.</p>
+    <p>Je ne juge pas. Je fais pareil. Mais j&#39;ai voulu comprendre exactement ce qui se passe ensuite.</p>
+    <p>La réalité, c&#39;est que seulement 22 % des utilisateurs de ChatGPT connaissent les paramètres de confidentialité de l&#39;outil — toujours selon la même source. Et 67 % des entreprises françaises utilisent ChatGPT sans avoir réalisé d&#39;Analyse d&#39;Impact sur la Protection des Données (AIPD), d&#39;après les données disponibles pour 2026. Ce n&#39;est pas un reproche : ces paramètres ne sont pas mis en avant. Il faut aller les chercher.</p>
+    <p>Cet article ne te demande pas de renoncer aux IA. Il te donne les informations pour les utiliser en sachant ce que tu fais.</p>
+    <h2>Ce que chaque outil collecte vraiment</h2>
+    <p>Commençons par les faits, outil par outil.</p>
+    <p><strong>ChatGPT (OpenAI)</strong></p>
+    <p>Par défaut, les conversations sur les versions gratuites ou Plus de ChatGPT ne sont pas strictement privées. OpenAI collecte ces données pour entraîner ses modèles. [F8] C&#39;est écrit dans leur politique de confidentialité, mais il faut savoir où regarder. La bonne nouvelle : tu peux désactiver cette collecte dans les paramètres de ton compte, ou opter pour les versions professionnelles (Business, Enterprise) qui offrent des garanties différentes.</p>
+    <p>À la date de cet article, GPT-5.5 est le modèle par défaut pour les abonnés Plus, Pro, Business et Enterprise depuis le 23 avril 2026. GPT-5.6 Sol, un modèle de raisonnement pour les travaux complexes, a été déployé le 9 juillet 2026 pour certains forfaits payants éligibles. Ces évolutions rapides rappellent que les conditions d&#39;utilisation, elles aussi, peuvent changer vite.</p>
+    <p><strong>Claude (Anthropic)</strong></p>
+    <p>C&#39;est le point qui m&#39;a le plus surpris. La politique de confidentialité de Claude a été mise à jour le 8 juin 2026, avec une entrée en vigueur le 8 juillet 2026. Elle permet désormais le partage proactif de données de conversation avec les forces de l&#39;ordre — sans ordonnance judiciaire — pour les abonnés Free, Pro et Max.</p>
+    <p>Ce n&#39;est pas une rumeur. C&#39;est dans leur documentation officielle. Si tu utilises Claude pour rédiger des contrats, analyser des situations sensibles ou traiter des données clients, c&#39;est une information qui change la donne. Claude Opus 4.8, annoncé le 28 mai 2026, est le modèle frontière actuel d&#39;Anthropic — mais la puissance du modèle ne change rien à ces conditions d&#39;utilisation.</p>
+    <p><strong>Gemini (Google)</strong></p>
+    <p>Google collecte des données via Gemini, comme pour ses autres services. Les variantes Flash (usage gratuit) et Pro (offres payantes) de Gemini 3.5 sont disponibles à la date de cet article. Les <a href="/lexique/gemini-3-1-pro">conditions de Gemini</a> s&#39;inscrivent dans l&#39;écosystème plus large de Google, ce qui signifie que tes interactions peuvent nourrir l&#39;amélioration des modèles selon les paramètres de ton compte Google.</p>
+    <p><strong>Midjourney</strong></p>
+    <p>Midjourney utilise explicitement les prompts et images téléchargées par les utilisateurs pour entraîner et affiner ses modèles. Et il n&#39;existe pas d&#39;option standard de désinscription pour les comptes grand public. Si tu génères des visuels pour des clients avec des briefs détaillés, ces briefs alimentent le modèle. Midjourney V8.1 alpha, déployée le 16 avril 2026, a apporté des évolutions esthétiques — mais rien n&#39;a changé sur ce point précis.</p>
+    <p><strong>Mistral AI</strong></p>
+    <p>La politique de confidentialité de Mistral AI, effective au 7 avril 2026, indique la collecte de données fournies par l&#39;utilisateur, générées lors de l&#39;utilisation, disponibles publiquement et provenant de tiers — pour l&#39;entraînement des modèles. Mistral Small 4, lancé le 16 mars 2026 sous licence Apache 2.0, est l&#39;un de leurs modèles disponibles. L&#39;avantage de Mistral : des modèles open source que tu peux héberger toi-même, ce qui change complètement l&#39;équation en matière de données.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Copier-coller un document entier dans un prompt parce que c'est plus rapide. J'ai pris cette habitude, et je l'ai corrigée. Avant d'envoyer quoi que ce soit à une IA, je me demande : est-ce que ce texte contient un nom, une adresse, un chiffre que je ne voudrais pas voir circuler ? Si oui, je l'anonymise d'abord. Ça prend 30 secondes. Ça évite beaucoup de problèmes.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Tes leviers pour reprendre le contrôle</h2>
+    <p>Savoir ce qui se passe, c&#39;est déjà beaucoup. Mais voici ce que tu peux faire concrètement.</p>
+    <p><strong>Désactiver l&#39;entraînement sur tes données (ChatGPT)</strong></p>
+    <p>Dans ChatGPT, va dans <em>Paramètres &gt; Contrôles des données</em> et désactive l&#39;option &quot;Améliorer le modèle pour tout le monde&quot;. Tes conversations ne seront plus utilisées pour l&#39;entraînement. Cette option existe depuis un moment, mais elle n&#39;est pas activée par défaut.</p>
+    <p><strong>Choisir la bonne version selon l&#39;usage</strong></p>
+    <p>Les versions Business et Enterprise de ChatGPT offrent des garanties contractuelles différentes des versions gratuites ou Plus. Si tu travailles avec des données clients, c&#39;est la distinction qui compte — pas la puissance du modèle. Même logique chez d&#39;autres fournisseurs : les offres professionnelles incluent généralement des clauses de traitement des données plus strictes.</p>
+    <p><strong>Anonymiser avant de soumettre</strong></p>
+    <p>C&#39;est la méthode la plus simple et la plus universelle. Remplace les noms propres par des initiales ou des codes, les montants sensibles par des ordres de grandeur, les adresses par des villes génériques. <a href="/articles/ecrire-bon-prompt-non-dev">Apprendre à rédiger un bon prompt</a> t&#39;aide aussi à transmettre l&#39;essentiel sans exposer l&#39;inutile.</p>
+    <p><strong>Utiliser des modèles en local ou en auto-hébergement</strong></p>
+    <p>Mistral Small 4 est disponible sous licence Apache 2.0. Cela signifie que tu peux l&#39;installer sur une infrastructure que tu contrôles. Les données ne quittent pas ton environnement. C&#39;est une option plus technique, mais elle existe — et des solutions no-code commencent à faciliter ce déploiement.</p>
+    <p><strong>Exercer tes droits</strong></p>
+    <p>Le RGPD te donne des droits sur tes données : accès, rectification, effacement, opposition. OpenAI, Anthropic et Google ont des formulaires dédiés pour exercer ces droits. Ils sont parfois difficiles à trouver, mais ils existent. Une recherche &quot;[nom de l&#39;outil] + data deletion request&quot; te mènera au bon endroit.</p>
+    <h2>Ce que dit la loi en 2026</h2>
+    <p>Deux textes encadrent la situation, et ils te concernent directement si tu es entrepreneur.</p>
+    <p><strong>Le RGPD</strong></p>
+    <p>Le Règlement Général sur la Protection des Données s&#39;applique à tout système d&#39;IA traitant des données personnelles. Il impose des obligations précises : base légale pour le traitement, minimisation des données collectées, information des personnes concernées, respect de leurs droits. Si tu utilises une IA pour traiter des données de tes clients, tu es responsable de ce traitement — pas seulement le fournisseur de l&#39;IA.</p>
+    <p>C&#39;est là que le chiffre de 67 % d&#39;entreprises françaises sans AIPD devient concret. Une Analyse d&#39;Impact sur la Protection des Données n&#39;est pas une formalité réservée aux grandes entreprises. Elle est obligatoire dès que le traitement présente un risque élevé pour les droits des personnes.</p>
+    <p><strong>L&#39;AI Act</strong></p>
+    <p>L&#39;AI Act européen est entré en vigueur le 1er août 2024. À partir du 2 août 2026, il sera pleinement applicable aux systèmes d&#39;IA à haut risque. Il impose des règles sur la gouvernance des risques, la documentation, le contrôle humain, la qualité, la robustesse et la cybersécurité. <a href="/articles/ai-act-pour-ton-business">J&#39;ai consacré un article entier à ce que l&#39;AI Act change pour ton business</a> — je t&#39;y renvoie si tu veux aller plus loin sur ce point.</p>
+    <p>Ce qu&#39;il faut retenir ici : l&#39;AI Act et le RGPD ne s&#39;annulent pas mutuellement. Ils se cumulent. Utiliser une IA ne te dispense pas de tes obligations existantes en matière de protection des données.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le RGPD existait avant les IA génératives. Il s'applique à elles comme à n'importe quel outil qui traite des données personnelles. La nouveauté, c'est que les IA rendent le traitement de données tellement fluide qu'on oublie qu'on en fait. Un prompt bien rédigé peut contenir plus d'informations personnelles qu'un formulaire entier. C'est ça, le vrai changement.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La checklist que j&#39;utilise</h2>
+    <p>Voici les points que je vérifie régulièrement pour mes propres usages et ceux de mes clients.</p>
+    <p><strong>Avant d&#39;utiliser une IA avec des données</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> Est-ce que ce prompt contient des données personnelles (noms, e-mails, adresses, informations financières) ? Si oui, est-ce nécessaire ?</li>
+    <li><input disabled="" type="checkbox"> Ai-je anonymisé ce qui peut l&#39;être ?</li>
+    <li><input disabled="" type="checkbox"> Quelle version de l&#39;outil j&#39;utilise — gratuite, professionnelle, avec quelles garanties contractuelles ?</li>
+    <li><input disabled="" type="checkbox"> Est-ce que l&#39;entraînement sur mes données est désactivé dans les paramètres ?</li>
+    </ul>
+    <p><strong>Pour ton organisation</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> As-tu une politique interne sur l&#39;usage des IA, même simple ?</li>
+    <li><input disabled="" type="checkbox"> Tes collaborateurs savent-ils quelles données ils peuvent ou ne peuvent pas soumettre à une IA ?</li>
+    <li><input disabled="" type="checkbox"> As-tu réalisé ou prévu une AIPD si tu traites des données clients via une IA ?</li>
+    <li><input disabled="" type="checkbox"> Sais-tu comment exercer tes droits (accès, effacement) auprès de chaque fournisseur d&#39;IA que tu utilises ?</li>
+    </ul>
+    <p><strong>Sur les outils spécifiques</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> ChatGPT : paramètre d&#39;entraînement désactivé ? Version adaptée à l&#39;usage (Free, Plus, Business, Enterprise) ?</li>
+    <li><input disabled="" type="checkbox"> Claude : as-tu pris connaissance de la mise à jour de politique du 8 juillet 2026, notamment sur le partage avec les forces de l&#39;ordre ?</li>
+    <li><input disabled="" type="checkbox"> Midjourney : tes briefs clients contiennent-ils des informations que tu ne veux pas voir utilisées pour l&#39;entraînement ?</li>
+    <li><input disabled="" type="checkbox"> Mistral : as-tu exploré l&#39;option d&#39;hébergement local pour les usages les plus sensibles ?</li>
+    </ul>
+    <p>La <a href="/articles/reperer-contenu-ia-deepfake">question des deepfakes et du contenu généré par l&#39;IA</a> pose d&#39;ailleurs des questions similaires sur la traçabilité des données sources — c&#39;est un sujet connexe qui mérite attention.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Mes conversations avec ChatGPT sont-elles privées par défaut ?</h3>
+    <p>Non. Par défaut, les conversations sur les versions gratuites ou Plus de ChatGPT peuvent être utilisées par OpenAI pour entraîner ses modèles. Tu peux désactiver cette option dans <em>Paramètres &gt; Contrôles des données</em>. Les versions Business et Enterprise offrent des conditions différentes avec des garanties contractuelles plus strictes.</p>
+    <h3>Comment empêcher une IA d&#39;utiliser mes données pour son entraînement ?</h3>
+    <p>Plusieurs leviers existent : désactiver l&#39;option d&#39;entraînement dans les paramètres (quand elle est disponible), passer à une offre professionnelle avec clause de non-utilisation, anonymiser tes données avant de les soumettre, ou utiliser un modèle hébergé localement comme Mistral Small 4 sous licence Apache 2.0.</p>
+    <h3>Quelles sont les différences de confidentialité entre les versions gratuites et payantes des IA ?</h3>
+    <p>Les versions gratuites offrent généralement moins de garanties. Les offres professionnelles (Business, Enterprise chez OpenAI, par exemple) incluent des clauses contractuelles sur le traitement des données, souvent sans utilisation pour l&#39;entraînement des modèles. Le prix n&#39;est pas le seul critère : lis les conditions spécifiques à chaque niveau d&#39;abonnement.</p>
+    <h3>L&#39;AI Act européen protège-t-il automatiquement mes données lorsque tu utilises une IA ?</h3>
+    <p>Non, pas automatiquement. L&#39;AI Act, pleinement applicable aux systèmes d&#39;IA à haut risque à partir du 2 août 2026, encadre la gouvernance, la documentation et le contrôle humain des systèmes d&#39;IA. Il se cumule avec le RGPD mais ne le remplace pas. Tes obligations en matière de protection des données personnelles restent entières.</p>
+    <h3>Puis-je utiliser des données sensibles de mes clients avec une IA générative ?</h3>
+    <p>Avec précaution. Le RGPD impose une base légale pour tout traitement de données personnelles, y compris via une IA. Si ces données sont sensibles (santé, opinions politiques, etc.), les exigences sont encore plus strictes. Anonymise ce qui peut l&#39;être, utilise des offres professionnelles avec garanties contractuelles, et documente ta démarche.</p>
+    <h3>Que se passe-t-il si j&#39;utilise une IA pour générer du contenu avec des informations personnelles ?</h3>
+    <p>Tu restes responsable du traitement. L&#39;IA est un outil : c&#39;est toi qui décides quelles données y entrent. Si tu génères du contenu incluant des informations personnelles sur des tiers, les règles du RGPD s&#39;appliquent — consentement, base légale, information des personnes concernées. Ce n&#39;est pas parce qu&#39;une IA a &quot;produit&quot; le contenu que ta responsabilité disparaît.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Je fais tout ça d&#39;abord pour moi. J&#39;utilise ces outils tous les jours, et j&#39;ai longtemps été dans le camp des 22 % qui ne connaissent pas les paramètres de confidentialité. Ce n&#39;est pas une question de paranoïa : c&#39;est une question de cohérence. Je ne laisserais pas traîner les coordonnées d&#39;un client sur un post-it dans un café. Je n&#39;ai pas de raison de les coller dans un prompt sans réfléchir.</p>
+    <p>Les IA génératives sont des outils puissants. Leur utilité ne dépend pas de la quantité de données personnelles qu&#39;on leur confie. Avec de bonnes habitudes — anonymisation, bons paramètres, bon choix de version — on peut profiter de tout ce qu&#39;elles offrent sans exposer ce qui ne devrait pas l&#39;être.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+</body>
+</html>

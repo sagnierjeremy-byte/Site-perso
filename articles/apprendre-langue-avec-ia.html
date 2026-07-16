@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/apprendre-langue-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Apprendre une langue avec l'IA : écrit et oral</title>
+<meta name="description" content="Comment l'IA peut t'aider à apprendre ou réviser une langue en 2026 : outils, méthodes, limites et conseils pratiques pour l'écrit comme pour l'oral.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Apprendre une langue avec l'IA : écrit et oral">
+<meta property="og:description" content="Comment l'IA peut t'aider à apprendre ou réviser une langue en 2026 : outils, méthodes, limites et conseils pratiques pour l'écrit comme pour l'oral.">
+<meta property="og:url" content="https://jerwis.fr/articles/apprendre-langue-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/apprendre-langue-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-16">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Apprendre une langue avec l'IA : écrit et oral">
+<meta name="twitter:description" content="Comment l'IA peut t'aider à apprendre ou réviser une langue en 2026 : outils, méthodes, limites et conseils pratiques pour l'écrit comme pour l'oral.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/apprendre-langue-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/apprendre-langue-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Apprendre une langue avec l'IA : écrit et oral",
+  "description": "Comment l'IA peut t'aider à apprendre ou réviser une langue en 2026 : outils, méthodes, limites et conseils pratiques pour l'écrit comme pour l'oral.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/apprendre-langue-avec-ia",
+  "datePublished": "2026-07-16",
+  "dateModified": "2026-07-16",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/apprendre-langue-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 20</div>
+    <h1>Apprendre<br>une langue<br><em>avec l'IA</em></h1>
+    <p class="hero-lead">
+      Tu veux progresser en anglais pour tes réunions internationales, ou remettre à niveau ton espagnol avant un voyage professionnel ? L'IA a changé la donne. Pas besoin d'être développeur, ni de bloquer deux heures par jour. Je teste ces outils depuis plusieurs mois. Ce que j'ai trouvé m'a surpris — dans le bon sens, et parfois dans le mauvais. Je partage ici ce qui fonctionne vraiment, ce qui est surestimé, et comment construire une routine qui tient.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Duolingo, ElevenLabs</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>L'IA personnalise l'apprentissage selon <strong>ton niveau, tes objectifs et ton rythme</strong> — c'est son vrai avantage.</li>
+      <li>Des outils comme Duolingo, Babbel ou les grands modèles de langage corrigent ta grammaire et ta prononciation en temps réel.</li>
+      <li>Une étude du MIT (2024) montre que la révision espacée pilotée par IA fait progresser le vocabulaire <strong>23 % plus vite</strong> qu'un programme classique.</li>
+      <li>L'IA ne remplace pas l'interaction humaine pour les nuances culturelles — la combinaison des deux reste l'approche la plus solide.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Une révolution silencieuse</h2>
+    <p>Il y a quelques années, apprendre une langue signifiait choisir entre un prof particulier, une application gamifiée ou un manuel poussiéreux. Aujourd&#39;hui, la situation a changé en profondeur. L&#39;IA permet une personnalisation que même un bon professeur humain ne peut pas offrir à plein temps : elle s&#39;adapte à ton niveau exact, à tes objectifs spécifiques, à ton style d&#39;apprentissage — et elle est disponible à 23h un dimanche soir.</p>
+    <p>Le marché mondial de l&#39;apprentissage des langues a atteint 85,1 milliards de dollars en 2025, selon les données disponibles, et devrait dépasser 101 milliards de dollars en 2026 avec une croissance annuelle de 22,9 %. Ce chiffre dit quelque chose d&#39;important : des millions de personnes cherchent à apprendre, et les outils d&#39;IA arrivent exactement au bon moment pour répondre à cette demande.</p>
+    <p>Ce qui m&#39;a convaincu, personnellement, c&#39;est la granularité. L&#39;IA ne te propose pas &quot;le cours niveau B1&quot;. Elle te propose <em>tes</em> lacunes, <em>tes</em> erreurs récurrentes, <em>tes</em> mots à réviser en priorité. C&#39;est une différence fondamentale.</p>
+    <p>Pour comprendre ce qui alimente ces outils sous le capot, un passage par la définition d&#39;un <a href="/lexique/llm">grand modèle de langage</a> peut être utile — sans être indispensable pour la suite.</p>
+    <h2>Ce que les apps ont vraiment changé</h2>
+    <p>Des applications comme Duolingo, Babbel ou Rosetta Stone ne sont plus les outils de répétition mécanique qu&#39;elles étaient. Elles ont intégré des fonctionnalités d&#39;IA générative avancées : conversations avec des agents virtuels, exercices de prononciation améliorés, correction contextuelle. Tu ne remplis plus des cases. Tu parles à quelque chose qui te répond, qui corrige ta prononciation, qui adapte la difficulté en temps réel.</p>
+    <p>Le retour instantané est la clé. Quand tu prononces mal un mot, l&#39;outil te le signale immédiatement — pas dans deux jours lors de la correction du devoir. Cette boucle courte accélère considérablement la progression, selon les observations disponibles.</p>
+    <p>Une étude du MIT (2024) a mesuré cet effet sur le vocabulaire : les apprenants utilisant des systèmes de révision espacée pilotés par IA progressaient 23 % plus vite que ceux suivant un programme linéaire classique. La révision espacée, c&#39;est le principe de revoir un mot au moment précis où tu es sur le point de l&#39;oublier — l&#39;IA calcule ce moment pour toi, individuellement.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;écrit : bien plus que la correction</h2>
+    <p>Pour l&#39;écrit, l&#39;IA est particulièrement forte. Elle peut corriger une faute de grammaire, bien sûr. Mais elle peut aussi expliquer <em>pourquoi</em> c&#39;est une faute, proposer trois formulations alternatives, et adapter son niveau d&#39;explication à ce que tu lui demandes.</p>
+    <p>Concrètement, voici ce que j&#39;utilise pour l&#39;écrit :</p>
+    <p><strong>Les grands modèles de langage comme ChatGPT ou Claude.</strong> Tu leur soumets un texte que tu as écrit en langue étrangère. Tu leur demandes de le corriger, de t&#39;expliquer chaque erreur, puis de te proposer un exercice basé sur tes erreurs les plus fréquentes. C&#39;est un professeur particulier, disponible en permanence, qui ne se lasse jamais de répéter la même règle.</p>
+    <p><strong>DeepL Pro et Google Translate IA.</strong> Ces outils sont devenus des traducteurs de nouvelle génération, offrant une traduction contextualisée plutôt qu&#39;un simple mot à mot. Ils sont utiles pour comprendre comment une phrase se dit naturellement dans la langue cible — pas seulement ce que les mots signifient, mais comment un locuteur natif la formulerait.</p>
+    <p><strong>Le principe du &quot;réécriture guidée&quot;.</strong> Je soumets un texte à l&#39;IA avec une consigne précise : &quot;Réécris ce paragraphe comme si tu étais un journaliste britannique du <em>Financial Times</em>.&quot; Le résultat me montre le registre, le vocabulaire, le rythme. Ensuite, je tente de le reproduire moi-même. C&#39;est un exercice d&#39;imitation structurée qui fonctionne bien.</p>
+    <p>Pour que ces échanges soient vraiment productifs, la qualité de tes instructions compte beaucoup. J&#39;ai détaillé cette mécanique dans un article sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n&#39;est pas développeur</a>.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur l'écrit</h4><p>L'IA est excellente pour corriger et expliquer. Mais si tu lui demandes de "juste améliorer" ton texte sans contrainte, elle va le réécrire entièrement à ta place. Tu n'apprends rien. Demande-lui toujours d'expliquer chaque modification, et réécris toi-même après coup. L'apprentissage est dans l'effort de reproduction, pas dans la lecture du résultat.</p></div>
+    
+    <h2>L&#39;oral : le vrai terrain de jeu</h2>
+    <p>C&#39;est là que les choses deviennent vraiment intéressantes — et parfois déconcertantes. L&#39;IA peut aujourd&#39;hui simuler une conversation orale, corriger ta prononciation en temps réel, et même générer une voix qui ressemble à un locuteur natif.</p>
+    <p><strong>Pour la conversation.</strong> Les versions vocales de ChatGPT ou les agents intégrés dans des applications comme Duolingo te permettent de parler à voix haute et d&#39;obtenir une réponse orale. Tu peux simuler un entretien d&#39;embauche en anglais, une réunion en espagnol, ou une négociation en mandarin. L&#39;IA s&#39;adapte au scénario que tu lui donnes.</p>
+    <p><strong>Pour la prononciation.</strong> Les outils de reconnaissance vocale intégrés dans ces applications analysent ta prononciation et te signalent les écarts avec la norme. Ce n&#39;est pas parfait — certains accents régionaux ou certaines langues moins répandues posent encore des difficultés — mais pour les grandes langues, c&#39;est un niveau de feedback que tu n&#39;aurais pas eu sans un prof dédié.</p>
+    <p><strong>Pour l&#39;immersion.</strong> ElevenLabs, dont la version Eleven v3 est disponible depuis février 2026, propose une synthèse vocale d&#39;une qualité remarquable. Tu peux générer des enregistrements dans la langue que tu apprends, avec des voix naturelles, pour t&#39;entraîner à l&#39;écoute. C&#39;est une façon de créer du contenu audio personnalisé — des dialogues sur des sujets qui t&#39;intéressent vraiment — plutôt que de subir des exercices génériques.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>L'IA orale est très permissive. Elle te comprend même quand ta prononciation est approximative. C'est rassurant, mais ça peut te donner une fausse confiance. Un locuteur natif, lui, ne fera pas cet effort d'interprétation. Utilise l'IA pour t'entraîner, mais confronte-toi régulièrement à de vraies conversations — même courtes — pour tester ce que tu as vraiment assimilé.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que l&#39;IA ne fait pas bien</h2>
+    <p>L&#39;IA est forte sur la structure, la grammaire, le vocabulaire, la répétition. Elle est moins à l&#39;aise avec les nuances culturelles, l&#39;humour, les sous-entendus, les registres informels qui varient selon les régions. Elle peut t&#39;apprendre à dire quelque chose de grammaticalement correct qui sonnera étrange dans la bouche d&#39;un locuteur natif.</p>
+    <p>Il y a aussi la question des erreurs. L&#39;IA peut se tromper — sur une règle de grammaire rare, sur une nuance d&#39;usage, sur une traduction ambiguë. Ce phénomène, qu&#39;on appelle <a href="/lexique/hallucination">hallucination</a>, est réel et documenté. Dans le contexte de l&#39;apprentissage d&#39;une langue, une erreur non détectée peut s&#39;ancrer. Il vaut mieux vérifier les points importants auprès d&#39;une source humaine ou d&#39;un dictionnaire de référence. J&#39;ai écrit sur <a href="/articles/verifier-info-ia">comment vérifier ce que l&#39;IA t&#39;affirme</a> — les mêmes réflexes s&#39;appliquent ici.</p>
+    <p>L&#39;approche la plus solide reste une combinaison : l&#39;IA pour les tâches répétitives, la pratique intensive, la correction à la demande — et l&#39;humain pour les nuances culturelles et la communication authentique. Ce n&#39;est pas une limitation à contourner, c&#39;est une réalité à accepter pour progresser vraiment.</p>
+    <p>Il y a aussi une question de données personnelles. Ces applications enregistrent ta voix, tes textes, tes erreurs. Avant d&#39;utiliser un outil intensivement, il vaut la peine de comprendre ce qu&#39;il fait de ces données. J&#39;ai exploré ce sujet dans un article sur <a href="/articles/donnees-perso-ia-confidentialite">la confidentialité et les données personnelles avec l&#39;IA</a>.</p>
+    <h2>Par où commencer, concrètement</h2>
+    <p>Si tu pars de zéro ou si tu reprends une langue après une longue pause, voici comment j&#39;organiserais les choses :</p>
+    <p><strong>Semaine 1-2 : diagnostiquer.</strong> Utilise un grand modèle de langage (ChatGPT ou Claude) pour évaluer ton niveau. Écris un texte libre dans la langue cible, demande-lui de l&#39;analyser et de te donner un niveau approximatif avec les axes de progression prioritaires. C&#39;est rapide et souvent révélateur.</p>
+    <p><strong>Au quotidien : 15 minutes de révision espacée.</strong> Une application comme Duolingo, utilisée régulièrement — même 10 à 15 minutes par jour — active le mécanisme de révision espacée. La régularité compte plus que la durée des sessions.</p>
+    <p><strong>Deux fois par semaine : une session d&#39;écrit guidée.</strong> Tu écris un paragraphe sur un sujet lié à ton activité professionnelle. Tu le soumets à l&#39;IA pour correction et explication. Tu réécris. Tu gardes une trace de tes erreurs récurrentes.</p>
+    <p><strong>Une fois par semaine : une simulation orale.</strong> Tu définis un scénario (réunion, appel client, présentation), tu le joues à voix haute avec l&#39;agent vocal de ton choix. Tu notes les moments où tu as bloqué.</p>
+    <p><strong>Régulièrement : une vraie conversation.</strong> Un échange avec un locuteur natif, même court, même sur une plateforme d&#39;échange linguistique. L&#39;IA prépare, l&#39;humain valide.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA peut-elle vraiment remplacer un professeur de langue ?</h3>
+    <p>Non. Elle peut remplacer certaines fonctions d&#39;un professeur — la correction, la répétition, la disponibilité — mais pas toutes. Un professeur humain capte ta frustration, adapte son approche à ton état du moment, te transmet des nuances culturelles vécues. L&#39;IA est un outil de pratique intensive, pas un substitut complet. La combinaison des deux est ce qui fonctionne le mieux.</p>
+    <h3>Quelles sont les meilleures apps gratuites pour apprendre une langue ?</h3>
+    <p>Duolingo reste l&#39;application la plus accessible en version gratuite, avec des fonctionnalités d&#39;IA générative intégrées. ChatGPT propose une version gratuite utilisable pour des corrections et des conversations textuelles. Google Translate IA est gratuit et utile pour la traduction contextualisée. Les fonctionnalités avancées — notamment l&#39;oral et la personnalisation poussée — sont souvent réservées aux versions payantes.</p>
+    <h3>Comment l&#39;IA peut-elle m&#39;aider à améliorer ma prononciation ?</h3>
+    <p>Les outils de reconnaissance vocale intégrés dans des applications comme Duolingo ou les agents vocaux de ChatGPT analysent ta prononciation et signalent les écarts. Tu parles, l&#39;outil compare à une norme, te donne un retour immédiat. Pour un travail plus fin, tu peux aussi demander à l&#39;IA de te générer des phrases avec des sons difficiles, puis t&#39;enregistrer et comparer. Les langues très répandues (anglais, espagnol, français) bénéficient d&#39;une meilleure précision que les langues moins courantes.</p>
+    <h3>L&#39;IA est-elle fiable pour la correction grammaticale dans un contexte professionnel ?</h3>
+    <p>Pour la grammaire standard, oui — les grands modèles de langage sont solides. Pour les nuances stylistiques d&#39;un secteur précis, les formulations juridiques ou les registres très spécialisés, il vaut mieux faire relire par un humain compétent. L&#39;IA peut aussi proposer des formulations correctes mais légèrement hors registre. Utilise-la comme premier filtre, pas comme validation finale pour un document important.</p>
+    <h3>Comment éviter les erreurs de l&#39;IA pendant mes sessions d&#39;apprentissage ?</h3>
+    <p>La règle principale : ne prends jamais une correction de l&#39;IA pour argent comptant sans la comprendre. Si une règle t&#39;étonne, demande-lui de l&#39;expliquer et de te donner des exemples. Si le doute persiste, vérifie dans un dictionnaire ou une grammaire de référence. L&#39;IA peut se tromper — ce phénomène s&#39;appelle <a href="/lexique/hallucination">hallucination</a> — et dans l&#39;apprentissage d&#39;une langue, une erreur ancrée est difficile à corriger ensuite.</p>
+    <h3>L&#39;IA peut-elle m&#39;aider à apprendre des langues moins courantes ?</h3>
+    <p>Oui, mais avec des résultats plus variables. Les grands modèles de langage ont été entraînés sur beaucoup plus de données en anglais, espagnol, français ou mandarin qu&#39;en finnois, swahili ou basque. Pour les langues moins répandues, la qualité des corrections et des conversations peut être moins fiable. Il est encore plus important dans ce cas de croiser avec des ressources humaines ou des sources de référence.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA ne m&#39;a pas rendu polyglotte du jour au lendemain. Ce qu&#39;elle a changé, c&#39;est ma capacité à pratiquer régulièrement sans contrainte logistique. Je peux corriger un texte en espagnol à 7h du matin, simuler une conversation en anglais entre deux réunions, et recevoir un feedback immédiat sans attendre la disponibilité d&#39;un prof.</p>
+    <p>Ce que j&#39;ai appris en testant ces outils : la personnalisation est réelle, le retour instantané est précieux, et la tentation de laisser l&#39;IA faire à ta place est le principal piège. L&#39;apprentissage reste un effort. L&#39;IA le rend plus efficace, pas facultatif.</p>
+    <p>Je fais tout ça d&#39;abord pour moi — pour ne pas être dépassé dans des échanges professionnels en anglais, pour entretenir des langues que j&#39;ai apprises et que je ne veux pas perdre. Si ça peut t&#39;aider à construire ta propre routine, c&#39;est encore mieux.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+</body>
+</html>

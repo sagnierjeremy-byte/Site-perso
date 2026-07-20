@@ -20,8 +20,13 @@ Deux runs de test manuels rapprochés ont révélé 3 fragilités, toutes corrig
 ### Fichiers touchés
 `.github/workflows/blog-autopilot.yml`, `data/topic-queue.json`, `scripts/blog/llm.mjs`, `scripts/blog/research.mjs`, `scripts/blog/qa-gate.mjs`, `scripts/blog/config.mjs`, `CLAUDE.md`.
 
+### Livré (3e partie — autopilot bilingue, même jour) = Phase 4 i18n
+- **`scripts/i18n/translate-article-en.mjs`** : transcréation EN d'un article FR (Claude sonnet, fallback OpenRouter) — skeleton `<style>/<script>` (JSON-LD traduit), termbase respecté, **gate francité** (>8 % de mots-fonction FR = recopie → retry), puis `gen-en-page.mjs` (plomberie + validation).
+- **`scripts/i18n/translate-missing-en.mjs`** : catch-up idempotent — traduit tout article FR sans EN + carte `en/articles.html` + Featured `en/index.html` (max 8, trim) + `inject-hreflang-fr` + `build-sitemaps`. Branché dans `blog-autopilot.yml` après publication (`continue-on-error` : ne bloque jamais le FR, se rattrape au run suivant).
+- **Backlog résorbé : 5 articles traduits** (le-chat-mistral-vs-chatgpt, donnees-perso-ia-confidentialite, apprendre-langue-avec-ia, resumer-pdf-video-avec-ia, meta-ai-whatsapp) — gate francité 0 % partout, sitemap-en 162 pages, parité FR/EN complète.
+
 ### À venir
-- Surveiller la conso OpenRouter (attendu ≈ 1,5-2 $/mois à 17 articles).
+- Surveiller la conso OpenRouter (attendu ≈ 1,5-2 $/mois à 17 articles) + coût traduction (~0,15 $/article Claude).
 - Re-remplir la file vers mi-septembre (l'autopilot s'arrête en silence quand elle est vide).
 
 ## 2026-07-06 · Design v2 des articles (migration + pipeline publish)

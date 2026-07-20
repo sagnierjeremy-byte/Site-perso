@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/le-chat-mistral-vs-chatgpt.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Le Chat Mistral vs ChatGPT: 2026 comparison · Jerwis</title>
+<meta name="description" content="Mistral or ChatGPT for your business? I compare performance, cost, privacy, and real use cases to help you make the right call in 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Le Chat Mistral vs ChatGPT: 2026 comparison">
+<meta property="og:description" content="Mistral or ChatGPT for your business? I compare performance, cost, privacy, and use cases to help you choose in 2026.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/le-chat-mistral-vs-chatgpt">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/le-chat-mistral-vs-chatgpt.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-06">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Le Chat Mistral vs ChatGPT: 2026 comparison">
+<meta name="twitter:description" content="Mistral or ChatGPT for your business? I compare performance, cost, privacy, and use cases to help you choose in 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/le-chat-mistral-vs-chatgpt.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/le-chat-mistral-vs-chatgpt">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/le-chat-mistral-vs-chatgpt">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/le-chat-mistral-vs-chatgpt">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/le-chat-mistral-vs-chatgpt">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Le Chat Mistral vs ChatGPT: 2026 comparison",
+  "description": "Mistral or ChatGPT for your business? I compare performance, cost, privacy, and real use cases to help you make the right call in 2026.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/le-chat-mistral-vs-chatgpt",
+  "datePublished": "2026-07-06",
+  "dateModified": "2026-07-06",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/le-chat-mistral-vs-chatgpt.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 76</div>
+    <h1>Mistral or<br>ChatGPT:<br><em>which one for your business?</em></h1>
+    <p class="hero-lead">
+      You keep hearing about Mistral AI everywhere, but you're not sure it's actually worth leaving ChatGPT behind. Fair enough. I spent real time comparing both — not as a developer, but as an entrepreneur looking for the most useful tool day-to-day. Performance, price, data privacy, use cases: here's what I found, numbers included.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Le Chat by Mistral AI, ChatGPT</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>Mistral Large 3 is <strong>about 61% cheaper</strong> than GPT-5 via API, with a performance gap of only 3.2 points on MMLU benchmarks.</li>
+      <li>Le Chat by Mistral stores your data <strong>in the European Union</strong> by default — a real advantage if GDPR compliance is a priority.</li>
+      <li>ChatGPT is still <strong>more versatile on multimodal tasks</strong> (voice, images, audio) and has had cross-conversation memory since May 2026.</li>
+      <li>The best choice depends on your priorities: budget and data sovereignty → Mistral; multimodal and integrated ecosystem → ChatGPT.</li>
+    </ul>
+  </div>
+</div>
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+
+
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Two tools, two stories</h2>
+    <p>ChatGPT popularized the idea that an entrepreneur could talk to an AI like a real assistant. Mistral AI, a French company founded in 2023, came in with a different pitch: a high-performing AI, more transparent about its origins, and grounded in European law.</p>
+    <p>In 2026, both have evolved. ChatGPT now runs on GPT-5.5, launched April 23, 2026, with a Pro variant for the most demanding tasks. GPT-5.5 Instant became the default model for all users — including the free tier — on May 5, 2026. On the Mistral side, the flagship model is called Mistral Large 3. It's accessible through Le Chat, Mistral's consumer interface, with free and paid plans (Pro, Team, Enterprise).</p>
+    <p>This isn't a fight between an American giant and a scrappy underdog. These are two different philosophies, and depending on what you're after, one will clearly fit you better than the other.</p>
+    <p>To go deeper on the criteria that should guide your choice, I wrote a <a href="/en/lexique/choisir-modele-2026">guide to choosing your AI model in 2026</a> — it pairs well with this article.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What each one actually does well</h2>
+    <p>Let's start with raw performance, because that's usually the first question.</p>
+    <p>On MMLU benchmarks — a multilingual comprehension test across dozens of different domains — Mistral Large 3 scores 85.5% versus 88.7% for GPT-5, based on 2026 data. That's a 3.2 percentage point gap. It's measurable, but in an entrepreneur's daily practice, that difference is rarely noticeable on common tasks like drafting an email, summarizing a document, or prepping for a meeting.</p>
+    <p>Where the gap becomes more visible is on multimodal tasks. ChatGPT natively handles text, images, code, audio, and voice, with smooth integration between these modes. If you regularly work with images, audio recordings, or voice interfaces, ChatGPT has a clear edge as of this article's publication date.</p>
+    <p>ChatGPT also got a significant memory upgrade in 2026: it can now remember information from past conversations and maintain an editable summary of what it knows about you. That's genuinely useful if you use it every day for recurring tasks — no more re-explaining your context every single time.</p>
+    <p>Mistral, on the other hand, shines on the quality of its reasoning and the precision of its text responses. For tasks like content writing, document analysis, or summarization, Le Chat holds its own very well against ChatGPT.</p>
+    <div class="callout tip"><h4>My takeaways on performance</h4><p>The 3.2-point benchmark gap doesn't necessarily translate into a visible difference on your day-to-day tasks. Test both on <em>your</em> actual use cases rather than relying solely on scores. A tool you use well beats a theoretically superior tool you underuse. For that, learning to <a href="/en/articles/ecrire-bon-prompt-non-dev">write good prompts</a> makes a real difference, whatever tool you pick.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The budget question</h2>
+    <p>This is often what settles it for a small operation.</p>
+    <p>Mistral Large 3 is available via API at $0.50 per million input tokens and $1.50 per million output tokens. On a typical usage ratio (3 input tokens for every 1 output token), Mistral Large 3 comes out about 61% cheaper than GPT-5 via API, based on 2026 data.</p>
+    <p>For entrepreneurs using AI directly through an interface (without going through the API), the comparison comes down to subscriptions. Both offer a free version with limitations, and paid plans to unlock the most powerful models.</p>
+    <p>Mistral goes further on one point that may interest more technically autonomous setups: some of its models are available as open-weight — meaning their parameters are public and can be hosted on your own servers. Mixtral 8x7B and Ministral 8B/3B fall into this category. Once the infrastructure is in place, the marginal cost of usage is close to zero. It does require a minimum of technical resources, but the option is there.</p>
+    <p>To go further on integrating these tools into your workflow without advanced technical skills, I wrote an article on <a href="/en/articles/automatiser-taches-ia-sans-coder">how to automate tasks with AI without writing code</a>.</p>
+    <h2>Whose hands are your data in?</h2>
+    <p>This is the question a lot of entrepreneurs forget to ask — until the day they realize they've shared sensitive information with a tool and have no idea where it stores that data.</p>
+    <p>Mistral AI is a French company, subject to GDPR. Its data is hosted by default within the European Union. On paid plans (Pro, Team, Enterprise), conversations are not used to train models by default.</p>
+    <p>OpenAI, on the other hand, is an American company. On ChatGPT Enterprise and Team plans, data is generally not used for model training by default, unless you explicitly opt in. But hosting remains subject to US law, which can raise questions for some European businesses handling personal or confidential data.</p>
+    <p>If you work in a regulated sector (healthcare, finance, legal) or regularly handle data from European clients, data location is not a minor detail. It's a selection criterion in its own right. The article on <a href="/en/articles/ai-act-pour-ton-business">the AI Act and its impact on your business</a> gives a solid framework for understanding these regulatory stakes.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Even with a paid plan that doesn't "reuse your data for training," read the terms of service. What you share in a prompt is still processed by the tool's servers. Never put in a prompt anything you wouldn't put in an unencrypted email: bank details, client health data, critical trade secrets.</p></div>
+    
+    <h2>Concrete use cases — which one fits?</h2>
+    <p>According to data from May 2026, about 26% of active entrepreneurs use ChatGPT for marketing and writing, and 11% for improving customer communication. Those are the two most common use cases — and they're also areas where Mistral is fully competitive.</p>
+    <p>Here's how I'd steer the choice depending on the situation:</p>
+    <p><strong>You write a lot</strong> — emails, articles, sales proposals, social media content: Le Chat by Mistral holds up very well on these tasks. Response quality is solid, and answers tend to be more direct.</p>
+    <p><strong>You work with images, audio, or voice</strong>: ChatGPT has a more complete multimodal integration as of this article. If you want to analyze visuals, transcribe recordings, or use voice interfaces, it's the better-equipped of the two.</p>
+    <p><strong>You want continuity between work sessions</strong>: ChatGPT's cross-conversation memory (updated in 2026) is a real comfort if you use it daily for recurring projects.</p>
+    <p><strong>Privacy is a priority</strong>: Mistral, hosted in Europe, with data not used for training on paid plans, is the most consistent choice for a strict GDPR policy.</p>
+    <p><strong>You want to control costs at scale</strong>: the API price gap is significant. Mistral Large 3 is about 61% cheaper than GPT-5 on a standard ratio.</p>
+    <p>One last thing to keep in mind for both tools: they can produce factual errors, sometimes delivered with confidence. That's what's called a <a href="/en/lexique/hallucination">hallucination</a> — a phenomenon common to all language models, and one you need to learn to spot before validating any important information.</p>
+    <h2>FAQ</h2>
+    <h3>What's the main difference between Le Chat by Mistral and ChatGPT for an entrepreneur?</h3>
+    <p>The most significant difference comes down to three things. First, data origin and hosting: Mistral is a French company that hosts its data in the European Union by default, which simplifies GDPR compliance. Second, multimodal capabilities: ChatGPT handles text, images, audio, and voice more natively and in a more integrated way. Third, price: Mistral Large 3 is about 61% cheaper than GPT-5 via API on a standard usage ratio. On the quality of text responses, the two are close — the MMLU benchmark gap is 3.2 percentage points.</p>
+    <h3>Which one is more affordable for a small business?</h3>
+    <p>For API usage at significant volume, Mistral Large 3 is noticeably cheaper: $0.50 per million input tokens and $1.50 per million output tokens — about 61% less than GPT-5 on a typical ratio. For interface-based usage (monthly subscription), both offer free plans and comparable paid tiers. If you want to push costs even lower, some Mistral models are available as open-weight and can be self-hosted.</p>
+    <h3>Is my data safer with Mistral AI, a French company?</h3>
+    <p>"Safer" depends on what you mean. On the question of sovereignty and GDPR compliance, Mistral has a structural advantage: French company, EU hosting by default, and on paid plans, conversations are not used to train models by default. OpenAI offers similar guarantees on its Enterprise and Team plans regarding training, but hosting remains subject to US law. If European data location is a legal or contractual requirement for your business, Mistral is the more consistent choice.</p>
+    <h3>Can I use these AIs for marketing and writing tasks without any technical skills?</h3>
+    <p>Yes — and it's actually one of the most common use cases. According to May 2026 data, about 26% of active entrepreneurs use ChatGPT for marketing and writing. Le Chat by Mistral is just as accessible for these tasks. Both tools work in plain language: you write what you want, and the AI produces a response. The only skill worth developing is how you phrase your requests — what's called a prompt. A good starting point: <a href="/en/articles/ecrire-bon-prompt-non-dev">learning to write a good prompt when you're not a developer</a>.</p>
+    <h3>Which model is better for analyzing long documents or generating code?</h3>
+    <p>For long document analysis, the key capability is the <a href="/en/lexique/context-window">context window</a> — the amount of text the model can process in one go. Both flagship models have large context windows, but exact specs evolve quickly: check the current data on the official sites. For code generation, ChatGPT has historically been the go-to for this use case, but Mistral Large 3 is also capable on common development tasks. If code is your primary use case, other specialized tools (like GitHub Copilot) are also worth a look.</p>
+    <h3>Are there free versions or trials to test both?</h3>
+    <p>Yes, both offer free access. Le Chat by Mistral is accessible without a subscription, with limitations on available models and usage volume. ChatGPT also offers a free tier, which now runs on GPT-5.5 Instant since May 5, 2026. In both cases, paid plans unlock the most powerful models, advanced features, and data usage guarantees. I'd recommend testing both on your own use cases before committing to a subscription.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>My takeaways</h2>
+    <p>I do all of this for myself first. And honestly, after using both, I don't think the question is "which one is better" — it's "which one is better for what you do."</p>
+    <p>If you write a lot, handle sensitive data, and want to keep costs under control, Le Chat by Mistral is genuinely worth testing. The performance gap with ChatGPT is small on everyday text tasks, and the European grounding is a real argument for a lot of entrepreneurs.</p>
+    <p>If you need full multimodal capabilities, memory that persists between sessions, and a tightly integrated ecosystem, ChatGPT is hard to ignore.</p>
+    <p>The right move: open both in their free versions this week, give them the same task that's eating up your time, and watch what happens. The answer will be clearer than any comparison article.</p>
+    
+  </div>
+</section>
+
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works — no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+<script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

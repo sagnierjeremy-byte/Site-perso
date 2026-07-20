@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/donnees-perso-ia-confidentialite.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Your data in AI tools: what actually happens · Jerwis</title>
+<meta name="description" content="ChatGPT, Claude, Gemini: what do they really do with your data? I break down actual practices and concrete steps to protect yourself in 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Your data in AI tools: what actually happens">
+<meta property="og:description" content="ChatGPT, Claude, Gemini: what do they really do with your data? I break down the real practices and how to protect yourself in 2026.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/donnees-perso-ia-confidentialite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-13">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Your data in AI tools: what actually happens">
+<meta name="twitter:description" content="ChatGPT, Claude, Gemini: what do they really do with your data? Real practices + concrete steps to protect yourself in 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/donnees-perso-ia-confidentialite.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/donnees-perso-ia-confidentialite">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/donnees-perso-ia-confidentialite">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Your data in AI tools: what actually happens",
+  "description": "ChatGPT, Claude, Gemini: what do they really do with your data? I break down actual practices and concrete steps to protect yourself in 2026.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite",
+  "datePublished": "2026-07-13",
+  "dateModified": "2026-07-13",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/donnees-perso-ia-confidentialite.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 35</div>
+    <h1>Your data<br>in AI tools<br><em>what actually happens</em></h1>
+    <p class="hero-lead">
+      You type a prompt, you get an answer. But what does the AI do with what you just wrote? What if you accidentally slipped in a client's name, a revenue figure, a confidential strategy? I took that question seriously. Here's what I found on ChatGPT, Claude, Gemini, Midjourney, and Mistral — and more importantly, what you can do to stay in control.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT, Claude, Gemini, Mistral, Midjourney</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>By default, <strong>ChatGPT (free and Plus plans) uses your conversations to train its models</strong> — you can turn that off in settings.</li>
+      <li>Claude updated its policy in June 2026: it can share your conversation data with law enforcement <strong>without a court order</strong> for Free, Pro, and Max subscribers.</li>
+      <li>Midjourney offers <strong>no standard opt-out</strong> for consumer accounts: your prompts and images are used to train the model.</li>
+      <li>GDPR and the EU AI Act apply to you too: <strong>67% of French businesses use ChatGPT without a DPIA</strong> — that's a real risk, not a theoretical one.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What you're risking without knowing it</h2>
+    <p>According to a 2024 European study, 63% of data entered into ChatGPT contains personally identifiable information. Names, email addresses, client contact details, financial data. Information that ends up in a prompt because it's faster to paste an entire email than to extract just the essentials.</p>
+    <p>I'm not judging. I do it too. But I wanted to understand exactly what happens next.</p>
+    <p>The reality is that only 22% of ChatGPT users are aware of the tool's privacy settings — according to the same source. And 67% of French businesses use ChatGPT without having completed a Data Protection Impact Assessment (DPIA), based on data available for 2026. That's not a criticism: these settings aren't front and center. You have to go looking for them.</p>
+    <p>This article isn't asking you to give up AI tools. It's giving you the information to use them knowing what you're actually doing.</p>
+    <h2>What each tool actually collects</h2>
+    <p>Let's start with the facts, tool by tool.</p>
+    <p><strong>ChatGPT (OpenAI)</strong></p>
+    <p>By default, conversations on the free or Plus versions of ChatGPT are not strictly private. OpenAI collects this data to train its models. [F8] It's written in their privacy policy, but you have to know where to look. The good news: you can turn off this collection in your account settings, or opt for the professional versions (Business, Enterprise) which come with different guarantees.</p>
+    <p>As of this article's publication date, GPT-5.5 is the default model for Plus, Pro, Business, and Enterprise subscribers since April 23, 2026. GPT-5.6 Sol, a reasoning model for complex tasks, was rolled out on July 9, 2026 for eligible paid plans. These rapid changes are a reminder that terms of service can shift just as fast.</p>
+    <p><strong>Claude (Anthropic)</strong></p>
+    <p>This is the one that surprised me most. Claude's privacy policy was updated on June 8, 2026, taking effect July 8, 2026. It now allows proactive sharing of conversation data with law enforcement — without a court order — for Free, Pro, and Max subscribers.</p>
+    <p>This isn't a rumor. It's in their official documentation. If you use Claude to draft contracts, analyze sensitive situations, or handle client data, this changes things. Claude Opus 4.8, announced May 28, 2026, is Anthropic's current frontier model — but the model's power doesn't change these terms of service.</p>
+    <p><strong>Gemini (Google)</strong></p>
+    <p>Google collects data through Gemini, just like its other services. The Flash (free tier) and Pro (paid plans) variants of Gemini 3.5 are available as of this article. <a href="/en/lexique/gemini-3-1-pro">Gemini's terms</a> sit within Google's broader ecosystem, which means your interactions may feed model improvement depending on your Google account settings.</p>
+    <p><strong>Midjourney</strong></p>
+    <p>Midjourney explicitly uses prompts and images uploaded by users to train and refine its models. And there's no standard opt-out option for consumer accounts. If you're generating visuals for clients with detailed briefs, those briefs are feeding the model. Midjourney V8.1 alpha, deployed April 16, 2026, brought aesthetic improvements — but nothing changed on this specific point.</p>
+    <p><strong>Mistral AI</strong></p>
+    <p>Mistral AI's privacy policy, effective April 7, 2026, states that it collects data provided by the user, generated during use, publicly available, and sourced from third parties — for model training. Mistral Small 4, launched March 16, 2026 under the Apache 2.0 license, is one of their available models. Mistral's advantage: open-source models you can self-host, which completely changes the data equation.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Copy-pasting an entire document into a prompt because it's faster. I got into that habit, and I broke it. Before sending anything to an AI, I ask myself: does this text contain a name, an address, a number I wouldn't want circulating? If yes, I anonymize it first. Takes 30 seconds. Saves a lot of headaches.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Your levers for taking back control</h2>
+    <p>Knowing what's happening is already a lot. But here's what you can actually do about it.</p>
+    <p><strong>Turn off training on your data (ChatGPT)</strong></p>
+    <p>In ChatGPT, go to <em>Settings &gt; Data controls</em> and turn off "Improve the model for everyone." Your conversations will no longer be used for training. This option has existed for a while, but it's not on by default.</p>
+    <p><strong>Choose the right version for the use case</strong></p>
+    <p>ChatGPT's Business and Enterprise versions come with different contractual guarantees than the free or Plus versions. If you're working with client data, that's the distinction that matters — not the model's raw power. Same logic applies elsewhere: professional plans generally include stricter data processing clauses.</p>
+    <p><strong>Anonymize before you submit</strong></p>
+    <p>This is the simplest and most universal method. Replace proper names with initials or codes, sensitive amounts with rough ranges, addresses with generic city names. <a href="/en/articles/ecrire-bon-prompt-non-dev">Learning to write a good prompt</a> also helps you convey what matters without exposing what doesn't.</p>
+    <p><strong>Use locally hosted or self-hosted models</strong></p>
+    <p>Mistral Small 4 is available under the Apache 2.0 license. That means you can install it on infrastructure you control. The data never leaves your environment. It's a more technical option, but it exists — and no-code solutions are starting to make deployment easier.</p>
+    <p><strong>Exercise your rights</strong></p>
+    <p>GDPR gives you rights over your data: access, correction, deletion, objection. OpenAI, Anthropic, and Google all have dedicated forms for exercising these rights. They can be hard to find, but they exist. A quick search for "[tool name] + data deletion request" will get you there.</p>
+    <h2>What the law says in 2026</h2>
+    <p>Two pieces of legislation frame the situation, and both apply directly to you as an entrepreneur.</p>
+    <p><strong>GDPR</strong></p>
+    <p>The General Data Protection Regulation applies to any AI system that processes personal data. It imposes specific obligations: a legal basis for processing, data minimization, informing the people whose data is involved, and respecting their rights. If you use an AI to process your clients' data, you are responsible for that processing — not just the AI provider.</p>
+    <p>That's where the 67% of French businesses without a DPIA becomes concrete. A Data Protection Impact Assessment isn't a formality reserved for large corporations. It's mandatory whenever processing presents a high risk to individuals' rights.</p>
+    <p><strong>The EU AI Act</strong></p>
+    <p>The EU AI Act entered into force on August 1, 2024. From August 2, 2026, it will be fully applicable to high-risk AI systems. It imposes rules on risk governance, documentation, human oversight, quality, robustness, and cybersecurity. <a href="/en/articles/ai-act-pour-ton-business">I wrote a full article on what the AI Act changes for your business</a> — I'll point you there if you want to go deeper on this.</p>
+    <p>The key takeaway here: the AI Act and GDPR don't cancel each other out. They stack. Using an AI doesn't exempt you from your existing data protection obligations.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>GDPR existed before generative AI. It applies to these tools just like any other tool that processes personal data. What's new is that AI makes data processing so frictionless that you forget you're doing it. A well-written prompt can contain more personal information than an entire form. That's the real shift.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The checklist I actually use</h2>
+    <p>Here are the points I check regularly for my own use and for my clients.</p>
+    <p><strong>Before using an AI with data</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> Does this prompt contain personal data (names, emails, addresses, financial information)? If so, is it necessary?</li>
+    <li><input disabled="" type="checkbox"> Have I anonymized everything that can be anonymized?</li>
+    <li><input disabled="" type="checkbox"> Which version of the tool am I using — free, professional, with what contractual guarantees?</li>
+    <li><input disabled="" type="checkbox"> Is training on my data turned off in the settings?</li>
+    </ul>
+    <p><strong>For your organization</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> Do you have an internal policy on AI use, even a simple one?</li>
+    <li><input disabled="" type="checkbox"> Do your team members know which data they can or can't submit to an AI?</li>
+    <li><input disabled="" type="checkbox"> Have you completed or planned a DPIA if you're processing client data through an AI?</li>
+    <li><input disabled="" type="checkbox"> Do you know how to exercise your rights (access, deletion) with each AI provider you use?</li>
+    </ul>
+    <p><strong>On specific tools</strong></p>
+    <ul>
+    <li><input disabled="" type="checkbox"> ChatGPT: training setting turned off? Right version for the use case (Free, Plus, Business, Enterprise)?</li>
+    <li><input disabled="" type="checkbox"> Claude: have you read the policy update from July 8, 2026, specifically on sharing with law enforcement?</li>
+    <li><input disabled="" type="checkbox"> Midjourney: do your client briefs contain information you don't want used for training?</li>
+    <li><input disabled="" type="checkbox"> Mistral: have you explored the local hosting option for your most sensitive use cases?</li>
+    </ul>
+    <p>The <a href="/en/articles/reperer-contenu-ia-deepfake">question of deepfakes and AI-generated content</a> raises similar questions about the traceability of source data — a related topic worth keeping an eye on.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Are my ChatGPT conversations private by default?</h3>
+    <p>No. By default, conversations on the free or Plus versions of ChatGPT can be used by OpenAI to train its models. You can turn this off under <em>Settings &gt; Data controls</em>. Business and Enterprise versions come with different terms and stricter contractual guarantees.</p>
+    <h3>How do I stop an AI from using my data for training?</h3>
+    <p>Several options exist: turn off the training setting in your account (when available), upgrade to a professional plan with a no-training clause, anonymize your data before submitting it, or use a locally hosted model like Mistral Small 4 under the Apache 2.0 license.</p>
+    <h3>What are the privacy differences between free and paid AI plans?</h3>
+    <p>Free plans generally offer fewer guarantees. Professional plans (Business, Enterprise at OpenAI, for example) include contractual clauses on data processing, often with no use for model training. Price isn't the only factor: read the specific terms for each subscription tier.</p>
+    <h3>Does the EU AI Act automatically protect my data when I use an AI?</h3>
+    <p>No, not automatically. The AI Act, fully applicable to high-risk AI systems from August 2, 2026, governs the governance, documentation, and human oversight of AI systems. It stacks with GDPR but doesn't replace it. Your personal data protection obligations remain fully in force.</p>
+    <h3>Can I use sensitive client data with a generative AI?</h3>
+    <p>With caution. GDPR requires a legal basis for any processing of personal data, including through an AI. If the data is sensitive (health, political opinions, etc.), the requirements are even stricter. Anonymize what you can, use professional plans with contractual guarantees, and document your approach.</p>
+    <h3>What happens if I use an AI to generate content that includes personal information?</h3>
+    <p>You remain responsible for the processing. The AI is a tool: you decide what data goes in. If you generate content that includes personal information about third parties, GDPR rules apply — consent, legal basis, informing the people involved. The fact that an AI "produced" the content doesn't make your responsibility disappear.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I do all of this for myself first. I use these tools every day, and for a long time I was in the 22% who didn't know the privacy settings existed. This isn't about paranoia — it's about consistency. I wouldn't leave a client's contact details on a sticky note in a coffee shop. I have no reason to paste them into a prompt without thinking.</p>
+    <p>Generative AI tools are powerful. Their usefulness doesn't depend on how much personal data you feed them. With good habits — anonymization, the right settings, the right plan — you can get everything they offer without exposing what shouldn't be exposed.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

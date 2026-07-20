@@ -31,7 +31,7 @@ async function loadEnv() {
   }
 }
 
-// ── retry avec backoff sur 429/500/503 (tier gratuit = pics de charge) ──
+// ── retry avec backoff sur 429/5xx (tier gratuit = pics de charge ; 529 = Anthropic overloaded) ──
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 async function withRetry(label, doFetch, { tries = 5, base = 2000 } = {}) {
   let lastErr;
@@ -41,7 +41,7 @@ async function withRetry(label, doFetch, { tries = 5, base = 2000 } = {}) {
       if (res.ok) return await res.json();
       const status = res.status;
       const txt = (await res.text()).slice(0, 300);
-      if (status === 429 || status === 500 || status === 503) {
+      if (status === 429 || status === 500 || status === 502 || status === 503 || status === 529) {
         lastErr = new Error(`${label} ${status} : ${txt}`);
         const wait = base * Math.pow(2, i) + Math.random() * 800;
         process.stderr.write(`  ⟳ ${label} ${status}, retry ${i + 1}/${tries} dans ${Math.round(wait/1000)}s…\n`);
@@ -52,7 +52,7 @@ async function withRetry(label, doFetch, { tries = 5, base = 2000 } = {}) {
     } catch (e) {
       lastErr = e;
       if (i === tries - 1) break;
-      if (!/\b(429|500|503|fetch failed|ECONNRESET|ETIMEDOUT)\b/.test(e.message)) throw e;
+      if (!/\b(429|500|502|503|529|fetch failed|ECONNRESET|ETIMEDOUT)\b/.test(e.message)) throw e;
       await sleep(base * Math.pow(2, i));
     }
   }
@@ -97,9 +97,29 @@ export async function claude(prompt, { model = 'claude-sonnet-4-6', system = '',
   return { text, sources: [], raw: data };
 }
 
+// ── OpenRouter (REST, API OpenAI-compatible) — juges + fallback génération ──
+// Kimi K2.6 : ~0,66 $/M in · 3,41 $/M out, 262k contexte. Coût juge ≈ 0,03 $/appel.
+const OPENROUTER_JUDGE_MODEL = 'moonshotai/kimi-k2.6';
+export async function openrouter(prompt, { model = OPENROUTER_JUDGE_MODEL, system = '', temperature = 0.7, max_tokens = 8000, json = false } = {}) {
+  await loadEnv();
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) throw new Error('OPENROUTER_API_KEY absente (.env.local)');
+
+  const messages = [...(system ? [{ role: 'system', content: system }] : []), { role: 'user', content: prompt }];
+  const data = await withRetry('OpenRouter', () => fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://jerwis.fr', 'X-Title': 'jerwis blog autopilot' },
+    body: JSON.stringify({ model, temperature, max_tokens, ...(json ? { response_format: { type: 'json_object' } } : {}), messages }),
+  }));
+  const text = data.choices?.[0]?.message?.content || '';
+  if (!text) throw new Error(`OpenRouter réponse vide (${data.error?.message || 'sans message'})`);
+  return { text, sources: [], raw: data };
+}
+
 // ── le bon générateur selon les clés dispo ──
 export async function hasClaude() { await loadEnv(); return !!(process.env.ANTHROPIC_API_KEY || process.env.CLAUDE); }
 export async function hasGemini() { await loadEnv(); return !!process.env.GEMINI_API_KEY; }
+export async function hasOpenRouter() { await loadEnv(); return !!process.env.OPENROUTER_API_KEY; }
 
 // Mapping tier → modèle réel par provider (évite de passer un nom Claude à Gemini)
 const TIER = {
@@ -107,14 +127,32 @@ const TIER = {
   makingof: { claude: 'claude-opus-4-8',   gemini: 'gemini-2.5-pro'   },
 };
 
-/** Génère avec Claude si dispo (voix), sinon Gemini (gratuit). opts.tier = 'seo'|'makingof'. */
+/** Génère avec Claude si dispo (voix), sinon Gemini (gratuit).
+ *  Si Claude tombe malgré les retries (529 Overloaded…), fallback OpenRouter (Kimi K2.6). */
 export async function generate(prompt, { tier = 'seo', ...opts } = {}) {
   const map = TIER[tier] || TIER.seo;
-  if (await hasClaude()) return { provider: 'claude', ...(await claude(prompt, { ...opts, model: map.claude })) };
+  if (await hasClaude()) {
+    try {
+      return { provider: 'claude', ...(await claude(prompt, { ...opts, model: map.claude })) };
+    } catch (e) {
+      if (!(await hasOpenRouter())) throw e;
+      process.stderr.write(`  ⟳ Claude KO après retries (${e.message.slice(0, 80)}) → fallback OpenRouter Kimi K2.6…\n`);
+      return { provider: 'openrouter', ...(await openrouter(prompt, { ...opts, model: OPENROUTER_JUDGE_MODEL })) };
+    }
+  }
   return { provider: 'gemini', ...(await gemini(prompt, { ...opts, model: map.gemini })) };
 }
 
-/** Juge = Gemini de préférence (cross-family si générateur = Claude ; gratuit). */
+/** Juge = OpenRouter (Kimi K2.6, cross-family vs générateur Claude, fiable) si clé dispo,
+ *  sinon Gemini (gratuit mais free tier fragile). Fallback croisé en cas de panne. */
 export async function judge(prompt, opts = {}) {
+  if (await hasOpenRouter()) {
+    try {
+      const { model: _geminiModel, ...rest } = opts; // le model passé par qa-gate est un nom Gemini
+      return { provider: 'openrouter', ...(await openrouter(prompt, { ...rest, model: OPENROUTER_JUDGE_MODEL, temperature: 0.2, json: true })) };
+    } catch (e) {
+      process.stderr.write(`  ⟳ Juge OpenRouter KO (${e.message.slice(0, 80)}) → fallback Gemini…\n`);
+    }
+  }
   return { provider: 'gemini', ...(await gemini(prompt, { temperature: 0.2, json: true, ...opts })) };
 }

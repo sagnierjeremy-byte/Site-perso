@@ -74,17 +74,25 @@ ${internal.slice(0, 120).join(', ')}
 - Français, factuel, daté.`;
 
 console.error(`• Recherche Gemini (grounding) sur : "${topic}" …`);
-const { text, sources } = await gemini(prompt, { grounding: true, temperature: 0.4, model: 'gemini-2.5-flash' });
 
-// Parse le JSON (tolère un éventuel fence ```json)
-let brief;
-try {
-  const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
-  brief = JSON.parse(clean);
-} catch (e) {
-  console.error('⚠️ Réponse non-JSON, dump brut :');
-  console.error(text.slice(0, 800));
-  process.exit(1);
+// Le free tier Gemini renvoie parfois un 200 avec un texte vide/tronqué sous charge :
+// on retente le call complet (pas juste le parse) avec une vraie pause entre les essais.
+let brief, text = '', sources = [];
+for (let attempt = 1; attempt <= 3 && !brief; attempt++) {
+  ({ text, sources } = await gemini(prompt, { grounding: true, temperature: 0.4, model: 'gemini-2.5-flash' }));
+  try {
+    const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
+    if (!clean) throw new Error('réponse vide');
+    brief = JSON.parse(clean);
+  } catch (e) {
+    if (attempt === 3) {
+      console.error('⚠️ Réponse vide/non-JSON après 3 essais, dump brut :');
+      console.error(text.slice(0, 800));
+      process.exit(1);
+    }
+    console.error(`⚠️ Réponse vide/non-JSON (${e.message.slice(0, 60)}) — essai ${attempt}/3, retry dans 45s…`);
+    await new Promise(r => setTimeout(r, 45000));
+  }
 }
 
 // Fusionne les sources de grounding Gemini avec celles citées dans les facts

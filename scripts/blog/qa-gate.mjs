@@ -225,12 +225,13 @@ Note 3 critères de 0 à 10 (entiers) et liste les défauts concrets. Réponds U
 Règles de notation :
 - C1 FACTUALITÉ — ne pénalise QUE les faits VÉRIFIABLES inventés : chiffres/statistiques/pourcentages/dates absents de la matière OU invraisemblables (ex: 98% d'adoption), noms propres/citations/événements fabriqués. Un chiffre inventé ou invraisemblable = claim_refute, score ≤ 5.
 - NE PÉNALISE PAS l'explication de concepts généraux bien connus (RAG, agent, prompt, LLM, fine-tuning, etc.) même s'ils ne sont pas dans la matière : ce sont des connaissances communes, pas des hallucinations. Un article a le droit d'expliquer un concept sans source. Si l'article ne contient AUCUN chiffre/nom inventé, C1 ≥ 8.
-- C2 : "(source: ...)" en clair dans le texte, Title Case sur les titres, ou ton "fiche produit" = violations, score ≤ 6. AUSSI : des titres H2 longs ou bourrés de mots-clés SEO (ex INTERDIT : "Panorama des outils IA no-code incontournables en 2025-2026 pour automatiser tes tâches", "Les bénéfices concrets de l'IA no-code : gains de temps, réduction des coûts et innovation") cassent le ton Leo — les H2 doivent être courts et chaleureux ("C'est quoi, concrètement ?", "Par où commencer"). Plusieurs H2 ainsi = violation, score ≤ 7.
+- C2 : le TUTOIEMENT est OBLIGATOIRE sur ce site — dire "tu" au lecteur n'est JAMAIS une violation (au contraire, du vouvoiement en serait une). Les encarts conseil/piège/astuce font partie du format : un conseil concret ou une mise en garde pratique n'est PAS du "ton consultant" — ce terme vise uniquement les disclaimers creux ("il est important de noter que…"). Les vraies violations : "(source: ...)" en clair dans le texte, Title Case sur les titres, ou ton "fiche produit" = violations, score ≤ 6. AUSSI : des titres H2 longs ou bourrés de mots-clés SEO (ex INTERDIT : "Panorama des outils IA no-code incontournables en 2025-2026 pour automatiser tes tâches", "Les bénéfices concrets de l'IA no-code : gains de temps, réduction des coûts et innovation") cassent le ton Leo — les H2 doivent être courts et chaleureux ("C'est quoi, concrètement ?", "Par où commencer"). Plusieurs H2 ainsi = violation, score ≤ 7.
 - C5 : si deux chiffres se contredisent = score ≤ 5.`;
 
   try {
-    process.stderr.write('• Juge LLM (Gemini, posture adversariale)…\n');
-    const { text: jt } = await judge(jp, { model: 'gemini-2.5-flash' });
+    process.stderr.write('• Juge LLM (posture adversariale)…\n');
+    const { text: jt, provider: jprov } = await judge(jp, { model: 'gemini-2.5-flash' });
+    process.stderr.write(`  jugé par : ${jprov}\n`);
     const clean = jt.replace(/^```json\s*/i,'').replace(/```\s*$/,'').trim();
     llmScores = JSON.parse(clean);
     scores.C1_factualite = llmScores.C1_factualite?.score ?? null;

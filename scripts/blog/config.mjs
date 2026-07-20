@@ -23,7 +23,12 @@ export const MODELS = {
 export const TON_LEO = `
 TON DE VOIX "LEO" (règle absolue du site jerwis.fr) :
 - 1ère personne directe : "Je teste", "Je partage", "J'ai construit".
-- Chaleureux mais PAS familier. Jamais d'argot ni de langage "de pote".
+- TUTOIEMENT OBLIGATOIRE : l'article dit "tu" au lecteur, jamais "vous". Le tutoiement
+  N'EST PAS de la familiarité et ne doit JAMAIS être compté comme un défaut de ton.
+- Chaleureux mais PAS familier. "Familier" = argot et langage "de pote" ("ouais",
+  "franchement", "mec") — pas le tutoiement, pas les mises en garde pratiques.
+- Les encarts conseil/piège/astuce (callouts) font partie du FORMAT du site : donner
+  un conseil concret ou signaler un piège n'est pas du "ton consultant".
 - Phrases courtes. Mots simples. Pas de jargon non expliqué (si un terme technique
   est nécessaire, l'expliquer en une phrase ou le lier au lexique).
 - Jérémy Sagnier n'est PAS développeur, PAS codeur. Ne JAMAIS l'appeler ainsi.

@@ -11,11 +11,17 @@ Health-check du pilote auto : système vert (publications des 13/16/20-07 OK, ga
 - Issues GitHub #1 et #4 (« en panne ») fermées — échecs ponctuels des 05-09/07, tout est vert depuis.
 - `CLAUDE.md` : section Publication complétée (fonctionnement autopilot + kill switch).
 
+### Livré (2e partie — robustesse LLM, même jour)
+Deux runs de test manuels rapprochés ont révélé 3 fragilités, toutes corrigées :
+- **Juges de la gate → Kimi K2.6 via OpenRouter** (`OPENROUTER_API_KEY`, secret GitHub + .env.local) : ~0,03 $/appel, fallback Gemini si panne (`llm.mjs` : nouveau provider `openrouter()`, `judge()` re-routé). Testé : gate complète 62,2/70 jugée par Kimi. La recherche grounding reste sur Gemini (gratuit, sans équivalent), désormais avec retry ×3 espacés de 45 s sur réponse vide (`research.mjs`) — c'est ce qui avait fait échouer le run test 2.
+- **Claude 529 Overloaded retryable** (`llm.mjs` : 502/529 ajoutés aux statuts retryables — un 529 tuait l'essai 3 du run test 1) + fallback génération OpenRouter si Claude reste KO.
+- **Calibrage juge C2** : le tutoiement (obligatoire) était compté comme « familier » par le juge, et les callouts conseil comme « ton consultant » → règles explicitées dans `TON_LEO`/`config.mjs` + prompt juge `qa-gate.mjs`.
+
 ### Fichiers touchés
-`.github/workflows/blog-autopilot.yml`, `data/topic-queue.json`, `CLAUDE.md`.
+`.github/workflows/blog-autopilot.yml`, `data/topic-queue.json`, `scripts/blog/llm.mjs`, `scripts/blog/research.mjs`, `scripts/blog/qa-gate.mjs`, `scripts/blog/config.mjs`, `CLAUDE.md`.
 
 ### À venir
-- Surveiller le quota Gemini (recherche) avec la cadence doublée.
+- Surveiller la conso OpenRouter (attendu ≈ 1,5-2 $/mois à 17 articles).
 - Re-remplir la file vers mi-septembre (l'autopilot s'arrête en silence quand elle est vide).
 
 ## 2026-07-06 · Design v2 des articles (migration + pipeline publish)

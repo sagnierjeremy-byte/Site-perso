@@ -41,7 +41,7 @@ Hero dark + progress rail sticky 01→04 (IntersectionObserver) · 4 étapes : 0
 - `npm run publish <slug>` (ou `publish:all`) → écrit `articles/<slug>.html`, met à jour `sitemap.xml`, régénère `feed/articles.xml` + les cartes statiques d'`articles.html` (`build-articles-page.mjs`, marqueurs `ARTICLES:START/END` — **jamais éditer les cartes à la main**), affiche la card `apprendre.html` si `parcours_etape`.
 - Puis commit + push (Vercel redéploie) + `npm run indexnow <url>`.
 - **Slug publié = nom de fichier du draft** (écrase un frontmatter divergent, avec warning) → renommer le draft en slug court et propre (ex : `skills-claude-code-non-dev`) avant de publier.
-- **Autopilot** (`.github/workflows/blog-autopilot.yml`) : cron lun/mar/jeu/ven 5h UTC (4 articles/sem depuis 2026-07-20) — pioche dans `data/topic-queue.json` (priorité 1→3 puis ancienneté), recherche Gemini + rédaction + gate qualité ≥56/70, publie/commit/push seul. ⚠️ File vide = arrêt **silencieux** (pas d'alerte) → garder des sujets `pending`. Kill switch : variable repo `BLOG_AUTOPILOT=off`.
+- **Autopilot** (`.github/workflows/blog-autopilot.yml`) : cron lun/mar/jeu/ven 5h UTC (4 articles/sem depuis 2026-07-20) — pioche dans `data/topic-queue.json` (priorité 1→3 puis ancienneté), recherche Gemini (grounding, retry ×3) + rédaction Claude (fallback Kimi K2.6) + gate qualité ≥56/70 jugée par **Kimi K2.6 via OpenRouter** (`OPENROUTER_API_KEY`, ~0,10 $/article, fallback Gemini), publie/commit/push seul. ⚠️ File vide = arrêt **silencieux** (pas d'alerte) → garder des sujets `pending`. Kill switch : variable repo `BLOG_AUTOPILOT=off`.
 
 ## Assets
 - `photos/` : 55 optimisées (1600px, qual 82), 7 utilisées · `photos/channels/` : avatars YouTube 176×176 (`scripts/fetch-youtube-avatars.mjs`).

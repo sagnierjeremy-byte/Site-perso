@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/meta-ai-whatsapp.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Meta AI WhatsApp : à quoi sert le rond bleu ?</title>
+<meta name="description" content="Un rond bleu a surgi dans ton WhatsApp ? Je t'explique ce qu'est Meta AI, ce qu'il fait de tes messages et comment le gérer en 2025-2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Meta AI WhatsApp : à quoi sert le rond bleu ?">
+<meta property="og:description" content="Un rond bleu a surgi dans ton WhatsApp ? Je t'explique ce qu'est Meta AI, ce qu'il fait de tes messages et comment le gérer en 2025-2026.">
+<meta property="og:url" content="https://jerwis.fr/articles/meta-ai-whatsapp">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/meta-ai-whatsapp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-20">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Meta AI WhatsApp : à quoi sert le rond bleu ?">
+<meta name="twitter:description" content="Un rond bleu a surgi dans ton WhatsApp ? Je t'explique ce qu'est Meta AI, ce qu'il fait de tes messages et comment le gérer en 2025-2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/meta-ai-whatsapp.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/meta-ai-whatsapp">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Meta AI WhatsApp : à quoi sert le rond bleu ?",
+  "description": "Un rond bleu a surgi dans ton WhatsApp ? Je t'explique ce qu'est Meta AI, ce qu'il fait de tes messages et comment le gérer en 2025-2026.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/meta-ai-whatsapp",
+  "datePublished": "2026-07-20",
+  "dateModified": "2026-07-20",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/meta-ai-whatsapp.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 17</div>
+    <h1>Ce rond bleu<br>dans ton WhatsApp<br><em>c'est quoi, exactement ?</em></h1>
+    <p class="hero-lead">
+      Tu ouvres WhatsApp et tu vois un rond bleu — ou un ovale rose et violet — que tu n'as pas installé. Tu ne sais pas si tu dois l'ignorer, l'utiliser ou t'en méfier. Je me suis posé les mêmes questions. Dans cet article, je t'explique ce qu'est Meta AI, ce qu'il fait vraiment, ce qu'il voit de tes conversations, et comment le mettre de côté si tu n'en veux pas.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>7 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Meta AI / WhatsApp</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Le <strong>rond bleu</strong> est l'icône de Meta AI, un assistant conversationnel intégré directement dans WhatsApp.</li>
+      <li>Tes messages privés restent <strong>chiffrés de bout en bout</strong> — Meta AI ne les lit pas, sauf si tu lui écris directement.</li>
+      <li>En Europe, Meta AI est disponible depuis mars 2025, mais avec des <strong>fonctionnalités réduites</strong> pour respecter le RGPD.</li>
+      <li>Tu ne peux pas supprimer l'icône, mais tu peux <strong>archiver la conversation, couper les notifications</strong> et utiliser le mode incognito.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>C&#39;est quoi, ce rond bleu ?</h2>
+    <p>Tu n&#39;as rien installé. Tu n&#39;as rien accepté. Et pourtant, un jour, un rond bleu — parfois décrit comme un ovale aux reflets rose et violet — est apparu dans l&#39;onglet Discussions de ton WhatsApp. C&#39;est l&#39;icône de Meta AI.</p>
+    <p>Meta AI est un assistant conversationnel développé par Meta, la maison mère de WhatsApp, Facebook et Instagram. Concrètement, c&#39;est un chatbot : tu lui poses une question, il te répond. Tu lui demandes des idées, il t&#39;en propose. Il peut aussi apprendre de tes interactions pour affiner ses réponses au fil du temps.</p>
+    <p>Ce que Meta a fait, c&#39;est intégrer cet assistant directement dans l&#39;application que tu utilises probablement tous les jours. Pas besoin de télécharger une appli supplémentaire, pas besoin de créer un compte ailleurs. Le raccourci est là, dans ta liste de discussions, qu&#39;on te le demande ou non.</p>
+    <p>En Europe, Meta AI a été déployé à partir de mars 2025, dans 41 pays et 21 territoires d&#39;outre-mer. Mais — et c&#39;est important — cette version européenne est différente de celle disponible aux États-Unis ou en Asie. Pour se conformer au RGPD, Meta a retiré certaines fonctionnalités : pas de mémoire persistante entre les conversations, et pas de génération d&#39;images via Meta Imagine. Tu as donc accès à un assistant, mais dans une version allégée.</p>
+    <p>Le modèle qui tourne derrière Meta AI s&#39;appelle Llama. Si tu veux comprendre ce que c&#39;est qu&#39;un <a href="/lexique/llm">grand modèle de langage (LLM)</a>, j&#39;ai une page dédiée dans le lexique.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>À quoi ça sert, vraiment ?</h2>
+    <p>Parlons des usages concrets. Meta AI dans WhatsApp, c&#39;est un chatbot accessible sans quitter l&#39;application. Tu peux lui poser des questions comme tu le ferais avec ChatGPT ou Google, mais depuis ton téléphone, dans l&#39;interface que tu connais déjà.</p>
+    <p>Pour un entrepreneur non-développeur, les cas d&#39;usage les plus évidents sont :</p>
+    <p><strong>Chercher une info rapidement.</strong> Tu es en déplacement, tu as besoin d&#39;une réponse rapide, tu n&#39;as pas envie d&#39;ouvrir un navigateur. Tu écris à Meta AI directement.</p>
+    <p><strong>Générer des idées.</strong> Un nom pour un produit, un angle pour un email, une structure pour une réunion. L&#39;assistant peut proposer des pistes en quelques secondes.</p>
+    <p><strong>Reformuler ou corriger un texte.</strong> Tu as rédigé un message un peu bancal ? Tu peux lui demander de le clarifier.</p>
+    <p><strong>Poser des questions dans une conversation de groupe.</strong> C&#39;est une fonctionnalité moins connue : tu peux mentionner @Meta AI dans un groupe WhatsApp, et l&#39;assistant répond directement dans le fil de discussion. Pratique pour des recherches rapides partagées avec des collègues ou des associés.</p>
+    <p>Ce que Meta AI ne fait pas (en Europe, à la date de cet article) : générer des images, se souvenir de ce que tu lui as dit la semaine dernière, ou accéder à des données en temps réel avec la même profondeur que certains autres outils.</p>
+    <p>Si tu veux comparer Meta AI avec d&#39;autres assistants pour choisir celui qui correspond à tes besoins, j&#39;ai écrit un article sur <a href="/articles/choisir-ia-ecrire-coder-images">comment choisir son outil IA selon l&#39;usage</a>.</p>
+    <div class="callout tip"><h4>Mon conseil</h4><p>Si tu veux tirer quelque chose de Meta AI (ou de n'importe quel chatbot), la qualité de ta question change tout. Un prompt vague donne une réponse vague. J'ai écrit un guide sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n'est pas développeur</a> — ça s'applique directement ici.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que Meta voit — et ce qu&#39;il ne voit pas</h2>
+    <p>C&#39;est la question qui revient le plus souvent, et elle est légitime. Voici ce que je sais avec certitude, basé sur les informations disponibles.</p>
+    <p><strong>Ce que Meta ne lit pas :</strong> tes messages privés avec tes contacts, tes appels, tes conversations de groupe quand tu n&#39;as pas mentionné Meta AI. Ces échanges restent chiffrés de bout en bout. Ça veut dire que même Meta ne peut techniquement pas y accéder.</p>
+    <p><strong>Ce que Meta peut lire :</strong> les messages que tu envoies directement à Meta AI, et ceux dans lesquels tu mentionnes @Meta AI. Ces messages-là sortent du chiffrement de bout en bout, par définition : tu parles à Meta AI, donc Meta reçoit le message pour formuler une réponse. Ces données peuvent être utilisées pour améliorer les modèles de l&#39;IA.</p>
+    <p><strong>Ce que Meta peut croiser :</strong> si tu as lié ton compte WhatsApp à un Espace Comptes Meta (qui regroupe Facebook et Instagram), Meta AI peut utiliser des informations issues de ces profils — tes centres d&#39;intérêt déclarés, ton âge, ta localisation, tes habitudes sur ces plateformes — pour personnaliser ses réponses.</p>
+    <p>C&#39;est là que ça devient intéressant pour un entrepreneur. Si tu utilises WhatsApp Business et que tu as des comptes Meta liés, les données que tu fournis à Meta AI ne sont pas neutres. Elles s&#39;ajoutent à un profil déjà existant.</p>
+    <p>Pour aller plus loin sur ce sujet, j&#39;ai un article dédié aux <a href="/articles/donnees-perso-ia-confidentialite">enjeux de confidentialité liés à l&#39;IA</a> — je te recommande de le lire si tu gères des données clients sensibles.</p>
+    <p><strong>Une option lancée en mai 2026 :</strong> les discussions incognito. Meta a introduit un mode de conversation privée avec Meta AI, dans lequel les échanges disparaissent automatiquement après fermeture de la session et ne sont ni enregistrés ni utilisés à des fins publicitaires. Ces conversations sont traitées dans des environnements sécurisés. Si tu veux tester l&#39;assistant sans laisser de traces, c&#39;est l&#39;option à activer.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne confonds pas "chiffrement de bout en bout" et "confidentialité totale". Tes messages privés avec tes contacts sont bien protégés. Mais dès que tu écris à Meta AI, tu sors de cette protection. Ne lui envoie pas d'informations sensibles — données clients, contrats, mots de passe — comme tu ne le ferais avec aucun autre service cloud.</p></div>
+    
+    <h2>Comment le gérer (ou l&#39;ignorer)</h2>
+    <p>Soyons clairs sur un point : tu ne peux pas supprimer le rond bleu de ton interface WhatsApp. Meta l&#39;a intégré à l&#39;application, et il n&#39;existe pas d&#39;option pour le retirer complètement. C&#39;est une décision de Meta, pas un bug.</p>
+    <p>En revanche, tu peux faire plusieurs choses pour le mettre de côté :</p>
+    <p><strong>Archiver la conversation.</strong> Comme n&#39;importe quelle discussion WhatsApp, tu peux archiver le fil Meta AI. Il disparaît de ta liste principale et se retrouve dans l&#39;onglet &quot;Archivées&quot;. L&#39;icône ronde reste dans l&#39;interface, mais la conversation ne pollue plus ta liste.</p>
+    <p><strong>Supprimer la conversation.</strong> Tu peux aussi supprimer l&#39;historique de ta conversation avec Meta AI. Ça ne supprime pas l&#39;accès à l&#39;assistant, mais ça efface ce que tu lui as dit jusqu&#39;ici.</p>
+    <p><strong>Couper les notifications.</strong> Si Meta AI t&#39;envoie des suggestions ou des rappels que tu n&#39;as pas demandés, tu peux mettre ses notifications en sourdine, exactement comme pour n&#39;importe quel contact.</p>
+    <p><strong>Utiliser le mode incognito.</strong> Si tu veux tester l&#39;assistant ponctuellement sans que ça soit enregistré, active les discussions incognito (disponibles depuis mai 2026).</p>
+    <p>Ce que tu ne peux pas faire : désactiver Meta AI complètement au niveau de l&#39;application, ou empêcher l&#39;icône d&#39;apparaître dans l&#39;onglet Discussions.</p>
+    <p>Si tu veux explorer comment des outils IA peuvent t&#39;aider à <a href="/articles/automatiser-taches-ia-sans-coder">automatiser certaines tâches sans toucher à du code</a>, Meta AI peut être un premier pas — mais il y a des outils plus adaptés pour aller loin.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les autres assistants, pour comparer</h2>
+    <p>Meta AI n&#39;est pas le seul assistant disponible en 2026. Pour te donner un repère, voici où en sont les principaux concurrents à la date de cet article.</p>
+    <p><strong>ChatGPT</strong> : OpenAI a lancé une version majeure fin juin 2026, avec trois déclinaisons (Sol, Terra, Luna), Sol étant la plus puissante. ChatGPT n&#39;est pas intégré nativement dans WhatsApp, mais tu peux l&#39;utiliser via son application ou son site.</p>
+    <p><strong>Gemini</strong> : Google a sorti Gemini 3.5 Flash le 19 mai 2026, disponible mondialement. Lui non plus n&#39;est pas dans WhatsApp, mais il est accessible depuis les appareils Android et via le web.</p>
+    <p><strong>Claude</strong> : Anthropic a sorti Claude Fable 5 le 9 juin 2026, et Claude Opus 4.8 le 28 mai 2026. Claude est réputé pour la qualité de ses réponses sur des tâches d&#39;écriture et d&#39;analyse.</p>
+    <p>L&#39;avantage de Meta AI dans WhatsApp, c&#39;est uniquement la friction zéro : il est déjà là. Si tu cherches un assistant plus puissant ou avec plus de contrôle sur tes données, les alternatives ci-dessus méritent d&#39;être explorées.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Meta AI lit-il mes messages privés chiffrés de bout en bout sur WhatsApp ?</h3>
+    <p>Non. Tes conversations privées avec tes contacts restent chiffrées de bout en bout — Meta ne peut pas y accéder. En revanche, les messages que tu envoies directement à Meta AI, ou dans lesquels tu le mentionnes avec @Meta AI, sont bien lus par Meta pour formuler une réponse et peuvent être utilisés pour améliorer ses modèles.</p>
+    <h3>Puis-je supprimer complètement le rond bleu de Meta AI de l&#39;interface de mon application WhatsApp ?</h3>
+    <p>Non. L&#39;icône fait partie de l&#39;application et ne peut pas être retirée. Tu peux archiver ou supprimer la conversation avec Meta AI, et couper ses notifications, mais l&#39;accès à l&#39;assistant reste visible dans l&#39;interface.</p>
+    <h3>Les fonctionnalités de Meta AI sont-elles les mêmes partout dans le monde, notamment en Europe ?</h3>
+    <p>Non. En Europe, Meta AI a été déployé à partir de mars 2025 dans une version limitée pour respecter le RGPD : pas de mémoire entre les sessions, et pas de génération d&#39;images via Meta Imagine. Les utilisateurs hors Europe ont accès à des fonctionnalités plus étendues.</p>
+    <h3>Comment puis-je empêcher Meta d&#39;utiliser mes données pour entraîner ses modèles d&#39;IA ?</h3>
+    <p>Tu peux utiliser le mode &quot;discussions incognito&quot; lancé en mai 2026 : ces conversations ne sont pas enregistrées et ne sont pas utilisées à des fins publicitaires ou d&#39;entraînement. Pour les données issues de tes comptes liés (Facebook, Instagram), tu peux gérer tes préférences dans les paramètres de confidentialité de l&#39;Espace Comptes Meta. Je te recommande aussi de lire mon article sur les <a href="/articles/donnees-perso-ia-confidentialite">données personnelles et l&#39;IA</a> pour aller plus loin.</p>
+    <h3>Est-il possible d&#39;utiliser d&#39;autres assistants IA comme ChatGPT directement dans WhatsApp ?</h3>
+    <p>Pas nativement. WhatsApp n&#39;intègre pas ChatGPT, Gemini ou Claude dans son interface. Il existe des solutions tierces qui connectent ces assistants à WhatsApp via des automatisations, mais elles sortent du cadre de cet article et demandent une configuration spécifique.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Le rond bleu n&#39;est pas dangereux en soi. Mais il mérite qu&#39;on sache exactement ce qu&#39;il fait — et ce qu&#39;il ne fait pas.</p>
+    <p>Ce que je retiens : tes messages privés restent protégés. Le risque, c&#39;est de lui envoyer des informations sensibles par réflexe, comme tu enverrais un message à un collègue. Ce n&#39;est pas un collègue. C&#39;est un service Meta.</p>
+    <p>En Europe, la version disponible est bridée. C&#39;est une protection, pas un défaut. Et si tu veux tester l&#39;assistant sans t&#39;engager, le mode incognito est là pour ça.</p>
+    <p>Pour le reste, je fais tout ça d&#39;abord pour moi : comprendre ce qui entre dans mes outils quotidiens, et décider en connaissance de cause si je veux l&#39;utiliser ou le laisser de côté.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+</body>
+</html>

@@ -26,7 +26,7 @@
 - Ton à 3 niveaux : haut 100 % centré lecteur · milieu « je partage ce qui m'a servi » · bas pitch « d'abord pour moi » reformulé en « Ta garantie », dit UNE seule fois, jamais redit ailleurs.
 
 ## Parcours (`apprendre.html`)
-Hero dark + progress rail sticky 01→04 (IntersectionObserver) · 4 étapes : 01 Poser les bases (teal) · 02 Passer à Claude Code (fuchsia) · 03 Construire tes agents (orange) · 04 Aller plus loin (ink) — cards ajoutées au fil des publications (`parcours_etape` dans les drafts) · parcours-end gradient → `index.html#newsletters`.
+Hero dark + progress rail sticky 01→05 (IntersectionObserver) · 5 étapes : 01 Poser les bases (teal) · 02 Mettre l'IA au travail (fuchsia) · 03 Passer à Claude Code (orange) · 04 Construire tes agents (teal) · 05 Aller plus loin (ink) — cards ajoutées au fil des publications (`parcours_etape` dans les drafts) · parcours-end gradient → `index.html#newsletters`. Progression localStorage `jerwis_parcours_done` (JS `n/5`).
 
 ## Articles (`articles/`)
 26 articles + `_TEMPLATE.html` (placeholders `{{TITRE}}` etc., déjà câblé TOC + barre IA). Liste à jour : `articles.html` + `feed/articles.xml` (régénérés par `publish.js`).

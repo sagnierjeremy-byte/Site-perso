@@ -8,16 +8,17 @@ Point contrariant identifié de longue date (et confirmé par la recherche user 
 ### Livré (FR + miroir EN)
 - **Nouvelle étape 02 « Mettre l'IA au travail »** (fuchsia, 100 % navigateur, versions gratuites) : 5 cartes → ecrire-bon-prompt-non-dev, resumer-pdf-video-avec-ia, verifier-info-ia, creer-images-ia-gratuit, choisir-ia-ecrire-coder-images.
 - **Décalage des étapes** : Claude Code 02→03 (orange), Agents 03→04 (teal) avec `automatiser-taches-ia-sans-coder` ajouté en carte d'ouverture 04.1, Aller plus loin 04→05 (ink). ZÉRO CSS ajouté (les classes `s-*` cyclent).
-- **Rail 5 entrées**, barre de progression `/ 5` (JS `n/5`, `aria-valuemax=5`), 4 mini-marquees de transition re-textés/insérés, chips hero **5 étapes · 24 lectures · ~4h · 0 €**.
-- **JSON-LD** : Course `hasPart` 5 parts + workload PT4H, LearningResource PT4H. FAQPage/BreadcrumbList intouchés. Meta og/twitter recalées (5 étapes).
+- **Rail 5 entrées**, barre de progression `/ 5` (JS `n/5`, `aria-valuemax=5`), 4 mini-marquees de transition re-textés/insérés, chips hero **5 étapes · 24 lectures · ~4h30 · 0 €**.
+- **JSON-LD** : Course `hasPart` 5 parts + workload PT4H30M, LearningResource PT4H30M. FAQPage/BreadcrumbList intouchés. Meta og/twitter recalées (5 étapes).
 - **Cohérence** : step-next de l'étape 01 (« Passer à Claude Code » → « Mettre l'IA au travail »), 4 mentions de numéro d'étape dans la section peurs décalées (guide install → étape 03, GitHub → étape 03, gratuit → étapes 01 et 02, Claude Pro → étape 03).
 - QC : 4 JSON-LD valides ×2 langues, badges 01.1→05.7 uniques, 6 liens FR+EN vérifiés, francité EN 0,07 %, progression 5/5 + reset OK (preview), 0 erreur console, light + dark cohérents.
 
 ### Fichiers touchés
 `apprendre.html`, `en/apprendre.html`, `CHANGELOG.md`, `CLAUDE.md`.
 
-### Note pré-existante (non traitée)
-La section 05 « Aller plus loin » a 7 cartes mais son `step-facts` affiche « 5 lectures » — incohérence antérieure à ce chantier, hors périmètre du plan, laissée en l'état.
+### Correctifs post-livraison (même jour)
+- **`5 → 7 lectures`** (commit f09adb5) : la section 05 « Aller plus loin » compte 7 cartes mais son `step-facts` affichait encore « 5 lectures » (incohérence antérieure au chantier). Corrigé FR + EN.
+- **Temps de lecture aligné sur le réel** (commit b9f64ea) : la somme des 7 cartes de la section 05 = ~91 min (pas ~55). Passé le fact de section à **~91 min**, remonté le chip hero total à **~4h30** (au lieu de ~4h), et le JSON-LD `timeRequired`/`courseWorkload` à **PT4H30M** — chip, facts et données structurées désormais cohérents. FR + EN.
 
 ## 2026-07-20 · Refonte /apprendre — baisser la barrière à l'entrée
 

@@ -1,5 +1,23 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-20 · Blog autopilot : cadence ×2 + refill de la file (32 sujets)
+
+### Pourquoi
+Health-check du pilote auto : système vert (publications des 13/16/20-07 OK, gate passée, IndexNow pingé) mais il ne restait qu'1 sujet pending → arrêt silencieux imminent (file vide = exit propre, aucune alerte). Jérémy veut passer à 4 articles/semaine et un tampon d'environ 2 mois.
+
+### Livré
+- `blog-autopilot.yml` : cron `0 5 * * 1,4` → `0 5 * * 1,2,4,5` (lun/mar/jeu/ven 7h Paris, 4 articles/sem).
+- `data/topic-queue.json` : +32 sujets pending (33 au total ≈ 8 semaines). Sourcing : Google Trends FR 90 j (seed « IA » : hermes +300 %, claude ia français +50 %, meta ia +40 %), autocomplétion Google FR (36 stems sondés), top Ahrefs FR (chatgpt = requête n°1, 20,8 M/mois). Dédupliqué contre les 40 articles existants. P1 : Meta AI WhatsApp, AI Overviews France, retouche photo, chanson Suno, IA gratuite vs payante, Claude c'est quoi.
+- Issues GitHub #1 et #4 (« en panne ») fermées — échecs ponctuels des 05-09/07, tout est vert depuis.
+- `CLAUDE.md` : section Publication complétée (fonctionnement autopilot + kill switch).
+
+### Fichiers touchés
+`.github/workflows/blog-autopilot.yml`, `data/topic-queue.json`, `CLAUDE.md`.
+
+### À venir
+- Surveiller le quota Gemini (recherche) avec la cadence doublée.
+- Re-remplir la file vers mi-septembre (l'autopilot s'arrête en silence quand elle est vide).
+
 ## 2026-07-06 · Design v2 des articles (migration + pipeline publish)
 
 ### Pourquoi

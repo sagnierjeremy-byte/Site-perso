@@ -7,7 +7,7 @@ name: Blog autopilot
 
 on:
   schedule:
-    - cron: '0 5 * * 1,4'   # lun + jeu, 5h UTC = 7h Paris
+    - cron: '0 5 * * 1,2,4,5'   # lun + mar + jeu + ven, 5h UTC = 7h Paris (4 articles/semaine)
   workflow_dispatch:         # déclenchement manuel depuis l'onglet Actions
 
 # jamais 2 runs en parallèle (anti-emballement)

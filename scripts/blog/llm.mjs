@@ -111,8 +111,9 @@ export async function openrouter(prompt, { model = OPENROUTER_JUDGE_MODEL, syste
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://jerwis.fr', 'X-Title': 'jerwis blog autopilot' },
     body: JSON.stringify({ model, temperature, max_tokens, ...(json ? { response_format: { type: 'json_object' } } : {}), messages }),
   }));
-  const text = data.choices?.[0]?.message?.content || '';
-  if (!text) throw new Error(`OpenRouter réponse vide (${data.error?.message || 'sans message'})`);
+  const choice = data.choices?.[0];
+  const text = choice?.message?.content || '';
+  if (!text) throw new Error(`OpenRouter réponse vide (finish: ${choice?.finish_reason || '?'} ; ${data.error?.message || 'sans détail'})`);
   return { text, sources: [], raw: data };
 }
 
@@ -147,11 +148,15 @@ export async function generate(prompt, { tier = 'seo', ...opts } = {}) {
  *  sinon Gemini (gratuit mais free tier fragile). Fallback croisé en cas de panne. */
 export async function judge(prompt, opts = {}) {
   if (await hasOpenRouter()) {
-    try {
-      const { model: _geminiModel, ...rest } = opts; // le model passé par qa-gate est un nom Gemini
-      return { provider: 'openrouter', ...(await openrouter(prompt, { ...rest, model: OPENROUTER_JUDGE_MODEL, temperature: 0.2, json: true })) };
-    } catch (e) {
-      process.stderr.write(`  ⟳ Juge OpenRouter KO (${e.message.slice(0, 80)}) → fallback Gemini…\n`);
+    const { model: _geminiModel, ...rest } = opts; // le model passé par qa-gate est un nom Gemini
+    // 2 essais : Kimi K2.6 réfléchit avant de répondre → sur un gros prompt, un budget
+    // trop court peut rendre un content vide (finish: length). 16k tokens + retry absorbent ça.
+    for (let i = 1; i <= 2; i++) {
+      try {
+        return { provider: 'openrouter', ...(await openrouter(prompt, { ...rest, model: OPENROUTER_JUDGE_MODEL, temperature: 0.2, json: true, max_tokens: 16000 })) };
+      } catch (e) {
+        process.stderr.write(`  ⟳ Juge OpenRouter KO ${i}/2 (${e.message.slice(0, 80)})${i === 2 ? ' → fallback Gemini…' : ''}\n`);
+      }
     }
   }
   return { provider: 'gemini', ...(await gemini(prompt, { temperature: 0.2, json: true, ...opts })) };

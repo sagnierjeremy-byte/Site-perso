@@ -1,5 +1,22 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-20 · Design v2 des articles — les 18 derniers (hand-made)
+
+### Pourquoi
+`scripts/migrate-article-design.mjs` (session du 06-07) avait volontairement exclu 18 articles au CSS trop divergent du `_TEMPLATE.html` pour un remplacement sûr. Analyse approfondie : ce ne sont pas des designs totalement différents mais des variantes enrichies du même template (couleur d'accent personnalisée par article + composants custom : `.bignum`, `.piege`, `.outils`, `.cas`, `.checklist`, `.quick`, et surtout `.step`/`.mini-marquee`/`table` redéfinis avec des valeurs différentes de `article.css`). Remplacer leur `<style>` aurait cassé ces composants (conflit de spécificité CSS).
+
+### Livré
+- `assets/article-extras.css` (nouveau) : CSS **additif**, chargé EN PLUS du `<style>` existant — n'ajoute que les composants introuvables dans ces articles (`::selection`, barre de progression `.read-progress`, prompt-card `blockquote` + bouton copier, `hr` signature, mesure de lecture 700px sur `p/ul/ol/blockquote`, images de corps). Volontairement absent : `.step`, `.mini-marquee`, `table` (déjà stylés différemment sur ces articles, à préserver).
+- `scripts/migrate-handmade-extras.mjs` (nouveau) : injecte `article-extras.css` + `article-reading.js` (idempotent, chemins `../assets/` FR / `/assets/` EN). 18 slugs × 2 langues = 36 fichiers migrés.
+- QC : JSON-LD valide + 0 placeholder sur les 36 fichiers ; vérifié en preview (computed styles) qu'aucun composant existant n'est altéré (`.step` garde son padding custom, `.mini-marquee` son gradient plein — testé sur `hermes-agent`), que la mesure de lecture et la prompt-card fonctionnent (testé sur `outil-vente-claude-code`, bouton copier actif), et que les chemins d'assets EN (`/assets/...`) sont corrects (`en/articles/hermes-agent`).
+- Nettoyage : 2 fichiers `research/*.json` obsolètes (slugs déjà publiés le 23/06) supprimés du working dir (jamais commités).
+
+### Fichiers touchés
+`assets/article-extras.css` (nouveau), `scripts/migrate-handmade-extras.mjs` (nouveau), 18 `articles/*.html` + 18 `en/articles/*.html` migrés.
+
+### À venir
+Rien — les 18 derniers articles ont désormais le même confort de lecture (progress bar, prompt-cards, mesure de lecture, hr) que les 44 articles du template, sans risque sur leur mise en page custom.
+
 ## 2026-07-20 · Blog autopilot : cadence ×2 + refill de la file (32 sujets)
 
 ### Pourquoi

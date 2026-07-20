@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/resumer-pdf-video-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Résumer un PDF ou une vidéo YouTube avec l'IA</title>
+<meta name="description" content="Transforme n'importe quel PDF, vidéo YouTube ou long document en résumé clair en quelques minutes. Les meilleurs outils IA pour entrepreneurs en 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Résumer un PDF ou une vidéo YouTube avec l'IA">
+<meta property="og:description" content="Transforme n'importe quel PDF, vidéo YouTube ou long document en résumé clair en quelques minutes. Les meilleurs outils IA pour entrepreneurs en 2026.">
+<meta property="og:url" content="https://jerwis.fr/articles/resumer-pdf-video-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/resumer-pdf-video-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-20">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Résumer un PDF ou une vidéo YouTube avec l'IA">
+<meta name="twitter:description" content="Transforme n'importe quel PDF, vidéo YouTube ou long document en résumé clair en quelques minutes. Les meilleurs outils IA pour entrepreneurs en 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/resumer-pdf-video-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/resumer-pdf-video-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Résumer un PDF ou une vidéo YouTube avec l'IA",
+  "description": "Transforme n'importe quel PDF, vidéo YouTube ou long document en résumé clair en quelques minutes. Les meilleurs outils IA pour entrepreneurs en 2026.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/resumer-pdf-video-avec-ia",
+  "datePublished": "2026-07-20",
+  "dateModified": "2026-07-20",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/resumer-pdf-video-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 99</div>
+    <h1>Trop de docs,<br>pas assez de temps.<br><em>L'IA peut lire à ta place.</em></h1>
+    <p class="hero-lead">
+      Tu reçois un rapport de 80 pages, une vidéo de conférence de 3 heures et une étude de marché en anglais — tout ça dans la même matinée. Tu ne peux pas tout lire. Mais tu ne peux pas non plus décider à l'aveugle. C'est exactement pour ça que j'ai creusé le sujet : quels outils IA permettent vraiment de résumer des PDFs, des vidéos YouTube et des documents longs en 2026 ? Je partage ici ce que j'ai trouvé, avec les chiffres et les limites honnêtes.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Gemini, Claude, NotebookLM</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Les modèles IA de pointe gèrent désormais jusqu'à <strong>1 million de tokens</strong>, soit environ 1 400 pages de texte d'un seul tenant.</li>
+      <li>Pour les PDF de plus de 300 pages, la méthode <strong>chapitre par chapitre</strong> reste plus fiable qu'un seul envoi massif.</li>
+      <li><strong>NotebookLM</strong> excelle pour croiser plusieurs documents simultanément avec des citations précises.</li>
+      <li>La confidentialité reste le point de vigilance numéro un avant d'envoyer un document professionnel à une IA.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;information déborde. L&#39;IA filtre.</h2>
+    <p>Je ne suis pas le seul à me noyer. Selon l&#39;étude KPMG Trends of AI 2026, 59 % des entreprises utilisent déjà l&#39;IA pour résumer et traduire des contenus. Ce chiffre dit quelque chose de simple : la surcharge d&#39;information est un problème réel, et beaucoup ont déjà choisi leur réponse.</p>
+    <p>Le marché des outils IA dédiés à la synthèse de recherche était évalué à 2,8 milliards de dollars en 2025. Il devrait atteindre 14,6 milliards d&#39;ici 2034, avec une croissance annuelle de 20,1 % sur la période, toujours selon les mêmes projections sectorielles. Ce n&#39;est pas une tendance de niche. C&#39;est une infrastructure qui se construit.</p>
+    <p>Pour moi, la question n&#39;est pas &quot;est-ce que l&#39;IA peut résumer ?&quot; — elle peut. La vraie question, c&#39;est : quel outil, pour quel usage, avec quelles précautions ? C&#39;est ce que je détaille dans cet article.</p>
+    <p>Avant d&#39;aller plus loin, un point de vocabulaire utile : quand je parle de &quot;fenêtre de contexte&quot;, je parle de la quantité de texte qu&#39;un modèle IA peut lire et traiter en une seule fois. Plus elle est grande, plus le document peut être long. Tu trouveras une explication complète dans le <a href="/lexique/context-window">lexique sur la fenêtre de contexte</a>.</p>
+    <hr>
+    <h2>Ce que les grands modèles savent faire</h2>
+    <p>Les trois outils que j&#39;utilise le plus souvent pour résumer des documents sont ChatGPT, Gemini et Claude. Voici où ils en sont à la date de cet article.</p>
+    <p><strong>ChatGPT 5.6</strong> a été lancé en juin 2026 avec trois niveaux : Sol (le plus puissant), Terra (équilibré) et Luna (rapide). Pour résumer un document dense, Sol est le niveau pertinent. Il gère des documents complexes avec une bonne restitution de la structure logique.</p>
+    <p><strong>Gemini 3.5 Flash</strong> est devenu le modèle par défaut de l&#39;application Gemini et du mode IA de Google Search depuis le 19 mai 2026. Il est optimisé pour la vitesse et les tâches agentiques — c&#39;est-à-dire qu&#39;il peut enchaîner des actions sans intervention humaine. Pour un résumé rapide d&#39;un document standard, c&#39;est souvent suffisant.</p>
+    <p><strong>Claude Opus 4.8</strong>, annoncé le 28 mai 2026, et <strong>Claude Fable 5</strong>, annoncé le 9 juin 2026, représentent les deux niveaux hauts de gamme d&#39;Anthropic. Fable 5 inaugure une nouvelle catégorie baptisée Mythos, positionnée au-dessus de la classe Opus. Sur les documents longs et structurés, Claude est souvent salué pour sa capacité à suivre une logique argumentative sans la déformer.</p>
+    <p>Le point commun de ces modèles de pointe : une fenêtre de contexte d&#39;un million de tokens, soit environ 1 400 pages de texte. C&#39;est une rupture réelle par rapport à il y a deux ans. Tu peux envoyer un rapport annuel complet, une thèse ou un contrat épais sans avoir à le découper au préalable.</p>
+    <p>Mais — et c&#39;est important — la capacité technique n&#39;est pas la performance réelle. Sur des documents extrêmement longs, la précision baisse en fin de document. La recommandation que je retiens : pour les PDF de plus de 300 pages, résume chapitre par chapitre, puis compile les résumés. C&#39;est plus de travail en amont, mais le résultat est nettement plus fiable.</p>
+    <p>Pour choisir entre ces outils selon ton usage précis, l&#39;article <a href="/articles/choisir-ia-ecrire-coder-images">choisir son IA pour écrire, coder ou générer des images</a> peut t&#39;aider à affiner ta décision.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Je n'envoie jamais un document de plus de 200 pages d'un seul bloc. Je le découpe en sections logiques, je résume chaque section, puis je demande à l'IA de synthétiser les résumés. Ça prend 10 minutes de plus, mais je fais confiance au résultat.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Résumer une vidéo YouTube, c&#39;est possible</h2>
+    <p>Le marché de la synthèse de contenu vidéo par IA devrait atteindre 2,69 milliards de dollars en 2026, avec une croissance de 24,6 % par rapport à 2025. Ce chiffre reflète une réalité : la vidéo est devenue un format dominant pour transmettre de l&#39;information, mais elle reste difficile à consommer rapidement.</p>
+    <p>Concrètement, comment ça marche pour une vidéo YouTube ?</p>
+    <p>La plupart des grandes interfaces IA (ChatGPT, Gemini, Claude) acceptent désormais une URL YouTube directement. Le modèle extrait la transcription automatique générée par YouTube, puis la résume selon tes instructions. Si la vidéo n&#39;a pas de sous-titres activés, la qualité du résumé peut en pâtir.</p>
+    <p>Quelques points pratiques que j&#39;ai observés :</p>
+    <ul>
+    <li>Les vidéos en français sont bien gérées par Gemini, qui a été optimisé pour le multilinguisme depuis son déploiement mondial de mai 2026.</li>
+    <li>Pour une conférence de 3 heures, demande un résumé structuré par grandes parties plutôt qu&#39;un résumé global : le résultat est plus exploitable.</li>
+    <li>Si la vidéo traite d&#39;un sujet technique, précise ton niveau de connaissance dans ta demande. L&#39;IA adaptera le vocabulaire.</li>
+    </ul>
+    <p>Sur ce dernier point, la qualité de ta demande change tout. Un bon prompt fait une vraie différence sur la pertinence du résumé obtenu. J&#39;ai écrit un article entier sur le sujet : <a href="/articles/ecrire-bon-prompt-non-dev">écrire un bon prompt quand on n&#39;est pas développeur</a>.</p>
+    <hr>
+    <h2>Plusieurs documents à la fois : NotebookLM</h2>
+    <p>Il y a un usage que les grands modèles généralistes gèrent moins bien : croiser plusieurs sources simultanément. C&#39;est là que Google NotebookLM se distingue.</p>
+    <p>NotebookLM permet de charger plusieurs documents — PDFs, articles, notes — et de les interroger ensemble. Il génère des analyses croisées avec des citations précises, ce qui est utile quand tu veux comparer deux études, recouper des données de sources différentes ou construire une synthèse multi-angles.</p>
+    <p>C&#39;est l&#39;outil que j&#39;utiliserais pour préparer une réunion stratégique à partir de trois rapports sectoriels, ou pour comparer les clauses de deux contrats types.</p>
+    <p>Il existe aussi des outils spécialisés comme FastScribe, qui se positionne sur le marché francophone avec des résumés structurés, la conservation des données chiffrées et une conformité RGPD avec stockage européen. Pour les entrepreneurs qui traitent des documents sensibles et veulent rester dans un cadre réglementaire clair, c&#39;est un critère qui compte.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Prompts : la différence entre utile et inutile</h2>
+    <p>L&#39;IA ne lit pas dans tes pensées. Si tu lui envoies un PDF en disant &quot;résume ça&quot;, tu obtiendras quelque chose — mais rarement ce dont tu as besoin.</p>
+    <p>Voici ce que je précise systématiquement dans mes demandes de résumé :</p>
+    <p><strong>Le format de sortie.</strong> &quot;Donne-moi 5 points clés sous forme de liste&quot; ou &quot;rédige un résumé en 3 paragraphes&quot; donnent des résultats très différents d&#39;un résumé libre.</p>
+    <p><strong>L&#39;angle.</strong> &quot;Résume en te concentrant sur les implications financières&quot; ou &quot;identifie les risques mentionnés dans ce document&quot; oriente l&#39;IA vers ce qui t&#39;est utile, pas vers ce qui est simplement volumineux dans le texte.</p>
+    <p><strong>Le destinataire.</strong> &quot;Explique comme si je n&#39;avais aucune connaissance du secteur&quot; ou &quot;suppose que je connais les bases du droit des sociétés&quot; change radicalement le niveau de détail et le vocabulaire.</p>
+    <p><strong>La langue.</strong> Si ton document est en anglais mais que tu veux un résumé en français, dis-le explicitement.</p>
+    <p>Une technique avancée que je mentionne sans entrer dans les détails techniques : le RAG (Retrieval-Augmented Generation). C&#39;est une méthode qui permet à l&#39;IA d&#39;aller chercher des informations dans une base de données ciblée plutôt que de s&#39;appuyer uniquement sur ce qu&#39;elle a appris. Pour les entrepreneurs qui veulent aller plus loin, le <a href="/lexique/rag">lexique sur le RAG</a> explique le concept clairement.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Demander "résume ce document" sans préciser l'usage, c'est comme demander à un assistant de "préparer la réunion" sans lui dire qui sera là ni quel est l'objectif. L'IA fait de son mieux — mais ton meilleur, c'est toi qui le définis.</p></div>
+    
+    <hr>
+    <h2>Confidentialité : ce que tu envoies ne t&#39;appartient plus forcément</h2>
+    <p>C&#39;est le point que beaucoup d&#39;entrepreneurs sous-estiment. Quand tu envoies un document à une IA en ligne, tu l&#39;envoies à des serveurs. Selon les conditions d&#39;utilisation de chaque plateforme, ce document peut être utilisé pour améliorer les modèles, stocké temporairement ou conservé plus longtemps.</p>
+    <p>Pour des documents internes — contrats, données clients, rapports financiers — la question se pose sérieusement.</p>
+    <p>Quelques repères pratiques :</p>
+    <ul>
+    <li>Les offres payantes de ChatGPT, Gemini et Claude proposent des modes où les conversations ne sont pas utilisées pour l&#39;entraînement. Vérifie les paramètres de confidentialité de ton compte.</li>
+    <li>Des outils comme FastScribe affichent explicitement un stockage européen et une conformité RGPD — un argument concret pour les entreprises soumises à des obligations réglementaires.</li>
+    <li>Pour les documents vraiment sensibles, certaines solutions permettent de faire tourner un modèle IA en local, sur ta machine. C&#39;est plus complexe à mettre en place, mais les données ne quittent jamais ton environnement.</li>
+    </ul>
+    <p>J&#39;ai traité ce sujet en détail dans l&#39;article sur <a href="/articles/donnees-perso-ia-confidentialite">les données personnelles et la confidentialité avec l&#39;IA</a>. Je te recommande de le lire avant d&#39;envoyer quoi que ce soit de sensible à un outil en ligne.</p>
+    <p>Sur la fiabilité des résumés eux-mêmes : l&#39;IA peut se tromper. Elle peut &quot;halluciner&quot; — inventer un chiffre, attribuer une citation à la mauvaise personne, confondre deux concepts proches. Sur un rapport financier ou un document juridique, ce risque n&#39;est pas acceptable sans relecture humaine. L&#39;IA produit un premier jet utile ; la vérification reste ton travail.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Quelle est la meilleure IA gratuite pour résumer des PDF longs en 2026 ?</h3>
+    <p>Gemini 3.5 Flash est disponible gratuitement dans l&#39;application Gemini et dans Google Search depuis mai 2026. Il gère bien les documents de taille standard. Pour des PDF très longs (plus de 300 pages), la méthode chapitre par chapitre reste recommandée quelle que soit l&#39;IA utilisée, car la précision baisse sur les documents extrêmement longs même avec les modèles les plus récents.</p>
+    <h3>Comment l&#39;IA peut-elle résumer une vidéo YouTube de plusieurs heures en français ?</h3>
+    <p>La plupart des grandes interfaces IA acceptent une URL YouTube directement. Elles extraient la transcription automatique de la vidéo, puis la résument selon tes instructions. Pour une vidéo longue, demande un résumé structuré par parties plutôt qu&#39;un résumé global. Précise que tu veux le résultat en français si la vidéo est dans une autre langue.</p>
+    <h3>Quels sont les risques liés à la confidentialité des documents professionnels résumés par l&#39;IA ?</h3>
+    <p>Quand tu envoies un document à une IA en ligne, il transite par des serveurs externes. Selon les conditions d&#39;utilisation, il peut être utilisé pour améliorer les modèles. Les offres payantes proposent généralement des modes de confidentialité renforcés. Pour les documents très sensibles, des outils avec stockage européen et conformité RGPD, ou des solutions fonctionnant en local, sont à privilégier.</p>
+    <h3>Les résumés générés par l&#39;IA sont-ils suffisamment fiables pour des rapports financiers ou juridiques ?</h3>
+    <p>Non, pas sans relecture. L&#39;IA peut halluciner — inventer un chiffre, mal attribuer une information, confondre deux termes proches. Sur des documents financiers ou juridiques, le résumé IA est utile comme premier débroussaillage, mais une vérification humaine sur les points critiques reste indispensable avant toute prise de décision.</p>
+    <h3>Puis-je poser des questions spécifiques sur le contenu d&#39;un PDF après l&#39;avoir résumé avec l&#39;IA ?</h3>
+    <p>Oui, et c&#39;est l&#39;un des usages les plus puissants. Une fois le document chargé dans l&#39;interface, tu peux interroger l&#39;IA comme tu interrogerais un assistant qui a lu le document : &quot;Quelle est la clause de résiliation ?&quot; ou &quot;Quels chiffres sont mentionnés sur la part de marché ?&quot; Google NotebookLM est particulièrement adapté à cet usage, avec des citations précises issues du document source.</p>
+    <h3>Comment éviter que l&#39;IA ne &quot;hallucine&quot; des informations dans mes résumés ?</h3>
+    <p>Plusieurs pratiques réduisent le risque. Demande à l&#39;IA de citer le passage exact du document sur lequel elle s&#39;appuie. Demande-lui d&#39;indiquer explicitement quand elle n&#39;est pas certaine. Pour les documents très longs, découpe en sections : l&#39;IA est plus précise sur des blocs courts. Et relis toujours les chiffres et les noms propres — ce sont les zones où les erreurs apparaissent le plus souvent.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Résumer un PDF ou une vidéo avec l&#39;IA n&#39;est pas une promesse futuriste. C&#39;est quelque chose que je fais régulièrement, et ça change concrètement la façon dont je traite l&#39;information.</p>
+    <p>La London School of Economics estimait en 2026 que l&#39;IA permet d&#39;économiser en moyenne 7,5 heures par semaine. Je ne sais pas si ce chiffre s&#39;applique à mon cas précis, mais je sais que le temps que je passais à parcourir des documents longs a clairement diminué.</p>
+    <p>Ce que j&#39;ai appris : l&#39;outil compte moins que l&#39;usage qu&#39;on en fait. Un bon prompt sur un outil moyen bat un mauvais prompt sur le meilleur modèle du moment. Et la confidentialité n&#39;est pas un détail — c&#39;est un choix à faire avant d&#39;envoyer le premier document.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Si ça t&#39;aide à gagner du temps sur ta prochaine pile de docs, c&#39;est encore mieux.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+</body>
+</html>

@@ -1,5 +1,23 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-20 · Refonte /apprendre — baisser la barrière à l'entrée
+
+### Pourquoi
+Demande de Jérémy : la page présupposait qu'on avait déjà décidé d'apprendre (« Apprendre l'IA. Dans l'ordre où je l'ai appris. ») et n'expliquait nulle part ce qu'EST une IA de coding, ni ne répondait aux peurs spécifiques (terminal, casser quelque chose, prix, anglais, quel outil). Objectif : que la page parle aux nouvelles personnes qui hésitent — expliquer, répondre à leurs questions, enlever leurs peurs.
+
+### Livré (FR + miroir EN)
+- **Hero recentré visiteur** : « L'IA qui code. Sans être développeur. » + lead empathie (« Je ne suis pas développeur… Si tu sais écrire un message, tu sais déjà faire l'essentiel ») ; kicker « Parcours débutant · Zéro prérequis · Zéro jargon ». Title/meta/og recentrés pareil.
+- **Nouvelle section « C'est quoi, une IA qui code ? »** (60 s) : analogie du collègue à qui on écrit en français (« Le code, c'est lui qui l'écrit. Toi, tu écris des phrases. »), mention honnête des autres outils (Codex, Cursor, Copilot → lien comparatif), et **3 preuves par des non-devs** (Shirley/outil de vente, Jérémy/Hermes, sa mère/photos Airbnb) en cards liées aux articles. CSS `.whatis` + `.proof-*` ajouté (inline, motifs FIESTA existants).
+- **Peurs 5 → 10** : ajout terminal (« juste une zone de texte »), casser son ordi (permissions + GitHub), **prix réel** (0 € pour lire et démarrer ; Claude Code = Claude Pro 20 $/mois sans engagement — chiffre aligné sur claude-code.html), anglais (l'IA comme traducteur de jargon), « pourquoi Claude Code et pas Cursor/ChatGPT » (honnêteté : c'est l'outil documenté ; les compétences valent pour tous). FAQPage JSON-LD étendu 5 → 10 Q/R (GEO).
+- **Étape 02 dé-intimidée** : « Claude installé sur ton ordinateur » (plus « dans ton terminal ») + rappel « tu continues d'écrire des phrases en français, rien d'autre ».
+- QC : 4 JSON-LD valides ×2 langues, liens cibles vérifiés, ton Leo (« ton premier truc » → « ton premier résultat »), gate francité EN 0,1 %, preview light/dark (artefact connu du screenshot après scroll contourné en masquant le hero).
+
+### Fichiers touchés
+`apprendre.html`, `en/apprendre.html`, `CHANGELOG.md`.
+
+### À venir
+- Le quickwin (premier prompt en 2 min) reste dans l'étape 01 — si la page doit encore descendre d'un cran en friction, le remonter au-dessus du rail de progression.
+
 ## 2026-07-20 · Design v2 des articles — les 18 derniers (hand-made)
 
 ### Pourquoi

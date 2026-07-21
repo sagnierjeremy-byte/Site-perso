@@ -66,14 +66,24 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/i18n/translate-missing-en.mjs
 
-      - name: Post LinkedIn (non bloquant)
+      - name: Post LinkedIn + programmation Zernio J+1 (non bloquant)
+        id: li
         if: steps.gen.outputs.status == 'published'
         continue-on-error: true   # un post raté ne bloque jamais la publication ; le mail partira sans le bloc LinkedIn
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CLAUDE: ${{ secrets.CLAUDE }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: node scripts/blog/linkedin-post.mjs "${{ steps.gen.outputs.slug }}"
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          LI_ACCOUNT: 69c06ed66cb7b8cf4c8f5689   # profil LinkedIn perso de Jérémy dans Zernio
+        run: |
+          node scripts/blog/linkedin-post.mjs "${{ steps.gen.outputs.slug }}"
+          # Programme sur LinkedIn demain 8h30 Paris (échec = mail sans mention, à programmer à la main)
+          if [ -n "$ZERNIO_API_KEY" ] && node scripts/blog/zernio-schedule.mjs "${{ steps.gen.outputs.slug }}" tomorrow@08:30 --account="$LI_ACCOUNT"; then
+            echo "scheduled=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "scheduled=non" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Commit + push (si publié)
         if: steps.gen.outputs.status == 'published'
@@ -105,6 +115,7 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL: ${{ vars.NOTIFY_EMAIL }}
+          LINKEDIN_SCHEDULED: ${{ steps.li.outputs.scheduled }}
         run: node scripts/blog/notify-publish.mjs "${{ steps.gen.outputs.slug }}" "${{ steps.gen.outputs.url }}"
 
       - name: Alerte si panne

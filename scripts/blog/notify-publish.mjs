@@ -53,7 +53,7 @@ function linkedinBlock() {
     return {
       html: `
     <hr style="border:none;border-top:1px solid #eee;margin:26px 0">
-    <p style="font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#EF426F;margin:0 0 10px">📣 Post LinkedIn prêt à coller</p>
+    <p style="font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#EF426F;margin:0 0 10px">${process.env.LINKEDIN_SCHEDULED === 'oui' ? '📣 Post LinkedIn — DÉJÀ PROGRAMMÉ demain 8h30 via Zernio (copie ci-dessous)' : '📣 Post LinkedIn prêt à coller (programmation Zernio non faite)'}</p>
     <div style="background:#FBF7F0;border:1px solid #eee;border-radius:10px;padding:16px;font-size:14px;line-height:1.55;white-space:pre-wrap">${escHtml(post)}</div>
     <p style="font-size:12px;color:#888;margin:10px 0 4px">1er commentaire (à poster juste après, c'est lui qui porte le lien) :</p>
     <div style="background:#FBF7F0;border:1px solid #eee;border-radius:10px;padding:12px;font-size:13px;line-height:1.5;white-space:pre-wrap">${escHtml(comment || '')}</div>`,

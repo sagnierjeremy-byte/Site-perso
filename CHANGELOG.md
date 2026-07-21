@@ -15,8 +15,12 @@ Jérémy veut décliner chaque article en post LinkedIn natif (valeur dans le fe
 ### Fichiers touchés
 `scripts/blog/linkedin-post.mjs` (nouveau), `scripts/blog/notify-publish.mjs`, `.github/workflows/blog-autopilot.yml`, `.vercelignore`, `linkedin/*.md` (9 nouveaux).
 
+### Livré (2e partie — programmation Zernio, même jour)
+- **`scripts/blog/zernio-schedule.mjs`** : programme un post via l'API Zernio (`firstComment` = le lien en 1er commentaire, timezone Europe/Paris, mot-clé `tomorrow@HH:MM`). Semaine 1 programmée à la main sur le profil perso de Jérémy (21→24/07, compte Zernio `69c06ed66cb7b8cf4c8f5689` — le slot LinkedIn a basculé de la page Eurofiscalis vers le perso ; les posts Eurofiscalis du workspace sont Instagram-only, pas de conflit).
+- **Autopilot** : l'étape LinkedIn programme désormais le post à **J+1 8h30 Paris** automatiquement (nécessite le secret GitHub `ZERNIO_API_KEY`) ; l'email de publication indique si la programmation a réussi (sinon copie à coller à la main).
+
 ### À venir
-- Publication manuelle par Jérémy (copier-coller depuis l'email) — l'API LinkedIn perso est fermée, et répondre aux commentaires la 1re heure fait la portée.
+- Article du vendredi → post le samedi 8h30 (audience LinkedIn plus faible le week-end) — à décaler au lundi si les stats le confirment.
 - Si la qualité dévie : ajuster l'exemple few-shot dans `linkedin-post.mjs` plutôt que les règles.
 
 ## 2026-07-20 · /apprendre v3 — parcours 5 étapes (pratique navigateur avant Claude Code)

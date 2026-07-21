@@ -7,6 +7,7 @@
  *
  * Usage :
  *   node scripts/blog/zernio-schedule.mjs <slug> "<YYYY-MM-DDTHH:MM>" --account=<accountId>
+ *   node scripts/blog/zernio-schedule.mjs <slug> tomorrow@08:30 --account=<accountId>  # J+1 (date Paris)
  *   node scripts/blog/zernio-schedule.mjs <slug> now --account=<accountId>   # publication immédiate
  *   … ajouter --dry-run pour voir le payload sans rien envoyer.
  *
@@ -40,6 +41,16 @@ function apiKey() {
   process.exit(1);
 }
 
+// tomorrow@HH:MM → date de demain en heure de Paris (le runner CI est en UTC)
+let whenResolved = when;
+const tm = when.match(/^tomorrow@(\d{2}:\d{2})$/);
+if (tm) {
+  const parisNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+  parisNow.setDate(parisNow.getDate() + 1);
+  const d = `${parisNow.getFullYear()}-${String(parisNow.getMonth() + 1).padStart(2, '0')}-${String(parisNow.getDate()).padStart(2, '0')}`;
+  whenResolved = `${d}T${tm[1]}`;
+}
+
 const mdPath = path.join(ROOT, 'linkedin', `${slug}.md`);
 if (!existsSync(mdPath)) { console.error(`✗ linkedin/${slug}.md introuvable`); process.exit(1); }
 const raw = await readFile(mdPath, 'utf8');
@@ -51,9 +62,9 @@ if (/https?:\/\//.test(post)) { console.error('✗ lien détecté dans le corps 
 const payload = {
   content: post,
   platforms: [{ platform: 'linkedin', accountId, platformSpecificData: { firstComment: comment } }],
-  ...(when === 'now'
+  ...(whenResolved === 'now'
     ? { publishNow: true }
-    : { scheduledFor: when.length === 16 ? `${when}:00` : when, timezone: 'Europe/Paris' }),
+    : { scheduledFor: whenResolved.length === 16 ? `${whenResolved}:00` : whenResolved, timezone: 'Europe/Paris' }),
 };
 
 if (DRY) { console.log(JSON.stringify(payload, null, 2)); process.exit(0); }
@@ -65,5 +76,5 @@ const res = await fetch('https://zernio.com/api/v1/posts', {
 });
 const body = await res.text();
 if (!res.ok) { console.error(`✗ Zernio ${res.status} : ${body.slice(0, 400)}`); process.exit(1); }
-console.log(`✓ "${slug}" ${when === 'now' ? 'publié' : `programmé pour ${when} (Europe/Paris)`} — 1er commentaire inclus`);
+console.log(`✓ "${slug}" ${whenResolved === 'now' ? 'publié' : `programmé pour ${whenResolved} (Europe/Paris)`} — 1er commentaire inclus`);
 console.log(body.slice(0, 300));

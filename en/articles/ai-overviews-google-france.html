@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ai-overviews-google-france.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Google AI Overviews in France: what changes for you · Jerwis</title>
+<meta name="description" content="AI Overviews and AI Mode are rolling out in France before September 23, 2026. Here's what changes for your visibility, your research, and your daily searches.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Google AI Overviews in France: what changes for you">
+<meta property="og:description" content="AI Overviews and AI Mode hit France before Sept 23, 2026. What it means for your visibility and daily searches.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/ai-overviews-google-france">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ai-overviews-google-france.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-21">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Google AI Overviews in France: what changes for you">
+<meta name="twitter:description" content="AI Overviews and AI Mode hit France before Sept 23, 2026. What it means for your visibility and daily searches.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ai-overviews-google-france.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/ai-overviews-google-france">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ai-overviews-google-france">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ai-overviews-google-france">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ai-overviews-google-france">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Google AI Overviews in France: what changes for you",
+  "description": "AI Overviews and AI Mode are rolling out in France before September 23, 2026. Here's what changes for your visibility, your research, and your daily searches.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/ai-overviews-google-france",
+  "datePublished": "2026-07-21",
+  "dateModified": "2026-07-21",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/ai-overviews-google-france.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 23</div>
+    <h1>Google is changing<br>the rules<br><em>in France</em></h1>
+    <p class="hero-lead">
+      You're wondering what Google's AI is going to change about your daily searches — and whether your site is going to take a hit. Fair question. Before September 23, 2026, Google is rolling out two major new features in France: AI Overviews and AI Mode. I'm breaking down what that actually means — for you as someone looking for information, and for your content trying to get found.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>8 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Google Search</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li><strong>AI Overviews</strong> are coming to France by September 23, 2026: an AI-generated summary appears at the top of Google before the regular results.</li>
+      <li>According to Seer Interactive, organic click-through rates <strong>drop by 61%</strong> when an AI summary appears — something to factor into your visibility strategy.</li>
+      <li>To stay visible, the <strong>E-E-A-T</strong> criteria (experience, expertise, authoritativeness, trustworthiness) become central to your content strategy.</li>
+      <li>AI summaries can contain errors: <strong>always go back to the source</strong> before trusting important information.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>It's coming, and it's coming soon</h2>
+    <p>Google made it official: AI Overviews and AI Mode will roll out in France <strong>by September 23, 2026</strong> [F1]. If you use Google regularly — for research, to understand a topic, to find a service provider — your search experience is about to change. Not in six years. In a few weeks.</p>
+    <p>Why is France so late to the party? In more than 120 countries, AI Overviews have been available since mid-2024. France's delay comes down to specific regulatory constraints: neighboring rights for press publishers and the Digital Markets Act (DMA), the EU's regulation on digital markets [F3]. Google had to negotiate. Among other things, it offered French press publishers the right to opt their content out of these new features, transparency on generated impressions, and compensation through neighboring rights [F4]. Those discussions took time. That's why you haven't seen these summaries pop up yet when you search on google.fr.</p>
+    <p>This regulatory context isn't just a technical footnote. It says something important: the content you create or consume has value that platforms now have to acknowledge. That's genuinely good news in the long run, even if the transition is going to shake things up.</p>
+    <h2>Two new interfaces, two different uses</h2>
+    <p>AI Overviews and AI Mode are two distinct things, even though both are powered by Gemini, Google's AI model [F2].</p>
+    <p><strong>AI Overviews</strong> are what you'll see first. When you type a question into Google, a box appears at the top of the page with an automatically generated summary. That summary comes with links to the sources used to build it. You no longer need to click through multiple results to get a quick answer — Google serves it up directly.</p>
+    <p><strong>AI Mode</strong> is different. It offers a conversational interface: you ask a question, you get an answer, you can refine it, follow up, dig deeper. It's closer to chatting with an assistant than doing a classic keyword search. If you've ever used ChatGPT or Claude to ask questions, you get the idea — except here it's built right into Google.</p>
+    <p>Both features change one fundamental thing: search is no longer a list of links to scroll through. It's a direct answer, synthesized and presented before you've clicked on anything.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>AI Mode doesn't replace classic search — it sits alongside it. For now, both coexist. But if you want to learn how to phrase effective queries in this kind of conversational interface, I wrote a practical article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a>.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What this does to your traffic</h2>
+    <p>Here's the number that stings: according to a Seer Interactive study covering more than 25 million impressions between June 2024 and September 2025, organic click-through rates <strong>drop by 61%</strong> when an AI summary appears in the results [S1]. In other words, when Google answers directly, people click through to sites a lot less.</p>
+    <p>This fits into a broader trend. More than <strong>58% of Google searches now end with zero clicks</strong>, and that number keeps climbing as AI Overviews expand [S2]. These are called "zero-click searches": the user gets their answer without ever leaving Google.</p>
+    <p>What does that mean for you as an entrepreneur, concretely? If part of your traffic comes from informational searches — people trying to understand a topic in your field — that traffic is at risk of shrinking. Transactional searches (finding a service provider, comparing offers, booking an appointment) are less affected, because Google can't "convert" on your behalf yet. But blog posts, guides, explainer pages — those are going to face competition from AI summaries.</p>
+    <p>There's another data point worth keeping in mind. In March 2026, generative AI platforms were driving more than one billion referral visits per month, with AI-driven traffic growing <strong>527% in one year</strong> [S3]. It's not just Google that's changing: it's the entire way people find information. Tools like ChatGPT, Claude, and Perplexity also send traffic to websites — sometimes to yours, if your content gets cited.</p>
+    <h2>Staying visible: what actually matters</h2>
+    <p>When faced with these changes, the temptation is to hunt for a magic SEO trick. There isn't one. What determines whether your content gets cited in AI Overviews is the perceived quality of that content according to Google's <strong>E-E-A-T</strong> criteria [F5]:</p>
+    <ul>
+    <li><strong>Experience</strong>: you've lived what you're writing about.</li>
+    <li><strong>Expertise</strong>: you know your subject inside out.</li>
+    <li><strong>Authoritativeness</strong>: other credible sources cite or recognize you.</li>
+    <li><strong>Trustworthiness</strong>: your site is transparent, your information is verifiable.</li>
+    </ul>
+    <p>This framework has existed in Google's guidelines for years, but it takes on new weight when it's an AI deciding which sources deserve to be summarized and cited. Gemini isn't going to cite an anonymous, undated, authorless article on a site with no track record. It's going to look for content that shows there's a real person behind it with real experience.</p>
+    <p>A few concrete things you can do:</p>
+    <ul>
+    <li><strong>Sign your content</strong>: name, photo, short bio. Show who you are.</li>
+    <li><strong>Date your articles</strong> and keep them updated. A piece from 2019 with no revisions sends a bad signal.</li>
+    <li><strong>Cite your sources</strong> with links. If you're drawing on a study, a stat, a report — say so and link to it.</li>
+    <li><strong>Answer a real question</strong> rather than producing content "for SEO." AI summaries cite pages that precisely match a search intent.</li>
+    <li><strong>Structure your content</strong> with clear headings, lists, and direct answers. AI Overviews often pull from well-defined passages.</li>
+    </ul>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Churning out AI-generated content in bulk to "cover more topics" is probably the worst strategy in this context. Google can recognize that kind of content. And even if it doesn't penalize it directly, it won't cite it in its summaries either — it won't find the human experience its E-E-A-T criteria are looking for.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Fact-checking what Google tells you</h2>
+    <p>AI Overviews are convenient. They're also fallible. AI models — including Gemini — can produce summaries that look reliable but contain errors, approximations, or information taken out of context. That's what's called a <a href="/en/lexique/hallucination">hallucination</a>: the model generates something plausible that isn't actually true.</p>
+    <p>That's not a reason to avoid these tools. It's a reason to keep one simple habit: <strong>go back to the source</strong>. AI Overviews display links to the content used to build the summary [F2]. Click them. Read the original. Check that the summary actually reflects what the source says.</p>
+    <p>For anything important — a business decision, legal or tax information, a statistic you're going to use — never stop at the AI summary. It's a starting point, not a conclusion.</p>
+    <p>I've written two resources on this topic you can check out: one on <a href="/en/articles/reperer-contenu-ia-deepfake">how to spot AI-generated content or a deepfake</a>, and another on <a href="/en/articles/verifier-info-ia">concrete methods for verifying information from an AI source</a>. The two go hand in hand.</p>
+    <h2>When Google isn't enough</h2>
+    <p>Google is still where most searches start. But it's no longer the only relevant tool for your research or for finding reliable information.</p>
+    <p>A few alternatives worth knowing:</p>
+    <p><strong>Perplexity</strong>: a conversational search engine that systematically cites its sources. Useful when you want a quick answer with full traceability.</p>
+    <p><strong>ChatGPT</strong> (GPT-5, launched late June 2026 [F6]) and <strong>Claude</strong> (Fable 5 and Mythos 5, launched early June 2026 [F8]): AI assistants capable of synthesizing information, analyzing documents, and helping you frame complex questions. They don't replace search, but they can help you prepare or sharpen your queries.</p>
+    <p><strong>Gemini</strong> (version 3.5 Flash, available since early July 2026 [F7]): Google's model, accessible directly at gemini.google.com, outside the classic search engine.</p>
+    <p><strong>Mistral</strong> (Mistral Large 3.0, launched December 2025 [F10]): the French model — worth considering if you're working on sensitive topics or prefer a European alternative.</p>
+    <p>To go deeper on choosing between these tools based on your use case, I compared the main options in this article: <a href="/en/articles/choisir-ia-ecrire-coder-images">choosing your AI for writing, coding, or creating images</a>.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>When will AI Overviews and AI Mode be available to all users in France?</h3>
+    <p>Google announced a rollout in France by September 23, 2026 [F1]. The exact timing for each user will depend on Google's phased deployment schedule, but that's the official deadline.</p>
+    <h3>Will my site disappear from search results when Google's AI arrives?</h3>
+    <p>No. Classic organic results continue to exist below AI Overviews. That said, traffic to certain types of informational content may decrease, since Google now answers some questions directly. The 61% click-through rate drop measured by Seer Interactive [S1] applies to queries where an AI summary appears — not to all searches.</p>
+    <h3>How can I make sure my content gets cited in AI Overviews?</h3>
+    <p>There's no guarantee. But the E-E-A-T criteria [F5] are your best lever: content that's signed, dated, sourced, structured, and precisely answers a real question. Google cites pages it considers reliable and relevant — not the most technically optimized ones.</p>
+    <h3>Does AI Mode replace classic Google search?</h3>
+    <p>No, not right now. Both coexist. AI Mode is an optional conversational interface [F2], not a replacement for keyword search. You can keep using Google exactly as you do today.</p>
+    <h3>What are the risks of hallucinations or incorrect information in AI Overviews?</h3>
+    <p>AI models can generate summaries that sound plausible but are inaccurate — that's what's called a <a href="/en/lexique/hallucination">hallucination</a>. AI Overviews include links to their sources [F2]: get into the habit of checking them for anything important, rather than relying solely on the summary.</p>
+    <h3>How do I measure the impact of AI Overviews on my site's traffic?</h3>
+    <p>Google Search Console is still the go-to tool. You can track how impressions and clicks evolve by query. A drop in clicks on informational queries without a drop in impressions is often a sign that AI Overviews are capturing attention in your place.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>The real shift isn't technical. It's a change in mindset. For years, producing content for Google meant optimizing for indexing bots. Now you also have to convince an AI model that your content deserves to be cited — and that comes down to the same thing as convincing a human: be clear, be credible, show where your information comes from.</p>
+    <p>For your research habits, the reflex to keep is simple: an AI summary is a starting point, never a conclusion. Always go back to the source before trusting information that matters.</p>
+    <p>The rest — traffic numbers, SEO strategies, new tools — will keep evolving fast. I'll check in as things develop on this blog, the same way I do with everything else: I test it for myself first, and if it's useful to you too, all the better.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works — no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

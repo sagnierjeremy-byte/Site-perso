@@ -2,36 +2,29 @@
 slug: resumer-pdf-video-avec-ia
 article: https://jerwis.fr/articles/resumer-pdf-video-avec-ia
 generated: '2026-07-21'
+validated: réécrit main (v2, session du 21-07)
 ---
 
 ## Post
 
-Se noyer sous les PDFs et les vidéos à regarder, ça coûte des heures chaque semaine.
-Et aujourd'hui, l'IA règle ce problème en quelques minutes.
+Je ne lis plus les rapports de 40 pages.
+Et je n'ai jamais été aussi bien informé.
 
-59 % des entreprises utilisent déjà l'IA pour résumer et traduire des contenus.
+Ce qui a changé : l'IA me fait le tri en quelques minutes — PDF, vidéos YouTube, comptes rendus. 59 % des entreprises font déjà pareil pour résumer ou traduire leurs contenus.
 
-Ce n'est pas une tendance de geek curieux.
-C'est une infrastructure qui se construit partout, en ce moment.
+La vérité qui dérange : lire tout en entier n'a jamais été une preuve de sérieux.
+Ceux qui s'infligent encore ça ne sont pas plus informés. Ils sont juste plus fatigués.
 
-Ce qui me frappe : les entrepreneurs qui lisent encore tout en entier ne sont pas plus informés.
-Ils sont juste plus fatigués.
+Le sérieux, c'est de savoir quoi lire en entier. L'IA sert exactement à ça : elle te dit en 2 minutes si ces 40 pages méritent ton heure.
 
-Le vrai sujet, ce n'est pas "est-ce que l'IA sait résumer ?"
-Elle sait. Depuis longtemps.
+Par contre, un piège peut coûter très cher.
 
-Le vrai sujet, c'est : quel outil, pour quel usage, avec quelles précautions ?
+Envoyer un contrat ou des données clients à une IA en ligne, c'est les envoyer sur des serveurs externes — parfois pour entraîner leurs modèles. Le résumé gratuit peut te coûter bien plus qu'une heure de lecture.
 
-Parce qu'il y a un piège que presque tout le monde ignore.
+Ma méthode complète (outils, prompts, et ce qu'il ne faut jamais envoyer) en commentaire.
 
-Envoyer un document confidentiel à une IA en ligne, c'est l'envoyer sur des serveurs externes.
-Contrats, données clients, rapports financiers — tout ça peut servir à entraîner les modèles.
-Personne ne lit les conditions d'utilisation. Et ça, ça coûte parfois bien plus qu'une heure de lecture manuelle.
-
-Mon décryptage complet — outils, prompts efficaces et pièges à éviter — en commentaire.
-
-Tu résumes encore tes documents à la main, ou tu as déjà basculé ?
+Toi, tu lis encore tout — ou tu tries ?
 
 ## 1er commentaire
 
-L'article complet est ici — outils 2026, prompts concrets et ce qu'il ne faut surtout pas envoyer à une IA sans précaution : https://jerwis.fr/articles/resumer-pdf-video-avec-ia
+Ma méthode complète — les bons outils 2026, les prompts qui marchent, et ce qu'il ne faut jamais envoyer à une IA en ligne : https://jerwis.fr/articles/resumer-pdf-video-avec-ia

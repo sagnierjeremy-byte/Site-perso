@@ -71,6 +71,7 @@ Deux runs de test manuels rapprochés ont révélé 3 fragilités, toutes corrig
 - **Juges de la gate → Kimi K2.6 via OpenRouter** (`OPENROUTER_API_KEY`, secret GitHub + .env.local) : ~0,03 $/appel, fallback Gemini si panne (`llm.mjs` : nouveau provider `openrouter()`, `judge()` re-routé). Testé : gate complète 62,2/70 jugée par Kimi. La recherche grounding reste sur Gemini (gratuit, sans équivalent), désormais avec retry ×3 espacés de 45 s sur réponse vide (`research.mjs`) — c'est ce qui avait fait échouer le run test 2.
 - **Claude 529 Overloaded retryable** (`llm.mjs` : 502/529 ajoutés aux statuts retryables — un 529 tuait l'essai 3 du run test 1) + fallback génération OpenRouter si Claude reste KO.
 - **Calibrage juge C2** : le tutoiement (obligatoire) était compté comme « familier » par le juge, et les callouts conseil comme « ton consultant » → règles explicitées dans `TON_LEO`/`config.mjs` + prompt juge `qa-gate.mjs`.
+- **Validation E2E** : run complet re-déclenché après les correctifs → `meta-ai-whatsapp` publié du premier coup à **66,7/70** (c'était le sujet qui avait échoué 3 fois avant calibrage). Gotcha vu en CI : Kimi K2.6 « réfléchit » avant de répondre → content vide si le budget tokens est trop court (finish: length) → juge durci (2 essais, max_tokens 16k). Issue #5 (alerte des runs de test) fermée.
 
 ### Fichiers touchés
 `.github/workflows/blog-autopilot.yml`, `data/topic-queue.json`, `scripts/blog/llm.mjs`, `scripts/blog/research.mjs`, `scripts/blog/qa-gate.mjs`, `scripts/blog/config.mjs`, `CLAUDE.md`.

@@ -15,7 +15,7 @@ Le gratuit se resserre, soyons honnêtes : Gemini proposait une centaine d'image
 
 Mais une vingtaine d'images par jour, c'est largement assez pour un entrepreneur.
 
-Ce que personne ne dit : tous les outils gratuits ne te donnent pas le droit d'utiliser les images pour ton business. Microsoft Copilot ? Interdit en commercial sur le plan gratuit. Recraft ? Les images appartiennent à Recraft, pas à toi. Pendant ce temps, ChatGPT et Gemini t'autorisent l'usage commercial, même sans abonnnement.
+Ce que personne ne dit : tous les outils gratuits ne te donnent pas le droit d'utiliser les images pour ton business. Microsoft Copilot ? Interdit en commercial sur le plan gratuit. Recraft ? Les images appartiennent à Recraft, pas à toi. Pendant ce temps, ChatGPT et Gemini t'autorisent l'usage commercial, même sans abonnement.
 
 2 à 3 images par jour avec ChatGPT, ça paraît peu.
 Jusqu'à ce que tu réalises que c'est le seul outil qui écrit du texte lisible dans une image.

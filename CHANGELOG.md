@@ -24,8 +24,10 @@ Jérémy veut décliner chaque article en post LinkedIn natif (valeur dans le fe
 - **`scripts/blog/linkedin-carousel.mjs`** : LLM transforme le post (pas l'article) en 6-8 slides « un slide = un message » — **sélectif** : juge d'abord si le post s'y prête (chiffre fort ou méthode), sinon skip. Gates : 1 seul accent par slide, ≤14 car./ligne, accents jamais consécutifs, badge CTA = URL courte, mots bannis.
 - **Workflow + email** : le carrousel se génère après le post (non bloquant) et part en **pièce jointe PDF de l'email de publication** — à ajouter au post Zernio en 20 s (l'API Zernio annonce les documents LinkedIn mais n'expose pas encore le schéma → v2 quand c'est documenté). `linkedin/carousels/` gitignoré (artefacts régénérables).
 
+### Livré (4e partie — attache Zernio auto, même jour)
+- Flux presign Zernio percé à jour empiriquement (non documenté) : `POST /v1/media/presign` `{filename, contentType}` → PUT PDF → `mediaItems: [{type:'document', url}]`. Le PUT partiel `/posts/{id}` préserve content/firstComment/scheduledFor. **`zernio-schedule.mjs` attache désormais le carrousel automatiquement** s'il existe ; carrousels attachés aux posts des 22 et 24/07 ; email adapté (« déjà attaché » vs « à la main »).
+
 ### À venir
-- Tester l'upload de document PDF via l'API Zernio quand le schéma sera documenté (auto-attache au post programmé).
 - Article du vendredi → post le samedi 8h30 (audience LinkedIn plus faible le week-end) — à décaler au lundi si les stats le confirment.
 - Si la qualité dévie : ajuster l'exemple few-shot dans `linkedin-post.mjs` plutôt que les règles.
 

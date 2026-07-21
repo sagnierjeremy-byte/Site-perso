@@ -70,8 +70,10 @@ function carouselAttachment() {
     const buf = fs.readFileSync(p);
     return {
       attachments: [{ filename: `carrousel-${slug}.pdf`, content: buf.toString('base64') }],
-      html: `<p style="font-size:13px;color:#555;margin:14px 0 0">🎠 <strong>Carrousel PDF en pièce jointe</strong> — ajoute-le au post programmé dans Zernio (20 secondes), il transforme le post en document glissable.</p>`,
-      text: `\n\n(Carrousel PDF en pièce jointe — à ajouter au post programmé dans Zernio.)`,
+      html: process.env.LINKEDIN_SCHEDULED === 'oui'
+        ? `<p style="font-size:13px;color:#555;margin:14px 0 0">🎠 <strong>Carrousel généré et déjà attaché au post programmé</strong> — copie en pièce jointe pour vérification.</p>`
+        : `<p style="font-size:13px;color:#555;margin:14px 0 0">🎠 <strong>Carrousel PDF en pièce jointe</strong> — la programmation Zernio n'a pas abouti : ajoute-le au post à la main.</p>`,
+      text: `\n\n(Carrousel PDF ${process.env.LINKEDIN_SCHEDULED === 'oui' ? 'déjà attaché au post programmé — copie jointe' : 'en pièce jointe — à ajouter au post à la main'}.)`,
     };
   } catch { return { attachments: [], html: '', text: '' }; }
 }

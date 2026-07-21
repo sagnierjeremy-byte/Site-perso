@@ -59,8 +59,29 @@ const comment = (raw.match(/## 1er commentaire\n\n([\s\S]*?)\s*$/) || [])[1]?.tr
 if (!post || !comment) { console.error('✗ sections « ## Post » / « ## 1er commentaire » introuvables'); process.exit(1); }
 if (/https?:\/\//.test(post)) { console.error('✗ lien détecté dans le corps du post — interdit, corrige le fichier'); process.exit(1); }
 
+// Carrousel PDF : s'il existe, upload presign puis attache en mediaItems type "document"
+// (vérifié le 21-07 : le PUT/POST accepte {type:'document', url} et LinkedIn le publie en carrousel).
+let mediaItems = [];
+const carPdf = path.join(ROOT, 'linkedin', 'carousels', `${slug}.pdf`);
+if (existsSync(carPdf) && !DRY) {
+  try {
+    const key = apiKey();
+    const pres = await (await fetch('https://zernio.com/api/v1/media/presign', {
+      method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: `carrousel-${slug}.pdf`, contentType: 'application/pdf' }),
+    })).json();
+    if (!pres.uploadUrl) throw new Error(pres.error || 'presign sans uploadUrl');
+    const buf = await readFile(carPdf);
+    const up = await fetch(pres.uploadUrl, { method: 'PUT', headers: { 'Content-Type': 'application/pdf' }, body: buf });
+    if (!up.ok) throw new Error(`upload ${up.status}`);
+    mediaItems = [{ type: 'document', url: pres.publicUrl }];
+    console.error(`  ✓ carrousel PDF uploadé (${Math.round(buf.length / 1024)} Ko) — sera attaché au post`);
+  } catch (e) { console.error(`  ⚠ carrousel non attaché (${String(e.message).slice(0, 80)}) — le post part sans`); }
+}
+
 const payload = {
   content: post,
+  ...(mediaItems.length ? { mediaItems } : {}),
   platforms: [{ platform: 'linkedin', accountId, platformSpecificData: { firstComment: comment } }],
   ...(whenResolved === 'now'
     ? { publishNow: true }

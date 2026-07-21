@@ -55,7 +55,7 @@ RÈGLES ABSOLUES :
 - UN message par slide. "lines" = le titre découpé en 2-4 lignes de 1 à 3 mots, MAX 13 caractères par ligne (gros corps typographique — un mot long comme « commercial » occupe sa propre ligne).
 - EXACTEMENT un segment **accentué** par slide hook/idea (le mot qui porte le message). Jamais sur les slides stat/cta.
 - "accent" tourne entre teal, fuchsia, orange — jamais deux slides consécutifs avec le même.
-- 1 slide "stat" maximum, uniquement avec un chiffre PRÉSENT dans le post ou l'article (n'invente JAMAIS un chiffre).
+- 1 slide "stat" maximum, uniquement avec un chiffre PRÉSENT dans le post ou l'article (n'invente JAMAIS un chiffre). "stat" = MAX 7 caractères (ex "47 %", "20", "×2") — l'unité et le contexte vont dans "sub", jamais dans "stat".
 - "sub" : 1 phrase courte (max 90 caractères), tutoiement, ton chaleureux jamais familier.
 - Cliffhanger bienvenu entre deux slides (question sur l'un, réponse sur le suivant).
 - kickers : 1-3 mots, sobres (Le chiffre, Le piège, Le mécanisme, La leçon…).`;
@@ -79,6 +79,24 @@ async function generer() {
   throw new Error('Aucune clé LLM disponible');
 }
 
+// Re-coupe les lignes trop longues à l'espace le plus proche du milieu (hors segments **)
+function normaliser(d) {
+  for (const s of d.slides || []) {
+    if (!s.lines) continue;
+    const out = [];
+    for (const l of s.lines) {
+      if (l.replace(/\*\*/g, '').length <= 14 || !l.includes(' ')) { out.push(l); continue; }
+      const words = l.split(' ');
+      let a = '', b = '';
+      for (const w of words) ((a.replace(/\*\*/g, '').length <= l.replace(/\*\*/g, '').length / 2) ? (a += (a ? ' ' : '') + w) : (b += (b ? ' ' : '') + w));
+      // ne pas couper au milieu d'un segment ** (nombre de ** impair d'un côté = coupure invalide)
+      if ((a.match(/\*\*/g) || []).length % 2 !== 0) { out.push(l); continue; }
+      out.push(a); if (b) out.push(b);
+    }
+    s.lines = out;
+  }
+}
+
 function verifier(d) {
   const errs = [];
   if (!Array.isArray(d.slides) || d.slides.length < 6 || d.slides.length > 8) errs.push(`${d.slides?.length || 0} slides (attendu 6-8)`);
@@ -91,6 +109,7 @@ function verifier(d) {
     for (const l of s.lines || []) if (l.replace(/\*\*/g, '').length > 14) errs.push(`slide ${i + 1} : ligne trop longue « ${l} »`);
     if (i > 0 && s.accent === d.slides[i - 1].accent) errs.push(`slides ${i}-${i + 1} : même accent consécutif`);
     if ((s.sub || '').length > 110) errs.push(`slide ${i + 1} : sub trop long`);
+    if (s.type === 'stat' && String(s.stat || '').length > 7) errs.push(`slide ${i + 1} : stat trop long « ${s.stat} » (max 7 car.)`);
   });
   const last = d.slides?.[d.slides.length - 1];
   if (last?.type !== 'cta' || last?.badge !== shortUrl) errs.push('dernier slide : cta/badge incorrect');
@@ -104,12 +123,18 @@ for (let i = 1; i <= 2 && !data; i++) {
   const raw = (await generer()).trim().replace(/^```json\s*/i, '').replace(/```\s*$/, '');
   let d; try { d = JSON.parse(raw); } catch { console.error('  ✗ JSON invalide'); continue; }
   if (d.pertinent === false) { console.error(`• Carrousel non pertinent pour ce post — skip. (${d.raison || ''})`); process.exit(0); }
+  normaliser(d);
   const errs = verifier(d);
   if (errs.length) { console.error(`  ✗ gate : ${errs.slice(0, 4).join(' · ')}`); continue; }
   data = d;
 }
 if (!data) { console.error('✗ Génération carrousel échouée après 2 essais.'); process.exit(1); }
 
-const { pngs, pdf } = await renderCarousel({ slug, slides: data.slides }, path.join(ROOT, 'linkedin', 'carousels', slug));
+const outdir = path.join(ROOT, 'linkedin', 'carousels', slug);
+const { pngs, pdf } = await renderCarousel({ slug, slides: data.slides }, outdir);
+// slides.json conservé pour retouche manuelle + re-rendu via carousel-render.mjs
+const { writeFile: wf, mkdir: mk } = await import('node:fs/promises');
+await mk(outdir, { recursive: true });
+await wf(path.join(outdir, 'slides.json'), JSON.stringify({ slug, slides: data.slides }, null, 2));
 console.error(`✓ ${pngs.length} slides + ${path.relative(ROOT, pdf)}`);
 console.log(pdf);

@@ -105,6 +105,9 @@ function slideTree(s, i, total) {
 
 export async function renderCarousel(data, outdir) {
   await mkdir(outdir, { recursive: true });
+  // purge les slides d'un rendu précédent (un carrousel passé de 8 à 7 slides laisserait un PNG orphelin)
+  const { readdir, unlink } = await import('node:fs/promises');
+  for (const f of await readdir(outdir)) if (/^slide_\d+\.png$/.test(f)) await unlink(path.join(outdir, f));
   const total = data.slides.length;
   const pngs = [];
   for (let i = 0; i < total; i++) {

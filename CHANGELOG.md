@@ -1,5 +1,24 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-21 · Déclinaison LinkedIn automatique des articles
+
+### Pourquoi
+Jérémy veut décliner chaque article en post LinkedIn natif (valeur dans le feed, pas un lien nu) pour attirer de la visibilité vers jerwis.fr. Style calibré en 3 itérations avec lui sur l'article AI Overviews.
+
+### Livré
+- **`scripts/blog/linkedin-post.mjs`** : génère `linkedin/<slug>.md` (post + 1er commentaire) depuis le draft. **Recette validée figée dans le prompt** : hook = 1 phrase sujet-verbe-conséquence en mots simples + avis tranché ligne 2, puis chiffre qui pique (jamais inventé), pique d'humour, renversement, question binaire finale. Lien UNIQUEMENT en 1er commentaire (l'algo pénalise les liens dans le corps). 800-1200 car., tutoiement, zéro hashtag. Gates mécaniques : mots bannis, longueur, pas d'URL dans le corps, finit par une question. Post validé v3 embarqué comme exemple few-shot.
+- **`blog-autopilot.yml`** : étape « Post LinkedIn » après la traduction EN (continue-on-error) → le fichier part dans le même commit que l'article.
+- **`notify-publish.mjs`** : l'email de publication contient désormais le post + le 1er commentaire prêts à coller.
+- **Backlog : 9 posts générés** (ai-overviews = version validée à la main, + 8 auto : meta-ai-whatsapp, resumer-pdf, apprendre-langue, donnees-perso, le-chat-vs-chatgpt, creer-images, ia-cv, verifier-info) → ~3 semaines de matière à 3-4 posts/sem.
+- `.vercelignore` : `linkedin/` exclu du déploiement (archive interne, pas des pages du site).
+
+### Fichiers touchés
+`scripts/blog/linkedin-post.mjs` (nouveau), `scripts/blog/notify-publish.mjs`, `.github/workflows/blog-autopilot.yml`, `.vercelignore`, `linkedin/*.md` (9 nouveaux).
+
+### À venir
+- Publication manuelle par Jérémy (copier-coller depuis l'email) — l'API LinkedIn perso est fermée, et répondre aux commentaires la 1re heure fait la portée.
+- Si la qualité dévie : ajuster l'exemple few-shot dans `linkedin-post.mjs` plutôt que les règles.
+
 ## 2026-07-20 · /apprendre v3 — parcours 5 étapes (pratique navigateur avant Claude Code)
 
 ### Pourquoi

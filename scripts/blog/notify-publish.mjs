@@ -42,6 +42,27 @@ function meta() {
 const { title, desc } = meta();
 const today = new Date().toISOString().slice(0, 10);
 
+// Post LinkedIn généré par linkedin-post.mjs (best-effort : absent = mail sans le bloc)
+function linkedinBlock() {
+  try {
+    const raw = fs.readFileSync(path.join(process.cwd(), 'linkedin', `${slug}.md`), 'utf8');
+    const post = (raw.match(/## Post\n\n([\s\S]*?)\n\n## 1er commentaire/) || [])[1];
+    const comment = (raw.match(/## 1er commentaire\n\n([\s\S]*?)\s*$/) || [])[1];
+    if (!post) return { html: '', text: '' };
+    const escHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    return {
+      html: `
+    <hr style="border:none;border-top:1px solid #eee;margin:26px 0">
+    <p style="font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#EF426F;margin:0 0 10px">📣 Post LinkedIn prêt à coller</p>
+    <div style="background:#FBF7F0;border:1px solid #eee;border-radius:10px;padding:16px;font-size:14px;line-height:1.55;white-space:pre-wrap">${escHtml(post)}</div>
+    <p style="font-size:12px;color:#888;margin:10px 0 4px">1er commentaire (à poster juste après, c'est lui qui porte le lien) :</p>
+    <div style="background:#FBF7F0;border:1px solid #eee;border-radius:10px;padding:12px;font-size:13px;line-height:1.5;white-space:pre-wrap">${escHtml(comment || '')}</div>`,
+      text: `\n\n--- POST LINKEDIN PRÊT À COLLER ---\n\n${post}\n\n--- 1ER COMMENTAIRE ---\n\n${comment || ''}`,
+    };
+  } catch { return { html: '', text: '' }; }
+}
+const li = linkedinBlock();
+
 const html = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;color:#0A0A0A">
     <p style="font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#00B2A9;margin:0 0 8px">📝 Blog auto · ${today}</p>
@@ -49,10 +70,11 @@ const html = `
     <p style="font-size:18px;font-weight:700;margin:14px 0 4px">${title}</p>
     ${desc ? `<p style="color:#555;font-size:14px;margin:0 0 18px">${desc}</p>` : ''}
     <p style="margin:18px 0"><a href="${url}" style="display:inline-block;background:#EF426F;color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:10px">Lire l'article →</a></p>
+    ${li.html}
     <p style="color:#888;font-size:12px;margin-top:24px">Publié automatiquement par le pilote de blog (gate qualité ≥ 56/70). Tu reçois ce mail parce que tu as demandé une notif à chaque publication.</p>
   </div>`;
 
-const text = `Nouvel article publié : ${title}\n${desc ? desc + '\n' : ''}\n${url}\n\n(Publié automatiquement par le pilote de blog, ${today}.)`;
+const text = `Nouvel article publié : ${title}\n${desc ? desc + '\n' : ''}\n${url}${li.text}\n\n(Publié automatiquement par le pilote de blog, ${today}.)`;
 
 try {
   const res = await fetch('https://api.resend.com/emails', {

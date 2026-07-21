@@ -66,6 +66,15 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: node scripts/i18n/translate-missing-en.mjs
 
+      - name: Post LinkedIn (non bloquant)
+        if: steps.gen.outputs.status == 'published'
+        continue-on-error: true   # un post raté ne bloque jamais la publication ; le mail partira sans le bloc LinkedIn
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE: ${{ secrets.CLAUDE }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/blog/linkedin-post.mjs "${{ steps.gen.outputs.slug }}"
+
       - name: Commit + push (si publié)
         if: steps.gen.outputs.status == 'published'
         run: |

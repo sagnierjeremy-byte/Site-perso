@@ -41,10 +41,12 @@ async function fonts() {
 const el = (type, style, children) => ({ type, props: { style, ...(children != null ? { children } : {}) } });
 
 // "elle **devine**." → spans, segment accentué coloré.
-// Espaces insécables : satori mange les espaces en bordure de span.
+// Espaces insécables UNIQUEMENT en multi-segments (satori mange les espaces en bordure
+// de span) — sur une ligne simple ils empêcheraient le retour à la ligne de secours.
 function lineSpans(line, accent) {
   const parts = String(line).split(/\*\*(.+?)\*\*/);
-  return parts.map((p, i) => el('span', { color: i % 2 ? C[accent] : C.cream }, p.toUpperCase().replace(/ /g, ' '))).filter(s => s.props.children !== '');
+  const multi = parts.filter(Boolean).length > 1;
+  return parts.map((p, i) => el('span', { color: i % 2 ? C[accent] : C.cream }, multi ? p.toUpperCase().replace(/ /g, ' ') : p.toUpperCase())).filter(s => s.props.children !== '');
 }
 
 function slideTree(s, i, total) {

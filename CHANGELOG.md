@@ -19,7 +19,13 @@ Jérémy veut décliner chaque article en post LinkedIn natif (valeur dans le fe
 - **`scripts/blog/zernio-schedule.mjs`** : programme un post via l'API Zernio (`firstComment` = le lien en 1er commentaire, timezone Europe/Paris, mot-clé `tomorrow@HH:MM`). Semaine 1 programmée à la main sur le profil perso de Jérémy (21→24/07, compte Zernio `69c06ed66cb7b8cf4c8f5689` — le slot LinkedIn a basculé de la page Eurofiscalis vers le perso ; les posts Eurofiscalis du workspace sont Instagram-only, pas de conflit).
 - **Autopilot** : l'étape LinkedIn programme désormais le post à **J+1 8h30 Paris** automatiquement (nécessite le secret GitHub `ZERNIO_API_KEY`) ; l'email de publication indique si la programmation a réussi (sinon copie à coller à la main).
 
+### Livré (3e partie — carrousels LinkedIn, même jour)
+- **`scripts/blog/carousel-render.mjs`** : rendu FIESTA pur Node (satori → resvg → PNG → pdf-lib → PDF 1080×1350, ~340 Ko), zéro navigateur = compatible CI. Design validé par Jérémy sur proto (`_preview-carousel-linkedin.html`) : fond noir, Archivo Black uppercase, UN mot accentué/slide (rotation teal/fuchsia/orange), kickers JetBrains Mono, triple-stripe, halo radial. Polices TTF committées dans `scripts/blog/fonts/`. Gotchas satori corrigés : espaces insécables entre spans (sinon avalés) + flexWrap sur les lignes.
+- **`scripts/blog/linkedin-carousel.mjs`** : LLM transforme le post (pas l'article) en 6-8 slides « un slide = un message » — **sélectif** : juge d'abord si le post s'y prête (chiffre fort ou méthode), sinon skip. Gates : 1 seul accent par slide, ≤14 car./ligne, accents jamais consécutifs, badge CTA = URL courte, mots bannis.
+- **Workflow + email** : le carrousel se génère après le post (non bloquant) et part en **pièce jointe PDF de l'email de publication** — à ajouter au post Zernio en 20 s (l'API Zernio annonce les documents LinkedIn mais n'expose pas encore le schéma → v2 quand c'est documenté). `linkedin/carousels/` gitignoré (artefacts régénérables).
+
 ### À venir
+- Tester l'upload de document PDF via l'API Zernio quand le schéma sera documenté (auto-attache au post programmé).
 - Article du vendredi → post le samedi 8h30 (audience LinkedIn plus faible le week-end) — à décaler au lundi si les stats le confirment.
 - Si la qualité dévie : ajuster l'exemple few-shot dans `linkedin-post.mjs` plutôt que les règles.
 

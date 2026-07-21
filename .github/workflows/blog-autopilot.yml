@@ -78,6 +78,8 @@ jobs:
           LI_ACCOUNT: 69c06ed66cb7b8cf4c8f5689   # profil LinkedIn perso de Jérémy dans Zernio
         run: |
           node scripts/blog/linkedin-post.mjs "${{ steps.gen.outputs.slug }}"
+          # Carrousel PDF si le post s'y prête (chiffre fort ou méthode) — livré en pièce jointe du mail
+          node scripts/blog/linkedin-carousel.mjs "${{ steps.gen.outputs.slug }}" || echo "carrousel : skip ou échec (non bloquant)"
           # Programme sur LinkedIn demain 8h30 Paris (échec = mail sans mention, à programmer à la main)
           if [ -n "$ZERNIO_API_KEY" ] && node scripts/blog/zernio-schedule.mjs "${{ steps.gen.outputs.slug }}" tomorrow@08:30 --account="$LI_ACCOUNT"; then
             echo "scheduled=oui" >> "$GITHUB_OUTPUT"

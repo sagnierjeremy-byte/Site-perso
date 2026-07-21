@@ -63,6 +63,20 @@ function linkedinBlock() {
 }
 const li = linkedinBlock();
 
+// Carrousel PDF (si généré) → pièce jointe + mention
+function carouselAttachment() {
+  try {
+    const p = path.join(process.cwd(), 'linkedin', 'carousels', `${slug}.pdf`);
+    const buf = fs.readFileSync(p);
+    return {
+      attachments: [{ filename: `carrousel-${slug}.pdf`, content: buf.toString('base64') }],
+      html: `<p style="font-size:13px;color:#555;margin:14px 0 0">🎠 <strong>Carrousel PDF en pièce jointe</strong> — ajoute-le au post programmé dans Zernio (20 secondes), il transforme le post en document glissable.</p>`,
+      text: `\n\n(Carrousel PDF en pièce jointe — à ajouter au post programmé dans Zernio.)`,
+    };
+  } catch { return { attachments: [], html: '', text: '' }; }
+}
+const car = carouselAttachment();
+
 const html = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;color:#0A0A0A">
     <p style="font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#00B2A9;margin:0 0 8px">📝 Blog auto · ${today}</p>
@@ -71,16 +85,17 @@ const html = `
     ${desc ? `<p style="color:#555;font-size:14px;margin:0 0 18px">${desc}</p>` : ''}
     <p style="margin:18px 0"><a href="${url}" style="display:inline-block;background:#EF426F;color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:10px">Lire l'article →</a></p>
     ${li.html}
+    ${car.html}
     <p style="color:#888;font-size:12px;margin-top:24px">Publié automatiquement par le pilote de blog (gate qualité ≥ 56/70). Tu reçois ce mail parce que tu as demandé une notif à chaque publication.</p>
   </div>`;
 
-const text = `Nouvel article publié : ${title}\n${desc ? desc + '\n' : ''}\n${url}${li.text}\n\n(Publié automatiquement par le pilote de blog, ${today}.)`;
+const text = `Nouvel article publié : ${title}\n${desc ? desc + '\n' : ''}\n${url}${li.text}${car.text}\n\n(Publié automatiquement par le pilote de blog, ${today}.)`;
 
 try {
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: FROM, to: [TO], subject: `📝 Nouvel article : ${title}`, html, text }),
+    body: JSON.stringify({ from: FROM, to: [TO], subject: `📝 Nouvel article : ${title}`, html, text, ...(car.attachments.length ? { attachments: car.attachments } : {}) }),
   });
   if (!res.ok) {
     console.error('[notify] échec Resend:', res.status, await res.text());

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/modifier-photo-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Retoucher une photo avec l'IA sans logiciel de design</title>
+<meta name="description" content="Enlever un objet, changer un fond, améliorer un portrait : guide pratique pour retoucher tes photos avec l'IA en 2026, sans Photoshop ni compétences design.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Retoucher une photo avec l'IA sans logiciel de design">
+<meta property="og:description" content="Enlever un objet, changer un fond, améliorer un portrait : guide pratique pour retoucher tes photos avec l'IA en 2026, sans Photoshop ni compétences design.">
+<meta property="og:url" content="https://jerwis.fr/articles/modifier-photo-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/modifier-photo-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-23">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Retoucher une photo avec l'IA sans logiciel de design">
+<meta name="twitter:description" content="Enlever un objet, changer un fond, améliorer un portrait : guide pratique pour retoucher tes photos avec l'IA en 2026, sans Photoshop ni compétences design.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/modifier-photo-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/modifier-photo-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/modifier-photo-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/modifier-photo-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/modifier-photo-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Retoucher une photo avec l'IA sans logiciel de design",
+  "description": "Enlever un objet, changer un fond, améliorer un portrait : guide pratique pour retoucher tes photos avec l'IA en 2026, sans Photoshop ni compétences design.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/modifier-photo-avec-ia",
+  "datePublished": "2026-07-23",
+  "dateModified": "2026-07-23",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/modifier-photo-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 99</div>
+    <h1>Retouche photo<br>sans logiciel<br><em>avec l'IA, ça marche vraiment</em></h1>
+    <p class="hero-lead">
+      Tu as une photo presque parfaite, mais il y a une poubelle dans le fond, un inconnu qui s'est glissé dans le cadre, ou un éclairage raté. Avant, tu avais deux options : payer un graphiste ou apprendre Photoshop. Aujourd'hui, Gemini, ChatGPT et une poignée d'outils spécialisés font ce travail en quelques secondes, par description textuelle. Je te montre comment ça marche, outil par outil, cas d'usage par cas d'usage.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Gemini, ChatGPT, Canva</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li><strong>ChatGPT Images 2.0</strong> remplace DALL-E 3 depuis mai 2026 et permet l'édition conversationnelle directe.</li>
+      <li>Gemini génère et retouche des images en 4K via ses modèles Nano Banana, accessibles depuis l'interface habituelle.</li>
+      <li><strong>Canva Magic Edit</strong> reste l'option la plus simple pour sélectionner une zone et décrire la modification voulue.</li>
+      <li>Pour supprimer un objet rapidement et gratuitement, des outils comme Cleanup.pictures ne demandent ni inscription ni compétence.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La retouche photo, c&#39;était réservé à qui ?</h2>
+    <p>Longtemps, modifier une photo correctement supposait soit un abonnement Creative Cloud, soit des heures sur YouTube à regarder des tutoriels sur les calques et les masques de fusion. Ce n&#39;était pas inaccessible, mais c&#39;était clairement un investissement de temps que la plupart des entrepreneurs ne pouvaient pas se permettre.</p>
+    <p>Ce qui a changé en 2025-2026, c&#39;est l&#39;arrivée de l&#39;édition par description. Tu décris ce que tu veux — &quot;enlève le câble électrique en haut à droite&quot;, &quot;remplace le fond blanc par un décor de bureau moderne&quot; — et l&#39;IA s&#39;en charge. Pas de curseurs, pas de sélection au pixel près, pas de calques.</p>
+    <p>Selon les données du marché disponibles, le secteur des éditeurs photo IA était estimé à 2 milliards de dollars en 2025 et pourrait atteindre 10 milliards d&#39;ici 2033, porté notamment par l&#39;e-commerce et le marketing. Ce n&#39;est pas une tendance de niche : plus d&#39;un tiers des personnes dans les pays de l&#39;OCDE utilisaient des outils d&#39;IA générative en 2025. L&#39;édition photo en fait désormais partie.</p>
+    <p>Je ne suis pas graphiste. Je n&#39;ai pas de formation design. Et j&#39;ai quand même besoin de visuels propres pour ce blog, pour des présentations, pour des publications. C&#39;est exactement pour ça que j&#39;ai creusé ce sujet — d&#39;abord pour moi.</p>
+    <div class="callout tip"><h4>Ce que j'ai compris dès le départ</h4><p>L'IA ne remplace pas un photographe professionnel pour un shooting produit haut de gamme. Mais pour corriger une photo existante, elle fait gagner un temps considérable. L'enjeu, c'est de savoir quel outil utiliser selon ce que tu veux faire.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Gemini et ChatGPT : ce qu&#39;ils font vraiment</h2>
+    <p>Ces deux outils sont ceux que tu utilises probablement déjà pour écrire ou chercher des informations. Bonne nouvelle : ils font aussi de la retouche photo, directement dans l&#39;interface.</p>
+    <p><strong>ChatGPT et GPT Image 2.0</strong></p>
+    <p>DALL-E 3 a été déprécié le 12 mai 2026. Il a été remplacé par GPT Image 2.0, aussi appelé ChatGPT Images 2.0 [F6]. Ce nouveau moteur apporte une précision améliorée, une meilleure gestion du texte dans les images, et surtout un contrôle d&#39;édition conversationnel. Concrètement : tu importes une photo dans ChatGPT, tu décris ce que tu veux modifier, et tu continues la conversation si le résultat ne te convient pas encore. &quot;Rends l&#39;arrière-plan plus sombre.&quot; &quot;Supprime la personne à gauche.&quot; &quot;Améliore l&#39;éclairage du visage.&quot; C&#39;est une vraie boucle d&#39;itération, pas une modification unique.</p>
+    <p><strong>Gemini et ses modèles d&#39;image</strong></p>
+    <p>Gemini utilise des modèles appelés &quot;Nano Banana&quot; pour la génération et le traitement d&#39;images [F5]. Le modèle Nano Banana 2 (Gemini 3.1 Flash Image) est le modèle polyvalent, rapide, avec une sortie en 4K. Le modèle Nano Banana Pro (Gemini 3 Pro Image) est pensé pour les tâches visuelles complexes qui nécessitent un contrôle créatif précis. Tu peux accéder à ces capacités directement depuis Gemini.google.com en important une image et en décrivant ta demande. Pour comprendre ces modèles en détail, j&#39;ai rédigé une entrée dans le <a href="/lexique/nano-banana">lexique Nano Banana</a>.</p>
+    <p>L&#39;édition conversationnelle — décrire ses modifications plutôt que de manipuler des outils — est devenue une tendance majeure en 2026 [F9]. Ce n&#39;est pas qu&#39;une question de confort : c&#39;est une vraie rupture de paradigme pour quelqu&#39;un qui ne maîtrise pas les outils graphiques traditionnels.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Enlever, changer, améliorer : cas concrets</h2>
+    <p>Voilà les trois opérations que je fais le plus souvent, et les outils que j&#39;utilise pour chacune.</p>
+    <p><strong>Supprimer un objet ou une personne</strong></p>
+    <p>C&#39;est le cas d&#39;usage le plus fréquent. Une photo de produit avec un câble visible. Un portrait avec un passant dans le fond. Un screenshot avec une notification gênante.</p>
+    <p>Pour des suppressions rapides et gratuites, des outils comme Cleanup.pictures, YouCam Object Remover ou Phototune.ai font ça en quelques secondes, sans inscription [F7]. Tu charges la photo, tu &quot;peins&quot; la zone à effacer avec ta souris, et l&#39;IA reconstruit le fond. C&#39;est impressionnant de simplicité.</p>
+    <p>Pour des suppressions plus complexes — un objet grand, un fond chargé — ChatGPT Images 2.0 ou Gemini donnent de meilleurs résultats parce que tu peux affiner par la description.</p>
+    <p><strong>Changer l&#39;arrière-plan</strong></p>
+    <p>C&#39;est probablement la retouche la plus utile pour les entrepreneurs. Transformer un fond de cuisine en décor de bureau. Passer d&#39;un fond encombré à un fond blanc épuré pour une photo produit.</p>
+    <p>Fotor, YouCam Online Editor et Airbrush proposent des fonctionnalités IA dédiées au changement de fond en un clic [F8]. Tu peux remplacer par une couleur unie, un fond prédéfini ou importer ta propre image de fond. Canva Magic Edit, intégré à Magic Studio, permet de faire la même chose en sélectionnant une zone et en décrivant le remplacement souhaité [F4].</p>
+    <p>ChatGPT et Gemini gèrent aussi cette opération, avec l&#39;avantage de pouvoir décrire un fond précis : &quot;un bureau en bois avec une fenêtre lumineuse en arrière-plan&quot; plutôt que de choisir dans une galerie.</p>
+    <p><strong>Améliorer un portrait</strong></p>
+    <p>Corriger l&#39;éclairage d&#39;un visage, réduire les ombres sous les yeux, améliorer la netteté d&#39;un portrait légèrement flou. L&#39;Assistant IA de Photoshop, en version bêta publique pour le web et le mobile depuis mars 2026, permet de décrire ces modifications et de les appliquer automatiquement ou étape par étape [F3]. C&#39;est une entrée dans l&#39;univers Adobe sans avoir à maîtriser tous les outils de l&#39;interface classique.</p>
+    <p>Adobe Firefly a également introduit en avril 2026 deux nouvelles fonctionnalités : Precision Flow et AI Markup [F2]. Precision Flow permet des raffinements précis. AI Markup te laisse dessiner directement sur l&#39;image pour indiquer les zones à modifier. Utile quand une description textuelle ne suffit pas à cibler exactement ce que tu veux changer.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne charge jamais une photo de mauvaise qualité en espérant que l'IA la "sauve". Elle peut améliorer, mais elle ne peut pas inventer des détails qui n'existent pas. Pars d'une image correctement exposée, même imparfaite sur d'autres points.</p></div>
+    
+    <h2>La clé : bien formuler ta demande</h2>
+    <p>Tous ces outils ont un point commun : leur résultat dépend directement de la qualité de ta description. Ce qu&#39;on appelle un <a href="/lexique/prompt-engineering">prompt</a>.</p>
+    <p>&quot;Améliore la photo&quot; ne donne rien de précis. &quot;Éclaircis les ombres sur le visage, augmente légèrement le contraste et supprime la tache sur l&#39;épaule gauche&quot; donne un résultat actionnable.</p>
+    <p>Quelques règles simples que j&#39;applique :</p>
+    <ul>
+    <li><strong>Sois spatial</strong> : &quot;en haut à droite&quot;, &quot;sur le bord gauche&quot;, &quot;derrière la personne&quot;. L&#39;IA a besoin de repères dans l&#39;image.</li>
+    <li><strong>Décris le résultat voulu</strong>, pas l&#39;opération technique : &quot;fond blanc uni&quot; plutôt que &quot;supprime l&#39;arrière-plan&quot;.</li>
+    <li><strong>Itère</strong> : si le premier résultat n&#39;est pas bon, décris ce qui cloche. &quot;Le fond est trop blanc, rends-le légèrement gris clair&quot; fonctionne très bien avec ChatGPT Images 2.0 ou Gemini.</li>
+    </ul>
+    <p>Si tu veux aller plus loin sur la formulation des demandes, j&#39;ai écrit un article complet sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n&#39;est pas développeur</a>.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Quel outil pour quel besoin ?</h2>
+    <p>Voilà comment je raisonnerais si je devais choisir rapidement :</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Besoin</th>
+    <th>Outil recommandé</th>
+    <th>Gratuit ?</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td>Supprimer un objet simple</td>
+    <td>Cleanup.pictures</td>
+    <td>Oui</td>
+    </tr>
+    <tr>
+    <td>Changer le fond rapidement</td>
+    <td>Canva Magic Edit</td>
+    <td>Freemium</td>
+    </tr>
+    <tr>
+    <td>Retouche conversationnelle</td>
+    <td>ChatGPT Images 2.0</td>
+    <td>Abonnement</td>
+    </tr>
+    <tr>
+    <td>Contrôle créatif précis</td>
+    <td>Gemini Nano Banana Pro</td>
+    <td>Abonnement</td>
+    </tr>
+    <tr>
+    <td>Portrait et éclairage</td>
+    <td>Photoshop IA (bêta web)</td>
+    <td>Abonnement Adobe</td>
+    </tr>
+    <tr>
+    <td>Modifications ciblées au dessin</td>
+    <td>Adobe Firefly (AI Markup)</td>
+    <td>Freemium</td>
+    </tr>
+    </tbody></table>
+    <p>Si tu veux une comparaison plus structurée pour choisir l&#39;outil IA adapté à tes besoins visuels en général, j&#39;ai fait ce travail dans cet article : <a href="/articles/choisir-ia-ecrire-coder-images">choisir son IA pour écrire, coder ou créer des images</a>.</p>
+    <p>Une chose à garder en tête : ces outils évoluent très vite. Midjourney, par exemple, est passé en version V8.1 par défaut le 10 juin 2026 [F1], avec une génération HD 2K et de meilleures options de contrôle. Ce que je décris ici correspond à l&#39;état des outils à la date de publication de cet article.</p>
+    <h2>Ce que l&#39;IA ne fait pas (encore)</h2>
+    <p>Quelques limites concrètes que j&#39;ai rencontrées :</p>
+    <p><strong>La cohérence d&#39;éclairage.</strong> Quand tu changes un fond, l&#39;éclairage du sujet principal ne correspond pas toujours au nouvel environnement. Une personne photographiée en lumière naturelle sur un fond de studio artificiel peut sembler &quot;collée&quot;. Les outils s&#39;améliorent sur ce point, mais ça reste visible.</p>
+    <p><strong>Les détails fins.</strong> Les cheveux, la fourrure, les objets transparents. La suppression d&#39;arrière-plan sur ces zones est encore imparfaite dans la plupart des outils. Adobe Firefly avec AI Markup s&#39;en sort mieux que la moyenne, mais ça demande de la patience.</p>
+    <p><strong>Les droits sur les images générées.</strong> C&#39;est un sujet qui évolue rapidement sur le plan légal. Si tu retouches une photo dont tu es l&#39;auteur, pas de problème. Si l&#39;IA régénère une partie importante de l&#39;image, la question des droits devient plus floue. Pour un usage commercial, vérifie les conditions d&#39;utilisation de chaque outil.</p>
+    <p><strong>La vie privée.</strong> Évite de charger des photos contenant des données sensibles (documents, visages de tiers sans consentement) dans des outils dont tu n&#39;as pas lu les conditions de traitement des données.</p>
+    <p>Si tu veux explorer l&#39;IA pour tes photos personnelles au-delà de la retouche — organisation, recherche, albums — j&#39;ai creusé ce sujet dans cet article sur <a href="/articles/photos-perso-ia">les photos personnelles et l&#39;IA</a>.</p>
+    <p>Et si tu veux aller encore plus loin, jusqu&#39;à créer des images de toutes pièces plutôt que de retoucher des photos existantes, c&#39;est un autre terrain : <a href="/articles/creer-images-ia-gratuit">créer des images avec l&#39;IA gratuitement</a>.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Est-il possible de retoucher des photos avec l&#39;IA sans aucune compétence en design graphique ?</h3>
+    <p>Oui, et c&#39;est précisément l&#39;intérêt de ces outils. La retouche par description textuelle — tu écris ce que tu veux, l&#39;IA l&#39;applique — ne demande aucune connaissance des logiciels graphiques. Des outils comme Canva Magic Edit ou Cleanup.pictures sont utilisables sans aucune formation préalable.</p>
+    <h3>Quels sont les outils d&#39;IA gratuits les plus performants pour la retouche photo en 2026 ?</h3>
+    <p>Pour la suppression d&#39;objets, Cleanup.pictures, YouCam Object Remover et Phototune.ai sont gratuits et ne demandent pas d&#39;inscription [F7]. Canva propose une version freemium avec Magic Edit. Gemini et ChatGPT offrent des capacités d&#39;édition dans leurs versions gratuites, avec des limites selon le plan choisi.</p>
+    <h3>Comment puis-je supprimer un objet ou une personne indésirable d&#39;une photo à l&#39;aide de l&#39;IA ?</h3>
+    <p>Deux approches. La plus rapide : utiliser un outil dédié comme Cleanup.pictures — tu charges la photo, tu &quot;peins&quot; la zone à effacer, et l&#39;IA reconstruit le fond en quelques secondes. La plus flexible : passer par ChatGPT Images 2.0 ou Gemini, en décrivant précisément la zone à supprimer et ce que tu veux voir à la place.</p>
+    <h3>Puis-je changer l&#39;arrière-plan d&#39;une photo avec Gemini ou ChatGPT, et comment ?</h3>
+    <p>Oui. Avec ChatGPT Images 2.0, tu importes ta photo dans la conversation et tu décris le fond souhaité : &quot;remplace l&#39;arrière-plan par un bureau en bois avec une fenêtre lumineuse&quot;. Tu peux ensuite affiner par messages successifs. Gemini fonctionne de la même façon. Pour une approche plus visuelle avec des fonds prédéfinis, Canva Magic Edit, Fotor ou YouCam Online Editor sont plus directs [F8].</p>
+    <h3>L&#39;IA peut-elle réellement améliorer la qualité d&#39;un portrait ou restaurer une vieille photo ?</h3>
+    <p>Pour améliorer un portrait existant — corriger l&#39;éclairage, réduire les ombres, améliorer la netteté — oui, les résultats sont souvent bons. L&#39;Assistant IA de Photoshop en bêta web permet de décrire ces ajustements et de les appliquer automatiquement [F3]. Pour la restauration de vieilles photos abîmées, les résultats varient beaucoup selon l&#39;état de départ. L&#39;IA peut reconstruire des zones manquantes, mais elle &quot;invente&quot; des détails — ce qui peut poser problème pour des photos à valeur documentaire.</p>
+    <h3>Quelles sont les principales limitations et les pièges à éviter avec les outils de retouche photo par IA ?</h3>
+    <p>Les limites les plus fréquentes : la cohérence d&#39;éclairage quand tu changes un fond, la gestion des détails fins (cheveux, transparences), et les résultats aléatoires sur des images de mauvaise qualité de départ. Sur le plan pratique : vérifie les conditions d&#39;utilisation avant d&#39;uploader des photos à usage commercial, et évite de charger des images contenant des données personnelles sensibles dans des outils dont tu ne maîtrises pas la politique de confidentialité.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>La retouche photo par IA n&#39;est plus une promesse — c&#39;est un usage quotidien accessible à n&#39;importe qui. Enlever un objet, changer un fond, corriger un portrait : ces opérations se font maintenant en quelques phrases, sans logiciel à installer ni compétence graphique à acquérir.</p>
+    <p>Mon point de départ reste toujours le même : quel est le problème précis ? Une suppression rapide → Cleanup.pictures. Une retouche conversationnelle avec plusieurs allers-retours → ChatGPT Images 2.0 ou Gemini. Un travail plus fin sur un portrait → Photoshop IA ou Adobe Firefly. Canva si tu veux tout faire au même endroit sans sortir de ton workflow habituel.</p>
+    <p>Ce qui fait la différence entre un résultat moyen et un bon résultat, c&#39;est la précision de ta description. Pas besoin de maîtriser les outils graphiques — mais il faut apprendre à bien formuler ce qu&#39;on veut. C&#39;est une compétence qui se développe vite, et qui sert pour bien plus que la retouche photo.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

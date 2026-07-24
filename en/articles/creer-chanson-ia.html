@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/creer-chanson-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Create a song with AI: practical guide 2026 · Jerwis</title>
+<meta name="description" content="Suno, Udio, lyrics, voice, commercial rights: everything you need to know to create music with AI when you've never touched an instrument.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Create a song with AI: practical guide 2026">
+<meta property="og:description" content="Suno, Udio, lyrics, voice, commercial rights: everything you need to know to make music with AI — no instrument required.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/creer-chanson-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/creer-chanson-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-24">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Create a song with AI: practical guide 2026">
+<meta name="twitter:description" content="Suno, Udio, lyrics, voice, commercial rights: everything you need to know to make music with AI — no instrument required.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/creer-chanson-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/creer-chanson-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/creer-chanson-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/creer-chanson-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/creer-chanson-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Create a song with AI: practical guide 2026",
+  "description": "Suno, Udio, lyrics, voice, commercial rights: everything you need to know to create music with AI when you've never touched an instrument.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/creer-chanson-ia",
+  "datePublished": "2026-07-24",
+  "dateModified": "2026-07-24",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/creer-chanson-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 49</div>
+    <h1>Creating a song<br>without ever having<br><em>touched an instrument</em></h1>
+    <p class="hero-lead">
+      You want music for your brand, a podcast intro, or you just want to see what AI can actually do with notes? Same — and I have zero musical training. What I found: these tools have come so far that you can now produce a complete track in minutes. But there are traps to avoid, especially around rights. I'm sharing everything I figured out here, with numbers and sources to back it up.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Suno</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>Suno and Udio let you create complete tracks with <strong>lyrics, style, and vocals</strong> — no musical skills needed.</li>
+      <li><strong>Commercial rights</strong> only come with paid plans: Suno's free plan gives you zero exploitation rights.</li>
+      <li>Under French law, music entirely generated by AI <strong>cannot be protected by copyright</strong> if human creative input is insufficient.</li>
+      <li>A <strong>language model like ChatGPT</strong> can help you write your lyrics before you paste them into Suno or Udio.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Can you really do this with no training?</h2>
+    <p>Yes. And that's not marketing copy.</p>
+    <p>Until recently, making a song meant knowing how to play an instrument, understanding music theory, or paying a composer. Today, you can type a sentence into a web interface and get back a track with a real voice, lyrics, and a coherent musical structure.</p>
+    <p>It's not magic. It's generative AI applied to audio. And according to a LANDR survey published in February 2026 of more than 1,200 artists, 87% of them had already used AI in at least one part of their music-making process. If professional musicians are weaving it into their workflow, an entrepreneur with no musical background can absolutely do the same.</p>
+    <p>What I care about here is practical use. Not the philosophy of art in the age of AI. Just: how you do it, with what, and what you're actually allowed to do with the result.</p>
+    <p>Because that's where a lot of people trip up. You create a nice jingle, put it in a YouTube video, and realize too late you didn't have the rights to do that.</p>
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Suno and Udio: what they actually do</h2>
+    <p>Two tools clearly dominate in 2026: <strong>Suno</strong> and <strong>Udio</strong>. They work differently, but both let a non-musician generate a complete track from a simple text description.</p>
+    <p><strong>Suno</strong> released version 5.5 in March 2026. The updates are significant: personalized voice cloning, training models on your own voice, and studio-quality track generation that can exceed 8 minutes. In July 2026, Suno also upgraded its lyrics module with a built-in "Lyricist": you can edit lines in plain language, ask for word-by-word variations, and everything saves automatically. It's the kind of interface that makes you forget you're not a musician.</p>
+    <p><strong>Udio</strong> launched version 4 in 2026 with a slightly more technical approach. Audio is in stereo 48kHz, tracks can run up to 10 minutes, and the tool offers a "Magic Edit" feature that lets you modify a specific section of a track without regenerating the whole thing. There's also Stem Separation 2.0 and style transfer: you can take the vibe of an existing track and apply it to your creation.</p>
+    <p>For an entrepreneur, the practical difference is simple:</p>
+    <ul>
+    <li>You want to move fast and generate lyrics directly in the tool → <strong>Suno</strong> is smoother.</li>
+    <li>You want more control over the arrangement and audio structure → <strong>Udio</strong> gives you more granularity.</li>
+    </ul>
+    <p>Both have free and paid plans. And that distinction is going to matter a lot in a moment.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Don't test a tool on the free plan and then drop the result into a commercial video, a website, or a campaign. Suno's free plan gives you zero commercial rights over the music generated. This point gets overlooked constantly — and it can be costly.</p></div>
+    
+    <hr>
+    <h2>From idea to song, in practice</h2>
+    <p>Here's how I do it, step by step.</p>
+    <p><strong>1. Define the style</strong></p>
+    <p>Before I even open Suno or Udio, I spend a few minutes figuring out what I want. Genre, tempo, mood, dominant instruments, whether there's a voice or not. The more specific your description, the closer the result is to what you're imagining.</p>
+    <p>If you're not sure how to phrase that, this is exactly the moment to use <a href="/en/articles/ecrire-bon-prompt-non-dev">a well-built prompt</a>. What you type into Suno is a prompt. And just like with image or text generation, the quality of your description changes everything.</p>
+    <p><strong>2. Write (or have written) the lyrics</strong></p>
+    <p>Suno has had its own "Lyricist" since July 2026, but I find that a language model like ChatGPT or Claude often produces better lyrics when you give it precise context. You can tell it: "I want a 3-verse pop song about starting a business, optimistic tone, catchy chorus." Then paste the result into Suno.</p>
+    <p>A few simple rules for lyrics:</p>
+    <ul>
+    <li>Indicate the structure (verse 1, chorus, bridge…)</li>
+    <li>Mark repetitions with brackets like <code>[Chorus]</code>, <code>[Verse 1]</code> — Suno understands them</li>
+    <li>Avoid sentences that are too long: they don't sing well</li>
+    </ul>
+    <p><strong>3. Choose the voice</strong></p>
+    <p>Suno 5.5 supports voice cloning: you can train a model on your own voice. For entrepreneurial use (brand jingle, podcast intro), that's a powerful option. If you'd rather not use your voice, the default generated voices are very convincing on paid plans.</p>
+    <p><strong>4. Iterate</strong></p>
+    <p>The first generation is rarely perfect. I generate several variants, keep the pieces I like, and reuse the sections that work. Udio lets you edit a specific section without redoing everything. Suno lets you extend a track or regenerate part of it. Expect around ten attempts before you have something you're ready to use.</p>
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What you're actually allowed to do with it</h2>
+    <p>This is the part nobody reads carefully enough. And yet it's where everything is decided for an entrepreneur.</p>
+    <p><strong>Rights by Suno plan</strong></p>
+    <p>Suno is clear on this (source: terms of use verified in April 2026):</p>
+    <ul>
+    <li>Free plan → <strong>no commercial rights</strong>. You can listen, share on social media for personal use, but you can't monetize.</li>
+    <li>Pro plan ($8/month billed annually) → full commercial rights.</li>
+    <li>Premier plan ($24/month billed annually) → full commercial rights, with more credits and features.</li>
+    </ul>
+    <p>If you want to use Suno music in an ad, on your website, in a monetized YouTube video, or in a paid product, you need to be on a paid plan. Non-negotiable.</p>
+    <p><strong>Copyright under French law</strong></p>
+    <p>This one's more complex. Under French law, only a human being can be the author of a creative work. Music entirely generated by AI, without significant human creative input, cannot be protected by copyright. That's the current position of French law, confirmed in May 2026.</p>
+    <p>What that means in practice: if you generate a track by typing just "happy pop song" and change nothing, you probably can't claim authorship of that work. On the other hand, if you wrote the lyrics, defined the structure, chose the stylistic elements, and iterated on the result, your creative contribution can be recognized.</p>
+    <p>The line hasn't been perfectly drawn by French courts yet. But the more documented and significant your involvement, the stronger your position.</p>
+    <p><strong>The shadow hanging over training data</strong></p>
+    <p>In July 2026, leaked internal documents revealed that Suno may have trained its AI on millions of copyright-protected tracks, sourced in part from YouTube Music and Deezer. This case is ongoing and has no definitive legal resolution as of this article's publication date.</p>
+    <p>At the same time, the EU AI Act has required providers of generative AI models to publish a summary of the content used for training since August 2025. Penalties for non-compliance take effect in August 2026. To dig into what that means for your business, I wrote a dedicated article on <a href="/en/articles/ai-act-pour-ton-business">the AI Act and its practical implications</a>.</p>
+    <div class="callout tip"><h4>My takeaways on rights</h4><p>For commercial use, get a paid plan and document your creative contribution: the lyrics you wrote, the iterations you made, the stylistic choices you imposed. That's what makes the difference between "the AI did everything" and "I created with AI."</p></div>
+    
+    <hr>
+    <h2>Language models as co-authors of your lyrics</h2>
+    <p>Suno and Udio handle the music. But for lyrics, a language model can be a better starting point.</p>
+    <p>ChatGPT (running on GPT-5.6 Sol since July 2026 for paid plans), Claude Opus 4.7 from Anthropic (available since April 2026), and Gemini 3.6 Flash from Google (available since July 2026) are all capable of generating quality lyrics if you give them a precise brief.</p>
+    <p>Here's what I do: I describe the context (theme, tone, target audience, desired structure), ask for several versions, mix the best lines, and paste the result into Suno. The advantage of a language model over Suno's built-in Lyricist is its ability to handle complex semantic nuances and respect a specific style or brand constraint.</p>
+    <p>If you're not sure yet <a href="/en/articles/choisir-ia-ecrire-coder-images">which AI tool to pick for your use case</a>, I've compared the main options. For lyrics generation, all three language models mentioned above are solid — the choice mostly comes down to whichever one you already use day-to-day.</p>
+    <p>For those who want to understand how these models work under the hood, the <a href="/en/lexique/llm">LLM glossary entry</a> breaks down the basics in plain language.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Do you need musical knowledge to create a song with AI?</h3>
+    <p>No. Suno and Udio are designed to work from text descriptions. You describe the style, tempo, mood, and lyrics, and the tool generates the track. No music theory required. That said, the more precise your description, the better the result — and for that, knowing how to write a good prompt helps a lot.</p>
+    <h3>Can I use music generated with the free versions of Suno or Udio commercially?</h3>
+    <p>Not with Suno. The free plan gives you zero commercial rights over the music generated. For commercial use (monetized video, ad, paid product), you need to be on the Pro plan ($8/month) or Premier plan ($24/month) billed annually. Check Udio's terms separately, as they can change.</p>
+    <h3>How can I protect my AI-created music from being copied?</h3>
+    <p>It's complicated. Under French law, a work entirely generated by AI without significant human input cannot be protected by copyright. To maximize your protection, document your creative contribution: the lyrics you wrote, the stylistic choices you made, the iterations you went through. The more traceable your creative fingerprint, the stronger your claim to co-authorship of the work.</p>
+    <h3>Can AI create song lyrics in any genre or style?</h3>
+    <p>Largely, yes. Suno, Udio, and language models cover a very wide spectrum: pop, rock, jazz, electronic, hip-hop, classical, folk… You can also describe hybrid vibes or very specific styles. Results vary depending on how precise your description is and the style you're going for. Some highly codified genres (certain forms of complex jazz, for example) produce less convincing results than more standard formats.</p>
+    <h3>What are the latest AI tool versions to consider in 2026?</h3>
+    <p>As of this article: Suno is on version 5.5 (March 2026), Udio on version 4 (2026). For language models for lyrics: ChatGPT runs on GPT-5.6 Sol (generally available since July 2026 on paid plans), Claude Opus 4.7 from Anthropic launched in April 2026, and Gemini 3.6 Flash from Google has been available since July 2026. These versions move fast — check each tool's official pages before you dive in.</p>
+    <h3>Does the SACEM recognize musical works where AI played a significant role?</h3>
+    <p>The SACEM is adapting its rules to this new reality, but as of this article's publication date, the position of French law remains clear: only a human being can be the author of a creative work. For a work co-created with AI to be eligible for protection and potentially for SACEM registration, the human contribution must be real, significant, and documented. This framework is evolving — it's worth contacting the SACEM directly for specific cases.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I never thought I'd make music one day. And yet, after a few hours exploring Suno, I produced tracks I actually use.</p>
+    <p>What I take away from this experience: the tool is accessible, but the legal framework demands attention. Getting a paid plan if you want to use the music commercially, documenting your creative contribution, and staying informed on how rights evolve — those are the three reflexes to build.</p>
+    <p>The recorded music market generated $31.7 billion in 2025 according to the IFPI, with an eleventh consecutive year of growth. And according to 2026 data, nearly 60,000 AI-generated tracks are uploaded to streaming platforms every day — roughly 39% of all music published online. This isn't a geek curiosity anymore — it's an industrial reality.</p>
+    <p>As an entrepreneur, you don't need to become a musician. You need to understand the tools, know what you can do with them, and integrate them intelligently into what you're building.</p>
+    <p>I do all of this for myself first. And if it helps you move forward, that's even better.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

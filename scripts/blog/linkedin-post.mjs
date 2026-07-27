@@ -111,7 +111,16 @@ function verifier(post, comment) {
 let post = null, comment = null;
 for (let i = 1; i <= 2 && !post; i++) {
   console.error(`• Génération post LinkedIn "${slug}" (essai ${i}/2)…`);
-  const raw = (await generer()).trim();
+  let raw;
+  try {
+    raw = (await generer()).trim();
+  } catch (e) {
+    // Une erreur LLM/réseau ne doit pas tuer le script au 1er essai : le 2e peut passer.
+    // Vécu le 27-07-2026 — « OpenRouter réponse vide » a interrompu la génération alors
+    // qu'un second appel aurait suffi (Kimi renvoie souvent un content vide au 1er coup).
+    console.error(`  ✗ génération KO : ${e.message.slice(0, 120)}`);
+    continue;
+  }
   const [p, c] = raw.split(/^-{3}COMMENTAIRE-{3}$/m).map(s => (s || '').trim());
   const errs = verifier(p || '', c || '');
   if (errs.length) { console.error(`  ✗ gate : ${errs.join(' · ')}`); continue; }

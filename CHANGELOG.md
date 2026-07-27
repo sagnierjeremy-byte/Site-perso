@@ -21,9 +21,12 @@ Fix : **`data/*`** au lieu de `data/` (matche les entrées une à une, ce qui re
 ### Vérifié
 Chemin nominal Claude testé en local (5 items écrits) **et** chemin fallback forcé avec une clé invalide : 401 ×2 → bascule OpenRouter → **1ᵉʳ essai vide (`finish: stop`), 2ᵉ essai OK** → d'où le passage du fallback à **3 essais**. Sortie Kimi contrôlée : ton Leo respecté (1ʳᵉ personne), titres ≤61 car., accroches ≤141 car. `data/news-summary.json` restauré à la version du workflow après les tests (aucune trace). YAML + syntaxe JS validés.
 
+### Correctif complémentaire (même jour)
+- **`scripts/blog/linkedin-post.mjs`** : `try/catch` autour de `generer()` dans la boucle d'essais. Avant, une exception au 1ᵉʳ essai tuait le script **sans jamais tenter le 2ᵉ** — exactement le scénario du 27-07. Vérifié dans les deux sens : avec 2 clés invalides, les 2 essais sont tentés puis sortie propre (« Génération échouée après 2 essais », `exit 1`, plus de stack trace) ; avec les vraies clés, le post manquant du 27-07 (`linkedin/ia-gratuite-ou-payante.md`, 1183 car.) a été généré du premier coup par Claude. L'étape du workflow est en `continue-on-error: true`, donc un post raté n'a jamais bloqué la publication.
+
 ### Reste à faire
 - **Jérémy** : poser `RESEND_API_KEY` en secret GitHub (valeur déjà dans Vercel) → réactive l'email de publication, qui transporte aussi le post LinkedIn.
-- Repéré, non corrigé (hors périmètre validé) : dans `linkedin-post.mjs`, la boucle des 2 essais n'entoure pas `generer()` d'un try/catch → une exception au 1ᵉʳ essai tue le script sans utiliser le 2ᵉ (scénario vécu le 27-07).
+- Le post du 27-07 est généré mais **non programmé sur Zernio** (le run de ce matin s'était arrêté avant) → à programmer à la main si tu veux le publier.
 
 ## 2026-07-21 · Déclinaison LinkedIn automatique des articles
 

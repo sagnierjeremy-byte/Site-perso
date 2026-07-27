@@ -19,7 +19,10 @@ audits/
 # Données persistantes du back-office
 data/
 # Ré-inclure les données publiques utilisées par les pages prod
+# ⚠️ Tout JSON de data/ lu par une page prod DOIT être ré-inclus ici, sinon 404 silencieux
+# (news-summary.json a été invisible du 22-05 au 27-07 2026 faute de cette ligne)
 !data/models-ai.json
+!data/news-summary.json
 
 # Scripts Node.js (ne tournent qu'en local)
 scripts/

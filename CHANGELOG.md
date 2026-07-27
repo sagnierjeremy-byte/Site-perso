@@ -1,5 +1,26 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-27 · Health-check blog auto — résumé news invisible depuis 2 mois + 2 fallbacks
+
+### Pourquoi
+Check demandé par Jérémy (« est-ce que tout est bien automatique »). Le crédit API Anthropic était épuisé : `daily-news-summary` échouait depuis le 25-07 (3 jours, issue #6), et l'autopilot survivait via son fallback OpenRouter mais avec le ton Leo à 6/10 (Kimi écrit au lieu de Claude) et le post LinkedIn cassé. Crédits rechargés par Jérémy → cron relancé à la main (vert en 53 s, résumé du 27-07 commité `231e254`).
+
+### 🔥 Trouvaille : le résumé news n'a JAMAIS été visible en prod (22-05 → 27-07)
+`.vercelignore` exclut `data/` (commit sécurité du 21-04) avec une seule exception `!data/models-ai.json` (21-05). Le résumé news est arrivé le **22-05 sans son exception** → `jerwis.fr/data/news-summary.json` renvoyait **404**, et `loadSummary()` (`assets/news-page.js:479`) fait `if (!res.ok) return;` → échec **silencieux**. Prouvé en prod : fetch 404 (content-type text/html) + `.news-summary` présent dans le DOM mais vide. La page n'a jamais eu l'air cassée car le flux d'actus passe par `/api/news` (200, 60 items). **Deux mois de résumés quotidiens générés, commités, et jamais affichés.**
+
+### Livré
+- **`.vercelignore`** : `!data/news-summary.json` + commentaire d'avertissement (tout JSON de `data/` lu par une page prod doit être ré-inclus, sinon 404 silencieux).
+- **`scripts/build-news-summary.js`** : fallback **OpenRouter/Kimi K2.6** en mode JSON si Claude échoue (le cron ne dépend plus d'un seul provider). Validation commune `validateItems()` (5 items, champs et URLs non vides) appliquée aux deux chemins ; consigne « utilise le tool » remplacée par une consigne JSON sur le chemin fallback ; normalisation du secret `CLAUDE` → `ANTHROPIC_API_KEY` ; garde d'entrée = au moins un provider.
+- **`.github/workflows/daily-news-summary.yml`** : `OPENROUTER_API_KEY` passé au job.
+- **`scripts/blog/linkedin-post.mjs`** : `max_tokens` 2000 → **16000 sur le chemin OpenRouter** (Kimi est un modèle « thinking » : max_tokens court = content vide, `finish: length`). C'est le remède déjà appliqué au juge de la gate, qui n'avait jamais été porté ici — cause exacte de l'échec du post LinkedIn du 27-07.
+
+### Vérifié
+Chemin nominal Claude testé en local (5 items écrits) **et** chemin fallback forcé avec une clé invalide : 401 ×2 → bascule OpenRouter → **1ᵉʳ essai vide (`finish: stop`), 2ᵉ essai OK** → d'où le passage du fallback à **3 essais**. Sortie Kimi contrôlée : ton Leo respecté (1ʳᵉ personne), titres ≤61 car., accroches ≤141 car. `data/news-summary.json` restauré à la version du workflow après les tests (aucune trace). YAML + syntaxe JS validés.
+
+### Reste à faire
+- **Jérémy** : poser `RESEND_API_KEY` en secret GitHub (valeur déjà dans Vercel) → réactive l'email de publication, qui transporte aussi le post LinkedIn.
+- Repéré, non corrigé (hors périmètre validé) : dans `linkedin-post.mjs`, la boucle des 2 essais n'entoure pas `generer()` d'un try/catch → une exception au 1ᵉʳ essai tue le script sans utiliser le 2ᵉ (scénario vécu le 27-07).
+
 ## 2026-07-21 · Déclinaison LinkedIn automatique des articles
 
 ### Pourquoi

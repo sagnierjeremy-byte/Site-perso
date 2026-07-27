@@ -89,7 +89,9 @@ async function generer() {
     try { return (await claude(prompt, { ...opts, model: 'claude-sonnet-4-6' })).text; }
     catch (e) { console.error(`  ⟳ Claude KO (${e.message.slice(0, 80)}) → fallback OpenRouter…`); }
   }
-  if (await hasOpenRouter()) return (await openrouter(prompt, opts)).text;
+  // Kimi K2.6 est un modèle « thinking » : avec un max_tokens court il consomme tout en
+  // raisonnement et renvoie un content vide (finish: length). 16k comme le juge de la gate.
+  if (await hasOpenRouter()) return (await openrouter(prompt, { ...opts, max_tokens: 16000 })).text;
   throw new Error('Aucune clé LLM disponible');
 }
 

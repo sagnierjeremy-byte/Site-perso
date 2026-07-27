@@ -31,6 +31,9 @@ jobs:
         env:
           # secret repo = CLAUDE (pas ANTHROPIC_API_KEY) ; fallback pour rester robuste
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY || secrets.CLAUDE }}
+          # 2e provider : si le crédit Anthropic est à sec, le script bascule sur Kimi K2.6
+          # (panne silencieuse de 3 jours le 25-27/07/2026 faute de ce fallback)
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: npm run news:build
 
       - name: Commit and push

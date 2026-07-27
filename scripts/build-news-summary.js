@@ -8,6 +8,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Anthropic from '@anthropic-ai/sdk';
+import { openrouter, hasClaude, hasOpenRouter } from './blog/llm.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -18,10 +19,28 @@ const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929';
 const MAX_AGE_HOURS = 24;
 const MAX_ARTICLES_IN_PROMPT = 60;
 
+function validateItems(items) {
+  if (!Array.isArray(items) || items.length !== 5) return null;
+  const ok = items.every(it =>
+    it && typeof it.title === 'string' && it.title.trim()
+    && typeof it.why_it_matters === 'string' && it.why_it_matters.trim()
+    && Array.isArray(it.sources) && it.sources.length
+    && it.sources.every(s => s && typeof s.url === 'string' && s.url.trim())
+  );
+  return ok ? items : null;
+}
+
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('Missing ANTHROPIC_API_KEY env var');
+  // hasClaude/hasOpenRouter load .env.local when present and tolerate the CLAUDE secret name.
+  const useClaude = await hasClaude();
+  const useOpenRouter = await hasOpenRouter();
+  if (!useClaude && !useOpenRouter) {
+    console.error('Missing ANTHROPIC_API_KEY (or CLAUDE) and OPENROUTER_API_KEY — need at least one');
     process.exit(1);
+  }
+  // The repo secret is named CLAUDE on GitHub; the Anthropic SDK only reads ANTHROPIC_API_KEY.
+  if (!process.env.ANTHROPIC_API_KEY && process.env.CLAUDE) {
+    process.env.ANTHROPIC_API_KEY = process.env.CLAUDE;
   }
 
   console.log(`Fetching ${NEWS_API}...`);
@@ -112,39 +131,78 @@ Pour chacune, écris :
 
 Retourne via record_summary.`;
 
-  const client = new Anthropic();
-
-  let toolUseBlock = null;
-  for (let attempt = 1; attempt <= 2 && !toolUseBlock; attempt++) {
-    try {
-      const response = await client.messages.create({
-        model: MODEL,
-        max_tokens: 2000,
-        system: systemPrompt,
-        tools: [tool],
-        tool_choice: { type: 'tool', name: 'record_summary' },
-        messages: [{ role: 'user', content: userPrompt }],
-      });
-      toolUseBlock = response.content.find(b => b.type === 'tool_use');
-      if (!toolUseBlock) {
-        console.warn(`Attempt ${attempt}: Claude did not call the tool, retrying...`);
-        await new Promise(r => setTimeout(r, 5000));
+  // 1) Claude with structured tool use — preferred, best "ton Leo".
+  let items = null;
+  if (useClaude) {
+    const client = new Anthropic();
+    for (let attempt = 1; attempt <= 2 && !items; attempt++) {
+      try {
+        const response = await client.messages.create({
+          model: MODEL,
+          max_tokens: 2000,
+          system: systemPrompt,
+          tools: [tool],
+          tool_choice: { type: 'tool', name: 'record_summary' },
+          messages: [{ role: 'user', content: userPrompt }],
+        });
+        const toolUseBlock = response.content.find(b => b.type === 'tool_use');
+        if (!toolUseBlock) {
+          console.warn(`Attempt ${attempt}: Claude did not call the tool, retrying...`);
+          await new Promise(r => setTimeout(r, 5000));
+          continue;
+        }
+        items = validateItems(toolUseBlock.input?.items);
+        if (!items) console.warn(`Attempt ${attempt}: Claude returned malformed items, retrying...`);
+      } catch (e) {
+        console.error(`Attempt ${attempt} failed:`, e.message);
+        if (attempt < 2) await new Promise(r => setTimeout(r, 5000));
       }
-    } catch (e) {
-      console.error(`Attempt ${attempt} failed:`, e.message);
-      if (attempt === 2) throw e;
-      await new Promise(r => setTimeout(r, 5000));
     }
   }
 
-  if (!toolUseBlock) {
-    console.error('Claude failed to call the tool after retries.');
-    process.exit(1);
+  // 2) Fallback OpenRouter (Kimi K2.6) in JSON mode. Learned 2026-07-27: the Anthropic
+  //    credit ran dry and this cron died silently for 3 days because it had no fallback,
+  //    while the blog autopilot kept running on OpenRouter. max_tokens must stay high —
+  //    Kimi is a "thinking" model and returns an empty content on finish: length.
+  if (!items) {
+    if (!useOpenRouter) {
+      console.error('Claude failed and no OPENROUTER_API_KEY to fall back on.');
+      process.exit(1);
+    }
+    console.warn('⟳ Claude KO → fallback OpenRouter (Kimi K2.6)…');
+    // No tool use on this path: swap the "use the tool" instruction for a JSON one.
+    const systemForJson = systemPrompt.replace(
+      'Tu DOIS utiliser le tool record_summary pour répondre. Pas de texte libre.',
+      'Tu DOIS répondre uniquement par un objet JSON valide, sans texte autour.'
+    );
+    const jsonPrompt = `${userPrompt}
+
+Réponds UNIQUEMENT avec un objet JSON valide, sans texte autour, exactement à ce format :
+{"items":[{"title":"...","why_it_matters":"...","sources":[{"name":"...","url":"..."}]}]}
+Exactement 5 items. title max 80 caractères, why_it_matters max 160 caractères. Les URLs doivent provenir des articles fournis.`;
+
+    // 3 attempts, not 2: Kimi often returns an empty content on the first call
+    // (observed 2026-07-27 — finish: stop with no content, the retry succeeds).
+    for (let attempt = 1; attempt <= 3 && !items; attempt++) {
+      try {
+        const { text } = await openrouter(jsonPrompt, {
+          system: systemForJson,
+          temperature: 0.4,
+          json: true,
+          max_tokens: 16000,
+        });
+        const parsed = JSON.parse(text);
+        items = validateItems(parsed.items);
+        if (!items) console.warn(`OpenRouter attempt ${attempt}: malformed items, retrying...`);
+      } catch (e) {
+        console.error(`OpenRouter attempt ${attempt} failed:`, e.message);
+        if (attempt < 3) await new Promise(r => setTimeout(r, 5000));
+      }
+    }
   }
 
-  const items = toolUseBlock.input.items;
-  if (!Array.isArray(items) || items.length !== 5) {
-    console.error('Invalid items count:', items?.length);
+  if (!items) {
+    console.error('Both Claude and OpenRouter failed to produce a valid summary.');
     process.exit(1);
   }
 

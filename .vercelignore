@@ -17,10 +17,13 @@ social-drafts/
 audits/
 
 # Données persistantes du back-office
-data/
+# ⚠️ « data/* » et NON « data/ » : un dossier exclu n'est pas parcouru, donc les
+# ré-inclusions « !data/x.json » ci-dessous seraient inopérantes (vérifié le 27-07-2026 :
+# models-ai.json ET news-summary.json renvoyaient 404 en prod, catalogue de modèles
+# vide et bloc résumé news jamais affiché).
+data/*
 # Ré-inclure les données publiques utilisées par les pages prod
-# ⚠️ Tout JSON de data/ lu par une page prod DOIT être ré-inclus ici, sinon 404 silencieux
-# (news-summary.json a été invisible du 22-05 au 27-07 2026 faute de cette ligne)
+# Tout nouveau JSON de data/ lu par une page prod DOIT être ajouté ici.
 !data/models-ai.json
 !data/news-summary.json
 

@@ -5,11 +5,15 @@
 ### Pourquoi
 Check demandé par Jérémy (« est-ce que tout est bien automatique »). Le crédit API Anthropic était épuisé : `daily-news-summary` échouait depuis le 25-07 (3 jours, issue #6), et l'autopilot survivait via son fallback OpenRouter mais avec le ton Leo à 6/10 (Kimi écrit au lieu de Claude) et le post LinkedIn cassé. Crédits rechargés par Jérémy → cron relancé à la main (vert en 53 s, résumé du 27-07 commité `231e254`).
 
-### 🔥 Trouvaille : le résumé news n'a JAMAIS été visible en prod (22-05 → 27-07)
-`.vercelignore` exclut `data/` (commit sécurité du 21-04) avec une seule exception `!data/models-ai.json` (21-05). Le résumé news est arrivé le **22-05 sans son exception** → `jerwis.fr/data/news-summary.json` renvoyait **404**, et `loadSummary()` (`assets/news-page.js:479`) fait `if (!res.ok) return;` → échec **silencieux**. Prouvé en prod : fetch 404 (content-type text/html) + `.news-summary` présent dans le DOM mais vide. La page n'a jamais eu l'air cassée car le flux d'actus passe par `/api/news` (200, 60 items). **Deux mois de résumés quotidiens générés, commités, et jamais affichés.**
+### 🔥 Trouvaille : `.vercelignore` cassait 5 pages — dont le catalogue de modèles
+`.vercelignore` excluait **`data/`** (commit sécurité du 21-04). Or un *dossier* exclu n'est pas parcouru → **toutes** les ré-inclusions `!data/x.json` étaient inopérantes, y compris `!data/models-ai.json` posée le 21-05 qui n'a donc jamais fonctionné. Constaté en prod le 27-07 :
+- **`/modeles-ia`, `/modeles-image-ia` (+ EN)** : `fetch('data/models-ai.json')` → **404**, **0 carte affichée**, compteurs de « État de la base » à « -- ». **Le catalogue de 53 modèles était invisible.**
+- **`/news`** : bloc `.news-summary` présent dans le DOM mais toujours vide (`loadSummary()` dans `assets/news-page.js:479` fait `if (!res.ok) return;` → échec **silencieux**). La page n'avait pas l'air cassée car le flux d'actus passe par `/api/news` (200, 60 items). **Résumé quotidien généré et commité depuis le 22-05 : jamais affiché.**
+
+Fix : **`data/*`** au lieu de `data/` (matche les entrées une à une, ce qui rend les exceptions valides). Sémantique validée en isolation (repo jetable + `git check-ignore`) avant application. Vérifié en prod après déploiement : `models-ai.json` **200**, `news-summary.json` **200**, `topic-queue.json` toujours **404** (file éditoriale privée, comme voulu) ; `/modeles-ia` affiche **53 modèles / 21 open-weight / 36 cartes** et `/news` affiche « ◆ Aujourd'hui en 30 secondes · Lundi 27 juillet ».
 
 ### Livré
-- **`.vercelignore`** : `!data/news-summary.json` + commentaire d'avertissement (tout JSON de `data/` lu par une page prod doit être ré-inclus, sinon 404 silencieux).
+- **`.vercelignore`** : `data/` → **`data/*`** + `!data/news-summary.json` + commentaire d'avertissement (tout nouveau JSON de `data/` lu par une page prod doit être ré-inclus ici).
 - **`scripts/build-news-summary.js`** : fallback **OpenRouter/Kimi K2.6** en mode JSON si Claude échoue (le cron ne dépend plus d'un seul provider). Validation commune `validateItems()` (5 items, champs et URLs non vides) appliquée aux deux chemins ; consigne « utilise le tool » remplacée par une consigne JSON sur le chemin fallback ; normalisation du secret `CLAUDE` → `ANTHROPIC_API_KEY` ; garde d'entrée = au moins un provider.
 - **`.github/workflows/daily-news-summary.yml`** : `OPENROUTER_API_KEY` passé au job.
 - **`scripts/blog/linkedin-post.mjs`** : `max_tokens` 2000 → **16000 sur le chemin OpenRouter** (Kimi est un modèle « thinking » : max_tokens court = content vide, `finish: length`). C'est le remède déjà appliqué au juge de la gate, qui n'avait jamais été porté ici — cause exacte de l'échec du post LinkedIn du 27-07.

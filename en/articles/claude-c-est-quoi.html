@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/claude-c-est-quoi.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Claude AI: better than ChatGPT for entrepreneurs? · Jerwis</title>
+<meta name="description" content="Claude, Anthropic's AI, pulls ahead of ChatGPT on several key points. I break down what it does better, how to try it free, and who it's really built for.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Claude AI: better than ChatGPT for entrepreneurs?">
+<meta property="og:description" content="Claude pulls ahead of ChatGPT on key points. I break down what it does better, how to try it free, and who it's built for.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/claude-c-est-quoi">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/claude-c-est-quoi.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-28">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Claude AI: better than ChatGPT for entrepreneurs?">
+<meta name="twitter:description" content="Claude pulls ahead of ChatGPT on key points. I break down what it does better, how to try it free, and who it's built for.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/claude-c-est-quoi.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/claude-c-est-quoi">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/claude-c-est-quoi">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/claude-c-est-quoi">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/claude-c-est-quoi">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Claude AI: better than ChatGPT for entrepreneurs?",
+  "description": "Claude, Anthropic's AI, pulls ahead of ChatGPT on several key points. I break down what it does better, how to try it free, and who it's really built for.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/claude-c-est-quoi",
+  "datePublished": "2026-07-28",
+  "dateModified": "2026-07-28",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/claude-c-est-quoi.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 73</div>
+    <h1>Claude,<br>what exactly is it<br><em>and why does it change everything?</em></h1>
+    <p class="hero-lead">
+      You keep hearing about Claude, but you're not quite sure what sets it apart from ChatGPT — or whether it's actually worth changing your habits. I had the same question. Here's what I found: an AI built by Anthropic, designed with a different philosophy, that's pulling ahead on specific points that genuinely matter for a non-developer entrepreneur. I'm giving you the facts, the numbers, and how to test it without spending a dime.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Claude (Anthropic)</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>Claude is an AI from Anthropic, founded by former OpenAI researchers, with a philosophy built around <strong>safety and ethics</strong>.</li>
+      <li>It excels at <strong>long-form reasoning, document analysis</strong>, and structured writing quality — direct advantages for entrepreneurs.</li>
+      <li>The free plan gives you access to <strong>Claude Sonnet 5</strong>, the default model on claude.ai, no credit card required.</li>
+      <li>Anthropic accounted for <strong>40% of enterprise LLM spending in 2025</strong>, ahead of OpenAI — this is no longer an underdog story.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Why everyone's talking about it</h2>
+    <p>Two years ago, if you mentioned Claude in an AI conversation, you'd get a polite smile. Today, it's a different story. Anthropic's share of enterprise AI spending jumped from 12% in 2023 to 40% in 2025, according to available data — overtaking OpenAI in adoption momentum. And as of this article, Anthropic's annualized revenue exceeds $47 billion, compared to $25 billion for OpenAI. 70% of Fortune 100 companies are Claude customers.</p>
+    <p>This is no longer a challenger. It's become a reference in its own right.</p>
+    <p>But numbers only tell part of the story. What I care about is understanding <em>why</em> Claude is attracting so much attention — and whether it's actually relevant for someone like me: an entrepreneur who uses AI every day without writing a single line of code.</p>
+    <hr>
+    <h2>Where Claude actually comes from</h2>
+    <p>Anthropic was founded by former OpenAI researchers — the same company that built ChatGPT. They left with a conviction: AI needs to be built differently, with safety and ethics as structural priorities, not last-minute add-ons.</p>
+    <p>They developed what they call <strong>constitutional AI</strong>: Claude is trained to follow a set of explicit principles — something like an internal charter — that guides its responses. In practice, that means a model that refuses things less arbitrarily, explains its limits more clearly, and produces more nuanced answers on sensitive topics.</p>
+    <p>This isn't marketing. It's an architectural choice that has real, concrete effects on the quality of your conversations.</p>
+    <p>Claude isn't a single model — it's a family. As of this article, here's what's available:</p>
+    <ul>
+    <li><strong>Claude Sonnet 5</strong> (released June 30, 2026): the default model on claude.ai, for both free and Pro accounts. This is the one you'll use first.</li>
+    <li><strong>Claude Opus 5</strong> (launched July 24, 2026): the most powerful model, described as thoughtful and proactive, reserved for paid subscribers.</li>
+    <li><strong>Claude Haiku 4.5</strong> (launched October 15, 2025): the fastest and most cost-efficient, built for high-frequency use cases where speed matters most.</li>
+    </ul>
+    <p>Each model serves a different need. For an entrepreneur just getting started, Sonnet 5 is more than enough.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What Claude actually does better</h2>
+    <p>I'm not going to tell you Claude is "better" than ChatGPT across the board. That would be wrong, and it wouldn't mean much anyway. Both are excellent. But Claude pulls ahead on specific dimensions that matter to me.</p>
+    <p><strong>Reasoning over long documents.</strong> Claude can analyze very long texts in a single conversation, thanks to an extended <a href="/en/lexique/context-window">context window</a>. Concretely: you can paste in an 80-page contract, an annual report, or a thread of emails, and ask it to analyze, summarize, or compare them. Without losing the thread. Without asking you to "summarize first."</p>
+    <p><strong>Structured writing quality.</strong> Claude produces well-organized text with clear internal logic. For writing a business proposal, structuring a strategy, or drafting a brief, that's a real advantage. The output feels less "generic AI" and more "someone who actually thought it through."</p>
+    <p><strong>Agentic behavior.</strong> Claude Sonnet 5 is described by Anthropic as the most "agentic" Sonnet model to date. If that word doesn't mean much to you yet, I'd point you to <a href="/en/lexique/agentic-workflow">this article on agentic workflows</a> — the short version: Claude can chain reasoning steps autonomously, not just answer a single question.</p>
+    <p><strong>Reliability on code.</strong> Claude Opus 4.8 (launched May 2026) is roughly four times less likely to let an error slip through its own code without flagging it. For someone using AI to automate tasks without being a developer, that difference matters: you want a tool that tells you when it's unsure, not one that hallucinates with confidence.</p>
+    <div class="callout tip">
+    <h4>My takeaways</h4>
+    <p>If you regularly work with long documents — contracts, reports, email archives — Claude is probably better suited than ChatGPT for that kind of task. Not because it's "smarter," but because its context window and behavior on structured text are specifically designed for it.</p>
+    </div>
+    
+    <hr>
+    <h2>How to try Claude without paying</h2>
+    <p>It's simple. Go to <a href="https://claude.ai">claude.ai</a>, create an account with your email, and start. No credit card. No commitment.</p>
+    <p>The free plan gives you access to <strong>Claude Sonnet 5</strong>, the default model. It's already very capable for the vast majority of use cases: writing, analysis, brainstorming, document summarization.</p>
+    <p>What are the free plan's limits? The number of messages per day is capped, and you don't have access to the most powerful models like Opus 5. If you use Claude heavily, the Pro plan unlocks more capacity and access to additional models.</p>
+    <p>My recommendation: start with the free version. Test it on your real use cases. If you hit the limits in under a week, that's actually a good sign — it means the tool is genuinely useful to you.</p>
+    <p>One important note on memory: since July 10, 2026, Claude handles memory differently. It now works as a set of individual, categorized entries that Claude reads and updates across conversations. It's more precise than the daily summary system it used before. In practice, Claude can better remember your preferences, your context, your ongoing projects — as long as you give it that information.</p>
+    <p>To get more out of your conversations with Claude, the quality of your prompts makes all the difference. I wrote a dedicated article for non-developers on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt</a> — it's probably the most useful thing to read right after creating your account.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What Claude can do for your business</h2>
+    <p>I'll be straight with you: Claude isn't just an upgraded chatbot. It's a tool that can fit into real workflows, even if you don't write code.</p>
+    <p><strong>For writing and strategy.</strong> Preparing a pitch, structuring an offer, drafting a newsletter, analyzing a quarter's worth of customer feedback — Claude handles all of this with output quality that needs very little cleanup. Its ability to follow long, precise instructions without "forgetting" the early ones is a genuine day-to-day advantage.</p>
+    <p><strong>For document analysis.</strong> Got a 40-page RFP? Want to compare two contracts? Looking for the key points in a 60-page report? Claude is built for this. The large context window isn't a technical footnote — it's what makes these use cases possible without having to chop the document into pieces.</p>
+    <p><strong>For no-code automation.</strong> Claude Sonnet 5 is designed for <a href="/en/lexique/agentic-workflow">agentic workflows</a>: it can chain tasks, make intermediate decisions, and connect to other tools via platforms like Zapier or Make. If you want to explore that direction, I have an article on <a href="/en/articles/automatiser-taches-ia-sans-coder">how to automate tasks with AI without writing code</a>.</p>
+    <p><strong>For entrepreneurs who want to compare their options.</strong> Claude isn't the only AI out there, and depending on what you do — writing, images, code, analysis — the best tool can vary. I did that comparison work in a dedicated article: <a href="/en/articles/choisir-ia-ecrire-coder-images">choosing your AI based on your needs</a>.</p>
+    <div class="callout tip">
+    <h4>The trap to avoid</h4>
+    <p>A lot of people test Claude with generic questions ("give me some content ideas") and conclude it's "the same as ChatGPT." Claude's advantage shows up on long, structured tasks: give it a real document, a real constraint, a real context. That's where the difference becomes visible.</p>
+    </div>
+    
+    <hr>
+    <h2>And what about Claude Code?</h2>
+    <p>You may have heard of <strong>Claude Code</strong>. It's a terminal-based tool that works directly inside a developer's file system. By May 2026, it had reached $8 billion in annualized revenue — which says something about adoption.</p>
+    <p>I'll be honest: if you're not a developer, Claude Code is not your entry point. It's a tool built for people who work in technical environments. But if you collaborate with a developer or a technical team, knowing that Claude excels in this area can shape your shared tool choices. I have a more detailed article on <a href="/en/articles/claude-code-workflow-tips">Claude Code and its practical uses</a> if you want to dig in.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Is Claude really more powerful than ChatGPT?</h3>
+    <p>Not across the board. Both are solid. Claude pulls ahead on specific dimensions: reasoning over long documents, structured writing, agentic behavior. ChatGPT has its own strengths, especially around multimodality and tool integrations. The right choice depends on what you actually do.</p>
+    <h3>Can I use Claude to generate images or visuals?</h3>
+    <p>No — as of this article, Claude doesn't generate images. It's a language model: it processes and produces text. For visuals, other tools are better suited — I cover them in my article on <a href="/en/articles/choisir-ia-ecrire-coder-images">choosing your AI based on your needs</a>.</p>
+    <h3>What's the difference between Opus, Sonnet, and Haiku?</h3>
+    <p>Simply put: <strong>Opus</strong> is the most powerful, for complex tasks and long reasoning chains. <strong>Sonnet</strong> is the performance/speed sweet spot — it's the default model you'll use day to day. <strong>Haiku</strong> is the fastest and most cost-efficient, built for high-frequency use cases where speed matters more than depth.</p>
+    <h3>How do I connect Claude to my tools without writing code?</h3>
+    <p>Claude integrates via platforms like Zapier or Make, which bridge claude.ai and your other tools (Gmail, Notion, Slack…) without you writing a single line of code. I walk through this approach in my article on <a href="/en/articles/automatiser-taches-ia-sans-coder">no-code automation</a>.</p>
+    <h3>Is Claude safe to use with confidential information?</h3>
+    <p>Anthropic built Claude with a strong safety philosophy, and that's part of what draws large enterprises — 70% of the Fortune 100 use it. That said, as with any cloud tool, avoid pasting ultra-sensitive data (account numbers, customer personal data) into an online interface without reading the terms of service first. Anthropic's Enterprise plan offers additional data privacy guarantees.</p>
+    <h3>Is there an official Claude app?</h3>
+    <p>Yes. Claude is accessible via the web at <a href="https://claude.ai">claude.ai</a>, and Anthropic offers official mobile apps. Check your device's app store for the latest version.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>Claude surprised me. Not because it does everything better than ChatGPT — that's not the right frame. But because it does certain things <em>noticeably</em> better, and those things happen to be exactly what I need: analyzing a long document without losing the thread, producing structured text without asking me to reformat it, and holding a complex conversation across multiple exchanges without drifting.</p>
+    <p>The fact that Anthropic went from 12% to 40% of enterprise LLM spending in two years isn't an accident. There's something genuinely solid behind it.</p>
+    <p>My advice: create a free account on claude.ai today. Grab a real document from your work — a contract, a report, an email thread — and ask it to analyze it. That's where you'll see the difference, not on a generic question.</p>
+    <p>I do all of this for myself first. And if it helps you decide faster, that's even better.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

@@ -32,12 +32,21 @@ if (!slug || !when || !accountId) {
 }
 
 function apiKey() {
+  // 1) Variable d'environnement AVANT les fichiers : en CI (GitHub Actions) il n'existe
+  //    ni .env.local ni le .env de content-factory, seul le secret est injecté en env.
+  //    Sans ça, l'étape « programmation Zernio » du workflow échouait sur
+  //    « ✗ ZERNIO_API_KEY introuvable » alors que le secret était bien passé — aucun
+  //    post n'a donc été programmé automatiquement du 21-07 au 29-07 2026.
+  if (process.env.ZERNIO_API_KEY?.trim()) {
+    return process.env.ZERNIO_API_KEY.trim().replace(/^["']|["']$/g, '');
+  }
+  // 2) Sinon les fichiers locaux (usage en local, hors CI).
   for (const p of [path.join(ROOT, '.env.local'), path.join(os.homedir(), 'Projets', 'content-factory', '.env')]) {
     if (!existsSync(p)) continue;
     const m = readFileSync(p, 'utf8').match(/^ZERNIO_API_KEY=(.*)$/m);
     if (m) return m[1].trim().replace(/^["']|["']$/g, '');
   }
-  console.error('✗ ZERNIO_API_KEY introuvable (.env.local ici ou .env de content-factory)');
+  console.error('✗ ZERNIO_API_KEY introuvable (env, .env.local ici, ou .env de content-factory)');
   process.exit(1);
 }
 

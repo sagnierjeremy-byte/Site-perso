@@ -1,5 +1,21 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-29 · La programmation LinkedIn auto ne fonctionnait pas en CI + backlog écoulé
+
+### 🔴 Bug : `ZERNIO_API_KEY` jamais lue en CI (depuis le 21-07)
+`scripts/blog/zernio-schedule.mjs` cherchait la clé **uniquement dans des fichiers** (`.env.local` du repo, puis `~/Projets/content-factory/.env`). En CI aucun de ces fichiers n'existe : le workflow passe bien le secret et le test `if [ -n "$ZERNIO_API_KEY" ]` réussit, mais le script sortait sur `✗ ZERNIO_API_KEY introuvable`. Vu dans le log du run du 28-07 (article `claude-c-est-quoi`). **Conséquence : aucun post programmé automatiquement du 21-07 au 29-07** — les 4 posts sortis du 21 au 24 avaient été programmés à la main, et 8 posts se sont accumulés.
+
+**Fix** : `process.env.ZERNIO_API_KEY` lue **en priorité**, fichiers en fallback pour l'usage local. Vérifié dans les deux sens : clé invalide en env → `Zernio 401` (donc l'env gagne bien, et aucun post créé) ; sans env → fallback fichier opérationnel.
+
+### Backlog LinkedIn écoulé (8 posts programmés, 8h30 Paris)
+jeu 30-07 creer-chanson-ia · lun 03-08 modifier-photo-avec-ia · jeu 06-08 resumer-pdf-video-avec-ia · lun 10-08 ia-cv-lettre-entretien · jeu 13-08 le-chat-mistral-vs-chatgpt · lun 17-08 apprendre-langue-avec-ia · jeu 20-08 donnees-perso-ia-confidentialite · lun 24-08 claude-c-est-quoi. Créneaux choisis sur lundi/jeudi pour ne pas percuter les posts automatiques (article J → post J+1, articles lun/mar/jeu/ven ⇒ auto sur mar/mer/ven/sam). `claude-c-est-quoi` a été **redaté du 31-07 au 24-08** après le fix ci-dessus, car l'autopilot va de nouveau occuper le vendredi 31 (post de l'article du jeudi 30) ; PUT partiel Zernio, contenu et 1ᵉʳ commentaire vérifiés intacts après coup.
+
+### ⚠️ Incident : un post publié immédiatement au lieu d'être programmé
+`ia-gratuite-ou-payante` est parti sur LinkedIn dès sa création (`urn:li:share:7488144206574841856`) au lieu du créneau visé : la date cible avait été calculée depuis une date de référence périmée (27-07 au lieu du 29-07 réel), donc `scheduledFor` était **dans le passé** — et Zernio publie sans erreur explicite dans ce cas (`status: published`, `publishedAt: undefined`). Aucun doublon (c'était le seul post Jerwis de la semaine). **Règle retenue : avant toute programmation, vérifier l'heure réelle (en-tête HTTP `Date` d'un serveur tiers) et non la date de session ; puis contrôler que la cible est bien future.**
+
+### Au passage — les correctifs du 27-07 tiennent
+`daily-news-summary` **vert le 28 et le 29** (après 3 échecs). Le `try/catch` de `linkedin-post.mjs` a servi dès le run du 28 : post `claude-c-est-quoi` généré du premier coup (987 car.). L'article du 28 est passé après un rejet-régénération de la gate (factualité 5/10 au 1ᵉʳ essai) — le filet qualité fonctionne.
+
 ## 2026-07-27 · Health-check blog auto — résumé news invisible depuis 2 mois + 2 fallbacks
 
 ### Pourquoi

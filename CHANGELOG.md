@@ -13,6 +13,11 @@ jeu 30-07 creer-chanson-ia · lun 03-08 modifier-photo-avec-ia · jeu 06-08 resu
 ### ⚠️ Incident : un post publié immédiatement au lieu d'être programmé
 `ia-gratuite-ou-payante` est parti sur LinkedIn dès sa création (`urn:li:share:7488144206574841856`) au lieu du créneau visé : la date cible avait été calculée depuis une date de référence périmée (27-07 au lieu du 29-07 réel), donc `scheduledFor` était **dans le passé** — et Zernio publie sans erreur explicite dans ce cas (`status: published`, `publishedAt: undefined`). Aucun doublon (c'était le seul post Jerwis de la semaine). **Règle retenue : avant toute programmation, vérifier l'heure réelle (en-tête HTTP `Date` d'un serveur tiers) et non la date de session ; puis contrôler que la cible est bien future.**
 
+### Notifications email activées (fin du dernier maillon)
+`RESEND_API_KEY` posée en secret GitHub par Jérémy + variable `NOTIFY_EMAIL` = `jeremy.sagnier@eurofiscalis.com`. **Domaines Resend contrôlés via l'API avant de choisir l'expéditeur** : la clé du site jerwis a `jerwis.fr` ✓ *verified* → le FROM `jeremy@jerwis.fr` du script est bon tel quel. Écarté volontairement : `jeremy@eurofiscalis.app` (vérifié, mais sur un **autre compte Resend** dont la clé est partagée par 4 projets Eurofiscalis — blast radius à la rotation, et mélange d'identité pro/perso). **Envoi réel testé de bout en bout** : `[notify] ✓ email envoyé à jeremy.sagnier@eurofiscalis.com`.
+
+**Fin de l'échec silencieux** (`notify-publish.mjs`) : un refus de Resend faisait `process.exit(0)` — le problème disparaissait des logs. Désormais `exit 1` + message explicite (statut HTTP, corps de la réponse, rappel domaine/clé). L'étape du workflow reste en `continue-on-error: true`, donc **la publication n'est jamais bloquée** : seule l'étape s'affiche en erreur. Le cas « clé absente » garde volontairement `exit 0` (fork ou exécution locale). Les deux chemins testés : clé absente → exit 0 silencieux ; clé invalide → exit 1 + `✗ échec Resend 401`.
+
 ### Au passage — les correctifs du 27-07 tiennent
 `daily-news-summary` **vert le 28 et le 29** (après 3 échecs). Le `try/catch` de `linkedin-post.mjs` a servi dès le run du 28 : post `claude-c-est-quoi` généré du premier coup (987 car.). L'article du 28 est passé après un rejet-régénération de la gate (factualité 5/10 au 1ᵉʳ essai) — le filet qualité fonctionne.
 

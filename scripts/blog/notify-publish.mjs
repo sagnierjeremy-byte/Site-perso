@@ -100,11 +100,15 @@ try {
     body: JSON.stringify({ from: FROM, to: [TO], subject: `📝 Nouvel article : ${title}`, html, text, ...(car.attachments.length ? { attachments: car.attachments } : {}) }),
   });
   if (!res.ok) {
-    console.error('[notify] échec Resend:', res.status, await res.text());
-    process.exit(0);
+    // exit 1 (et non 0) pour que l'échec soit VISIBLE : l'étape du workflow est en
+    // continue-on-error, donc la publication n'est jamais bloquée, mais le run
+    // affiche l'étape en erreur au lieu de faire disparaître le problème.
+    console.error(`[notify] ✗ échec Resend ${res.status} : ${await res.text()}`);
+    console.error(`[notify]   (domaine d'envoi ${FROM} vérifié chez Resend ? clé valide ?)`);
+    process.exit(1);
   }
   console.error(`[notify] ✓ email envoyé à ${TO} pour "${title}"`);
 } catch (e) {
-  console.error('[notify] erreur:', String(e));
-  process.exit(0);
+  console.error('[notify] ✗ erreur:', String(e));
+  process.exit(1);
 }

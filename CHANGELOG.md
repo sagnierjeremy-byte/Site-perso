@@ -1,5 +1,28 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-30 · PWA « Jerwis News » — lot 2 : notification du matin
+
+### Principe
+Une notification par jour, envoyée **par le cron qui produit le résumé** (`daily-news-summary.yml`, nouvelle étape après le commit de `data/news-summary.json`). Titre = « ◆ 5 actus à retenir — <jour> », corps = les 5 titres numérotés. Un tap ouvre `/app` (et refocalise l'app si elle est déjà ouverte au lieu d'ouvrir un doublon).
+
+### Choix d'architecture : pas de base de données
+App **mono-utilisateur** → l'abonnement push est stocké dans le secret GitHub `PUSH_SUBSCRIPTION`, pas dans Neon. Zéro infra, zéro coût, zéro service à surveiller. Contrepartie assumée : si le service push révoque l'endpoint (ça arrive), il faut rappuyer sur « Activer la notif du matin » dans l'app et recoller la valeur — le script détecte ce cas (HTTP 404/410) et l'écrit noir sur blanc au lieu d'échouer obscurément.
+
+### Livré
+- **`scripts/push-daily.mjs`** — construit le payload depuis le résumé, tronque au dernier titre entier (borne 520 car.), envoie via `web-push` (VAPID). `--dry-run` pour inspecter le payload sans envoyer. Sorties : **0 si non configuré** (fork, ou secrets pas encore posés), **0 si envoyé**, **1 sur échec réel** — même principe que le fix de `notify-publish` : l'étape est en `continue-on-error` donc le résumé n'est jamais bloqué, mais un échec reste visible.
+- **`app-sw.js`** — écouteurs `push` (affichage avec icône, `tag: jerwis-digest` + `renotify` pour ne jamais empiler les digests) et `notificationclick` (focus de l'app existante, sinon ouverture).
+- **`app/app.js` + `index.html` + `app.css`** — bouton « Activer la notif du matin » (masqué si non supporté, désactivé avec message clair si l'utilisateur a bloqué les notifs), abonnement `pushManager.subscribe`, puis panneau affichant le JSON à copier dans le secret.
+- **`web-push` ^3.6.7** ajouté aux dépendances. Clés VAPID générées dans `.env.local` (gitignoré) sans jamais afficher la privée.
+
+### Garde-fou : clé publique en dur des deux côtés
+La clé publique VAPID est écrite **en dur** dans `app/app.js` **et** dans `push-daily.mjs` (`PUB_FALLBACK`), avec un test de parité. Raison : une clé divergente entre client et serveur produit des envois rejetés très pénibles à diagnostiquer. Si elle change un jour, il faut la changer **aux deux endroits**.
+
+### Testé
+Syntaxe + YAML valides · non configuré → exit 0 silencieux · abonnement illisible → exit 1 avec la consigne de réabonnement · `--dry-run` → payload correct (5 titres, 370 car.) · UI en permission refusée → bouton « Notifs bloquées (réglages du système) » désactivé, app intacte (60 actus), 0 erreur console · parité des clés vérifiée.
+
+### ⛔ Non testé : l'envoi réel
+Impossible ici — le navigateur de preview refuse la permission de notification (`denied`), donc aucun abonnement valide n'a pu être créé. **Le premier vrai test sera l'iPhone de Jérémy** : installer l'app, appuyer sur « Activer la notif du matin », coller le secret, puis attendre le cron du lendemain (ou lancer le workflow à la main).
+
 ## 2026-07-30 · PWA « Jerwis News » (/app) — lot 1
 
 ### Pourquoi

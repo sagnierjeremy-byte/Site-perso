@@ -55,6 +55,18 @@ jobs:
           done
           echo "Push définitivement échoué après 5 tentatives"; exit 1
 
+      # Notification push vers la PWA /app. Non bloquant : le résumé est déjà
+      # commité à ce stade, un échec d'envoi ne doit pas faire échouer le cron —
+      # mais il reste visible (le script sort en 1, l'étape s'affiche en erreur).
+      - name: Notification push du résumé
+        continue-on-error: true
+        env:
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
+          VAPID_SUBJECT: mailto:jeremy.sagnier@eurofiscalis.com
+        run: node scripts/push-daily.mjs
+
       - name: Alert on failure
         if: failure()
         env:

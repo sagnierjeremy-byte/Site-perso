@@ -61,7 +61,19 @@
 
 <div class="foot">
   <button class="foot-btn" id="mark-all" type="button">Tout marquer comme lu</button>
+  <button class="foot-btn" id="notif" type="button" hidden>Activer la notif du matin</button>
 </div>
+
+<!-- Abonnement push : app perso mono-utilisateur, donc pas de base de données.
+     L'abonnement est collé une fois dans le secret GitHub PUSH_SUBSCRIPTION. -->
+<section class="sub" id="sub" hidden>
+  <p class="sub-txt">Notifications autorisées. Dernière étape, une seule fois : colle ce texte dans le secret GitHub <code>PUSH_SUBSCRIPTION</code>.</p>
+  <textarea class="sub-json" id="sub-json" readonly rows="4" spellcheck="false"></textarea>
+  <div class="sub-actions">
+    <button class="foot-btn" id="sub-copy" type="button">Copier</button>
+    <button class="foot-btn" id="sub-close" type="button">Fermer</button>
+  </div>
+</section>
 
 <script src="/app/app.js?v=1" defer></script>
 </body>

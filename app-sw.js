@@ -125,3 +125,39 @@ self.addEventListener('fetch', function (e) {
 
   // Reste du site (/apprendre, /articles/*, /assets/main.css…) : on ne touche à rien.
 });
+
+/* ─── Notifications push (lot 2) ───────────────────────────────
+ * Une seule notification par jour : le résumé, envoyé par
+ * scripts/push-daily.mjs juste après le cron qui le génère.
+ * ------------------------------------------------------------ */
+
+self.addEventListener('push', function (e) {
+  var data = {};
+  try { data = e.data ? e.data.json() : {}; }
+  catch (err) { data = { body: e.data ? e.data.text() : '' }; }
+
+  e.waitUntil(self.registration.showNotification(data.title || 'Jerwis News', {
+    body: data.body || '',
+    icon: '/photos/app-icons/icon-192.png',
+    badge: '/photos/app-icons/icon-192.png',
+    lang: 'fr',
+    // tag + renotify : une seule notif de digest à la fois, remplacée si relancée
+    tag: data.tag || 'jerwis-digest',
+    renotify: true,
+    data: { url: data.url || '/app' },
+  }));
+});
+
+self.addEventListener('notificationclick', function (e) {
+  e.notification.close();
+  var target = (e.notification.data && e.notification.data.url) || '/app';
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (list) {
+      for (var i = 0; i < list.length; i++) {
+        // app déjà ouverte → on la ramène au premier plan au lieu d'ouvrir un doublon
+        if (list[i].url.indexOf('/app') !== -1 && 'focus' in list[i]) return list[i].focus();
+      }
+      return self.clients.openWindow(target);
+    })
+  );
+});

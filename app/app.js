@@ -237,6 +237,79 @@
   window.addEventListener('online', function () { load(true); });
   window.addEventListener('offline', function () { document.body.classList.add('is-offline'); });
 
+  // ─── notifications push ────────────────────────────────────
+  // Clé publique VAPID : publique par nature, elle DOIT être côté client.
+  // La clé privée vit uniquement dans le secret GitHub VAPID_PRIVATE_KEY.
+  var VAPID_PUBLIC = 'BARW0J86y6KH6KLOgXJnwUqnJVBWostlStEgRIhZ76dMJAxVRcEy1mIyULzZlX2YmUme2jGcf78bXXX6N2Qhg7Y';
+
+  var elNotif = document.getElementById('notif');
+  var elSub = document.getElementById('sub');
+  var elSubJson = document.getElementById('sub-json');
+
+  function b64ToUint8(base64) {
+    var pad = '='.repeat((4 - base64.length % 4) % 4);
+    var raw = atob((base64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+    var out = new Uint8Array(raw.length);
+    for (var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+    return out;
+  }
+
+  function pushSupported() {
+    return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+  }
+
+  function refreshNotifBtn(sub) {
+    if (!pushSupported()) { elNotif.hidden = true; return; }
+    elNotif.hidden = false;
+    if (Notification.permission === 'denied') {
+      elNotif.textContent = 'Notifs bloquées (réglages du système)';
+      elNotif.disabled = true;
+    } else if (sub) {
+      elNotif.textContent = 'Notif du matin activée ✓';
+    } else {
+      elNotif.textContent = 'Activer la notif du matin';
+    }
+  }
+
+  function showSub(sub) {
+    elSubJson.value = JSON.stringify(sub);
+    elSub.hidden = false;
+    elSub.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  elNotif.addEventListener('click', function () {
+    if (!pushSupported()) return;
+    Notification.requestPermission().then(function (perm) {
+      if (perm !== 'granted') { refreshNotifBtn(null); return; }
+      return navigator.serviceWorker.ready.then(function (reg) {
+        return reg.pushManager.getSubscription().then(function (existing) {
+          if (existing) return existing;
+          return reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: b64ToUint8(VAPID_PUBLIC),
+          });
+        });
+      }).then(function (sub) {
+        refreshNotifBtn(sub);
+        showSub(sub);
+      });
+    }).catch(function (e) {
+      console.warn('[app] abonnement push impossible :', e.message);
+      elNotif.textContent = 'Échec de l’abonnement — réessaie';
+    });
+  });
+
+  document.getElementById('sub-copy').addEventListener('click', function () {
+    var txt = elSubJson.value;
+    var done = function () { document.getElementById('sub-copy').textContent = 'Copié ✓'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done).catch(function () {
+      elSubJson.select(); document.execCommand('copy'); done();
+    });
+    else { elSubJson.select(); document.execCommand('copy'); done(); }
+  });
+
+  document.getElementById('sub-close').addEventListener('click', function () { elSub.hidden = true; });
+
   // ─── démarrage ─────────────────────────────────────────────
 
   setAge();
@@ -246,7 +319,13 @@
     // SW servi depuis la racine : Vercel redirige /app/ → /app, donc un SW placé
     // dans /app/ (scope « /app/ ») ne contrôlerait pas la page. Le filtrage fin
     // est fait dans app-sw.js, pas par le scope (qui attrape aussi /apprendre).
-    navigator.serviceWorker.register('/app-sw.js', { scope: '/app' }).catch(function (e) {
+    navigator.serviceWorker.register('/app-sw.js', { scope: '/app' }).then(function () {
+      // l'état du bouton dépend d'un abonnement existant → après le register
+      if (!pushSupported()) { refreshNotifBtn(null); return; }
+      return navigator.serviceWorker.ready
+        .then(function (reg) { return reg.pushManager.getSubscription(); })
+        .then(refreshNotifBtn);
+    }).catch(function (e) {
       console.warn('[app] service worker non enregistré :', e.message);
     });
   }

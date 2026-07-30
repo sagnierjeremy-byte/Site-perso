@@ -4,16 +4,13 @@
 import { XMLParser } from 'fast-xml-parser';
 
 const FEEDS = [
-  // ── IA & Tech — sources mondiales avec images fiables ─────────────────────
+  // ── IA & Tech — fenêtres mondiales (les seules encore vivantes ; The Verge,
+  //    Wired et VentureBeat retirés le 2026-07-30 : flux 404 ou moribonds) ────
   { url: 'https://techcrunch.com/category/artificial-intelligence/feed/', name: 'TechCrunch', category: 'IA' },
-  { url: 'https://venturebeat.com/category/ai/feed/', name: 'VentureBeat', category: 'IA' },
-  { url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml', name: 'The Verge', category: 'IA' },
-  { url: 'https://www.wired.com/feed/category/artificial-intelligence/latest/rss', name: 'Wired', category: 'IA' },
   // ── IA & Tech — sources françaises (originales) ──────────────────────────
   { url: 'https://www.numerama.com/feed/', name: 'Numerama', category: 'IA' },
   { url: 'https://siecledigital.fr/feed/', name: 'Siècle Digital', category: 'IA' },
   { url: 'https://www.usine-digitale.fr/rss/', name: "L'Usine Digitale", category: 'IA' },
-  { url: 'https://www.clubic.com/feed/rss.xml', name: 'Clubic', category: 'IA' },
   // ── IA & Tech — sources françaises (nouvelles 2026-05-22) ─────────────────
   { url: 'https://next.ink/feed/', name: 'Next', category: 'IA' },
   { url: 'https://www.blogdumoderateur.com/feed/', name: 'Blog du Modérateur', category: 'IA' },
@@ -27,9 +24,18 @@ const FEEDS = [
   { url: 'https://www.frandroid.com/marques/intelligence-artificielle/feed', name: 'Frandroid IA', category: 'IA' },
   { url: 'https://intelligence-artificielle.com/feed/', name: 'Intelligence Artificielle', category: 'IA' },
   { url: 'https://simonwillison.net/atom/everything/', name: 'Simon Willison', category: 'IA' },
+  // ── IA & Tech — sources françaises (nouvelles 2026-07-30, testées : 200,
+  //    fraîcheur < 24 h, cadence relevée dans le CHANGELOG) ──────────────────
+  { url: 'https://www.zdnet.fr/feeds/rss/actualites/', name: 'ZDNet France', category: 'IA' },
+  { url: 'https://www.lebigdata.fr/feed', name: 'Le Big Data', category: 'IA' },
+  { url: 'https://www.lemagit.fr/rss/ContentSyndication.xml', name: 'LeMagIT', category: 'IA' },
+  { url: 'https://www.itforbusiness.fr/feed', name: 'IT for Business', category: 'IA' },
+  { url: 'https://www.larevuedudigital.com/feed/', name: 'La Revue du Digital', category: 'IA' },
+  { url: 'https://www.bfmtv.com/rss/tech/', name: 'Tech&Co', category: 'IA' },
   // ── Business — sources françaises ─────────────────────────────────────────
   { url: 'https://www.maddyness.com/feed/', name: 'Maddyness', category: 'Business' },
-  { url: 'https://www.fastcompany.com/latest/rss/feed', name: 'Fast Company', category: 'Business' },
+  { url: 'https://www.journaldunet.com/rss/', name: 'Journal du Net', category: 'Business' },
+  { url: 'https://www.frenchweb.fr/feed', name: 'Frenchweb', category: 'Business' },
   { url: 'https://www.bfmtv.com/rss/economie/entreprises/', name: 'BFM Business', category: 'Business' },
   { url: 'https://www.lefigaro.fr/rss/figaro_economie.xml', name: 'Le Figaro Économie', category: 'Business' },
   { url: 'https://feed.prismamediadigital.com/v1/cap/rss', name: 'Capital', category: 'Business' },

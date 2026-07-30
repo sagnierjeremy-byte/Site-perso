@@ -1,5 +1,24 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-30 · /api/news — purge des flux morts + 8 sources FR
+
+### Pourquoi
+Demande de Jérémy : ajouter des sources intéressantes, toujours en français. L'audit préalable (banc de test maison : HTTP, parse, fraîcheur, cadence, images) a révélé que **5 des 29 flux étaient morts ou moribonds** — The Verge, Wired, Clubic, Fast Company en 404, VentureBeat à 1 item/10 j — le feed tournait en réalité sur 24 sources.
+
+### Livré
+- **Retirés (5)** : The Verge, Wired, Clubic (404), Fast Company (404), VentureBeat (moribond). TechCrunch et Simon Willison restent les deux seules fenêtres anglophones.
+- **Ajoutés (8, tous testés verts : 200, dernier item < 24 h)** :
+  - IA : **ZDNet France** (6,7/j), **Le Big Data** (~10/j), **LeMagIT** (3/j), **IT for Business** (4,6/j), **La Revue du Digital** (3,4/j), **Tech&Co/BFM** (26/j — choix de Jérémy, prévenu du bruit e-commerce)
+  - Business : **Journal du Net** (18,7/j), **Frenchweb** (2/j)
+- Bilan : **24 → 32 flux réels**, 21 IA / 11 Business, quasi intégralement FR.
+- Écartés après test : Journal du Geek et Les Numériques (verts mais gaming/conso → noieraient le top 60), Usbek & Rica (0,8/j), L'ADN (silencieux 14 j), Les Échos (403), Stratégies et Big Média Bpifrance (404).
+
+### Vérifié
+Handler complet exécuté en local (vrai `api/news.js`, faux req/res) : 200, 60 items, 3/8 nouvelles sources déjà dans le top 60 (JDN ×8, Tech&Co ×5, ZDNet ×3 — les sources à faible cadence y entreront au fil des publications), 5/60 items sans image. À surveiller : si JDN prend trop de place dans le top 60, le retirer ou le passer en catégorie IA.
+
+### Note
+`data/topic-queue.json` de la veille blog est indépendant — ces sources n'alimentent que /news, l'app PWA et le résumé quotidien (qui gagne donc en matière première FR).
+
 ## 2026-07-30 · PWA « Jerwis News » — lot 2 : notification du matin
 
 ### Principe

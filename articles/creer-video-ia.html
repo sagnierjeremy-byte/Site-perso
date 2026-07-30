@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/creer-video-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Créer une vidéo avec l'IA gratuite en 2026</title>
+<meta name="description" content="Veo, Pika, Kling : ce qu'il est vraiment possible de faire en 2026 pour créer des vidéos IA gratuitement, sans être monteur ni développeur.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Créer une vidéo avec l'IA gratuite en 2026">
+<meta property="og:description" content="Veo, Pika, Kling : ce qu'il est vraiment possible de faire en 2026 pour créer des vidéos IA gratuitement, sans être monteur ni développeur.">
+<meta property="og:url" content="https://jerwis.fr/articles/creer-video-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/creer-video-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-30">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Créer une vidéo avec l'IA gratuite en 2026">
+<meta name="twitter:description" content="Veo, Pika, Kling : ce qu'il est vraiment possible de faire en 2026 pour créer des vidéos IA gratuitement, sans être monteur ni développeur.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/creer-video-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/creer-video-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/creer-video-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/creer-video-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/creer-video-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Créer une vidéo avec l'IA gratuite en 2026",
+  "description": "Veo, Pika, Kling : ce qu'il est vraiment possible de faire en 2026 pour créer des vidéos IA gratuitement, sans être monteur ni développeur.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/creer-video-ia",
+  "datePublished": "2026-07-30",
+  "dateModified": "2026-07-30",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/creer-video-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 98</div>
+    <h1>Vidéo IA<br>gratuite :<br><em>ce qui est vraiment possible</em></h1>
+    <p class="hero-lead">
+      Tu veux créer des vidéos pour ton business, mais tu n'es ni monteur ni réalisateur — et tu n'as pas envie de le devenir. En 2026, les outils de génération vidéo par IA ont changé la donne. Certains sont gratuits, certains sont bluffants, et certains sont déjà abandonnés. J'ai fait le tour de ce qui existe vraiment, de ce qui fonctionne pour un entrepreneur qui part de zéro, et des pièges qui font perdre du temps. Voici ce que j'ai trouvé.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Kling AI, Pika Labs, Google Veo</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Des outils comme <strong>Kling AI et Pika Labs</strong> offrent des niveaux gratuits généreux pour démarrer sans carte bancaire.</li>
+      <li>Google <strong>Veo 3.1</strong> est accessible gratuitement via Google Vids pour tout compte Google.</li>
+      <li><strong>Sora d'OpenAI a été abandonné</strong> en avril 2026 : ne mise plus dessus.</li>
+      <li>Les limites réelles : durées courtes, cohérence imparfaite, qualité variable selon le prompt.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La vidéo IA, c&#39;est pour qui exactement ?</h2>
+    <p>Il y a deux ans, créer une vidéo de qualité sans équipe technique, c&#39;était soit payer une agence, soit passer des semaines sur Premiere Pro. Aujourd&#39;hui, la situation a changé — pas complètement, mais suffisamment pour que ça vaille la peine d&#39;en parler.</p>
+    <p>Selon les données du marché compilées en avril 2026, le secteur des générateurs vidéo IA était évalué à 716,8 millions de dollars en 2025 et devrait dépasser 847 millions de dollars en 2026. Ce n&#39;est pas un gadget de niche. Et d&#39;après une étude publiée en mai 2026, 85 % des marketeurs déclarent déployer activement l&#39;IA générative dans leurs stratégies — dont 53 % des marketeurs B2B pour créer des visuels et des vidéos.</p>
+    <p>Ce qui m&#39;intéresse, ce n&#39;est pas le marché en milliards. C&#39;est la question pratique : est-ce qu&#39;un entrepreneur qui n&#39;a jamais touché à un logiciel de montage peut produire quelque chose d&#39;utilisable ? La réponse courte : oui, dans certains cas précis. La réponse longue, c&#39;est cet article.</p>
+    <p>La clé, c&#39;est de comprendre ce que l&#39;IA fait bien aujourd&#39;hui — et ce qu&#39;elle fait encore mal. Parce que les promesses marketing des outils sont souvent en avance sur la réalité du terrain.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Le tour des grands noms (et une mauvaise surprise)</h2>
+    <p>Commençons par faire le point sur les outils dont tout le monde parle, avec ce qui s&#39;est passé ces derniers mois.</p>
+    <p><strong>Google Veo</strong> existe en deux versions accessibles en 2026. Veo 3.1 est disponible gratuitement pour tout titulaire d&#39;un compte Google via Google Vids (vids.new). Mis à jour officiellement le 13 janvier 2026, il propose l&#39;upscaling 4K, le format vertical natif 9:16 — utile pour Instagram et TikTok — et une technologie appelée &quot;Scene Extension&quot; qui permet de construire des récits de plus de 60 secondes. C&#39;est la version gratuite, et c&#39;est déjà solide pour un usage basique. Veo 4, lancé en avril 2026, monte encore en puissance avec des vidéos jusqu&#39;à 30 secondes, du storyboarding et une cohérence des personnages améliorée — mais lui est réservé aux abonnés Google AI Pro ou Ultra, donc payant.</p>
+    <p><strong>OpenAI Sora</strong>, en revanche, c&#39;est une histoire qui se termine mal. Sora 2 avait été lancé le 30 septembre 2025 avec des capacités intéressantes : physique plus réaliste, dialogues et effets sonores synchronisés. Mais le produit web et l&#39;application ont été abandonnés le 26 avril 2026. L&#39;API devrait être arrêtée le 24 septembre 2026. Si tu avais misé sur Sora, il faut migrer maintenant.</p>
+    <p><strong>RunwayML</strong> reste dans la course avec Gen-4.5, lancé en décembre 2025. Il excelle dans la conversion texte-vers-vidéo, et les fonctionnalités image-vers-vidéo et sortie verticale 9:16 ont été ajoutées en janvier 2026. Attention : Gen-3 Alpha et Turbo seront retirés fin juillet 2026. Runway n&#39;a pas de niveau vraiment gratuit — c&#39;est un outil orienté professionnel avec des plans payants.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Sora est souvent encore cité dans des comparatifs en ligne comme "outil incontournable". Il a été abandonné en avril 2026. Avant de choisir un outil, vérifie toujours s'il est encore maintenu — le secteur évolue très vite et les fermetures arrivent sans prévenir.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qui est vraiment gratuit aujourd&#39;hui</h2>
+    <p>C&#39;est la question centrale. Voici ce que j&#39;ai trouvé de concret.</p>
+    <p><strong>Kling AI</strong> offre l&#39;un des niveaux gratuits les plus généreux du marché en 2026. Tu peux générer des clips jusqu&#39;à 10 secondes en 720p, avec une fluidité de mouvement et une cohérence des personnages remarquables pour un outil gratuit. Kling 3.0 intègre même un système audio natif avec synchronisation labiale en cinq langues — ce qui est rare à ce niveau de prix. Le filigrane est présent sur les exports gratuits, mais pour tester ou prototyper, c&#39;est largement suffisant.</p>
+    <p><strong>Pika Labs</strong> propose environ 30 vidéos par mois sur son offre gratuite, sans limite de temps imposée par un abonnement. La plateforme est reconnue pour sa facilité de prise en main et ses effets visuels appelés &quot;Pikaffects&quot;, qui donnent un style distinctif aux vidéos courtes et créatives. Si tu veux monter en gamme, les plans payants démarrent à 8 $/mois. La version stable actuelle de la plateforme est la 0.29.0, datée du 4 juin 2026.</p>
+    <p><strong>Google Veo 3.1 via Google Vids</strong> est gratuit pour tout compte Google. C&#39;est probablement le point d&#39;entrée le plus accessible si tu veux tester sans t&#39;inscrire sur une nouvelle plateforme. Le format vertical natif et la Scene Extension en font un outil pertinent pour du contenu réseaux sociaux.</p>
+    <p><strong>ZSky AI</strong> est présenté comme entièrement gratuit, sans inscription, sans carte de crédit et sans filigrane. Il permet de créer des vidéos à partir de descriptions textuelles en français. Je le mentionne parce que c&#39;est rare — mais je n&#39;ai pas de retour terrain suffisant pour te dire ce que ça donne en qualité réelle. À tester en premier si tu veux vraiment zéro friction.</p>
+    <p>Pour aller plus loin sur la logique &quot;gratuit vs payant&quot; dans les outils IA, j&#39;ai écrit un article dédié sur <a href="/articles/ia-gratuite-ou-payante">les modèles économiques des outils IA et ce que &quot;gratuit&quot; veut vraiment dire</a>.</p>
+    <h2>Ce que ces outils font vraiment</h2>
+    <p>Tous ces outils partagent quelques fonctionnalités de base qu&#39;il faut comprendre avant de se lancer.</p>
+    <p><strong>Texte-vers-vidéo</strong> : tu décris une scène en quelques phrases, l&#39;outil génère une vidéo. C&#39;est le mode le plus simple, et c&#39;est là que la qualité du prompt fait toute la différence. Un prompt vague donne un résultat vague. La précision paie.</p>
+    <p><strong>Image-vers-vidéo</strong> : tu fournis une image fixe, l&#39;outil l&#39;anime. RunwayML Gen-4.5 et Pika Labs proposent cette fonctionnalité. C&#39;est utile si tu as déjà des visuels de ta marque et que tu veux les mettre en mouvement.</p>
+    <p><strong>Format vertical natif</strong> : Veo 3.1 et RunwayML Gen-4.5 génèrent directement en 9:16. C&#39;est un détail qui compte quand tu produis pour Instagram Reels ou TikTok — recadrer une vidéo 16:9 après coup donne rarement un bon résultat.</p>
+    <p><strong>Audio et synchronisation labiale</strong> : Kling 3.0 intègre un système audio natif avec lip sync en cinq langues. C&#39;est une fonctionnalité encore rare sur les niveaux gratuits.</p>
+    <p>Pour la partie prompt — comment décrire ce que tu veux de façon précise pour obtenir un résultat utilisable — j&#39;ai détaillé la méthode dans cet article : <a href="/articles/ecrire-bon-prompt-non-dev">écrire un bon prompt quand on n&#39;est pas développeur</a>. C&#39;est vraiment la compétence de base à acquérir avant tout.</p>
+    <p>Et si tu cherches à créer des visuels fixes avant de passer à la vidéo, la <a href="/articles/creer-images-ia-gratuit">génération d&#39;images par IA gratuitement</a> est souvent une bonne première étape — les images peuvent ensuite alimenter tes workflows image-vers-vidéo.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur les prompts vidéo</h4><p>Pour la vidéo, le prompt doit décrire non seulement ce qu'on voit, mais aussi le mouvement. "Un café le matin" donne quelque chose de statique. "Une tasse de café fumante sur une table en bois, vapeur qui monte lentement, lumière dorée de l'aube en arrière-plan" donne quelque chose d'utilisable. Pense mouvement, lumière, cadrage.</p></div>
+    
+    <h2>L&#39;IA ne fait pas que générer</h2>
+    <p>Un point souvent oublié : l&#39;IA vidéo ne se limite pas à créer des clips de zéro. En 2026, elle est intégrée dans les outils d&#39;édition existants pour des tâches très concrètes.</p>
+    <p>Génération d&#39;arrière-plans, suppression de fond, upscaling de résolution, création de concepts publicitaires assistés — tout ça fait partie des usages réels documentés cette année. Ce n&#39;est pas anecdotique : une étude publiée en avril 2026 indique que les entreprises qui utilisent l&#39;IA dans leur production de contenu constatent une production 62 % plus rapide et un rendement 3,8 fois supérieur.</p>
+    <p>YouTube a également annoncé début 2026 une fonctionnalité permettant de créer des vidéos de soi-même générées par IA sans se filmer. C&#39;est encore en déploiement, mais ça donne une idée de la direction que prend la plateforme.</p>
+    <p>Si tu réfléchis à intégrer la vidéo IA dans une logique d&#39;automatisation plus large — par exemple pour alimenter tes réseaux sociaux régulièrement sans y passer des heures — l&#39;article sur <a href="/articles/automatiser-taches-ia-sans-coder">automatiser ses tâches avec l&#39;IA sans coder</a> donne un cadre utile.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les limites que personne ne dit clairement</h2>
+    <p>Je préfère être direct sur ce qui ne fonctionne pas encore bien.</p>
+    <p><strong>La durée.</strong> La plupart des outils gratuits génèrent des clips de 4 à 10 secondes. Pour une vidéo de 60 secondes, il faut assembler plusieurs clips — ce qui implique un minimum de montage ou l&#39;utilisation de la Scene Extension de Veo 3.1.</p>
+    <p><strong>La cohérence des personnages.</strong> C&#39;est le problème le plus fréquent : un personnage dans la scène 1 ne ressemble pas au même personnage dans la scène 2. Kling AI est réputé fort sur ce point parmi les outils accessibles, mais aucun outil gratuit ne résout complètement ce problème aujourd&#39;hui.</p>
+    <p><strong>La résolution.</strong> Le niveau gratuit de Kling génère en 720p. Pour du 4K, il faut soit Veo 3.1 (upscaling) soit passer sur des versions payantes.</p>
+    <p><strong>Les filigranes.</strong> La plupart des outils gratuits ajoutent un filigrane à l&#39;export. C&#39;est rédhibitoire pour du contenu professionnel. Pika Labs et Kling AI en font partie. ZSky AI est présenté comme une exception.</p>
+    <p><strong>La cohérence de style sur la durée.</strong> Produire 10 vidéos avec le même univers visuel reste difficile. L&#39;IA génère bien un clip isolé, mais maintenir une charte graphique cohérente sur plusieurs semaines demande une méthode rigoureuse — noter ses prompts, ses paramètres, ses résultats.</p>
+    <p>Sur la question de la détection et des enjeux éthiques liés aux contenus générés par IA, je t&#39;invite à lire l&#39;article sur <a href="/articles/reperer-contenu-ia-deepfake">comment repérer un contenu IA ou un deepfake</a> — c&#39;est un sujet qui touche aussi aux responsabilités quand on publie ce type de contenu.</p>
+    <h2>Questions fréquentes</h2>
+    <h3>Puis-je vraiment créer des vidéos de qualité professionnelle avec l&#39;IA sans être monteur ?</h3>
+    <p>Pour des clips courts — 5 à 10 secondes — oui, les résultats peuvent être utilisables directement. Pour des vidéos plus longues ou avec des personnages récurrents, il faut encore assembler plusieurs générations et accepter une certaine imperfection. La qualité dépend beaucoup du soin apporté au prompt.</p>
+    <h3>Quels sont les meilleurs outils de génération vidéo IA gratuits en 2026 ?</h3>
+    <p>Kling AI et Pika Labs proposent les niveaux gratuits les plus généreux. Google Veo 3.1 est accessible via Google Vids pour tout compte Google. ZSky AI se distingue par l&#39;absence totale d&#39;inscription et de filigrane. Chacun a ses forces : Kling sur la cohérence des personnages, Pika sur les effets créatifs, Veo sur l&#39;intégration avec l&#39;écosystème Google.</p>
+    <h3>Comment assurer la cohérence des personnages et des scènes avec l&#39;IA ?</h3>
+    <p>C&#39;est le défi principal aujourd&#39;hui. Kling AI est réputé fort sur ce point parmi les outils accessibles. Au-delà du choix de l&#39;outil, la méthode compte : noter précisément les descriptions de personnages dans ses prompts, réutiliser les mêmes formulations d&#39;une génération à l&#39;autre, et accepter de générer plusieurs variantes pour choisir la plus cohérente.</p>
+    <h3>L&#39;IA peut-elle générer des vidéos avec du son et des dialogues synchronisés ?</h3>
+    <p>Oui, certains outils le font. Kling 3.0 intègre un système audio natif avec synchronisation labiale en cinq langues. Sora 2 proposait également des dialogues synchronisés, mais le produit a été abandonné en avril 2026. C&#39;est une fonctionnalité encore rare sur les niveaux gratuits.</p>
+    <h3>Quelles sont les limites de la génération vidéo IA gratuite (durée, résolution, filigrane) ?</h3>
+    <p>Les clips gratuits font généralement entre 4 et 10 secondes. La résolution est souvent limitée à 720p (Kling) sauf avec l&#39;upscaling de Veo 3.1. La majorité des outils ajoutent un filigrane sur les exports gratuits — ZSky AI est présenté comme une exception. Pour dépasser ces limites, les plans payants démarrent autour de 8 $/mois (Pika Labs).</p>
+    <h3>Comment l&#39;IA peut-elle m&#39;aider à automatiser la création de vidéos pour mes réseaux sociaux ?</h3>
+    <p>En combinant génération de clips courts, formats verticaux natifs et outils de planification, il est possible de créer un flux de contenu régulier sans tournage. L&#39;enjeu est de structurer ses prompts et ses modèles de scènes pour maintenir une cohérence visuelle dans le temps. La vidéo IA s&#39;intègre bien dans une logique d&#39;automatisation plus large — j&#39;en parle dans l&#39;article sur <a href="/articles/automatiser-taches-ia-sans-coder">automatiser ses tâches avec l&#39;IA sans coder</a>.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que je retiens</h2>
+    <p>La vidéo IA en 2026, c&#39;est réel et c&#39;est accessible. Pas parfait, pas magique — mais suffisamment avancé pour qu&#39;un entrepreneur non-monteur puisse produire du contenu utilisable sans budget ni équipe technique.</p>
+    <p>Mon point de départ si tu veux tester : Google Vids avec Veo 3.1 (gratuit, compte Google suffisant) ou Kling AI pour la cohérence des personnages. Évite Sora — il est abandonné. Et avant tout, travaille tes prompts : c&#39;est là que tout se joue.</p>
+    <p>Ce que je retiens surtout, c&#39;est que l&#39;outil ne fait pas tout. Un bon prompt, une intention claire, et une logique de production cohérente — c&#39;est ça qui fait la différence entre un clip généré au hasard et quelque chose qu&#39;on a envie de regarder.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

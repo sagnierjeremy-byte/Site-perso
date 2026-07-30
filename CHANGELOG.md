@@ -1,5 +1,28 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-07-30 · PWA « Jerwis News » (/app) — lot 1
+
+### Pourquoi
+Demande de Jérémy : avoir l'onglet news en application mobile. Outil **personnel** (pas de store, pas de compte, `noindex`), périmètre **news uniquement**. Les briques existaient déjà : `/api/news` (29 flux RSS, 60 items, 43 Ko, ~95 ms) et `data/news-summary.json` (résumé quotidien en ton Leo, produit par le cron) — il ne manquait que la couche app.
+
+### Livré (6 fichiers, aucun fichier existant modifié)
+- **`app/index.html`** — UX d'app : header compact, résumé du jour en tête, filtres, safe-area iPhone, `viewport-fit=cover`, `apple-mobile-web-app-*`, skeletons de chargement.
+- **`app/app.css`** — feuille autonome (charte FIESTA, sombre par défaut, clair via `prefers-color-scheme`), cibles tactiles ≥ 34-40 px, `overscroll-behavior` pour le pull-to-refresh.
+- **`app/app.js`** — chargement `/api/news` + digest, filtres Tout/IA/Business/Non lus avec compteurs, lu/non-lu en `localStorage` (borné à 400 entrées), pull-to-refresh tactile, rafraîchissement au retour d'app si > 15 min, âge des données affiché.
+- **`app-sw.js`** — service worker (voir le piège ci-dessous).
+- **`app/manifest.webmanifest`** — `standalone`, `start_url`/`scope` = `/app`, thème `#0A0A0A`.
+- **`scripts/make-app-icons.mjs`** + `photos/app-icons/` — icônes 192/512/maskable/apple-touch générées via satori + resvg, reprenant l'identité du `favicon.svg` (J cream sur noir, point fuchsia).
+
+### ⚠️ Deux pièges de scope résolus (à ne pas défaire)
+1. **Vercel redirige `/app/` → `/app` en 308** (`cleanUrls`, vérifié sur `/en/`). Un SW placé dans `app/` aurait le scope `/app/` et **ne contrôlerait jamais la page** servie à `/app`. D'où `app-sw.js` **à la racine**, enregistré avec `{scope:'/app'}`.
+2. Mais le scope d'un SW est un préfixe de **chaîne**, pas de segment : `/app` matche aussi **`/apprendre`**, une vraie page du site. La protection ne repose donc **pas** sur le scope : le handler `fetch` n'intercepte que `^\/app(\/|$)`, `/api/news`, `/data/news-summary.json`, les polices et les icônes — tout le reste passe au réseau sans interception (pas de `respondWith`). Testé sur `/app`, `/app/app.css`, `/apprendre`, `/apprendre/x`, `/application`.
+
+### Vérifié en local (serveur cleanUrls reproduisant le 308 de Vercel)
+Rendu 390×844, résumé + 60 actus, filtres et compteurs (28 IA / 32 Business), marquage lu persistant, SW `activated` avec 12 entrées en cache dont `/api/news` et le digest, 0 vignette en erreur. **Hors ligne testé pour de vrai en coupant le serveur** : shell, actus et résumé s'affichent depuis le cache.
+
+### Non fait volontairement
+Aucun lien public depuis `/news` vers `/app` (outil perso en `noindex`) — l'accès se fait par l'URL puis « Ajouter à l'écran d'accueil ». Notifications push = **lot 2** (Web Push VAPID + stockage de l'abonnement + envoi après le cron news), à décider après quelques jours d'usage réel.
+
 ## 2026-07-29 · La programmation LinkedIn auto ne fonctionnait pas en CI + backlog écoulé
 
 ### 🔴 Bug : `ZERNIO_API_KEY` jamais lue en CI (depuis le 21-07)

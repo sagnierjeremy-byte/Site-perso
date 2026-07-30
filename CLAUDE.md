@@ -25,6 +25,10 @@
 - Nav v2 sitewide (`.mini-nav`) : `Apprendre · Articles · Podcast · Newsletter · Plus (dropdown)`.
 - Ton à 3 niveaux : haut 100 % centré lecteur · milieu « je partage ce qui m'a servi » · bas pitch « d'abord pour moi » reformulé en « Ta garantie », dit UNE seule fois, jamais redit ailleurs.
 
+## PWA « Jerwis News » (`/app`) — outil perso
+`app/index.html` + `app/app.{css,js}` + `app/manifest.webmanifest` + **`app-sw.js` (à la RACINE, pas dans app/)**. Consomme `/api/news` et `data/news-summary.json`. `noindex`, aucun lien public depuis le site. Icônes : `node scripts/make-app-icons.mjs` → `photos/app-icons/`.
+⚠️ **Ne pas déplacer `app-sw.js` dans `app/`** : Vercel redirige `/app/` → `/app` (308, cleanUrls), donc un SW dans `app/` (scope `/app/`) ne contrôlerait jamais la page. Et comme le scope est un préfixe de chaîne, `/app` attrape aussi **`/apprendre`** → le handler `fetch` filtre explicitement sur `^\/app(\/|$)` + data + polices, et laisse passer tout le reste sans interception. Toucher à ce filtre = risquer de servir du cache périmé sur tout le site.
+
 ## Parcours (`apprendre.html`)
 Hero dark + progress rail sticky 01→05 (IntersectionObserver) · 5 étapes : 01 Poser les bases (teal) · 02 Mettre l'IA au travail (fuchsia) · 03 Passer à Claude Code (orange) · 04 Construire tes agents (teal) · 05 Aller plus loin (ink) — cards ajoutées au fil des publications (`parcours_etape` dans les drafts) · parcours-end gradient → `index.html#newsletters`. Progression localStorage `jerwis_parcours_done` (JS `n/5`).
 

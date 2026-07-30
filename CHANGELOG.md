@@ -39,8 +39,13 @@ La clé publique VAPID est écrite **en dur** dans `app/app.js` **et** dans `pus
 ### Testé
 Syntaxe + YAML valides · non configuré → exit 0 silencieux · abonnement illisible → exit 1 avec la consigne de réabonnement · `--dry-run` → payload correct (5 titres, 370 car.) · UI en permission refusée → bouton « Notifs bloquées (réglages du système) » désactivé, app intacte (60 actus), 0 erreur console · parité des clés vérifiée.
 
-### ⛔ Non testé : l'envoi réel
-Impossible ici — le navigateur de preview refuse la permission de notification (`denied`), donc aucun abonnement valide n'a pu être créé. **Le premier vrai test sera l'iPhone de Jérémy** : installer l'app, appuyer sur « Activer la notif du matin », coller le secret, puis attendre le cron du lendemain (ou lancer le workflow à la main).
+### ✅ Mise en service complète (même jour) — notification reçue sur l'iPhone
+L'envoi réel n'était pas testable en local (le navigateur de preview refuse la permission de notification), il l'a été en conditions réelles dans la foulée :
+1. **Secrets posés** : `VAPID_PRIVATE_KEY` (par Jérémy, depuis `.env.local`) puis `PUSH_SUBSCRIPTION` — abonnement `web.push.apple.com` généré depuis l'iPhone (app installée sur l'écran d'accueil → « Activer la notif du matin » → JSON collé en secret). Au passage, ça valide de facto l'installation iOS du lot 1 (icône, plein écran, bouton) que le simulateur en crash-loop n'avait pas permis de tester.
+2. **Workflow lancé à la main** → `[push] ✓ notification envoyée (HTTP 201) — 5 actus, 324 car.` Un premier run avait aussi validé la garde « non configuré » (exit 0, cron intact, 44 s).
+3. **Confirmé par Jérémy : notification reçue à l'écran du téléphone.** La chaîne complète est en service : 32 flux → agrégation → résumé ton Leo → commit → push iPhone, chaque matin ~9h30-10h Paris.
+
+Pour mémoire en cas de silence un jour : le log du cron dira `abonnement expiré (HTTP 410)` → rouvrir /app, réappuyer sur « Activer la notif du matin », recoller `PUSH_SUBSCRIPTION`.
 
 ## 2026-07-30 · PWA « Jerwis News » (/app) — lot 1
 

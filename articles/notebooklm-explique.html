@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/notebooklm-explique.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>NotebookLM (Gemini Notebook) : l'outil gratuit de Google</title>
+<meta name="description" content="Découvre comment Gemini Notebook transforme tes documents en podcasts, résumés et fiches en quelques clics. L'outil IA gratuit de Google expliqué simplement.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="NotebookLM (Gemini Notebook) : l'outil gratuit de Google">
+<meta property="og:description" content="Découvre comment Gemini Notebook transforme tes documents en podcasts, résumés et fiches en quelques clics. L'outil IA gratuit de Google expliqué simplement.">
+<meta property="og:url" content="https://jerwis.fr/articles/notebooklm-explique">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/notebooklm-explique.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-07-31">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="NotebookLM (Gemini Notebook) : l'outil gratuit de Google">
+<meta name="twitter:description" content="Découvre comment Gemini Notebook transforme tes documents en podcasts, résumés et fiches en quelques clics. L'outil IA gratuit de Google expliqué simplement.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/notebooklm-explique.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/notebooklm-explique">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/notebooklm-explique">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/notebooklm-explique">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/notebooklm-explique">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "NotebookLM (Gemini Notebook) : l'outil gratuit de Google",
+  "description": "Découvre comment Gemini Notebook transforme tes documents en podcasts, résumés et fiches en quelques clics. L'outil IA gratuit de Google expliqué simplement.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/notebooklm-explique",
+  "datePublished": "2026-07-31",
+  "dateModified": "2026-07-31",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/notebooklm-explique.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 19</div>
+    <h1>Tes documents<br>transformés en podcasts<br><em>et c'est gratuit</em></h1>
+    <p class="hero-lead">
+      Tu as une pile de PDF à lire, des vidéos YouTube à regarder, des articles à digérer — et pas assez d'heures dans la journée. C'est exactement pour ça que j'ai commencé à tester NotebookLM, devenu Gemini Notebook depuis juillet 2026. Cet outil IA gratuit de Google prend tes documents, les analyse, et en sort des résumés, des fiches, des quiz, voire un podcast à deux voix. Je t'explique comment ça fonctionne, ce que ça vaut vraiment, et comment t'en servir sans avoir à écrire une seule ligne de code.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Gemini Notebook (ex-NotebookLM)</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>NotebookLM s'appelle désormais <strong>Gemini Notebook</strong> depuis juillet 2026</li>
+      <li>L'outil est <strong>gratuit</strong> avec un compte Google, des fonctions avancées en option payante</li>
+      <li>Il transforme tes PDF, vidéos YouTube et fichiers audio en <strong>résumés, fiches, quiz et podcasts</strong></li>
+      <li>Les réponses sont ancrées dans <strong>tes sources uniquement</strong>, ce qui limite les inventions de l'IA</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>C&#39;est quoi, concrètement ?</h2>
+    <p>NotebookLM, c&#39;est un nom que tu as peut-être entendu passer en 2024 ou 2025. Depuis juillet 2026, Google l&#39;a rebaptisé <strong>Gemini Notebook</strong> — un changement de nom qui reflète son intégration plus profonde dans l&#39;écosystème Gemini. [F1]</p>
+    <p>Le principe est simple à comprendre. Tu charges des documents dans un &quot;carnet&quot;. L&#39;outil les lit, les indexe, et devient ton assistant personnel sur ce corpus précis. Tu peux lui poser des questions, lui demander un résumé, lui faire générer des fiches de révision, un quiz — ou même un podcast à deux voix qui discute du contenu de tes sources.</p>
+    <p>Ce qui le distingue d&#39;un ChatGPT ou d&#39;un Claude utilisé &quot;à nu&quot;, c&#39;est que Gemini Notebook ne répond qu&#39;à partir de ce que tu lui as fourni. Il ne part pas piocher sur internet au hasard. Il reste dans ton carnet. Techniquement, ça s&#39;appelle le RAG — Retrieval Augmented Generation — une méthode qui consiste à récupérer des passages précis dans tes sources avant de formuler une réponse. [F5] En pratique, ça veut dire moins d&#39;inventions, moins de confabulations, et des réponses que tu peux vérifier en un clic puisque chaque affirmation est liée à un passage de tes documents.</p>
+    <p>C&#39;est accessible avec n&#39;importe quel compte Google personnel. Gratuit par défaut, avec des fonctionnalités avancées disponibles via un plan Pro. [F2] Pour un entrepreneur qui veut tester sans débourser un euro, c&#39;est une bonne entrée en matière.</p>
+    <p>Si tu veux approfondir la définition et l&#39;historique de l&#39;outil, j&#39;ai une page dédiée dans le <a href="/lexique/notebooklm">lexique NotebookLM</a>.</p>
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que tu peux faire avec</h2>
+    <p>Les formats de sortie disponibles dans Gemini Notebook sont plus variés qu&#39;on ne l&#39;imagine au premier abord. [F3]</p>
+    <p><strong>Les résumés et réponses.</strong> C&#39;est la base. Tu charges un PDF de 80 pages, tu demandes un résumé en 10 points, tu l&#39;as en quelques secondes. Tu peux aussi poser des questions précises : &quot;Quelles sont les recommandations du chapitre 4 ?&quot; ou &quot;Y a-t-il une mention des délais de livraison ?&quot;. L&#39;outil te répond et te cite le passage exact.</p>
+    <p><strong>Les fiches d&#39;étude, flashcards et quiz.</strong> Utile si tu apprends quelque chose de nouveau — une réglementation, un secteur, un outil. Tu charges tes sources, tu demandes une série de flashcards ou un quiz à choix multiples. C&#39;est disponible en français depuis avril 2025. [F3]</p>
+    <p><strong>Les Audio Overviews — le fameux podcast.</strong> C&#39;est la fonctionnalité qui a rendu l&#39;outil viral. Gemini Notebook génère une conversation à deux voix synthétiques qui discutent de tes documents comme dans un vrai podcast. Le résultat est étonnamment fluide. Tu peux l&#39;écouter en voiture, en faisant du sport, en cuisine. Depuis une mise à jour de mars 2026, il existe aussi un &quot;Mode Conférence&quot; et la possibilité de cloner une voix pour ces podcasts. [F10]</p>
+    <p><strong>Les vidéos pédagogiques animées.</strong> Plus récent : Gemini Notebook peut générer des vidéos animées (appelées Vidéo Overview, basées sur la technologie VEO de Google) à partir de tes sources. [F10] C&#39;est encore une fonctionnalité émergente, mais l&#39;idée de transformer un rapport en courte vidéo explicative est intéressante.</p>
+    <p><strong>L&#39;exportation et la recherche web.</strong> Depuis la mise à jour &quot;Agentic Upgrade&quot; de juin 2026, l&#39;outil intègre Gemini 3.5, une recherche web &quot;from scratch&quot; (pour créer un carnet à partir d&#39;une recherche en ligne plutôt que de documents existants), et une exportation via le Studio Panel. [F4]</p>
+    <p>Pour aller plus loin sur la question de résumer des PDF et des vidéos avec l&#39;IA, j&#39;ai écrit un article dédié : <a href="/articles/resumer-pdf-video-avec-ia">comment résumer un PDF ou une vidéo avec l&#39;IA</a>.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur les formats</h4><p>Le podcast à deux voix est bluffant la première fois. Mais ce qui m'a le plus convaincu au quotidien, c'est la simplicité des réponses sourcées. Tu poses une question sur un contrat de 40 pages, l'outil te répond et te montre le paragraphe exact. Ça évite de chercher pendant 20 minutes.</p></div>
+    
+    <hr>
+    <h2>Pourquoi ça change quelque chose pour toi</h2>
+    <p>48 % des Français ont utilisé l&#39;IA générative en 2026, contre 20 % en 2023 — un doublement en trois ans. [S1] Et 47 % des PME françaises avaient lancé au moins un projet IA en mars 2026, soit 18 points de plus en douze mois. [S3] Ces chiffres ne sont pas là pour impressionner : ils montrent que l&#39;IA n&#39;est plus un sujet réservé aux équipes tech. Elle entre dans les pratiques quotidiennes des entrepreneurs, y compris ceux qui ne codent pas.</p>
+    <p>Gemini Notebook s&#39;inscrit exactement dans cette logique. Pas besoin de configurer une API, pas besoin de connecter des outils entre eux, pas besoin d&#39;écrire du code. Tu ouvres un navigateur, tu crées un carnet, tu charges tes fichiers, et tu travailles.</p>
+    <p>Les cas d&#39;usage que je vois le plus souvent :</p>
+    <ul>
+    <li><strong>Préparer une réunion ou un rendez-vous</strong> à partir de documents que tu n&#39;as pas eu le temps de lire en entier.</li>
+    <li><strong>Digérer une veille</strong> : tu charges une dizaine d&#39;articles sur un sujet, tu demandes une synthèse des tendances.</li>
+    <li><strong>Créer du contenu</strong> : tu charges tes notes de recherche, tu demandes un plan d&#39;article, une liste de questions FAQ, un angle de communication.</li>
+    <li><strong>Former quelqu&#39;un</strong> : tu charges un guide interne, tu génères un quiz pour tester la compréhension.</li>
+    <li><strong>Analyser un appel d&#39;offres ou un contrat</strong> : tu charges le document, tu poses des questions ciblées.</li>
+    </ul>
+    <p>L&#39;outil ne remplace pas une lecture attentive quand c&#39;est vraiment nécessaire. Mais il réduit le temps que tu passes à chercher une information dans un document que tu connais déjà à 60 %.</p>
+    <p>Si tu veux comprendre comment bien formuler tes demandes à l&#39;outil, c&#39;est une question de prompt. J&#39;ai un guide pratique sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n&#39;est pas développeur</a>.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qui a changé récemment</h2>
+    <p>L&#39;outil a beaucoup évolué ces derniers mois. Voici les points qui me semblent importants à connaître si tu démarres maintenant.</p>
+    <p><strong>Le changement de nom.</strong> NotebookLM est devenu Gemini Notebook en juillet 2026. [F1] Si tu cherches l&#39;outil sur Google, les deux noms renvoient au même endroit. Mais dans les mois qui viennent, c&#39;est &quot;Gemini Notebook&quot; qui sera le nom officiel.</p>
+    <p><strong>L&#39;intégration de Gemini 3.5.</strong> La mise à jour &quot;Agentic Upgrade&quot; de juin 2026 a apporté un moteur plus puissant, la capacité d&#39;exécuter du code dans un environnement sécurisé, et une meilleure exportation des résultats. [F4] En pratique, les réponses sont plus précises et le traitement de documents complexes est plus fiable.</p>
+    <p><strong>Le français, enfin complet.</strong> Les Audio Overviews en français sont disponibles depuis avril 2025. [F3] C&#39;était un frein important pour une adoption large en France — il est levé.</p>
+    <p><strong>La technologie sous-jacente.</strong> Gemini Notebook tourne sur les modèles Gemini de Google. Si tu veux comprendre ce qui alimente l&#39;outil, j&#39;ai une page dans le lexique sur <a href="/lexique/gemini-3-1-pro">Gemini et ses modèles</a>.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne charge pas des dizaines de documents sans organisation. Crée un carnet par projet ou par thème. Un carnet "veille concurrents", un carnet "dossier client X", un carnet "formation Y". Plus ton carnet est ciblé, plus les réponses sont pertinentes.</p></div>
+    
+    <hr>
+    <h2>Par où commencer</h2>
+    <p>Voici comment je procéderais si je démarrais aujourd&#39;hui.</p>
+    <p><strong>Étape 1 — Ouvre un carnet.</strong> Va sur <a href="https://notebooklm.google.com">notebooklm.google.com</a> (le nom de domaine n&#39;a pas encore changé à la date de cet article). Connecte-toi avec ton compte Google. Clique sur &quot;Nouveau carnet&quot;.</p>
+    <p><strong>Étape 2 — Charge tes sources.</strong> L&#39;outil accepte des PDF, des articles (via URL), des vidéos YouTube, des fichiers audio. [F3] Commence avec un ou deux documents sur un sujet que tu connais bien — ça te permettra de vérifier la qualité des réponses.</p>
+    <p><strong>Étape 3 — Pose des questions simples.</strong> &quot;Résume ce document en 5 points.&quot; &quot;Quelles sont les recommandations principales ?&quot; &quot;Y a-t-il des chiffres clés ?&quot; Observe comment l&#39;outil cite ses sources. C&#39;est ce mécanisme de traçabilité qui te permet de faire confiance (ou non) à chaque réponse.</p>
+    <p><strong>Étape 4 — Génère un Audio Overview.</strong> Clique sur le bouton dédié. Laisse l&#39;outil générer le podcast. Écoute les deux premières minutes. Tu vas comprendre immédiatement l&#39;utilité pour les documents longs.</p>
+    <p><strong>Étape 5 — Crée des fiches ou un quiz.</strong> Demande-lui de générer des flashcards sur les points clés. Teste-toi. C&#39;est une façon rapide de vérifier ce que tu as retenu.</p>
+    <p>Pour aller plus loin sur l&#39;automatisation de tes tâches sans coder, l&#39;article sur <a href="/articles/automatiser-taches-ia-sans-coder">automatiser ses tâches avec l&#39;IA sans écrire de code</a> est un bon complément.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>NotebookLM est-il vraiment gratuit pour les entrepreneurs ?</h3>
+    <p>Oui, l&#39;accès de base est gratuit avec n&#39;importe quel compte Google personnel, y compris les comptes Google Workspace. [F2] Des fonctionnalités avancées et des limites d&#39;utilisation plus élevées sont disponibles via un plan Pro payant. Pour un usage quotidien modéré, la version gratuite est suffisante pour démarrer.</p>
+    <h3>Quels types de documents puis-je transformer en podcast ou résumé avec Gemini Notebook ?</h3>
+    <p>L&#39;outil accepte des PDF, des articles via URL, des vidéos YouTube et des fichiers audio. [F3] Tu peux donc charger un rapport annuel, un article de blog, une conférence filmée ou un enregistrement de réunion. La diversité des formats est un vrai atout.</p>
+    <h3>Comment NotebookLM se compare-t-il à ChatGPT ou Claude pour la recherche documentaire ?</h3>
+    <p>La différence principale est le mode de fonctionnement. Gemini Notebook répond uniquement à partir des sources que tu lui fournis, grâce au mécanisme RAG. [F5] ChatGPT et Claude, utilisés sans outil de recherche activé, peuvent répondre à partir de leur entraînement général — ce qui est utile pour des questions ouvertes, mais moins fiable pour analyser un document précis. Pour la recherche documentaire sur un corpus défini, Gemini Notebook est plus traçable. Pour une conversation générale ou la génération de contenu, ChatGPT ou Claude peuvent être complémentaires. Si tu veux comparer les modèles sur d&#39;autres dimensions, j&#39;ai un article sur <a href="/articles/ia-gratuite-ou-payante">IA gratuite ou payante : comment choisir</a>.</p>
+    <h3>Puis-je utiliser Gemini Notebook en français pour toutes ses fonctionnalités ?</h3>
+    <p>Les fonctionnalités principales, y compris les Audio Overviews (podcasts), sont disponibles en français depuis avril 2025. [F3] C&#39;était la fonctionnalité qui manquait le plus aux utilisateurs francophones — elle est maintenant là.</p>
+    <h3>Quelles sont les limites d&#39;utilisation de Gemini Notebook ?</h3>
+    <p>La version gratuite impose des limites sur le nombre de sources par carnet et le volume de requêtes. [F2] Ces limites ne sont pas publiées de façon fixe et peuvent évoluer. Si tu travailles sur des projets intensifs avec de nombreux documents, il peut être utile de regarder le plan Pro. Dans tous les cas, organiser tes carnets par thème t&#39;aidera à rester dans des volumes raisonnables.</p>
+    <h3>Comment m&#39;assurer que les informations générées par NotebookLM sont fiables ?</h3>
+    <p>Chaque réponse de Gemini Notebook est liée à un passage précis de tes sources. [F5] Tu peux cliquer sur la référence pour vérifier l&#39;extrait d&#39;origine. C&#39;est le meilleur réflexe à prendre : ne lis pas la réponse seule, vérifie la source citée. L&#39;outil réduit les risques d&#39;invention par rapport à un modèle généraliste, mais il ne les élimine pas totalement. Ta vigilance reste nécessaire.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Gemini Notebook est l&#39;un des outils IA que je recommande en premier à quelqu&#39;un qui veut gagner du temps sur la lecture et la synthèse de documents, sans avoir à apprendre quoi que ce soit de technique. Il est gratuit, il fonctionne en français, et son mécanisme de sources citées le rend plus fiable que beaucoup d&#39;autres pour ce cas d&#39;usage précis.</p>
+    <p>Ce n&#39;est pas un outil magique. Il ne remplace pas ta réflexion, il ne lit pas entre les lignes, et il ne comprend pas ton contexte métier si tu ne lui fournis pas les bons documents. Mais pour transformer une pile de PDF en informations utilisables en quelques minutes, je n&#39;ai pas trouvé mieux à ce jour.</p>
+    <p>Je fais tout ça d&#39;abord pour moi — et si ça t&#39;aide à toi aussi, tant mieux.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

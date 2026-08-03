@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ia-dans-excel.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>AI in Excel: Copilot, ChatGPT, Gemini and Claude · Jerwis</title>
+<meta name="description" content="Copilot, ChatGPT, Gemini or Claude in Excel: discover how these AI tools transform your formulas, data analysis, and spreadsheets every day.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI in Excel: Copilot, ChatGPT, Gemini and Claude">
+<meta property="og:description" content="Copilot, ChatGPT, Gemini or Claude in Excel: how these AI tools transform your formulas, data analysis, and spreadsheets.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/ia-dans-excel">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ia-dans-excel.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-03">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="AI in Excel: Copilot, ChatGPT, Gemini and Claude">
+<meta name="twitter:description" content="Copilot, ChatGPT, Gemini or Claude in Excel: how these AI tools transform your formulas, data analysis, and spreadsheets.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ia-dans-excel.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/ia-dans-excel">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ia-dans-excel">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ia-dans-excel">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ia-dans-excel">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "AI in Excel: Copilot, ChatGPT, Gemini and Claude",
+  "description": "Copilot, ChatGPT, Gemini or Claude in Excel: discover how these AI tools transform your formulas, data analysis, and spreadsheets every day.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/ia-dans-excel",
+  "datePublished": "2026-08-03",
+  "dateModified": "2026-08-03",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/ia-dans-excel.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 92</div>
+    <h1>Excel and AI:<br>what actually<br><em>changes</em></h1>
+    <p class="hero-lead">
+      You spend hours in Excel fumbling through formulas, cleaning up data that came in a mess, figuring out how to cross-reference two tables without breaking everything? I've been there. For the past few months, I've been using AI tools — Copilot, ChatGPT, Gemini, Claude — directly in my spreadsheets. Not to do magic tricks. To move faster, actually understand what I'm doing, and stop wasting time on tasks I used to run on autopilot.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Microsoft Copilot, ChatGPT, Gemini, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li><strong>Copilot</strong> plugs directly into Excel and understands your workbook's context to suggest formulas and analyses.</li>
+      <li><strong>ChatGPT</strong> (available on all plans since May 2026) generates formulas from your plain-language description.</li>
+      <li><strong>Claude</strong> is recognized for its precision on complex formulas and LAMBDA functions, according to independent tests.</li>
+      <li>None of these tools require you to know how to code: you describe what you want, the AI translates it.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Excel was eating too much of my time</h2>
+    <p>I'm not a developer. I'm not an Excel power user with twenty years of practice under my belt either. But like a lot of entrepreneurs, I spend a good chunk of my week in spreadsheets: cash flow tracking, customer data analysis, consolidating files exported from a dozen different tools.</p>
+    <p>For a long time, my method was always the same: Google the formula, copy an example that looks close to what I need, adapt it by trial and error, start over when it breaks. Efficient? Not really. Mostly, it killed my momentum. I spent more time wrestling with function syntax than actually analyzing what the numbers were telling me.</p>
+    <p>AI changed that. Not dramatically at first. But gradually, I started describing what I wanted to do — in plain English, in one sentence — and getting a working formula in a few seconds. Then I discovered that some tools could read my tables, spot anomalies, and suggest analyses I wouldn't have thought to run.</p>
+    <p>According to the U.S. Chamber of Commerce, 58% of small businesses were using generative AI in 2025, up from just 23% two years earlier. This isn't a topic reserved for big companies anymore. It's become an everyday tool, including for people who don't know how to code.</p>
+    <p>In this article, I walk you through the four tools I've tested in Excel (and Google Sheets), what they actually do, and how to use them without getting lost in the technical weeds.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Copilot: the assistant that reads your workbook</h2>
+    <p>Microsoft Copilot for Microsoft 365 integrates directly into Excel as a side panel. What sets it apart from a regular chatbot is that it understands your workbook's context: column headers, data types, formulas already in place. It doesn't answer in the abstract — it answers based on <em>your</em> data.</p>
+    <p>In practice, you can ask it: "Calculate total sales by region for June" or "Create a conditional formatting rule to highlight margins below 10% in red." It generates the formula or applies the rule directly in your sheet.</p>
+    <p>In 2026, Copilot received regular updates, including Python-based analysis (which lets it run advanced statistical calculations without you writing a single line of code) and finance-specific skills. If you work with financial spreadsheets — forecasts, cash flow dashboards — these additions are genuinely useful.</p>
+    <div class="callout tip"><h4>My takeaway on Copilot</h4><p>Copilot really shines when your workbook is well structured: clear headers, consistent columns, no merged cells all over the place. The cleaner your table, the more relevant its suggestions. If your data is a bit chaotic, clean it up first before asking it anything.</p></div>
+    
+    <p>The main limitation: Copilot requires a Microsoft 365 subscription with the Copilot license activated. It's not included in the base plans. Whether it's worth the investment depends on how much you'll actually use it.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>ChatGPT in Excel: describe it and get it</h2>
+    <p>Since May 5, 2026, the ChatGPT integration for Excel and Google Sheets has been available on all plans, powered by GPT-5.5. You no longer need an enterprise plan to use it.</p>
+    <p>The simplest use — and the most immediately useful — is formula generation. You describe what you want to do in plain language, and ChatGPT gives you the formula with an explanation. For example: "I have a column A with dates and a column B with amounts. I want to calculate the sum of amounts for the last 30 days." You get a <code>SUMIFS</code> formula with the right date criteria, plus an explanation of each argument.</p>
+    <p>What's valuable is the explanation. I don't just want to copy a formula I don't understand. I want to know why it works, so I can adapt it next time.</p>
+    <p>ChatGPT is also effective for data cleaning. Paste in a sample of your messily formatted data — dates in US format, phone numbers with no consistency, names with extra spaces — and ask it for a formula to standardize them. In most cases, you get something usable in a few seconds.</p>
+    <p>To get the most out of ChatGPT in this context, the quality of your question matters a lot. A vague prompt gives a vague answer. If you want to go deeper on this, I wrote an article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a>.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Gemini: Google's AI in your Sheets</h2>
+    <p>If you work in Google Sheets rather than Excel, Gemini is the tool to know. Since April 2026, it lets you build and edit entire spreadsheets in plain language. But what interested me most is its ability to pull data from other Google sources: your emails, your Google Chat conversations, your files in Drive.</p>
+    <p>Imagine you receive weekly reports by email. Gemini can go fetch that information and consolidate it into a table, without you having to copy-paste everything manually. That's the kind of automation that saves a lot of time on repetitive tasks.</p>
+    <p>For pure Excel users, Gemini is less directly integrated. But if your workflow mixes Google Workspace and Excel, it's worth exploring.</p>
+    <p>The Gemini 3.6 Flash and 3.5 Flash-Lite models became available via API in July 2026. A Gemini 4 model is planned for August 2026, with a much larger architecture. These rapid developments show the tool will keep gaining capability in the months ahead.</p>
+    <p>To understand what's running under the hood of these tools — Copilot, ChatGPT, Gemini — check out the <a href="/en/lexique/llm">glossary entry on LLMs</a> that I recently updated.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Claude: for the formulas that scare you</h2>
+    <p>Anthropic launched an official Claude add-in for Excel in 2026. It works as a sidebar that reads multiple tabs and understands the connections between cells — not just the content of a single isolated sheet.</p>
+    <p>What sets Claude apart from the other tools in this context is its precision on complex formulas. According to independent tests published in July 2026, Claude is the most accurate model for complex array formulas, LAMBDA functions, and Power Query M code.</p>
+    <p>LAMBDA functions, for those who haven't come across them, let you create your own custom functions in Excel without going through VBA. They're powerful, but the syntax isn't exactly intuitive. That's precisely the kind of case where having a tool that generates <em>and explains</em> the formula makes all the difference.</p>
+    <p>Power Query M is the language used to transform data in Power Query (Excel's built-in data cleaning and transformation tool). Again, incredibly useful — but not very accessible without help.</p>
+    <div class="callout tip"><h4>The trap to avoid with Claude</h4><p>Claude is excellent at generating complex formulas, but like any AI tool, it can get things wrong. Always test the formula on a small dataset before applying it to your full file. A formula that looks correct can behave unexpectedly on edge cases — empty cells, negative values, duplicates.</p></div>
+    
+    <p>The Claude Opus 5 model launched on July 24, 2026, designed for complex tasks and enterprise work. If you have advanced analysis or data auditing needs, that's the one to test first.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What AI actually changes day to day</h2>
+    <p>Beyond formulas, AI in Excel changes how I approach data analysis altogether. Before, I built pivot tables by hand, picked charts out of habit, and missed correlations I hadn't thought to look for.</p>
+    <p>Now I can ask Copilot or ChatGPT: "What are the unusual trends in this table?" or "Which expense category varied the most this quarter?" and get an answer in seconds, with an explanation.</p>
+    <p>It's also useful for data cleaning. When you import a CSV from an external tool, the data rarely comes in clean. Inconsistent formats, poorly named columns, blank rows. AI can spot these issues and suggest formulas to fix them — or fix them directly if you're using Copilot.</p>
+    <p>For entrepreneurs who want to go further with automation — not just in Excel, but across their whole workflow — I have a dedicated article on <a href="/en/articles/automatiser-taches-ia-sans-coder">how to automate tasks without code</a>. AI in Excel is just one piece of the puzzle.</p>
+    <p><a href="/en/lexique/agentic-workflow">Agentic workflows</a> — where AI chains multiple actions autonomously — are starting to show up in Excel too, particularly through Copilot. It's still early days, but that's the direction the tool is heading.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Where to start without getting overwhelmed</h2>
+    <p>Here's how I'd approach things if I were starting over today.</p>
+    <p><strong>Start with just one tool.</strong> If you're on Microsoft 365 and have access to Copilot, start there — the integration is native and you don't have to juggle multiple windows. If you don't have Copilot, ChatGPT outside of Excel (describe your problem, copy the formula) is a frictionless entry point.</p>
+    <p><strong>Identify your repetitive tasks.</strong> Which formulas do you rewrite all the time? Which tables do you clean every week? Which analyses do you run manually? Those are the first candidates to hand off to AI.</p>
+    <p><strong>Learn to describe things precisely.</strong> "Make a formula for my sales" gets you nowhere useful. "I have a column A with dates in DD/MM/YYYY format and a column B with amounts in euros. I want the sum of amounts for rows where the date falls in the current month." — now you're getting something usable. Prompt engineering isn't just for developers: it's simply the art of asking clearly. And that's a skill you pick up fast.</p>
+    <p><strong>Never trust blindly.</strong> Always check the result. AI makes mistakes, especially on edge cases. Test on a small sample, compare with what you expected, adjust if needed.</p>
+    <p>On privacy: never paste sensitive data (client names, confidential financials, personal information) into an external chatbot. Copilot, within the Microsoft 365 Enterprise context, is subject to Microsoft's privacy commitments — but check the terms of your subscription. For ChatGPT and Claude in web mode, data you send may be used to improve the models depending on your account settings.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Does AI in Excel replace the need to know Excel formulas?</h3>
+    <p>No, it doesn't replace understanding — but it lowers the barrier to entry. If you know what you want to achieve and can describe it clearly, AI generates the formula. But understanding what it does — at least roughly — lets you catch errors and adapt the formula to your specific case. AI is an accelerator, not a substitute for understanding.</p>
+    <h3>What are the privacy and data security concerns with using AI in Excel?</h3>
+    <p>This is the question you can't skip. Copilot within Microsoft 365 Enterprise is governed by Microsoft's privacy terms. For external tools like ChatGPT or Claude in web mode, the data you send may be processed by the publishers' servers. Simple rule: never paste personal, sensitive financial, or confidential data into an external chatbot. Work with anonymized data or made-up examples when you're testing formulas.</p>
+    <h3>Are these AI tools for Excel free or paid, and what do they cost?</h3>
+    <p>It depends on the tool. ChatGPT for Excel has been available on all plans since May 2026, including free plans. Copilot requires a Microsoft 365 subscription with the Copilot license activated, which is on top of the base Microsoft 365 cost. Claude and Gemini offer free versions with limitations, and paid plans for heavier use. Before subscribing, test the free versions to see if the tool actually fits your workflow.</p>
+    <h3>How do I choose the right AI tool for my specific needs in Excel?</h3>
+    <p>If you're already in the Microsoft 365 ecosystem, Copilot is the logical choice for its native integration. If you want to generate formulas and explanations without an extra subscription, ChatGPT is a solid starting point. If you're working on complex formulas — LAMBDA, Power Query — Claude is recognized for its precision on exactly those cases. And if your workflow is centered on Google Workspace, Gemini in Google Sheets is the one to explore first.</p>
+    <h3>Can AI help me create interactive dashboards and data visualizations?</h3>
+    <p>Yes, to a degree. Copilot can suggest charts suited to your data and create pivot tables. ChatGPT can walk you through building a dashboard step by step. But creating truly interactive visualizations — with dynamic filters, slicers — is still something you need to drive yourself. AI helps you move faster; it doesn't design the dashboard for you.</p>
+    <h3>Do you need to be an AI or programming expert to use these features effectively?</h3>
+    <p>No. That's precisely what makes these tools interesting for non-developer entrepreneurs. You don't need to know what a language model is or how it works. You need to know how to describe clearly what you want. The only skill to develop is formulating precise requests — and that's something you pick up quickly.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I started using AI in Excel without much conviction. I figured it would be useful for developers, not for me. I was wrong.</p>
+    <p>What changed is my relationship with time. Not dramatically — I'm not claiming I cut my work hours in half. But the small frictions that used to kill my momentum — hunting for a formula, cleaning up an import, figuring out why my VLOOKUP wasn't working — have almost disappeared.</p>
+    <p>I test all of this for myself first. And if you spend your days in spreadsheets, I think you'll find it useful too. Start small: one formula, one repetitive task, one table to clean up. AI in Excel isn't a revolution you have to absorb all at once. It's a habit you build, one use case at a time.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

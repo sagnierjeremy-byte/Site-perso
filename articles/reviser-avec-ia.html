@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/reviser-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Réviser avec l'IA : usages efficaces et pièges à éviter</title>
+<meta name="description" content="L'IA peut transformer tes révisions — ou te faire perdre du temps. Je t'explique ce qui marche vraiment, les outils à connaître et les pièges à éviter.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Réviser avec l'IA : usages efficaces et pièges à éviter">
+<meta property="og:description" content="L'IA peut transformer tes révisions — ou te faire perdre du temps. Je t'explique ce qui marche vraiment, les outils à connaître et les pièges à éviter.">
+<meta property="og:url" content="https://jerwis.fr/articles/reviser-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/reviser-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-07">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Réviser avec l'IA : usages efficaces et pièges à éviter">
+<meta name="twitter:description" content="L'IA peut transformer tes révisions — ou te faire perdre du temps. Je t'explique ce qui marche vraiment, les outils à connaître et les pièges à éviter.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/reviser-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/reviser-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Réviser avec l'IA : usages efficaces et pièges à éviter",
+  "description": "L'IA peut transformer tes révisions — ou te faire perdre du temps. Je t'explique ce qui marche vraiment, les outils à connaître et les pièges à éviter.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/reviser-avec-ia",
+  "datePublished": "2026-08-07",
+  "dateModified": "2026-08-07",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/reviser-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 72</div>
+    <h1>Réviser<br>avec l'IA :<br><em>ce qui marche vraiment</em></h1>
+    <p class="hero-lead">
+      Comment utiliser l'IA pour réviser sans se faire piéger ? C'est la question que me posent de plus en plus de parents et d'étudiants. En 2026, selon des données récentes, entre 80 et 90 % des étudiants du supérieur utilisent déjà des outils d'IA générative pour leurs études. Autant dire que la question n'est plus 'faut-il l'utiliser ?' mais 'comment bien l'utiliser ?'. Je t'explique ici ce que j'ai compris de ces outils — les usages qui font vraiment apprendre, les raccourcis qui sabotent tout, et comment s'y retrouver en tant qu'élève ou parent.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Gemini Notebook, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>L'IA est un excellent outil de révision si tu l'utilises de façon <strong>active</strong> : quiz, reformulation, plan de révision personnalisé.</li>
+      <li>Les outils comme ChatGPT, Gemini Notebook ou Claude peuvent adapter les contenus à ton niveau — à condition de formuler des demandes précises.</li>
+      <li>Le piège principal : laisser l'IA penser à ta place. Elle peut aussi <strong>inventer des informations</strong> (c'est ce qu'on appelle une hallucination).</li>
+      <li>Utiliser l'IA pour rédiger un devoir sans le déclarer, c'est du plagiat aux yeux de la plupart des établissements.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;IA pour réviser : de quoi parle-t-on ?</h2>
+    <p>En 2026, les outils d&#39;IA générative sont partout. ChatGPT, Gemini, Claude — ces noms reviennent dans toutes les conversations sur l&#39;école. Et pourtant, la plupart des élèves que je croise utilisent ces outils d&#39;une façon qui ne les aide pas vraiment à apprendre.</p>
+    <p>Avant d&#39;aller plus loin, posons les bases.</p>
+    <p>L&#39;IA générative, dans le contexte des révisions, c&#39;est un programme capable de répondre à tes questions, de reformuler un cours, de te poser des questions, de créer des fiches ou des quiz — à partir de ce que tu lui fournis. Ce n&#39;est pas un moteur de recherche. Ce n&#39;est pas un professeur. C&#39;est un outil de traitement du langage, très puissant, mais qui a ses limites.</p>
+    <p>Ce qui change tout, c&#39;est la façon dont tu l&#39;utilises.</p>
+    <p>La recherche en sciences de l&#39;apprentissage le dit depuis longtemps (dès 2013, des travaux ont montré que la relecture passive est l&#39;une des stratégies les moins efficaces pour mémoriser). Ce qui fonctionne, c&#39;est la récupération active : se tester, reformuler avec ses propres mots, synthétiser. L&#39;IA, bien utilisée, est un outil parfait pour ça. Mal utilisée, elle devient une béquille qui t&#39;empêche de vraiment apprendre.</p>
+    <p>Je fais tout ça d&#39;abord pour moi — j&#39;ai testé ces outils pour comprendre comment ils fonctionnent, et je te partage ce que j&#39;en retiens.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qui fait vraiment apprendre</h2>
+    <p>La différence entre une utilisation utile et une utilisation passive de l&#39;IA tient à une seule chose : est-ce que c&#39;est toi qui travailles, ou est-ce que tu regardes l&#39;IA travailler à ta place ?</p>
+    <p>Voilà les usages qui font vraiment progresser.</p>
+    <p><strong>Se faire interroger par l&#39;IA.</strong> Au lieu de relire tes notes, demande à l&#39;IA de te poser des questions sur un chapitre. Tu lui colles ton cours, tu lui demandes de générer 10 questions de compréhension, et tu réponds sans regarder. C&#39;est de la récupération active — exactement ce que la recherche identifie comme efficace.</p>
+    <p><strong>Reformuler pour comprendre.</strong> Tu bloques sur un concept ? Demande à l&#39;IA de te l&#39;expliquer différemment, avec un exemple concret, ou en le comparant à quelque chose que tu connais déjà. Tu peux aussi lui demander de t&#39;expliquer comme si tu avais 12 ans — ça force une clarté qui révèle souvent les zones floues.</p>
+    <p><strong>Créer des fiches et des flashcards.</strong> L&#39;IA peut générer des résumés structurés, des fiches de révision ou des listes de flashcards à partir de tes documents. C&#39;est un gain de temps réel sur la partie mécanique — ce qui te laisse plus de temps pour le vrai travail : comprendre et mémoriser.</p>
+    <p><strong>Construire un planning de révision personnalisé.</strong> Tu as un bac dans trois semaines, des lacunes en chimie et peu de temps le mercredi ? L&#39;IA peut t&#39;aider à structurer un planning adapté à ta situation, à condition de lui donner des informations précises sur tes contraintes et tes objectifs.</p>
+    <p><strong>Simuler un examinateur.</strong> Pour les épreuves orales ou les dissertations, tu peux demander à l&#39;IA de jouer le rôle d&#39;un jury et de critiquer ta réponse. C&#39;est inconfortable, mais c&#39;est redoutablement efficace.</p>
+    <p>Dans tous ces cas, tu restes l&#39;acteur principal. L&#39;IA t&#39;accompagne, elle ne fait pas à ta place.</p>
+    <div class="callout tip"><h4>Mon conseil</h4><p>Avant de lancer une session de révision avec l'IA, écris en une phrase ce que tu veux être capable de faire à la fin. "Je veux pouvoir expliquer le cycle de Krebs sans regarder mes notes." Ça cadre ta demande et ça t'empêche de dériver vers une utilisation passive.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les outils disponibles en ce moment</h2>
+    <p>Plusieurs outils se distinguent pour les révisions. Je te donne l&#39;état des lieux à la date de cet article, parce que ce secteur évolue très vite.</p>
+    <p><strong>ChatGPT (OpenAI).</strong> La version actuelle est basée sur GPT-5.6, lancée le 9 juillet 2026. C&#39;est l&#39;outil le plus connu, accessible directement dans un navigateur. Très polyvalent : il peut répondre à des questions, reformuler un cours, générer des quiz, corriger une dissertation. Sa force principale, c&#39;est la conversation : tu peux l&#39;interroger, le relancer, lui demander d&#39;aller plus loin.</p>
+    <p><strong>Gemini Notebook (Google).</strong> Ce que beaucoup connaissaient sous le nom NotebookLM a été renommé Gemini Notebook le 16 juillet 2026 et intégré à l&#39;application Gemini. Il utilise Gemini 3.5 depuis le 8 juin 2026. Son usage spécifique pour les révisions est intéressant : tu télécharges tes propres documents (cours, PDF, notes), et l&#39;outil génère des résumés, des quiz et des plans de révision à partir de ces sources. C&#39;est une approche différente — l&#39;IA travaille sur tes documents, pas sur ses données générales.</p>
+    <p><strong>Claude (Anthropic).</strong> La version Claude Opus 5 est sortie le 24 juillet 2026, avec des améliorations notables sur la fiabilité et la sécurité. Claude est souvent apprécié pour ses réponses nuancées et sa capacité à traiter des textes longs. Pour analyser un roman, décortiquer un texte philosophique ou travailler sur une dissertation, c&#39;est un outil à considérer.</p>
+    <p><strong>Gemini 3.6 Flash (Google).</strong> Lancé le 21 juillet 2026, ce modèle est optimisé pour les tâches quotidiennes et les projets en plusieurs étapes. Utile pour des sessions de révision structurées en plusieurs temps.</p>
+    <p>Pour choisir entre ces outils selon ton usage, tu peux consulter <a href="/lexique/choisir-modele-2026">ce guide sur les modèles disponibles en 2026</a>.</p>
+    <p>La règle qui s&#39;applique à tous ces outils : plus ta demande est précise, meilleure est la réponse. Un prompt vague donne un résultat vague. Je t&#39;explique comment formuler des demandes efficaces dans <a href="/articles/ecrire-bon-prompt-non-dev">cet article dédié aux prompts</a>.</p>
+    <h2>Les pièges qui font rater l&#39;objectif</h2>
+    <p>Autant être direct : il y a des façons d&#39;utiliser l&#39;IA qui donnent l&#39;illusion de travailler sans vraiment apprendre. Et d&#39;autres qui peuvent avoir des conséquences sérieuses.</p>
+    <p><strong>Le piège de la délégation totale.</strong> C&#39;est le plus courant. Tu demandes à l&#39;IA de rédiger ton résumé de chapitre, tu le lis en diagonale, et tu passes à autre chose. Résultat : tu n&#39;as rien appris. L&#39;IA a fait le travail cognitif à ta place. La relecture passive d&#39;un texte généré par une machine, c&#39;est encore moins efficace que la relecture passive de tes propres notes.</p>
+    <p><strong>Le piège des hallucinations.</strong> Les outils d&#39;IA peuvent produire des informations fausses avec un aplomb total — des dates erronées, des citations inventées, des faits qui n&#39;existent pas. C&#39;est ce qu&#39;on appelle une <a href="/lexique/hallucination">hallucination en IA</a>. Si tu utilises l&#39;IA pour réviser des faits précis (dates historiques, formules, noms d&#39;auteurs), tu dois vérifier systématiquement. Je t&#39;explique comment faire dans <a href="/articles/verifier-info-ia">cet article sur la vérification des informations</a>.</p>
+    <p><strong>Le piège du plagiat.</strong> Utiliser l&#39;IA pour rédiger un devoir ou une dissertation sans le déclarer, c&#39;est considéré comme du plagiat par de plus en plus d&#39;établissements scolaires et universitaires. Des outils de détection existent et se perfectionnent. Ce n&#39;est pas une question de morale abstraite : c&#39;est une règle qui s&#39;applique, avec des conséquences réelles.</p>
+    <p><strong>Le piège de la confidentialité.</strong> Avant de coller un cours ou des documents personnels dans un outil d&#39;IA, pose-toi la question de ce qui se passe avec ces données. C&#39;est un sujet que j&#39;explore en détail dans <a href="/articles/donnees-perso-ia-confidentialite">cet article sur la confidentialité et l&#39;IA</a>.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne demande jamais à l'IA de "résumer ce chapitre" sans avoir d'abord essayé de le faire toi-même. Fais ton résumé en 5 minutes, puis compare avec celui de l'IA. Ce que tu as raté ou mal formulé, c'est exactement ce que tu dois travailler.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que je dirais aux parents</h2>
+    <p>Si tu es parent et que tu lis cet article pour comprendre ce que fait ton enfant, voilà ce qui me semble important.</p>
+    <p>L&#39;IA n&#39;est pas un problème en soi. C&#39;est un outil. Comme une calculatrice ou internet. La question, c&#39;est l&#39;usage qu&#39;on en fait.</p>
+    <p>Ce qui mérite attention, c&#39;est de savoir si ton enfant utilise l&#39;IA pour comprendre ou pour éviter de comprendre. La différence se voit : un élève qui utilise l&#39;IA pour apprendre peut expliquer ce qu&#39;il a travaillé avec ses propres mots. Un élève qui l&#39;utilise pour contourner le travail, non.</p>
+    <p>Quelques questions utiles à poser, sans être intrusif : &quot;Qu&#39;est-ce que tu as appris aujourd&#39;hui avec l&#39;IA ?&quot; ou &quot;Tu peux m&#39;expliquer ce concept ?&quot; Si la réponse vient facilement, c&#39;est bon signe.</p>
+    <p>Il est aussi utile de parler des règles de l&#39;établissement. Chaque école, lycée ou université a (ou commence à avoir) une politique sur l&#39;usage de l&#39;IA. Certains l&#39;autorisent explicitement pour certaines tâches, d&#39;autres l&#39;interdisent pour les travaux notés. Mieux vaut le savoir avant.</p>
+    <p>Enfin, la confidentialité des données mérite une conversation. Les outils gratuits ne sont pas toujours les plus prudents sur ce que deviennent les données saisies.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA peut-elle remplacer un professeur ou un tuteur pour les révisions ?</h3>
+    <p>Non. L&#39;IA peut expliquer, reformuler, générer des exercices et s&#39;adapter à ton niveau — mais elle ne remplace pas le jugement humain d&#39;un enseignant qui te connaît. Elle ne perçoit pas tes blocages émotionnels, ne peut pas détecter une incompréhension profonde de la même façon qu&#39;un prof attentif, et ne sait pas ce qui sera vraiment évalué dans ton contexte précis. C&#39;est un assistant pédagogique, pas un substitut.</p>
+    <h3>Comment s&#39;assurer que l&#39;IA ne me donne pas de fausses informations ou des &quot;hallucinations&quot; ?</h3>
+    <p>En ne faisant jamais confiance à une information sans la vérifier dans une source fiable — ton manuel, un site institutionnel, un article académique. Les outils d&#39;IA peuvent produire des informations fausses avec beaucoup de confiance. Pour les dates, les chiffres, les citations et les faits précis, la vérification est non négociable. Je détaille cette méthode dans <a href="/articles/verifier-info-ia">cet article</a>.</p>
+    <h3>Est-ce que l&#39;utilisation de l&#39;IA pour mes devoirs ou mes révisions est considérée comme de la triche ?</h3>
+    <p>Ça dépend de l&#39;usage. Utiliser l&#39;IA pour comprendre un concept, générer des questions de révision ou t&#39;entraîner : dans la plupart des cas, c&#39;est autorisé. Utiliser l&#39;IA pour rédiger un devoir noté sans le déclarer : c&#39;est considéré comme du plagiat par un nombre croissant d&#39;établissements, qui disposent d&#39;outils de détection de plus en plus performants. Vérifie toujours les règles de ton école.</p>
+    <h3>Quels sont les meilleurs outils IA gratuits pour réviser mes cours ?</h3>
+    <p>À la date de cet article, ChatGPT (basé sur GPT-5.6), Gemini Notebook (anciennement NotebookLM, intégré à Gemini) et Claude Opus 5 proposent tous des accès gratuits avec des fonctionnalités utiles pour les révisions. Gemini Notebook est particulièrement intéressant pour travailler à partir de tes propres documents. Pour choisir selon ton usage, consulte <a href="/lexique/choisir-modele-2026">ce guide comparatif</a>.</p>
+    <h3>Comment les parents peuvent-ils accompagner leurs enfants dans l&#39;utilisation de l&#39;IA pour leurs études ?</h3>
+    <p>En restant curieux plutôt que méfiants. Demander à son enfant de montrer comment il utilise l&#39;outil, poser des questions sur ce qu&#39;il a appris (pas seulement sur ce qu&#39;il a produit), et vérifier ensemble les règles de l&#39;établissement. La conversation sur la confidentialité des données est aussi importante — tous les outils ne se valent pas sur ce point.</p>
+    <h3>L&#39;IA peut-elle vraiment personnaliser mon parcours d&#39;apprentissage ?</h3>
+    <p>Oui, dans une certaine mesure. Les outils d&#39;IA peuvent adapter leur niveau d&#39;explication, le rythme, les exemples utilisés et les types d&#39;exercices en fonction de ce que tu leur dis de toi et de tes besoins. Mais cette personnalisation n&#39;est efficace que si tu lui fournis des informations précises sur tes lacunes, tes objectifs et tes contraintes. L&#39;IA ne devine pas — elle répond à ce qu&#39;on lui demande.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA ne rend pas les révisions plus faciles. Elle les rend différentes — et potentiellement bien plus efficaces, si tu restes l&#39;acteur principal de ton apprentissage.</p>
+    <p>Le bon usage, c&#39;est celui où tu travailles plus, pas moins. Tu te fais interroger, tu reformules, tu compares, tu vérifies. L&#39;IA gère la partie mécanique — générer des questions, structurer un planning, reformuler un concept — pour que toi, tu puisses consacrer ton énergie à comprendre et à mémoriser.</p>
+    <p>Le mauvais usage, c&#39;est celui où tu regardes l&#39;IA travailler à ta place, en te disant que tu as &quot;révisé&quot;.</p>
+    <p>La ligne de partage est simple : si tu peux expliquer ce que tu viens de travailler sans regarder tes notes, l&#39;IA t&#39;a aidé. Sinon, elle a juste fait semblant de t&#39;aider.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

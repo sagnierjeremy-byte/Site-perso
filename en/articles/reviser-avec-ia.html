@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/reviser-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Studying with AI: what actually works (and what doesn't) · Jerwis</title>
+<meta name="description" content="AI can transform the way you study — or waste your time completely. I break down what actually works, the tools worth knowing, and the traps to avoid.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Studying with AI: what actually works (and what doesn't)">
+<meta property="og:description" content="AI can transform the way you study — or waste your time. Here's what works, the tools to know, and the traps to avoid.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/reviser-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/reviser-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-07">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Studying with AI: what actually works (and what doesn't)">
+<meta name="twitter:description" content="AI can transform the way you study — or waste your time. Here's what works, the tools to know, and the traps to avoid.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/reviser-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/reviser-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/reviser-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Studying with AI: what actually works (and what doesn't)",
+  "description": "AI can transform the way you study — or waste your time completely. I break down what actually works, the tools worth knowing, and the traps to avoid.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/reviser-avec-ia",
+  "datePublished": "2026-08-07",
+  "dateModified": "2026-08-07",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/reviser-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 72</div>
+    <h1>Studying<br>with AI:<br><em>what actually works</em></h1>
+    <p class="hero-lead">
+      How do you use AI to study without getting burned? That's the question I keep getting from parents and students alike. In 2026, recent data shows that between 80 and 90% of college students already use generative AI tools for their studies. So the question is no longer "should I use it?" — it's "how do I use it well?" Here's what I've figured out about these tools: the approaches that actually help you learn, the shortcuts that sabotage everything, and how to navigate all of this as a student or a parent.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT, Gemini Notebook, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>AI is a great study tool — but only if you use it <strong>actively</strong>: quizzes, rephrasing, personalized study plans.</li>
+      <li>Tools like ChatGPT, Gemini Notebook, and Claude can adapt content to your level — as long as you ask precisely.</li>
+      <li>The main trap: letting AI do the thinking for you. It can also <strong>make things up</strong> — that's what's called a hallucination.</li>
+      <li>Using AI to write an assignment without disclosing it is considered plagiarism by most schools.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>AI for studying: what are we actually talking about?</h2>
+    <p>In 2026, generative AI tools are everywhere. ChatGPT, Gemini, Claude — these names come up in every conversation about school. And yet most students I talk to are using these tools in ways that don't actually help them learn.</p>
+    <p>Before we go further, let's get the basics straight.</p>
+    <p>Generative AI, in the context of studying, is a program that can answer your questions, rephrase a lesson, quiz you, create study sheets or flashcards — based on whatever you give it. It's not a search engine. It's not a teacher. It's a language processing tool, incredibly powerful, but with real limits.</p>
+    <p>What makes all the difference is how you use it.</p>
+    <p>Learning science has been saying this for a long time (research as far back as 2013 showed that passive re-reading is one of the least effective memorization strategies). What works is active retrieval: testing yourself, rephrasing things in your own words, synthesizing. AI, used well, is a perfect tool for exactly that. Used badly, it becomes a crutch that stops you from actually learning.</p>
+    <p>I do all of this for myself first — I've tested these tools to understand how they work, and I'm sharing what I've taken away from that.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What actually helps you learn</h2>
+    <p>The difference between a useful and a passive use of AI comes down to one thing: are you the one doing the work, or are you watching AI do it for you?</p>
+    <p>Here are the approaches that genuinely move the needle.</p>
+    <p><strong>Getting quizzed by AI.</strong> Instead of re-reading your notes, ask AI to quiz you on a chapter. Paste in your lesson, ask it to generate 10 comprehension questions, and answer them without looking. That's active retrieval — exactly what the research identifies as effective.</p>
+    <p><strong>Rephrasing to understand.</strong> Stuck on a concept? Ask AI to explain it differently, with a concrete example, or by comparing it to something you already know. You can also ask it to explain like you're 12 — that forces a clarity that often reveals the fuzzy spots.</p>
+    <p><strong>Creating study sheets and flashcards.</strong> AI can generate structured summaries, revision sheets, or flashcard lists from your documents. That's a real time-saver on the mechanical part — which frees you up for the actual work: understanding and memorizing.</p>
+    <p><strong>Building a personalized study plan.</strong> Got an exam in three weeks, gaps in chemistry, and not much time on Wednesdays? AI can help you structure a plan tailored to your situation — as long as you give it precise information about your constraints and goals.</p>
+    <p><strong>Simulating an examiner.</strong> For oral exams or essays, you can ask AI to play the role of a panel and critique your answer. It's uncomfortable, but it's brutally effective.</p>
+    <p>In all of these cases, you're the main actor. AI is there to support you — not to replace you.</p>
+    <div class="callout tip"><h4>My advice</h4><p>Before starting a study session with AI, write down in one sentence what you want to be able to do by the end. "I want to be able to explain the Krebs cycle without looking at my notes." That frames your request and keeps you from drifting into passive use.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The tools available right now</h2>
+    <p>A few tools stand out for studying. Here's where things stand as of this article — because this space moves fast.</p>
+    <p><strong>ChatGPT (OpenAI).</strong> The current version is based on GPT-5.6, launched July 9, 2026. It's the most well-known tool, accessible directly in a browser. Very versatile: it can answer questions, rephrase a lesson, generate quizzes, and critique an essay. Its main strength is conversation — you can ask follow-ups, push back, and go deeper.</p>
+    <p><strong>Gemini Notebook (Google).</strong> What many people knew as NotebookLM was renamed Gemini Notebook on July 16, 2026, and integrated into the Gemini app. It's been running on Gemini 3.5 since June 8, 2026. Its specific use case for studying is interesting: you upload your own documents (lessons, PDFs, notes), and the tool generates summaries, quizzes, and study plans from those sources. It's a different approach — AI works from your materials, not its general training data.</p>
+    <p><strong>Claude (Anthropic).</strong> Claude Opus 5 launched July 24, 2026, with notable improvements in reliability and safety. Claude is often appreciated for its nuanced responses and its ability to handle long texts. For analyzing a novel, unpacking a philosophical text, or working through an essay, it's worth considering.</p>
+    <p><strong>Gemini 3.6 Flash (Google).</strong> Launched July 21, 2026, this model is optimized for everyday tasks and multi-step projects. Useful for structured study sessions broken into several stages.</p>
+    <p>To choose between these tools based on your use case, check out <a href="/en/lexique/choisir-modele-2026">this guide to the models available in 2026</a>.</p>
+    <p>One rule that applies to all of them: the more precise your request, the better the response. A vague prompt gives a vague result. I explain how to write effective prompts in <a href="/en/articles/ecrire-bon-prompt-non-dev">this dedicated article</a>.</p>
+    <h2>The traps that derail everything</h2>
+    <p>Let me be straight with you: there are ways to use AI that give you the feeling of working without actually learning anything. And others that can have serious consequences.</p>
+    <p><strong>The total delegation trap.</strong> This is the most common one. You ask AI to write your chapter summary, skim it, and move on. Result: you've learned nothing. AI did the cognitive work for you. Passively reading a machine-generated text is even less effective than passively re-reading your own notes.</p>
+    <p><strong>The hallucination trap.</strong> AI tools can produce false information with complete confidence — wrong dates, invented quotes, facts that don't exist. That's what's called a <a href="/en/lexique/hallucination">hallucination in AI</a>. If you're using AI to review specific facts (historical dates, formulas, author names), you need to verify everything. I explain how in <a href="/en/articles/verifier-info-ia">this article on fact-checking AI output</a>.</p>
+    <p><strong>The plagiarism trap.</strong> Using AI to write an assignment or essay without disclosing it is considered plagiarism by a growing number of schools and universities. Detection tools exist and are getting better. This isn't an abstract moral question — it's a rule that applies, with real consequences.</p>
+    <p><strong>The privacy trap.</strong> Before pasting a lesson or personal documents into an AI tool, ask yourself what happens to that data. It's a topic I explore in detail in <a href="/en/articles/donnees-perso-ia-confidentialite">this article on AI and privacy</a>.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Never ask AI to "summarize this chapter" without trying it yourself first. Write your own summary in 5 minutes, then compare it with AI's. Whatever you missed or got wrong — that's exactly what you need to work on.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What I'd say to parents</h2>
+    <p>If you're a parent reading this to understand what your kid is up to, here's what I think matters.</p>
+    <p>AI isn't a problem in itself. It's a tool. Like a calculator or the internet. The question is how you use it.</p>
+    <p>What's worth paying attention to is whether your child is using AI to understand — or to avoid understanding. The difference shows: a student who uses AI to learn can explain what they worked on in their own words. One who uses it to get around the work, can't.</p>
+    <p>A few useful questions to ask, without being intrusive: "What did you learn today with AI?" or "Can you explain that concept to me?" If the answer comes easily, that's a good sign.</p>
+    <p>It's also worth talking about the school's rules. Every school, high school, or university has (or is starting to have) a policy on AI use. Some explicitly allow it for certain tasks; others ban it for graded work. Better to know upfront.</p>
+    <p>Finally, data privacy deserves a conversation. Free tools aren't always the most careful about what happens to the data you enter.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Can AI replace a teacher or tutor for studying?</h3>
+    <p>No. AI can explain, rephrase, generate exercises, and adapt to your level — but it doesn't replace the human judgment of a teacher who knows you. It can't pick up on your emotional blocks, can't detect a deep misunderstanding the way an attentive teacher can, and doesn't know what will actually be tested in your specific context. It's a learning assistant, not a substitute.</p>
+    <h3>How do I make sure AI isn't giving me false information or "hallucinations"?</h3>
+    <p>By never trusting a piece of information without verifying it in a reliable source — your textbook, an official website, an academic article. AI tools can produce false information with a lot of confidence. For dates, numbers, quotes, and specific facts, verification is non-negotiable. I walk through the method in <a href="/en/articles/verifier-info-ia">this article</a>.</p>
+    <h3>Is using AI for my homework or studying considered cheating?</h3>
+    <p>It depends on how you use it. Using AI to understand a concept, generate study questions, or practice: in most cases, that's fine. Using AI to write a graded assignment without disclosing it: that's considered plagiarism by a growing number of schools, which have increasingly effective detection tools. Always check your school's rules.</p>
+    <h3>What are the best free AI tools for studying?</h3>
+    <p>As of this article, ChatGPT (based on GPT-5.6), Gemini Notebook (formerly NotebookLM, now integrated into Gemini), and Claude Opus 5 all offer free access with useful features for studying. Gemini Notebook is particularly interesting for working from your own documents. To choose based on your use case, check out <a href="/en/lexique/choisir-modele-2026">this comparison guide</a>.</p>
+    <h3>How can parents support their kids in using AI for school?</h3>
+    <p>By staying curious rather than suspicious. Ask your child to show you how they use the tool, ask questions about what they learned (not just what they produced), and check the school's rules together. The conversation about data privacy matters too — not all tools are equal on that front.</p>
+    <h3>Can AI really personalize my learning path?</h3>
+    <p>Yes, to a degree. AI tools can adapt their level of explanation, pace, examples, and exercise types based on what you tell them about yourself and your needs. But that personalization only works if you give it precise information about your gaps, your goals, and your constraints. AI doesn't guess — it responds to what you ask.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>AI doesn't make studying easier. It makes it different — and potentially much more effective, as long as you stay the main actor in your own learning.</p>
+    <p>The right use is the one where you work more, not less. You get quizzed, you rephrase, you compare, you verify. AI handles the mechanical part — generating questions, structuring a plan, rephrasing a concept — so you can spend your energy on understanding and memorizing.</p>
+    <p>The wrong use is the one where you watch AI work for you, and tell yourself you've "studied."</p>
+    <p>The dividing line is simple: if you can explain what you just worked on without looking at your notes, AI helped you. If you can't, it just pretended to.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works — no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

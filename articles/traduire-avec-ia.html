@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/traduire-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>DeepL, ChatGPT ou Google Traduction : lequel choisir ?</title>
+<meta name="description" content="Mail, document, voyage : je compare DeepL, ChatGPT et Google Traduction pour t'aider à choisir le bon outil selon ta situation en 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="DeepL, ChatGPT ou Google Traduction : lequel choisir ?">
+<meta property="og:description" content="Mail, document, voyage : je compare DeepL, ChatGPT et Google Traduction pour t'aider à choisir le bon outil selon ta situation en 2026.">
+<meta property="og:url" content="https://jerwis.fr/articles/traduire-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/traduire-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-10">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="DeepL, ChatGPT ou Google Traduction : lequel choisir ?">
+<meta name="twitter:description" content="Mail, document, voyage : je compare DeepL, ChatGPT et Google Traduction pour t'aider à choisir le bon outil selon ta situation en 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/traduire-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/traduire-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/traduire-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/traduire-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/traduire-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "DeepL, ChatGPT ou Google Traduction : lequel choisir ?",
+  "description": "Mail, document, voyage : je compare DeepL, ChatGPT et Google Traduction pour t'aider à choisir le bon outil selon ta situation en 2026.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/traduire-avec-ia",
+  "datePublished": "2026-08-10",
+  "dateModified": "2026-08-10",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/traduire-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 82</div>
+    <h1>Traduire avec<br>l'IA en 2026<br><em>lequel choisir vraiment ?</em></h1>
+    <p class="hero-lead">
+      Tu dois envoyer un mail à un partenaire étranger. Ou traduire un contrat. Ou juste comprendre un menu à l'étranger. Tu ouvres un outil de traduction — mais lequel ? DeepL, ChatGPT, Google Traduction : les trois sont gratuits, les trois sont rapides, et pourtant ils ne font pas du tout la même chose. Je les utilise tous les trois selon les situations. Voici comment je les distingue, ce que chacun fait vraiment bien, et ce qu'il vaut mieux leur éviter.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>8 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> DeepL, ChatGPT, Google Traduction</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li><strong>DeepL</strong> est le plus précis pour les langues européennes et les documents formels.</li>
+      <li><strong>ChatGPT</strong> gère mieux le ton, le contexte et les instructions sur mesure — idéal pour les mails professionnels.</li>
+      <li><strong>Google Traduction</strong> couvre le plus de langues et reste imbattable pour les usages du quotidien et les voyages.</li>
+      <li>Pour les documents sensibles, la version gratuite de Google Traduction pose des <strong>questions de confidentialité</strong> à ne pas ignorer.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La traduction IA, c&#39;est quoi aujourd&#39;hui ?</h2>
+    <p>Pendant longtemps, traduire un texte avec une machine donnait un résultat rigide, mécanique, parfois incompréhensible. On corrigeait plus qu&#39;on ne gagnait du temps.</p>
+    <p>Ce temps-là est révolu.</p>
+    <p>En 2026, les outils de traduction IA ont franchi un cap. DeepL, ChatGPT et Google Traduction ne se contentent plus de remplacer mot à mot. Ils analysent le contexte, ajustent le registre, et — pour les meilleurs — gèrent même les ambiguïtés. Le marché de la traduction automatique devrait d&#39;ailleurs passer de 1,13 milliard de dollars en 2025 à 2,19 milliards d&#39;ici 2031, selon les projections disponibles à la date de cet article. Ce n&#39;est pas une mode : c&#39;est une infrastructure qui s&#39;installe.</p>
+    <p>Mais &quot;meilleur outil de traduction IA&quot; n&#39;a aucun sens si tu ne précises pas <em>pour quoi faire</em>. Un mail à un client allemand, un contrat à relire, une conversation dans un marché au Maroc : ce sont trois besoins différents, et les trois outils n&#39;y répondent pas de la même façon.</p>
+    <p>Je vais te montrer comment je les utilise, et pourquoi je ne me contente plus d&#39;un seul.</p>
+    <hr>
+    <h2>DeepL : quand la précision compte vraiment</h2>
+    <p>DeepL est souvent cité comme la référence pour les langues européennes, et les chiffres le confirment. Son score BLEU — une mesure standard de qualité de traduction — atteint 60 à 65 sur les paires anglais vers allemand, français ou espagnol. C&#39;est significativement au-dessus de la moyenne des outils généralistes.</p>
+    <p>Concrètement, ça se ressent sur les textes formels : un document contractuel, une proposition commerciale, un rapport. Les phrases restent naturelles, la structure est respectée, et le registre est tenu d&#39;un bout à l&#39;autre.</p>
+    <p>Ce qui me plaît chez DeepL, c&#39;est aussi ce qu&#39;il a construit autour de la traduction brute. En mars 2025, il a lancé <strong>DeepL Clarify</strong> : une fonctionnalité qui t&#39;interroge quand une phrase est ambiguë, au lieu de choisir arbitrairement une interprétation. Tu gardes le contrôle. En novembre 2025, le <strong>DeepL Customization Hub</strong> est arrivé : tu peux y appliquer des glossaires, des règles de style et des mémoires de traduction. Si tu as une terminologie propre à ton secteur ou à ta marque, tu peux l&#39;intégrer une fois pour toutes.</p>
+    <p>Et en avril 2026, DeepL a ajouté la traduction vocale en temps réel (Voice-to-Voice) dans sa nouvelle plateforme. Une piste intéressante pour les réunions internationales.</p>
+    <p>Ses limites ? DeepL couvre 33 langues. C&#39;est solide pour l&#39;Europe, mais si tu travailles avec des marchés en Asie du Sud-Est ou en Afrique subsaharienne, tu vas rapidement toucher ses bords. Il peut aussi montrer des faiblesses sur les domaines très techniques ou les langues rares.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Si tu traduis des documents professionnels vers ou depuis une langue européenne, DeepL est mon premier réflexe. La qualité est régulièrement au rendez-vous, et les nouvelles fonctionnalités comme Clarify évitent les erreurs silencieuses — celles qu'on ne voit pas mais qui changent le sens d'une phrase entière.</p></div>
+    
+    <hr>
+    <h2>ChatGPT : l&#39;outil qui comprend ce que tu veux dire</h2>
+    <p>ChatGPT n&#39;est pas un outil de traduction au sens strict. C&#39;est un <a href="/lexique/llm">LLM</a> — un grand modèle de langage — auquel tu peux demander de traduire, mais aussi d&#39;adapter, de reformuler, de changer de ton.</p>
+    <p>Et c&#39;est là que ça devient intéressant.</p>
+    <p>En janvier 2026, OpenAI a lancé <strong>ChatGPT Translate</strong>, une interface dédiée à la traduction. Mais l&#39;avantage de ChatGPT ne vient pas d&#39;une interface : il vient de sa capacité à suivre des instructions précises. Tu peux lui dire : &quot;Traduis ce mail en anglais, ton professionnel mais chaleureux, évite le jargon, garde la structure en deux paragraphes.&quot; Il va le faire. Et le résultat sera souvent plus adapté à ta situation qu&#39;une traduction automatique standard.</p>
+    <p>Pour un mail à un client, un texte de présentation, ou du contenu marketing, c&#39;est un vrai atout. Le ton, la nuance, le registre — ChatGPT les gère mieux que les autres quand tu lui donnes le bon contexte.</p>
+    <p>La limite, c&#39;est la précision sur les contenus complexes. Pour un document juridique ou technique pointu, ChatGPT peut produire une traduction fluide… mais inexacte sur le fond. Ce qu&#39;on appelle une <a href="/lexique/hallucination">hallucination</a> en IA : une formulation convaincante qui dit autre chose que l&#39;original. Sur un mail de prospection, c&#39;est rattrapable. Sur un contrat, c&#39;est risqué.</p>
+    <p>Si tu veux tirer le meilleur de ChatGPT pour la traduction, la qualité de ta demande fait toute la différence. J&#39;ai écrit un article sur <a href="/articles/ecrire-bon-prompt-non-dev">comment rédiger un prompt efficace si tu n&#39;es pas développeur</a> — les principes s&#39;appliquent directement ici.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Google Traduction : le couteau suisse du quotidien</h2>
+    <p>Google Traduction, c&#39;est l&#39;outil que tout le monde a déjà utilisé. Et en 2026, il est bien plus puissant qu&#39;il y a trois ans.</p>
+    <p>Depuis décembre 2025, Google a intégré des améliorations basées sur Gemini — son propre modèle de langage — qui améliorent la gestion des expressions idiomatiques, de l&#39;argot et des langues locales. Le déploiement est progressif, et la fonctionnalité Live Translate sur iOS arrive en 2026.</p>
+    <p>Ce qui distingue vraiment Google Traduction, c&#39;est la couverture. L&#39;application prend en charge 249 langues pour la traduction de texte. Elle permet la traduction hors ligne pour 59 langues, la traduction instantanée par appareil photo pour 94 langues, et la traduction de conversations bilingues pour 70 langues. Pour un voyage, c&#39;est imbattable : tu peux pointer ton téléphone sur un panneau, une carte de restaurant, un formulaire — et obtenir une traduction immédiate, même sans connexion.</p>
+    <p>Pour les usages du quotidien — comprendre un mail reçu dans une langue que tu ne maîtrises pas, déchiffrer une interface étrangère, communiquer à l&#39;étranger — Google Traduction est rapide, gratuit, et suffisamment fiable.</p>
+    <p>Là où il montre ses limites, c&#39;est sur la qualité fine. Pour les textes polis, les documents formels ou les contenus où le registre compte, DeepL produit des traductions plus naturelles. Google Traduction reste excellent en couverture, moins en finesse.</p>
+    <hr>
+    <h2>Ce que tu dois savoir sur la confidentialité</h2>
+    <p>C&#39;est le sujet que beaucoup ignorent — et qui peut coûter cher.</p>
+    <p>Quand tu colles un texte dans un outil de traduction en ligne, ce texte quitte ton ordinateur. Il est traité sur des serveurs distants. La question, c&#39;est : qu&#39;est-ce qui lui arrive ensuite ?</p>
+    <p>Pour la version gratuite de Google Traduction, la réponse est claire : le contenu peut être utilisé pour améliorer les services de Google. Ce n&#39;est pas une rumeur, c&#39;est dans les conditions d&#39;utilisation. Si tu traduis un mail client, un devis, ou un document interne, tu prends un risque réel sur la confidentialité des données.</p>
+    <p>DeepL Pro, lui, garantit que les textes traduits ne sont ni stockés ni utilisés pour entraîner ses algorithmes. Il est conforme au RGPD et au HIPAA — ce qui en fait l&#39;option de référence pour les documents sensibles dans un contexte professionnel européen.</p>
+    <p>Pour ChatGPT, la situation dépend de tes paramètres et de ton abonnement. Par défaut, OpenAI peut utiliser les conversations pour améliorer ses modèles, sauf si tu désactives cette option dans les réglages.</p>
+    <p>J&#39;ai un article dédié à ce sujet si tu veux aller plus loin : <a href="/articles/donnees-perso-ia-confidentialite">données personnelles et IA, ce qu&#39;il faut vraiment savoir</a>. Et si tu hésites entre version gratuite et payante pour tes usages pro, j&#39;ai aussi comparé les différences concrètes dans cet article sur <a href="/articles/ia-gratuite-ou-payante">les outils IA gratuits vs payants</a>.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne colle jamais un document confidentiel — contrat, données client, information stratégique — dans la version gratuite d'un outil de traduction en ligne. Même si le résultat est bon, tu ne contrôles plus où va ce texte. Pour ce type de contenu, DeepL Pro est l'option la plus sérieuse à ce jour.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Quel outil pour quelle situation ?</h2>
+    <p>Voici comment je répartis les usages dans ma pratique :</p>
+    <p><strong>Pour un mail professionnel</strong> — client, partenaire, fournisseur étranger — je commence par ChatGPT. Je lui donne le contexte, le ton voulu, et parfois quelques contraintes de formulation. Le résultat est plus adapté à la relation que je veux construire qu&#39;une traduction mécanique.</p>
+    <p><strong>Pour un document formel</strong> — contrat, rapport, présentation — je passe par DeepL Pro. La précision est meilleure sur les langues européennes, et la confidentialité est assurée. Si une phrase m&#39;interroge, DeepL Clarify me permet de lever l&#39;ambiguïté avant de valider.</p>
+    <p><strong>Pour un voyage ou un usage rapide</strong> — comprendre un texte reçu, lire une enseigne, déchiffrer un formulaire — Google Traduction est le bon outil. La traduction par appareil photo et le mode hors ligne sont des atouts concrets que les deux autres n&#39;offrent pas dans la même mesure.</p>
+    <p><strong>Pour une langue rare ou hors Europe</strong> — Google Traduction s&#39;impose par sa couverture. DeepL n&#39;est pas disponible sur toutes les langues, et ChatGPT peut produire des résultats variables selon les langues moins représentées dans ses données d&#39;entraînement.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>DeepL est-il toujours le meilleur pour les documents juridiques ou techniques ?</h3>
+    <p>DeepL est réputé fort sur les langues européennes et les textes formels, avec des scores de précision mesurables. Mais &quot;meilleur&quot; dépend de la langue et du domaine. Pour les langues rares ou les domaines très techniques, il peut montrer des limites. Dans tous les cas, une relecture humaine reste indispensable sur un document juridique — aucun outil ne remplace cette étape.</p>
+    <h3>Puis-je utiliser ChatGPT pour traduire des e-mails clients confidentiels ?</h3>
+    <p>Avec précaution. Par défaut, OpenAI peut utiliser les conversations pour améliorer ses modèles. Si tu traduis des e-mails contenant des données clients, vérifie tes paramètres de confidentialité et envisage une version professionnelle avec les garanties adaptées. Pour les données vraiment sensibles, DeepL Pro reste l&#39;option la plus encadrée.</p>
+    <h3>Quelles sont les dernières fonctionnalités de Google Traduction pour les voyageurs ?</h3>
+    <p>À la date de cet article, l&#39;application Google Traduction propose la traduction hors ligne pour 59 langues, la traduction instantanée par appareil photo pour 94 langues, et la traduction de conversations bilingues pour 70 langues. La fonctionnalité Live Translate boostée par Gemini est en cours de déploiement progressif sur iOS en 2026.</p>
+    <h3>Les versions gratuites de ces outils sont-elles sûres pour un usage professionnel ?</h3>
+    <p>Pour un usage personnel ou des textes sans information sensible, les versions gratuites sont suffisantes. Pour un usage professionnel impliquant des données clients, des contrats ou des informations stratégiques, la version gratuite de Google Traduction pose des questions de confidentialité réelles. DeepL Pro est la seule option parmi les trois qui garantit explicitement la non-utilisation des textes pour l&#39;entraînement de ses algorithmes.</p>
+    <h3>Comment puis-je améliorer la qualité des traductions obtenues avec l&#39;IA ?</h3>
+    <p>Avec ChatGPT, la qualité dépend beaucoup de la façon dont tu formules ta demande. Plus tu précises le contexte, le ton et les contraintes, meilleur est le résultat. Avec DeepL, les glossaires personnalisés du Customization Hub permettent d&#39;imposer ta terminologie. Dans tous les cas, une relecture du résultat reste la meilleure garantie — les erreurs silencieuses existent dans chaque outil.</p>
+    <h3>Existe-t-il un outil qui combine les avantages de DeepL et ChatGPT ?</h3>
+    <p>Pas encore sous une seule interface grand public. En pratique, beaucoup d&#39;utilisateurs combinent les deux : DeepL pour la traduction initiale d&#39;un document, ChatGPT pour affiner le ton ou adapter un passage spécifique. C&#39;est une approche qui fonctionne bien et qui ne demande pas de compétence technique particulière.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Je n&#39;utilise plus un seul outil de traduction. J&#39;en utilise trois, selon ce que j&#39;ai à faire.</p>
+    <p>DeepL pour les documents qui comptent, là où la précision et la confidentialité ne sont pas négociables. ChatGPT quand je veux adapter un ton, personnaliser un mail ou donner des instructions précises sur le résultat attendu. Google Traduction pour tout le reste — le quotidien, les voyages, la compréhension rapide d&#39;un texte reçu dans une langue que je ne parle pas.</p>
+    <p>Ce qui a changé ma façon de les utiliser, c&#39;est de comprendre que ces outils ne font pas la même chose. Ils ont des architectures différentes, des forces différentes, et des politiques de données différentes. Choisir le bon outil pour le bon usage, c&#39;est gagner en qualité et en sécurité — sans effort supplémentaire.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

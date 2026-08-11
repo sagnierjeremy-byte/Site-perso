@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/presentation-powerpoint-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Create a PowerPoint presentation with AI in minutes · Jerwis</title>
+<meta name="description" content="Gamma, Copilot, Beautiful.ai: how to build a compelling PowerPoint presentation with AI — no design skills needed. Steps, costs, and real limits.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Create a PowerPoint presentation with AI in minutes">
+<meta property="og:description" content="Gamma, Copilot, Beautiful.ai: build a compelling PowerPoint with AI — no design skills needed. Steps, costs, limits.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/presentation-powerpoint-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/presentation-powerpoint-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-11">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Create a PowerPoint presentation with AI in minutes">
+<meta name="twitter:description" content="Gamma, Copilot, Beautiful.ai: build a compelling PowerPoint with AI — no design skills needed. Steps, costs, limits.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/presentation-powerpoint-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/presentation-powerpoint-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/presentation-powerpoint-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/presentation-powerpoint-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/presentation-powerpoint-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Create a PowerPoint presentation with AI in minutes",
+  "description": "Gamma, Copilot, Beautiful.ai: how to build a compelling PowerPoint presentation with AI — no design skills needed. Steps, costs, and real limits.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/presentation-powerpoint-ia",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/presentation-powerpoint-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 75</div>
+    <h1>Slides<br>in a few minutes<br><em>without touching the layout</em></h1>
+    <p class="hero-lead">
+      You have an idea, a pitch, a quarterly review to present. And you're spending more time nudging boxes around in PowerPoint than actually sharpening your message. That's exactly the problem I wanted to solve. Today, tools like Gamma AI and Microsoft Copilot let you generate a full presentation from a single sentence. I'll show you how it works, what it's actually worth, and where it still falls short.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Gamma AI, Microsoft Copilot</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li><strong>Gamma AI</strong> generates a full presentation from an idea or a file, in minutes.</li>
+      <li>Microsoft <strong>Copilot in PowerPoint</strong> creates slides directly inside the interface you already know.</li>
+      <li>Gamma is <strong>free to start</strong> (400 lifetime credits); Copilot requires an eligible Microsoft 365 subscription.</li>
+      <li>Gamma's PowerPoint export can <strong>flatten layouts</strong> into static images — plan for a review pass before sharing.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>Tested on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>Tested on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Why slides were eating my time</h2>
+    <p>For a long time, building a presentation took me half a day. Not because I was short on ideas — but because I spent most of that time fiddling with margins, fonts, and alignment. The actual message came last.</p>
+    <p>I'm not a designer. And I'm not the kind of person who's going to spend hours learning PowerPoint shortcuts. What I want is for my idea to look good, fast, without the layout swallowing my afternoon.</p>
+    <p>That's where AI comes in. And the difference is real.</p>
+    <p>According to data from March 2026, 47% of French SMBs had already launched at least one AI project — up 18 points from a year earlier. That number says something important: AI isn't just for big companies anymore. It's showing up in the day-to-day of entrepreneurs. And presentation creation is one of the first places you feel it concretely.</p>
+    <p>The idea is simple: you describe what you want to present, the tool generates a structure, picks a layout, and all you have to do is refine the message. It's not magic — there's still work involved — but the starting point changes completely.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Gamma AI: from idea to slides</h2>
+    <p>Gamma AI is a platform built to create presentations, documents, and web pages from a simple prompt, an outline, or an imported file. You type an idea in a few words, the tool generates a structure, suggests visuals, and delivers something presentable in minutes.</p>
+    <p>The workflow looks like this:</p>
+    <ol>
+    <li><strong>You enter your idea</strong> — a sentence, a bullet-point outline, or you import an existing document.</li>
+    <li><strong>The AI generates a structure</strong> — it breaks the topic into sections, suggests titles, and fills the slides with content.</li>
+    <li><strong>You customize</strong> — you edit the text, swap the visual theme, rearrange the blocks.</li>
+    <li><strong>You share</strong> — via a direct web link, or you export to PDF or PowerPoint.</li>
+    </ol>
+    <p>What struck me the first time was the speed. In under five minutes, I had a ten-slide presentation on a topic I'd sketched out in three lines. Not perfect, but structured, readable, and visually consistent.</p>
+    <p><strong>What it costs.</strong> Gamma offers a free plan with 400 lifetime AI credits. Each generated presentation typically uses around 40 credits — which gives you roughly ten full presentations without spending a dime. Beyond that, paid plans unlock unlimited AI usage.</p>
+    <p><strong>The limit you need to know.</strong> When you export to PowerPoint, Gamma's dynamic layouts can get flattened into static images. In practice: if you open the .pptx file to edit it slide by slide, you might end up with locked blocks that are hard to tweak. If you know you'll need to edit the file afterward, plan for that upfront.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>If you're delivering an editable PowerPoint file to a client or colleague, test the export before you commit. Gamma shines when you present directly from its web interface or export to PDF. The editable .pptx is its weak spot.</p></div>
+    
+    <p>To get the most out of Gamma, the quality of your initial prompt makes all the difference. I have an article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a> — the same principles apply here.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Copilot in PowerPoint: AI where you already work</h2>
+    <p>If you're already using Microsoft 365, Copilot plugs directly into PowerPoint. No tool-switching required. You open PowerPoint, click Copilot, and describe what you want.</p>
+    <p>Copilot can build a presentation from a text description, but also from a Word file or an existing document. You hand it a brief or a report, and it generates the corresponding slides — text, layouts, and visuals included.</p>
+    <p>In July 2026, Microsoft integrated Black Forest Lab's FLUX.2 Flex model for image generation. That means visuals produced directly in PowerPoint via Copilot are now sharper and more customizable — no need to hunt for photos on an external site.</p>
+    <p><strong>What it costs.</strong> Copilot isn't available on every Microsoft 365 plan. You need a Microsoft 365 Premium plan (for individuals) or an eligible business plan. If you're already subscribed to Microsoft 365 for your work, check your subscription tier before wondering why the Copilot button isn't showing up.</p>
+    <p><strong>The main advantage.</strong> Everything stays inside the Microsoft ecosystem. You work directly in the .pptx file — no export, no conversion. If you need to collaborate with colleagues on SharePoint or Teams, this is the smoothest option.</p>
+    <p><strong>The main limit.</strong> Copilot is less autonomous than Gamma when starting from scratch. It excels when you already have material — a Word doc, a report, a structured brief — and you want to turn it into slides. For going from a vague one-sentence idea to a full deck, Gamma is usually more responsive.</p>
+    <p>For choosing between different AI tools depending on what you want to produce — text, images, presentations — I wrote a comparison article on <a href="/en/articles/choisir-ia-ecrire-coder-images">how to pick your AI based on the task</a>.</p>
+    <h2>Gamma or Copilot: which one should you pick?</h2>
+    <p>The question isn't "which one is better" — it's "which one fits your situation."</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Criteria</th>
+    <th>Gamma AI</th>
+    <th>Copilot in PowerPoint</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td>Starting point</td>
+    <td>An idea, a sentence</td>
+    <td>A document, a brief</td>
+    </tr>
+    <tr>
+    <td>Ecosystem</td>
+    <td>Independent, web-based</td>
+    <td>Microsoft 365</td>
+    </tr>
+    <tr>
+    <td>Free plan</td>
+    <td>Yes (400 credits)</td>
+    <td>No (subscription required)</td>
+    </tr>
+    <tr>
+    <td>Editable .pptx export</td>
+    <td>Limited (layout flattened)</td>
+    <td>Native</td>
+    </tr>
+    <tr>
+    <td>Image generation</td>
+    <td>Yes</td>
+    <td>Yes (FLUX.2 Flex since Jul. 2026)</td>
+    </tr>
+    </tbody></table>
+    <p>If you're starting from zero and want to try without paying: start with Gamma. If you're already in the Microsoft 365 ecosystem and have documents to turn into slides: Copilot makes more sense.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>I use both depending on the situation. Gamma to quickly prototype a new idea. Copilot when I already have a structured document and want to stay in PowerPoint. Both save me from spending time on layout — and that's the whole point.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Other tools worth knowing</h2>
+    <p>Gamma and Copilot aren't the only options. Two alternatives are worth mentioning.</p>
+    <p><strong>Beautiful.ai</strong> bets on "smart templates" that automatically adapt the layout to the content you type in. The tool updated its editor in October 2025 and its template library in July 2026. It has a strong reputation for automatic visual consistency — if you want a polished result without touching any design settings, it's worth exploring.</p>
+    <p><strong>Canva Magic Design</strong> also offers AI features for generating slides and content, with a generous free plan and thousands of templates. If you already use Canva for other visuals, the learning curve is basically zero.</p>
+    <p>Worth noting: Tome AI, which used to be a well-known alternative, shut down its presentation product around April 2025 to refocus on sales automation. I mention it because it still comes up in some articles — but if you see a recommendation for Tome for slides, it's outdated.</p>
+    <p>The AI presentation tool market moves fast. My recommendation: start with Gamma's free plan and see if it does the job before going further.</p>
+    <h2>A few habits for better results</h2>
+    <p>AI gives you a starting point. What you do with it after is what separates a decent presentation from one that actually convinces people.</p>
+    <p><strong>Be specific in your prompt.</strong> "Make me a presentation about my business" gives you something generic. "Create an 8-slide deck to pitch my recruitment consulting service to industrial SMBs, with a problem slide, a solution slide, and a pricing slide" gives you something usable. <a href="/en/lexique/prompt-engineering">Prompt engineering</a> applies here just like everywhere else.</p>
+    <p><strong>Review the generated content.</strong> AI structures things well, but it can produce vague phrasing or made-up numbers. Every factual claim you leave in the deck — you own that in front of your audience.</p>
+    <p><strong>Match the tone to the audience.</strong> An investor pitch and an internal update don't speak the same language. Tell the tool upfront — it takes that into account.</p>
+    <p><strong>Don't keep everything.</strong> AI tends to generate too much text per slide. A good presentation usually means fewer words, not more. Edit ruthlessly.</p>
+    <p>If you want to go further on automating this kind of task, I have an article on <a href="/en/articles/automatiser-taches-ia-sans-coder">how to automate repetitive tasks with AI without writing code</a> — presentation creation fits right into that bigger picture.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>FAQ</h2>
+    <h3>Can AI really create a full presentation without any human input?</h3>
+    <p>Largely, yes — but not entirely. Tools like Gamma AI generate a structure, text, and visuals from a prompt. The result is often presentable without major edits. But you're always responsible for fact-checking, adjusting the tone, and making sure it aligns with your actual message. AI handles the heavy lifting on formatting; the substance is still yours.</p>
+    <h3>What does it cost to use Gamma AI or Microsoft Copilot for presentations?</h3>
+    <p>Gamma offers a free plan with 400 lifetime AI credits, with each presentation typically using around 40 credits — so roughly ten free presentations. Beyond that, you need a paid plan for unlimited use. Microsoft Copilot in PowerPoint requires a Microsoft 365 Premium plan or an eligible business plan — there's no free tier for this feature.</p>
+    <h3>Can I customize the presentations AI generates?</h3>
+    <p>Yes. Both tools let you edit text, swap the visual theme, reorder slides, and adjust content after generation. Gamma has a web-based editor. Copilot works directly inside PowerPoint, giving you access to all the usual editing options in the app.</p>
+    <h3>Can AI pull in my existing data or documents to build a presentation?</h3>
+    <p>Yes — and that's actually one of the strongest use cases for these tools. Gamma can generate a presentation from an imported file. Copilot in PowerPoint can create slides from a Word document or a text brief. In both cases, the AI uses the material you provide to structure the content.</p>
+    <h3>How private is my data when I use AI presentation tools?</h3>
+    <p>That's a fair question, especially if you're working with sensitive data or client information. The terms vary by tool and change regularly. Before importing a confidential document, check the privacy policy of the tool you're using. As a general rule, enterprise tools like Microsoft 365 Copilot offer more formal contractual guarantees than consumer-facing tools.</p>
+    <h3>Are AI-generated presentations actually "professional" and unique?</h3>
+    <p>The visual output is often clean and consistent — well above what most people produce by hand without design training. On uniqueness, it's more nuanced: these tools rely on recurring templates and styles. Two people entering a similar prompt will get similar-looking decks. To stand out, focus on the precision of your prompt, your choice of theme, and above all the quality of the content you bring to it.</p>
+    <h2>My takeaways</h2>
+    <p>I'm done spending half a day nudging boxes around in PowerPoint. It's not about being lazy — it's about priorities. My time is worth more than layout work.</p>
+    <p>Gamma won me over for fast prototyping. Copilot is useful when I already have structured material to transform. Both have real limits — Gamma's PowerPoint export especially — but none of those limits justify going back to doing it by hand.</p>
+    <p>I test things on myself first. And here, the time savings are concrete enough that I can recommend it without hesitation. Try Gamma on a real presentation you have to do this week. Ten minutes, 40 credits, and you'll have your answer.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works — no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

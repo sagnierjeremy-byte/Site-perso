@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/compte-rendu-reunion-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Compte rendu de réunion automatique avec l'IA</title>
+<meta name="description" content="Transcription, résumé automatique, outils gratuits : comment l'IA gère tes comptes rendus de réunion sur Teams, en présentiel et ailleurs.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Compte rendu de réunion automatique avec l'IA">
+<meta property="og:description" content="Transcription, résumé automatique, outils gratuits : comment l'IA gère tes comptes rendus de réunion sur Teams, en présentiel et ailleurs.">
+<meta property="og:url" content="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/compte-rendu-reunion-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-13">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Compte rendu de réunion automatique avec l'IA">
+<meta name="twitter:description" content="Transcription, résumé automatique, outils gratuits : comment l'IA gère tes comptes rendus de réunion sur Teams, en présentiel et ailleurs.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/compte-rendu-reunion-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Compte rendu de réunion automatique avec l'IA",
+  "description": "Transcription, résumé automatique, outils gratuits : comment l'IA gère tes comptes rendus de réunion sur Teams, en présentiel et ailleurs.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/compte-rendu-reunion-ia",
+  "datePublished": "2026-08-13",
+  "dateModified": "2026-08-13",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/compte-rendu-reunion-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 20</div>
+    <h1>Tes réunions,<br>résumées par<br><em>l'IA</em></h1>
+    <p class="hero-lead">
+      Tu sors d'une réunion d'une heure et tu te demandes qui va rédiger le compte rendu. Selon une étude IFOP-Wisembly de 2024, un cadre français passe en moyenne 15 heures par semaine en réunion. C'est énorme. Et la prise de notes vient en plus. J'ai cherché comment déléguer ça à l'IA — sans être développeur, sans budget, sans sacrifier la politesse envers mes interlocuteurs. Voici ce que j'ai trouvé, testé et retenu.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Fireflies.ai, Otter.ai, Fathom</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Des outils comme <strong>Fireflies.ai</strong> ou <strong>Fathom</strong> offrent transcription et résumé illimités sur leur plan gratuit.</li>
+      <li>Pour Teams, <strong>Microsoft Copilot</strong> intègre le résumé directement dans la plateforme — si tu as la licence.</li>
+      <li>En présentiel, <strong>MeetGeek</strong> enregistre hors ligne et synchronise ensuite ; le boîtier <strong>Plaud</strong> stocke localement.</li>
+      <li>Le consentement des participants <strong>n'est pas optionnel</strong> : préviens toujours avant d'activer l'enregistrement.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>15 heures par semaine en réunion</h2>
+    <p>C&#39;est le chiffre qui m&#39;a décidé à creuser le sujet. Quinze heures. Selon l&#39;étude IFOP-Wisembly de 2024, c&#39;est la moyenne hebdomadaire d&#39;un cadre français passée en réunion. Et après chaque réunion, il faut encore rédiger le compte rendu, relire ses notes, retrouver qui a dit quoi.</p>
+    <p>Je ne suis pas développeur. Je ne sais pas coder. Mais je refuse de passer une heure supplémentaire à retranscrire ce qui vient de se dire pendant une heure. Alors j&#39;ai cherché comment l&#39;IA pouvait prendre ça en charge.</p>
+    <p>La bonne nouvelle : les outils existent, certains sont gratuits, et ils fonctionnent vraiment. La moins bonne : il faut choisir le bon selon ton contexte — réunion en ligne, en présentiel, en français, avec ou sans licence Microsoft. Et il y a une règle de politesse élémentaire à respecter, que beaucoup oublient.</p>
+    <p>Je t&#39;explique tout ici.</p>
+    <h2>Ce que l&#39;IA fait concrètement</h2>
+    <p>Un assistant IA de réunion fait trois choses : il enregistre, il transcrit, il résume.</p>
+    <p>L&#39;enregistrement peut se faire via un bot qui rejoint ton appel, ou via une application sur ton téléphone ou ordinateur. La transcription convertit la parole en texte, en temps réel ou après coup. Le résumé extrait les décisions prises, les points clés et les actions à suivre.</p>
+    <p>Le gain de temps est réel. Selon une source datée d&#39;avril 2026, l&#39;usage d&#39;outils IA pour les comptes rendus peut réduire le temps de rédaction post-réunion de 90 %. Je ne garantis pas ce chiffre dans tous les cas — ça dépend de la qualité de ton audio et de la complexité de ta réunion — mais l&#39;ordre de grandeur est cohérent avec ce que j&#39;observe.</p>
+    <p>Ce qui change aussi, c&#39;est la qualité du compte rendu. Quand tu prends des notes toi-même, tu rates des éléments parce que tu parles en même temps. L&#39;IA, elle, écoute tout.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le résumé IA ne remplace pas ton jugement. Il capture ce qui a été dit — pas ce que ça signifie pour ton activité. Prends 5 minutes après la réunion pour relire et annoter le résumé généré. C'est là que tu gardes la main.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Sur Teams, Google Meet ou Zoom</h2>
+    <p>Si tu travailles principalement sur Microsoft Teams et que ton organisation dispose d&#39;une licence Microsoft 365 Copilot, la solution la plus intégrée est <strong>Microsoft Copilot dans Teams</strong>. Il résume les réunions en temps réel, retrouve des décisions passées et aide à préparer les prochains meetings. Depuis mi-décembre 2025, il propose des modèles de résumé personnalisables (&quot;Custom AI Summary templates&quot;). En avril-mai 2026, une fonctionnalité de narration vidéo des moments clés (&quot;Video Recap narrated highlights&quot;) a été déployée. C&#39;est pratique — mais c&#39;est une option payante, réservée aux abonnés de la licence adéquate.</p>
+    <p>Si tu n&#39;as pas cette licence, ou si tu utilises plusieurs plateformes, voici les alternatives qui fonctionnent sur Teams, Zoom et Google Meet.</p>
+    <p><strong>Fireflies.ai</strong> [F3] est celui que je recommande en premier pour tester. Son plan gratuit inclut la transcription illimitée, des résumés IA illimités, la fonction &quot;AskFred&quot; (pour interroger la transcription comme un chatbot), et 400 minutes de stockage par équipe. Il supporte plus de 100 langues et s&#39;intègre avec les trois grandes plateformes. C&#39;est solide pour commencer sans sortir la carte bleue.</p>
+    <p><strong>Otter.ai</strong> [F2] est une autre option connue. Son plan gratuit donne 300 minutes de transcription par mois, avec une limite de 30 minutes par conversation et 3 participants. C&#39;est suffisant pour des réunions courtes et régulières, mais vite limité si tu as des sessions longues.</p>
+    <p><strong>Fathom</strong> [F9] mérite d&#39;être mentionné : enregistrements et transcriptions illimités sur le plan gratuit. C&#39;est une des offres gratuites les plus généreuses du marché à ce jour.</p>
+    <p>Pour les réunions en français, <strong>AudiosTranscribe</strong> [F10] propose une approche différente : pas de bot visible dans l&#39;appel, tu uploades simplement le fichier audio après coup. Il affiche une précision de 90 à 95 % sur le français, est hébergé en Europe (point important pour le RGPD), et offre 120 minutes gratuites par mois.</p>
+    <p>Si tu veux approfondir la question du choix entre gratuit et payant, j&#39;ai écrit un article dédié sur <a href="/articles/ia-gratuite-ou-payante">comment choisir entre un outil IA gratuit ou payant</a>.</p>
+    <h2>Et en présentiel ?</h2>
+    <p>C&#39;est là que ça se complique un peu. Les outils cités plus haut fonctionnent via un bot qui rejoint ton appel en ligne. En salle de réunion, il n&#39;y a pas d&#39;appel.</p>
+    <p>Deux approches existent.</p>
+    <p>La première : utiliser une application mobile ou desktop qui enregistre localement, puis synchronise quand tu retrouves le réseau. <strong>MeetGeek</strong> [F4] fonctionne ainsi — tu lances l&#39;enregistrement sur ton téléphone ou ordinateur, et la transcription et le résumé arrivent une fois la connexion rétablie.</p>
+    <p>La deuxième : un boîtier physique dédié. <strong>Plaud</strong> [F4] est un exemple de ces appareils qui enregistrent localement, sans dépendre d&#39;une connexion réseau pendant la réunion. C&#39;est discret et autonome. L&#39;enregistrement est ensuite transféré pour traitement.</p>
+    <p>Dans les deux cas, la règle du consentement s&#39;applique encore plus fermement qu&#39;en ligne — j&#39;y reviens juste après.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>La règle que personne ne peut ignorer</h2>
+    <p>Enregistrer une réunion sans le dire aux participants, c&#39;est illégal. [F5] Le consentement est obligatoire. Ce n&#39;est pas une formalité : c&#39;est une obligation légale, et c&#39;est aussi une question de confiance.</p>
+    <p>En pratique, voici comment je procède :</p>
+    <ul>
+    <li>Je l&#39;annonce en début de réunion, à voix haute : &quot;J&#39;utilise un outil IA pour transcrire notre échange. Tu es d&#39;accord ?&quot;</li>
+    <li>Si quelqu&#39;un refuse, j&#39;éteins l&#39;enregistrement. Sans discussion.</li>
+    <li>Je précise toujours à qui le résumé sera partagé.</li>
+    </ul>
+    <p>Certains outils affichent une notification automatique aux participants quand un bot rejoint l&#39;appel (Fireflies et Fathom le font sur Teams et Meet). C&#39;est utile, mais ça ne remplace pas l&#39;annonce verbale — une notification peut passer inaperçue.</p>
+    <p>Sur la question des données : si tu traites des informations sensibles (données clients, informations financières, sujets RH), vérifie où les données sont stockées et combien de temps elles sont conservées. AudiosTranscribe, hébergé en Europe, est un point de départ si le RGPD est une priorité pour toi. Pour aller plus loin sur ce sujet, j&#39;ai détaillé les enjeux de <a href="/articles/donnees-perso-ia-confidentialite">confidentialité et données personnelles avec les outils IA</a>.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne laisse pas le bot rejoindre l'appel avant d'avoir prévenu tout le monde. Sur certains outils, le bot s'invite automatiquement dès qu'une réunion est détectée dans ton agenda. Vérifie les paramètres d'intégration agenda et désactive l'auto-join si tu n'es pas sûr de tes interlocuteurs du jour.</p></div>
+    
+    <h2>Par où commencer si tu pars de zéro</h2>
+    <p>Si tu n&#39;as jamais utilisé ce type d&#39;outil, voici comment j&#39;aborderais les choses.</p>
+    <p><strong>Étape 1 : teste Fireflies ou Fathom gratuitement.</strong> Les deux s&#39;installent en quelques minutes, s&#39;intègrent à ton agenda Google ou Microsoft, et rejoignent tes appels automatiquement. Pas besoin de toucher à du code ou à des paramètres complexes.</p>
+    <p><strong>Étape 2 : lis le premier résumé généré avec attention.</strong> Vérifie si les décisions sont bien capturées, si les noms sont corrects, si le ton est fidèle. La qualité dépend beaucoup de la clarté audio et de la façon dont les participants s&#39;expriment.</p>
+    <p><strong>Étape 3 : apprends à poser de bonnes questions au résumé.</strong> Fireflies propose &quot;AskFred&quot; pour interroger la transcription. Plutôt que de lire 40 pages de texte, tu demandes : &quot;Quelles sont les trois décisions prises ?&quot; ou &quot;Qui a pris en charge le point sur la facturation ?&quot; La qualité de ta question détermine la qualité de la réponse — j&#39;ai un article sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n&#39;est pas développeur</a> si tu veux creuser ça.</p>
+    <p><strong>Étape 4 : si tu es sur Teams avec Copilot</strong>, explore les modèles de résumé personnalisables. Tu peux configurer ce que tu veux voir apparaître — décisions, actions, questions ouvertes — selon tes besoins spécifiques.</p>
+    <p>Pour les réunions en présentiel, commence avec l&#39;application mobile de MeetGeek. C&#39;est la solution la moins contraignante pour démarrer sans matériel supplémentaire.</p>
+    <p>Si tu veux voir comment ce type d&#39;automatisation s&#39;inscrit dans une démarche plus large, j&#39;ai écrit sur <a href="/articles/automatiser-taches-ia-sans-coder">l&#39;automatisation des tâches avec l&#39;IA sans coder</a>. Les comptes rendus de réunion ne sont qu&#39;un point de départ.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA peut-elle vraiment remplacer un preneur de notes humain ?</h3>
+    <p>Partiellement. L&#39;IA capture tout ce qui est dit — elle ne rate rien, ne se fatigue pas, ne reformule pas à sa façon. Mais elle ne comprend pas le contexte implicite, les non-dits, les tensions dans la salle. Un bon résumé IA te donne la matière brute. C&#39;est à toi d&#39;y ajouter l&#39;interprétation et les nuances. Pour des réunions courantes et opérationnelles, c&#39;est souvent suffisant. Pour des négociations délicates, garde un œil humain sur le résumé avant de le partager.</p>
+    <h3>Est-il légal d&#39;enregistrer une réunion avec l&#39;IA sans le consentement de tous ?</h3>
+    <p>Non. [F5] Le consentement de tous les participants est obligatoire avant d&#39;enregistrer. En France, enregistrer une conversation à l&#39;insu de quelqu&#39;un expose à des sanctions pénales. La règle est simple : tu annonces, tu obtiens l&#39;accord, tu enregistres. Si quelqu&#39;un refuse, tu n&#39;enregistres pas.</p>
+    <h3>Quels sont les risques pour la confidentialité des données ?</h3>
+    <p>Les données audio et textuelles de tes réunions transitent par les serveurs des outils que tu utilises. Si tu discutes de sujets sensibles — données clients, informations financières, données RH — vérifie la politique de confidentialité de l&#39;outil, où les données sont hébergées et combien de temps elles sont conservées. Privilégie les outils hébergés en Europe si tu es soumis au RGPD. AudiosTranscribe est hébergé en Europe [F10]. Pour les outils américains, vérifie les clauses de traitement des données.</p>
+    <h3>Ces outils fonctionnent-ils bien en français ?</h3>
+    <p>Ça dépend de l&#39;outil. Fireflies supporte plus de 100 langues [F3], dont le français. AudiosTranscribe est spécifiquement calibré pour le français et affiche une précision de 90 à 95 % [F10]. Les accents régionaux et les termes techniques peuvent parfois poser problème, quel que soit l&#39;outil. Un enregistrement audio de bonne qualité (micro correct, peu de bruit de fond) améliore significativement les résultats.</p>
+    <h3>Faut-il une connexion internet stable en présentiel ?</h3>
+    <p>Pas forcément pendant la réunion. Des outils comme MeetGeek permettent d&#39;enregistrer hors ligne et de synchroniser ensuite [F4]. Le boîtier Plaud stocke les enregistrements localement [F4]. La connexion est nécessaire pour le traitement et la génération du résumé, mais pas pour la captation en elle-même. C&#39;est un vrai avantage pour les réunions dans des endroits avec une connexion instable.</p>
+    <h3>Comment m&#39;assurer que le résumé est fidèle ?</h3>
+    <p>Relis-le systématiquement avant de le partager. Compare les décisions listées avec tes propres souvenirs de la réunion. Si un point te semble inexact ou incomplet, corrige-le manuellement. Tu peux aussi interroger la transcription complète avec la fonction de questions-réponses (comme &quot;AskFred&quot; sur Fireflies) pour vérifier un point précis. Un bon résumé IA est un point de départ, pas un document final à envoyer sans relecture. Pour aller plus loin sur la façon de <a href="/articles/resumer-pdf-video-avec-ia">résumer des contenus avec l&#39;IA</a>, j&#39;ai un article qui couvre le sujet plus largement.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>J&#39;ai commencé à utiliser ce type d&#39;outil parce que je perdais trop de temps après chaque réunion. Pas le temps de la réunion elle-même — le temps de reconstruction : retrouver mes notes, les mettre en forme, les envoyer.</p>
+    <p>L&#39;IA gère maintenant cette partie. Je sors d&#39;un appel, le résumé est là en quelques minutes. Je le relis, je corrige si besoin, je partage. Dix minutes au lieu de quarante-cinq.</p>
+    <p>Ce que j&#39;ai appris en chemin : la politesse n&#39;est pas négociable. Prévenir ses interlocuteurs avant d&#39;enregistrer, c&#39;est la base. Et le choix de l&#39;outil dépend vraiment de ton contexte — Teams avec Copilot si tu as la licence, Fireflies ou Fathom si tu veux du gratuit et du multiplateforme, AudiosTranscribe si le français et le RGPD sont des priorités.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Mais si ça peut t&#39;éviter de passer ton dimanche soir à rédiger des comptes rendus, tant mieux.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

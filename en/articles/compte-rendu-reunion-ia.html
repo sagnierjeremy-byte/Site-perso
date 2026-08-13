@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/compte-rendu-reunion-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Automatic AI meeting summaries — how it actually works · Jerwis</title>
+<meta name="description" content="Transcription, auto-summaries, free tools: how AI handles your meeting notes on Teams, in-person, and everywhere else. No code, no budget needed.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Automatic AI meeting summaries — how it actually works">
+<meta property="og:description" content="Transcription, auto-summaries, free tools: how AI handles your meeting notes on Teams, in-person, and everywhere else.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/compte-rendu-reunion-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/compte-rendu-reunion-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-13">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Automatic AI meeting summaries — how it actually works">
+<meta name="twitter:description" content="Transcription, auto-summaries, free tools: how AI handles your meeting notes on Teams, in-person, and everywhere else.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/compte-rendu-reunion-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/compte-rendu-reunion-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/compte-rendu-reunion-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Automatic AI meeting summaries — how it actually works",
+  "description": "Transcription, auto-summaries, free tools: how AI handles your meeting notes on Teams, in-person, and everywhere else. No code, no budget needed.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/compte-rendu-reunion-ia",
+  "datePublished": "2026-08-13",
+  "dateModified": "2026-08-13",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/compte-rendu-reunion-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 20</div>
+    <h1>Your meetings,<br>summarized by<br><em>AI</em></h1>
+    <p class="hero-lead">
+      You walk out of a one-hour meeting and wonder who's going to write up the notes. According to a 2024 IFOP-Wisembly study, the average French executive spends 15 hours a week in meetings. That's a lot. And note-taking comes on top of that. I went looking for a way to hand all of this off to AI — without being a developer, without a budget, and without being rude to the people in the room. Here's what I found, tested, and kept.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> Fireflies.ai, Otter.ai, Fathom</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>Tools like <strong>Fireflies.ai</strong> and <strong>Fathom</strong> offer unlimited transcription and summaries on their free plan.</li>
+      <li>For Teams, <strong>Microsoft Copilot</strong> bakes summaries right into the platform — if you have the right license.</li>
+      <li>In-person? <strong>MeetGeek</strong> records offline and syncs later; the <strong>Plaud</strong> device stores everything locally.</li>
+      <li>Getting consent from participants <strong>is not optional</strong>: always give people a heads-up before you hit record.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>15 hours a week in meetings</h2>
+    <p>That's the number that pushed me to dig into this. Fifteen hours. According to the 2024 IFOP-Wisembly study, that's how much time the average French executive spends in meetings every week. And after each one, you still have to write up the notes, sort through what you scribbled, and figure out who said what.</p>
+    <p>I'm not a developer. I don't code. But I refuse to spend an extra hour reconstructing what just happened during the previous hour. So I went looking for ways to let AI handle it.</p>
+    <p>The good news: the tools are out there, some are free, and they actually work. The less good news: you need to pick the right one for your situation — online meeting, in-person, in French, with or without a Microsoft license. And there's one basic courtesy rule that a lot of people skip.</p>
+    <p>I'll walk you through all of it here.</p>
+    <h2>What AI actually does</h2>
+    <p>An AI meeting assistant does three things: it records, it transcribes, it summarizes.</p>
+    <p>Recording can happen via a bot that joins your call, or through an app on your phone or computer. Transcription converts speech to text, either in real time or after the fact. The summary pulls out the decisions made, the key points, and the action items.</p>
+    <p>The time savings are real. According to a source from April 2026, using AI tools for meeting notes can cut post-meeting write-up time by 90%. I won't guarantee that number in every case — it depends on your audio quality and how complex the meeting is — but the ballpark matches what I see in practice.</p>
+    <p>What also changes is the quality of the notes themselves. When you're taking notes by hand, you miss things because you're also talking. AI listens to everything.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>An AI summary doesn't replace your judgment. It captures what was said — not what it means for your business. Take 5 minutes after the meeting to read through and annotate the generated summary. That's where you stay in control.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>On Teams, Google Meet, or Zoom</h2>
+    <p>If you mainly work on Microsoft Teams and your organization has a Microsoft 365 Copilot license, the most integrated option is <strong>Microsoft Copilot in Teams</strong>. It summarizes meetings in real time, surfaces past decisions, and helps you prep for upcoming ones. Since mid-December 2025, it's offered customizable summary templates ("Custom AI Summary templates"). In April–May 2026, a video recap feature with narrated highlights ("Video Recap narrated highlights") was rolled out. Handy — but it's a paid feature, locked to the right license tier.</p>
+    <p>If you don't have that license, or if you jump between platforms, here are the alternatives that work across Teams, Zoom, and Google Meet.</p>
+    <p><strong>Fireflies.ai</strong> [F3] is my first recommendation for getting started. Its free plan includes unlimited transcription, unlimited AI summaries, the "AskFred" feature (which lets you query the transcript like a chatbot), and 400 minutes of storage per team. It supports over 100 languages and integrates with all three major platforms. That's a solid starting point without touching your credit card.</p>
+    <p><strong>Otter.ai</strong> [F2] is another well-known option. The free plan gives you 300 minutes of transcription per month, with a 30-minute cap per conversation and 3 participants. Fine for short, regular check-ins — but it gets limiting fast if your sessions run long.</p>
+    <p><strong>Fathom</strong> [F9] is worth a mention: unlimited recordings and transcriptions on the free plan. One of the most generous free offers on the market right now.</p>
+    <p>For meetings in French, <strong>AudiosTranscribe</strong> [F10] takes a different approach: no visible bot in the call — you just upload the audio file afterward. It claims 90–95% accuracy on French, is hosted in Europe (important for GDPR), and gives you 120 free minutes per month.</p>
+    <p>If you want to go deeper on the free vs. paid question, I wrote a dedicated article on <a href="/en/articles/ia-gratuite-ou-payante">how to choose between a free and paid AI tool</a>.</p>
+    <h2>What about in-person meetings?</h2>
+    <p>This is where things get a bit trickier. The tools above work by sending a bot into your online call. In a physical meeting room, there's no call to join.</p>
+    <p>Two approaches exist.</p>
+    <p>The first: use a mobile or desktop app that records locally, then syncs when you're back online. <strong>MeetGeek</strong> [F4] works this way — you start recording on your phone or laptop, and the transcript and summary show up once you have a connection again.</p>
+    <p>The second: a dedicated physical device. <strong>Plaud</strong> [F4] is one example — a small gadget that records locally without needing a network connection during the meeting. It's discreet and self-contained. The recording is transferred for processing afterward.</p>
+    <p>In both cases, the consent rule applies even more firmly than it does online — I'll get to that right now.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The rule nobody gets to ignore</h2>
+    <p>Recording a meeting without telling the participants is illegal. [F5] Consent is mandatory. This isn't a formality — it's a legal requirement, and it's also a matter of basic trust.</p>
+    <p>In practice, here's how I handle it:</p>
+    <ul>
+    <li>I say it out loud at the start of the meeting: "I'm using an AI tool to transcribe our conversation. Is everyone okay with that?"</li>
+    <li>If anyone says no, I turn off the recording. No debate.</li>
+    <li>I always clarify who the summary will be shared with.</li>
+    </ul>
+    <p>Some tools automatically notify participants when a bot joins the call (Fireflies and Fathom do this on Teams and Meet). That's helpful, but it doesn't replace saying it out loud — a notification can easily go unnoticed.</p>
+    <p>On the data side: if you're discussing sensitive topics — client data, financials, HR matters — check where the data is stored and how long it's kept. AudiosTranscribe, hosted in Europe, is a good starting point if GDPR is a priority for you. I've gone into more detail on the <a href="/en/articles/donnees-perso-ia-confidentialite">privacy and personal data issues with AI tools</a> in a separate article.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Don't let the bot join the call before you've warned everyone. Some tools automatically send a bot the moment they detect a meeting in your calendar. Check the calendar integration settings and turn off auto-join if you're not sure who's going to be in the room that day.</p></div>
+    
+    <h2>Where to start if you're starting from scratch</h2>
+    <p>If you've never used this kind of tool before, here's how I'd approach it.</p>
+    <p><strong>Step 1: try Fireflies or Fathom for free.</strong> Both take a few minutes to set up, connect to your Google or Microsoft calendar, and join your calls automatically. No code, no complex settings.</p>
+    <p><strong>Step 2: read the first generated summary carefully.</strong> Check whether the decisions are captured correctly, whether names are right, whether the tone feels accurate. Quality depends a lot on audio clarity and how clearly people speak.</p>
+    <p><strong>Step 3: learn to ask good questions of the summary.</strong> Fireflies has "AskFred" for querying the transcript. Instead of reading 40 pages of text, you ask: "What were the three decisions made?" or "Who took ownership of the billing issue?" The quality of your question shapes the quality of the answer — I have an article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a> if you want to go deeper.</p>
+    <p><strong>Step 4: if you're on Teams with Copilot</strong>, explore the customizable summary templates. You can configure exactly what you want to see — decisions, action items, open questions — based on your specific needs.</p>
+    <p>For in-person meetings, start with the MeetGeek mobile app. It's the lowest-friction way to get going without buying any extra hardware.</p>
+    <p>If you want to see how this kind of automation fits into a bigger picture, I wrote about <a href="/en/articles/automatiser-taches-ia-sans-coder">automating tasks with AI without writing code</a>. Meeting notes are just the starting point.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Can AI really replace a human note-taker?</h3>
+    <p>Partially. AI captures everything that's said — it misses nothing, never gets tired, never paraphrases. But it doesn't understand implicit context, unspoken dynamics, or the tension in the room. A good AI summary gives you the raw material. It's on you to add interpretation and nuance. For routine operational meetings, that's usually enough. For sensitive negotiations, have a human review the summary before you share it.</p>
+    <h3>Is it legal to record a meeting with AI without everyone's consent?</h3>
+    <p>No. [F5] Consent from all participants is required before you record. Recording someone without their knowledge can carry criminal penalties. The rule is simple: you announce it, you get agreement, then you record. If someone says no, you don't record.</p>
+    <h3>What are the privacy risks?</h3>
+    <p>The audio and text data from your meetings passes through the servers of whatever tool you're using. If you're discussing sensitive topics — client data, financials, HR — check the tool's privacy policy, where the data is hosted, and how long it's retained. Favor tools hosted in Europe if you're subject to GDPR. AudiosTranscribe is hosted in Europe [F10]. For US-based tools, check the data processing clauses carefully.</p>
+    <h3>Do these tools work well in French?</h3>
+    <p>It depends on the tool. Fireflies supports over 100 languages [F3], including French. AudiosTranscribe is specifically tuned for French and claims 90–95% accuracy [F10]. Regional accents and technical terms can trip up any tool. Good audio quality — a decent mic, minimal background noise — makes a significant difference regardless of which tool you use.</p>
+    <h3>Do you need a stable internet connection for in-person meetings?</h3>
+    <p>Not necessarily during the meeting itself. Tools like MeetGeek let you record offline and sync afterward [F4]. The Plaud device stores recordings locally [F4]. You need a connection for processing and generating the summary, but not for the actual capture. That's a real advantage for meetings in places with spotty connectivity.</p>
+    <h3>How do I make sure the summary is accurate?</h3>
+    <p>Always read it before you share it. Compare the listed decisions against your own memory of the meeting. If something seems off or incomplete, fix it manually. You can also query the full transcript using the Q&A feature (like "AskFred" on Fireflies) to verify a specific point. A good AI summary is a starting point, not a final document to send without reviewing. For more on how to <a href="/en/articles/resumer-pdf-video-avec-ia">summarize content with AI</a>, I have an article that covers the topic more broadly.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I started using this kind of tool because I was losing too much time after every meeting. Not the meeting itself — the reconstruction: digging up my notes, formatting them, sending them out.</p>
+    <p>AI handles that part now. I get off a call and the summary is there within minutes. I read it, fix anything that needs fixing, and share it. Ten minutes instead of forty-five.</p>
+    <p>What I learned along the way: courtesy is non-negotiable. Telling people before you record is the baseline. And the right tool really does depend on your context — Teams with Copilot if you have the license, Fireflies or Fathom if you want free and cross-platform, AudiosTranscribe if French accuracy and GDPR are priorities.</p>
+    <p>I do all of this for myself first. But if it saves you from spending your Sunday evening writing up meeting notes, all the better.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works — no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

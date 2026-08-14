@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ecrire-mails-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Écrire ses mails avec l'IA sans sonner robot</title>
+<meta name="description" content="Comment utiliser l'IA pour tes emails professionnels — relances, situations délicates, corrections — sans perdre ton ton humain. Outils, prompts et pièges.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Écrire ses mails avec l'IA sans sonner robot">
+<meta property="og:description" content="Comment utiliser l'IA pour tes emails professionnels — relances, situations délicates, corrections — sans perdre ton ton humain. Outils, prompts et pièges.">
+<meta property="og:url" content="https://jerwis.fr/articles/ecrire-mails-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ecrire-mails-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-14">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Écrire ses mails avec l'IA sans sonner robot">
+<meta name="twitter:description" content="Comment utiliser l'IA pour tes emails professionnels — relances, situations délicates, corrections — sans perdre ton ton humain. Outils, prompts et pièges.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ecrire-mails-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/ecrire-mails-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ecrire-mails-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ecrire-mails-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ecrire-mails-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Écrire ses mails avec l'IA sans sonner robot",
+  "description": "Comment utiliser l'IA pour tes emails professionnels — relances, situations délicates, corrections — sans perdre ton ton humain. Outils, prompts et pièges.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/ecrire-mails-avec-ia",
+  "datePublished": "2026-08-14",
+  "dateModified": "2026-08-14",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/ecrire-mails-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 07</div>
+    <h1>Tes mails,<br>l'IA les rédige.<br><em>Mais c'est encore toi qui parles.</em></h1>
+    <p class="hero-lead">
+      Tu veux gagner du temps sur tes emails sans que tes correspondants aient l'impression de recevoir un message sorti d'une machine. Relances, excuses, désaccords, corrections de ton — l'IA peut tout ça. Mais mal utilisée, elle produit des mails lisses, vides, qui sonnent faux au premier mot. Je partage ici ce qui fonctionne vraiment, les outils actuels, et les pièges que j'ai appris à éviter.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Claude, Gemini</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>En 2026, <strong>79 % des expéditeurs</strong> utilisent l'IA ou prévoient de le faire dans leurs emails.</li>
+      <li>La clé pour sonner humain : donner du <strong>contexte personnel</strong> dans ton prompt, pas juste un sujet générique.</li>
+      <li>L'IA excelle en relecture et reformulation — moins en <strong>situations émotionnelles</strong> sans ta supervision.</li>
+      <li>Ne colle jamais d'informations sensibles dans un outil IA public sans avoir vérifié sa politique de confidentialité.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;IA et les mails : promesse tenue ou piège tendu ?</h2>
+    <p>En 2026, 79 % des expéditeurs utilisent l&#39;IA ou prévoient de le faire dans leurs programmes d&#39;emails. Ce chiffre, je l&#39;ai lu et relu. Il dit quelque chose de simple : tout le monde s&#39;y met. Mais il ne dit pas si ça marche vraiment.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. J&#39;ai des dizaines de mails à gérer chaque semaine — relances clients, réponses délicates à des partenaires, corrections à apporter sans froisser. L&#39;IA m&#39;a d&#39;abord semblé être la solution parfaite. Puis j&#39;ai envoyé un premier mail généré sans le retoucher. La réponse que j&#39;ai reçue était polie, mais froide. Mon interlocuteur avait senti quelque chose d&#39;étrange dans le ton.</p>
+    <p>C&#39;est là que j&#39;ai compris le vrai défi : ce n&#39;est pas d&#39;utiliser l&#39;IA pour écrire tes mails. C&#39;est de l&#39;utiliser sans que ça se voie — ou plutôt, sans que ça sonne creux.</p>
+    <p>La génération de texte est aujourd&#39;hui le cas d&#39;usage le plus courant de l&#39;IA parmi les expéditeurs d&#39;emails, à 41 % selon les données disponibles en 2026. Et pourtant, le résultat est souvent le même : un mail trop propre, trop équilibré, sans aspérité. Un mail qui pourrait venir de n&#39;importe qui.</p>
+    <p>Ce guide ne te propose pas une liste d&#39;outils magiques. Il te propose une méthode pour que l&#39;IA amplifie ta voix, pas pour qu&#39;elle la remplace.</p>
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pourquoi ça sonne robot (et comment y remédier)</h2>
+    <p>L&#39;IA produit du texte probable. Elle assemble les mots qui ont le plus de chances de suivre les précédents, en fonction de tout ce qu&#39;elle a lu. Résultat : elle tend vers le centre. Vers le mail moyen. Vers la formulation que tout le monde utilise.</p>
+    <p>&quot;Je me permets de revenir vers vous.&quot; &quot;Suite à notre échange.&quot; &quot;N&#39;hésitez pas à me contacter.&quot; Ces phrases ne sont pas fausses. Elles sont juste vides. Et elles se reconnaissent immédiatement.</p>
+    <p>La solution n&#39;est pas de demander à l&#39;IA &quot;d&#39;être plus humaine&quot;. Elle ne sait pas ce que ça veut dire pour toi. La solution, c&#39;est de lui donner ce qui te rend humain.</p>
+    <p><strong>Ce que tu dois mettre dans ton prompt :</strong></p>
+    <ul>
+    <li>Le contexte précis de la relation (&quot;on travaille ensemble depuis 6 mois, le ton est direct&quot;)</li>
+    <li>L&#39;état d&#39;esprit que tu veux transmettre (&quot;je suis sincèrement désolé, pas sur la défensive&quot;)</li>
+    <li>Une ou deux formulations qui te ressemblent (&quot;je dis souvent &#39;on repart de zéro si besoin&#39;&quot;)</li>
+    <li>Ce que tu veux éviter (&quot;pas de formules de politesse à rallonge&quot;)</li>
+    </ul>
+    <p>C&#39;est ce qu&#39;on appelle le <a href="/lexique/prompt-engineering">prompt engineering</a> : l&#39;art de formuler ta demande pour obtenir exactement ce dont tu as besoin. Si tu veux approfondir la mécanique derrière ça, j&#39;ai écrit un article sur <a href="/articles/ecrire-bon-prompt-non-dev">comment formuler un bon prompt quand on n&#39;est pas développeur</a>.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Avant de lancer ta génération, écris une phrase qui résume le ton de ta relation avec le destinataire. Juste une phrase. Elle change tout. L'IA s'adapte à ce contexte bien mieux qu'à une instruction vague comme "sois naturel".</p></div>
+    
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Situations délicates : l&#39;IA peut-elle vraiment aider ?</h2>
+    <p>Refuser une demande. Annoncer une mauvaise nouvelle. Répondre à une critique. Corriger une erreur sans perdre la face. Ce sont les mails qu&#39;on reporte, qu&#39;on réécrit dix fois, qu&#39;on envoie en retenant son souffle.</p>
+    <p>L&#39;IA est utile ici — mais pas comme tu le crois.</p>
+    <p>Elle ne va pas trouver les bons mots à ta place. Elle va te proposer une structure, un point de départ, une formulation que tu n&#39;aurais peut-être pas trouvée seul. Et surtout, elle va te sortir du blocage de la page blanche.</p>
+    <p>Pour un mail de désaccord, voici ce que je fais concrètement :</p>
+    <ol>
+    <li>J&#39;écris mes idées brutes dans le prompt, sans filtre. &quot;Je ne suis pas d&#39;accord avec leur décision sur les délais, je trouve ça injuste, mais je veux rester professionnel.&quot;</li>
+    <li>Je demande à l&#39;IA de reformuler en gardant ma position ferme, sans agressivité.</li>
+    <li>Je relis. Je modifie. Je garde les tournures qui me ressemblent, j&#39;enlève celles qui sonnent trop &quot;corporate&quot;.</li>
+    </ol>
+    <p>Pour les excuses, c&#39;est encore plus délicat. L&#39;IA a tendance à produire des excuses trop formelles, qui ressemblent à des communiqués de presse. Tu dois lui préciser le niveau de responsabilité que tu assumes et le registre que tu veux (&quot;chaleureux et direct, pas solennel&quot;).</p>
+    <p>Le point critique : ne jamais envoyer un mail délicat sans le relire entièrement. L&#39;IA peut <a href="/lexique/hallucination">halluciner</a> des détails — inventer une date, déformer un fait que tu lui as mentionné, ou glisser une formulation ambiguë. Dans un mail sensible, une erreur factuelle peut coûter cher.</p>
+    <hr>
+    <h2>Relances : personnaliser sans harceler</h2>
+    <p>La relance est le mail que tout le monde déteste écrire et que tout le monde déteste recevoir. L&#39;IA peut en faire des dizaines en quelques minutes. C&#39;est justement le problème.</p>
+    <p>Une relance qui sonne robot, c&#39;est pire que pas de relance du tout. Elle signale à ton interlocuteur que tu as utilisé un outil, pas que tu penses à lui.</p>
+    <p>Ce qui fait une bonne relance avec l&#39;IA :</p>
+    <p><strong>Le contexte de la première interaction.</strong> Donne à l&#39;IA le sujet de ton premier mail, la date approximative, et ce que tu attends. Elle peut alors construire une relance qui s&#39;y réfère naturellement, sans répéter mot pour mot.</p>
+    <p><strong>Un élément nouveau.</strong> Demande à l&#39;IA d&#39;intégrer un fait récent — une actualité liée à ton secteur, une évolution dans ton offre, une question ouverte. Ça transforme la relance en conversation, pas en rappel automatique.</p>
+    <p><strong>Le bon registre.</strong> Une relance à un client actif ne s&#39;écrit pas comme une relance à un prospect froid. Précise la nature de la relation dans ton prompt.</p>
+    <p>Ce que j&#39;évite : demander à l&#39;IA de générer une &quot;série de 5 relances&quot; d&#39;un coup. Le résultat est mécanique, les formulations se répètent, et ça se voit. Je préfère générer chaque relance séparément, en ajoutant à chaque fois un nouvel élément de contexte.</p>
+    <hr>
+    <h2>L&#39;IA comme relecteur, pas comme auteur</h2>
+    <p>C&#39;est peut-être l&#39;usage le plus sous-estimé. Tu écris ton mail toi-même — à ta façon, avec tes mots — et tu demandes à l&#39;IA de le relire.</p>
+    <p>Pas de le réécrire. De le relire.</p>
+    <p>Tu peux lui demander :</p>
+    <ul>
+    <li>&quot;Est-ce que ce mail peut être mal interprété ?&quot;</li>
+    <li>&quot;Est-ce que le ton est cohérent du début à la fin ?&quot;</li>
+    <li>&quot;Y a-t-il des formulations ambiguës ?&quot;</li>
+    <li>&quot;Raccourcis ce mail sans en changer le sens.&quot;</li>
+    </ul>
+    <p>C&#39;est là que l&#39;IA est vraiment forte. Elle repère les incohérences de ton, les longueurs inutiles, les phrases qui partent dans deux directions à la fois. Elle ne juge pas, elle signale.</p>
+    <p>Et tu gardes le dernier mot. Tu décides ce que tu gardes, ce que tu changes. Le mail reste le tien.</p>
+    <div class="callout tip"><h4>Mon conseil</h4><p>Quand tu utilises l'IA en mode relecteur, demande-lui d'abord de te lister les problèmes qu'elle voit, sans les corriger. Tu décides ensuite lesquels tu veux qu'elle traite. Ça t'évite de recevoir une version entièrement réécrite que tu ne reconnais plus.</p></div>
+    
+    <hr>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les pièges que j&#39;ai appris à éviter</h2>
+    <p><strong>La confidentialité, d&#39;abord.</strong> Quand tu colles le contenu d&#39;un mail dans un outil IA public, tu envoies potentiellement des informations sensibles vers des serveurs tiers. Noms de clients, montants de contrats, détails d&#39;un litige — tout ça peut poser un problème selon les conditions d&#39;utilisation de l&#39;outil. J&#39;ai écrit un article complet sur <a href="/articles/donnees-perso-ia-confidentialite">la gestion des données personnelles avec l&#39;IA</a> si tu veux creuser ce point. En résumé : anonymise les données sensibles avant de les passer à l&#39;IA.</p>
+    <p><strong>L&#39;hallucination.</strong> L&#39;IA peut inventer. Une date, un nom, une information que tu lui aurais fournie de façon imprécise. Dans un mail professionnel, une erreur factuelle peut créer de la confusion ou de la méfiance. 64 % des utilisateurs vérifient les informations fournies par l&#39;IA en 2026 — c&#39;est un bon réflexe qui se diffuse, mais il faut vraiment l&#39;appliquer à chaque fois.</p>
+    <p><strong>La dépendance au style moyen.</strong> À force de laisser l&#39;IA reformuler tes mails, tu risques de perdre ta propre façon d&#39;écrire. Tes correspondants réguliers le remarquent. Ils ne savent pas forcément pourquoi, mais quelque chose a changé. Garde des mails que tu as écrits seul, que tu trouves bons. Utilise-les comme référence dans tes prompts.</p>
+    <p><strong>Le copier-coller sans relecture.</strong> C&#39;est la faute la plus courante. L&#39;IA génère, tu envoies. Sans regarder. Et puis tu te rends compte que le mail contient une formulation que tu n&#39;aurais jamais utilisée, ou pire, une information incorrecte. Chaque mail généré par l&#39;IA doit passer par tes yeux avant de partir.</p>
+    <p>Pour comprendre comment un lecteur peut détecter un contenu généré par IA, je te renvoie vers cet article sur <a href="/articles/reperer-contenu-ia-deepfake">comment repérer un contenu IA</a>. C&#39;est utile dans les deux sens : savoir ce qui trahit un mail généré, c&#39;est savoir quoi corriger dans le tien.</p>
+    <hr>
+    <h2>Quel outil pour tes mails ?</h2>
+    <p>Plusieurs modèles sont disponibles à la date de cet article, avec des profils différents.</p>
+    <p><strong>ChatGPT</strong> tourne sur GPT-5.5 Instant Mini depuis le 14 août 2026 pour l&#39;usage courant — un modèle qui offre une meilleure compréhension de l&#39;intention de l&#39;utilisateur et un ton plus calibré que son prédécesseur. Pour des tâches plus complexes, GPT-5.6 Sol (lancé le 9 juillet 2026) est disponible. En pratique, pour la rédaction de mails, la version courante suffit largement.</p>
+    <p><strong>Claude</strong> (Anthropic) est souvent cité pour sa capacité à adopter des tons nuancés. Claude Opus 4.8, annoncé le 28 mai 2026, est réputé fort sur le travail professionnel. Claude Sonnet 5, sorti le 30 juin 2026, est une alternative plus légère.</p>
+    <p><strong>Gemini</strong> de Google — en version 3.7 Flash depuis le 13 août 2026 — est optimisé pour la rapidité. Pratique pour des relances courtes ou des reformulations rapides.</p>
+    <p><strong>Mistral Ultra</strong>, lancé le 28 avril 2026, est l&#39;option à regarder si tu veux un outil européen, avec des implications différentes en matière de données.</p>
+    <p>Aucun de ces modèles n&#39;est universellement meilleur pour les emails. Tout dépend de ton usage, de ta langue de travail, et de ta sensibilité aux questions de confidentialité. Si tu veux une comparaison plus complète, j&#39;ai détaillé les profils de chaque outil dans cet article : <a href="/articles/choisir-ia-ecrire-coder-images">choisir son IA pour écrire, coder ou générer des images</a>.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Comment rendre mes emails générés par IA moins génériques et plus personnels ?</h3>
+    <p>Donne du contexte dans ton prompt : la nature de ta relation avec le destinataire, le ton habituel de vos échanges, une formulation que tu utilises souvent. Plus tu es précis sur qui tu es et qui est ton interlocuteur, moins le résultat sera générique. Tu peux aussi coller un exemple de mail que tu as écrit toi-même et demander à l&#39;IA de s&#39;en inspirer pour le style.</p>
+    <h3>L&#39;IA peut-elle vraiment gérer des situations sensibles ou des réponses délicates par email ?</h3>
+    <p>Elle peut t&#39;aider à structurer et à formuler. Elle ne remplace pas ton jugement. Pour un désaccord, une annonce difficile ou des excuses sincères, l&#39;IA te donne un point de départ — à toi de le retoucher pour que ça sonne juste. Ne jamais envoyer ce type de mail sans l&#39;avoir relu et modifié.</p>
+    <h3>Quels sont les risques de confidentialité des données lorsque j&#39;utilise l&#39;IA pour rédiger mes emails ?</h3>
+    <p>Quand tu copies un mail dans un outil IA public, les données qu&#39;il contient peuvent être traitées par des serveurs tiers. Noms, montants, détails sensibles — tout ça peut poser un problème selon les conditions d&#39;utilisation. La règle simple : anonymise avant de coller. Remplace les noms propres et les chiffres sensibles par des termes génériques dans ton prompt.</p>
+    <h3>Est-il toujours nécessaire de relire attentivement les emails générés par l&#39;IA avant de les envoyer ?</h3>
+    <p>Oui, toujours. L&#39;IA peut halluciner des détails, glisser une formulation ambiguë ou produire un ton légèrement décalé par rapport à ta relation avec le destinataire. La relecture n&#39;est pas optionnelle — c&#39;est la partie du travail que tu ne délègues pas.</p>
+    <h3>Quelle est la meilleure IA pour la rédaction d&#39;emails professionnels en 2026 ?</h3>
+    <p>Il n&#39;y a pas de réponse universelle. ChatGPT (GPT-5.5 Instant Mini depuis août 2026) est accessible et polyvalent. Claude est réputé pour les tons nuancés. Gemini 3.7 Flash est rapide pour les usages simples. Mistral Ultra est une option européenne. Le meilleur outil est celui dont tu maîtrises les prompts et dont la politique de données correspond à ton contexte.</p>
+    <h3>Comment l&#39;IA peut-elle m&#39;aider à personnaliser mes relances sans paraître intrusif ?</h3>
+    <p>En intégrant un élément nouveau à chaque relance — une question ouverte, une actualité pertinente, une évolution dans ta situation. Demande à l&#39;IA de s&#39;appuyer sur le contexte de ton premier contact et d&#39;y ajouter quelque chose de concret. Évite de générer plusieurs relances d&#39;un coup : le résultat est mécanique. Génère-les une par une, avec un contexte mis à jour à chaque fois.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA ne t&#39;enlève pas de l&#39;équation. Elle t&#39;y maintient — si tu l&#39;utilises bien.</p>
+    <p>Le vrai travail, c&#39;est le prompt. Pas le modèle. Pas l&#39;outil. C&#39;est ce que tu mets dedans qui détermine ce qui en sort. Un contexte précis, un ton décrit avec soin, une formulation qui te ressemble en exemple : voilà ce qui fait la différence entre un mail qui sonne robot et un mail qui sonne toi.</p>
+    <p>Ce que j&#39;ai arrêté de faire : demander &quot;écris-moi un mail pour relancer mon client&quot;. Ce que je fais maintenant : décrire la situation, la relation, l&#39;état d&#39;esprit, et ce que je veux éviter. La génération prend dix secondes. La préparation du prompt en prend deux minutes. Et le résultat n&#39;a rien à voir.</p>
+    <p>L&#39;IA est un amplificateur. Elle amplifie ce que tu lui donnes. Donne-lui de la précision, tu obtiendras de la précision. Donne-lui du vague, tu obtiendras du générique.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/organiser-voyage-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Organiser un voyage avec l'IA : itinéraire, budget, réservations</title>
+<meta name="description" content="Découvre comment utiliser les assistants IA gratuits sur ton téléphone pour planifier ton voyage de A à Z : itinéraire, budget et réservations.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Organiser un voyage avec l'IA : itinéraire, budget, réservations">
+<meta property="og:description" content="Découvre comment utiliser les assistants IA gratuits sur ton téléphone pour planifier ton voyage de A à Z : itinéraire, budget et réservations.">
+<meta property="og:url" content="https://jerwis.fr/articles/organiser-voyage-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/organiser-voyage-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-17">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Organiser un voyage avec l'IA : itinéraire, budget, réservations">
+<meta name="twitter:description" content="Découvre comment utiliser les assistants IA gratuits sur ton téléphone pour planifier ton voyage de A à Z : itinéraire, budget et réservations.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/organiser-voyage-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/organiser-voyage-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/organiser-voyage-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/organiser-voyage-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/organiser-voyage-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Organiser un voyage avec l'IA : itinéraire, budget, réservations",
+  "description": "Découvre comment utiliser les assistants IA gratuits sur ton téléphone pour planifier ton voyage de A à Z : itinéraire, budget et réservations.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/organiser-voyage-avec-ia",
+  "datePublished": "2026-08-17",
+  "dateModified": "2026-08-17",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/organiser-voyage-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 86</div>
+    <h1>L'assistant voyage<br>que tu as déjà<br><em>dans ta poche</em></h1>
+    <p class="hero-lead">
+      Comment organiser un voyage sans y passer des heures ? C'est la question que je me suis posée avant mon dernier départ. L'IA peut construire un itinéraire, estimer un budget, comparer des vols — et une bonne partie des outils pour ça sont gratuits et déjà sur ton téléphone. Je te montre comment j'utilise tout ça concrètement, ce qui marche, ce qui coince, et les réflexes à avoir pour ne pas te retrouver avec un hôtel qui n'existe pas.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT / Gemini / Google Maps</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>En 2026, <strong>40 % des voyageurs français</strong> utilisent l'IA pour préparer leurs voyages — contre 9 % en 2024.</li>
+      <li><strong>Google Maps</strong> intègre désormais des fonctions agentiques (réservation, mémoire de conversation) via 'Ask Maps'.</li>
+      <li>Des outils spécialisés comme <strong>Layla.ai, Trip.com Trip Planner ou Stippl</strong> vont plus loin que les LLM généralistes.</li>
+      <li>L'IA se trompe : <strong>vérifie toujours les prix, horaires et disponibilités</strong> avant de confirmer quoi que ce soit.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pourquoi c&#39;est le moment d&#39;y aller</h2>
+    <p>En 2024, 9 % des voyageurs français utilisaient l&#39;IA pour préparer leurs déplacements. En 2026, ce chiffre est passé à 40 %, selon des données publiées en juillet 2026. Ce n&#39;est pas une mode. C&#39;est un changement d&#39;habitude qui s&#39;installe vite, pour une raison simple : les outils sont devenus réellement utiles.</p>
+    <p>Je ne parle pas d&#39;une promesse futuriste. Je parle de ce que tu peux faire ce soir, gratuitement, avec ce que tu as déjà : un téléphone, un compte Google ou une session ChatGPT.</p>
+    <p>Avant, organiser un voyage demandait d&#39;ouvrir dix onglets différents — un pour les vols, un pour les hôtels, un pour les activités, un autre pour les avis, et encore un pour convertir les devises. L&#39;IA ne remplace pas tout ça d&#39;un coup, mais elle peut tenir le fil conducteur. Elle agrège, elle suggère, elle ajuste. Et ça, c&#39;est déjà énorme quand tu prépares un week-end prolongé ou un voyage de deux semaines.</p>
+    <p>Selon une étude Amadeus de 2026, 68 % des voyageurs se disent prêts à utiliser un assistant IA pour obtenir des suggestions d&#39;itinéraires et réserver leurs transports. La méfiance reste présente — 74 % des Français veulent vérifier les résultats avant de les utiliser, et 40 % souhaitent un contrôle humain avant toute réservation. C&#39;est une posture saine, et je partage cette prudence. On y revient plus bas.</p>
+    <h2>L&#39;IA construit ton itinéraire en quelques minutes</h2>
+    <p>C&#39;est là que l&#39;IA brille le plus. Donne-lui un point de départ, une durée, un type de voyage (culturel, nature, gastronomique, famille avec enfants en bas âge) et un budget approximatif. Elle te sort un plan jour par jour, avec des suggestions d&#39;activités, d&#39;hébergements et de restaurants.</p>
+    <p>Des outils comme TriplAI permettent de générer un itinéraire personnalisé en 30 secondes, gratuitement et sans inscription. C&#39;est utile pour une première esquisse. Mais les LLM généralistes — ChatGPT, Gemini, Claude — sont souvent plus flexibles parce que tu peux dialoguer avec eux, corriger, affiner, relancer.</p>
+    <p>Un exemple concret : tu écris &quot;Je pars 10 jours au Japon en octobre, je voyage seul, j&#39;aime les temples et la gastronomie locale, je veux éviter les endroits trop touristiques et mon budget hébergement est de 80 € par nuit maximum.&quot; En quelques secondes, tu as une structure de voyage. Ensuite, tu poses des questions complémentaires : &quot;Quel est le meilleur moyen de se déplacer entre Kyoto et Hiroshima ?&quot; ou &quot;Quels quartiers de Tokyo sont plus calmes pour dormir ?&quot;</p>
+    <p>C&#39;est exactement là qu&#39;un bon prompt fait la différence. Si tu veux creuser ce point, j&#39;ai écrit un article sur <a href="/articles/ecrire-bon-prompt-non-dev">comment formuler une requête efficace à une IA quand on n&#39;est pas développeur</a> — les principes s&#39;appliquent parfaitement à la planification de voyage.</p>
+    <p>Des plateformes spécialisées vont encore plus loin. Trip.com Trip Planner, lancé en 2026, intègre vols, trains, hôtels, restaurants et attractions dans un même flux continu. Stippl, disponible depuis mai 2026, gère en plus le suivi de budget, la logistique des bagages et le partage de plans de groupe. Layla.ai propose même une assistance humaine pour les réservations complexes.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur les itinéraires</h4><p>Commence toujours par une demande large, puis affine par couches successives. L'IA est bien meilleure en dialogue qu'en réponse à une seule question fourre-tout. Pose une question, lis la réponse, corrige ce qui ne te convient pas, relance. C'est comme travailler avec quelqu'un qui connaît beaucoup de destinations mais qui ne te connaît pas encore.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Budget et réservations : ce que l&#39;IA peut faire</h2>
+    <p>Estimer un budget de voyage, c&#39;est souvent le moment où on perd du temps. L&#39;IA peut te donner une fourchette réaliste par poste — hébergement, transport, repas, activités — en fonction d&#39;une destination et d&#39;une durée. Ce n&#39;est pas une science exacte, mais c&#39;est un bon point de départ pour ne pas partir à l&#39;aveugle.</p>
+    <p>Pour les vols, Google Flights reste l&#39;outil le plus efficace pour trouver des billets pas chers, selon des données de juillet 2026. Les planificateurs IA prennent l&#39;avantage sur la création d&#39;itinéraires complets intégrant hôtels, activités et budget journalier — mais pour la recherche de vols bruts, la comparaison directe reste imbattable.</p>
+    <p>Sur le suivi des dépenses en voyage, Spentrip est une application lancée en août 2026 qui mérite l&#39;attention : elle permet de scanner des reçus, de suivre tes dépenses en temps réel et de partager les frais entre amis ou en famille. C&#39;est le genre d&#39;outil discret qui évite les mauvaises surprises au retour.</p>
+    <p>Du côté des réservations, la tendance est à l&#39;intégration directe. Booking.com a introduit des fonctionnalités IA autonomes en 2025. Des acteurs du voyage d&#39;affaires comme FCM Travel prévoient d&#39;étendre leur assistant IA Sam à ChatGPT, Claude et Gemini — une tendance qui concerne aussi Amex GBT, BCD Travel et d&#39;autres, selon des informations d&#39;août 2026. Le voyage de loisir suit le même chemin, avec un léger décalage.</p>
+    <p>Pour <a href="/articles/choisir-ia-ecrire-coder-images">choisir quel outil IA utiliser selon ton besoin précis</a>, j&#39;ai fait un comparatif qui peut t&#39;aider à y voir plus clair.</p>
+    <h2>L&#39;assistant que tu as déjà sur ton téléphone</h2>
+    <p>Tu n&#39;as pas besoin d&#39;installer dix nouvelles applications. Ton téléphone contient probablement déjà plusieurs assistants de voyage capables.</p>
+    <p>Google Maps a intégré en août 2026 des fonctionnalités agentiques via &quot;Ask Maps&quot; : tu peux commander un repas, réserver un hôtel, et l&#39;outil mémorise tes échanges pour une planification continue. Concrètement, tu peux lui dire &quot;je cherche un restaurant japonais ouvert ce soir, moins de 30 €, proche de mon hôtel&quot; et il peut aller plus loin que la simple liste — jusqu&#39;à initier la réservation.</p>
+    <p>Gemini, l&#39;assistant de Google, est intégré dans Android et accessible sur iOS. À la date de cet article, Google a lancé Gemini 3.7 Flash en août 2026, une version optimisée pour la rapidité. Pour un usage quotidien de planification — poser des questions, affiner un itinéraire, convertir des devises, traduire un menu — c&#39;est suffisant. ChatGPT et Claude sont également disponibles sur mobile, avec des interfaces soignées.</p>
+    <p>J&#39;ai écrit un article dédié sur <a href="/articles/ia-sur-telephone">comment utiliser l&#39;IA directement depuis ton téléphone</a> si tu veux aller plus loin sur ce point.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Les LLM généralistes ne sont pas connectés en temps réel à tous les systèmes de réservation. Ils peuvent te suggérer un hôtel qui affiche complet, un vol avec un prix qui a changé, ou une attraction temporairement fermée. Utilise-les pour construire le plan, puis vérifie chaque élément concret sur la plateforme officielle avant de confirmer.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les outils spécialisés : quand y aller ?</h2>
+    <p>Les LLM généralistes sont excellents pour dialoguer, affiner, explorer des idées. Mais il existe des outils conçus spécifiquement pour le voyage, et ils ont des avantages précis.</p>
+    <p><strong>Layla.ai</strong> crée des itinéraires personnalisés avec suggestions de vols, hôtels et activités, et propose une assistance humaine pour les réservations complexes. C&#39;est utile quand tu veux aller au-delà du plan et passer à l&#39;action sans tout gérer toi-même.</p>
+    <p><strong>Trip.com Trip Planner</strong> intègre l&#39;ensemble dans un flux unique : tu planifies et tu réserves dans le même espace. Pratique pour les voyages où tu veux tout centraliser.</p>
+    <p><strong>Stippl</strong> est intéressant pour les voyages en groupe ou les longs séjours : gestion du transport, du budget, des bagages, partage du plan avec d&#39;autres participants.</p>
+    <p><strong>TriplAI</strong> est idéal pour une première esquisse rapide, sans friction, sans compte à créer.</p>
+    <p>La règle que j&#39;applique : je commence avec un LLM généraliste pour explorer et structurer, puis je bascule sur un outil spécialisé pour les étapes concrètes (réservation, suivi de budget). Les deux se complètent bien.</p>
+    <p>Pour comprendre comment ces assistants évoluent vers des agents capables d&#39;agir de façon autonome, <a href="/articles/agents-ia-guide">mon article sur les agents IA</a> donne un bon contexte.</p>
+    <h2>Ce que l&#39;IA ne fait pas bien (encore)</h2>
+    <p>L&#39;IA se trompe. C&#39;est un fait, pas une mise en garde abstraite. On appelle ça une <a href="/lexique/hallucination">hallucination</a> : l&#39;outil génère une réponse qui semble crédible mais qui est fausse. Pour un voyage, ça peut prendre la forme d&#39;un hôtel qui n&#39;existe plus, d&#39;un horaire de train inventé, d&#39;une règle de visa incorrecte.</p>
+    <p>74 % des Français qui utilisent l&#39;IA pour voyager ressentent le besoin de vérifier l&#39;exactitude des résultats. C&#39;est la bonne posture. L&#39;IA est un point de départ, pas une source d&#39;autorité.</p>
+    <p>Ce que je vérifie systématiquement après une suggestion IA :</p>
+    <ul>
+    <li>Les prix (vols, hôtels, activités) sur les plateformes officielles.</li>
+    <li>Les horaires de transport sur les sites des opérateurs.</li>
+    <li>Les conditions d&#39;entrée dans un pays sur le site de l&#39;ambassade ou du gouvernement.</li>
+    <li>Les avis récents sur les hébergements (les informations IA peuvent être datées).</li>
+    </ul>
+    <p>L&#39;IA gère aussi mal les imprévus en temps réel. Si ton vol est annulé, elle ne peut pas appeler la compagnie à ta place ni accéder à ton dossier de réservation. Pour ça, tu as encore besoin d&#39;un humain — ou d&#39;une application dédiée connectée à tes réservations.</p>
+    <h2>Mes réflexes pour une bonne planification</h2>
+    <p>Quelques habitudes qui font la différence dans mon usage :</p>
+    <p><strong>Sois précis dans ta demande.</strong> &quot;Voyage en Europe&quot; ne donne rien d&#39;utile. &quot;10 jours en Grèce continentale et dans les Cyclades, fin septembre, budget total 2 500 €, deux adultes, on aime la randonnée et les petits restaurants locaux&quot; — là, l&#39;IA a de quoi travailler.</p>
+    <p><strong>Garde une trace de la conversation.</strong> Les LLM ont une mémoire limitée selon les sessions. Si tu planifies sur plusieurs jours, copie les éléments importants dans un document séparé.</p>
+    <p><strong>Utilise l&#39;IA pour les questions que tu n&#39;oserais pas poser à un agent.</strong> &quot;Quelle est la différence entre une pension complète et un all-inclusive ?&quot; ou &quot;Est-ce que ça vaut le coup de prendre un rail pass au Japon pour 10 jours ?&quot; — l&#39;IA répond sans te juger et sans essayer de te vendre quelque chose.</p>
+    <p><strong>Croise les sources pour tout ce qui est critique.</strong> Visa, vaccins recommandés, sécurité dans une zone : consulte toujours une source officielle en parallèle.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Est-ce que l&#39;IA peut vraiment remplacer un agent de voyage humain ?</h3>
+    <p>Non, pas entièrement. L&#39;IA est très efficace pour construire un itinéraire, estimer un budget et explorer des options. Mais elle ne peut pas intervenir en cas de problème réel (vol annulé, litige avec un hôtel), elle n&#39;a pas accès à tes dossiers de réservation et elle peut se tromper sur des informations pratiques. Elle est complémentaire d&#39;un agent humain, pas un substitut direct — surtout pour les voyages complexes ou les destinations peu courantes.</p>
+    <h3>Quels sont les meilleurs outils IA gratuits pour organiser un voyage ?</h3>
+    <p>Les LLM généralistes accessibles gratuitement — ChatGPT, Gemini, Claude — sont de bons points de départ pour construire un itinéraire et poser des questions. Google Maps avec &quot;Ask Maps&quot; est intégré à ton téléphone et propose désormais des fonctions de réservation. TriplAI génère un itinéraire en 30 secondes sans inscription. Pour aller plus loin, Layla.ai et Trip.com Trip Planner proposent des fonctions plus complètes.</p>
+    <h3>Comment s&#39;assurer que les informations données par l&#39;IA sont fiables ?</h3>
+    <p>En vérifiant systématiquement les éléments critiques sur des sources officielles : prix sur les plateformes de réservation, horaires sur les sites des transporteurs, conditions d&#39;entrée sur les sites gouvernementaux. L&#39;IA est un bon point de départ, pas une source d&#39;autorité. Le concept d&#39;<a href="/lexique/hallucination">hallucination</a> — quand l&#39;IA génère une information fausse avec l&#39;air d&#39;être sûre d&#39;elle — est réel et s&#39;applique aussi aux informations de voyage.</p>
+    <h3>L&#39;IA peut-elle m&#39;aider à trouver des offres de voyage moins chères ?</h3>
+    <p>Elle peut comparer des options, suggérer des périodes moins chargées ou des destinations alternatives à budget équivalent. Mais pour la recherche de vols pas chers, Google Flights reste, à la date de cet article, l&#39;outil le plus efficace selon des données de juillet 2026. Les planificateurs IA sont plus forts sur la création d&#39;itinéraires complets que sur la recherche de prix bruts.</p>
+    <h3>Dois-je partager mes données personnelles avec les assistants de voyage IA ?</h3>
+    <p>Ça dépend de l&#39;outil et de ce que tu lui confies. Pour construire un itinéraire, tu n&#39;as pas besoin de donner ton numéro de passeport ou ta carte bancaire à un LLM. Pour les outils qui gèrent des réservations réelles, lis les conditions d&#39;utilisation et vérifie comment tes données sont stockées. En règle générale : ne partage que ce qui est strictement nécessaire à la tâche.</p>
+    <h3>Comment l&#39;IA gère-t-elle les imprévus ou les changements de dernière minute ?</h3>
+    <p>Mal, pour l&#39;instant. Les LLM généralistes ne sont pas connectés en temps réel à tes réservations. Ils ne peuvent pas modifier un billet, contacter un hôtel ou suivre un remboursement. Certains outils spécialisés comme Layla.ai proposent une assistance humaine pour ces situations. Pour les imprévus en voyage, les applications des compagnies aériennes et des hôtels restent tes premiers réflexes.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA de voyage n&#39;est pas un gadget. C&#39;est un changement de méthode. Au lieu de passer des heures à jongler entre des dizaines d&#39;onglets, tu poses tes contraintes à un outil qui structure pour toi, puis tu vérifies ce qui compte vraiment.</p>
+    <p>Je fais tout ça d&#39;abord pour moi — gagner du temps sur la préparation pour en avoir plus sur le voyage lui-même. Et ce que j&#39;observe, c&#39;est que la qualité du résultat dépend surtout de la qualité de ce que tu demandes. Plus tu es précis, plus l&#39;IA est utile.</p>
+    <p>Les outils évoluent vite. Google Maps avec &quot;Ask Maps&quot;, les agents spécialisés comme Stippl ou Layla.ai, les LLM de plus en plus rapides — le paysage de 2026 n&#39;a rien à voir avec celui de 2024. La prochaine fois que tu planifies un départ, essaie de commencer par une conversation avec l&#39;IA avant d&#39;ouvrir tes onglets habituels. Tu verras vite ce que ça change.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

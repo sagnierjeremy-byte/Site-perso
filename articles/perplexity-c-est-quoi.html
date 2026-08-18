@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/perplexity-c-est-quoi.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Perplexity : c'est quoi et comment ça marche ?</title>
+<meta name="description" content="Perplexity n'est pas un moteur de recherche classique. Il répond, cite ses sources et apprend de tes questions. Voici ce que ça change pour toi.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Perplexity : c'est quoi et comment ça marche ?">
+<meta property="og:description" content="Perplexity n'est pas un moteur de recherche classique. Il répond, cite ses sources et apprend de tes questions. Voici ce que ça change pour toi.">
+<meta property="og:url" content="https://jerwis.fr/articles/perplexity-c-est-quoi">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/perplexity-c-est-quoi.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-18">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Perplexity : c'est quoi et comment ça marche ?">
+<meta name="twitter:description" content="Perplexity n'est pas un moteur de recherche classique. Il répond, cite ses sources et apprend de tes questions. Voici ce que ça change pour toi.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/perplexity-c-est-quoi.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/perplexity-c-est-quoi">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/perplexity-c-est-quoi">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/perplexity-c-est-quoi">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/perplexity-c-est-quoi">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Perplexity : c'est quoi et comment ça marche ?",
+  "description": "Perplexity n'est pas un moteur de recherche classique. Il répond, cite ses sources et apprend de tes questions. Voici ce que ça change pour toi.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/perplexity-c-est-quoi",
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/perplexity-c-est-quoi.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 70</div>
+    <h1>Perplexity,<br>le moteur qui<br><em>répond vraiment</em></h1>
+    <p class="hero-lead">
+      Tu tapes une question sur Google, tu tombes sur dix liens. Tu dois ouvrir, lire, croiser, synthétiser. Ça prend du temps. Perplexity fait autre chose : il te donne une réponse directe, sourcée, en quelques secondes. Je l'utilise depuis plusieurs mois pour ma veille et mes recherches. Voici ce que j'ai compris de son fonctionnement, ce qui le distingue vraiment de Google — et de ChatGPT — et comment tu peux t'en servir concrètement si tu es entrepreneur.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>8 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Perplexity AI</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Perplexity est un <strong>moteur de réponses</strong> : il synthétise et cite ses sources en temps réel, sans te renvoyer vers dix liens.</li>
+      <li>Il n'affiche <strong>plus de publicités</strong> depuis février 2026 — son modèle repose sur l'abonnement.</li>
+      <li>Des fonctionnalités avancées comme le <strong>Model Council</strong> permettent de comparer plusieurs IA (GPT, Claude, Gemini) sur une même question.</li>
+      <li>Perplexity Computer et le navigateur Comet poussent l'outil vers l'<strong>agent autonome</strong>, capable d'agir sur le web à ta place.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que Perplexity fait que Google ne fait pas</h2>
+    <p>Quand tu cherches quelque chose sur Google, tu obtiens une liste. Dix liens, parfois des publicités en haut, parfois un encadré &quot;AI Overviews&quot; depuis peu — mais l&#39;essentiel du travail reste pour toi : ouvrir les pages, lire, filtrer, synthétiser.</p>
+    <p>Perplexity part d&#39;un principe différent. Tu poses une question, il te donne une réponse. Une vraie réponse rédigée, avec les sources citées directement dans le texte. Tu peux ensuite cliquer sur chaque source pour vérifier, creuser, ou lire l&#39;article original. Mais la synthèse, elle est déjà faite.</p>
+    <p>C&#39;est ce qu&#39;on appelle un <strong>moteur de réponses</strong> — par opposition à un moteur de recherche traditionnel. La distinction n&#39;est pas cosmétique. Elle change la façon dont tu interagis avec l&#39;information.</p>
+    <p>Selon les données disponibles début 2026, Perplexity traite plus d&#39;un milliard de requêtes par mois et compte environ 45 millions d&#39;utilisateurs actifs mensuels. Ce n&#39;est pas encore l&#39;échelle de Google, mais la croissance est réelle — et la valorisation de l&#39;entreprise a atteint environ 21 milliards de dollars début 2026, après plus de 1,5 milliard de dollars levés.</p>
+    <p>Ce qui m&#39;a frappé en l&#39;utilisant pour la première fois : je n&#39;avais pas l&#39;impression d&#39;utiliser un chatbot. J&#39;avais l&#39;impression de parler à quelqu&#39;un qui venait de lire internet à ma place.</p>
+    <p>Si tu veux comprendre pourquoi Google a tenté de rattraper ce mouvement avec ses propres résumés IA, j&#39;ai écrit un article sur <a href="/articles/ai-overviews-google-france">les AI Overviews de Google en France</a> qui éclaire bien le contexte.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Comment ça marche sous le capot</h2>
+    <p>Perplexity repose sur des <a href="/lexique/llm">grands modèles de langage (LLM)</a> — ces systèmes entraînés sur d&#39;immenses corpus de textes, capables de comprendre et de générer du langage naturel. Mais là où ChatGPT s&#39;appuie sur ses données d&#39;entraînement (avec une date de coupure), Perplexity connecte le modèle à une recherche web en temps réel.</p>
+    <p>Concrètement, quand tu poses une question, voilà ce qui se passe :</p>
+    <ol>
+    <li>Perplexity interprète ta requête en langage naturel.</li>
+    <li>Il lance une recherche sur le web pour trouver les sources pertinentes.</li>
+    <li>Il synthétise ces sources en une réponse cohérente.</li>
+    <li>Il cite chaque affirmation avec un numéro renvoyant à la source.</li>
+    </ol>
+    <p>Ce dernier point est important. Les sources sont visibles, cliquables, vérifiables. Ce n&#39;est pas une réponse qui tombe du ciel — c&#39;est une synthèse traçable. C&#39;est ce qui le distingue d&#39;un chatbot classique, qui peut &quot;halluciner&quot; des informations sans que tu t&#39;en rendes compte.</p>
+    <p>La conversation est aussi au cœur de l&#39;expérience. Tu peux affiner ta question, demander un point de vue différent, aller plus loin sur un sous-sujet. Perplexity garde le fil de la discussion, comme dans un échange.</p>
+    <div class="callout tip"><h4>Ce que je retiens sur les sources</h4><p>Les citations ne garantissent pas que la réponse est parfaite. Perplexity peut mal interpréter une source ou en choisir une de mauvaise qualité. Mon réflexe : pour toute information qui compte, je clique sur au moins une ou deux sources pour vérifier. C'est plus rapide qu'avec Google, mais ça reste nécessaire.</p></div>
+    
+    <p>Pour tirer le meilleur de Perplexity, la qualité de ta question compte énormément. Si tu veux progresser sur ce point, j&#39;ai un article qui t&#39;explique <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand tu n&#39;es pas développeur</a>.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Perplexity vs Google : ce qui change vraiment</h2>
+    <p>La comparaison avec Google revient souvent. Elle est légitime, mais un peu trompeuse. Les deux outils ne répondent pas au même besoin.</p>
+    <p>Google est imbattable pour trouver un site précis, naviguer vers une page que tu connais, ou explorer un sujet large sans idée préconçue. Son index est immense, ses algorithmes sont rodés depuis des décennies.</p>
+    <p>Perplexity est meilleur quand tu as une question précise et que tu veux une réponse directe sans parcourir dix pages. Pour la veille, pour comprendre un concept, pour comparer des options, pour creuser un sujet professionnel — c&#39;est là qu&#39;il brille.</p>
+    <p>Un autre point de différence important : la publicité. Google vit de la publicité. Ses résultats sont influencés par ce modèle économique, même si l&#39;algorithme fait ce qu&#39;il peut pour maintenir la pertinence. Perplexity a fait un choix radical en février 2026 : abandonner les revenus publicitaires pour passer à un modèle d&#39;abonnement pur. L&#39;objectif affiché est de préserver l&#39;objectivité des résultats. C&#39;est un pari ambitieux — et un signal fort sur la direction que l&#39;outil veut prendre.</p>
+    <p>Pour un entrepreneur, ça change quelque chose. Quand tu cherches des informations sur un marché, un concurrent, une réglementation, tu veux des résultats qui ne sont pas orientés par qui a payé le plus.</p>
+    <h2>Les fonctionnalités qui m&#39;ont surpris</h2>
+    <p>Au-delà de la recherche de base, Perplexity a développé des fonctionnalités qui méritent qu&#39;on s&#39;y arrête.</p>
+    <p><strong>Le Model Council</strong> (depuis février 2026) est celle qui m&#39;a le plus intrigué. Elle permet de soumettre une même question à plusieurs modèles d&#39;IA en simultané — GPT, Claude, Gemini — et de comparer leurs réponses côte à côte. Pour une question complexe ou sensible, c&#39;est une façon de croiser les points de vue et de repérer les divergences. Si deux modèles disent la même chose et qu&#39;un troisième diverge, tu as une piste à creuser.</p>
+    <p>C&#39;est aussi utile pour choisir quel modèle utiliser selon le type de tâche. Si tu veux en savoir plus sur les différences entre ces outils, j&#39;ai comparé plusieurs IA selon les usages dans cet article : <a href="/articles/choisir-ia-ecrire-coder-images">choisir son IA pour écrire, coder ou créer des images</a>.</p>
+    <p><strong>La recherche conversationnelle</strong> est une autre force. Tu n&#39;es pas obligé de reformuler ta question depuis zéro à chaque fois. Tu peux demander &quot;et pour les PME ?&quot; après une première réponse sur un sujet, et Perplexity comprend le contexte. C&#39;est ce qui rend la veille plus fluide : tu pars d&#39;un sujet large et tu affines progressivement.</p>
+    <p><strong>Les espaces de travail</strong> (appelés &quot;Spaces&quot;) permettent de regrouper des recherches sur un même sujet, de les retrouver facilement et de les partager. Pour un projet ou une thématique de veille récurrente, c&#39;est pratique.</p>
+    <div class="callout tip"><h4>Mon conseil pour la veille</h4><p>J'utilise Perplexity pour des questions du type "quelles sont les tendances actuelles sur [mon secteur] ?" ou "quels sont les arguments pour et contre [telle décision] ?". Les réponses sont synthétiques, sourcées, et me donnent une base solide en quelques minutes. Je garde Google pour trouver des pages spécifiques ou naviguer vers un site que je connais déjà.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Perplexity Computer et Comet : vers quoi ça va</h2>
+    <p>Perplexity ne se limite plus à répondre à des questions. Deux développements récents montrent où l&#39;entreprise veut aller.</p>
+    <p><strong>Le navigateur Comet</strong> a été lancé progressivement : d&#39;abord sur Windows et macOS en juillet 2025, puis sur Android en novembre 2025, et sur iOS en mars 2026. Ce n&#39;est pas un simple navigateur. Il intègre un assistant IA capable de résumer les articles que tu lis, d&#39;effectuer des recherches pendant que tu navigues, et de gérer des tâches en langage naturel. L&#39;idée : que ton navigateur comprenne ce que tu fais et t&#39;aide à le faire mieux.</p>
+    <p><strong>Perplexity Computer</strong>, lancé en février 2026 et disponible via le plan Max, va encore plus loin. C&#39;est un agent IA autonome — un programme capable d&#39;exécuter des workflows complexes, de naviguer sur le web et d&#39;utiliser des logiciels à ta place. Tu lui décris une tâche, il l&#39;accomplit. Ce type d&#39;outil s&#39;appelle un &quot;agent IA&quot; : il ne répond pas seulement, il agit. Si le sujet de l&#39;automatisation par agents t&#39;intéresse, j&#39;ai un article dédié sur <a href="/articles/automatiser-taches-ia-sans-coder">comment automatiser des tâches avec l&#39;IA sans coder</a>.</p>
+    <p>Ces deux outils dessinent une vision : Perplexity ne veut pas seulement répondre à tes questions, il veut devenir le point d&#39;entrée de tout ce que tu fais sur internet. C&#39;est ambitieux. Et ça mérite qu&#39;on garde un œil dessus.</p>
+    <p>En janvier 2026, Perplexity a signé un engagement de 750 millions de dollars sur trois ans avec Microsoft Azure pour sécuriser sa capacité de calcul et accéder à plusieurs modèles d&#39;IA. Ce genre d&#39;infrastructure, c&#39;est ce qui permet de tenir ce rythme de développement.</p>
+    <h2>Ça vaut le coup pour qui ?</h2>
+    <p>Soyons clairs sur les limites. Perplexity n&#39;est pas parfait. Comme tout système basé sur des LLM, il peut se tromper, mal interpréter une source, ou synthétiser de façon incomplète. Les sources qu&#39;il choisit ne sont pas toujours les meilleures disponibles sur un sujet.</p>
+    <p>Il n&#39;est pas non plus adapté à tous les usages. Si tu cherches une adresse, un numéro de téléphone, ou un site précis, Google reste plus rapide. Si tu veux générer du contenu long ou travailler sur un document, ChatGPT ou Claude sont probablement plus adaptés.</p>
+    <p>Là où Perplexity est fort, c&#39;est pour l&#39;entrepreneur qui veut comprendre vite et bien. Comprendre un marché, une technologie, une réglementation, une tendance. Obtenir une synthèse fiable avec les sources pour aller plus loin si nécessaire. Faire de la veille sans passer des heures à ouvrir des onglets.</p>
+    <p>Son modèle économique est aussi un signal positif pour ce public. Un abonnement sans publicité, c&#39;est un outil dont les résultats ne sont pas orientés par des intérêts commerciaux tiers. Le revenu annuel récurrent de Perplexity a dépassé 450 millions de dollars en mars 2026 — l&#39;entreprise n&#39;est pas en train de survivre, elle se développe.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Perplexity est-il vraiment plus fiable que Google pour la recherche d&#39;informations business ?</h3>
+    <p>Pas plus fiable au sens absolu — mais différent. Perplexity cite ses sources directement dans la réponse, ce qui te permet de vérifier chaque affirmation. Google te donne des liens à explorer toi-même. Pour des questions factuelles précises sur un sujet business, Perplexity est souvent plus rapide et plus lisible. Mais dans les deux cas, vérifier les sources importantes reste indispensable.</p>
+    <h3>Puis-je utiliser Perplexity gratuitement ou dois-je souscrire à un abonnement ?</h3>
+    <p>Perplexity propose un accès gratuit avec des fonctionnalités de base. Les fonctionnalités avancées — dont le Model Council et Perplexity Computer — sont réservées aux plans payants. Le plan Max donne accès aux outils les plus puissants, dont l&#39;agent autonome Perplexity Computer.</p>
+    <h3>Comment Perplexity gère-t-il la confidentialité de mes recherches ?</h3>
+    <p>La matière factuelle dont je dispose ne me permet pas de détailler précisément leur politique de confidentialité. Mon conseil : consulte directement leur page dédiée avant d&#39;y saisir des informations sensibles sur ton entreprise ou tes clients. C&#39;est vrai pour tout outil IA.</p>
+    <h3>Perplexity peut-il m&#39;aider à faire de la veille concurrentielle ou sectorielle ?</h3>
+    <p>Oui, c&#39;est un de ses points forts. Tu peux poser des questions du type &quot;quelles sont les tendances actuelles sur ce marché ?&quot; ou &quot;quels sont les acteurs qui émergent dans ce secteur ?&quot;. Les réponses sont synthétisées avec des sources récentes, ce qui en fait un bon point de départ pour une veille régulière. Les &quot;Spaces&quot; permettent de regrouper tes recherches par thématique.</p>
+    <h3>Est-ce que Perplexity remplace complètement Google pour toutes mes recherches ?</h3>
+    <p>Non. Les deux outils sont complémentaires. Google reste plus efficace pour trouver un site précis, naviguer vers une page connue, ou explorer un sujet très large. Perplexity est meilleur pour obtenir une réponse directe et sourcée à une question précise. Dans ma pratique, j&#39;utilise les deux selon le besoin.</p>
+    <h3>Comment Perplexity se compare-t-il à ChatGPT ou Claude pour la recherche approfondie ?</h3>
+    <p>La différence principale : Perplexity accède au web en temps réel et cite ses sources. ChatGPT et Claude s&#39;appuient sur leurs données d&#39;entraînement (avec des mises à jour variables selon les versions) et peuvent &quot;halluciner&quot; sans que tu t&#39;en rendes compte facilement. Pour de la recherche d&#39;informations actuelles et vérifiables, Perplexity a un avantage structurel. Pour générer du contenu, analyser un document ou travailler sur une tâche longue, ChatGPT ou Claude restent de bons choix. La fonctionnalité Model Council de Perplexity te permet d&#39;ailleurs de comparer ces modèles directement sur une même question.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Perplexity m&#39;a changé la façon de chercher des informations. Pas radicalement — mais suffisamment pour que je l&#39;utilise tous les jours pour ma veille. Ce que j&#39;apprécie : la réponse directe, les sources visibles, et la conversation qui permet d&#39;affiner sans repartir de zéro.</p>
+    <p>Ce que je surveille : l&#39;évolution de Perplexity Computer et du navigateur Comet. Si ces outils tiennent leurs promesses, Perplexity ne sera plus seulement un moteur de réponses — ce sera un assistant qui agit sur le web à ta place. C&#39;est une promesse qui mérite qu&#39;on reste attentif.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Et si ça peut t&#39;aider à gagner du temps sur tes recherches, c&#39;est encore mieux.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

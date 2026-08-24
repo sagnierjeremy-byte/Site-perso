@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/rag-pour-non-dev.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>RAG : faire répondre une IA sur tes documents</title>
+<meta name="description" content="Comprends le RAG en 5 minutes : comment faire répondre une IA sur tes propres documents, sans hallucination, sans coder. Outils, étapes et cas d'usage.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="RAG : faire répondre une IA sur tes documents">
+<meta property="og:description" content="Comprends le RAG en 5 minutes : comment faire répondre une IA sur tes propres documents, sans hallucination, sans coder. Outils, étapes et cas d'usage.">
+<meta property="og:url" content="https://jerwis.fr/articles/rag-pour-non-dev">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/rag-pour-non-dev.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-24">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="RAG : faire répondre une IA sur tes documents">
+<meta name="twitter:description" content="Comprends le RAG en 5 minutes : comment faire répondre une IA sur tes propres documents, sans hallucination, sans coder. Outils, étapes et cas d'usage.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/rag-pour-non-dev.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/rag-pour-non-dev">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/rag-pour-non-dev">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/rag-pour-non-dev">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/rag-pour-non-dev">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "RAG : faire répondre une IA sur tes documents",
+  "description": "Comprends le RAG en 5 minutes : comment faire répondre une IA sur tes propres documents, sans hallucination, sans coder. Outils, étapes et cas d'usage.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/rag-pour-non-dev",
+  "datePublished": "2026-08-24",
+  "dateModified": "2026-08-24",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/rag-pour-non-dev.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 13</div>
+    <h1>Ton IA,<br>tes documents,<br><em>des vraies réponses.</em></h1>
+    <p class="hero-lead">
+      Tu as déjà posé une question à ChatGPT et reçu une réponse convaincante… mais fausse ? C'est le problème classique des IA génératives : elles inventent quand elles ne savent pas. Le RAG est la technique qui règle ça. Elle permet à une IA de lire tes propres documents avant de répondre. Résultat : des réponses ancrées dans ta réalité, pas dans des données génériques. Je t'explique comment ça marche, pourquoi c'est utile même sans compétences techniques, et par quoi commencer.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> NotebookLM, Custom GPTs</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Le <strong>RAG</strong> connecte une IA à tes propres documents pour des réponses précises et sourcées.</li>
+      <li>Il réduit drastiquement les <strong>hallucinations</strong> en ancrant les réponses dans une base vérifiée.</li>
+      <li>Des outils comme <strong>NotebookLM</strong> ou les Custom GPTs permettent de démarrer sans coder.</li>
+      <li>Le RAG est plus adapté que le fine-tuning quand tes données changent souvent ou que ton budget est limité.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>C&#39;est quoi, concrètement ?</h2>
+    <p>Imagine que tu recrutes un assistant. Tu lui donnes accès à tous tes documents internes : contrats, FAQ, fiches produit, procédures. Avant de te répondre, il consulte ces documents. Il ne devine pas. Il cherche, lit, puis formule.</p>
+    <p>C&#39;est exactement ce que fait le RAG — Retrieval-Augmented Generation, soit en français : génération augmentée par récupération.</p>
+    <p>Sans RAG, un grand modèle de langage (LLM, comme GPT ou Gemini) répond à partir de ce qu&#39;il a appris pendant son entraînement. Ces données ont une date de coupure. Elles ne contiennent pas tes documents internes. Et quand le modèle ne sait pas, il peut inventer avec une assurance déconcertante. C&#39;est ce qu&#39;on appelle une <a href="/lexique/hallucination">hallucination</a>.</p>
+    <p>Le RAG corrige ce problème à la racine. Avant de générer une réponse, le système va chercher les passages les plus pertinents dans une base de documents que tu as choisie. Il les injecte dans le contexte de la requête. Le LLM répond alors en s&#39;appuyant sur ces extraits réels, vérifiés, sourcés.</p>
+    <p>Le résultat : une IA qui parle de ton entreprise, avec tes données, et qui peut citer sa source.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le RAG ne remplace pas le LLM. Il lui donne un accès à une bibliothèque privée avant qu'il parle. C'est la différence entre un assistant qui improvise et un assistant qui a fait ses recherches.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pourquoi c&#39;est utile si tu n&#39;es pas développeur</h2>
+    <p>La plupart des outils IA grand public sont entraînés sur des données génériques. Ils ne connaissent pas ton secteur, ton jargon, tes offres, tes processus. Résultat : leurs réponses sont souvent trop vagues pour être vraiment utiles dans ton quotidien.</p>
+    <p>Le RAG change la donne. Il te permet d&#39;alimenter l&#39;IA avec tes propres ressources. Ton cahier des charges. Ton guide de vente. Tes notes de réunion. Ta documentation produit.</p>
+    <p>Et ça, tu n&#39;as pas besoin d&#39;être développeur pour le faire. Des outils accessibles existent aujourd&#39;hui qui gèrent toute la complexité technique en coulisses. Tu charges tes fichiers, tu poses tes questions. C&#39;est tout.</p>
+    <p>C&#39;est aussi une approche bien plus adaptée à la réalité d&#39;une petite structure que le fine-tuning — l&#39;autre grande méthode pour personnaliser un LLM. Le fine-tuning consiste à réentraîner un modèle sur tes données. C&#39;est coûteux, long, et il faut recommencer dès que tes données changent. Le RAG, lui, est mis à jour dès que tu charges un nouveau fichier. Il est plus rapide à déployer, plus économique, et il permet de tracer les sources de chaque réponse — ce qui est précieux quand tu veux vérifier ce que l&#39;IA t&#39;a dit.</p>
+    <p>Si tu t&#39;intéresses déjà à l&#39;idée d&#39;<a href="/articles/automatiser-taches-ia-sans-coder">automatiser des tâches sans coder</a>, le RAG s&#39;inscrit exactement dans cette logique.</p>
+    <h2>Comment ça fonctionne sous le capot</h2>
+    <p>Je ne vais pas te noyer dans la technique. Mais comprendre les grandes étapes t&#39;aidera à mieux utiliser les outils et à diagnostiquer ce qui coince quand ça ne marche pas.</p>
+    <p>Un pipeline RAG se déroule en plusieurs phases.</p>
+    <p><strong>1. Le découpage (chunking)</strong>
+    Tes documents sont découpés en petits blocs de texte. On appelle ça le chunking. Un PDF de 50 pages devient des centaines de fragments. L&#39;idée : permettre au système de retrouver un passage précis, pas un document entier.</p>
+    <p><strong>2. La vectorisation (embeddings)</strong>
+    Chaque fragment est converti en un vecteur — une représentation mathématique de son sens. C&#39;est ce qu&#39;on appelle un <a href="/lexique/embedding">embedding</a>. Deux phrases qui veulent dire la même chose auront des vecteurs proches, même si elles n&#39;utilisent pas les mêmes mots. C&#39;est ce qui permet une recherche par sens, pas seulement par mots-clés.</p>
+    <p><strong>3. Le stockage dans une base vectorielle</strong>
+    Ces vecteurs sont stockés dans une base de données spécialisée. Quand tu poses une question, ta question est elle aussi convertie en vecteur. Le système cherche les fragments dont le vecteur est le plus proche du tien.</p>
+    <p><strong>4. La génération de la réponse</strong>
+    Les fragments les plus pertinents sont transmis au LLM avec ta question. Le modèle les lit, les synthétise, et génère une réponse contextualisée. Il peut citer ses sources. Il ne parle que de ce qu&#39;il a sous les yeux.</p>
+    <p>Tout ça se passe en quelques secondes. Et les outils no-code que je te présente ensuite gèrent ces étapes de manière invisible.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les outils pour démarrer sans coder</h2>
+    <p>Tu n&#39;as pas besoin de monter une infrastructure technique pour bénéficier du RAG. Deux points d&#39;entrée sont particulièrement accessibles aujourd&#39;hui.</p>
+    <p><strong>NotebookLM (Google)</strong>
+    C&#39;est probablement l&#39;outil le plus simple pour commencer. Tu charges tes documents — PDF, articles, notes, Google Docs — et NotebookLM utilise les modèles Gemini de Google pour les analyser. Tu peux ensuite poser des questions, demander des résumés, générer des FAQs ou des mindmaps. Chaque réponse est accompagnée de citations qui pointent vers les passages sources dans tes documents.</p>
+    <p>C&#39;est un environnement RAG clé en main. Aucune configuration. Aucune ligne de code. Si tu veux <a href="/articles/resumer-pdf-video-avec-ia">résumer des PDFs ou des vidéos avec l&#39;IA</a>, c&#39;est un excellent point de départ.</p>
+    <p><strong>Les Custom GPTs (OpenAI)</strong>
+    ChatGPT ne fait pas du RAG par défaut. Mais OpenAI propose une fonctionnalité appelée Custom GPTs qui permet d&#39;en approcher les bénéfices sans coder. Tu crées un GPT personnalisé, tu y charges tes fichiers (PDF, Word, etc.), et le système les traite automatiquement pour la recherche.</p>
+    <p>Il y a des limites à connaître : 20 fichiers maximum, 512 Mo au total, et pas de synchronisation automatique si tes documents changent. Pour un usage ponctuel ou une base documentaire stable, c&#39;est très efficace. Pour des données qui évoluent souvent, il faudra penser à mettre à jour manuellement.</p>
+    <p>Ces deux outils sont de bons points d&#39;entrée. Pour aller plus loin — notamment si tu veux garder tes données sur ta propre infrastructure — il existe des solutions locales que j&#39;explore dans l&#39;article sur les <a href="/articles/llm-local-pour-non-dev">LLM locaux pour non-développeurs</a>.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Charger des documents mal structurés ou trop longs sans les préparer. Un PDF scanné sans OCR, une présentation avec du texte en image, un fichier mal nommé : tout ça dégrade la qualité des réponses. Avant de charger, vérifie que tes documents sont lisibles par une machine — du texte sélectionnable, des titres clairs, une structure logique.</p></div>
+    
+    <h2>RAG ou fine-tuning : comment choisir</h2>
+    <p>C&#39;est une question que je vois revenir souvent. La réponse courte : pour la grande majorité des entrepreneurs, le RAG est le bon choix.</p>
+    <p>Le fine-tuning, c&#39;est réentraîner un modèle sur tes données. Ça peut avoir du sens si tu veux modifier le comportement profond du modèle — son ton, sa façon de raisonner, son style. Mais c&#39;est une opération coûteuse, qui demande des compétences techniques et qui doit être recommencée dès que tes données changent.</p>
+    <p>Le RAG, lui, est fait pour les situations où :</p>
+    <ul>
+    <li>Tes données évoluent régulièrement (nouvelles offres, nouvelles procédures, nouveaux documents)</li>
+    <li>Tu veux pouvoir tracer les sources de chaque réponse</li>
+    <li>Ton budget est limité</li>
+    <li>Tu veux déployer rapidement</li>
+    </ul>
+    <p>Pour une petite structure qui veut exploiter ses documents métier sans investissement lourd, le RAG est clairement la voie à suivre.</p>
+    <h2>Ce que tu peux faire concrètement</h2>
+    <p>Quelques exemples de ce que le RAG permet dans un contexte entrepreneurial.</p>
+    <p><strong>Un assistant FAQ interne.</strong> Tu charges toutes tes procédures RH, tes guides d&#39;onboarding, tes politiques internes. Tes collaborateurs posent leurs questions en langage naturel. L&#39;IA répond avec les bonnes informations, sourcées.</p>
+    <p><strong>Un assistant commercial.</strong> Tu charges tes fiches produit, tes argumentaires, tes études de cas. Avant un appel client, tu poses une question précise : &quot;Quels arguments utiliser face à une objection sur le prix pour ce produit ?&quot; L&#39;IA répond à partir de tes propres documents.</p>
+    <p><strong>Un outil de veille.</strong> Tu charges des rapports sectoriels, des articles, des notes de conférence. Tu interroges cette base pour extraire des tendances, des chiffres, des citations.</p>
+    <p><strong>Un support client augmenté.</strong> Tu connectes une base de connaissances à un chatbot. Les réponses s&#39;appuient sur ta documentation réelle, pas sur des généralités.</p>
+    <p>Dans chacun de ces cas, la qualité du résultat dépend aussi de la qualité de tes questions. <a href="/articles/ecrire-bon-prompt-non-dev">Écrire un bon prompt</a> reste une compétence utile, même avec un système RAG bien configuré.</p>
+    <h2>Les limites à garder en tête</h2>
+    <p>Le RAG réduit les hallucinations. Il ne les élimine pas entièrement. Si tes documents contiennent des informations contradictoires ou incomplètes, l&#39;IA peut se perdre. Si ta question dépasse ce que contient ta base documentaire, le modèle peut combler les trous par lui-même — et se tromper.</p>
+    <p>La qualité de la réponse dépend directement de la qualité de ta base. Des documents bien structurés, régulièrement mis à jour, couvrant réellement les sujets que tu veux interroger : c&#39;est le vrai travail de fond.</p>
+    <p>Il y a aussi la question de la confidentialité. Quand tu charges des documents dans NotebookLM ou un Custom GPT, ces données transitent par les serveurs de Google ou d&#39;OpenAI. Pour des documents sensibles — données clients, informations financières, secrets industriels — il faut peser ce choix. Des solutions locales existent pour garder tes données sur ta propre machine.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Le RAG peut-il vraiment éliminer les hallucinations de l&#39;IA ?</h3>
+    <p>Non, pas entièrement. Le RAG les réduit significativement en ancrant les réponses dans des documents réels et vérifiés. Mais si ta base documentaire est incomplète ou si la question dépasse ce qu&#39;elle contient, le modèle peut encore dériver. La bonne pratique : vérifier les sources citées et maintenir une base documentaire à jour.</p>
+    <h3>Ai-je besoin de compétences techniques pour mettre en place un système RAG ?</h3>
+    <p>Pas pour commencer. Des outils comme NotebookLM ou les Custom GPTs d&#39;OpenAI gèrent toute la complexité technique en arrière-plan. Tu charges tes fichiers, tu poses tes questions. Pour des usages plus avancés — base vectorielle personnalisée, intégration à tes outils métier — des compétences techniques deviennent utiles, mais ce n&#39;est pas le point de départ obligatoire.</p>
+    <h3>Quels types de documents puis-je utiliser avec le RAG ?</h3>
+    <p>La plupart des formats textuels fonctionnent bien : PDF avec du texte sélectionnable, documents Word, Google Docs, fichiers Markdown, articles web. Les fichiers scannés sans OCR, les présentations avec du texte en image ou les fichiers audio/vidéo non transcrits posent davantage de difficultés. La règle de base : si tu peux sélectionner le texte dans le fichier, l&#39;IA peut le lire.</p>
+    <h3>Comment le RAG assure-t-il la confidentialité de mes données d&#39;entreprise ?</h3>
+    <p>Ça dépend de l&#39;outil que tu choisis. NotebookLM et les Custom GPTs font transiter tes données par les serveurs de Google et d&#39;OpenAI. Pour des documents sensibles, c&#39;est un point à prendre au sérieux. Des alternatives locales permettent de faire tourner un système RAG entièrement sur ta propre machine, sans que tes données ne quittent ton infrastructure.</p>
+    <h3>Le RAG est-il coûteux à mettre en œuvre pour une petite entreprise ?</h3>
+    <p>Pour démarrer, non. NotebookLM est gratuit dans sa version de base. Les Custom GPTs sont accessibles avec un abonnement ChatGPT standard. Les coûts augmentent si tu veux construire une infrastructure plus robuste — base vectorielle hébergée, modèle dédié, intégrations personnalisées. Mais pour tester et valider l&#39;utilité du RAG dans ton contexte, les outils no-code actuels permettent d&#39;aller loin sans investissement significatif.</p>
+    <h3>Quels sont les meilleurs outils RAG &quot;no-code&quot; disponibles aujourd&#39;hui ?</h3>
+    <p>À la date de cet article, deux outils se distinguent pour une entrée sans code : <strong>NotebookLM</strong> de Google, pour analyser et interroger des documents avec des citations systématiques, et les <strong>Custom GPTs</strong> d&#39;OpenAI, pour créer un assistant personnalisé alimenté par tes fichiers. Chacun a ses limites — les Custom GPTs plafonnent à 20 fichiers et 512 Mo, sans synchronisation automatique. Pour des besoins plus importants ou des contraintes de confidentialité, d&#39;autres solutions existent, notamment en local.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>Le RAG n&#39;est pas une technologie réservée aux équipes techniques. C&#39;est une façon de rendre une IA utile dans ton contexte précis, avec tes données, sur tes sujets.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Et ce que j&#39;observe, c&#39;est que la valeur d&#39;un outil IA ne vient pas du modèle lui-même — elle vient de la qualité des informations qu&#39;on lui donne à travailler. Le RAG est exactement ça : une méthode pour nourrir l&#39;IA avec ce qui compte vraiment pour toi.</p>
+    <p>Le meilleur endroit pour commencer : charge quelques documents dans NotebookLM. Pose une vraie question de travail. Regarde si les réponses changent par rapport à ce que tu obtiens d&#39;habitude. Tu verras la différence assez vite.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

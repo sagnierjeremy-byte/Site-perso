@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ia-et-ton-emploi.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Will AI take your job? What the studies actually say · Jerwis</title>
+<meta name="description" content="27% of French jobs are exposed to AI risk, per the OECD. Which roles are really threatened, which get a boost, and how to make yourself hard to replace.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Will AI take your job? What the studies actually say">
+<meta property="og:description" content="27% of French jobs exposed to AI per the OECD. Which roles are threatened, which get a boost, and how to make yourself hard to replace.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/ia-et-ton-emploi">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ia-et-ton-emploi.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-27">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Will AI take your job? What the studies actually say">
+<meta name="twitter:description" content="27% of French jobs exposed to AI per the OECD. Which roles are threatened, which get a boost, and how to make yourself hard to replace.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ia-et-ton-emploi.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ia-et-ton-emploi">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Will AI take your job? What the studies actually say",
+  "description": "27% of French jobs are exposed to AI risk, per the OECD. Which roles are really threatened, which get a boost, and how to make yourself hard to replace.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/ia-et-ton-emploi",
+  "datePublished": "2026-08-27",
+  "dateModified": "2026-08-27",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/ia-et-ton-emploi.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Deep dive · 76</div>
+    <h1>Will AI take<br>your job?<br><em>What the studies actually say</em></h1>
+    <p class="hero-lead">
+      You've been wondering. So have I — not in some abstract way, but very concretely, looking at what I do every week and asking myself what an AI could do in my place. I spent time reading the latest studies, digging into the numbers sector by sector. What I found is more nuanced than the alarming headlines, but also more urgent than most people think. I'm sharing everything here, no filter.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>10 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT, Gemini, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>According to the OECD, <strong>27% of jobs in France</strong> are at high risk of automation — that's more than 4 million positions.</li>
+      <li>AI is transforming <strong>tasks</strong> first, not entire professions: that distinction matters a lot.</li>
+      <li>Healthcare, construction, and skilled trades are <strong>among the least exposed</strong>; data entry and telesales are among the most threatened.</li>
+      <li>Mastering AI tools can translate to <strong>+25% average salary</strong> according to PwC (2025): adapting pays off in real terms.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What the studies actually say</h2>
+    <p>The question comes up everywhere. At dinner, on podcasts, in LinkedIn threads. "Will AI take my job?" And the honest answer — the one serious research gives — is: probably not your entire job. But a good chunk of what you do in it, yes.</p>
+    <p>The OECD published an analysis in late 2025 that's worth sitting with. About 27% of jobs in France carry a high risk of automation by AI — representing more than 4 million positions. That's a number that makes you stop. But you have to read it carefully: "high risk" doesn't mean "certain disappearance." It means those roles contain a significant proportion of tasks that AI can already handle, or will soon learn to.</p>
+    <p>That's where the nuance becomes decisive. The most recent analyses all converge on the same finding: AI is more likely to transform tasks within existing jobs than to replace entire professions. An accountant doesn't disappear — but the part of their time spent on data entry and bank reconciliation, yes. A writer doesn't disappear — but the production of standardized, repetitive content, probably.</p>
+    <p>This shift from "job replacement" to "task transformation" changes everything about how you should approach the topic. The right question isn't "will my job disappear?" — it's "which tasks in my job are going to change, and which ones are going to become more valuable?"</p>
+    <p>Meanwhile, the AI market keeps growing at a dizzying pace. According to Statista, it's expected to reach $617 billion in 2026, with annual growth of around 14.8%. And according to McKinsey, 88% of companies reported using AI in at least one business function in October 2025, up from 78% the year before. Adoption isn't a future trend. It's already here.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The jobs AI is really threatening</h2>
+    <p>Some sectors are clearly in the crosshairs. Data entry clerks, telemarketers, cashiers, administrative assistants handling standardized tasks, writers producing repetitive content — these are the profiles most exposed between now and 2030, according to current projections.</p>
+    <p>What do they have in common? Their tasks are predictable, repetitive, and don't require complex contextual judgment. That's exactly where AI excels. It can process thousands of forms, follow phone scripts, generate standardized product descriptions without ever getting tired.</p>
+    <p>On the other end, healthcare, construction, skilled trades, and personal services rank among the least exposed. Not because AI is dumb — but because these jobs rely on physical skills, bodily presence, a fine-tuned reading of emotions, and unscripted situations. A plumber, a home care aide, a cabinetmaker: AI still can't hold a tool, sense the urgency of a situation, or adapt a gesture to a particular person.</p>
+    <p>If you're a non-developer entrepreneur, your exposure depends less on your job title than on what you actually do every day. Go through your weekly tasks. Which ones are repetitive and rule-based? Those are the ones to watch — and also the ones you can <a href="/en/articles/automatiser-taches-ia-sans-coder">automate right now with the right tools</a>.</p>
+    <div class="callout tip">
+    <h4>The trap to avoid</h4>
+    <p>Don't confuse "my job isn't threatened" with "I don't need to do anything." Even in low-exposure sectors, professionals who master AI tools pull ahead of those who ignore them. AI doesn't replace the plumber — but the plumber who uses it handles quotes, communication, and scheduling twice as fast.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The opportunities AI is creating</h2>
+    <p>It would be a mistake to only read the destruction side. AI is also creating jobs and opportunities — and some of them are accessible without any technical background.</p>
+    <p>The clearest signal: AI-related job postings grew 270% between 2019 and 2024 in France, with more than 166,000 listings published, making France the European leader in this segment according to data available in early 2026. This isn't a niche market reserved for engineers. A large share of those listings are looking for people who can use AI, supervise it, train it, or integrate it into business processes.</p>
+    <p>The role of "prompt engineer" — someone who knows how to write precise instructions to get the best results from an AI — became one of the most sought-after in 2025–2026. And for good reason: the quality of what an AI produces depends enormously on the quality of the instructions it's given. It's a skill you can develop, whatever your background. I wrote a full article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a> — that's where I'd start.</p>
+    <p>More broadly, professionals who know how to use AI as a lever — not just a gadget — find themselves in an enviable position. According to a 2025 PwC study, mastering AI tools can lead to an average salary increase of 25%. That's not nothing.</p>
+    <h2>What stays irreplaceable</h2>
+    <p>There are things AI does very well. And there are things it doesn't do — and probably won't for a long time.</p>
+    <p>Emotional intelligence, genuine creativity, critical thinking, complex problem-solving, and adaptability: these are the human skills that research consistently places out of reach for current AI. Not because they're mysterious — but because they require a lived experience of the world, an understanding of human stakes, and an ability to navigate ambiguity that language models (<a href="/en/lexique/llm">LLMs</a>) don't really replicate.</p>
+    <p>Concretely, what does that mean for you? That the tasks where you bring judgment, client relationships, singular creativity, or the ability to make decisions under uncertainty are the ones you need to cultivate and lean into. Those are what make you hard to replace.</p>
+    <p>This isn't vague self-help advice. It's a positioning strategy. If you spend 60% of your time on repetitive tasks AI can handle, and 40% on high-human-value tasks, the goal is to flip that ratio — by delegating the first block to AI so you can focus on the second.</p>
+    <div class="callout tip">
+    <h4>My takeaways</h4>
+    <p>I do all of this for myself first. When I started mapping my own tasks, I realized I'd handed off a lot of time-consuming work to AI — first drafts, summaries, research — to save my energy for what no one else can do in my place: deciding, creating, building relationships. That's the shift that actually changes the game.</p>
+    </div>
+    
+    <h2>The tools available today</h2>
+    <p>To make yourself hard to replace, you need to know the tools. Here's where things stand as of this article.</p>
+    <p>ChatGPT is available in its GPT-5.6 version since July 9, 2026, with three sub-models: Sol (most powerful), Terra (standard), and Luna (fast and lightweight). Gemini is on version 3.7 Flash since August 13, 2026, with Gemini 3.5 Flash in general availability since July 30, 2026. On Anthropic's side, Claude Opus 4.8 has been available since May 28, 2026, and Claude Fable 5 launched on June 9, 2026 with improved performance on complex tasks. Midjourney V8.2 has been the default version since July 24, 2026, with notable improvements in image quality and customization.</p>
+    <p>These tools evolve fast — which is exactly why I won't tell you which one is "the best" in absolute terms. What I recommend is <a href="/en/articles/choisir-ia-ecrire-coder-images">choosing your tool based on your use case</a> rather than the current rankings. And if you want to go further with automation, <a href="/en/lexique/agentic-workflow">agentic workflows</a> let you delegate entire sequences of tasks to AI — a step above one-off use.</p>
+    <p>In 2025, 70% of organizations regularly used generative AI in at least one business function, according to the Stanford AI Index. If you haven't integrated these tools into your professional routine yet, you're not behind — but the time to act is now.</p>
+    <h2>Where to start, concretely</h2>
+    <p>You don't need to master everything. You need to start somewhere and build from there.</p>
+    <p>First step: map your tasks. Grab a sheet of paper and list what you do in a typical week. For each task, ask yourself two questions: is it repetitive and rule-based? Does it require my personal judgment or my relationship with someone? The first kind are candidates for automation. The second kind are worth protecting and developing.</p>
+    <p>Second step: experiment with one tool, on one task. No need to overhaul your whole workflow at once. Take the most time-consuming task on your list, test an AI on it for two weeks, and measure the result. That's how you actually learn — not by reading theoretical guides.</p>
+    <p>Third step: get better at prompting. The difference between a mediocre result and a usable one often comes down to how you phrase your request. It's a learnable skill, and it pays off fast.</p>
+    <p>If you want a perspective on what all of this will look like in five, ten, or twenty years, I explored that in a dedicated article on <a href="/en/articles/monde-ia-5-10-20-ans">the future of the world with AI</a>. The trajectory is clear — and it rewards those who adapt early.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>FAQ</h2>
+    <h3>Will AI actually replace your job as a non-developer entrepreneur?</h3>
+    <p>Probably not your entire job. But some of your current tasks, yes — especially the ones that are repetitive and rule-based. The real question is which tasks you want to keep, and which ones you can hand off to AI so you can focus on what's most valuable.</p>
+    <h3>Which jobs are most likely to be automated by AI by 2030?</h3>
+    <p>Based on current projections, data entry clerks, telemarketers, cashiers, administrative assistants handling standardized tasks, and writers producing repetitive content are among the most exposed. What they share: predictable, repetitive tasks that don't require complex contextual judgment.</p>
+    <h3>What skills should I develop to stay relevant as AI advances?</h3>
+    <p>Emotional intelligence, creativity, critical thinking, complex problem-solving, and adaptability are the human skills hardest for AI to replicate. Cultivate those. And add to that the ability to use AI tools effectively — that's what gives you an edge over people who ignore them.</p>
+    <h3>Is AI actually creating new types of jobs, and if so, which ones?</h3>
+    <p>Yes. AI-related job postings grew 270% between 2019 and 2024 in France. Among the most sought-after profiles: prompt engineering specialists, AI integration experts for business processes, and supervisors of automated systems. Many of these roles don't require a development background.</p>
+    <h3>How can I use AI as a non-developer entrepreneur to secure my professional future?</h3>
+    <p>Start by mapping your weekly tasks and identifying the repetitive ones. Experiment with one tool on one task. Learn to write clear instructions. And build your skills progressively on available tools — without trying to master everything at once.</p>
+    <h3>Are the latest AI tool versions really more effective for professional tasks?</h3>
+    <p>Recent versions (GPT-5.6, Gemini 3.7 Flash, Claude Opus 4.8, Midjourney V8.2) bring real improvements in response quality, handling of complex tasks, and customization. But the version alone isn't everything: how you phrase your requests remains the single most decisive factor in the quality of the output.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>My takeaways</h2>
+    <p>The studies don't lie: AI is going to transform a large share of existing jobs. But "transform" isn't "eliminate." The real dividing line won't be between humans and machines — it'll be between those who use AI and those who ignore it.</p>
+    <p>What I see around me, and what I experience in my own work, is that entrepreneurs who adapt early don't just survive the transition. They benefit from it. Not because they're smarter — but because they chose to look reality in the face and act on it.</p>
+    <p>27% of French jobs at high risk is a number worth sitting with. But the right response to that number isn't panic — it's deciding to be part of the 73% who come out fine, and ideally among those who use AI as a lever rather than fearing it as a threat.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

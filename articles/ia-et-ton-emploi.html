@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ia-et-ton-emploi.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>L'IA va-t-elle prendre ton emploi ? Ce que disent les études</title>
+<meta name="description" content="27% des emplois français exposés à l'IA selon l'OCDE. Quels métiers sont vraiment menacés, lesquels sont augmentés, et comment te rendre difficile à remplacer.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="L'IA va-t-elle prendre ton emploi ? Ce que disent les études">
+<meta property="og:description" content="27% des emplois français exposés à l'IA selon l'OCDE. Quels métiers sont vraiment menacés, lesquels sont augmentés, et comment te rendre difficile à remplacer.">
+<meta property="og:url" content="https://jerwis.fr/articles/ia-et-ton-emploi">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ia-et-ton-emploi.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-27">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="L'IA va-t-elle prendre ton emploi ? Ce que disent les études">
+<meta name="twitter:description" content="27% des emplois français exposés à l'IA selon l'OCDE. Quels métiers sont vraiment menacés, lesquels sont augmentés, et comment te rendre difficile à remplacer.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ia-et-ton-emploi.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ia-et-ton-emploi">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ia-et-ton-emploi">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "L'IA va-t-elle prendre ton emploi ? Ce que disent les études",
+  "description": "27% des emplois français exposés à l'IA selon l'OCDE. Quels métiers sont vraiment menacés, lesquels sont augmentés, et comment te rendre difficile à remplacer.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/ia-et-ton-emploi",
+  "datePublished": "2026-08-27",
+  "dateModified": "2026-08-27",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/ia-et-ton-emploi.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 76</div>
+    <h1>L'IA va-t-elle<br>prendre ton emploi ?<br><em>Ce que disent vraiment les études</em></h1>
+    <p class="hero-lead">
+      Tu te poses la question. Moi aussi, je me la suis posée. Pas de façon abstraite — de façon très concrète, en regardant ce que je fais chaque semaine et en me demandant ce qu'une IA pourrait faire à ma place. J'ai passé du temps à lire les études récentes, à regarder les chiffres secteur par secteur. Ce que j'ai trouvé est plus nuancé que les titres alarmistes, mais aussi plus urgent qu'on ne le pense. Je partage tout ici, sans filtre.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>10 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Gemini, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>Selon l'OCDE, <strong>27% des emplois en France</strong> sont exposés à un risque élevé d'automatisation — soit plus de 4 millions de postes.</li>
+      <li>L'IA transforme d'abord <strong>des tâches</strong>, pas des métiers entiers : la nuance est importante.</li>
+      <li>Les métiers du soin, du bâtiment et de l'artisanat sont <strong>parmi les moins exposés</strong> ; la saisie de données et la télévente, parmi les plus menacés.</li>
+      <li>Maîtriser les outils IA peut générer <strong>+25% de salaire moyen</strong> selon PwC (2025) : l'adaptation paie concrètement.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que disent vraiment les études</h2>
+    <p>La question revient partout. Dans les dîners, dans les podcasts, dans les fils LinkedIn. &quot;L&#39;IA va-t-elle prendre mon emploi ?&quot; Et la réponse honnête, celle que donnent les études sérieuses, c&#39;est : probablement pas ton emploi entier. Mais une bonne partie de ce que tu fais dedans, oui.</p>
+    <p>L&#39;OCDE a publié fin 2025 une analyse qui mérite qu&#39;on s&#39;y arrête. Environ 27% des emplois en France présentent un risque élevé d&#39;automatisation par l&#39;IA — ce qui représente plus de 4 millions de postes. C&#39;est un chiffre qui fait froid dans le dos. Mais il faut le lire correctement : &quot;risque élevé&quot; ne signifie pas &quot;disparition certaine&quot;. Ça signifie que ces postes contiennent une proportion importante de tâches que l&#39;IA peut déjà exécuter ou apprendra bientôt à exécuter.</p>
+    <p>C&#39;est là que la nuance devient décisive. Les analyses les plus récentes convergent vers le même constat : l&#39;IA est plus susceptible de transformer les tâches au sein des métiers existants que de remplacer des professions entières. Un comptable ne disparaît pas — mais la partie de son temps consacrée à la saisie et au rapprochement bancaire, oui. Un rédacteur ne disparaît pas — mais la production de contenus standardisés et répétitifs, probablement.</p>
+    <p>Ce glissement de &quot;remplacement de métier&quot; vers &quot;transformation de tâches&quot; change tout à la façon dont tu dois aborder le sujet. La bonne question n&#39;est pas &quot;mon métier va-t-il disparaître ?&quot; mais &quot;quelles tâches de mon métier vont changer, et lesquelles vont devenir plus précieuses ?&quot;</p>
+    <p>Pendant ce temps, le marché de l&#39;IA continue de croître à une vitesse vertigineuse. Selon Statista, il devrait atteindre 617 milliards de dollars en 2026, avec une croissance annuelle d&#39;environ 14,8%. Et selon McKinsey, 88% des entreprises déclaraient utiliser l&#39;IA dans au moins une fonction commerciale en octobre 2025, contre 78% l&#39;année précédente. L&#39;adoption n&#39;est pas une tendance future. Elle est déjà là.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les métiers que l&#39;IA menace vraiment</h2>
+    <p>Certains secteurs sont clairement dans le viseur. Les agents de saisie de données, les télévendeurs, les caissiers, les assistants administratifs sur tâches standardisées, les rédacteurs de contenus répétitifs — ce sont les profils les plus exposés d&#39;ici 2030, selon les projections actuelles.</p>
+    <p>Ce qu&#39;ils ont en commun ? Leurs tâches sont prévisibles, répétitives, et ne nécessitent pas de jugement contextuel complexe. L&#39;IA excelle précisément là-dedans. Elle peut traiter des milliers de formulaires, répondre à des scripts téléphoniques, générer des fiches produits standardisées sans jamais se fatiguer.</p>
+    <p>À l&#39;inverse, les métiers du soin, du bâtiment, de l&#39;artisanat et des services à la personne figurent parmi les moins exposés. Pas parce que l&#39;IA est bête — mais parce que ces métiers reposent sur des compétences physiques, une présence corporelle, une lecture fine des émotions et des situations non-scriptées. Un plombier, une aide-soignante, un ébéniste : l&#39;IA ne peut pas encore tenir un outil, sentir l&#39;urgence d&#39;une situation ou adapter un geste à un corps particulier.</p>
+    <p>Si tu es entrepreneur non-développeur, ton exposition dépend donc moins de ton titre que de ce que tu fais concrètement chaque jour. Passe en revue tes tâches hebdomadaires. Lesquelles sont répétitives et basées sur des règles fixes ? Ce sont celles-là qui sont à surveiller — et aussi celles que tu peux <a href="/articles/automatiser-taches-ia-sans-coder">automatiser dès maintenant avec les bons outils</a>.</p>
+    <div class="callout tip">
+    <h4>Le piège à éviter</h4>
+    <p>Ne confonds pas "mon métier n'est pas menacé" avec "je n'ai rien à faire". Même dans les secteurs peu exposés, les professionnels qui maîtrisent les outils IA prennent une longueur d'avance sur ceux qui les ignorent. L'IA ne remplace pas le plombier — mais elle aide le plombier qui s'en sert à gérer ses devis, sa communication et sa planification deux fois plus vite.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Les opportunités que l&#39;IA crée</h2>
+    <p>Ce serait une erreur de ne lire que le côté destruction. L&#39;IA crée aussi des emplois et des opportunités, et certains sont accessibles sans formation technique.</p>
+    <p>Le signal le plus clair : les offres d&#39;emploi liées à l&#39;IA ont connu une croissance de 270% entre 2019 et 2024 en France, avec plus de 166 000 offres publiées, faisant de la France le leader européen sur ce segment selon les données disponibles début 2026. Ce n&#39;est pas un marché de niche réservé aux ingénieurs. Une grande partie de ces offres concerne des profils capables d&#39;utiliser l&#39;IA, de la superviser, de la former ou de l&#39;intégrer dans des processus métier.</p>
+    <p>Le métier de &quot;prompt engineer&quot; — celui qui sait formuler des instructions précises pour obtenir les meilleurs résultats d&#39;une IA — est devenu l&#39;un des plus recherchés en 2025-2026. Et pour cause : la qualité de ce qu&#39;une IA produit dépend énormément de la qualité des instructions qu&#39;on lui donne. C&#39;est une compétence que tu peux développer, quelle que soit ta formation de base. J&#39;ai écrit un article complet sur <a href="/articles/ecrire-bon-prompt-non-dev">comment écrire un bon prompt quand on n&#39;est pas développeur</a> — c&#39;est par là que je commencerais.</p>
+    <p>Plus largement, les professionnels qui savent utiliser l&#39;IA comme levier — pas juste comme gadget — se retrouvent dans une position enviable. Selon une étude PwC de 2025, la maîtrise des outils IA peut entraîner une augmentation de salaire moyenne de 25%. Ce n&#39;est pas rien.</p>
+    <h2>Ce qui reste irremplaçable</h2>
+    <p>Il y a des choses que l&#39;IA fait très bien. Et il y a des choses qu&#39;elle ne fait pas — et ne fera probablement pas de sitôt.</p>
+    <p>L&#39;intelligence émotionnelle, la créativité réelle, la pensée critique, la résolution de problèmes complexes et l&#39;adaptabilité : voilà les compétences humaines que les analyses placent hors de portée de l&#39;IA actuelle. Pas parce qu&#39;elles sont mystérieuses — mais parce qu&#39;elles nécessitent une expérience incarnée du monde, une compréhension des enjeux humains et une capacité à naviguer dans l&#39;ambiguïté que les modèles de langage (<a href="/lexique/llm">LLM</a>) ne reproduisent pas vraiment.</p>
+    <p>Concrètement, ça veut dire quoi pour toi ? Que les tâches où tu mobilises ton jugement, ta relation client, ta créativité singulière ou ta capacité à prendre des décisions dans l&#39;incertitude sont celles que tu dois cultiver et mettre en avant. Ce sont elles qui te rendent difficile à remplacer.</p>
+    <p>Ce n&#39;est pas un conseil de développement personnel vague. C&#39;est une stratégie de positionnement. Si tu passes 60% de ton temps sur des tâches répétitives que l&#39;IA peut faire, et 40% sur des tâches à haute valeur humaine, l&#39;objectif est d&#39;inverser ce ratio — en déléguant le premier bloc à l&#39;IA pour te concentrer sur le second.</p>
+    <div class="callout tip">
+    <h4>Ce que je retiens</h4>
+    <p>Je fais tout ça d'abord pour moi. Quand j'ai commencé à cartographier mes propres tâches, j'ai réalisé que j'avais externalisé à l'IA beaucoup de choses chronophages — rédaction de premiers jets, synthèses, recherches — pour garder mon énergie sur ce que personne d'autre ne peut faire à ma place : décider, créer, construire des relations. C'est cette bascule qui change vraiment la donne.</p>
+    </div>
+    
+    <h2>Les outils disponibles aujourd&#39;hui</h2>
+    <p>Pour te rendre difficile à remplacer, encore faut-il connaître les outils. Voici un état des lieux à la date de cet article.</p>
+    <p>ChatGPT est disponible dans sa version GPT-5.6 depuis le 9 juillet 2026, avec trois sous-modèles : Sol (le plus puissant), Terra (standard) et Luna (rapide et économique). Gemini en est à sa version 3.7 Flash depuis le 13 août 2026, avec Gemini 3.5 Flash en disponibilité générale depuis le 30 juillet 2026. Du côté d&#39;Anthropic, Claude Opus 4.8 est disponible depuis le 28 mai 2026, et Claude Fable 5 a été lancé le 9 juin 2026 avec des performances améliorées sur les tâches complexes. Midjourney V8.2 est la version par défaut depuis le 24 juillet 2026, avec des améliorations notables sur la qualité d&#39;image et la personnalisation.</p>
+    <p>Ces outils évoluent vite — c&#39;est précisément pourquoi je ne te recommande pas &quot;le meilleur&quot; de façon absolue. Ce que je te recommande, c&#39;est de <a href="/articles/choisir-ia-ecrire-coder-images">choisir ton outil selon ton usage</a> plutôt que selon les classements du moment. Et si tu veux aller plus loin dans l&#39;automatisation, les <a href="/lexique/agentic-workflow">workflows agentiques</a> permettent de déléguer des séquences de tâches entières à l&#39;IA — un niveau au-dessus de l&#39;usage ponctuel.</p>
+    <p>En 2025, 70% des organisations utilisaient régulièrement l&#39;IA générative dans au moins une fonction métier, selon le Stanford AI Index. Si tu n&#39;as pas encore intégré ces outils dans ton quotidien professionnel, tu n&#39;es pas en retard — mais le moment d&#39;agir, c&#39;est maintenant.</p>
+    <h2>Par où commencer concrètement</h2>
+    <p>Tu n&#39;as pas besoin de tout maîtriser. Tu as besoin de commencer quelque part, et de progresser méthodiquement.</p>
+    <p>Première étape : cartographie tes tâches. Prends une feuille et liste ce que tu fais dans une semaine type. Pour chaque tâche, pose-toi deux questions : est-ce répétitif et basé sur des règles fixes ? Est-ce que ça nécessite mon jugement personnel ou ma relation à quelqu&#39;un ? Les premières sont des candidates à l&#39;automatisation. Les secondes sont à protéger et à développer.</p>
+    <p>Deuxième étape : expérimente avec un seul outil, sur une seule tâche. Pas besoin de révolutionner ton organisation d&#39;un coup. Prends la tâche la plus chronophage de ta liste, teste une IA dessus pendant deux semaines, et mesure le résultat. C&#39;est comme ça qu&#39;on apprend vraiment — pas en lisant des guides théoriques.</p>
+    <p>Troisième étape : monte en compétence sur le prompt. La différence entre un résultat médiocre et un résultat utilisable tient souvent à la façon dont tu formules ta demande. C&#39;est une compétence qui s&#39;apprend, et qui paie rapidement.</p>
+    <p>Si tu veux une perspective sur ce que tout ça donnera dans cinq, dix ou vingt ans, j&#39;ai exploré ce sujet dans un article dédié sur <a href="/articles/monde-ia-5-10-20-ans">l&#39;avenir du monde avec l&#39;IA</a>. La trajectoire est claire — et elle récompense ceux qui s&#39;adaptent tôt.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA va-t-elle réellement remplacer ton emploi d&#39;entrepreneur non-développeur ?</h3>
+    <p>Probablement pas ton emploi entier. Mais une partie de tes tâches actuelles, oui — surtout celles qui sont répétitives et basées sur des règles fixes. La vraie question est de savoir quelles tâches tu veux garder, et lesquelles tu peux déléguer à l&#39;IA pour te concentrer sur ce qui a le plus de valeur.</p>
+    <h3>Quels sont les métiers les plus susceptibles d&#39;être automatisés par l&#39;IA d&#39;ici 2030 ?</h3>
+    <p>Selon les projections actuelles, les agents de saisie de données, les télévendeurs, les caissiers, les assistants administratifs sur tâches standardisées et les rédacteurs de contenus répétitifs sont parmi les plus exposés. Ce qu&#39;ils ont en commun : des tâches prévisibles, répétitives, sans jugement contextuel complexe.</p>
+    <h3>Quelles compétences dois-je développer pour rester pertinent face à l&#39;IA ?</h3>
+    <p>L&#39;intelligence émotionnelle, la créativité, la pensée critique, la résolution de problèmes complexes et l&#39;adaptabilité sont les compétences humaines les plus difficiles à reproduire pour une IA. Cultive-les. Et ajoute à ça la capacité à utiliser les outils IA efficacement — c&#39;est ce qui te donne un avantage sur ceux qui les ignorent.</p>
+    <h3>L&#39;IA crée-t-elle de nouveaux types d&#39;emplois, et si oui, lesquels ?</h3>
+    <p>Oui. Les offres d&#39;emploi liées à l&#39;IA ont crû de 270% entre 2019 et 2024 en France. Parmi les profils recherchés : les spécialistes en prompt engineering, les intégrateurs d&#39;IA dans les processus métier, les superviseurs de systèmes automatisés. Beaucoup de ces rôles ne nécessitent pas de formation en développement.</p>
+    <h3>Comment puis-je utiliser l&#39;IA en tant qu&#39;entrepreneur non-développeur pour sécuriser mon avenir professionnel ?</h3>
+    <p>Commence par cartographier tes tâches hebdomadaires et identifier celles qui sont répétitives. Expérimente avec un outil sur une seule tâche. Apprends à formuler des instructions claires. Et monte progressivement en compétence sur les outils disponibles — sans chercher à tout maîtriser d&#39;un coup.</p>
+    <h3>Les dernières versions des outils IA sont-elles vraiment plus performantes pour les tâches professionnelles ?</h3>
+    <p>Les versions récentes (GPT-5.6, Gemini 3.7 Flash, Claude Opus 4.8, Midjourney V8.2) apportent des améliorations réelles sur la qualité des réponses, la gestion de tâches complexes et la personnalisation. Mais la version seule ne fait pas tout : la façon dont tu formules tes demandes reste le facteur le plus déterminant pour la qualité du résultat.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que je retiens</h2>
+    <p>Les études ne mentent pas : l&#39;IA va transformer une grande partie des emplois existants. Mais &quot;transformer&quot; n&#39;est pas &quot;supprimer&quot;. La vraie ligne de fracture ne sera pas entre les humains et les machines — elle sera entre ceux qui utilisent l&#39;IA et ceux qui l&#39;ignorent.</p>
+    <p>Ce que je vois autour de moi, et ce que je vis dans mon propre travail, c&#39;est que les entrepreneurs qui s&#39;adaptent tôt ne subissent pas la transition. Ils en profitent. Pas parce qu&#39;ils sont plus intelligents — mais parce qu&#39;ils ont décidé de regarder la réalité en face et d&#39;agir dessus.</p>
+    <p>27% des emplois français à risque élevé, c&#39;est un chiffre qui mérite qu&#39;on s&#39;y attarde. Mais le bon usage de ce chiffre, ce n&#39;est pas la panique — c&#39;est la décision de faire partie des 73% qui s&#39;en sortent bien, et idéalement de ceux qui utilisent l&#39;IA comme levier plutôt que comme menace.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

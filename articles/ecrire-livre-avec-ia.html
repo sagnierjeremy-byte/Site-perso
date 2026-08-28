@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/ecrire-livre-avec-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Écrire un livre avec l'IA : apports réels et limites</title>
+<meta name="description" content="L'IA peut t'aider à structurer, fluidifier et accélérer ton écriture. Mais ta voix, elle, reste irremplaçable. Voici comment trouver le bon équilibre.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Écrire un livre avec l'IA : apports réels et limites">
+<meta property="og:description" content="L'IA peut t'aider à structurer, fluidifier et accélérer ton écriture. Mais ta voix, elle, reste irremplaçable. Voici comment trouver le bon équilibre.">
+<meta property="og:url" content="https://jerwis.fr/articles/ecrire-livre-avec-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/ecrire-livre-avec-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-28">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Écrire un livre avec l'IA : apports réels et limites">
+<meta name="twitter:description" content="L'IA peut t'aider à structurer, fluidifier et accélérer ton écriture. Mais ta voix, elle, reste irremplaçable. Voici comment trouver le bon équilibre.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/ecrire-livre-avec-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/ecrire-livre-avec-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/ecrire-livre-avec-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/ecrire-livre-avec-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/ecrire-livre-avec-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Écrire un livre avec l'IA : apports réels et limites",
+  "description": "L'IA peut t'aider à structurer, fluidifier et accélérer ton écriture. Mais ta voix, elle, reste irremplaçable. Voici comment trouver le bon équilibre.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/ecrire-livre-avec-ia",
+  "datePublished": "2026-08-28",
+  "dateModified": "2026-08-28",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/ecrire-livre-avec-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 20</div>
+    <h1>Écrire avec<br>l'IA<br><em>sans perdre ta voix</em></h1>
+    <p class="hero-lead">
+      Tu veux écrire un livre, raconter ton histoire ou coucher tes mémoires sur le papier, mais tu ne sais pas par où commencer. Ou tu as commencé, et tu bloques. L'IA peut vraiment aider, mais pas de la façon dont on l'imagine souvent. Je partage ici ce que j'ai compris de son apport réel, ce qu'elle ne fera jamais à ta place, et comment s'y prendre concrètement sans finir avec un texte qui ne te ressemble pas.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> Claude, ChatGPT</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>L'IA structure, fluidifie et <strong>accélère</strong> ton écriture, mais ne remplace pas ta matière première.</li>
+      <li>Ta voix, tes souvenirs et ton jugement restent <strong>irremplaçables</strong> : tu restes éditeur de ton propre texte.</li>
+      <li>Une méthode simple : parle d'abord, laisse l'IA transcrire et structurer, puis reprends la main.</li>
+      <li>Les textes IA sont détectables dans plus de <strong>80 % des cas</strong> : l'humanisation du texte est une étape à part entière.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;IA comme co-auteur, vraiment ?</h2>
+    <p>Quand j&#39;ai entendu parler pour la première fois d&#39;utiliser l&#39;IA pour écrire un livre, ma réaction a été sceptique. Soit l&#39;outil allait tout faire à ma place et le résultat serait creux. Soit il ne servirait à rien et je perdrais du temps à l&#39;apprivoiser.</p>
+    <p>La réalité est ailleurs. Et elle est plus intéressante.</p>
+    <p>L&#39;IA n&#39;est pas un auteur fantôme. C&#39;est quelque chose qui ressemble davantage à un assistant d&#39;édition très rapide, capable de mettre en forme ce que tu lui donnes, de combler les trous, d&#39;organiser le désordre. Mais il faut lui donner quelque chose. Et ce quelque chose, c&#39;est toi qui l&#39;apportes.</p>
+    <p>Écrire ses mémoires, un roman ou l&#39;histoire de son parcours entrepreneurial, c&#39;est avant tout un acte de mémoire et de choix. Qu&#39;est-ce que je garde ? Qu&#39;est-ce que je tais ? Quelle est la ligne qui relie tout ça ? Ces questions, aucun modèle ne peut y répondre à ta place. Mais une fois que tu as des réponses, même imparfaites, l&#39;IA peut t&#39;aider à les mettre en mots de façon lisible.</p>
+    <p>C&#39;est là que ça devient utile.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce qu&#39;elle fait bien (et ce qu&#39;on n&#39;attend pas d&#39;elle)</h2>
+    <p>Commençons par ce que l&#39;IA fait vraiment bien dans un projet d&#39;écriture.</p>
+    <p><strong>Elle transforme l&#39;oral en texte lisible.</strong> C&#39;est peut-être son apport le plus sous-estimé. Si tu parles naturellement de ton histoire, de tes souvenirs, de tes expériences, l&#39;IA peut prendre cette matière brute et la rendre fluide, structurée, lisible, tout en conservant ton ton et ta personnalité. [F5] Les hésitations, les répétitions, les digressions de l&#39;oral disparaissent. Ce qui reste, c&#39;est l&#39;essentiel de ce que tu voulais dire.</p>
+    <p><strong>Elle structure ce qui est épars.</strong> Tu as des notes dans cinq carnets différents, des fragments de texte dans des fichiers éparpillés, des idées qui ne se tiennent pas encore ensemble ? L&#39;IA peut t&#39;aider à trouver un fil, à proposer un plan, à regrouper ce qui va ensemble. [F10] Des modèles comme Claude sont appréciés précisément pour leur capacité à organiser les idées, limiter les répétitions et améliorer la progression d&#39;un texte.</p>
+    <p><strong>Elle accélère les passages ingrats.</strong> Les transitions entre deux chapitres, les descriptions de contexte, les résumés de situation : ce sont des passages nécessaires mais peu inspirants à écrire. L&#39;IA les produit vite. Tu n&#39;as plus qu&#39;à les ajuster.</p>
+    <p><strong>Elle sert de premier lecteur.</strong> Tu peux lui soumettre un chapitre et lui demander ce qui manque, ce qui n&#39;est pas clair, ce qui pourrait être développé. C&#39;est un retour immédiat, sans filtre social.</p>
+    <p>Ce qu&#39;elle ne fait pas bien, en revanche : inventer des souvenirs que tu n&#39;as pas, ressentir l&#39;émotion d&#39;un moment, choisir ce qui mérite d&#39;être raconté. Et surtout, elle ne sait pas ce qui est vrai dans ta vie. [F9] L&#39;IA dans l&#39;édition ne remplace pas le jugement éditorial humain ni la voix créative. C&#39;est factuel, pas une mise en garde rhétorique.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le meilleur usage que j'ai trouvé : parler à voix haute pendant dix minutes de ce que je veux raconter, transcrire avec un outil de transcription, puis coller ce texte brut à l'IA en lui demandant de le structurer. Le résultat est toujours plus "moi" que si j'avais demandé à l'IA de générer quelque chose de zéro.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que tu ne peux pas lui déléguer</h2>
+    <p>Ta voix, c&#39;est l&#39;ensemble de tes choix. Le mot que tu préfères à un autre. Le détail que tu gardes parce qu&#39;il dit tout. L&#39;angle que tu prends sur une période de ta vie. Ce sont des décisions qui viennent de qui tu es, pas de ce qu&#39;un modèle a lu.</p>
+    <p>[F7] Le rôle de l&#39;auteur humain ne disparaît pas avec l&#39;IA. Il se transforme. Tu deviens éditeur de ton propre texte. Tu valides, tu coupes, tu reformules, tu réintègres ce que l&#39;IA a lissé un peu trop. C&#39;est un travail différent de l&#39;écriture pure, mais c&#39;est un travail qui reste entièrement le tien.</p>
+    <p>Pour des mémoires en particulier, il y a une dimension supplémentaire. Les faits que tu racontes, l&#39;IA ne les connaît pas. Elle peut <a href="/lexique/hallucination">halluciner</a> des détails, ajouter des éléments plausibles mais faux, combler des trous avec des inventions. C&#39;est un piège réel. Si tu écris sur ta propre vie, tu es le seul garde-fou contre ces erreurs. Aucun modèle ne sait ce qui s&#39;est vraiment passé.</p>
+    <p>C&#39;est aussi pour ça que le concept de <a href="/lexique/human-in-the-loop">human-in-the-loop</a> s&#39;applique particulièrement bien à l&#39;écriture personnelle. Tu restes dans la boucle à chaque étape. L&#39;IA propose, tu décides.</p>
+    <p>Et puis il y a la question du style. Un texte entièrement généré par l&#39;IA a une certaine texture. Fluide, organisé, un peu trop équilibré. [F8] En 2026, les outils spécialisés identifient correctement un contenu IA dans plus de 80 % des cas. Si tu veux que ton livre soit vraiment le tien, l&#39;humanisation du texte n&#39;est pas une option. C&#39;est une étape à part entière du processus.</p>
+    <h2>Comment je m&#39;y prendrais</h2>
+    <p>Voici la méthode que j&#39;utilise et que je recommande, surtout si tu pars de zéro.</p>
+    <p><strong>Étape 1 : Parle avant d&#39;écrire.</strong> Utilise ton téléphone ou un outil de transcription. Raconte ton histoire à voix haute, sans filtre. Vingt minutes. Ne cherche pas à être parfait. L&#39;objectif, c&#39;est de sortir la matière brute.</p>
+    <p><strong>Étape 2 : Donne cette matière à l&#39;IA.</strong> Colle ta transcription dans ChatGPT, Claude ou Gemini. Demande-lui de structurer, de regrouper les thèmes, de proposer un plan de chapitres. Tu verras rapidement ce qui tient et ce qui manque.</p>
+    <p><strong>Étape 3 : Construis ton plan avec elle.</strong> Une fois le plan validé par toi, travaille chapitre par chapitre. Pour chaque chapitre, refais l&#39;exercice : parle, transcris, donne à l&#39;IA pour qu&#39;elle structure.</p>
+    <p><strong>Étape 4 : Reprends la main sur chaque paragraphe.</strong> C&#39;est l&#39;étape que beaucoup sautent. Lis chaque paragraphe à voix haute. Est-ce que c&#39;est toi qui parles ? Si non, reformule. Ajoute un détail que seul toi peux connaître. Coupe ce qui sonne générique.</p>
+    <p><strong>Étape 5 : Fais relire par un humain.</strong> L&#39;IA peut t&#39;aider à corriger les fautes, à vérifier la cohérence. Mais un vrai lecteur humain te dira ce qui l&#39;a ému, ce qui l&#39;a perdu, ce qui l&#39;a ennuyé. Ces retours sont irremplaçables.</p>
+    <p>Pour cadrer tes échanges avec l&#39;IA à chaque étape, apprendre à <a href="/articles/ecrire-bon-prompt-non-dev">écrire un bon prompt</a> change vraiment le résultat. Ce n&#39;est pas technique, c&#39;est juste une question de précision dans ce que tu demandes.</p>
+    <h2>Les outils que je regarderais en 2026</h2>
+    <p>Plusieurs modèles se distinguent pour l&#39;écriture longue à la date de cet article.</p>
+    <p><strong>Claude (Anthropic)</strong> est souvent cité pour sa capacité à produire des textes fluides et bien organisés. [F3] Claude Opus 5, sorti le 24 juillet 2026, offre une fenêtre contextuelle d&#39;un million de jetons, ce qui signifie qu&#39;il peut tenir en mémoire un manuscrit entier pendant une session de travail. C&#39;est un avantage concret pour la cohérence d&#39;un long projet.</p>
+    <p><strong>ChatGPT (OpenAI)</strong> reste très polyvalent. [F1] La famille GPT-5.6 est disponible depuis le 9 juillet 2026, avec plusieurs variantes selon tes besoins. Pour l&#39;écriture narrative, il s&#39;adapte bien à des styles variés si tu lui fournis des exemples de ta façon d&#39;écrire.</p>
+    <p><strong>Gemini (Google)</strong> [F2] a rendu Gemini Omni Flash disponible fin août 2026. Utile si tu travailles déjà dans l&#39;écosystème Google Docs, l&#39;intégration est fluide.</p>
+    <p>Pour choisir entre ces outils selon ton projet, j&#39;ai écrit un article qui compare leurs forces respectives : <a href="/articles/choisir-ia-ecrire-coder-images">comment choisir ton IA selon ton projet</a>.</p>
+    <p><strong>Midjourney</strong>, enfin, n&#39;est pas un outil d&#39;écriture mais il peut t&#39;aider à visualiser des personnages, des décors ou des ambiances si tu écris un roman. [F4] La version V8.2, devenue version par défaut le 24 juillet 2026, se concentre sur la qualité d&#39;image et la personnalisation. Utile pour créer une couverture ou pour t&#39;inspirer visuellement.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Ne passe pas trois semaines à comparer les outils avant de commencer. Prends Claude ou ChatGPT, commence avec une session de vingt minutes, et ajuste ensuite. Le meilleur outil, c'est celui que tu utilises vraiment.</p></div>
+    
+    <h2>Les pièges que j&#39;ai rencontrés</h2>
+    <p><strong>L&#39;hallucination de faits.</strong> Si tu demandes à l&#39;IA de compléter un souvenir ou de &quot;remplir&quot; un épisode de ta vie, elle va inventer des détails plausibles. Pour des mémoires, c&#39;est un problème sérieux. Vérifie tout ce qu&#39;elle produit sur ta propre histoire.</p>
+    <p><strong>La voix lissée.</strong> L&#39;IA tend à produire des textes corrects, équilibrés, sans aspérités. C&#39;est exactement ce qu&#39;il ne faut pas pour un récit personnel. Tes maladresses, tes formulations un peu bancales, tes répétitions volontaires : ce sont elles qui font que c&#39;est toi. Garde-les.</p>
+    <p><strong>La confidentialité.</strong> Si tu écris tes mémoires et que tu colles des souvenirs personnels, des noms, des dates, des lieux dans une interface IA, ces données partent quelque part. Avant de commencer, lis les conditions d&#39;utilisation de l&#39;outil que tu choisis. J&#39;ai écrit sur ce sujet : <a href="/articles/donnees-perso-ia-confidentialite">données personnelles et IA, ce qu&#39;il faut savoir</a>.</p>
+    <p><strong>La détection IA.</strong> Si tu veux publier ton livre, sache que <a href="/articles/reperer-contenu-ia-deepfake">les outils de détection de contenu IA</a> sont de plus en plus précis. Un texte entièrement généré sans réécriture humaine sera probablement identifié. Ce n&#39;est pas seulement une question d&#39;éthique, c&#39;est aussi une question de crédibilité.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Questions fréquentes</h2>
+    <h3>L&#39;IA peut-elle écrire un livre entier à ta place ?</h3>
+    <p>Techniquement, elle peut produire du texte en quantité. Mais un livre entièrement généré sans intervention humaine sera générique, sans voix propre, et détectable comme tel. L&#39;IA est un outil de production et de structuration. La matière, les choix, le ton : c&#39;est toi qui les apportes. Sans ça, il n&#39;y a pas de livre, juste du texte.</p>
+    <h3>Comment garantir que ton style et ta personnalité transparaissent dans un texte généré par IA ?</h3>
+    <p>La méthode la plus efficace : donne à l&#39;IA des exemples de textes que tu as déjà écrits, même courts, et demande-lui de s&#39;en inspirer. Ensuite, relis chaque paragraphe à voix haute. Ce qui ne sonne pas comme toi, reformule-le toi-même. C&#39;est ce travail de relecture et de réécriture qui fait la différence.</p>
+    <h3>Les textes écrits avec l&#39;IA sont-ils détectables par les outils anti-plagiat ou anti-IA ?</h3>
+    <p>Oui. En 2026, les outils spécialisés identifient correctement un contenu IA dans plus de 80 % des cas. Un texte relu, reformulé et enrichi par un humain sera beaucoup moins détectable qu&#39;un texte brut sorti d&#39;un modèle. L&#39;humanisation du texte est une étape réelle du processus, pas un détail.</p>
+    <h3>Quels sont les meilleurs outils IA pour la rédaction de mémoires ou de romans en 2026 ?</h3>
+    <p>Claude Opus 5 (disponible depuis le 24 juillet 2026) se distingue par sa fenêtre contextuelle d&#39;un million de jetons, utile pour les longs manuscrits. ChatGPT avec la famille GPT-5.6 (disponible depuis le 9 juillet 2026) est polyvalent et s&#39;adapte bien à des styles variés. Gemini s&#39;intègre bien dans l&#39;écosystème Google. Le choix dépend de ton projet et de tes habitudes de travail.</p>
+    <h3>L&#39;utilisation de l&#39;IA pour écrire est-elle éthique, notamment pour des œuvres personnelles comme les mémoires ?</h3>
+    <p>C&#39;est une vraie question, et elle mérite une réponse honnête. Utiliser l&#39;IA pour structurer, fluidifier ou corriger un texte que tu as conçu et alimenté, c&#39;est comparable à travailler avec un éditeur. Ce qui pose problème, c&#39;est de présenter comme entièrement personnel un texte que tu n&#39;as pas écrit. La transparence sur ton processus de création reste la meilleure boussole.</p>
+    <h3>Comment protéger la confidentialité de tes souvenirs si tu utilises l&#39;IA pour tes mémoires ?</h3>
+    <p>Lis les conditions d&#39;utilisation de l&#39;outil avant de coller des informations personnelles. Certains services utilisent les conversations pour entraîner leurs modèles, d&#39;autres non. Tu peux aussi anonymiser les noms et lieux dans un premier temps, travailler sur la structure, puis réintégrer les détails personnels dans ta version finale sans passer par l&#39;IA. J&#39;ai détaillé ce sujet dans un article dédié : <a href="/articles/donnees-perso-ia-confidentialite">données personnelles et IA</a>.</p>
+    <h2>Ce que je retiens</h2>
+    <p>L&#39;IA ne va pas écrire ton livre à ta place. Et c&#39;est une bonne nouvelle. Parce que si elle le faisait vraiment, ce ne serait plus ton livre.</p>
+    <p>Ce qu&#39;elle peut faire, c&#39;est lever les obstacles qui t&#39;empêchent de commencer ou de continuer. La page blanche, le désordre des idées, la peur de mal écrire. Elle structure, elle fluidifie, elle accélère. Et toi, tu restes celui qui sait ce qui s&#39;est vraiment passé, ce qui mérite d&#39;être raconté, et comment tu veux que ça sonne.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Parce que j&#39;ai des choses à raconter, que le temps manque, et que ces outils m&#39;aident à avancer sans perdre ce qui fait que c&#39;est moi qui parle.</p>
+    <p>Si tu as un projet d&#39;écriture qui attend depuis trop longtemps dans un tiroir, c&#39;est peut-être le bon moment de lui donner une chance.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

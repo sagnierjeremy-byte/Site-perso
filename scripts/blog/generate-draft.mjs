@@ -60,6 +60,30 @@ function normalizeDraft(md) {
   return matter.stringify('\n' + body.trim() + '\n', data, { lineWidth: -1, noRefs: true });
 }
 
+/**
+ * Filet anti-tirets (règles anti-IA 2026-08-28) : corrige mécaniquement les seuls cas
+ * grammaticalement sûrs AVANT la gate, qui bloque le reste (rejet → régénération).
+ * - Demi/cadratin collé entre deux chiffres = plage → trait d'union (2020–2024 → 2020-2024).
+ * - Cadratin/demi-cadratin en incise (entouré de texte) → virgule. JAMAIS « : » : c'est
+ *   le même tic IA (règle Jérémy). Un tiret en début de ligne (dialogue) n'est PAS corrigé,
+ *   la gate le bloquera : le réécrire mécaniquement changerait le sens.
+ * - Les blocs de code ``` ``` et les URLs sont laissés intacts (un exemple de prompt peut
+ *   contenir un tiret, et réécrire une URL la casserait).
+ */
+function purgerTirets(md) {
+  let fixes = 0;
+  const out = md.split(/(```[\s\S]*?```|\]\([^)\s]+\)|https?:\/\/\S+)/).map((seg, i) => {
+    if (i % 2 === 1 || !/[—–]/.test(seg)) return seg;
+    const avant = (seg.match(/[—–]/g) || []).length;
+    const s = seg
+      .replace(/(\d)[—–](\d)/g, '$1-$2')
+      .replace(/(?<=\S)[   ]*[—–][   ]*(?=\S)/g, ', ');
+    fixes += avant - ((s.match(/[—–]/g) || []).length);
+    return s;
+  }).join('');
+  return { md: out, fixes };
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -72,9 +96,9 @@ if (!existsSync(briefPath)) { console.error(`Brief introuvable : ${briefPath} (l
 const brief = JSON.parse(await readFile(briefPath, 'utf8'));
 const type = brief.type || 'A';
 
-const factsBlock = (brief.facts || []).map((f, i) => `[F${i + 1}] ${f.claim} (${f.date || 'n.d.'}) — source: ${f.source_url}`).join('\n');
-const statsBlock = (brief.stats || []).map((s, i) => `[S${i + 1}] ${s.stat} (${s.date || 'n.d.'}) — source: ${s.source_url}`).join('\n');
-const linksBlock = (brief.internal_links || []).map(l => `${l.url} — ${l.why}`).join('\n');
+const factsBlock = (brief.facts || []).map((f, i) => `[F${i + 1}] ${f.claim} (${f.date || 'n.d.'}) · source: ${f.source_url}`).join('\n');
+const statsBlock = (brief.stats || []).map((s, i) => `[S${i + 1}] ${s.stat} (${s.date || 'n.d.'}) · source: ${s.source_url}`).join('\n');
+const linksBlock = (brief.internal_links || []).map(l => `${l.url} · ${l.why}`).join('\n');
 const faqBlock = (brief.faq || []).map(q => `- ${q}`).join('\n');
 
 const minW = type === 'B' ? SEO_RULES.body_words_min_B : SEO_RULES.body_words_min_A;
@@ -102,7 +126,7 @@ RÈGLE ANTI-INVENTION ABSOLUE :
 - Ne colle JAMAIS un nom de source (Gartner, McKinsey, IBM…) à un chiffre si ce nom n'est pas dans la matière, même si tu "crois" le connaître.
 - Si un chiffre te semble douteux ou invraisemblable, NE L'UTILISE PAS (mieux vaut l'omettre qu'inventer).
 - STATISTIQUES — SOURCE OBLIGATOIRE DANS LA PHRASE : quand tu cites un chiffre, nomme la source dans la phrase ("selon Grand View Research", "d'après l'étude X") SI elle figure dans la matière, et mentionne l'année. Un chiffre orphelin (sans source nommée ni année) = à NE PAS utiliser : si la matière ne fournit pas de source, reste qualitatif.
-- FRAÎCHEUR / ANTI-SUPERLATIF (l'IA évolue très vite) : ne qualifie JAMAIS une version d'outil ou de modèle de "la dernière", "la référence", "la plus récente", "difficile à battre" ou "incontesté" SAUF si un FAIT daté ci-dessus le confirme à ~30 jours près de la date de publication de l'article. Sinon écris "à la date de cet article" et évite le superlatif — un superlatif périmé (recommander une vieille version) décrédibilise tout l'article. Un outil ne peut être "n°1" que sur UNE dimension précise et seulement si la matière le dit ; en cas de doute, formule en relatif ("réputé fort sur X") plutôt qu'en absolu ("leader incontesté").
+- FRAÎCHEUR / ANTI-SUPERLATIF (l'IA évolue très vite) : ne qualifie JAMAIS une version d'outil ou de modèle de "la dernière", "la référence", "la plus récente", "difficile à battre" ou "incontesté" SAUF si un FAIT daté ci-dessus le confirme à ~30 jours près de la date de publication de l'article. Sinon écris "à la date de cet article" et évite le superlatif. Un superlatif périmé (recommander une vieille version) décrédibilise tout l'article. Un outil ne peut être "n°1" que sur UNE dimension précise et seulement si la matière le dit ; en cas de doute, formule en relatif ("réputé fort sur X") plutôt qu'en absolu ("leader incontesté").
 - Tu n'es pas obligé d'utiliser tous les faits — choisis les plus solides.
 
 === LIENS INTERNES À PLACER (2 à 6, en markdown [texte](url), ancres variées) ===
@@ -112,7 +136,7 @@ ${linksBlock}
 - Sujets des sections, à traiter dans l'article : ${(brief.outline || []).join(' / ')}
   ⚠️ Cet outline est une matière de TRAVAIL bourrée de mots-clés : NE RECOPIE JAMAIS ces formulations en titres H2. Reformule chaque section en titre court et humain (voir la RÈGLE DES TITRES ci-dessous).
 - Un H2 tous les 250-350 mots. Corps : ${minW} mots minimum${maxW}.
-- Inclure 1-2 encarts \`<div class="callout tip"><h4>Titre</h4><p>...</p></div>\` (ton avis perso). Titre d'encart court et chaleureux SANS être familier ni péremptoire (ex: "Mon conseil", "Le piège à éviter", "Ce que je retiens" — PAS "Mon avis tranché" ni "à mes dépens").
+- Inclure 1-2 encarts \`<div class="callout tip"><h4>Titre</h4><p>...</p></div>\` (ton avis perso). Titre d'encart court et chaleureux SANS être familier ni péremptoire (ex: "Mon conseil", "Le piège à éviter", "Ce que je retiens" ; PAS "Mon avis tranché" ni "à mes dépens").
 - IMPÉRATIF : termine l'article complètement, ne le coupe jamais en milieu de phrase ou de mot.
 - Terminer par un H2 "## Questions fréquentes" avec ces questions (### par question) :
 ${faqBlock}
@@ -123,7 +147,7 @@ ${faqBlock}
 ---
 slug: ${slug}
 titre: "titre interne 50-60 caractères"
-titre_seo: "titre SEO 40-65 caractères (sans le suffixe — par Jérémy Sagnier)"
+titre_seo: "titre SEO 40-65 caractères (le suffixe « par Jérémy Sagnier » est ajouté automatiquement, ne l'inclus pas)"
 description: "meta description 140-160 caractères, bénéfice lecteur en tête"
 numero: "${num || '00'}"
 categorie: "${type === 'B' ? 'Making-of' : 'Décryptage'}"
@@ -142,7 +166,7 @@ tldr:
   - "point 4"
 ---
 
-[CORPS MARKDOWN ICI — pas de # H1 (déjà géré par le hero), commence directement par un <!-- section --> puis ## ]
+[CORPS MARKDOWN ICI. Pas de # H1 (déjà géré par le hero). Commence directement par un <!-- section --> puis ## ]
 
 RÈGLE DE TUTOIEMENT (ton Leo de jerwis.fr) :
 - TUTOIE le lecteur partout : "tu", "ton", "tes", "tu veux", "tu écris". JAMAIS de "vous"/"votre"/"vos".
@@ -154,7 +178,7 @@ RÈGLE TYPOGRAPHIQUE FRANÇAISE STRICTE (très important) :
 - Exemples INTERDITS : "Les 4 Piliers d'un Bon Prompt", "Comment Itérer Sur Tes Prompts".
 - Les noms propres gardent leur casse : Chain-of-Thought, Context Engineering, Claude, RCTF.
 
-RÈGLE DES TITRES H2/H3 (ton Leo — TRÈS IMPORTANT, c'est ce qui sonne "humain" vs "fiche SEO") :
+RÈGLE DES TITRES H2/H3 (ton Leo, TRÈS IMPORTANT : c'est ce qui sonne "humain" vs "fiche SEO") :
 - Les H2 doivent être COURTS (7 mots maximum) et chaleureux, comme une question ou une phrase qu'on lâcherait à un ami. C'est un blog perso, pas une fiche produit.
 - INTERDIT dans un titre : empilement de mots-clés, deux-points suivi d'une énumération, années ou plages d'années (2025-2026), et les mots "incontournable", "essentiel", "concret", "panorama", "guide complet".
 - Bons titres (à imiter) : « C'est quoi, concrètement ? » · « Pourquoi tout le monde en parle » · « Par où je commencerais » · « Les pièges que j'ai rencontrés » · « Mon outil préféré » · « Ça vaut le coup pour qui ? ».
@@ -163,8 +187,17 @@ RÈGLE DES TITRES H2/H3 (ton Leo — TRÈS IMPORTANT, c'est ce qui sonne "humain
 
 TOURNURES "CONSULTANT/SEO" À BANNIR (elles font "contenu généré pour Google", pas "blog perso") :
 - N'écris JAMAIS : "panorama", "incontournable", "à l'ère de", "dans un monde où", "force est de constater", "il est important de noter/souligner", "les bénéfices concrets de", "une compétence clé/à part entière", "à ne pas négliger", "plongeons", "décortiquons ensemble", "sans plus attendre", "ne sont pas abstraits".
+- N'écris JAMAIS non plus : "en résumé", "au final", "une chose est sûre", "ce qui est certain", "spoiler", "game-changer", "révolutionne", "booster", "sans précédent", "un véritable + nom" ("un véritable assistant"), "n'est pas près de s'arrêter".
 - Pas d'intro creuse type "Dans cet article, nous allons voir…". Entre directement dans le vif, au vécu.
 - Préfère le verbe simple et l'exemple concret à l'adjectif marketing.
+
+RÈGLES ANTI-IA (un texte qui "sent l'IA" est un texte raté ; ces règles sont BLOQUANTES à la gate qualité) :
+- JAMAIS de tiret cadratin (—) ni demi-cadratin (–), nulle part : ni dans le corps, ni dans les titres, ni dans le frontmatter (titre, lead, description, tldr). Et ne le remplace pas par un " : " planté au milieu de la phrase, c'est le même tic. Réécris vraiment : deux phrases, une virgule, ou une parenthèse. Les traits d'union des mots composés (c'est-à-dire, peut-être) et des plages (2020-2024) restent normaux.
+- JAMAIS d'énumération de trois dans une phrase ("simple, rapide, efficace") : c'est LA signature IA. Un élément, deux, ou quatre. Les vraies listes à puces, elles, restent bienvenues.
+- Le renversement "Ce n'est pas X. C'est Y." : deux fois maximum dans tout l'article.
+- Pas d'anaphore mécanique (trois phrases ou trois paragraphes qui démarrent pareil), pas de symétrie parfaite entre sections, pas de question rhétorique auto-répondue ("Le résultat ? ...", "La bonne nouvelle ? ...").
+- Casse le rythme : alterne phrases courtes et longues, paragraphes d'une ligne et paragraphes pleins. Deux phrases voisines ne doivent pas avoir la même construction.
+- Autorisé et bienvenu (ça fait humain) : commencer une phrase par "Et", "Mais", "Sauf que". Une phrase sans verbe. Un aparté entre parenthèses.
 
 LONGUEUR : respecte la cible (corps ${minW} mots minimum${maxW}). Ne gonfle pas l'article pour "faire long" : si tu as fait le tour, conclus.
 
@@ -199,6 +232,13 @@ if (!normalized) {
   process.exit(1);
 }
 md = normalized;
+
+// Anti-IA : purge des tirets typographiques (le prompt les interdit, ceci rattrape les fuites)
+const { md: purge, fixes } = purgerTirets(md);
+if (fixes) console.error(`  ⚠ ${fixes} tiret(s) cadratin/demi-cadratin corrigé(s) mécaniquement (incise → virgule)`);
+const restants = (purge.match(/[—–]/g) || []).length;
+if (restants) console.error(`  ⚠ ${restants} tiret(s) non corrigeable(s) mécaniquement (la gate les bloquera)`);
+md = purge;
 
 const outPath = path.join(ROOT, 'drafts', `${slug}.md`);
 await writeFile(outPath, md, 'utf8');

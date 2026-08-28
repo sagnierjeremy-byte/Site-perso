@@ -26,7 +26,7 @@ TON DE VOIX "LEO" (règle absolue du site jerwis.fr) :
 - TUTOIEMENT OBLIGATOIRE : l'article dit "tu" au lecteur, jamais "vous". Le tutoiement
   N'EST PAS de la familiarité et ne doit JAMAIS être compté comme un défaut de ton.
 - Chaleureux mais PAS familier. "Familier" = argot et langage "de pote" ("ouais",
-  "franchement", "mec") — pas le tutoiement, pas les mises en garde pratiques.
+  "franchement", "mec"), pas le tutoiement ni les mises en garde pratiques.
 - Les encarts conseil/piège/astuce (callouts) font partie du FORMAT du site : donner
   un conseil concret ou signaler un piège n'est pas du "ton consultant".
 - Phrases courtes. Mots simples. Pas de jargon non expliqué (si un terme technique
@@ -67,6 +67,19 @@ export const CLICHES = [
   '\\bbénéfices concrets\\b', '\\bcompétence (professionnelle )?(clé|à part entière)\\b',
   '\\bne sont pas abstraits?\\b', '\\bà ne pas (négliger|sous-estimer)\\b',
   '\\bplongeons\\b', '\\bdécortiquons ensemble\\b', '\\bsans plus attendre\\b',
+];
+
+// TICS D'ÉCRITURE IA → BLOQUANTS partout (articles via qa-gate, posts LinkedIn via
+// linkedin-post.mjs). Demande Jérémy 2026-08-28 : le contenu ne doit pas « sentir l'IA ».
+// Les tirets cadratins/demi-cadratins sont traités à part (regex directe [—–] dans les
+// gates, jamais remplacés mécaniquement par « : », qui est le même tic). Ici : les
+// tournures verbales détectables sans faux positif. Les règles plus fines (liste de
+// trois, anaphores, rythme) vivent dans les prompts, une regex ne sait pas les juger.
+export const TICS_IA = [
+  "\\bà l['’]ère de\\b", '\\bdans un monde où\\b', '\\ben résumé\\b', '\\bau final\\b',
+  '\\bune chose est sûre\\b', '\\bce qui est certain\\b', '\\bspoiler\\b',
+  '\\bplonge[rz]? dans\\b', '\\brévolutionn\\w+\\b', '\\bgame.changer\\b',
+  '\\bbooste[rz]?\\b', '\\bincontournable', '\\bsans précédent\\b',
 ];
 
 // Jérémy qualifié de dev/codeur = BLOQUANT. On cible le sens "il EST dev",

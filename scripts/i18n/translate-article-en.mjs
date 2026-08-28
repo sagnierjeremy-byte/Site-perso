@@ -46,15 +46,16 @@ const system = `You translate pages of jerwis.fr (AI for non-developer entrepren
 ${termbase.voice || ''}
 
 ABSOLUTE RULES:
-1. Output the COMPLETE translated HTML file, nothing else — no fences, no commentary.
-2. Preserve the HTML structure EXACTLY: every tag, attribute, class, id, data-*, href, src stays byte-identical. Only translate human-visible French text: element text content, <title>, meta content (description, og:*, twitter:*), alt, aria-label, title attributes, and the text values inside <script type="application/ld+json"> (headline, description… — keep its structure and URLs untouched).
+1. Output the COMPLETE translated HTML file, nothing else: no fences, no commentary.
+2. Preserve the HTML structure EXACTLY: every tag, attribute, class, id, data-*, href, src stays byte-identical. Only translate human-visible French text: element text content, <title>, meta content (description, og:*, twitter:*), alt, aria-label, title attributes, and the text values inside <script type="application/ld+json"> (headline, description…; keep its structure and URLs untouched).
 3. Placeholders like <!--__SKEL_0__--> must be kept exactly where they are.
 4. Transcreate, don't translate literally: US English, "Leo" tone (warm direct "you", first person "I test, I share", zero unexplained jargon, no consultant-speak). Keep all numbers, dates, sources, product names exactly as they are.
-5. Keep slugs and all URLs unchanged (the plumbing is handled elsewhere).
-6. Never translate these names: ${doNotTranslate}
-7. Fixed terminology (nav/footer/UI must match the rest of the site):
+5. NEVER write an em dash (—) or en dash (–), even where English style would normally use one: they read as AI-generated. Rewrite with a comma, a period, or parentheses instead (not a colon dropped mid-sentence, same tell). Hyphens in compound words and number ranges (2020-2024) are fine.
+6. Keep slugs and all URLs unchanged (the plumbing is handled elsewhere).
+7. Never translate these names: ${doNotTranslate}
+8. Fixed terminology (nav/footer/UI must match the rest of the site):
 ${glossary}
-${termbase.seo_rules ? '8. SEO rules: ' + JSON.stringify(termbase.seo_rules) : ''}`;
+${termbase.seo_rules ? '9. SEO rules: ' + JSON.stringify(termbase.seo_rules) : ''}`;
 
 async function translate(input) {
   const opts = { system, temperature: 0.3, max_tokens: 32000 };

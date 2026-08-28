@@ -1,5 +1,31 @@
 # CHANGELOG — Site perso Jérémy Sagnier
 
+## 2026-08-28 · Règles anti-détection IA : posts LinkedIn, articles, traduction EN
+
+### Pourquoi
+Demande de Jérémy : les tirets cadratins « font très IA » et trahissent la génération automatique, sur les posts LinkedIn puis, en extension le même jour, sur les articles de blog. Constat mesuré avant correction : **29 des 30 posts publiés** contenaient des tirets cadratins ou demi-cadratins (jusqu'à 6 par post), et **45 des 45 drafts d'articles** (885 tirets au total, ~20 par draft). Cause racine côté posts : l'exemple few-shot de `linkedin-post.mjs` en contenait un lui-même, le modèle l'imitait fidèlement ; côté articles, le prompt de `generate-draft.mjs` (et le `TON_LEO` de config) en modelaient plusieurs, sans aucune règle contraire.
+
+### Livré
+- **`scripts/blog/linkedin-post.mjs`** :
+  - Exemple few-shot nettoyé (le tiret de « la page — avant tous les liens » remplacé par une virgule) ; idem pour le tiret de la règle « Jargon interdit » du prompt système, qui modélisait le tic.
+  - Nouveau bloc « RÈGLES ANTI-IA » dans le prompt système : zéro tiret cadratin/demi-cadratin (et interdiction de le remplacer par un « : » en milieu de phrase, même tic), pas d'énumération de trois, renversement « Ce n'est pas X. C'est Y. » limité à un par post, pas d'anaphore mécanique ni de question rhétorique auto-répondue, rythme varié, tournures IA bannies (« à l'ère de », « game-changer », « au final », « spoiler »...).
+  - Gate mécanique `verifier()` durcie : tout tiret typographique dans le post ou le 1er commentaire est bloquant, tiret ASCII en ponctuation ou en puce bloquant (mots composés et plages de dates permis), 13 tics IA regex bloquants, renversements « n'est pas » plafonnés à 2.
+  - Boucle passée de 2 à 3 essais, et le motif de rejet est renvoyé au modèle à l'essai suivant (avant, il rejouait le même prompt à l'aveugle).
+- **`scripts/blog/linkedin-carousel.mjs`** : même règle anti-tirets dans le prompt (champs "lines", "sub", "kicker"), gate bloquante sur les slides, tirets des instructions elles-mêmes nettoyés.
+- **`scripts/blog/config.mjs`** : nouvelle liste partagée `TICS_IA` (13 regex bloquantes, utilisée par la gate articles ET la gate posts ; gère l'apostrophe droite et typographique) ; tiret du `TON_LEO` nettoyé (il est injecté dans les prompts de génération et de jugement).
+- **`scripts/blog/generate-draft.mjs`** (articles) :
+  - Prompt nettoyé de ses propres tirets (blocs de faits `[F1] … · source:`, consignes) + le même bloc « RÈGLES ANTI-IA » adapté au format long (tirets interdits jusque dans le frontmatter, énumérations de trois, renversement limité à 2 par article, anaphores, rythme) + extension des tournures bannies (« en résumé », « au final », « game-changer », « un véritable + nom »...).
+  - Filet `purgerTirets()` : correction mécanique des seuls cas sûrs avant écriture du draft (incise espacée ou collée → virgule, jamais « : » ; plage de chiffres → trait d'union) ; blocs de code et URLs exemptés ; tiret de dialogue en début de ligne laissé à la gate. Corrections loguées en CI.
+- **`scripts/blog/qa-gate.mjs`** : nouveau bloc ANTI-IA bloquant (tirets typographiques dans le corps + frontmatter, hors code et URLs ; `TICS_IA`) + avertissement si le renversement « Ce n'est pas X. C'est Y. » apparaît ≥3 fois. Rejet → régénération (boucle existante `max_regen`).
+- **`scripts/i18n/translate-article-en.mjs`** : règle n°5 dans le prompt de traduction, l'anglais ne réintroduit jamais de tiret cadratin (tic encore plus marqué en anglais IA), réécriture virgule/point/parenthèses.
+
+### Vérifié
+- Posts : regex testées sur cas synthétiques (7/7, sans faux positif sur « c'est-à-dire », « peut-être », « 2020-2024 ») puis rejouées sur les 30 posts réels : **28/30 auraient été rejetés** (28 tirets, plus « incontournable », « spoiler », « au final », 4 posts à 3-4 renversements).
+- Articles : `purgerTirets` testé 9/9 sur sa source réelle (code fencé intact, URL à demi-cadratin intacte, insécables gérées, dialogue laissé à la gate). Gate rejouée en réel : draft publié `ia-et-ton-emploi` → **REJET, 30 tirets + « révolutionner »** (y compris avec le vrai juge Gemini) ; draft propre truffé de pièges légitimes (liste markdown, tableau, plage 2020-2024, URL à demi-cadratin, cadratin dans un bloc de code) → **zéro bloquant anti-IA** ; sabotage (1 cadratin ajouté) → détecté. `node --check` vert sur les 6 scripts.
+
+### Note
+Les 30 posts existants et les 45 articles publiés ne sont pas retouchés (déjà en ligne). Les règles s'appliquent aux prochaines générations, côté GitHub Actions, donc après push de ce commit. La boucle de régénération de `run.mjs` reste aveugle (pas de feedback des erreurs de gate au modèle) : la prévention repose sur le prompt, la gate est le filet.
+
 ## 2026-07-30 · /api/news — purge des flux morts + 8 sources FR
 
 ### Pourquoi

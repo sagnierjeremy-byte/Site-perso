@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import {
-  TON_LEO, MOTS_BANNIS, DEV_PERSONNE, CLICHES, FRONTMATTER_REQUIRED,
+  TON_LEO, MOTS_BANNIS, DEV_PERSONNE, CLICHES, TICS_IA, FRONTMATTER_REQUIRED,
   SEO_RULES, RUBRIC, SITE_URL,
 } from './config.mjs';
 
@@ -71,6 +71,33 @@ const scores = {};      // par critère
   }
   if (found.length) { block(`Mots bannis détectés : ${[...new Set(found)].join(', ')}`); scores.C3_mots_bannis = 0; }
   else scores.C3_mots_bannis = 10;
+}
+
+// ─────────────────────────────────────────────────────────────
+// ANTI-IA — tirets typographiques + tics d'écriture (bloquant, demande Jérémy 2026-08-28)
+//   generate-draft.mjs purge déjà les cas mécaniquement sûrs : ce qui arrive ici
+//   déclenche un rejet → régénération. Les blocs de code sont exemptés (exemples de prompts).
+// ─────────────────────────────────────────────────────────────
+{
+  const fmTexte = [
+    fm.titre, fm.titre_seo, fm.description, fm.lead,
+    fm.hero_ligne_1, fm.hero_ligne_2, fm.hero_ligne_3,
+    ...(Array.isArray(fm.tldr) ? fm.tldr : []),
+  ].filter(Boolean).join('\n');
+  // code + URLs exclus du comptage (un lien source peut contenir un demi-cadratin,
+  // et la régénération le reproduirait : bloquer dessus créerait un rejet sans issue)
+  const prose = (body.replace(/```[\s\S]*?```/g, '') + '\n' + fmTexte)
+    .replace(/\]\([^)\s]+\)/g, ']()').replace(/https?:\/\/\S+/g, '');
+
+  const nTirets = (prose.match(/[—–]/g) || []).length;
+  if (nTirets) block(`${nTirets} tiret(s) cadratin/demi-cadratin (signature IA) → réécrire la phrase (virgule, deux phrases, parenthèse), jamais « : » en substitution`);
+
+  const tics = [...new Set(TICS_IA.flatMap(rx => (prose.match(new RegExp(rx, 'gi')) || []).map(x => x.toLowerCase())))];
+  if (tics.length) block(`Tic(s) d'écriture IA : ${tics.slice(0, 5).join(', ')}${tics.length > 5 ? '…' : ''}`);
+
+  // Renversement « Ce n'est pas X. C'est Y. » : 1-2 = style maison, ≥3 = signature IA (souple)
+  const pivots = (prose.match(/n['’]est pas\b[^.!?\n]{0,90}[.!?]\s*C['’]est\b|ne sont pas\b[^.!?\n]{0,90}[.!?]\s*Ce sont\b/gi) || []).length;
+  if (pivots >= 3) flag(`renversement « Ce n'est pas X. C'est Y. » répété ${pivots} fois (max 2, signature IA)`);
 }
 
 // ─────────────────────────────────────────────────────────────

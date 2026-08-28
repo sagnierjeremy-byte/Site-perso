@@ -32,7 +32,7 @@ const post = (await readFile(postPath, 'utf8')).match(/## Post\n\n([\s\S]*?)\n\n
 const { data: fm, content: body } = matter(await readFile(path.join(ROOT, 'drafts', `${slug}.md`), 'utf8'));
 const shortUrl = `jerwis.fr/articles/${slug}`;
 
-const system = `Tu transformes un post LinkedIn de Jérémy Sagnier (jerwis.fr) en carrousel de 6 à 8 slides. Le carrousel déroule UNE SEULE idée du post en séquence visuelle — il ne résume jamais l'article.
+const system = `Tu transformes un post LinkedIn de Jérémy Sagnier (jerwis.fr) en carrousel de 6 à 8 slides. Le carrousel déroule UNE SEULE idée du post en séquence visuelle. Il ne résume jamais l'article.
 
 D'ABORD, JUGE : un carrousel n'est pertinent que si le post porte un chiffre percutant OU une démonstration/méthode séquençable. Une opinion pure sans chiffre ni étapes = pas de carrousel.
 
@@ -52,15 +52,16 @@ FORMAT DE SORTIE : UNIQUEMENT ce JSON, rien autour.
 RÈGLES ABSOLUES :
 - 6 à 8 slides. Slide 1 = type "hook" : reprend le hook du post (mêmes mots ou presque), swipe "Glisse →".
 - Dernier slide = type "cta" : badge = "${shortUrl}" exactement, kicker "Jerwis.fr".
-- UN message par slide. "lines" = le titre découpé en 2-4 lignes de 1 à 3 mots, MAX 13 caractères par ligne (gros corps typographique — un mot long comme « commercial » occupe sa propre ligne).
+- UN message par slide. "lines" = le titre découpé en 2-4 lignes de 1 à 3 mots, MAX 13 caractères par ligne (gros corps typographique, un mot long comme « commercial » occupe sa propre ligne).
 - EXACTEMENT un segment **accentué** par slide hook/idea (le mot qui porte le message). Jamais sur les slides stat/cta.
-- "accent" tourne entre teal, fuchsia, orange — jamais deux slides consécutifs avec le même.
-- 1 slide "stat" maximum, uniquement avec un chiffre PRÉSENT dans le post ou l'article (n'invente JAMAIS un chiffre). "stat" = MAX 7 caractères (ex "47 %", "20", "×2") — l'unité et le contexte vont dans "sub", jamais dans "stat".
+- "accent" tourne entre teal, fuchsia, orange. Jamais deux slides consécutifs avec le même.
+- 1 slide "stat" maximum, uniquement avec un chiffre PRÉSENT dans le post ou l'article (n'invente JAMAIS un chiffre). "stat" = MAX 7 caractères (ex "47 %", "20", "×2") ; l'unité et le contexte vont dans "sub", jamais dans "stat".
 - "sub" : 1 phrase courte (max 90 caractères), tutoiement, ton chaleureux jamais familier.
+- JAMAIS de tiret cadratin (—) ni demi-cadratin (–) dans "lines", "sub" ou "kicker" : ça sent l'IA. Réécris avec une virgule, deux phrases, ou une parenthèse (pas un « : » planté au milieu, même tic).
 - Cliffhanger bienvenu entre deux slides (question sur l'un, réponse sur le suivant).
 - kickers : 1-3 mots, sobres (Le chiffre, Le piège, Le mécanisme, La leçon…).`;
 
-const prompt = `POST LINKEDIN (la matière principale — le carrousel déroule SON idée) :
+const prompt = `POST LINKEDIN (la matière principale, le carrousel déroule SON idée) :
 ${post}
 
 ARTICLE SOURCE (uniquement pour vérifier les chiffres, ne pas élargir le sujet) :
@@ -102,6 +103,7 @@ function verifier(d) {
   if (!Array.isArray(d.slides) || d.slides.length < 6 || d.slides.length > 8) errs.push(`${d.slides?.length || 0} slides (attendu 6-8)`);
   const txt = JSON.stringify(d.slides);
   for (const m of MOTS_BANNIS) if (new RegExp(m, 'i').test(txt)) errs.push(`mot banni : ${m}`);
+  if (/[—–]/.test(txt)) errs.push('tiret cadratin/demi-cadratin dans un slide (interdit, réécrire)');
   d.slides?.forEach((s, i) => {
     const hl = (s.lines || []).join(' ').match(/\*\*(.+?)\*\*/g) || [];
     if (['hook', 'idea'].includes(s.type) && hl.length !== 1) errs.push(`slide ${i + 1} : ${hl.length} accent(s) (attendu 1)`);

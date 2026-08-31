@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/questions-sante-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Health questions and AI: what it can (and can't) do · Jerwis</title>
+<meta name="description" content="AI can help you understand your health, but not everything. I show you what it does well, its hard limits, and how to keep your medical data safe.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Health questions and AI: what it can (and can't) do">
+<meta property="og:description" content="AI can help you understand your health, but not everything. What it does well, its hard limits, and how to protect your medical data.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/questions-sante-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/questions-sante-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-08-31">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Health questions and AI: what it can (and can't) do">
+<meta name="twitter:description" content="AI can help you understand your health, but not everything. What it does well, its hard limits, and how to protect your medical data.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/questions-sante-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/questions-sante-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/questions-sante-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/questions-sante-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/questions-sante-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Health questions and AI: what it can (and can't) do",
+  "description": "AI can help you understand your health, but not everything. I show you what it does well, its hard limits, and how to keep your medical data safe.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/questions-sante-ia",
+  "datePublished": "2026-08-31",
+  "dateModified": "2026-08-31",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/questions-sante-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 56</div>
+    <h1>AI and<br>your health:<br><em>where do you draw the line?</em></h1>
+    <p class="hero-lead">
+      You've typed a symptom into ChatGPT at 11pm because your doctor wasn't available. I've done it too. And the answer was... actually pretty useful. But I've also seen where things can go sideways. I wrote this article to be clear about what AI can genuinely offer on health questions, where it gets dangerous, and how you can use it without exposing your most sensitive data.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT, Claude, Gemini</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>45% of French people already use AI for health questions (AI &amp; Health Data Barometer 2025): you're not alone, but <strong>not everyone is doing it safely</strong>.</li>
+      <li>AI is great at <strong>understanding, adding context, and preparing</strong> for an appointment. It doesn't diagnose.</li>
+      <li>Some decisions should never be handed off to it: emergencies, serious diagnoses, personalized treatment.</li>
+      <li>Your medical data is sensitive in the legal sense of the word. <strong>Don't share it without precautions</strong> in a consumer AI tool.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Reply if you disagree</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>A powerful assistant, not a doctor</h2>
+    <p>According to the AI &amp; Health Data Barometer 2025, 45% of French people use AI tools for health questions, with 54% of those using generative AI. That's roughly one in four people. On the professional side, 90% of healthcare workers already use AI tools in their practice, and 53% say it has changed how they work.</p>
+    <p>These numbers say something simple: AI is already part of the health conversation, whether you want it to be or not. The question is no longer "should I use it?" but "how do I use it without putting myself at risk?"</p>
+    <p>Because the trap is real. Generative AI is very convincing. It answers with confidence, with detail, with a structure that looks like something a professional would produce. Except it can be wrong, and in health, a mistake can have real consequences for your body or your decisions.</p>
+    <p>That's not a reason to avoid it. It's a reason to understand what it does well and what it doesn't.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What it actually does well</h2>
+    <p>Generative AI is especially useful for anything that involves understanding and preparation. Here's what I've tested, and what the data backs up.</p>
+    <p><strong>Making sense of a medical result.</strong> Your doctor handed you a blood test full of acronyms you don't recognize. You can ask AI to explain what each marker means, what a normal range looks like, and why a value might be off. It won't tell you whether you're sick. It will give you context so your next conversation with your doctor is more productive.</p>
+    <p><strong>Preparing for an appointment.</strong> You can describe your symptoms, ask what questions to bring to your GP, or have it list the tests typically ordered in that kind of situation. It's a real time-saver, and it puts you in the driver's seat of your own health rather than just along for the ride.</p>
+    <p><strong>Decoding a package insert or a treatment.</strong> Medication leaflets are often unreadable. AI can rewrite them in plain language, explain known interactions between two drugs in broad strokes, or tell you why a medication should be taken on an empty stomach. Keep in mind: this is general information, not a green light for your specific situation.</p>
+    <p><strong>Finding reliable sources.</strong> Ask it to point you toward reference organizations (like the FDA, NIH, or WHO) rather than just trusting its answer alone. A good AI will direct you to verifiable sources instead of asserting everything itself.</p>
+    <div class="callout tip"><h4>How to phrase your question</h4><p>The more specific your question, the better the answer. Instead of "my back hurts," try "I've had a dull lower back pain for 3 days, no fever, and it eases up when I walk. What are the most common causes?" AI works better with context. If you want to go deeper on how to phrase your requests, I wrote an article on <a href="/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a>.</p></div>
+    
+    <p>One technical thing worth knowing: AI can sometimes "hallucinate," meaning it invents information that sounds plausible but is wrong. In health, that risk is especially serious. I explain this in the site's <a href="/en/lexique/hallucination">hallucination glossary entry</a>. And if you want to know how to fact-check what an AI told you, this article on <a href="/en/articles/verifier-info-ia">verifying AI-generated information</a> is a good companion read.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>The lines you don't cross</h2>
+    <p>There are uses I refuse to hand off to AI, and it's not out of excessive caution. It's because the data is clear on what AI cannot do.</p>
+    <p><strong>It doesn't diagnose.</strong> Even if it gives you a list of conditions that match your symptoms, it doesn't know what your doctor sees when they look at you, listen to your chest, or cross-reference your history with your life story. Clinical decision-making in ambiguous situations, integrating psychosocial context, handling exceptional cases: none of that can be delegated to AI, according to analyses published in April 2026 on the limits of medical AI.</p>
+    <p><strong>It doesn't handle emergencies.</strong> If you have chest pain, signs of a stroke, or a severe allergic reaction: you call emergency services, not ChatGPT. AI has no access to your real-time condition, it can't send help, and every minute counts.</p>
+    <p><strong>It doesn't deliver a serious diagnosis.</strong> Telling someone they have a serious illness is a medical and human act, governed by specific protocols. An AI that told you "you probably have cancer" based on your symptoms wouldn't just be potentially wrong. It would be cutting you off from the human support that moment absolutely requires.</p>
+    <p><strong>It doesn't replace ongoing care.</strong> If you have a chronic condition, an active treatment, or a pregnancy: AI can inform you, but it doesn't track your progress over time, it doesn't adjust a treatment, and it doesn't know your personal tolerance to a medication.</p>
+    <p>And legally, there's no ambiguity: under European law, medical responsibility for a clinical act remains non-transferable to a human practitioner, even when AI is involved. No tool can shift that responsibility away from you or onto itself.</p>
+    <p>6 in 10 patients worry about AI dehumanizing their care experience, according to the Talan 2025 study. That number feels right to me. AI is a tool for understanding, not for treating.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Looking for confirmation rather than information. If you ask AI a question hoping it'll tell you it's nothing serious, you're biasing the answer from the start. AI responds to what you ask. If you want an honest answer, ask an open question, not a leading one.</p></div>
+    
+    <h2>Your medical data: what you need to know</h2>
+    <p>This is the topic a lot of people sidestep. And yet it's where some of the most important things happen.</p>
+    <p>Health data is a special category under GDPR. It gets enhanced protection, and processing it is subject to strict rules. The EU AI Act, in force since August 1, 2024, tightens that framework further by requiring transparency, accountability, and human oversight for systems that handle this kind of data. Starting in August 2026, full obligations will apply to high-risk AI systems, which includes medical devices.</p>
+    <p>So what does that actually mean for you?</p>
+    <p><strong>Don't share identifying data in a consumer AI tool.</strong> When you describe your symptoms to ChatGPT or Claude, avoid mentioning your name, date of birth, social security number, or your doctor's name. That information isn't needed to get a useful answer, and you don't know exactly how it's stored or used.</p>
+    <p><strong>Check the terms of use.</strong> Major AI platforms have different policies on whether your conversations are used to train their models. Some let you turn that off. Take two minutes to check in the settings.</p>
+    <p><strong>Stick to generic phrasing.</strong> Instead of "I was diagnosed with X in 2023 and I've been on Y ever since," you can ask "what are the known interactions between medication X and medication Y?" You get the same result without exposing your personal file.</p>
+    <p><strong>Be careful with third-party health apps.</strong> Some mobile apps present themselves as AI health assistants. Their privacy terms are sometimes far less protective than those of the major platforms. Before entering sensitive data, check who's behind it, where the data is hosted, and whether the app is GDPR-compliant.</p>
+    <p>For a deeper dive, I've laid out best practices for protecting your personal data when using AI in this article: <a href="/en/articles/donnees-perso-ia-confidentialite">personal data and AI</a>. And to understand the European legal framework behind all of this, the article on <a href="/en/articles/ai-act-pour-ton-business">the AI Act and your business</a> is a good starting point.</p>
+    <p>One number that stuck with me: according to a 2025 study, only 55% of healthcare workers who use AI say they inform their patients about it, while 84% of French people say they want to be told. That gap says something about the collective maturity we haven't reached yet on this topic.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>ChatGPT, Claude, Gemini, Mistral: which one for health?</h2>
+    <p>As of this article, several models are available for consumer use. I'll tell you what I know about each, without claiming one is "the best" for health, because it depends on what you're looking for.</p>
+    <p><strong>ChatGPT (OpenAI).</strong> The ChatGPT-5.6 model, launched June 18, 2026, targets professional use cases with improved capabilities. For health questions, it performs well on rephrasing and plain-language explanations. It tends to add disclaimers, which is actually a good thing in this context.</p>
+    <p><strong>Claude (Anthropic).</strong> Claude Opus 5, released July 24, 2026, is known for its careful phrasing and caution on sensitive topics. I find it especially useful for analyzing a long medical document (an imaging report, lab results) and turning it into a readable summary.</p>
+    <p><strong>Gemini (Google).</strong> Gemini 3.6 Flash has been available since July 21, 2026. It's fast for short, factual questions. Useful if you want a quick answer on a medical term or a definition.</p>
+    <p><strong>Mistral Large 3.</strong> Launched in December 2025 by Mistral AI, this is the French reference model. Its multilingual architecture makes it particularly comfortable with French-language documents, including medical texts.</p>
+    <p>My takeaway: none of these models are built specifically for health in a clinical sense. They're all useful for understanding and preparing. None of them replace real medical expertise.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Can a non-developer entrepreneur use AI for health questions without risk?</h3>
+    <p>Yes, within a well-defined scope. AI is useful for understanding a medical result, preparing for an appointment, or decoding a package insert. The risk shows up when you ask it to diagnose or decide for you. If you keep in mind that you're looking for information and not medical advice, the use is reasonable.</p>
+    <h3>Can AI replace a medical diagnosis or a visit to a healthcare professional?</h3>
+    <p>No. Clinical decision-making, integrating your personal context, physical examination, and the legal responsibility of a medical act all remain exclusively in the hands of a human practitioner. Under European law, that responsibility is non-transferable, even when AI is used as a support tool.</p>
+    <h3>How can I make sure the health information an AI gives me is reliable and up to date?</h3>
+    <p>Ask the AI to cite its sources and point you toward reference organizations (like the FDA, NIH, or WHO). Then verify those sources yourself. AIs can "hallucinate," meaning they produce false information with a confident tone. In health, that verification step is not optional.</p>
+    <h3>What are the legal implications of using AI with my medical data in Europe?</h3>
+    <p>Health data is a sensitive category under GDPR, with enhanced protection. The EU AI Act, in force since August 2024, requires transparency and human oversight for systems that process it. Starting in August 2026, additional obligations will apply to high-risk systems, including medical devices.</p>
+    <h3>Are all AIs trained on ethical, unbiased medical data?</h3>
+    <p>No, and that's a real limitation. General-purpose models are trained on large amounts of web text, which can contain biases, errors, or outdated information. Representation biases (across certain populations, certain conditions) are documented in the literature. That's one more reason not to treat an AI's answer as medical truth.</p>
+    <h3>How do I stop my personal health data from being used without my knowledge by an AI?</h3>
+    <p>A few concrete steps: don't share identifying data (name, date of birth, social security number) in a consumer AI tool. Check the privacy settings of the platform you're using to turn off the use of your conversations for training. Stick to generic phrasing. And before using a third-party health app, verify its GDPR compliance.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>AI is a tool for understanding. Not for treating.</p>
+    <p>I use it to prepare for medical appointments, to make sense of a result I don't understand, to figure out the right questions to ask my doctor. And it does that well. But I never ask it to decide for me, and I never hand over my personal data without thinking it through first.</p>
+    <p>What I test on myself first, I share here, because the line between "useful information" and "false sense of security" is thin, and it's worth drawing clearly.</p>
+    <p>AI will keep improving on medical topics. Specialized tools will multiply. But the basic rule won't change: a machine that processes text doesn't replace a human being who looks at you, listens to you, and puts their professional responsibility on the line.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what works, without jargon or hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/coach-sportif-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Free AI fitness coach: workout and nutrition plans · Jerwis</title>
+<meta name="description" content="Discover how AI can build a personalized workout and nutrition plan for free, right from your phone, 24/7. What I tested, what works, and where it falls short.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Free AI fitness coach: workout and nutrition plans">
+<meta property="og:description" content="AI can build a personalized workout and nutrition plan for free, from your phone, 24/7. Here's what I found after weeks of testing.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/coach-sportif-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/coach-sportif-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-09-01">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Free AI fitness coach: workout and nutrition plans">
+<meta name="twitter:description" content="AI can build a personalized workout and nutrition plan for free, from your phone, 24/7. Here's what I found after weeks of testing.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/coach-sportif-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/coach-sportif-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/coach-sportif-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/coach-sportif-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/coach-sportif-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Free AI fitness coach: workout and nutrition plans",
+  "description": "Discover how AI can build a personalized workout and nutrition plan for free, right from your phone, 24/7. What I tested, what works, and where it falls short.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/coach-sportif-ia",
+  "datePublished": "2026-09-01",
+  "dateModified": "2026-09-01",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/coach-sportif-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 62</div>
+    <h1>Your fitness coach<br>in your pocket<br><em>and it's free</em></h1>
+    <p class="hero-lead">
+      You want to train smarter and eat better, but you don't have the budget or the time for a personal coach. I had the same question. So I spent several weeks testing what free AI tools in 2026 can actually do in this space. The results surprised me, in a good way. Here's what I found, how it works, and where it still falls short.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT, Gemini, Claude</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li>Free AI tools like <strong>ChatGPT, Gemini, and Claude</strong> can generate personalized workout and nutrition plans in minutes.</li>
+      <li>The <strong>quality of your prompt</strong> makes all the difference: the more context you give, the more relevant the plan.</li>
+      <li>AI doesn't replace a doctor or a certified coach, especially if you have <strong>specific health conditions</strong>.</li>
+      <li>Dedicated apps like <strong>Planfit or Nike Training Club</strong> pair well with general-purpose AI for day-to-day tracking.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it on myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Why everyone's talking about this</h2>
+    <p>Searches for "AI fitness coach" jumped 340% in France in a single year. That number stopped me cold when I saw it. Because it means the question is no longer "can AI help with fitness?" but "how do I actually do this, today?"</p>
+    <p>The fitness app market hit $13.81 billion in 2026, with AI coaching taking a growing share. And yet most people I talk to are still using random YouTube videos or a generic program copy-pasted from Reddit.</p>
+    <p>What changed is accessibility. The most capable AI models are now free or nearly free. And they've reached a level of personalization that even a good human coach can't always match on certain dimensions, especially the ability to process dozens of variables at once: your history, your schedule, your preferences, your goals, your available equipment.</p>
+    <p>I'm not saying this to hype AI. I'm saying it because I tested it, and the gap with what was possible two years ago is real.</p>
+    <p>One important note before we go further: everything I'm about to describe works without any technical skills. You don't need to know how to code or understand how a <a href="https://jerwis.fr/en/lexique/llm">language model</a> works under the hood. You need a smartphone and a free account.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>How AI builds your program</h2>
+    <p>The mechanic is simple. You describe your situation to the AI, it generates a plan. But the quality of what you get depends entirely on what you give it.</p>
+    <p>A vague prompt gives you a vague program. A specific prompt gives you something you can actually use.</p>
+    <p>Here's what I always include when asking an AI for a workout plan:</p>
+    <ul>
+    <li>My main goal (weight loss, muscle gain, endurance, mobility...)</li>
+    <li>My current level and history (beginner, occasional training, past injuries)</li>
+    <li>Available equipment (none, dumbbells, full gym, resistance bands)</li>
+    <li>How many days per week I can realistically commit to training</li>
+    <li>Maximum session length</li>
+    <li>Any physical limitations (back pain, bad knee...)</li>
+    </ul>
+    <p>With those details, ChatGPT or Gemini will generate a structured multi-week program in under 30 seconds, complete with exercises, sets, rest times, and progression. It's not a generic plan. It's a plan built around your actual constraints.</p>
+    <p>AI excels here because it can cross-reference hundreds of variables simultaneously, which objectively goes beyond what a human can do in real time. A human coach does this well, but over the course of a session. AI does it instantly, and you can iterate as many times as you want.</p>
+    <div class="callout tip"><h4>The detail that changes everything</h4><p>Ask the AI to interview you before generating the plan. Instead of writing a long prompt, just say: "I want a personalized workout plan. Ask me whatever you need before you create it." You get a conversation, not a monologue. The result is usually much better. If you want to go deeper on how to phrase your requests, I wrote a dedicated article on <a href="https://jerwis.fr/en/articles/ecrire-bon-prompt-non-dev">how to write a good prompt when you're not a developer</a>.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>AI in your kitchen</h2>
+    <p>Nutrition is where I was most surprised.</p>
+    <p>General-purpose AI tools like Claude or Gemini can build a complete weekly meal plan: macros calculated based on your weight and goal, a grocery list, meal ideas, and alternatives for days when you don't have time to cook. And since August 2026, Claude's memory is enabled by default even on the free plan. That means if you mention an allergy or intolerance, it remembers it for future conversations and adjusts its suggestions without you having to repeat yourself every time.</p>
+    <p>But there's more. Some models can analyze a photo of your meal to estimate its nutritional content. You snap a picture of your plate, send it to the AI, it identifies the foods, estimates the portions, and calculates calories and macros. It's not perfect, portion estimates are approximate, but for a general sense of what you're eating without weighing every gram, it's genuinely useful.</p>
+    <p>Over 380 million people worldwide were already using a nutrition tracking app by the end of 2024. Many do it with apps that require scanning barcodes or searching for each food in a database. Photo analysis changes the game for anyone who finds that tedious.</p>
+    <p>For day-to-day use, I rely on general-purpose AI for planning and adjustments. For logging meals in the moment, dedicated apps like Planfit or Nike Training Club are more practical because that's what they're built for.</p>
+    <h2>The free tools I actually use</h2>
+    <p>As of this article, here's what's available for free and what I think of each one for this specific use case.</p>
+    <p><strong>ChatGPT</strong> is still very solid for building structured, detailed programs. The free version gives you access to capable models. The paid version (GPT-5.6 Sol, rolled out in July 2026) goes further in reasoning, but for a standard workout plan, free is more than enough.</p>
+    <p><strong>Gemini</strong> from Google, in its free version, runs on Gemini 3.6 Flash since July 2026. It's particularly strong on planning and connected search. If you want it to supplement your program with recent sources on a specific exercise or nutrition method, it's a great pick.</p>
+    <p><strong>Claude</strong> (Sonnet 4.7 on the free plan as of August 2026) shines on structured reasoning and consistency across long conversations. It's the one I'd use to refine a plan over several weeks, because its memory enabled by default lets it keep track of your constraints and progress without you having to re-explain everything.</p>
+    <p><strong>Le Chat by Mistral AI</strong> deserves a mention. It gives free access to Mistral Large, a capable model, with internet connectivity and cited sources. A solid free option if you want answers grounded in recent data.</p>
+    <p><strong>Planfit, Nike Training Club (NTC), and Hevy</strong> are dedicated fitness apps that offer personalized programs and free tracking. They don't replace general-purpose AI for deep personalization, but they're better designed for daily use at the gym or at home.</p>
+    <p>For a detailed breakdown of what free vs. paid versions of these tools actually let you do, I covered it all in my article on <a href="https://jerwis.fr/en/articles/ia-gratuite-ou-payante">free vs. paid AI</a>.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Don't switch AI tools every session. If you start a program with Claude on a Monday, stick with Claude. Switching tools means losing the accumulated context and starting from scratch. Continuity is what makes the follow-up actually useful.</p></div>
+    
+    <h2>What AI does well, and where it hits a wall</h2>
+    <p>AI is available at 3am when you suddenly decide to get back in shape. It doesn't judge, it doesn't get tired, and it adjusts your program as many times as you ask. For an entrepreneur whose weeks never look the same, that's a real advantage.</p>
+    <p>It also personalizes at a level of detail a human coach can't always offer in a 30-minute session. And smartwatches and smart rings, recognized in 2026 as medical devices for monitoring and prevention, are increasingly integrated with these AI tools to feed your program with real data: heart rate, sleep quality, recovery.</p>
+    <p>But there are clear limits.</p>
+    <p>AI can't see you move. It can't correct your squat form, spot a muscular compensation, or notice that you're favoring a fragile shoulder. For learning the technical side of a movement, a human eye is still essential.</p>
+    <p>It doesn't diagnose. If you have persistent pain, a heart condition, or a specific medical context, AI isn't qualified to adapt your program accordingly. It can offer general guidance, not prescriptions. I wrote a separate article on <a href="https://jerwis.fr/en/articles/questions-sante-ia">what you can actually ask AI about your health</a>, because knowing that line matters.</p>
+    <p>And then there's the data question. When you share your weight, health conditions, and eating habits with an AI, you're sending health data to a third-party service. I take that seriously. If you want to understand what happens with that information, I'd encourage you to read my article on <a href="https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite">health data privacy when using AI tools</a>.</p>
+    <h2>Where to start, concretely</h2>
+    <p>If you've never used AI for this, here's how I'd approach it.</p>
+    <p>Open Gemini or Claude (free account, two minutes to sign up). Start with a simple conversation: describe your situation in a few sentences, ask it to interview you. Let the exchange build naturally. You'll quickly see what the tool can do.</p>
+    <p>For nutrition, start with one week. Not a 3-month plan. One week of meals that fits your constraints, your budget, and your tastes. Try it, come back with feedback, adjust.</p>
+    <p>For training, ask for a 4-week program with a clear progression. Specify your equipment, your availability, and especially any physical limitations you have. After two weeks, go back to the conversation and tell it what worked and what didn't. The AI adjusts.</p>
+    <p>That's the real value: iteration without friction. A human coach, you call once a week if you're lucky. AI, you talk to it when you need it.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Can an AI fitness coach really replace a human coach?</h3>
+    <p>No, not completely. AI is very good at building a personalized program, adjusting it, and answering your questions at any hour. But it can't see you move, can't correct your technique in real time, and doesn't replace a professional's eye when it comes to learning movements. The two are complementary rather than interchangeable.</p>
+    <h3>Are AI-generated nutrition plans reliable and suitable for all diets?</h3>
+    <p>For a healthy person with standard goals, yes, the plans generated by today's AI tools are coherent and well-structured. For therapeutic diets (diabetes, kidney disease, eating disorders...), you absolutely need to go through a healthcare professional. AI can complement, not replace, medical supervision.</p>
+    <h3>What are the best free AI apps for fitness and nutrition in 2026?</h3>
+    <p>As of this article, ChatGPT, Gemini (Gemini 3.6 Flash since July 2026), and Claude (Sonnet 4.7) are all free and capable of building personalized programs. Le Chat by Mistral AI stands out for its free access to Mistral Large with internet connectivity. For daily workout tracking, Planfit, Nike Training Club, and Hevy all offer solid free features.</p>
+    <h3>How does AI protect the privacy of my health data?</h3>
+    <p>It doesn't, automatically. The conditions vary by tool and by country. When you share health data (weight, medical conditions, eating habits), it's processed by the servers of the service you're using. Before sharing sensitive information, read the terms of service, or check out my dedicated article on <a href="https://jerwis.fr/en/articles/donnees-perso-ia-confidentialite">health data privacy with AI tools</a>.</p>
+    <h3>Do you need to be tech-savvy to use an AI fitness coach?</h3>
+    <p>Not at all. If you can send a message on WhatsApp, you can use these tools. The interface is a simple text conversation. The only skill worth developing is how to phrase your requests so you get relevant answers.</p>
+    <h3>Can AI help me prevent injuries or manage specific health conditions?</h3>
+    <p>Partially. AI can factor your physical constraints into the program (avoiding high-impact exercises, adjusting load, suggesting preventive strengthening work). And connected devices recognized as medical-grade in 2026 are starting to integrate with these AI tools for more precise monitoring. But for a diagnosed health condition, AI doesn't substitute for a doctor or a physical therapist.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I started testing these tools out of curiosity. Now I use them out of habit.</p>
+    <p>What convinced me wasn't the technological sophistication. It was zero friction. I don't have to schedule a session with a coach, hunt for a program that roughly fits my situation, or start over from scratch when my week goes sideways. I describe my situation, I get something tailored, I adjust if needed.</p>
+    <p>For an entrepreneur whose time is the scarcest resource, that's a real shift in how you approach fitness and nutrition. Not perfect. But available, customizable, and free.</p>
+    <p>I do all of this for myself first. And if it helps you do the same, all the better.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday newsletter. And if you have a question or a doubt: write to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

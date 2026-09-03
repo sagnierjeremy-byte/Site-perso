@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/fonctions-cachees-chatgpt.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Memory, projects, voice, files: ChatGPT beyond the basics · Jerwis</title>
+<meta name="description" content="Memory, projects, voice mode, file analysis: discover the advanced ChatGPT features that actually change how you work as an entrepreneur. No code needed.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Memory, projects, voice, files: ChatGPT beyond the basics">
+<meta property="og:description" content="Memory, projects, voice mode, file analysis: the advanced ChatGPT features that actually change your productivity as an entrepreneur.">
+<meta property="og:url" content="https://jerwis.fr/en/articles/fonctions-cachees-chatgpt">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jerwis.fr/photos/og/fonctions-cachees-chatgpt.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-09-03">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Memory, projects, voice, files: ChatGPT beyond the basics">
+<meta name="twitter:description" content="Memory, projects, voice mode, file analysis: the advanced ChatGPT features that actually change your productivity as an entrepreneur.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/fonctions-cachees-chatgpt.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/en/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Memory, projects, voice, files: ChatGPT beyond the basics",
+  "description": "Memory, projects, voice mode, file analysis: discover the advanced ChatGPT features that actually change how you work as an entrepreneur. No code needed.",
+  "inLanguage": "en-US",
+  "url": "https://jerwis.fr/en/articles/fonctions-cachees-chatgpt",
+  "datePublished": "2026-09-03",
+  "dateModified": "2026-09-03",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/en/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/en/photos/og/fonctions-cachees-chatgpt.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="/assets/fonts.css">
+
+<link rel="stylesheet" href="/assets/article.css?v=20260706">
+<link rel="preload" href="/assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/article-toc.css"></noscript>
+<link rel="preload" href="/assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/ai-summarize.css"></noscript>
+<link rel="preload" href="/assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/en" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="/en#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Learn
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Breakdown · 46</div>
+    <h1>ChatGPT,<br>way more than<br><em>a basic chatbot</em></h1>
+    <p class="hero-lead">
+      You open ChatGPT, type your question, read the answer, close the tab. Then start from scratch next time. That's what most people do. I did it too, for a long time, before I realized I was using maybe 20% of what the tool can actually do. Memory, projects, voice mode, file analysis: these features exist, they're included in your subscription, and they genuinely change the way you work. Let me show you how.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> read</span>
+      <span class="hero-meta-item"><strong>Level</strong> Beginner</span>
+      <span class="hero-meta-item"><strong>Tools</strong> ChatGPT</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">In 30 seconds</div>
+    <h2>What you'll walk away with</h2>
+    <ul>
+      <li><strong>ChatGPT's memory</strong> builds a profile of your preferences over time, so you never have to re-explain yourself at the start of every conversation.</li>
+      <li><strong>Projects</strong> create isolated workspaces, each with its own files, instructions, and dedicated memory.</li>
+      <li>The <strong>advanced voice mode</strong> handles interruptions, picks up on emotions, and can see what your camera is pointing at.</li>
+      <li><strong>File analysis</strong> lets you drop in an Excel sheet or a PDF and pull out real insights, without touching a single formula.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+  <span>Zero jargon</span><span>I test it myself first</span><span>Sources in the text</span><span>Prompts to copy</span><span>Disagree? Tell me</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>What you're missing every time you open it</h2>
+    <p>Every time you open ChatGPT to ask a question, you start from zero. You re-explain who you are, what you do, what context you're working in. That's normal, it's how most people use the tool. But it's also a real waste of time, and a pretty obvious sign that you're barely scratching the surface of what ChatGPT can actually do.</p>
+    <p>Since late 2025, and even more so in the first half of 2026, several features have been rolled out or significantly improved. They don't make tech headlines. They're not front and center on the homepage. And yet they're exactly what separates a tool you consult from a tool that actually works with you.</p>
+    <p>I'm not a developer. I don't need to be to use these features. They're built for people who have projects to manage, files to analyze, ideas to structure, and no time to reformat everything by hand. Entrepreneurs, freelancers, people who want to move faster without depending on a technical team.</p>
+    <p>Before we go further: if you want to ask ChatGPT sharper questions and get better answers, take a look at <a href="/en/articles/ecrire-bon-prompt-non-dev">my guide to writing a good prompt when you're not a developer</a>. Everything I'm about to show you will be even more useful once you've got that down.</p>
+    <hr>
+    <h2>Memory: it actually remembers you</h2>
+    <p>The memory feature has been around for a while, but it moved into a different league in June 2026. OpenAI rolled out an update called "Dreaming V3" on June 4, 2026, for Plus and Pro subscribers in the US. The idea: ChatGPT analyzes your conversations in the background to build a persistent profile of your preferences, your projects, and the way you work.</p>
+    <p>What that means in practice: you no longer have to specify at the start of every new conversation that you're an entrepreneur, that you work solo, that you prefer short answers, or that your field is training consulting. ChatGPT already knows. It remembered.</p>
+    <p>The reliability improvement is real. According to data published by OpenAI, memory's factual recall jumped from 41.5% in 2024 to 82.8% in 2026 thanks to this update. That kind of number says it all: the tool now retains what actually matters, not just random fragments.</p>
+    <p>You can also view and edit what ChatGPT has memorized about you, right from the settings. Useful for correcting outdated information or removing something you'd rather it not keep.</p>
+    <div class="callout tip"><h4>The trap to avoid</h4><p>Memory isn't foolproof. If you change direction on a project, tell it explicitly. Otherwise it'll keep working from what it remembered, and the answers will be off. A quick "I've changed my approach on this" is enough to recalibrate.</p></div>
+    
+    <hr>
+    <h2>Projects: one workspace per topic</h2>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <p>ChatGPT Projects launched in November 2025. The idea is simple: instead of one endless, jumbled list of conversations, you create separate workspaces. One project for your blog, another for outreach, another for reworking your offer.</p>
+    <p>Inside each project, you can drop in files, write custom instructions (your tone of voice, your constraints, your goals), and group all related conversations in one place. And the key part: each project has its own memory, separate from your general memory.</p>
+    <p>That matters. What's learned inside a project doesn't "spill over" into your other conversations. If you're working on a confidential client project, what ChatGPT picks up in that space stays in that space. It's real isolation, not just a cosmetic folder.</p>
+    <p>For an entrepreneur juggling multiple things at once, this is a genuine shift in how you work. You go from an assistant that receives questions on the fly to one that knows the context of each project and can pick up right where you left off.</p>
+    <p>If you want to see how Projects fit into a broader automation approach, <a href="/en/articles/automatiser-taches-ia-sans-coder">this article on automating tasks without code</a> has some concrete ideas.</p>
+    <hr>
+    <h2>Voice mode: talk instead of type</h2>
+    <p>We underestimated ChatGPT's voice mode for a long time because the early versions were stiff. You'd speak, wait, get a flat response. Useful, but not really natural.</p>
+    <p>In May 2026, the advanced voice mode got a significant update: emotion detection in your voice, the ability to interrupt ChatGPT mid-response (like in a real conversation), real-time translation, and a feature called Vision-in-Voice that lets ChatGPT use your phone's camera to see what you're showing it.</p>
+    <p>A month later, on July 8, 2026, OpenAI deployed two new voice models: GPT-Live-1 and GPT-Live-1 mini. They're built on a "full-duplex" architecture, meaning the AI can listen and speak at the same time. The result: much smoother exchanges, without the artificial pauses that made conversations feel robotic.</p>
+    <p>For me, the most obvious use case is when I'm on the move or my hands are busy. I can dictate a note, rework an email out loud, brainstorm an idea while walking, and find the structured result waiting for me when I get back to my laptop. No screen required.</p>
+    <div class="callout tip"><h4>My takeaways</h4><p>Voice mode is especially useful during transition moments: between meetings, in the car (hands-free), or when an idea hits but you can't sit down. Think of it as a smart notepad, not a desk assistant.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>File analysis: your data, finally readable</h2>
+    <p>This might be the least-known feature, and yet one of the most powerful for a non-developer entrepreneur.</p>
+    <p>ChatGPT can read, analyze, and modify Excel files (.xlsx, .xls), CSV files, PDFs, and images. It does this through a built-in feature called Advanced Data Analysis (historically known as <a href="/en/lexique/code-interpreter">Code Interpreter</a>). In practice, it runs Python code in an isolated environment to process your data, with no need for you to know what Python is or configure anything.</p>
+    <p>You drop in your sales spreadsheet, ask it to find your weakest months, flag products that are stalling, or generate a chart. It does it. You haven't touched a single formula.</p>
+    <p>Since June 2026, all your uploaded and generated files are centralized in a "Library" accessible from the web, iOS, and Android. No more hunting for a file buried in an old conversation.</p>
+    <p>For more on analyzing documents, <a href="/en/articles/resumer-pdf-video-avec-ia">my article on summarizing PDFs and videos with AI</a> covers some complementary use cases.</p>
+    <hr>
+    <h2>What this actually changes for you, day to day</h2>
+    <p>According to data published in 2026, 75% of enterprise users report a productivity gain from ChatGPT, with many saving an hour or more per day. That figure covers general usage. But I think the features I've described here are precisely what separates surface-level use from use that genuinely changes how you work.</p>
+    <p>When you combine memory (which knows you), projects (which organize your work), voice mode (which frees you from the keyboard), and file analysis (which processes your data), you're no longer dealing with a chatbot. You have an assistant that knows your projects, can pick up a conversation where you left it, and can analyze a file you send from your phone while you're on your way somewhere.</p>
+    <p>This isn't magic. It's organization. And it's available on a paid subscription, with no technical skills required.</p>
+    <p>If you want to see how ChatGPT compares to other available tools and figure out what fits your needs best, <a href="/en/articles/choisir-ia-ecrire-coder-images">this article on choosing an AI tool by use case</a> can help you get clarity.</p>
+    <hr>
+    <h2>Where to start, concretely</h2>
+    <p>No need to activate everything at once. Here's how I'd do it if I were starting over:</p>
+    <p><strong>Week 1: turn on memory.</strong> Go into ChatGPT's settings, make sure memory is enabled, and start giving it information about yourself: who you are, what you're working on, how you like responses. It'll learn as you go too, but a head start speeds things up.</p>
+    <p><strong>Week 2: create your first project.</strong> Pick the topic you're spending the most time on right now. Create a dedicated project, drop in your reference files, write two or three lines of custom instructions. Notice how conversations change when ChatGPT has that context available.</p>
+    <p><strong>Week 3: try file analysis.</strong> Grab a spreadsheet you look at regularly but never really dig into. Submit it to ChatGPT and ask specific questions. You'll probably be surprised by how fast and relevant the answers are.</p>
+    <p><strong>Week 4: try voice mode.</strong> Not to replace your existing work habits, but for one specific use: dictating a meeting note, reworking an email out loud, or brainstorming an idea while you walk. Find the moment where it fits naturally into your day.</p>
+    <p>For a broader overview of ChatGPT and its ecosystem, the <a href="/en/lexique/chatgpt-atlas">ChatGPT Atlas glossary entry</a> is a good starting point if some terms still feel fuzzy.</p>
+    <hr>
+    <h2>FAQ</h2>
+    <h3>Are these advanced features available on a free ChatGPT subscription?</h3>
+    <p>Not all of them. The advanced memory with "Dreaming V3," Projects, and advanced voice mode are reserved for paid subscribers (Plus or Pro plans). The free plan gives access to basic versions of some features, but with significant limitations. If you use ChatGPT regularly for work, a paid subscription is hard to avoid if you want to get the most out of these features.</p>
+    <h3>How can I protect the privacy of my personal and professional information when using ChatGPT's memory and file analysis?</h3>
+    <p>You can view and delete what ChatGPT has memorized about you at any time, from the settings. For files, avoid submitting documents with sensitive data (contract numbers, client personal data, confidential financial information) unless you've checked the OpenAI privacy policy that applies to your subscription. Project memory is isolated per project, which limits the risk of context bleeding between workspaces.</p>
+    <h3>Is ChatGPT's voice mode reliable enough for professional use, like dictating meeting notes or handling client interactions?</h3>
+    <p>Since the May 2026 update and the rollout of the GPT-Live-1 models in July 2026, voice mode has gotten noticeably smoother and more accurate. For dictating notes or brainstorming out loud, it's perfectly usable. For more critical tasks (official meeting minutes, live client interactions), I'd recommend reviewing and validating what ChatGPT produced. It's a support tool, not a court reporter.</p>
+    <h3>Can ChatGPT "Projects" replace my existing project management or collaboration tools?</h3>
+    <p>No, and that's not what they're for. ChatGPT Projects are workspaces for your conversations with the AI, not collaboration tools for a team. They don't replace Notion, Trello, or Asana. What they do is complement those tools by giving ChatGPT structured context for each topic you're working on.</p>
+    <h3>What's the difference between ChatGPT's general memory and the memory specific to "Projects"?</h3>
+    <p>General memory applies across all your conversations, regardless of context. It retains information about you as a user: your preferences, your profile, how you like to work. Project memory, on the other hand, is isolated within its own space. What ChatGPT learns inside a project doesn't feed back into your general memory and doesn't spill into other projects. It's an intentional separation, useful when you're working on very different or confidential topics.</p>
+    <h3>What are the file size or type limits for ChatGPT's data analysis?</h3>
+    <p>ChatGPT accepts Excel files (.xlsx, .xls), CSV, PDF, and images. Size limits vary by subscription and may change over time. In practice, large files (several dozen megabytes) can cause processing issues. For very large datasets, it's better to extract the relevant portion before submitting it. The centralized Library, rolled out in June 2026, makes managing all these files much easier across web, iOS, and Android.</p>
+    <hr>
+    <h2>My takeaways</h2>
+    <p>I use ChatGPT every day. But for a long time, I was only skimming the surface. Memory, projects, voice mode, file analysis: these aren't power-user features. They're features for people who have real work to do and want their tool to adapt to them, not the other way around.</p>
+    <p>I test all of this for myself first. And what I keep noticing is that the gap between someone using ChatGPT like a fancy search engine and someone using these features together has gotten very wide. You don't need to know how to code to cross that gap. You just need to take the time to set things up, test, and adjust.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+  <span>Understand before you apply</span><span>At your own pace</span><span>No ads</span><span>Unsubscribe in 1 click</span><span>I read every reply</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="/photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="/photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Thanks for reading this far 👋</span>
+        <h2 class="article-end-title">Shall we keep going?</h2>
+        <p>I test AI for real and share what actually works, no jargon, no hype. If this article was useful, the easiest way to stay in the loop is my Friday letter. And if you have a question or a doubt: reply to me, I read everything.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Get the newsletter →</a>
+          <a href="/en/articles" class="article-end-btn ghost">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>One email a week.<br>What I actually <em>test.</em></h3>
+        <p>My real-world AI uses, the tools I buy/keep/ditch, and my articles the moment they drop. No news recap, no fluff.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="you@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Email address">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          A question, a doubt, a critique? <strong>Write to me — I read everything, I reply to everything.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a href="/en/apprendre">Beginner path</a></li>
+          <li><a href="/en/claude-code">Claude Code guide</a></li>
+          <li><a href="/en/articles">All articles</a></li>
+          <li><a href="/en/lexique">AI glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/en/precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Photo generator · €39</a></li>
+          <li><a href="/en/outils">My tool stack</a></li>
+          <li><a href="/en/modeles-ia">AI models guide</a></li>
+          <li><a href="/en/podcast">AI Wars podcast</a></li>
+          <li><a href="/en/github">My GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Follow me</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/en/mentions-legales">Legal notice</a></li>
+          <li><a href="/en/politique-confidentialite">Privacy</a></li>
+          <li><a href="/en/cgv">Terms of sale</a></li>
+          <li><a href="/en/suppression-donnees">Delete my data</a></li>
+          <li><a href="/en/preferences">Preferences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Made with coffee</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="/assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="/assets/ai-summarize.js" defer></script>
+
+  <script src="/assets/lexique-tooltip.js" defer></script>
+  <script src="/assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

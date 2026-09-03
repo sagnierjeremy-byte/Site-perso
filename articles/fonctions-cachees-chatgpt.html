@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/fonctions-cachees-chatgpt.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Mémoire, projets, vocal, fichiers : ChatGPT autrement</title>
+<meta name="description" content="Mémoire, projets, mode vocal, analyse de fichiers : découvre les fonctions avancées de ChatGPT qui changent vraiment ta productivité d'entrepreneur.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Mémoire, projets, vocal, fichiers : ChatGPT autrement">
+<meta property="og:description" content="Mémoire, projets, mode vocal, analyse de fichiers : découvre les fonctions avancées de ChatGPT qui changent vraiment ta productivité d'entrepreneur.">
+<meta property="og:url" content="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/fonctions-cachees-chatgpt.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-09-03">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Mémoire, projets, vocal, fichiers : ChatGPT autrement">
+<meta name="twitter:description" content="Mémoire, projets, mode vocal, analyse de fichiers : découvre les fonctions avancées de ChatGPT qui changent vraiment ta productivité d'entrepreneur.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/fonctions-cachees-chatgpt.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/fonctions-cachees-chatgpt">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/fonctions-cachees-chatgpt">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Mémoire, projets, vocal, fichiers : ChatGPT autrement",
+  "description": "Mémoire, projets, mode vocal, analyse de fichiers : découvre les fonctions avancées de ChatGPT qui changent vraiment ta productivité d'entrepreneur.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/fonctions-cachees-chatgpt",
+  "datePublished": "2026-09-03",
+  "dateModified": "2026-09-03",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/fonctions-cachees-chatgpt.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 46</div>
+    <h1>ChatGPT,<br>bien plus qu'un<br><em>simple chatbot</em></h1>
+    <p class="hero-lead">
+      Tu ouvres ChatGPT, tu tapes ta question, tu lis la réponse, tu fermes. Et tu recommences depuis zéro la prochaine fois. C'est ce que font la plupart des gens. Moi aussi, j'ai mis du temps à comprendre que j'utilisais à peine 20 % de ce que l'outil sait faire. La mémoire, les projets, le mode vocal, l'analyse de fichiers : ces fonctions existent, elles sont incluses dans ton abonnement, et elles changent vraiment la façon de travailler. Je te montre comment.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>9 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>La <strong>mémoire de ChatGPT</strong> construit un profil de tes préférences au fil du temps, plus besoin de tout réexpliquer à chaque conversation.</li>
+      <li>Les <strong>Projets</strong> créent des espaces de travail isolés, avec leurs propres fichiers, instructions et mémoire dédiée.</li>
+      <li>Le <strong>mode vocal avancé</strong> comprend les interruptions, détecte les émotions et peut voir ce que ta caméra filme.</li>
+      <li>L'<strong>analyse de fichiers</strong> te permet de soumettre un Excel ou un PDF et d'en tirer des insights sans toucher à une formule.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que tu rates à chaque ouverture</h2>
+    <p>Chaque fois que tu ouvres ChatGPT pour poser une question, tu repartes de zéro. Tu réexpliques qui tu es, ce que tu fais, dans quel contexte tu travailles. C&#39;est normal, c&#39;est comme ça que la plupart des gens utilisent l&#39;outil. Mais c&#39;est aussi une perte de temps considérable, et surtout une sous-utilisation flagrante de ce que ChatGPT sait réellement faire.</p>
+    <p>Depuis fin 2025, et encore plus depuis le premier semestre 2026, plusieurs fonctions ont été déployées ou significativement améliorées. Elles ne font pas la une des médias tech. Elles ne sont pas mises en avant sur la page d&#39;accueil. Et pourtant, ce sont elles qui font la différence entre un outil qu&#39;on consulte et un outil qui travaille vraiment avec toi.</p>
+    <p>Je ne suis pas développeur. Je n&#39;ai pas besoin de l&#39;être pour utiliser ces fonctions. Elles sont pensées pour des gens qui ont des projets à gérer, des fichiers à analyser, des idées à structurer, et pas le temps de tout reformater à la main. Des entrepreneurs, des freelances, des gens qui veulent aller plus vite sans dépendre d&#39;une équipe technique.</p>
+    <p>Avant d&#39;aller plus loin, si tu veux poser des questions plus précises à ChatGPT et obtenir de meilleures réponses, jette un œil à <a href="/articles/ecrire-bon-prompt-non-dev">mon guide pour écrire un bon prompt quand on n&#39;est pas développeur</a>. Ce que je vais te montrer ici sera encore plus utile une fois que tu maîtrises ça.</p>
+    <hr>
+    <h2>La mémoire : il se souvient de toi</h2>
+    <p>La fonction mémoire existe depuis un moment, mais elle a changé de catégorie en juin 2026. OpenAI a déployé une mise à jour appelée &quot;Dreaming V3&quot; le 4 juin 2026 pour les abonnés Plus et Pro aux États-Unis. Le principe : ChatGPT analyse tes conversations en arrière-plan pour construire un profil persistant de tes préférences, tes projets, ta façon de travailler.</p>
+    <p>Ce que ça change concrètement : tu n&#39;as plus besoin de préciser à chaque nouvelle conversation que tu es entrepreneur, que tu travailles seul, que tu préfères les réponses courtes ou que ton secteur est le conseil en formation. ChatGPT le sait déjà. Il l&#39;a retenu.</p>
+    <p>Le gain en fiabilité est réel. Selon les données publiées par OpenAI, le rappel factuel de la mémoire est passé de 41,5 % en 2024 à 82,8 % en 2026 grâce à cette mise à jour. C&#39;est le genre de chiffre qui dit tout : l&#39;outil retient maintenant ce qui compte, pas juste des fragments épars.</p>
+    <p>Tu peux aussi consulter et modifier ce que ChatGPT a mémorisé sur toi, depuis les paramètres. C&#39;est utile pour corriger une information obsolète ou supprimer quelque chose que tu ne veux pas qu&#39;il conserve.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>La mémoire n'est pas infaillible. Si tu changes de direction sur un projet, pense à le lui dire explicitement. Sinon, il continuera à travailler sur la base de ce qu'il a retenu, et les réponses seront décalées. Un petit "j'ai changé d'approche sur ce sujet" suffit à recalibrer.</p></div>
+    
+    <hr>
+    <h2>Les projets : un espace par sujet</h2>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <p>Les Projets ChatGPT ont été lancés en novembre 2025. L&#39;idée est simple : au lieu d&#39;avoir une liste infinie de conversations mélangées, tu crées des espaces de travail séparés. Un projet pour ton blog, un autre pour ta prospection, un autre pour la refonte de ton offre.</p>
+    <p>Dans chaque projet, tu peux déposer des fichiers, écrire des instructions personnalisées (ton ton de voix, tes contraintes, tes objectifs), et regrouper toutes les conversations liées à ce sujet. Et surtout : chaque projet a sa propre mémoire, distincte de ta mémoire générale.</p>
+    <p>Ce point est important. Les informations apprises dans un projet ne &quot;débordent&quot; pas dans tes autres conversations. Si tu travailles sur un projet client confidentiel, ce que ChatGPT apprend dans cet espace reste dans cet espace. C&#39;est une isolation réelle, pas juste un dossier cosmétique.</p>
+    <p>Pour un entrepreneur qui jongle entre plusieurs sujets en même temps, c&#39;est un changement de méthode. Tu passes d&#39;un assistant qui reçoit des questions au fil de l&#39;eau à un assistant qui connaît le contexte de chaque chantier et peut reprendre là où tu t&#39;étais arrêté.</p>
+    <p>Si tu veux voir comment les Projets s&#39;intègrent dans une logique d&#39;automatisation plus large, <a href="/articles/automatiser-taches-ia-sans-coder">cet article sur l&#39;automatisation sans coder</a> te donnera des pistes concrètes.</p>
+    <hr>
+    <h2>Le mode vocal : parler plutôt que taper</h2>
+    <p>On a longtemps sous-estimé le mode vocal de ChatGPT parce que les premières versions étaient rigides. Tu parlais, tu attendais, tu recevais une réponse monotone. C&#39;était utile, mais pas vraiment naturel.</p>
+    <p>En mai 2026, le mode vocal avancé a reçu une mise à jour significative : détection des émotions dans la voix, possibilité d&#39;interrompre ChatGPT en pleine réponse (comme dans une vraie conversation), traduction en temps réel, et une fonction appelée Vision-in-Voice qui permet à ChatGPT d&#39;utiliser l&#39;entrée caméra de ton téléphone pour voir ce que tu lui montres.</p>
+    <p>Un mois plus tard, le 8 juillet 2026, OpenAI a déployé deux nouveaux modèles vocaux : GPT-Live-1 et GPT-Live-1 mini. Ils reposent sur une architecture &quot;full-duplex&quot;, ce qui signifie que l&#39;IA peut écouter et parler en même temps. Le résultat : des échanges beaucoup plus fluides, sans les silences artificiels qui rendaient les conversations robotiques.</p>
+    <p>Pour moi, le cas d&#39;usage le plus évident, c&#39;est quand je suis en déplacement ou que j&#39;ai les mains occupées. Je peux dicter une note, reformuler un email, brainstormer une idée à voix haute, et retrouver le résultat structuré quand je rouvre mon ordinateur. Pas besoin d&#39;être assis devant un écran.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le mode vocal est particulièrement utile pour les moments de transition : entre deux réunions, en voiture (en mains libres), ou quand tu as une idée qui arrive mais pas le temps de t'asseoir. Traite-le comme un carnet de notes intelligent, pas comme un assistant de bureau.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>L&#39;analyse de fichiers : tes données enfin lisibles</h2>
+    <p>C&#39;est peut-être la fonction la moins connue, et pourtant l&#39;une des plus puissantes pour un entrepreneur non-développeur.</p>
+    <p>ChatGPT peut lire, analyser et modifier des fichiers Excel (.xlsx, .xls), des fichiers CSV, des PDF, des images. Il le fait via une fonction intégrée appelée analyse avancée de données (historiquement connue sous le nom de <a href="/lexique/code-interpreter">Code Interpreter</a>). Concrètement, il exécute du code Python dans un environnement isolé pour traiter tes données, sans que tu aies besoin de savoir ce qu&#39;est Python ni de configurer quoi que ce soit.</p>
+    <p>Tu lui soumets ton tableau de ventes, tu lui demandes de trouver les mois les plus faibles, d&#39;identifier les produits qui stagnent, ou de créer un graphique. Il le fait. Tu n&#39;as pas touché une formule.</p>
+    <p>Depuis juin 2026, tous tes fichiers téléchargés et générés sont centralisés dans une &quot;Bibliothèque&quot; accessible depuis le web, iOS et Android. Tu ne perds plus un fichier dans une vieille conversation.</p>
+    <p>Pour aller plus loin sur l&#39;analyse de documents, <a href="/articles/resumer-pdf-video-avec-ia">mon article sur résumer des PDF et vidéos avec l&#39;IA</a> couvre des cas d&#39;usage complémentaires.</p>
+    <hr>
+    <h2>Ce que ça change pour toi, au quotidien</h2>
+    <p>Selon des données publiées en 2026, 75 % des utilisateurs en entreprise déclarent un gain de productivité grâce à ChatGPT, beaucoup économisant une heure ou plus par jour. Ce chiffre concerne l&#39;usage général. Mais je pense que les fonctions décrites dans cet article sont précisément ce qui fait la différence entre un usage superficiel et un usage qui change vraiment la façon de travailler.</p>
+    <p>Quand tu combines la mémoire (qui te connaît), les projets (qui organisent ton travail), le mode vocal (qui te libère du clavier) et l&#39;analyse de fichiers (qui traite tes données), tu n&#39;as plus affaire à un chatbot. Tu as un assistant qui connaît tes projets, qui peut reprendre une conversation là où tu l&#39;avais laissée, et qui peut analyser un fichier que tu lui envoies depuis ton téléphone pendant que tu es en route.</p>
+    <p>Ce n&#39;est pas de la magie. C&#39;est de l&#39;organisation. Et c&#39;est accessible à partir d&#39;un abonnement payant, sans compétence technique particulière.</p>
+    <p>Si tu veux situer ChatGPT par rapport aux autres outils disponibles et choisir ce qui correspond le mieux à tes besoins, <a href="/articles/choisir-ia-ecrire-coder-images">cet article sur le choix d&#39;un outil IA selon l&#39;usage</a> peut t&#39;aider à y voir plus clair.</p>
+    <hr>
+    <h2>Par où commencer, concrètement</h2>
+    <p>Pas besoin de tout activer en même temps. Voici comment j&#39;aurais procédé si je recommençais :</p>
+    <p><strong>Semaine 1 : active la mémoire.</strong> Va dans les paramètres de ChatGPT, vérifie que la mémoire est bien activée, et commence à lui donner des informations sur toi : qui tu es, ce sur quoi tu travailles, tes préférences de réponse. Il apprendra aussi au fil des conversations, mais un coup de pouce au départ accélère les choses.</p>
+    <p><strong>Semaine 2 : crée ton premier projet.</strong> Prends le sujet sur lequel tu travailles le plus en ce moment. Crée un projet dédié, dépose tes fichiers de référence, écris deux ou trois lignes d&#39;instructions personnalisées. Observe comment les conversations changent quand ChatGPT a ce contexte disponible.</p>
+    <p><strong>Semaine 3 : teste l&#39;analyse de fichiers.</strong> Prends un tableau que tu regardes régulièrement sans vraiment l&#39;analyser en profondeur. Soumets-le à ChatGPT et pose-lui des questions précises. Tu seras probablement surpris par la vitesse et la pertinence des réponses.</p>
+    <p><strong>Semaine 4 : essaie le mode vocal.</strong> Pas pour remplacer tes habitudes de travail, mais pour un usage spécifique : dicter une note de réunion, reformuler un email à voix haute, ou brainstormer une idée en marchant. Trouve le moment où ça s&#39;intègre naturellement dans ta journée.</p>
+    <p>Pour une vue d&#39;ensemble de ChatGPT et de son écosystème, le <a href="/lexique/chatgpt-atlas">lexique ChatGPT Atlas</a> peut être un bon point de départ si certains termes te semblent encore flous.</p>
+    <hr>
+    <h2>Questions fréquentes</h2>
+    <h3>Ces fonctions avancées sont-elles accessibles avec un abonnement gratuit à ChatGPT ?</h3>
+    <p>Pas toutes. La mémoire avancée avec &quot;Dreaming V3&quot;, les Projets et le mode vocal avancé sont réservés aux abonnés payants (plans Plus ou Pro). L&#39;abonnement gratuit donne accès à une version de base de certaines fonctions, mais avec des limites importantes. Si tu utilises ChatGPT régulièrement pour ton travail, l&#39;abonnement payant est difficile à éviter pour profiter pleinement de ces fonctions.</p>
+    <h3>Comment puis-je protéger la confidentialité de mes informations personnelles et professionnelles lorsque j&#39;utilise la mémoire et l&#39;analyse de fichiers de ChatGPT ?</h3>
+    <p>Tu peux consulter et supprimer à tout moment ce que ChatGPT a mémorisé sur toi, depuis les paramètres. Pour les fichiers, évite de soumettre des documents contenant des données sensibles (numéros de contrats, données personnelles de clients, informations financières confidentielles) si tu n&#39;as pas vérifié la politique de confidentialité d&#39;OpenAI applicable à ton abonnement. La mémoire de projet est isolée par projet, ce qui limite les risques de mélange entre contextes.</p>
+    <h3>Le mode vocal de ChatGPT est-il suffisamment fiable pour des usages professionnels comme la dictée de notes de réunion ou la gestion de clients ?</h3>
+    <p>Depuis la mise à jour de mai 2026 et le déploiement des modèles GPT-Live-1 en juillet 2026, le mode vocal a gagné en fluidité et en précision. Pour la dictée de notes ou le brainstorming à voix haute, il est tout à fait utilisable. Pour des usages plus critiques (compte-rendu officiel, interaction client en direct), je recommande de relire et valider systématiquement ce que ChatGPT a produit. C&#39;est un outil d&#39;aide, pas un greffier.</p>
+    <h3>Les &quot;Projets&quot; de ChatGPT peuvent-ils remplacer mes outils de gestion de projet ou de collaboration existants ?</h3>
+    <p>Non, et ce n&#39;est pas leur objectif. Les Projets ChatGPT sont des espaces de travail pour tes conversations avec l&#39;IA, pas des outils de collaboration avec une équipe. Ils ne remplacent pas Notion, Trello ou Asana. En revanche, ils complètent ces outils en donnant à ChatGPT un contexte structuré pour chaque sujet sur lequel tu travailles.</p>
+    <h3>Quelle est la différence entre la mémoire générale de ChatGPT et la mémoire spécifique aux &quot;Projets&quot; ?</h3>
+    <p>La mémoire générale s&#39;applique à toutes tes conversations, quel que soit le contexte. Elle retient des informations sur toi en tant qu&#39;utilisateur : tes préférences, ton profil, ta façon de travailler. La mémoire de projet, elle, est isolée dans son espace. Ce que ChatGPT apprend dans un projet ne remonte pas dans ta mémoire générale et ne &quot;déborde&quot; pas dans d&#39;autres projets. C&#39;est une séparation volontaire, utile quand tu travailles sur des sujets très différents ou confidentiels.</p>
+    <h3>Quelles sont les limites de taille ou de type de fichiers pour l&#39;analyse de données par ChatGPT ?</h3>
+    <p>ChatGPT accepte les fichiers Excel (.xlsx, .xls), CSV, PDF et images. Les limites de taille varient selon ton abonnement et peuvent évoluer. En pratique, les fichiers volumineux (plusieurs dizaines de mégaoctets) peuvent poser des problèmes de traitement. Pour les très grands ensembles de données, il vaut mieux extraire la partie pertinente avant de la soumettre. La Bibliothèque centralisée, déployée en juin 2026, facilite la gestion de tous ces fichiers depuis le web, iOS et Android.</p>
+    <hr>
+    <h2>Ce que je retiens</h2>
+    <p>J&#39;utilise ChatGPT tous les jours. Mais j&#39;ai longtemps utilisé seulement la surface. La mémoire, les projets, le mode vocal, l&#39;analyse de fichiers : ces fonctions ne sont pas des options pour utilisateurs avancés. Ce sont des fonctions pour des gens qui ont du travail à faire et qui veulent que leur outil s&#39;adapte à eux, pas l&#39;inverse.</p>
+    <p>Je fais tout ça d&#39;abord pour moi. Et ce que je constate, c&#39;est que l&#39;écart entre quelqu&#39;un qui utilise ChatGPT comme un moteur de recherche amélioré et quelqu&#39;un qui utilise ces fonctions ensemble est devenu très grand. Pas besoin de savoir coder pour franchir cet écart. Il faut juste prendre le temps de configurer, tester, et ajuster.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>

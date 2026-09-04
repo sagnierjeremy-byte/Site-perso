@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ⚠️ SEO REQUIREMENTS (audit 2026-04-24) - NE PAS SUPPRIMER LES BLOCS CI-DESSOUS
+     · TITLE ≤ 60 caractères (sans suffixe " — par Jérémy Sagnier")
+     · META DESCRIPTION : 140-155 caractères
+     · OG/TWITTER : titres ≤ 60, descriptions ≤ 110
+     · CANONICAL : URL absolue avec slug exact
+     · 1 SEUL JSON-LD (TechArticle pour tutos, OpinionPiece pour opinions)
+     · OG:IMAGE : pointer vers photos/og/parler-a-son-ia.jpg (généré via scripts/og-batch.html)
+-->
+
+<title>Mode vocal ChatGPT et Gemini Live : cas d'usage quotidiens</title>
+<meta name="description" content="Voiture, cuisine, entretien : comment les modes vocaux de ChatGPT et Gemini Live transforment ta productivité au quotidien. Cas d'usage concrets en 2026.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Mode vocal ChatGPT et Gemini Live : cas d'usage quotidiens">
+<meta property="og:description" content="Voiture, cuisine, entretien : comment les modes vocaux de ChatGPT et Gemini Live transforment ta productivité au quotidien. Cas d'usage concrets en 2026.">
+<meta property="og:url" content="https://jerwis.fr/articles/parler-a-son-ia">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://jerwis.fr/photos/og/parler-a-son-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:author" content="Jérémy Sagnier">
+<meta property="article:published_time" content="2026-09-04">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@JeremySagnier">
+<meta name="twitter:creator" content="@JeremySagnier">
+<meta name="twitter:title" content="Mode vocal ChatGPT et Gemini Live : cas d'usage quotidiens">
+<meta name="twitter:description" content="Voiture, cuisine, entretien : comment les modes vocaux de ChatGPT et Gemini Live transforment ta productivité au quotidien. Cas d'usage concrets en 2026.">
+<meta name="twitter:image" content="https://jerwis.fr/photos/og/parler-a-son-ia.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://jerwis.fr/articles/parler-a-son-ia">
+<link rel="alternate" hreflang="fr" href="https://jerwis.fr/articles/parler-a-son-ia">
+<link rel="alternate" hreflang="en" href="https://jerwis.fr/en/articles/parler-a-son-ia">
+<link rel="alternate" hreflang="x-default" href="https://jerwis.fr/articles/parler-a-son-ia">
+
+<!-- Schema.org · UN SEUL JSON-LD : TechArticle (tutos) ou OpinionPiece (opinions) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Mode vocal ChatGPT et Gemini Live : cas d'usage quotidiens",
+  "description": "Voiture, cuisine, entretien : comment les modes vocaux de ChatGPT et Gemini Live transforment ta productivité au quotidien. Cas d'usage concrets en 2026.",
+  "inLanguage": "fr-FR",
+  "url": "https://jerwis.fr/articles/parler-a-son-ia",
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "author": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier",
+    "sameAs": [
+      "https://www.linkedin.com/in/jeremy-sagnier/",
+      "https://x.com/JeremySagnier",
+      "https://www.youtube.com/@jeremy-sagnier"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jérémy Sagnier",
+    "url": "https://jerwis.fr/jeremy-sagnier"
+  },
+  "image": "https://jerwis.fr/photos/og/parler-a-son-ia.jpg"
+}
+</script>
+
+<!-- Preload critical resources (perf · LCP/CWV) -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo-black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/archivo.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/fonts.css">
+
+<link rel="stylesheet" href="../assets/article.css?v=20260706">
+<link rel="preload" href="../assets/article-toc.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/article-toc.css"></noscript>
+<link rel="preload" href="../assets/ai-summarize.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/ai-summarize.css"></noscript>
+<link rel="preload" href="../assets/lexique-tooltip.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="../assets/lexique-tooltip.css"></noscript>
+<link rel="stylesheet" href="../assets/footer.css">
+</head>
+<body>
+
+<!-- Top stripe -->
+<div class="triple-stripe" aria-hidden="true">
+  <span style="background:#00B2A9"></span>
+  <span style="background:#EF426F"></span>
+  <span style="background:#FF8200"></span>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="../index" class="logo">
+      <span class="logo-dot"></span>
+      Jérémy Sagnier
+    </a>
+    <div style="display:flex; align-items:center">
+      <a href="../index#learn" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Retour à Apprendre
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    
+    <div class="kicker"><span class="dot"></span>Décryptage · 00</div>
+    <h1>Parler à<br>son IA<br><em>à voix haute</em></h1>
+    <p class="hero-lead">
+      Tu t'es déjà retrouvé avec une idée en tête sur l'autoroute et rien pour la noter ? Ou tu voulais préparer un entretien mais tu n'avais pas le temps de t'asseoir devant un écran ? Je teste les modes vocaux de ChatGPT et Gemini Live depuis plusieurs mois. Ce que j'ai découvert, c'est qu'on n'est plus dans la dictée. On est dans la conversation. Et ça change beaucoup de choses pour quelqu'un qui gère une activité sans être développeur.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>8 min</strong> de lecture</span>
+      <span class="hero-meta-item"><strong>Niveau</strong> Débutant</span>
+      <span class="hero-meta-item"><strong>Outils</strong> ChatGPT, Gemini Live</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- TL;DR -->
+<div class="container">
+  <div class="tldr">
+    <div class="tldr-label">En 30 secondes</div>
+    <h2>Ce que tu repars avec</h2>
+    <ul>
+      <li>GPT-Live (lancé le <strong>8 juillet 2026</strong>) permet une conversation en duplex intégral : l'IA t'écoute et te répond en même temps, avec une recherche web intégrée.</li>
+      <li>Gemini Live s'intègre à Gmail, Calendar et Docs pour des actions vocales directes sur tes outils Google.</li>
+      <li>Les cas d'usage les plus utiles : voiture, cuisine, préparation d'entretien, brainstorming mains libres.</li>
+      <li>Le mode vocal supporte plus de <strong>50 langues</strong> avec une précision de niveau natif, utile pour les affaires internationales.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ARTICLE_BODY:START -->
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+  <span>Zéro jargon</span><span>Testé d'abord pour moi</span><span>Sources dans le texte</span><span>Prompts à copier</span><span>Réponds si tu n'es pas d'accord</span>
+</div></div>
+
+<section class="block">
+  <div class="container">
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Pourquoi tout le monde en parle maintenant</h2>
+    <p>Pendant longtemps, parler à son téléphone, c&#39;était pour dicter un SMS ou demander la météo. L&#39;IA vocale restait dans la case &quot;gadget sympa&quot;. Ce n&#39;est plus le cas aujourd&#39;hui.</p>
+    <p>En avril 2026, 88 % des utilisateurs de plateformes IA signalaient une adoption en forte hausse sur les 12 mois précédents, selon une étude sectorielle. Le marché mondial des agents vocaux IA était évalué à 2,5 milliards de dollars en 2025, avec une projection à 3,5 milliards pour 2026. Ces chiffres reflètent quelque chose de concret : les outils ont changé de nature.</p>
+    <p>Ce qui a basculé, c&#39;est la qualité de la conversation. L&#39;architecture dite &quot;omni&quot; de GPT-4o traite la voix nativement, avec un temps de réponse moyen de 320 millisecondes. C&#39;est proche du temps de réaction humain dans un échange oral. Tu parles, l&#39;IA répond. Pas de délai perceptible, pas de transcription intermédiaire qui déforme tout.</p>
+    <p>Pour un entrepreneur qui gère des projets, des clients et des idées en permanence, ça ouvre quelque chose de différent. Pas besoin de coder, pas besoin d&#39;être développeur. Il suffit de parler.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>GPT-Live : ce qui a changé en juillet 2026</h2>
+    <p>Le 8 juillet 2026, OpenAI a remplacé son ancien mode vocal avancé par GPT-Live. La différence principale : le duplex intégral. L&#39;outil écoute et parle en même temps. Tu peux l&#39;interrompre, changer de direction, reformuler à mi-chemin. La conversation ressemble à un échange réel, pas à un formulaire vocal.</p>
+    <p>Deux autres points qui comptent pour un usage professionnel. D&#39;abord, GPT-Live peut faire des recherches web pendant la conversation. Tu lui demandes les dernières infos sur un secteur, il cherche et te répond sans que tu quittes le fil de la discussion. Ensuite, l&#39;interface garde un transcript visible : tu peux relire ce qui a été dit, insérer une image ou un texte pendant l&#39;échange, et basculer entre deux niveaux d&#39;intelligence selon ce dont tu as besoin (réponse rapide ou raisonnement plus approfondi).</p>
+    <p>Le 23 juillet 2026, OpenAI a aussi lancé le mode vocal pour les espaces Business, avec une fonctionnalité appelée &quot;Voice in Work and Codex&quot; pensée pour l&#39;automatisation des tâches et la collaboration d&#39;équipe. Si tu travailles avec des collaborateurs sur ChatGPT, la voix devient un canal de travail à part entière dans cet environnement.</p>
+    <div class="callout tip"><h4>Ce que je retiens</h4><p>Le transcript visible change tout pour moi. Je peux parler librement et retrouver ensuite une trace écrite propre, sans avoir à tout reformuler. C'est ce qui fait passer GPT-Live du statut d'outil "pratique" à celui d'outil vraiment utilisable dans un contexte pro.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Gemini Live : l&#39;avantage si tu vis dans Google</h2>
+    <p>Si ton quotidien tourne autour de Gmail, Google Calendar, Google Docs et Sheets, Gemini Live mérite qu&#39;on s&#39;y arrête. L&#39;intégration dans l&#39;écosystème Google est profonde et c&#39;est là que l&#39;outil prend son sens.</p>
+    <p>Le 26 août 2026, Gemini Live a déployé des fonctionnalités de productivité vocale directes sur Gmail : rechercher un email, le résumer, l&#39;archiver ou le supprimer, tout ça à la voix. Il y a aussi un accès au &quot;Daily Brief&quot;, une sorte de résumé vocal de ta journée, et la possibilité de déléguer des tâches complexes à un agent appelé Spark.</p>
+    <p>Ce qui rend ça intéressant, c&#39;est que Gemini Live ne se contente pas de lire tes données. Il les relie entre elles. Un email, un événement dans ton agenda, un doc partagé : l&#39;outil peut transformer ces informations dispersées en quelque chose d&#39;exploitable, à la voix, pendant que tu fais autre chose.</p>
+    <p>Le 2 septembre 2026, Google a lancé Gemini 3.8 Flash, un modèle amélioré pour le raisonnement complexe et les flux de travail agentiques. Ces termes un peu techniques renvoient à une idée simple : l&#39;IA peut enchaîner plusieurs étapes de façon autonome, pas seulement répondre à une question isolée. (Si tu veux creuser ce que ça veut dire concrètement, j&#39;ai mis un lien vers le <a href="/lexique/agentic-workflow">lexique sur les workflows agentiques</a> en bas de page.)</p>
+    <h2>À quoi ça ressemble vraiment au quotidien</h2>
+    <p>Voilà ce que j&#39;ai testé, et ce que d&#39;autres utilisateurs documentent régulièrement.</p>
+    <p><strong>En voiture.</strong> C&#39;est le cas d&#39;usage le plus évident. Tu roules, une idée arrive, tu parles. Brainstormer une proposition commerciale, dicter des notes sur un appel qui vient de se terminer, préparer mentalement une réunion. Le mode vocal de ChatGPT est conçu pour ça : rester productif sans les mains, sans les yeux sur un écran. Et avec le transcript, tu retrouves tout à l&#39;arrivée.</p>
+    <p><strong>En cuisine.</strong> Même logique. Pas question de toucher l&#39;écran avec les mains occupées. Tu peux dicter une liste de tâches, demander à l&#39;IA de reformuler un email que tu viens de recevoir à voix haute, ou simplement réfléchir à voix haute sur un problème pendant que tu fais autre chose. L&#39;IA répond, tu continues à cuisiner.</p>
+    <p><strong>Pour préparer un entretien.</strong> C&#39;est là que ça devient vraiment utile. Tu peux simuler un entretien complet à l&#39;oral : poser des questions à l&#39;IA, lui demander de jouer le rôle d&#39;un recruteur, obtenir un retour sur la clarté de tes réponses. L&#39;outil s&#39;adapte au rythme et au niveau. Si tu veux aller plus loin sur ce sujet, j&#39;ai écrit un article dédié sur la <a href="/articles/ia-cv-lettre-entretien">préparation d&#39;entretien avec l&#39;IA</a>.</p>
+    <p><strong>Pour les langues.</strong> Le mode vocal de ChatGPT supporte plus de 50 langues avec une précision de niveau natif en 2026. Pour quelqu&#39;un qui prépare des réunions en anglais ou en espagnol, c&#39;est une façon de pratiquer sans avoir besoin d&#39;un interlocuteur humain disponible. J&#39;ai aussi écrit sur l&#39;<a href="/articles/apprendre-langue-avec-ia">apprentissage des langues avec l&#39;IA</a> si tu veux aller plus loin.</p>
+    <p><strong>Pour les automatisations.</strong> Ce point est moins visible mais important. Avec les capacités agentiques qui se développent, une commande vocale peut initier une séquence d&#39;actions complexes, pas seulement déclencher une réponse. Si tu veux comprendre comment connecter ça à des automatisations sans coder, l&#39;article sur <a href="/articles/automatiser-taches-ia-sans-coder">automatiser des tâches avec l&#39;IA sans coder</a> donne le cadre.</p>
+    <div class="callout tip"><h4>Le piège à éviter</h4><p>Parler à son IA comme on parlerait à un moteur de recherche. "ChatGPT, donne-moi des idées de posts LinkedIn." Ça marche, mais c'est en dessous du potentiel. Le mode vocal est fait pour la conversation : donne du contexte, reformule, rebondis sur ce qu'il dit. La qualité du prompt reste centrale, même à l'oral. J'ai écrit sur <a href="/articles/ecrire-bon-prompt-non-dev">comment formuler un bon prompt quand on n'est pas développeur</a>, ça s'applique directement ici.</p></div>
+    
+    <h2>Quelques points pratiques avant de se lancer</h2>
+    <p>Le mode vocal fonctionne principalement sur mobile. Une connexion correcte est nécessaire, surtout pour les fonctions qui font appel à la recherche web ou aux intégrations Google. En zone blanche ou avec un réseau instable, l&#39;expérience se dégrade.</p>
+    <p>Sur la confidentialité : parler à voix haute dans un espace public ou partagé, ça mérite qu&#39;on y pense. Les conversations vocales passent par les serveurs des plateformes comme les échanges texte. Si tu travailles sur des sujets sensibles (données clients, négociations en cours), il vaut mieux garder ça pour un contexte privé.</p>
+    <p>Sur les coûts : GPT-Live et les fonctionnalités Business de ChatGPT sont liés aux abonnements payants d&#39;OpenAI. Gemini Live est disponible dans l&#39;offre Google One AI Premium. Les tarifs évoluent régulièrement, donc je ne mets pas de chiffre ici. Vérifie directement sur les sites officiels au moment où tu lis cet article.</p>
+    <p>Pour l&#39;expérience optimale sur mobile, l&#39;article sur <a href="/articles/ai-sur-telephone">l&#39;IA sur téléphone</a> donne des repères utiles sur les réglages et les usages.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Questions fréquentes</h2>
+    <h3>Quelle est la principale différence entre le mode vocal de ChatGPT et Gemini Live pour un entrepreneur ?</h3>
+    <p>La différence principale tient à l&#39;écosystème. GPT-Live (lancé en juillet 2026) propose une conversation en duplex intégral avec recherche web et un transcript visible, ce qui le rend très utile pour le brainstorming, la dictée et la préparation d&#39;entretien. Gemini Live, lui, est profondément intégré à Gmail, Calendar, Docs et Sheets : si tu travailles dans l&#39;écosystème Google au quotidien, il peut agir directement sur tes outils à la voix. Les deux ont des forces différentes selon ton environnement de travail.</p>
+    <h3>Les modes vocaux IA peuvent-ils réellement remplacer la saisie pour des tâches professionnelles complexes ?</h3>
+    <p>Pour certaines tâches, oui. Brainstormer, dicter des notes, préparer une réunion à l&#39;oral, simuler un entretien : tout ça fonctionne bien. Pour d&#39;autres tâches (rédiger un document long et structuré, travailler sur un tableau de données), la saisie reste souvent plus précise. Le mode vocal est surtout puissant quand tu es en mouvement ou que tu veux réfléchir à voix haute sans te bloquer devant un écran.</p>
+    <h3>Comment puis-je garantir la confidentialité de mes informations sensibles lorsque je parle à mon IA à voix haute ?</h3>
+    <p>Il n&#39;existe pas de garantie absolue. Les conversations vocales transitent par les serveurs des plateformes, comme les échanges texte. Pour les sujets sensibles (données clients, informations financières, négociations), évite de les évoquer dans un espace public ou partagé, et consulte les politiques de confidentialité de chaque outil. Certains abonnements Business proposent des options de non-conservation des données.</p>
+    <h3>Quels sont les coûts associés à l&#39;utilisation intensive des modes vocaux IA avancés ?</h3>
+    <p>GPT-Live et les fonctionnalités Business de ChatGPT sont liés aux abonnements payants d&#39;OpenAI. Gemini Live est disponible dans l&#39;offre Google One AI Premium. Les tarifs changent régulièrement et je préfère ne pas donner de chiffre qui sera périmé. Consulte directement les pages tarifaires officielles d&#39;OpenAI et de Google au moment où tu lis cet article.</p>
+    <h3>Le mode vocal IA est-il efficace pour l&#39;apprentissage des langues ou la préparation d&#39;un entretien d&#39;embauche ?</h3>
+    <p>Oui, et c&#39;est l&#39;un des cas d&#39;usage les mieux documentés. Le mode vocal de ChatGPT supporte plus de 50 langues avec une précision de niveau natif (données 2026). Pour la préparation d&#39;entretien, la simulation à l&#39;oral avec retour en temps réel est particulièrement utile. L&#39;outil s&#39;adapte au rythme de l&#39;utilisateur, ce qui permet de progresser sans interlocuteur humain disponible.</p>
+    <h3>Quels sont les prérequis techniques pour une expérience optimale des modes vocaux en 2026 ?</h3>
+    <p>Un smartphone récent et une connexion internet stable sont les deux conditions de base. Le mode vocal fonctionne principalement sur mobile. Les fonctionnalités avancées (recherche web dans GPT-Live, intégrations Gmail dans Gemini Live) nécessitent une connexion correcte. En réseau instable, l&#39;expérience se dégrade. Un abonnement payant est nécessaire pour accéder aux versions avancées des deux outils.</p>
+    
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Ce que je retiens</h2>
+    <p>Je fais tout ça d&#39;abord pour moi. Et ce que j&#39;ai retenu après plusieurs mois d&#39;usage vocal, c&#39;est que le changement n&#39;est pas dans la technologie. Il est dans l&#39;habitude.</p>
+    <p>Parler à son IA demande un petit temps d&#39;adaptation. On a tous réflexe de taper. Mais une fois qu&#39;on a pris le pli, les moments qui étaient &quot;perdus&quot; (trajet, cuisine, marche) deviennent des moments de travail léger et utile. Pas de l&#39;hyperprodutivité. Juste moins de friction entre une idée et sa trace.</p>
+    <p>GPT-Live et Gemini Live ne sont pas interchangeables. Si tu es dans l&#39;écosystème Google, Gemini Live a un avantage clair sur les actions directes dans tes outils. Si tu veux une conversation libre, du brainstorming ou de la préparation d&#39;entretien, GPT-Live est très à l&#39;aise. Les deux méritent qu&#39;on les essaie dans des situations concrètes avant de trancher.</p>
+    <p>Et si tu ne sais pas par où commencer : prends la voiture, ouvre ChatGPT, et parle-lui de ton prochain projet. Tu verras assez vite si ça te convient.</p>
+    
+  </div>
+</section>
+
+<div class="mini-marquee" aria-hidden="true"><div class="mini-marquee-track">
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+  <span>Comprendre avant d'appliquer</span><span>À ton rythme</span><span>Pas de pub</span><span>Désinscription en 1 clic</span><span>Je lis toutes les réponses</span>
+</div></div>
+<!-- ARTICLE_BODY:END -->
+<!-- Final CTA -->
+<!-- ⚠️ ANCRE CRITIQUE : publish.js remplace tout le corps entre la fin du TL;DR et ce
+     commentaire « Final CTA ». NE PAS le supprimer/renommer, sinon les articles publiés
+     gardent le corps d'exemple du template (incident du 2026-07-02→06). -->
+<!-- Fin d'article : signature auteur -->
+<section class="article-end">
+  <div class="container">
+    <div class="article-end-card">
+      <picture><source srcset="../photos/jeremy-avatar.webp" type="image/webp"><img class="article-end-avatar" src="../photos/jeremy-avatar.jpg" width="72" height="72" alt="Jérémy Sagnier" loading="lazy" decoding="async"></picture>
+      <div class="article-end-body">
+        <span class="article-end-kicker">Merci d'avoir lu jusqu'ici 👋</span>
+        <h2 class="article-end-title">On continue ensemble ?</h2>
+        <p>Je teste l'IA pour de vrai et je partage ce qui marche, sans jargon ni hype. Si cet article t'a servi, le plus simple pour ne rien rater c'est ma lettre du vendredi. Et si tu as une question ou un doute : réponds-moi, je lis tout.</p>
+        <div class="article-end-actions">
+          <a href="#contact" class="article-end-btn primary">Recevoir la newsletter →</a>
+          <a href="../articles" class="article-end-btn ghost">Lire d'autres articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Footer (rich, unifié) -->
+<footer class="footer" id="contact">
+  <div class="container">
+
+    <!-- Newsletter inline -->
+    <div class="footer-newsletter">
+      <div>
+        <div class="kicker"><span class="pulse"></span>— Newsletter</div>
+        <h3>1 mail par semaine.<br>Ce que je teste <em>vraiment.</em></h3>
+        <p>Mes vrais usages IA, les outils que j'achète/garde/jette, mes articles dès qu'ils sortent. Pas de récap d'actu, pas de blabla.</p>
+      </div>
+      <form class="newsletter-form" data-source="footer">
+        <input type="email" name="email" placeholder="ton@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-label="Adresse email">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit">M'inscrire</button>
+      </form>
+    </div>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h3>Jérémy Sagnier</h3>
+        <p>
+          Une question, un doute, une critique ? <strong>Écris-moi — je lis tout, je réponds à tout.</strong>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Lire</h5>
+        <ul>
+          <li><a href="../apprendre">Parcours débutant</a></li>
+          <li><a href="../claude-code">Guide Claude Code</a></li>
+          <li><a href="../articles">Tous les articles</a></li>
+          <li><a href="../lexique">Lexique IA</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Outils</h5>
+        <ul>
+          <li><a href="../precommande-photos-personal-branding" style="color:var(--fuchsia); font-weight:600;">Générateur photos · 39 €</a></li>
+          <li><a href="../outils">Ma stack outils</a></li>
+          <li><a href="../modeles-ia">Guide des modèles IA</a></li>
+          <li><a href="../podcast">Podcast Guerres d'IA</a></li>
+          <li><a href="../github">Mon GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Suis-moi</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jeremy-sagnier/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@kevinetjeremysagnier" target="_blank" rel="noopener">YT · Frères Sagnier</a></li>
+          <li><a href="https://www.youtube.com/@jeremy-sagnier" target="_blank" rel="noopener">YT · Jérémy solo</a></li>
+          <li><a href="https://www.instagram.com/jeremy.sagnier/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <ul>
+          <li><a href="../mentions-legales">Mentions légales</a></li>
+          <li><a href="../politique-confidentialite">Confidentialité</a></li>
+          <li><a href="../cgv">CGV</a></li>
+          <li><a href="../suppression-donnees">Supprimer mes données</a></li>
+          <li><a href="../preferences">Préférences</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Jérémy Sagnier · Fait avec du café</span>
+      <span style="color:var(--ink); display:inline-flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; gap:3px">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--teal)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--fuchsia)"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--orange)"></span>
+        </span>
+        Fiesta · 89
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer newsletter form handler · self-contained, garde anti-double-attach -->
+  <script>
+    document.querySelectorAll('.footer .newsletter-form').forEach(function(form) {
+      if (form.dataset.attached === '1') return;
+      form.dataset.attached = '1';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var emailEl = form.querySelector('input[name="email"]');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = (emailEl?.value || '').trim();
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          var res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: form.dataset.source || 'footer' }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          btn.textContent = '✓ Merci';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; form.reset(); }, 2500);
+        } catch (err) {
+          btn.textContent = '× Erreur';
+          setTimeout(function() { btn.textContent = originalText; btn.disabled = false; }, 2500);
+        }
+      });
+    });
+  </script>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<script src="../assets/article-toc.js" defer></script>
+<!-- Barre « Résumer avec une IA » (auto-insérée après le TL;DR) -->
+<script src="../assets/ai-summarize.js" defer></script>
+
+  <script src="../assets/lexique-tooltip.js" defer></script>
+  <script src="../assets/article-reading.js" defer></script>
+<script src="/assets/lang-toggle.js" defer></script>
+</body>
+</html>
